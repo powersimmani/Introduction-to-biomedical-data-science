@@ -1,0 +1,471 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 2 - Complete Slideshow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Aptos, 'Segoe UI', sans-serif;
+            background: #1a1a1a;
+            overflow: hidden;
+        }
+        
+        .slideshow-container {
+            position: relative;
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .slide {
+            display: none;
+            width: 100vw;
+            height: 100vh;
+            background: white;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+        
+        .slide.active {
+            display: block;
+        }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: scale(0.98);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+        
+        iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Navigation controls */
+        .nav-controls {
+            position: fixed;
+            bottom: 15px;
+            right: 15px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 6px 15px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+        
+        .nav-button {
+            background: #1E64C8;
+            color: white;
+            border: none;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            background: #2874d8;
+            transform: scale(1.1);
+        }
+        
+        .nav-button:active {
+            transform: scale(0.95);
+        }
+        
+        .nav-button:disabled {
+            background: #555;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        
+        .slide-counter {
+            color: white;
+            font-size: 12px;
+            font-weight: 500;
+            padding: 0 6px;
+            min-width: 45px;
+            text-align: center;
+        }
+        
+        /* Table of Contents */
+        .toc-button {
+            position: fixed;
+            bottom: 15px;
+            left: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 50px;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+        
+        .toc-button:hover {
+            background: rgba(30, 100, 200, 0.8);
+            transform: translateY(-2px);
+        }
+        
+        .toc-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.85);
+            z-index: 2000;
+            padding: 40px;
+            overflow-y: auto;
+        }
+        
+        .toc-overlay.active {
+            display: block;
+        }
+        
+        .toc-content {
+            max-width: 900px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            padding: 35px;
+        }
+        
+        .toc-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .toc-section {
+            margin-bottom: 25px;
+        }
+        
+        .toc-section-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 12px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .toc-item {
+            padding: 10px 15px;
+            margin-bottom: 6px;
+            background: #f8f9fa;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .toc-item:hover {
+            background: #e8f2ff;
+            transform: translateX(5px);
+        }
+        
+        .toc-item-number {
+            font-weight: 700;
+            color: #1E64C8;
+            min-width: 35px;
+        }
+        
+        .toc-item-title {
+            font-size: 15px;
+            color: #333;
+        }
+        
+        .toc-close {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: #1E64C8;
+            color: white;
+            border: none;
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 20px;
+            font-weight: 700;
+            transition: all 0.3s ease;
+        }
+        
+        .toc-close:hover {
+            background: #2874d8;
+            transform: rotate(90deg);
+        }
+        
+        /* Keyboard shortcut hint */
+        .shortcut-hint {
+            position: fixed;
+            top: 15px;
+            right: 15px;
+            background: rgba(0, 0, 0, 0.6);
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 11px;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            opacity: 0;
+            animation: fadeInOut 4s ease-in-out;
+        }
+        
+        @keyframes fadeInOut {
+            0%, 100% { opacity: 0; }
+            20%, 80% { opacity: 1; }
+        }
+    </style>
+</head>
+<body>
+    <div class="shortcut-hint">Use ← → arrow keys or click buttons to navigate</div>
+    
+    <button class="toc-button" onclick="toggleTOC()">📑 Table of Contents</button>
+    
+    <div class="toc-overlay" id="tocOverlay">
+        <button class="toc-close" onclick="toggleTOC()">×</button>
+        <div class="toc-content">
+            <div class="toc-title">Lecture 2: Electromagnetic Spectrum and Biomedical Measurements</div>
+            
+            <div class="toc-section">
+                <div class="toc-section-title">Introduction</div>
+                <div class="toc-item" onclick="goToSlide(0)">
+                    <div class="toc-item-number">01</div>
+                    <div class="toc-item-title">Title Slide</div>
+                </div>
+                <div class="toc-item" onclick="goToSlide(1)">
+                    <div class="toc-item-number">02</div>
+                    <div class="toc-item-title">Lecture Contents</div>
+                </div>
+            </div>
+            
+            <div class="toc-section">
+                <div class="toc-section-title">Part 1: EM Spectrum Fundamentals</div>
+                <div class="toc-item" onclick="goToSlide(2)"><div class="toc-item-number">03</div><div class="toc-item-title">Part 1 Introduction</div></div>
+                <div class="toc-item" onclick="goToSlide(3)"><div class="toc-item-number">04</div><div class="toc-item-title">Electromagnetic Wave Properties</div></div>
+                <div class="toc-item" onclick="goToSlide(4)"><div class="toc-item-number">05</div><div class="toc-item-title">Energy, Wavelength, Frequency Relationships</div></div>
+                <div class="toc-item" onclick="goToSlide(5)"><div class="toc-item-number">06</div><div class="toc-item-title">EM Spectrum Overview</div></div>
+                <div class="toc-item" onclick="goToSlide(6)"><div class="toc-item-number">07</div><div class="toc-item-title">Photon-Matter Interactions</div></div>
+                <div class="toc-item" onclick="goToSlide(7)"><div class="toc-item-number">08</div><div class="toc-item-title">Absorption and Emission</div></div>
+                <div class="toc-item" onclick="goToSlide(8)"><div class="toc-item-number">09</div><div class="toc-item-title">Scattering Phenomena</div></div>
+                <div class="toc-item" onclick="goToSlide(9)"><div class="toc-item-number">10</div><div class="toc-item-title">Fluorescence Principles</div></div>
+            </div>
+            
+            <div class="toc-section">
+                <div class="toc-section-title">Part 2: Spectroscopy Methods</div>
+                <div class="toc-item" onclick="goToSlide(10)"><div class="toc-item-number">11</div><div class="toc-item-title">Part 2 Introduction</div></div>
+                <div class="toc-item" onclick="goToSlide(11)"><div class="toc-item-number">12</div><div class="toc-item-title">UV-Vis Spectroscopy</div></div>
+                <div class="toc-item" onclick="goToSlide(12)"><div class="toc-item-number">13</div><div class="toc-item-title">Protein Concentration Measurement</div></div>
+                <div class="toc-item" onclick="goToSlide(13)"><div class="toc-item-number">14</div><div class="toc-item-title">DNA/RNA Quantification</div></div>
+                <div class="toc-item" onclick="goToSlide(14)"><div class="toc-item-number">15</div><div class="toc-item-title">Infrared Spectroscopy</div></div>
+                <div class="toc-item" onclick="goToSlide(15)"><div class="toc-item-number">16</div><div class="toc-item-title">FTIR for Biomolecules</div></div>
+                <div class="toc-item" onclick="goToSlide(16)"><div class="toc-item-number">17</div><div class="toc-item-title">Raman Spectroscopy</div></div>
+                <div class="toc-item" onclick="goToSlide(17)"><div class="toc-item-number">18</div><div class="toc-item-title">Mass Spectrometry Basics</div></div>
+                <div class="toc-item" onclick="goToSlide(18)"><div class="toc-item-number">19</div><div class="toc-item-title">NMR Fundamentals</div></div>
+            </div>
+            
+            <div class="toc-section">
+                <div class="toc-section-title">Part 3: Biological Applications</div>
+                <div class="toc-item" onclick="goToSlide(19)"><div class="toc-item-number">20</div><div class="toc-item-title">Part 3 Introduction</div></div>
+                <div class="toc-item" onclick="goToSlide(20)"><div class="toc-item-number">21</div><div class="toc-item-title">Fluorescent Proteins and Tags</div></div>
+                <div class="toc-item" onclick="goToSlide(21)"><div class="toc-item-number">22</div><div class="toc-item-title">FRET and Molecular Interactions</div></div>
+                <div class="toc-item" onclick="goToSlide(22)"><div class="toc-item-number">23</div><div class="toc-item-title">Flow Cytometry Principles</div></div>
+                <div class="toc-item" onclick="goToSlide(23)"><div class="toc-item-number">24</div><div class="toc-item-title">FACS Sorting</div></div>
+                <div class="toc-item" onclick="goToSlide(24)"><div class="toc-item-number">25</div><div class="toc-item-title">Spectroscopy in Diagnostics</div></div>
+                <div class="toc-item" onclick="goToSlide(25)"><div class="toc-item-number">26</div><div class="toc-item-title">Point-of-Care Devices</div></div>
+                <div class="toc-item" onclick="goToSlide(26)"><div class="toc-item-number">27</div><div class="toc-item-title">Biosensor Technologies</div></div>
+                <div class="toc-item" onclick="goToSlide(27)"><div class="toc-item-number">28</div><div class="toc-item-title">Hands-on: Spectral Data Analysis</div></div>
+                <div class="toc-item" onclick="goToSlide(28)"><div class="toc-item-number">29</div><div class="toc-item-title">Hands-on: Python for Signal Processing</div></div>
+                <div class="toc-item" onclick="goToSlide(29)"><div class="toc-item-number">30</div><div class="toc-item-title">Thank You & Resources</div></div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="slideshow-container">
+        <div class="slide active" id="slide0">
+            <iframe src="Lecture02_01_Lecture_2_Electromagnetic_Spectrum_and_Biomedical_Measurements.html" title="Title Slide"></iframe>
+        </div>
+        <div class="slide" id="slide1">
+            <iframe src="Lecture02_02_Lecture_Contents.html" title="Lecture Contents"></iframe>
+        </div>
+        <div class="slide" id="slide2">
+            <iframe src="Lecture02_03_Part_1_EM_Spectrum_Fundamentals.html" title="Part 1: EM Spectrum Fundamentals"></iframe>
+        </div>
+        <div class="slide" id="slide3">
+            <iframe src="Lecture02_04_Electromagnetic_Wave_Properties.html" title="Electromagnetic Wave Properties"></iframe>
+        </div>
+        <div class="slide" id="slide4">
+            <iframe src="Lecture02_05_Energy_Wavelength_Frequency_Relationships.html" title="Energy, Wavelength, Frequency Relationships"></iframe>
+        </div>
+        <div class="slide" id="slide5">
+            <iframe src="Lecture02_06_EM_Spectrum_Overview.html" title="EM Spectrum Overview"></iframe>
+        </div>
+        <div class="slide" id="slide6">
+            <iframe src="Lecture02_07_Photon_Matter_Interactions.html" title="Photon-Matter Interactions"></iframe>
+        </div>
+        <div class="slide" id="slide7">
+            <iframe src="Lecture02_08_Absorption_and_Emission.html" title="Absorption and Emission"></iframe>
+        </div>
+        <div class="slide" id="slide8">
+            <iframe src="Lecture02_09_Scattering_Phenomena.html" title="Scattering Phenomena"></iframe>
+        </div>
+        <div class="slide" id="slide9">
+            <iframe src="Lecture02_10_Fluorescence_Principles.html" title="Fluorescence Principles"></iframe>
+        </div>
+        <div class="slide" id="slide10">
+            <iframe src="Lecture02_11_Part_2_Spectroscopy_Methods.html" title="Part 2: Spectroscopy Methods"></iframe>
+        </div>
+        <div class="slide" id="slide11">
+            <iframe src="Lecture02_12_UV-Vis_Spectroscopy.html" title="UV-Vis Spectroscopy"></iframe>
+        </div>
+        <div class="slide" id="slide12">
+            <iframe src="Lecture02_13_Protein_Concentration_Measurement.html" title="Protein Concentration Measurement"></iframe>
+        </div>
+        <div class="slide" id="slide13">
+            <iframe src="Lecture02_14_DNA_RNA_Quantification.html" title="DNA/RNA Quantification"></iframe>
+        </div>
+        <div class="slide" id="slide14">
+            <iframe src="Lecture02_15_Infrared_Spectroscopy.html" title="Infrared Spectroscopy"></iframe>
+        </div>
+        <div class="slide" id="slide15">
+            <iframe src="Lecture02_16_FTIR_for_Biomolecules.html" title="FTIR for Biomolecules"></iframe>
+        </div>
+        <div class="slide" id="slide16">
+            <iframe src="Lecture02_17_Raman_Spectroscopy.html" title="Raman Spectroscopy"></iframe>
+        </div>
+        <div class="slide" id="slide17">
+            <iframe src="Lecture02_18_Mass_Spectrometry_Basics.html" title="Mass Spectrometry Basics"></iframe>
+        </div>
+        <div class="slide" id="slide18">
+            <iframe src="Lecture02_19_NMR_Fundamentals.html" title="NMR Fundamentals"></iframe>
+        </div>
+        <div class="slide" id="slide19">
+            <iframe src="Lecture02_20_Part_3__Biological_Applications.html" title="Part 3: Biological Applications"></iframe>
+        </div>
+        <div class="slide" id="slide20">
+            <iframe src="Lecture02_21_Fluorescent_Proteins_and_Tags.html" title="Fluorescent Proteins and Tags"></iframe>
+        </div>
+        <div class="slide" id="slide21">
+            <iframe src="Lecture02_22_FRET_and_Molecular_Interactions.html" title="FRET and Molecular Interactions"></iframe>
+        </div>
+        <div class="slide" id="slide22">
+            <iframe src="Lecture02_23_Flow_Cytometry_Principles.html" title="Flow Cytometry Principles"></iframe>
+        </div>
+        <div class="slide" id="slide23">
+            <iframe src="Lecture02_24_FACS_Sorting.html" title="FACS Sorting"></iframe>
+        </div>
+        <div class="slide" id="slide24">
+            <iframe src="Lecture02_25_Spectroscopy_in_Diagnostics.html" title="Spectroscopy in Diagnostics"></iframe>
+        </div>
+        <div class="slide" id="slide25">
+            <iframe src="Lecture02_26_Point-of-Care_Devices.html" title="Point-of-Care Devices"></iframe>
+        </div>
+        <div class="slide" id="slide26">
+            <iframe src="Lecture02_27_Biosensor_Technologies.html" title="Biosensor Technologies"></iframe>
+        </div>
+        <div class="slide" id="slide27">
+            <iframe src="Lecture02_28_Hands-on__Spectral_Data_Analysis.html" title="Hands-on: Spectral Data Analysis"></iframe>
+        </div>
+        <div class="slide" id="slide28">
+            <iframe src="Lecture02_29_Hands-on__Python_for_Signal_Processing.html" title="Hands-on: Python for Signal Processing"></iframe>
+        </div>
+        <div class="slide" id="slide29">
+            <iframe src="Lecture02_30_Thank_You___Resources.html" title="Thank You & Resources"></iframe>
+        </div>
+    </div>
+    
+    <div class="nav-controls">
+        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">◀</button>
+        <span class="slide-counter" id="slideCounter">1 / 30</span>
+        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">▶</button>
+    </div>
+    
+    <script>
+        let currentSlide = 0;
+        const totalSlides = 30;
+        
+        function showSlide(n) {
+            const slides = document.getElementsByClassName('slide');
+            
+            if (n >= totalSlides) { currentSlide = totalSlides - 1; }
+            if (n < 0) { currentSlide = 0; }
+            
+            for (let i = 0; i < slides.length; i++) {
+                slides[i].classList.remove('active');
+            }
+            
+            slides[currentSlide].classList.add('active');
+            
+            // Update counter
+            document.getElementById('slideCounter').textContent = `${currentSlide + 1} / ${totalSlides}`;
+            
+            // Update button states
+            document.getElementById('prevBtn').disabled = (currentSlide === 0);
+            document.getElementById('nextBtn').disabled = (currentSlide === totalSlides - 1);
+        }
+        
+        function changeSlide(n) {
+            currentSlide += n;
+            showSlide(currentSlide);
+        }
+        
+        function goToSlide(n) {
+            currentSlide = n;
+            showSlide(currentSlide);
+            toggleTOC();
+        }
+        
+        function toggleTOC() {
+            document.getElementById('tocOverlay').classList.toggle('active');
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight') {
+                changeSlide(1);
+            } else if (event.key === 'Escape') {
+                if (document.getElementById('tocOverlay').classList.contains('active')) {
+                    toggleTOC();
+                }
+            }
+        });
+        
+        // Initialize
+        showSlide(0);
+    </script>
+</body>
+</html>

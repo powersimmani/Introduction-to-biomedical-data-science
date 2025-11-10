@@ -1,0 +1,304 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 12: Multi-Modal Data Integration - Slideshow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Aptos, 'Segoe UI', sans-serif;
+            background: #1a1a1a;
+            overflow: hidden;
+        }
+        
+        .slideshow-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide.active {
+            display: block;
+        }
+        
+        .slide iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        /* Navigation controls */
+        .nav-controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 6px 15px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+        
+        .nav-button {
+            background: #1E64C8;
+            color: white;
+            border: none;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            background: #2874d8;
+            transform: scale(1.1);
+        }
+        
+        .nav-button:active {
+            transform: scale(0.95);
+        }
+        
+        .nav-button:disabled {
+            background: #555;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        
+        .slide-counter {
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        /* Progress bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #1E64C8;
+            transition: width 0.3s ease;
+        }
+        
+        /* Slide title */
+        .slide-title {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: white;
+            font-size: 14px;
+            font-weight: 600;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 8px 20px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+            max-width: 80%;
+            text-align: center;
+        }
+        
+        /* Keyboard hint */
+        .keyboard-hint {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 11px;
+            background: rgba(0, 0, 0, 0.4);
+            padding: 6px 12px;
+            border-radius: 15px;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <!-- Progress bar -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+    
+    <!-- Keyboard hint -->
+    <div class="keyboard-hint">
+        Use <span style="font-weight: 600;">← →</span> to navigate
+    </div>
+    
+    <!-- Slide title -->
+    <div class="slide-title" id="slideTitle">Loading...</div>
+    
+    <!-- Slideshow container -->
+    <div class="slideshow-container">
+        <div id="slideContainer"></div>
+    </div>
+    
+    <!-- Navigation controls -->
+    <div class="nav-controls">
+        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">◄</button>
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">30</span>
+        </div>
+        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">►</button>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        
+        // 전체 슬라이드 순서
+        const slides = [
+            { title: "Multi-Modal Data Integration", file: "Lecture12_01_Title.html", part: null },
+            { title: "Lecture Contents", file: "Lecture12_02_Lecture_Contents.html", part: null },
+            
+            // Part 1
+            { title: "Integration Methods", file: "Lecture12_03_Part_1_Integration_Methods.html", part: "1/3" },
+            { title: "Early vs Late Fusion", file: "Lecture12_04_Early_vs_Late_Fusion.html", part: "1/3" },
+            { title: "Matrix Factorization", file: "Lecture12_05_Matrix_Factorization.html", part: "1/3" },
+            { title: "Canonical Correlation", file: "Lecture12_06_Canonical_Correlation.html", part: "1/3" },
+            { title: "Graph-based Methods", file: "Lecture12_07_Graph_based_Methods.html", part: "1/3" },
+            { title: "Deep Learning Fusion", file: "Lecture12_08_Deep_Learning_Fusion.html", part: "1/3" },
+            { title: "Attention Mechanisms", file: "Lecture12_09_Attention_Mechanisms.html", part: "1/3" },
+            
+            // Part 2
+            { title: "Multi-Omics Applications", file: "Lecture12_10_Part_2_Multi_Omics.html", part: "2/3" },
+            { title: "Genomics + Transcriptomics", file: "Lecture12_11_Genomics___Transcriptomics.html", part: "2/3" },
+            { title: "Proteogenomics", file: "Lecture12_12_Proteogenomics.html", part: "2/3" },
+            { title: "Imaging-genomics", file: "Lecture12_13_Imaging_genomics.html", part: "2/3" },
+            { title: "Clinical + Molecular", file: "Lecture12_14_Clinical___Molecular.html", part: "2/3" },
+            { title: "Temporal Integration", file: "Lecture12_15_Temporal_Integration.html", part: "2/3" },
+            { title: "Spatial Integration", file: "Lecture12_16_Spatial_Integration.html", part: "2/3" },
+            
+            // Part 3
+            { title: "Clinical Applications and Future Directions", file: "Lecture12_17_Part_3_Applications.html", part: "3/3" },
+            { title: "Disease Subtyping", file: "Lecture12_18_Disease_Subtyping.html", part: "3/3" },
+            { title: "Prognosis Prediction", file: "Lecture12_19_Prognosis_Prediction.html", part: "3/3" },
+            { title: "Drug Response", file: "Lecture12_20_Drug_Response.html", part: "3/3" },
+            { title: "Biomarker Panels", file: "Lecture12_21_Biomarker_Panels.html", part: "3/3" },
+            { title: "Systems Medicine", file: "Lecture12_22_Systems_Medicine.html", part: "3/3" },
+            { title: "Digital Twins", file: "Lecture12_23_Digital_Twins.html", part: "3/3" },
+            { title: "Network Medicine", file: "Lecture12_24_Network_Medicine.html", part: "3/3" },
+            { title: "Knowledge Graphs", file: "Lecture12_25_Knowledge_Graphs.html", part: "3/3" },
+            { title: "Case Studies", file: "Lecture12_26_Case_Studies.html", part: "3/3" },
+            { title: "Challenges", file: "Lecture12_27_Challenges.html", part: "3/3" },
+            { title: "Hands-on: MOFA", file: "Lecture12_28_Hands_on_MOFA.html", part: "3/3" },
+            { title: "Hands-on: Integration Workflow", file: "Lecture12_29_Hands_on_Integration_Workflow.html", part: "3/3" },
+            
+            // Ending
+            { title: "Thank You & Perspectives", file: "Lecture12_30_Thank_You_and_Perspectives.html", part: null }
+        ];
+        
+        function initializeSlides() {
+            const container = document.getElementById('slideContainer');
+            
+            // 모든 슬라이드를 미리 생성
+            slides.forEach((slide, index) => {
+                const slideDiv = document.createElement('div');
+                slideDiv.className = 'slide';
+                slideDiv.id = `slide-${index}`;
+                
+                const iframe = document.createElement('iframe');
+                iframe.src = encodeURI(slide.file);
+                
+                slideDiv.appendChild(iframe);
+                container.appendChild(slideDiv);
+            });
+            
+            // 첫 번째 슬라이드 표시
+            showSlide(0);
+        }
+        
+        function showSlide(index) {
+            // 모든 슬라이드 숨기기
+            const allSlides = document.querySelectorAll('.slide');
+            allSlides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            // 현재 슬라이드 표시
+            const currentSlide = document.getElementById(`slide-${index}`);
+            if (currentSlide) {
+                currentSlide.classList.add('active');
+            }
+            
+            // 제목 업데이트 (파트 정보 포함)
+            const slideInfo = slides[index];
+            let titleText = slideInfo.title;
+            if (slideInfo.part) {
+                titleText = `${slideInfo.title} | Part ${slideInfo.part}`;
+            }
+            document.getElementById('slideTitle').textContent = titleText;
+            
+            // 카운터 업데이트
+            document.getElementById('currentSlide').textContent = index + 1;
+            document.getElementById('totalSlides').textContent = slides.length;
+            
+            // 진행 바 업데이트
+            const progress = ((index + 1) / slides.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            // 버튼 상태 업데이트
+            document.getElementById('prevBtn').disabled = (index === 0);
+            document.getElementById('nextBtn').disabled = (index === slides.length - 1);
+        }
+        
+        function changeSlide(direction) {
+            const newIndex = currentSlideIndex + direction;
+            if (newIndex >= 0 && newIndex < slides.length) {
+                currentSlideIndex = newIndex;
+                showSlide(currentSlideIndex);
+            }
+        }
+        
+        // 키보드 네비게이션
+        document.addEventListener('keydown', (event) => {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight' || event.key === ' ') {
+                event.preventDefault();
+                changeSlide(1);
+            } else if (event.key === 'Home') {
+                currentSlideIndex = 0;
+                showSlide(currentSlideIndex);
+            } else if (event.key === 'End') {
+                currentSlideIndex = slides.length - 1;
+                showSlide(currentSlideIndex);
+            }
+        });
+        
+        // 초기화
+        window.addEventListener('load', initializeSlides);
+    </script>
+</body>
+</html>

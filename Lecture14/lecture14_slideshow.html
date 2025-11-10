@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 14: Ethics, Regulation, and Implementation - Slideshow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Aptos, 'Segoe UI', sans-serif;
+            background: #000;
+            overflow: hidden;
+        }
+        
+        .slideshow-container {
+            width: 100vw;
+            height: 100vh;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .slide {
+            display: none;
+            width: 100%;
+            height: 100%;
+        }
+        
+        .slide.active {
+            display: block;
+        }
+        
+        .slide iframe {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+        
+        .nav-controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(0, 0, 0, 0.6);
+            padding: 6px 15px;
+            border-radius: 50px;
+            backdrop-filter: blur(10px);
+            z-index: 1000;
+        }
+        
+        .nav-button {
+            background: #1E64C8;
+            color: white;
+            border: none;
+            width: 26px;
+            height: 26px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            background: #2874d8;
+            transform: scale(1.1);
+        }
+        
+        .nav-button:active {
+            transform: scale(0.95);
+        }
+        
+        .nav-button:disabled {
+            background: #555;
+            cursor: not-allowed;
+            opacity: 0.5;
+        }
+        
+        .slide-counter {
+            color: white;
+            font-size: 12px;
+            font-weight: 600;
+            min-width: 60px;
+            text-align: center;
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 255, 255, 0.1);
+            z-index: 1000;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #1E64C8;
+            transition: width 0.3s ease;
+        }
+        
+        .keyboard-hint {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(0, 0, 0, 0.7);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 14px;
+            backdrop-filter: blur(10px);
+            animation: fadeOut 3s ease-in-out forwards;
+            z-index: 1000;
+        }
+        
+        @keyframes fadeOut {
+            0%, 70% {
+                opacity: 1;
+            }
+            100% {
+                opacity: 0;
+                pointer-events: none;
+            }
+        }
+        
+        .key {
+            display: inline-block;
+            background: #333;
+            padding: 4px 8px;
+            border-radius: 4px;
+            margin: 0 4px;
+            font-family: monospace;
+            border: 1px solid #555;
+        }
+        
+        .slide-title {
+            position: fixed;
+            top: 20px;
+            left: 20px;
+            background: rgba(30, 100, 200, 0.9);
+            color: white;
+            padding: 10px 20px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 600;
+            backdrop-filter: blur(10px);
+            max-width: 600px;
+            z-index: 1000;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+    
+    <div class="keyboard-hint">
+        Use <span class="key">←</span> <span class="key">→</span> or <span class="key">Space</span> to navigate
+    </div>
+    
+    <div class="slide-title" id="slideTitle">Loading...</div>
+    
+    <div class="slideshow-container">
+        <div id="slideContainer"></div>
+    </div>
+    
+    <div class="nav-controls">
+        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">◄</button>
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">30</span>
+        </div>
+        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">►</button>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        
+        const slides = [
+            { title: "Title", file: "Lecture14_01_Title.html", part: null },
+            { title: "Lecture Contents", file: "Lecture14_02_Contents.html", part: null },
+            
+            // Part 1
+            { title: "Ethics in Biomedical AI", file: "Lecture14_03_Part1.html", part: "1/3" },
+            { title: "Beneficence Principles", file: "Lecture14_04_Beneficence_Principles.html", part: "1/3" },
+            { title: "Privacy Concerns", file: "Lecture14_05_Privacy_Concerns.html", part: "1/3" },
+            { title: "Informed Consent", file: "Lecture14_06_Informed_Consent.html", part: "1/3" },
+            { title: "Data Ownership", file: "Lecture14_07_Data_Ownership.html", part: "1/3" },
+            { title: "Algorithmic Bias", file: "Lecture14_08_Algorithmic_Bias.html", part: "1/3" },
+            { title: "Health Disparities", file: "Lecture14_09_Health_Disparities.html", part: "1/3" },
+            { title: "Transparency", file: "Lecture14_10_Transparency.html", part: "1/3" },
+            
+            // Part 2
+            { title: "Regulatory Framework", file: "Lecture14_11_Part2.html", part: "2/3" },
+            { title: "FDA Regulations", file: "Lecture14_12_FDA_Regulations.html", part: "2/3" },
+            { title: "CE Marking", file: "Lecture14_13_CE_Marking.html", part: "2/3" },
+            { title: "Clinical Validation", file: "Lecture14_14_Clinical_Validation.html", part: "2/3" },
+            { title: "Software as Medical Device", file: "Lecture14_15_Software_as_Medical_Device.html", part: "2/3" },
+            { title: "Quality Management", file: "Lecture14_16_Quality_Management.html", part: "2/3" },
+            { title: "Post-market Surveillance", file: "Lecture14_17_Post-market_Surveillance.html", part: "2/3" },
+            
+            // Part 3
+            { title: "Implementation", file: "Lecture14_18_Part3.html", part: "3/3" },
+            { title: "Clinical Integration", file: "Lecture14_19_Clinical_Integration.html", part: "3/3" },
+            { title: "Change Management", file: "Lecture14_20_Change_Management.html", part: "3/3" },
+            { title: "Training Requirements", file: "Lecture14_21_Training_Requirements.html", part: "3/3" },
+            { title: "Cost-benefit Analysis", file: "Lecture14_22_Cost-benefit_Analysis.html", part: "3/3" },
+            { title: "Reimbursement", file: "Lecture14_23_Reimbursement.html", part: "3/3" },
+            { title: "Liability Issues", file: "Lecture14_24_Liability_Issues.html", part: "3/3" },
+            { title: "Global Perspectives", file: "Lecture14_25_Global_Perspectives.html", part: "3/3" },
+            { title: "Future Regulations", file: "Lecture14_26_Future_Regulations.html", part: "3/3" },
+            { title: "Best Practices", file: "Lecture14_27_Best_Practices.html", part: "3/3" },
+            { title: "Case Studies", file: "Lecture14_28_Case_Studies.html", part: "3/3" },
+            { title: "Discussion Scenarios", file: "Lecture14_29_Discussion_Scenarios.html", part: "3/3" },
+            
+            // Ending
+            { title: "Thank You", file: "Lecture14_30_Thank_You.html", part: null }
+        ];
+        
+        function initializeSlides() {
+            const container = document.getElementById('slideContainer');
+            
+            slides.forEach((slide, index) => {
+                const slideDiv = document.createElement('div');
+                slideDiv.className = 'slide';
+                slideDiv.id = `slide-${index}`;
+                
+                const iframe = document.createElement('iframe');
+                iframe.src = encodeURI(slide.file);
+                
+                slideDiv.appendChild(iframe);
+                container.appendChild(slideDiv);
+            });
+            
+            showSlide(0);
+        }
+        
+        function showSlide(index) {
+            const allSlides = document.querySelectorAll('.slide');
+            allSlides.forEach(slide => {
+                slide.classList.remove('active');
+            });
+            
+            const currentSlide = document.getElementById(`slide-${index}`);
+            if (currentSlide) {
+                currentSlide.classList.add('active');
+            }
+            
+            const slideInfo = slides[index];
+            let titleText = slideInfo.title;
+            if (slideInfo.part) {
+                titleText = `${slideInfo.title} | Part ${slideInfo.part}`;
+            }
+            document.getElementById('slideTitle').textContent = titleText;
+            
+            document.getElementById('currentSlide').textContent = index + 1;
+            document.getElementById('totalSlides').textContent = slides.length;
+            
+            const progress = ((index + 1) / slides.length) * 100;
+            document.getElementById('progressFill').style.width = progress + '%';
+            
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = index === slides.length - 1;
+        }
+        
+        function changeSlide(direction) {
+            currentSlideIndex += direction;
+            if (currentSlideIndex < 0) currentSlideIndex = 0;
+            if (currentSlideIndex >= slides.length) currentSlideIndex = slides.length - 1;
+            
+            showSlide(currentSlideIndex);
+        }
+        
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                changeSlide(1);
+            } else if (e.key === 'Home') {
+                currentSlideIndex = 0;
+                showSlide(currentSlideIndex);
+            } else if (e.key === 'End') {
+                currentSlideIndex = slides.length - 1;
+                showSlide(currentSlideIndex);
+            }
+        });
+        
+        window.addEventListener('load', initializeSlides);
+    </script>
+</body>
+</html>

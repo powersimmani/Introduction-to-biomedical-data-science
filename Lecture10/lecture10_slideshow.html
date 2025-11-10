@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 10: Drug Discovery and Molecular ML - Slideshow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Aptos, 'Segoe UI', sans-serif;
+            background: #1a1a1a;
+            overflow: hidden;
+        }
+        
+        .slideshow-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        iframe {
+            width: 960px;
+            height: 540px;
+            border: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+            border-radius: 8px;
+        }
+        
+        .nav-controls {
+            position: fixed;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            background: rgba(255, 255, 255, 0.95);
+            padding: 15px 30px;
+            border-radius: 50px;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+        }
+        
+        .nav-button {
+            background: #1E64C8;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-button:hover {
+            background: #2874d8;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 100, 200, 0.4);
+        }
+        
+        .nav-button:active {
+            transform: translateY(0);
+        }
+        
+        .slide-counter {
+            font-size: 18px;
+            font-weight: 600;
+            color: #333;
+            min-width: 100px;
+            text-align: center;
+        }
+        
+        .slide-title {
+            position: fixed;
+            top: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 12px 30px;
+            border-radius: 25px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+            font-size: 18px;
+            font-weight: 600;
+            color: #1E64C8;
+            max-width: 80%;
+            text-align: center;
+        }
+        
+        .keyboard-hint {
+            position: fixed;
+            bottom: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: rgba(255, 255, 255, 0.6);
+            font-size: 12px;
+            text-align: center;
+        }
+    </style>
+</head>
+<body>
+    <div class="keyboard-hint">
+        Use <span style="color: white; font-weight: 600;">← →</span> arrow keys or click buttons to navigate
+    </div>
+    
+    <!-- Slide title -->
+    <div class="slide-title" id="slideTitle">Loading...</div>
+    
+    <!-- Slideshow container -->
+    <div class="slideshow-container">
+        <div id="slideContainer"></div>
+    </div>
+    
+    <!-- Navigation controls -->
+    <div class="nav-controls">
+        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">◄</button>
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">30</span>
+        </div>
+        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">►</button>
+    </div>
+
+    <script>
+        let currentSlideIndex = 0;
+        
+        // All slides in order
+        const slides = [
+            { title: "Title Slide", file: "Lecture10_01_Title_Slide.html" },
+            { title: "Lecture Contents", file: "Lecture10_02_Lecture_Contents.html" },
+            { title: "Part 1: Drug Discovery Pipeline", file: "Lecture10_03_Part1_Drug_Discovery_Pipeline.html" },
+            { title: "Target Identification", file: "Lecture10_04_Target_Identification.html" },
+            { title: "Lead Discovery", file: "Lecture10_05_Lead_Discovery.html" },
+            { title: "Lead Optimization", file: "Lecture10_06_Lead_Optimization.html" },
+            { title: "Preclinical Studies", file: "Lecture10_07_Preclinical_Studies.html" },
+            { title: "Clinical Trials", file: "Lecture10_08_Clinical_Trials.html" },
+            { title: "Computational Approaches", file: "Lecture10_09_Computational_Approaches.html" },
+            { title: "Part 2: Molecular ML", file: "Lecture10_10_Part2_Molecular_ML.html" },
+            { title: "Molecular Representations", file: "Lecture10_11_Molecular_Representations.html" },
+            { title: "SMILES Notation", file: "Lecture10_12_SMILES_Notation.html" },
+            { title: "Graph Neural Networks", file: "Lecture10_13_Graph_Neural_Networks.html" },
+            { title: "Property Prediction", file: "Lecture10_14_Property_Prediction.html" },
+            { title: "QSAR Modeling", file: "Lecture10_15_QSAR_Modeling.html" },
+            { title: "Virtual Screening", file: "Lecture10_16_Virtual_Screening.html" },
+            { title: "Docking Simulation", file: "Lecture10_17_Docking_Simulation.html" },
+            { title: "Part 3: Applications", file: "Lecture10_18_Part3_Applications.html" },
+            { title: "Drug-Target Interaction", file: "Lecture10_19_Drug-Target_Interaction.html" },
+            { title: "Side Effect Prediction", file: "Lecture10_20_Side_Effect_Prediction.html" },
+            { title: "Drug Repurposing", file: "Lecture10_21_Drug_Repurposing.html" },
+            { title: "Bioactivity Prediction", file: "Lecture10_22_Bioactivity_Prediction.html" },
+            { title: "ADMET Prediction", file: "Lecture10_23_ADMET_Prediction.html" },
+            { title: "De Novo Design", file: "Lecture10_24_De_Novo_Design.html" },
+            { title: "Generative Models", file: "Lecture10_25_Generative_Models.html" },
+            { title: "Clinical Trial Optimization", file: "Lecture10_26_Clinical_Trial_Optimization.html" },
+            { title: "Pharmacovigilance", file: "Lecture10_27_Pharmacovigilance.html" },
+            { title: "Hands-on: RDKit and DeepChem", file: "Lecture10_28_Hands_on_RDKit_and_DeepChem.html" },
+            { title: "Hands-on: Molecular Generation", file: "Lecture10_29_Hands_on_Molecular_Generation.html" },
+            { title: "Thank You & Impact", file: "Lecture10_30_Thank_You_and_Impact.html" }
+        ];
+        
+        function loadSlide(index) {
+            const container = document.getElementById('slideContainer');
+            const slideTitle = document.getElementById('slideTitle');
+            const currentSlideSpan = document.getElementById('currentSlide');
+            
+            // Update title
+            slideTitle.textContent = slides[index].title;
+            
+            // Update counter
+            currentSlideSpan.textContent = index + 1;
+            
+            // Load iframe
+            container.innerHTML = `<iframe src="${slides[index].file}"></iframe>`;
+            
+            // Update button states
+            document.getElementById('prevBtn').disabled = index === 0;
+            document.getElementById('nextBtn').disabled = index === slides.length - 1;
+        }
+        
+        function changeSlide(direction) {
+            currentSlideIndex += direction;
+            
+            if (currentSlideIndex < 0) {
+                currentSlideIndex = 0;
+            } else if (currentSlideIndex >= slides.length) {
+                currentSlideIndex = slides.length - 1;
+            }
+            
+            loadSlide(currentSlideIndex);
+        }
+        
+        // Keyboard navigation
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'ArrowLeft') {
+                changeSlide(-1);
+            } else if (event.key === 'ArrowRight') {
+                changeSlide(1);
+            }
+        });
+        
+        // Load first slide
+        loadSlide(0);
+    </script>
+</body>
+</html>

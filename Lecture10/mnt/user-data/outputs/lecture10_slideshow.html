@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 10: Drug Discovery and Molecular ML - Slideshow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Aptos, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            overflow: hidden;
+        }
+        
+        #slide-container {
+            width: 100vw;
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            position: relative;
+        }
+        
+        iframe {
+            width: 960px;
+            height: 540px;
+            border: none;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.3);
+        }
+        
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 15px;
+            background: rgba(30, 100, 200, 0.95);
+            padding: 15px 25px;
+            border-radius: 50px;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        
+        .controls button {
+            background: white;
+            color: #1E64C8;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .controls button:hover {
+            background: #e8f2ff;
+            transform: scale(1.05);
+        }
+        
+        .controls button:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+        
+        .slide-counter {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 10px 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 4px;
+            background: #1E64C8;
+            transition: width 0.3s;
+            z-index: 1001;
+        }
+    </style>
+</head>
+<body>
+    <div class="progress-bar" id="progress"></div>
+    <div id="slide-container">
+        <iframe id="slide-frame" src=""></iframe>
+    </div>
+    
+    <div class="controls">
+        <button id="first-btn" onclick="goToFirst()">⏮ First</button>
+        <button id="prev-btn" onclick="previousSlide()">← Previous</button>
+        <span class="slide-counter">
+            <span id="current-slide">1</span> / <span id="total-slides">30</span>
+        </span>
+        <button id="next-btn" onclick="nextSlide()">Next →</button>
+        <button id="last-btn" onclick="goToLast()">Last ⏭</button>
+    </div>
+
+    <script>
+        const slides = [
+            { title: "Title Slide", file: "Lecture10_01_Title_Slide.html" },
+            { title: "Lecture Contents", file: "Lecture10_02_Lecture_Contents.html" },
+            { title: "Part 1: Drug Discovery Pipeline", file: "Lecture10_03_Part1_Drug_Discovery_Pipeline.html" },
+            { title: "Target Identification", file: "Lecture10_04_Target_Identification.html" },
+            { title: "Lead Discovery", file: "Lecture10_05_Lead_Discovery.html" },
+            { title: "Lead Optimization", file: "Lecture10_06_Lead_Optimization.html" },
+            { title: "Preclinical Studies", file: "Lecture10_07_Preclinical_Studies.html" },
+            { title: "Clinical Trials", file: "Lecture10_08_Clinical_Trials.html" },
+            { title: "Computational Approaches", file: "Lecture10_09_Computational_Approaches.html" },
+            { title: "Part 2: Molecular ML", file: "Lecture10_10_Part2_Molecular_ML.html" },
+            { title: "Molecular Representations", file: "Lecture10_11_Molecular_Representations.html" },
+            { title: "SMILES Notation", file: "Lecture10_12_SMILES_Notation.html" },
+            { title: "Graph Neural Networks", file: "Lecture10_13_Graph_Neural_Networks.html" },
+            { title: "Property Prediction", file: "Lecture10_14_Property_Prediction.html" },
+            { title: "QSAR Modeling", file: "Lecture10_15_QSAR_Modeling.html" },
+            { title: "Virtual Screening", file: "Lecture10_16_Virtual_Screening.html" },
+            { title: "Docking Simulation", file: "Lecture10_17_Docking_Simulation.html" },
+            { title: "Part 3: Applications", file: "Lecture10_18_Part3_Applications.html" },
+            { title: "Drug-Target Interaction", file: "Lecture10_19_Drug-Target_Interaction.html" },
+            { title: "Side Effect Prediction", file: "Lecture10_20_Side_Effect_Prediction.html" },
+            { title: "Drug Repurposing", file: "Lecture10_21_Drug_Repurposing.html" },
+            { title: "Bioactivity Prediction", file: "Lecture10_22_Bioactivity_Prediction.html" },
+            { title: "ADMET Prediction", file: "Lecture10_23_ADMET_Prediction.html" },
+            { title: "De Novo Design", file: "Lecture10_24_De_Novo_Design.html" },
+            { title: "Generative Models", file: "Lecture10_25_Generative_Models.html" },
+            { title: "Clinical Trial Optimization", file: "Lecture10_26_Clinical_Trial_Optimization.html" },
+            { title: "Pharmacovigilance", file: "Lecture10_27_Pharmacovigilance.html" },
+            { title: "Hands-on: RDKit and DeepChem", file: "Lecture10_28_Hands-on__RDKit_and_DeepChem.html" },
+            { title: "Hands-on: Molecular Generation", file: "Lecture10_29_Hands-on__Molecular_Generation.html" },
+            { title: "Thank You & Impact", file: "Lecture10_30_Thank_You_and_Impact.html" }
+        ];
+
+        let currentSlide = 0;
+
+        function loadSlide(index) {
+            if (index >= 0 && index < slides.length) {
+                currentSlide = index;
+                document.getElementById('slide-frame').src = slides[index].file;
+                document.getElementById('current-slide').textContent = index + 1;
+                document.title = `Lecture 10: ${slides[index].title}`;
+                
+                // Update progress bar
+                const progress = ((index + 1) / slides.length) * 100;
+                document.getElementById('progress').style.width = progress + '%';
+                
+                // Update button states
+                document.getElementById('first-btn').disabled = index === 0;
+                document.getElementById('prev-btn').disabled = index === 0;
+                document.getElementById('next-btn').disabled = index === slides.length - 1;
+                document.getElementById('last-btn').disabled = index === slides.length - 1;
+            }
+        }
+
+        function nextSlide() {
+            if (currentSlide < slides.length - 1) {
+                loadSlide(currentSlide + 1);
+            }
+        }
+
+        function previousSlide() {
+            if (currentSlide > 0) {
+                loadSlide(currentSlide - 1);
+            }
+        }
+
+        function goToFirst() {
+            loadSlide(0);
+        }
+
+        function goToLast() {
+            loadSlide(slides.length - 1);
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                previousSlide();
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                goToFirst();
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                goToLast();
+            }
+        });
+
+        // Load first slide on page load
+        window.addEventListener('load', function() {
+            loadSlide(0);
+        });
+    </script>
+</body>
+</html>

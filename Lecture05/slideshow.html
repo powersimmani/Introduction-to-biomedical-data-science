@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lecture 5 Slideshow</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Aptos, 'Segoe UI', sans-serif;
+            background: #1a1a1a;
+            overflow: hidden;
+        }
+        
+        #slideFrame {
+            width: 100vw;
+            height: 100vh;
+            border: none;
+        }
+        
+        .controls {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(30, 100, 200, 0.95);
+            padding: 15px 30px;
+            border-radius: 50px;
+            display: flex;
+            gap: 20px;
+            align-items: center;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+        }
+        
+        .nav-btn {
+            background: white;
+            color: #1E64C8;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: all 0.3s;
+        }
+        
+        .nav-btn:hover {
+            background: #f0f0f0;
+            transform: scale(1.05);
+        }
+        
+        .nav-btn:disabled {
+            background: #ccc;
+            color: #666;
+            cursor: not-allowed;
+            transform: scale(1);
+        }
+        
+        .slide-info {
+            color: white;
+            font-size: 16px;
+            font-weight: 600;
+            padding: 0 10px;
+        }
+        
+        .home-btn {
+            background: rgba(255, 255, 255, 0.2);
+            color: white;
+            border: 2px solid white;
+        }
+        
+        .home-btn:hover {
+            background: rgba(255, 255, 255, 0.3);
+        }
+    </style>
+</head>
+<body>
+    <iframe id="slideFrame" src=""></iframe>
+    
+    <div class="controls">
+        <button class="nav-btn home-btn" onclick="goHome()">🏠 Home</button>
+        <button class="nav-btn" id="prevBtn" onclick="prevSlide()">← Previous</button>
+        <span class="slide-info" id="slideInfo">Slide 1 / 30</span>
+        <button class="nav-btn" id="nextBtn" onclick="nextSlide()">Next →</button>
+    </div>
+
+    <script>
+        const slides = [
+            { title: "Title", file: "Lecture05_01_Title.html", part: "Intro" },
+            { title: "Lecture Contents", file: "Lecture05_02_Lecture_Contents.html", part: "Intro" },
+            { title: "Part 1: Bulk RNA-seq", file: "Lecture05_03_Part1_Bulk_RNAseq.html", part: "1/3" },
+            { title: "RNA-seq Workflow", file: "Lecture05_04_RNAseq_Workflow.html", part: "1/3" },
+            { title: "Library Preparation Methods", file: "Lecture05_05_Library_Preparation.html", part: "1/3" },
+            { title: "Normalization Methods", file: "Lecture05_06_Normalization_Methods.html", part: "1/3" },
+            { title: "Differential Expression", file: "Lecture05_07_Differential_Expression.html", part: "1/3" },
+            { title: "Statistical Testing", file: "Lecture05_08_Statistical_Testing.html", part: "1/3" },
+            { title: "Multiple Testing Correction", file: "Lecture05_09_Multiple_Testing_Correction.html", part: "1/3" },
+            { title: "Pathway Analysis", file: "Lecture05_10_Pathway_Analysis.html", part: "1/3" },
+            
+            { title: "Part 2: Single-Cell Technologies", file: "Lecture05_11_Part2_SingleCell_Technologies.html", part: "2/3" },
+            { title: "scRNA-seq Overview", file: "Lecture05_12_scRNA_seq_Overview.html", part: "2/3" },
+            { title: "Droplet-based Methods", file: "Lecture05_13_Droplet_based_Methods.html", part: "2/3" },
+            { title: "Plate-based Methods", file: "Lecture05_14_Plate_based_Methods.html", part: "2/3" },
+            { title: "Data Preprocessing", file: "Lecture05_15_Data_Preprocessing.html", part: "2/3" },
+            { title: "Dimensionality Reduction", file: "Lecture05_16_Dimensionality_Reduction.html", part: "2/3" },
+            { title: "Clustering Methods", file: "Lecture05_17_Clustering_Methods.html", part: "2/3" },
+            { title: "Cell Type Annotation", file: "Lecture05_18_Cell_Type_Annotation.html", part: "2/3" },
+            { title: "Trajectory Analysis", file: "Lecture05_19_Trajectory_Analysis.html", part: "2/3" },
+            
+            { title: "Part 3: Advanced Methods", file: "Lecture05_20_Part_3_Advanced_Methods.html", part: "3/3" },
+            { title: "Spatial Transcriptomics", file: "Lecture05_21_Spatial_Transcriptomics.html", part: "3/3" },
+            { title: "CITE-seq", file: "Lecture05_22_CITE_seq.html", part: "3/3" },
+            { title: "Multimodal Omics", file: "Lecture05_23_Multimodal_Omics.html", part: "3/3" },
+            { title: "RNA Velocity", file: "Lecture05_24_RNA_Velocity.html", part: "3/3" },
+            { title: "Cell-Cell Communication", file: "Lecture05_25_Cell_Cell_Communication.html", part: "3/3" },
+            { title: "Batch Effect Correction", file: "Lecture05_26_Batch_Effect_Correction.html", part: "3/3" },
+            { title: "Integration Methods", file: "Lecture05_27_Integration_Methods.html", part: "3/3" },
+            { title: "Hands-on: Seurat Tutorial", file: "Lecture05_28_Hands_on_Seurat_Tutorial.html", part: "3/3" },
+            { title: "Hands-on: Scanpy Analysis", file: "Lecture05_29_Hands_on_Scanpy_Analysis.html", part: "3/3" },
+            { title: "Thank You & Applications", file: "Lecture05_30_Thank_You_&_Applications.html", part: "End" }
+        ];
+
+        let currentSlide = 0;
+
+        function loadSlide(index) {
+            if (index >= 0 && index < slides.length) {
+                currentSlide = index;
+                document.getElementById('slideFrame').src = slides[index].file;
+                document.getElementById('slideInfo').textContent = `Slide ${index + 1} / ${slides.length}`;
+                
+                // Update button states
+                document.getElementById('prevBtn').disabled = (index === 0);
+                document.getElementById('nextBtn').disabled = (index === slides.length - 1);
+                
+                // Update URL without reloading
+                history.pushState({slide: index}, '', `?slide=${index + 1}`);
+            }
+        }
+
+        function nextSlide() {
+            loadSlide(currentSlide + 1);
+        }
+
+        function prevSlide() {
+            loadSlide(currentSlide - 1);
+        }
+
+        function goHome() {
+            window.location.href = 'index.html';
+        }
+
+        // Keyboard navigation
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'ArrowRight' || e.key === ' ') {
+                e.preventDefault();
+                nextSlide();
+            } else if (e.key === 'ArrowLeft') {
+                e.preventDefault();
+                prevSlide();
+            } else if (e.key === 'Home') {
+                e.preventDefault();
+                loadSlide(0);
+            } else if (e.key === 'End') {
+                e.preventDefault();
+                loadSlide(slides.length - 1);
+            }
+        });
+
+        // Load initial slide from URL or start at 0
+        window.addEventListener('load', function() {
+            const urlParams = new URLSearchParams(window.location.search);
+            const slideParam = urlParams.get('slide');
+            const initialSlide = slideParam ? parseInt(slideParam) - 1 : 0;
+            loadSlide(initialSlide);
+        });
+    </script>
+</body>
+</html>
