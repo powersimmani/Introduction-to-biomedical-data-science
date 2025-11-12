@@ -31,20 +31,27 @@
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             text-align: center;
+        }
+        
+        .visual-section {
+            background: #f8f9fb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
         }
         
         .content-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 25px;
+            gap: 20px;
         }
         
         .info-box {
             background: #f8f9fb;
             border-left: 4px solid #1E64C8;
-            padding: 20px 22px;
+            padding: 18px 20px;
             border-radius: 6px;
             transition: all 0.3s;
         }
@@ -55,47 +62,137 @@
         }
         
         .info-title {
-            font-size: 19px;
+            font-size: 18px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         
         .info-content {
-            font-size: 16px;
+            font-size: 15px;
             color: #333;
-            line-height: 1.7;
+            line-height: 1.6;
         }
         
         .bullet {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         
         .bullet::before {
             content: "•";
             color: #1E64C8;
             font-weight: bold;
-            margin-right: 10px;
-            font-size: 18px;
+            margin-right: 8px;
+            font-size: 16px;
         }
         
         .full-width-box {
             grid-column: 1 / -1;
             background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
             color: white;
-            padding: 18px 25px;
+            padding: 15px 22px;
             border-radius: 8px;
             text-align: center;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 500;
+        }
+        
+        @keyframes dataFlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
+        }
+        
+        .data-flow {
+            animation: dataFlow 2s ease-in-out infinite;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Federated Learning</div>
+        
+        <div class="visual-section">
+            <svg width="100%" height="160" viewBox="0 0 850 160">
+                <!-- Central Server -->
+                <g transform="translate(375, 15)">
+                    <rect x="0" y="0" width="100" height="50" rx="5" fill="#1E64C8" stroke="#5088d4" stroke-width="2"/>
+                    <text x="50" y="20" font-size="12" font-weight="600" fill="white" text-anchor="middle">Global Model</text>
+                    <text x="50" y="35" font-size="11" fill="white" text-anchor="middle">Aggregation</text>
+                    <circle cx="50" cy="50" r="3" fill="white"/>
+                </g>
+                
+                <!-- Hospital 1 -->
+                <g transform="translate(50, 100)">
+                    <rect x="0" y="0" width="110" height="45" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="55" y="17" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">🏥 Hospital A</text>
+                    <text x="55" y="32" font-size="10" fill="#666" text-anchor="middle">Local Training</text>
+                    <circle cx="55" cy="0" r="3" fill="#1E64C8"/>
+                </g>
+                
+                <!-- Hospital 2 -->
+                <g transform="translate(220, 100)">
+                    <rect x="0" y="0" width="110" height="45" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="55" y="17" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">🏥 Hospital B</text>
+                    <text x="55" y="32" font-size="10" fill="#666" text-anchor="middle">Local Training</text>
+                    <circle cx="55" cy="0" r="3" fill="#1E64C8"/>
+                </g>
+                
+                <!-- Hospital 3 -->
+                <g transform="translate(390, 100)">
+                    <rect x="0" y="0" width="110" height="45" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="55" y="17" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">🏥 Hospital C</text>
+                    <text x="55" y="32" font-size="10" fill="#666" text-anchor="middle">Local Training</text>
+                    <circle cx="55" cy="0" r="3" fill="#1E64C8"/>
+                </g>
+                
+                <!-- Hospital 4 -->
+                <g transform="translate(560, 100)">
+                    <rect x="0" y="0" width="110" height="45" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="55" y="17" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">🏥 Hospital D</text>
+                    <text x="55" y="32" font-size="10" fill="#666" text-anchor="middle">Local Training</text>
+                    <circle cx="55" cy="0" r="3" fill="#1E64C8"/>
+                </g>
+                
+                <!-- Connection Lines with arrows -->
+                <defs>
+                    <marker id="arrowUp" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                        <polygon points="0 0, 8 4, 0 8" fill="#1E64C8"/>
+                    </marker>
+                    <marker id="arrowDown" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                        <polygon points="0 0, 8 4, 0 8" fill="#5088d4"/>
+                    </marker>
+                </defs>
+                
+                <!-- Upward arrows (gradients) -->
+                <path d="M 105 100 L 405 68" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrowUp)" class="data-flow" style="animation-delay: 0s"/>
+                <text x="200" y="80" font-size="9" fill="#1E64C8">Gradients</text>
+                
+                <path d="M 275 100 L 420 68" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrowUp)" class="data-flow" style="animation-delay: 0.5s"/>
+                
+                <path d="M 445 100 L 435 68" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrowUp)" class="data-flow" style="animation-delay: 1s"/>
+                
+                <path d="M 615 100 L 465 68" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrowUp)" class="data-flow" style="animation-delay: 1.5s"/>
+                
+                <!-- Downward arrows (model updates) -->
+                <path d="M 390 68 L 115 100" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="4,2" fill="none" marker-end="url(#arrowDown)"/>
+                <text x="220" y="92" font-size="9" fill="#5088d4">Updates</text>
+                
+                <path d="M 410 68 L 285 100" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="4,2" fill="none" marker-end="url(#arrowDown)"/>
+                
+                <path d="M 430 68 L 455 100" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="4,2" fill="none" marker-end="url(#arrowDown)"/>
+                
+                <path d="M 450 68 L 625 100" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="4,2" fill="none" marker-end="url(#arrowDown)"/>
+                
+                <!-- Privacy Shield Icons -->
+                <text x="105" y="155" font-size="18" text-anchor="middle">🔒</text>
+                <text x="275" y="155" font-size="18" text-anchor="middle">🔒</text>
+                <text x="445" y="155" font-size="18" text-anchor="middle">🔒</text>
+                <text x="615" y="155" font-size="18" text-anchor="middle">🔒</text>
+                <text x="425" y="155" font-size="10" fill="#1E64C8" text-anchor="middle">Data Never Leaves Site</text>
+            </svg>
+        </div>
         
         <div class="content-section">
             <div class="info-box">

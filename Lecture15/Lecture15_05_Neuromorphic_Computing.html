@@ -31,20 +31,27 @@
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             text-align: center;
+        }
+        
+        .visual-section {
+            background: #f8f9fb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
         }
         
         .content-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 25px;
+            gap: 20px;
         }
         
         .info-box {
             background: #f8f9fb;
             border-left: 4px solid #1E64C8;
-            padding: 20px 22px;
+            padding: 18px 20px;
             border-radius: 6px;
             transition: all 0.3s;
         }
@@ -55,47 +62,152 @@
         }
         
         .info-title {
-            font-size: 19px;
+            font-size: 18px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         
         .info-content {
-            font-size: 16px;
+            font-size: 15px;
             color: #333;
-            line-height: 1.7;
+            line-height: 1.6;
         }
         
         .bullet {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         
         .bullet::before {
             content: "•";
             color: #1E64C8;
             font-weight: bold;
-            margin-right: 10px;
-            font-size: 18px;
+            margin-right: 8px;
+            font-size: 16px;
         }
         
         .feature-box {
             grid-column: 1 / -1;
             background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
             color: white;
-            padding: 18px 25px;
+            padding: 15px 22px;
             border-radius: 8px;
             text-align: center;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 500;
+        }
+        
+        @keyframes neuronPulse {
+            0%, 100% { fill: #1E64C8; r: 5; }
+            50% { fill: #5088d4; r: 7; }
+        }
+        
+        .neuron {
+            animation: neuronPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes spikeTravel {
+            0% { stroke-dashoffset: 100; }
+            100% { stroke-dashoffset: 0; }
+        }
+        
+        .spike {
+            animation: spikeTravel 1.5s linear infinite;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Neuromorphic Computing</div>
+        
+        <div class="visual-section">
+            <svg width="100%" height="150" viewBox="0 0 850 150">
+                <!-- Traditional Computing -->
+                <g transform="translate(50, 30)">
+                    <rect x="0" y="0" width="120" height="90" rx="6" fill="#e0e0e0" stroke="#999" stroke-width="2"/>
+                    <text x="60" y="20" font-size="12" font-weight="600" fill="#666" text-anchor="middle">Traditional CPU</text>
+                    
+                    <!-- Sequential boxes -->
+                    <rect x="10" y="30" width="100" height="12" rx="2" fill="#999"/>
+                    <rect x="10" y="48" width="100" height="12" rx="2" fill="#999"/>
+                    <rect x="10" y="66" width="100" height="12" rx="2" fill="#999"/>
+                    
+                    <text x="60" y="95" font-size="9" fill="#666" text-anchor="middle">Sequential</text>
+                    <text x="60" y="107" font-size="9" fill="#666" text-anchor="middle">High Power</text>
+                </g>
+                
+                <!-- VS -->
+                <text x="230" y="80" font-size="16" font-weight="700" fill="#1E64C8">VS</text>
+                
+                <!-- Neuromorphic Architecture -->
+                <g transform="translate(280, 20)">
+                    <rect x="0" y="0" width="200" height="110" rx="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="100" y="20" font-size="12" font-weight="700" fill="#1E64C8" text-anchor="middle">Neuromorphic Chip</text>
+                    
+                    <!-- Neural Network Structure -->
+                    <!-- Layer 1 neurons -->
+                    <circle cx="30" cy="50" r="5" class="neuron" style="animation-delay: 0s"/>
+                    <circle cx="30" cy="70" r="5" class="neuron" style="animation-delay: 0.3s"/>
+                    <circle cx="30" cy="90" r="5" class="neuron" style="animation-delay: 0.6s"/>
+                    
+                    <!-- Layer 2 neurons -->
+                    <circle cx="80" cy="40" r="5" class="neuron" style="animation-delay: 0.2s"/>
+                    <circle cx="80" cy="60" r="5" class="neuron" style="animation-delay: 0.5s"/>
+                    <circle cx="80" cy="80" r="5" class="neuron" style="animation-delay: 0.8s"/>
+                    <circle cx="80" cy="100" r="5" class="neuron" style="animation-delay: 1.1s"/>
+                    
+                    <!-- Layer 3 neurons -->
+                    <circle cx="130" cy="50" r="5" class="neuron" style="animation-delay: 0.4s"/>
+                    <circle cx="130" cy="70" r="5" class="neuron" style="animation-delay: 0.7s"/>
+                    <circle cx="130" cy="90" r="5" class="neuron" style="animation-delay: 1.0s"/>
+                    
+                    <!-- Output neurons -->
+                    <circle cx="170" cy="60" r="5" class="neuron" style="animation-delay: 0.6s"/>
+                    <circle cx="170" cy="80" r="5" class="neuron" style="animation-delay: 0.9s"/>
+                    
+                    <!-- Connections (synapses) -->
+                    <path d="M 35 50 L 75 40" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="50" class="spike"/>
+                    <path d="M 35 70 L 75 60" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="50" class="spike" style="animation-delay: 0.5s"/>
+                    <path d="M 85 60 L 125 70" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="50" class="spike" style="animation-delay: 1s"/>
+                    <path d="M 135 70 L 165 70" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="50" class="spike" style="animation-delay: 1.5s"/>
+                    
+                    <text x="100" y="125" font-size="9" font-weight="600" fill="#1E64C8" text-anchor="middle">Parallel · Event-Driven · Low Power</text>
+                </g>
+                
+                <!-- Applications -->
+                <g transform="translate(520, 35)">
+                    <text x="0" y="0" font-size="13" font-weight="700" fill="#1E64C8">Medical Applications</text>
+                    
+                    <g transform="translate(0, 15)">
+                        <rect x="0" y="0" width="140" height="25" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1"/>
+                        <text x="70" y="12" font-size="10" fill="#1E64C8" text-anchor="middle">🧠 Brain-Computer</text>
+                        <text x="70" y="22" font-size="10" fill="#1E64C8" text-anchor="middle">Interface</text>
+                    </g>
+                    
+                    <g transform="translate(0, 45)">
+                        <rect x="0" y="0" width="140" height="25" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1"/>
+                        <text x="70" y="12" font-size="10" fill="#1E64C8" text-anchor="middle">🦾 Prosthetic</text>
+                        <text x="70" y="22" font-size="10" fill="#1E64C8" text-anchor="middle">Control</text>
+                    </g>
+                    
+                    <g transform="translate(0, 75)">
+                        <rect x="0" y="0" width="140" height="25" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1"/>
+                        <text x="70" y="12" font-size="10" fill="#1E64C8" text-anchor="middle">💊 Implantable</text>
+                        <text x="70" y="22" font-size="10" fill="#1E64C8" text-anchor="middle">Devices</text>
+                    </g>
+                </g>
+                
+                <!-- Power comparison -->
+                <g transform="translate(700, 50)">
+                    <text x="0" y="0" font-size="11" font-weight="600" fill="#4CAF50">1000x</text>
+                    <text x="0" y="12" font-size="9" fill="#666">Lower</text>
+                    <text x="0" y="23" font-size="9" fill="#666">Power</text>
+                    <text x="20" y="35" font-size="20">🔋</text>
+                </g>
+            </svg>
+        </div>
         
         <div class="content-section">
             <div class="info-box">

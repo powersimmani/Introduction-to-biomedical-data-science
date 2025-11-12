@@ -31,50 +31,207 @@
             font-size: 32px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
         }
         
-        .content-list {
+        .content-wrapper {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            gap: 25px;
+            height: 385px;
         }
         
-        .content-item {
+        .three-track-diagram {
+            flex: 1.5;
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 18px 24px;
+            justify-content: center;
+        }
+        
+        .features-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        
+        .feature-item {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 6px;
+            padding: 13px 18px;
             transition: all 0.3s ease;
-            font-size: 19px;
-            color: #333;
         }
         
-        .content-item:hover {
+        .feature-item:hover {
             background: #e8f2ff;
             transform: translateX(8px);
         }
         
-        .bullet {
-            width: 10px;
-            height: 10px;
-            background: #1E64C8;
-            border-radius: 50%;
-            flex-shrink: 0;
+        .feature-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 3px;
+        }
+        
+        .feature-detail {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .track-flow {
+            animation: flowAnimation 3s ease-in-out infinite;
+        }
+        
+        @keyframes flowAnimation {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">RoseTTAFold</div>
-        <div class="content-list">
-            <div class="content-item"><div class="bullet"></div><div>Three-track architecture</div></div><div class="content-item"><div class="bullet"></div><div>End-to-end learning</div></div><div class="content-item"><div class="bullet"></div><div>Complex prediction</div></div><div class="content-item"><div class="bullet"></div><div>Speed advantages</div></div><div class="content-item"><div class="bullet"></div><div>Applications</div></div>
+        <div class="content-wrapper">
+            <div class="three-track-diagram">
+                <svg width="540" height="385" viewBox="0 0 540 385">
+                    <text x="270" y="25" font-size="15" fill="#333" text-anchor="middle" font-weight="600">Three-Track Architecture</text>
+                    
+                    <!-- Input -->
+                    <rect x="150" y="45" width="240" height="28" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="270" y="65" font-size="13" fill="#333" text-anchor="middle" font-weight="600">Input Sequence</text>
+                    
+                    <defs>
+                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                    
+                    <!-- Three parallel tracks -->
+                    <!-- Track 1: 1D (Sequence) -->
+                    <g transform="translate(50, 100)">
+                        <rect x="0" y="0" width="120" height="180" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="60" y="20" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="700">1D Track</text>
+                        <text x="60" y="36" font-size="10" fill="#666" text-anchor="middle">(Sequence)</text>
+                        
+                        <!-- Sequence blocks -->
+                        <rect x="15" y="50" width="90" height="18" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="60" y="63" font-size="10" fill="#333" text-anchor="middle">MSA Attention</text>
+                        
+                        <rect x="15" y="78" width="90" height="18" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="60" y="91" font-size="10" fill="#333" text-anchor="middle">FFN</text>
+                        
+                        <rect x="15" y="106" width="90" height="18" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="60" y="119" font-size="10" fill="#333" text-anchor="middle">MSA Attention</text>
+                        
+                        <rect x="15" y="134" width="90" height="18" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="60" y="147" font-size="10" fill="#333" text-anchor="middle">FFN</text>
+                        
+                        <text x="60" y="170" font-size="9" fill="#666" text-anchor="middle" font-style="italic">× N layers</text>
+                    </g>
+                    
+                    <!-- Track 2: 2D (Pair) -->
+                    <g transform="translate(210, 100)">
+                        <rect x="0" y="0" width="120" height="180" rx="8" fill="#f8f9fa" stroke="#2874d8" stroke-width="2"/>
+                        <text x="60" y="20" font-size="13" fill="#2874d8" text-anchor="middle" font-weight="700">2D Track</text>
+                        <text x="60" y="36" font-size="10" fill="#666" text-anchor="middle">(Pairwise)</text>
+                        
+                        <!-- Pair blocks -->
+                        <rect x="15" y="50" width="90" height="18" rx="3" fill="#e3f2fd" stroke="#2874d8" stroke-width="1.5"/>
+                        <text x="60" y="63" font-size="10" fill="#333" text-anchor="middle">Pair Attention</text>
+                        
+                        <rect x="15" y="78" width="90" height="18" rx="3" fill="#e3f2fd" stroke="#2874d8" stroke-width="1.5"/>
+                        <text x="60" y="91" font-size="10" fill="#333" text-anchor="middle">Transition</text>
+                        
+                        <rect x="15" y="106" width="90" height="18" rx="3" fill="#e3f2fd" stroke="#2874d8" stroke-width="1.5"/>
+                        <text x="60" y="119" font-size="10" fill="#333" text-anchor="middle">Pair Attention</text>
+                        
+                        <rect x="15" y="134" width="90" height="18" rx="3" fill="#e3f2fd" stroke="#2874d8" stroke-width="1.5"/>
+                        <text x="60" y="147" font-size="10" fill="#333" text-anchor="middle">Transition</text>
+                        
+                        <text x="60" y="170" font-size="9" fill="#666" text-anchor="middle" font-style="italic">× N layers</text>
+                    </g>
+                    
+                    <!-- Track 3: 3D (Structure) -->
+                    <g transform="translate(370, 100)">
+                        <rect x="0" y="0" width="120" height="180" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="60" y="20" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="700">3D Track</text>
+                        <text x="60" y="36" font-size="10" fill="#666" text-anchor="middle">(Structure)</text>
+                        
+                        <!-- Structure blocks -->
+                        <rect x="15" y="50" width="90" height="18" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="60" y="63" font-size="10" fill="#333" text-anchor="middle">SE(3) Transform</text>
+                        
+                        <rect x="15" y="78" width="90" height="18" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="60" y="91" font-size="10" fill="#333" text-anchor="middle">Coord Update</text>
+                        
+                        <rect x="15" y="106" width="90" height="18" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="60" y="119" font-size="10" fill="#333" text-anchor="middle">SE(3) Transform</text>
+                        
+                        <rect x="15" y="134" width="90" height="18" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="60" y="147" font-size="10" fill="#333" text-anchor="middle">Coord Update</text>
+                        
+                        <text x="60" y="170" font-size="9" fill="#666" text-anchor="middle" font-style="italic">× N layers</text>
+                    </g>
+                    
+                    <!-- Cross-track connections -->
+                    <path d="M 175,140 L 205,140" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="3,3" class="track-flow"/>
+                    <path d="M 335,140 L 365,140" stroke="#2874d8" stroke-width="1.5" stroke-dasharray="3,3" class="track-flow" style="animation-delay: 1s"/>
+                    <path d="M 270,105 L 270,95" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="3,3" class="track-flow" style="animation-delay: 2s"/>
+                    
+                    <!-- Information flow arrows -->
+                    <path d="M 160,85 L 190,120" stroke="#1E64C8" stroke-width="1" opacity="0.3"/>
+                    <path d="M 320,120 L 380,85" stroke="#2874d8" stroke-width="1" opacity="0.3"/>
+                    
+                    <text x="270" y="305" font-size="11" fill="#666" text-anchor="middle" font-weight="600">Simultaneous Multi-scale Processing</text>
+                    
+                    <!-- Output -->
+                    <g transform="translate(150, 320)">
+                        <rect x="0" y="0" width="240" height="45" rx="5" fill="#d4edda" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="120" y="22" font-size="13" fill="#333" text-anchor="middle" font-weight="600">Predicted 3D Structure</text>
+                        
+                        <!-- Mini protein structure -->
+                        <g transform="translate(40, 30)">
+                            <circle cx="10" cy="5" r="3" fill="#1E64C8" opacity="0.6"/>
+                            <circle cx="30" cy="3" r="3" fill="#1E64C8" opacity="0.7"/>
+                            <circle cx="50" cy="6" r="3" fill="#1E64C8" opacity="0.8"/>
+                            <circle cx="70" cy="4" r="3" fill="#1E64C8" opacity="0.9"/>
+                            <circle cx="90" cy="5" r="3" fill="#1E64C8"/>
+                            <circle cx="110" cy="3" r="3" fill="#1E64C8"/>
+                            <circle cx="130" cy="6" r="3" fill="#1E64C8"/>
+                            <circle cx="150" cy="4" r="3" fill="#1E64C8"/>
+                            
+                            <path d="M 10,5 L 30,3 L 50,6 L 70,4 L 90,5 L 110,3 L 130,6 L 150,4" stroke="#1E64C8" stroke-width="1.5" fill="none" opacity="0.5"/>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="features-panel">
+                <div class="feature-item">
+                    <div class="feature-name">Three-track architecture</div>
+                    <div class="feature-detail">1D, 2D, 3D parallel processing</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-name">End-to-end learning</div>
+                    <div class="feature-detail">Direct structure prediction</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-name">Complex prediction</div>
+                    <div class="feature-detail">Protein-protein interactions</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-name">Speed advantages</div>
+                    <div class="feature-detail">Faster than AlphaFold2</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-name">Applications</div>
+                    <div class="feature-detail">Structure, function, design</div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

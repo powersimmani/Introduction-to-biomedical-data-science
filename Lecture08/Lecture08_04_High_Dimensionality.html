@@ -31,7 +31,7 @@
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: center;
         }
         
@@ -39,8 +39,8 @@
             background: #fff4e6;
             border: 3px solid #ff8c00;
             border-radius: 12px;
-            padding: 20px 28px;
-            margin-bottom: 25px;
+            padding: 16px 28px;
+            margin-bottom: 20px;
             text-align: center;
         }
         
@@ -48,7 +48,7 @@
             font-size: 20px;
             font-weight: 700;
             color: #ff8c00;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .problem-text {
@@ -56,60 +56,84 @@
             color: #333;
             line-height: 1.5;
         }
+
+        .content-section {
+            display: grid;
+            grid-template-columns: 300px 1fr;
+            gap: 20px;
+            margin-bottom: 18px;
+        }
+
+        .visualization {
+            background: #f8fbff;
+            border: 2.5px solid #1E64C8;
+            border-radius: 10px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .viz-title {
+            font-size: 14px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 10px;
+        }
         
         .challenges-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 25px;
+            gap: 15px;
         }
         
         .challenge-card {
             background: #f8fbff;
             border: 2.5px solid #1E64C8;
             border-radius: 10px;
-            padding: 18px 22px;
+            padding: 14px 18px;
             transition: all 0.3s;
         }
         
         .challenge-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(30, 100, 200, 0.2);
         }
         
         .challenge-title {
-            font-size: 19px;
+            font-size: 17px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .challenge-desc {
-            font-size: 16px;
+            font-size: 14px;
             color: #333;
-            line-height: 1.5;
+            line-height: 1.4;
         }
         
         .solution-box {
             background: #e8f5e9;
             border-left: 5px solid #28a745;
             border-radius: 8px;
-            padding: 18px 24px;
+            padding: 14px 20px;
         }
         
         .solution-title {
-            font-size: 19px;
+            font-size: 17px;
             font-weight: 700;
             color: #28a745;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
             display: flex;
             align-items: center;
-            gap: 10px;
+            gap: 8px;
         }
         
         .solution-items {
             display: flex;
-            gap: 15px;
+            gap: 12px;
             flex-wrap: wrap;
         }
         
@@ -117,8 +141,8 @@
             background: white;
             border: 2px solid #28a745;
             border-radius: 6px;
-            padding: 8px 16px;
-            font-size: 16px;
+            padding: 6px 14px;
+            font-size: 14px;
             color: #333;
             font-weight: 500;
         }
@@ -133,25 +157,68 @@
             <div class="problem-text">When features (P) greatly exceed samples (N): P >> N</div>
         </div>
         
-        <div class="challenges-grid">
-            <div class="challenge-card">
-                <div class="challenge-title">Overfitting Risks</div>
-                <div class="challenge-desc">Models memorize training data rather than learning generalizable patterns</div>
+        <div class="content-section">
+            <div class="visualization">
+                <div class="viz-title">Data Sparsity in High-D</div>
+                <svg width="270" height="180" viewBox="0 0 270 180">
+                    <!-- 1D representation -->
+                    <g>
+                        <text x="10" y="25" font-size="12" font-weight="600" fill="#1E64C8">1D</text>
+                        <line x1="40" y1="20" x2="190" y2="20" stroke="#1E64C8" stroke-width="2"/>
+                        <circle cx="60" cy="20" r="4" fill="#ff8c00"/>
+                        <circle cx="90" cy="20" r="4" fill="#ff8c00"/>
+                        <circle cx="120" cy="20" r="4" fill="#ff8c00"/>
+                        <circle cx="150" cy="20" r="4" fill="#ff8c00"/>
+                        <circle cx="180" cy="20" r="4" fill="#ff8c00"/>
+                        <text x="200" y="25" font-size="11" fill="#28a745">Dense ✓</text>
+                    </g>
+                    
+                    <!-- 2D representation -->
+                    <g>
+                        <text x="10" y="80" font-size="12" font-weight="600" fill="#1E64C8">2D</text>
+                        <rect x="40" y="50" width="100" height="100" fill="none" stroke="#1E64C8" stroke-width="2"/>
+                        <circle cx="60" cy="70" r="4" fill="#ff8c00"/>
+                        <circle cx="90" cy="90" r="4" fill="#ff8c00"/>
+                        <circle cx="70" cy="120" r="4" fill="#ff8c00"/>
+                        <circle cx="110" cy="80" r="4" fill="#ff8c00"/>
+                        <circle cx="120" cy="130" r="4" fill="#ff8c00"/>
+                        <text x="155" y="105" font-size="11" fill="#ffc107">Sparse ⚠</text>
+                    </g>
+                    
+                    <!-- 3D representation (perspective) -->
+                    <g>
+                        <text x="10" y="175" font-size="12" font-weight="600" fill="#1E64C8">3D+</text>
+                        <path d="M 40,145 L 125,145 L 140,170 L 55,170 Z" fill="none" stroke="#1E64C8" stroke-width="2"/>
+                        <path d="M 125,145 L 125,115 L 140,90 L 140,170 Z" fill="none" stroke="#1E64C8" stroke-width="2"/>
+                        <path d="M 40,145 L 40,115 L 125,115 L 125,145 Z" fill="none" stroke="#1E64C8" stroke-width="2"/>
+                        <circle cx="70" cy="135" r="3" fill="#ff8c00"/>
+                        <circle cx="100" cy="125" r="3" fill="#ff8c00"/>
+                        <circle cx="80" cy="155" r="3" fill="#ff8c00"/>
+                        <text x="155" y="140" font-size="11" fill="#dc3545">Very Sparse ✗</text>
+                    </g>
+                </svg>
             </div>
-            
-            <div class="challenge-card">
-                <div class="challenge-title">Sparse Data Space</div>
-                <div class="challenge-desc">Data points become increasingly sparse in high-dimensional space</div>
-            </div>
-            
-            <div class="challenge-card">
-                <div class="challenge-title">Distance Metrics Fail</div>
-                <div class="challenge-desc">All points appear equidistant in very high dimensions</div>
-            </div>
-            
-            <div class="challenge-card">
-                <div class="challenge-title">Computational Cost</div>
-                <div class="challenge-desc">Training time and memory requirements grow exponentially</div>
+
+            <div class="challenges-grid">
+                <div class="challenge-card">
+                    <div class="challenge-title">Overfitting Risks</div>
+                    <div class="challenge-desc">Models memorize training data rather than learning generalizable patterns</div>
+                </div>
+                
+                <div class="challenge-card">
+                    <div class="challenge-title">Distance Metrics Fail</div>
+                    <div class="challenge-desc">All points appear equidistant in very high dimensions</div>
+                </div>
+                
+                <div class="challenge-card">
+                    <div class="challenge-title">Sparse Data Space</div>
+                    <div class="challenge-desc">Data points become increasingly sparse in high-dimensional space</div>
+                </div>
+                
+                <div class="challenge-card">
+                    <div class="challenge-title">Computational Cost</div>
+                    <div class="challenge-desc">Training time and memory requirements grow exponentially</div>
+                </div>
             </div>
         </div>
         

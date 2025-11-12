@@ -31,21 +31,28 @@
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-align: center;
         }
         
-        .content-grid {
+        .main-visual {
             display: flex;
-            flex-direction: column;
-            gap: 22px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
         }
         
         .content-card {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 8px;
-            padding: 18px 24px;
+            padding: 14px 20px;
             transition: all 0.3s;
         }
         
@@ -56,22 +63,188 @@
         }
         
         .content-main {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         
         .content-desc {
-            font-size: 16px;
+            font-size: 14px;
             color: #555;
             font-weight: 400;
+        }
+
+        .flow-particle {
+            animation: flow-through 4s ease-in-out infinite;
+        }
+
+        @keyframes flow-through {
+            0% { transform: translate(0, 0); opacity: 0; }
+            20% { opacity: 1; }
+            80% { opacity: 1; }
+            100% { transform: translate(0, 100px); opacity: 0; }
+        }
+
+        .organ-pulse {
+            animation: pulse-organ 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-organ {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .concentration-curve {
+            animation: draw-curve 3s ease-in-out infinite;
+        }
+
+        @keyframes draw-curve {
+            0% { stroke-dashoffset: 200; }
+            100% { stroke-dashoffset: 0; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">ADMET Prediction</div>
+        
+        <div class="main-visual">
+            <svg width="860" height="240" viewBox="0 0 860 240">
+                <!-- Human body outline (simplified) -->
+                <g transform="translate(50, 20)">
+                    <!-- Head -->
+                    <ellipse cx="100" cy="30" rx="25" ry="30" fill="#fce4ec" stroke="#e91e63" stroke-width="2" class="organ-pulse"/>
+                    <text x="100" y="35" text-anchor="middle" font-size="12" font-weight="600" fill="#c2185b">Brain</text>
+                    <text x="100" y="70" text-anchor="middle" font-size="9" fill="#666">BBB</text>
+                    
+                    <!-- Torso outline -->
+                    <rect x="60" y="55" width="80" height="120" rx="15" fill="#e3f2fd" opacity="0.3" stroke="#1E64C8" stroke-width="2"/>
+                    
+                    <!-- Stomach/GI (Absorption) -->
+                    <ellipse cx="90" cy="85" rx="20" ry="25" fill="#fff9c4" stroke="#fbc02d" stroke-width="2" class="organ-pulse"/>
+                    <text x="90" y="88" text-anchor="middle" font-size="11" font-weight="600" fill="#f57f17">GI</text>
+                    <text x="35" y="90" font-size="10" font-weight="600" fill="#f57f17">A</text>
+                    
+                    <!-- Liver (Metabolism) -->
+                    <ellipse cx="115" cy="110" rx="18" ry="22" fill="#dcedc8" stroke="#689f38" stroke-width="2" class="organ-pulse"/>
+                    <text x="115" y="113" text-anchor="middle" font-size="10" font-weight="600" fill="#33691e">Liver</text>
+                    <text x="145" y="112" font-size="10" font-weight="600" fill="#689f38">M</text>
+                    
+                    <!-- Heart/Blood (Distribution) -->
+                    <ellipse cx="85" cy="110" rx="15" ry="18" fill="#ffebee" stroke="#e53935" stroke-width="2" class="organ-pulse"/>
+                    <text x="85" y="113" text-anchor="middle" font-size="9" font-weight="600" fill="#c62828">❤️</text>
+                    <text x="55" y="112" font-size="10" font-weight="600" fill="#e53935">D</text>
+                    
+                    <!-- Kidneys (Excretion) -->
+                    <ellipse cx="75" cy="145" rx="12" ry="15" fill="#e1bee7" stroke="#8e24aa" stroke-width="2" class="organ-pulse"/>
+                    <ellipse cx="105" cy="145" rx="12" ry="15" fill="#e1bee7" stroke="#8e24aa" stroke-width="2" class="organ-pulse"/>
+                    <text x="90" y="148" text-anchor="middle" font-size="9" font-weight="600" fill="#6a1b9a">Kidney</text>
+                    <text x="125" y="147" font-size="10" font-weight="600" fill="#8e24aa">E</text>
+                    
+                    <!-- Flow arrows -->
+                    <path d="M 90 110 L 90 120" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-body)" stroke-dasharray="3,2"/>
+                    <path d="M 90 125 L 90 130" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-body)" stroke-dasharray="3,2"/>
+                    
+                    <!-- Drug particles flowing -->
+                    <g class="flow-particle">
+                        <circle cx="90" cy="85" r="3" fill="#1E64C8" opacity="0.8"/>
+                    </g>
+                    <g class="flow-particle" style="animation-delay: 1s;">
+                        <circle cx="90" cy="85" r="3" fill="#1E64C8" opacity="0.8"/>
+                    </g>
+                    <g class="flow-particle" style="animation-delay: 2s;">
+                        <circle cx="90" cy="85" r="3" fill="#1E64C8" opacity="0.8"/>
+                    </g>
+                </g>
+
+                <!-- ADMET labels with icons -->
+                <g transform="translate(220, 30)">
+                    <!-- Absorption -->
+                    <rect x="0" y="0" width="150" height="35" rx="6" fill="#fff9c4" stroke="#fbc02d" stroke-width="2"/>
+                    <text x="75" y="15" text-anchor="middle" font-size="13" font-weight="600" fill="#f57f17">Absorption</text>
+                    <text x="75" y="28" text-anchor="middle" font-size="9" fill="#666">Caco-2, LogP</text>
+                </g>
+
+                <g transform="translate(220, 75)">
+                    <!-- Distribution -->
+                    <rect x="0" y="0" width="150" height="35" rx="6" fill="#ffebee" stroke="#e53935" stroke-width="2"/>
+                    <text x="75" y="15" text-anchor="middle" font-size="13" font-weight="600" fill="#c62828">Distribution</text>
+                    <text x="75" y="28" text-anchor="middle" font-size="9" fill="#666">Vd, PPB</text>
+                </g>
+
+                <g transform="translate(220, 120)">
+                    <!-- Metabolism -->
+                    <rect x="0" y="0" width="150" height="35" rx="6" fill="#dcedc8" stroke="#689f38" stroke-width="2"/>
+                    <text x="75" y="15" text-anchor="middle" font-size="13" font-weight="600" fill="#33691e">Metabolism</text>
+                    <text x="75" y="28" text-anchor="middle" font-size="9" fill="#666">CYP450</text>
+                </g>
+
+                <g transform="translate(220, 165)">
+                    <!-- Excretion -->
+                    <rect x="0" y="0" width="150" height="35" rx="6" fill="#e1bee7" stroke="#8e24aa" stroke-width="2"/>
+                    <text x="75" y="15" text-anchor="middle" font-size="13" font-weight="600" fill="#6a1b9a">Excretion</text>
+                    <text x="75" y="28" text-anchor="middle" font-size="9" fill="#666">Clearance</text>
+                </g>
+
+                <g transform="translate(220, 210)">
+                    <!-- Toxicity -->
+                    <rect x="0" y="0" width="150" height="35" rx="6" fill="#ffccbc" stroke="#ff5722" stroke-width="2"/>
+                    <text x="75" y="15" text-anchor="middle" font-size="13" font-weight="600" fill="#d84315">Toxicity</text>
+                    <text x="75" y="28" text-anchor="middle" font-size="9" fill="#666">hERG, LD50</text>
+                </g>
+
+                <!-- Concentration-Time curve -->
+                <g transform="translate(450, 30)">
+                    <rect x="0" y="0" width="330" height="210" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="165" y="20" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Pharmacokinetic Profile</text>
+                    
+                    <!-- Axes -->
+                    <line x1="40" y1="180" x2="300" y2="180" stroke="#666" stroke-width="2"/>
+                    <line x1="40" y1="50" x2="40" y2="180" stroke="#666" stroke-width="2"/>
+                    
+                    <!-- Labels -->
+                    <text x="170" y="200" text-anchor="middle" font-size="11" fill="#666">Time</text>
+                    <text x="20" y="115" text-anchor="middle" font-size="11" fill="#666" transform="rotate(-90, 20, 115)">Concentration</text>
+                    
+                    <!-- PK curve -->
+                    <path d="M 50 170 Q 100 80, 150 90 T 250 160" 
+                          fill="none" 
+                          stroke="#e74c3c" 
+                          stroke-width="3" 
+                          stroke-dasharray="200"
+                          class="concentration-curve"/>
+                    
+                    <!-- Cmax marker -->
+                    <circle cx="150" cy="90" r="5" fill="#e74c3c"/>
+                    <text x="150" y="75" text-anchor="middle" font-size="9" fill="#e74c3c" font-weight="600">Cmax</text>
+                    
+                    <!-- Tmax line -->
+                    <line x1="150" y1="90" x2="150" y2="180" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="3,2" opacity="0.5"/>
+                    <text x="150" y="195" text-anchor="middle" font-size="9" fill="#666">Tmax</text>
+                    
+                    <!-- AUC shading -->
+                    <path d="M 50 170 Q 100 80, 150 90 T 250 160 L 250 180 L 50 180 Z" 
+                          fill="#e74c3c" 
+                          opacity="0.1"/>
+                    <text x="150" y="145" text-anchor="middle" font-size="10" fill="#e74c3c" font-weight="600">AUC</text>
+                    
+                    <!-- Therapeutic window -->
+                    <line x1="50" y1="110" x2="290" y2="110" stroke="#2ecc71" stroke-width="2" stroke-dasharray="5,3" opacity="0.6"/>
+                    <text x="300" y="113" font-size="9" fill="#2ecc71">Therapeutic</text>
+                    
+                    <line x1="50" y1="150" x2="290" y2="150" stroke="#95a5a6" stroke-width="2" stroke-dasharray="5,3" opacity="0.6"/>
+                    <text x="300" y="153" font-size="9" fill="#95a5a6">Sub-therapeutic</text>
+                </g>
+
+                <!-- Arrow marker -->
+                <defs>
+                    <marker id="arrow-body" markerWidth="8" markerHeight="8" refX="7" refY="2.5" orient="auto">
+                        <polygon points="0 0, 8 2.5, 0 5" fill="#1E64C8"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
         
         <div class="content-grid">
             <div class="content-card">

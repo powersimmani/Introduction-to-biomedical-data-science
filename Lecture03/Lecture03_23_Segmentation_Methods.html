@@ -25,29 +25,38 @@
             height: 540px;
             padding: 40px 60px;
             background: white;
+            display: flex;
+            flex-direction: column;
         }
         
         .title {
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
         }
         
+        .main-content {
+            display: flex;
+            gap: 30px;
+            flex: 1;
+        }
+        
         .content-grid {
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 13px;
+            flex: 1;
         }
         
         .content-card {
             background: #f8fbff;
             border-left: 5px solid #1E64C8;
             border-radius: 8px;
-            padding: 16px 22px;
+            padding: 13px 20px;
             transition: all 0.3s;
         }
         
@@ -57,16 +66,23 @@
         }
         
         .card-label {
-            font-size: 19px;
+            font-size: 17px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
         
         .card-desc {
-            font-size: 17px;
+            font-size: 15px;
             color: #333;
             line-height: 1.4;
+        }
+        
+        .diagram-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
@@ -74,28 +90,183 @@
     <div class="container">
         <div class="title">Segmentation Methods</div>
         
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="card-label">Thresholding techniques</div>
-                <div class="card-desc">Global, adaptive, Otsu's method</div>
+        <div class="main-content">
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-label">Thresholding techniques</div>
+                    <div class="card-desc">Global, adaptive, Otsu's method</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Region growing</div>
+                    <div class="card-desc">Seed-based similar pixel grouping</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Watershed algorithm</div>
+                    <div class="card-desc">Treating image as topographic surface</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Active contours</div>
+                    <div class="card-desc">Energy-minimizing snakes</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Machine learning methods</div>
+                    <div class="card-desc">U-Net, Mask R-CNN for segmentation</div>
+                </div>
             </div>
-            <div class="content-card">
-                <div class="card-label">Region growing</div>
-                <div class="card-desc">Seed-based similar pixel grouping</div>
+            
+            <div class="diagram-container">
+                <svg width="420" height="400" viewBox="0 0 420 400">
+                    <!-- Original Image -->
+                    <g id="original">
+                        <text x="60" y="15" text-anchor="middle" font-size="11" fill="#333" font-weight="700">Original Image</text>
+                        <rect x="10" y="25" width="100" height="75" fill="#E8E8E8" stroke="#666" stroke-width="2"/>
+                        <!-- Simulate cell structures -->
+                        <circle cx="40" cy="50" r="15" fill="#B0B0B0" stroke="#808080" stroke-width="1.5"/>
+                        <circle cx="75" cy="70" r="12" fill="#B0B0B0" stroke="#808080" stroke-width="1.5"/>
+                        <ellipse cx="60" cy="80" rx="10" ry="8" fill="#B0B0B0" stroke="#808080" stroke-width="1.5"/>
+                    </g>
+                    
+                    <!-- Thresholding -->
+                    <g id="threshold">
+                        <text x="170" y="15" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Thresholding</text>
+                        <rect x="120" y="25" width="100" height="75" fill="white" stroke="#1E64C8" stroke-width="2"/>
+                        <!-- Binary result -->
+                        <circle cx="150" cy="50" r="15" fill="#1E64C8"/>
+                        <circle cx="185" cy="70" r="12" fill="#1E64C8"/>
+                        <ellipse cx="170" cy="80" rx="10" ry="8" fill="#1E64C8"/>
+                        <text x="170" y="115" text-anchor="middle" font-size="9" fill="#666">I &gt; threshold</text>
+                    </g>
+                    
+                    <!-- Region Growing -->
+                    <g id="region">
+                        <text x="280" y="15" text-anchor="middle" font-size="11" fill="#28a745" font-weight="700">Region Growing</text>
+                        <rect x="230" y="25" width="100" height="75" fill="white" stroke="#28a745" stroke-width="2"/>
+                        <!-- Seed point and growth -->
+                        <circle cx="260" cy="50" r="3" fill="#FF6B6B"/>
+                        <text x="260" y="46" text-anchor="middle" font-size="8" fill="#FF6B6B" font-weight="700">✱</text>
+                        <circle cx="260" cy="50" r="15" fill="#28a745" opacity="0.7"/>
+                        <circle cx="295" cy="70" r="12" fill="#28a745" opacity="0.7"/>
+                        <text x="280" y="115" text-anchor="middle" font-size="9" fill="#666">Seed → Grow</text>
+                    </g>
+                    
+                    <!-- Watershed -->
+                    <g id="watershed">
+                        <text x="380" y="15" text-anchor="middle" font-size="11" fill="#9C27B0" font-weight="700">Watershed</text>
+                        <rect x="340" y="25" width="70" height="75" fill="white" stroke="#9C27B0" stroke-width="2"/>
+                        
+                        <!-- Watershed basins -->
+                        <path d="M 350 80 Q 360 65, 370 80" fill="#E1BEE7" stroke="#9C27B0" stroke-width="1.5"/>
+                        <path d="M 375 75 Q 385 60, 395 75" fill="#E1BEE7" stroke="#9C27B0" stroke-width="1.5"/>
+                        <line x1="372" y1="40" x2="372" y2="95" stroke="#9C27B0" stroke-width="2"/>
+                        <text x="375" y="115" text-anchor="middle" font-size="9" fill="#666">Basins</text>
+                    </g>
+                    
+                    <!-- Active Contours (Snakes) -->
+                    <g id="snakes">
+                        <text x="60" y="155" text-anchor="middle" font-size="11" fill="#FF6B6B" font-weight="700">Active Contours</text>
+                        <rect x="10" y="165" width="100" height="75" fill="white" stroke="#FF6B6B" stroke-width="2"/>
+                        
+                        <!-- Initial contour -->
+                        <circle cx="60" cy="202" r="20" fill="none" stroke="#FFA500" stroke-width="1.5" stroke-dasharray="3,3"/>
+                        <text x="60" y="188" text-anchor="middle" font-size="8" fill="#FFA500">Initial</text>
+                        
+                        <!-- Final contour fitting object -->
+                        <ellipse cx="55" cy="205" rx="15" ry="18" fill="none" stroke="#FF6B6B" stroke-width="2.5"/>
+                        <circle cx="55" cy="205" r="12" fill="#B0B0B0" opacity="0.5"/>
+                        <text x="60" y="255" text-anchor="middle" font-size="9" fill="#666">Energy min</text>
+                    </g>
+                    
+                    <!-- U-Net Architecture -->
+                    <g id="unet">
+                        <text x="170" y="155" text-anchor="middle" font-size="11" fill="#FF9800" font-weight="700">U-Net / Deep Learning</text>
+                        <rect x="120" y="165" width="100" height="75" fill="white" stroke="#FF9800" stroke-width="2"/>
+                        
+                        <!-- Simplified U-Net structure -->
+                        <!-- Encoder -->
+                        <rect x="130" y="175" width="15" height="15" fill="#FF9800" opacity="0.8"/>
+                        <rect x="148" y="183" width="12" height="12" fill="#FF9800" opacity="0.6"/>
+                        <rect x="163" y="189" width="9" height="9" fill="#FF9800" opacity="0.4"/>
+                        
+                        <!-- Decoder -->
+                        <rect x="175" y="189" width="9" height="9" fill="#4CAF50" opacity="0.4"/>
+                        <rect x="187" y="183" width="12" height="12" fill="#4CAF50" opacity="0.6"/>
+                        <rect x="202" y="175" width="15" height="15" fill="#4CAF50" opacity="0.8"/>
+                        
+                        <!-- Skip connections -->
+                        <line x1="145" y1="180" x2="207" y2="180" stroke="#1E64C8" stroke-width="1" stroke-dasharray="2,2"/>
+                        <line x1="154" y1="188" x2="193" y2="188" stroke="#1E64C8" stroke-width="1" stroke-dasharray="2,2"/>
+                        
+                        <!-- Output mask -->
+                        <circle cx="170" cy="220" r="12" fill="#4CAF50" opacity="0.7"/>
+                        <text x="170" y="255" text-anchor="middle" font-size="9" fill="#666">Pixel-wise</text>
+                    </g>
+                    
+                    <!-- Comparison table -->
+                    <g id="comparison">
+                        <rect x="240" y="165" width="170" height="220" fill="#f8f8f8" stroke="#666" stroke-width="2" rx="5"/>
+                        <text x="325" y="185" text-anchor="middle" font-size="11" fill="#333" font-weight="700">Method Comparison</text>
+                        
+                        <!-- Headers -->
+                        <text x="255" y="205" font-size="9" fill="#333" font-weight="600">Method</text>
+                        <text x="340" y="205" font-size="9" fill="#333" font-weight="600">Speed</text>
+                        <text x="385" y="205" font-size="9" fill="#333" font-weight="600">Accuracy</text>
+                        
+                        <line x1="250" y1="208" x2="400" y2="208" stroke="#ccc" stroke-width="1"/>
+                        
+                        <!-- Threshold -->
+                        <text x="255" y="225" font-size="9" fill="#1E64C8">Threshold</text>
+                        <rect x="340" y="217" width="30" height="8" fill="#4CAF50" opacity="0.8"/>
+                        <text x="343" y="224" font-size="8" fill="white">Fast</text>
+                        <rect x="380" y="217" width="20" height="8" fill="#FFC107" opacity="0.7"/>
+                        
+                        <!-- Region -->
+                        <text x="255" y="245" font-size="9" fill="#28a745">Region</text>
+                        <rect x="340" y="237" width="25" height="8" fill="#8BC34A" opacity="0.8"/>
+                        <rect x="380" y="237" width="25" height="8" fill="#8BC34A" opacity="0.7"/>
+                        
+                        <!-- Watershed -->
+                        <text x="255" y="265" font-size="9" fill="#9C27B0">Watershed</text>
+                        <rect x="340" y="257" width="25" height="8" fill="#8BC34A" opacity="0.8"/>
+                        <rect x="380" y="257" width="28" height="8" fill="#4CAF50" opacity="0.8"/>
+                        
+                        <!-- Snakes -->
+                        <text x="255" y="285" font-size="9" fill="#FF6B6B">Snakes</text>
+                        <rect x="340" y="277" width="20" height="8" fill="#FFC107" opacity="0.7"/>
+                        <rect x="380" y="277" width="28" height="8" fill="#4CAF50" opacity="0.8"/>
+                        
+                        <!-- Deep Learning -->
+                        <text x="255" y="305" font-size="9" fill="#FF9800">Deep Learn</text>
+                        <rect x="340" y="297" width="18" height="8" fill="#FF9800" opacity="0.7"/>
+                        <text x="343" y="304" font-size="8" fill="white">Slow</text>
+                        <rect x="380" y="297" width="30" height="8" fill="#4CAF50" opacity="0.9"/>
+                        <text x="383" y="304" font-size="8" fill="white">High</text>
+                        
+                        <!-- Legend -->
+                        <text x="325" y="330" text-anchor="middle" font-size="10" fill="#666" font-weight="600">Key Considerations:</text>
+                        <text x="255" y="348" font-size="8" fill="#666">• Threshold: Simple, fast, manual tuning</text>
+                        <text x="255" y="360" font-size="8" fill="#666">• Region: Good for homogeneous areas</text>
+                        <text x="255" y="372" font-size="8" fill="#666">• Watershed: Handles touching objects</text>
+                        <text x="255" y="384" font-size="8" fill="#666">• DL: Best accuracy, needs training data</text>
+                    </g>
+                    
+                    <!-- Application note -->
+                    <g id="app-note">
+                        <rect x="10" y="260" width="210" height="60" fill="#E3F2FD" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="115" y="278" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="700">Clinical Applications</text>
+                        <text x="115" y="295" text-anchor="middle" font-size="9" fill="#333">Tumor delineation • Cell counting</text>
+                        <text x="115" y="310" text-anchor="middle" font-size="9" fill="#333">Organ segmentation • Lesion detection</text>
+                    </g>
+                    
+                    <!-- Arrows showing workflow -->
+                    <defs>
+                        <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+                        </marker>
+                    </defs>
+                    <line x1="60" y1="105" x2="60" y2="150" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="3,3"/>
+                    <line x1="170" y1="105" x2="170" y2="150" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="3,3"/>
+                </svg>
             </div>
-            <div class="content-card">
-                <div class="card-label">Watershed algorithm</div>
-                <div class="card-desc">Treating image as topographic surface</div>
-            </div>
-            <div class="content-card">
-                <div class="card-label">Active contours</div>
-                <div class="card-desc">Energy-minimizing snakes</div>
-            </div>
-            <div class="content-card">
-                <div class="card-label">Machine learning methods</div>
-                <div class="card-desc">U-Net, Mask R-CNN for segmentation</div>
-            </div>
-
         </div>
     </div>
 </body>

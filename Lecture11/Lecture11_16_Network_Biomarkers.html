@@ -31,25 +31,96 @@
             font-size: 28px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
         }
         
+        .network-container {
+            display: flex;
+            gap: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .network-visual {
+            flex: 1;
+            background: #f8f9fb;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            min-height: 280px;
+        }
+        
+        .network-svg {
+            width: 100%;
+            height: 280px;
+        }
+        
+        .node {
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .node:hover {
+            filter: brightness(1.2);
+        }
+        
+        .node-circle {
+            fill: #1E64C8;
+            stroke: white;
+            stroke-width: 3;
+        }
+        
+        .hub-node {
+            fill: #ff6b6b;
+        }
+        
+        .node-label {
+            fill: white;
+            font-size: 11px;
+            font-weight: 600;
+            text-anchor: middle;
+            pointer-events: none;
+        }
+        
+        .edge {
+            stroke: #1E64C8;
+            stroke-width: 2;
+            stroke-opacity: 0.3;
+        }
+        
+        .edge-dysregulated {
+            stroke: #ff6b6b;
+            stroke-width: 3;
+            stroke-opacity: 0.6;
+            stroke-dasharray: 5,5;
+        }
+        
+        .module {
+            fill: none;
+            stroke: #5088d4;
+            stroke-width: 2;
+            stroke-dasharray: 8,4;
+            opacity: 0.5;
+        }
+        
         .content-list {
+            flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-bottom: 25px;
+            gap: 12px;
         }
         
         .content-card {
             background: #f8f9fb;
             border-left: 5px solid #1E64C8;
-            padding: 18px 22px;
+            padding: 15px 18px;
             border-radius: 8px;
             transition: all 0.3s;
             display: flex;
-            gap: 15px;
+            gap: 12px;
             align-items: flex-start;
         }
         
@@ -58,29 +129,61 @@
             transform: translateX(5px);
         }
         
-        .card-title {
-            font-size: 17px;
-            font-weight: 700;
-            color: #1E64C8;
-            min-width: 180px;
+        .card-icon {
+            font-size: 24px;
             flex-shrink: 0;
         }
         
-        .card-content {
+        .card-text {
+            flex: 1;
+        }
+        
+        .card-title {
             font-size: 16px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 4px;
+        }
+        
+        .card-content {
+            font-size: 14px;
             color: #333;
-            line-height: 1.5;
+            line-height: 1.4;
         }
         
         .highlight-box {
             background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
             color: white;
-            padding: 18px 25px;
+            padding: 16px 25px;
             border-radius: 10px;
             text-align: center;
-            font-size: 16px;
+            font-size: 15px;
             font-weight: 500;
             line-height: 1.6;
+        }
+        
+        .legend {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: white;
+            padding: 10px;
+            border-radius: 6px;
+            font-size: 11px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            margin-bottom: 4px;
+        }
+        
+        .legend-color {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
         }
     </style>
 </head>
@@ -88,22 +191,115 @@
     <div class="container">
         <div class="title">Network Biomarkers</div>
         
-        <div class="content-list">
-            <div class="content-card">
-                <div class="card-title">Module Identification</div>
-                <div class="card-content">Detect functional gene/protein modules</div>
+        <div class="network-container">
+            <div class="network-visual">
+                <svg class="network-svg" viewBox="0 0 400 280">
+                    <!-- Module boundary -->
+                    <ellipse class="module" cx="200" cy="140" rx="160" ry="110"/>
+                    
+                    <!-- Edges (connections) -->
+                    <line class="edge" x1="200" y1="80" x2="150" y2="140"/>
+                    <line class="edge" x1="200" y1="80" x2="250" y2="140"/>
+                    <line class="edge" x1="200" y1="80" x2="200" y2="200"/>
+                    <line class="edge-dysregulated" x1="200" y1="80" x2="120" y2="180"/>
+                    <line class="edge-dysregulated" x1="200" y1="80" x2="280" y2="180"/>
+                    <line class="edge" x1="150" y1="140" x2="120" y2="180"/>
+                    <line class="edge" x1="250" y1="140" x2="280" y2="180"/>
+                    <line class="edge" x1="120" y1="180" x2="200" y2="200"/>
+                    <line class="edge" x1="280" y1="180" x2="200" y2="200"/>
+                    
+                    <!-- Peripheral nodes -->
+                    <g class="node">
+                        <circle class="node-circle" cx="80" cy="100" r="18"/>
+                        <text class="node-label" x="80" y="105">G1</text>
+                    </g>
+                    <g class="node">
+                        <circle class="node-circle" cx="320" cy="100" r="18"/>
+                        <text class="node-label" x="320" y="105">G2</text>
+                    </g>
+                    <g class="node">
+                        <circle class="node-circle" cx="70" cy="220" r="18"/>
+                        <text class="node-label" x="70" y="225">G3</text>
+                    </g>
+                    <g class="node">
+                        <circle class="node-circle" cx="330" cy="220" r="18"/>
+                        <text class="node-label" x="330" y="225">G4</text>
+                    </g>
+                    
+                    <!-- Module nodes -->
+                    <g class="node">
+                        <circle class="node-circle" cx="150" cy="140" r="22"/>
+                        <text class="node-label" x="150" y="145">M1</text>
+                    </g>
+                    <g class="node">
+                        <circle class="node-circle" cx="250" cy="140" r="22"/>
+                        <text class="node-label" x="250" y="145">M2</text>
+                    </g>
+                    <g class="node">
+                        <circle class="node-circle" cx="120" cy="180" r="22"/>
+                        <text class="node-label" x="120" y="185">M3</text>
+                    </g>
+                    <g class="node">
+                        <circle class="node-circle" cx="280" cy="180" r="22"/>
+                        <text class="node-label" x="280" y="185">M4</text>
+                    </g>
+                    <g class="node">
+                        <circle class="node-circle" cx="200" cy="200" r="22"/>
+                        <text class="node-label" x="200" y="205">M5</text>
+                    </g>
+                    
+                    <!-- Hub node (central) -->
+                    <g class="node">
+                        <circle class="node-circle hub-node" cx="200" cy="80" r="28"/>
+                        <text class="node-label" x="200" y="86">HUB</text>
+                    </g>
+                </svg>
+                
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #ff6b6b;"></div>
+                        <span>Hub Gene</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-color" style="background: #1E64C8;"></div>
+                        <span>Module Gene</span>
+                    </div>
+                    <div class="legend-item">
+                        <svg width="16" height="2"><line x1="0" y1="1" x2="16" y2="1" stroke="#ff6b6b" stroke-width="2" stroke-dasharray="3,2"/></svg>
+                        <span>Dysregulated</span>
+                    </div>
+                </div>
             </div>
-            <div class="content-card">
-                <div class="card-title">Hub Genes</div>
-                <div class="card-content">Central nodes in biological networks</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Edge Biomarkers</div>
-                <div class="card-content">Dysregulated interactions between molecules</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Dynamic Networks</div>
-                <div class="card-content">Time-varying network states</div>
+            
+            <div class="content-list">
+                <div class="content-card">
+                    <div class="card-icon">🔷</div>
+                    <div class="card-text">
+                        <div class="card-title">Module Identification</div>
+                        <div class="card-content">Detect functional gene/protein modules</div>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-icon">⭐</div>
+                    <div class="card-text">
+                        <div class="card-title">Hub Genes</div>
+                        <div class="card-content">Central nodes in biological networks</div>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-icon">🔗</div>
+                    <div class="card-text">
+                        <div class="card-title">Edge Biomarkers</div>
+                        <div class="card-content">Dysregulated interactions between molecules</div>
+                    </div>
+                </div>
+                <div class="content-card">
+                    <div class="card-icon">⚡</div>
+                    <div class="card-text">
+                        <div class="card-title">Dynamic Networks</div>
+                        <div class="card-content">Time-varying network states</div>
+                    </div>
+                </div>
             </div>
         </div>
         

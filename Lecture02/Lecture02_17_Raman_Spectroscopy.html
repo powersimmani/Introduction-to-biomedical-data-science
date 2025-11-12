@@ -6,36 +6,216 @@
     <title>Raman Spectroscopy</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Aptos, 'Segoe UI', sans-serif; background: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { width: 960px; height: 540px; padding: 30px 40px; background: white; }
-        .title { font-size: 28px; font-weight: 600; color: #1E64C8; margin-bottom: 22px; text-align: center; }
+        body { 
+            font-family: Aptos, 'Segoe UI', sans-serif; 
+            background: white; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+        }
+        .container { 
+            width: 960px; 
+            height: 540px; 
+            padding: 30px 40px; 
+            background: white; 
+        }
+        .title { 
+            font-size: 28px; 
+            font-weight: 600; 
+            color: #1E64C8; 
+            margin-bottom: 16px; 
+            text-align: center; 
+        }
+        .main-section {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .raman-diagram {
+            background: #f0f5fc;
+            border: 2px solid #1E64C8;
+            border-radius: 10px;
+            padding: 18px;
+        }
+        .equation-box {
+            background: linear-gradient(135deg, #1E64C8 0%, #2874d8 100%); 
+            border-radius: 10px; 
+            padding: 16px; 
+            text-align: center; 
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .equation {
+            font-size: 20px; 
+            font-weight: 700; 
+            margin-bottom: 8px;
+        }
+        .equation-desc {
+            font-size: 13px; 
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 13px;
+        }
+        .content-card {
+            background: #f0f5fc; 
+            border: 2px solid #1E64C8; 
+            border-radius: 8px; 
+            padding: 13px;
+            transition: all 0.3s;
+        }
+        .content-card:hover {
+            background: #e0ebff;
+            transform: scale(1.02);
+        }
+        .card-title {
+            font-size: 15px; 
+            font-weight: 700; 
+            color: #1E64C8; 
+            margin-bottom: 6px;
+        }
+        .card-desc {
+            font-size: 13px; 
+            color: #333;
+            line-height: 1.4;
+        }
+        .sers-highlight {
+            background: linear-gradient(135deg, #f39c12 0%, #f8b739 100%);
+            color: white;
+            border-radius: 8px;
+            padding: 12px;
+            text-align: center;
+            margin-top: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Raman Spectroscopy</div>
-        <div style="background: linear-gradient(135deg, #1E64C8 0%, #2874d8 100%); border-radius: 10px; padding: 16px; margin-bottom: 16px; text-align: center; color: white;">
-        <div style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Raman Shift: Δν = ν₀ - νscattered</div>
-        <div style="font-size: 15px; opacity: 0.95;">Chemical fingerprint without labels</div>
-    </div>
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px;">
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Biological Applications</div>
-            <div style="font-size: 14px; color: #333;">Cell imaging, drug distribution, cancer diagnostics</div>
+        
+        <div class="main-section">
+            <div class="raman-diagram">
+                <div style="font-size: 15px; font-weight: 700; color: #1E64C8; margin-bottom: 12px; text-align: center;">
+                    Raman Scattering Energy Diagram
+                </div>
+                <svg width="100%" height="220" viewBox="0 0 500 220">
+                    <!-- Energy levels -->
+                    <!-- Ground state -->
+                    <line x1="50" y1="180" x2="150" y2="180" stroke="#1E64C8" stroke-width="4"/>
+                    <text x="30" y="185" font-size="14" fill="#1E64C8" font-weight="bold">v=0</text>
+                    
+                    <!-- First excited vibrational state -->
+                    <line x1="50" y1="150" x2="150" y2="150" stroke="#1E64C8" stroke-width="3" opacity="0.6"/>
+                    <text x="30" y="155" font-size="14" fill="#1E64C8" font-weight="bold">v=1</text>
+                    
+                    <!-- Virtual state (dashed) -->
+                    <line x1="200" y1="60" x2="300" y2="60" stroke="#9b59b6" stroke-width="2" stroke-dasharray="5,3"/>
+                    <text x="310" y="65" font-size="12" fill="#9b59b6" font-weight="bold">Virtual state</text>
+                    
+                    <!-- Rayleigh scattering (left) -->
+                    <line x1="100" y1="180" x2="230" y2="60" stroke="#3498db" stroke-width="2.5" marker-end="url(#arrowUp)"/>
+                    <text x="150" y="110" font-size="11" fill="#3498db" font-weight="bold">Excitation</text>
+                    <line x1="230" y1="60" x2="360" y2="180" stroke="#3498db" stroke-width="2.5" marker-end="url(#arrowDown)"/>
+                    <text x="290" y="110" font-size="11" fill="#3498db" font-weight="bold">Rayleigh</text>
+                    <text x="385" y="185" font-size="12" fill="#3498db" font-weight="bold">ν₀</text>
+                    
+                    <!-- Stokes scattering (middle) -->
+                    <line x1="100" y1="180" x2="250" y2="60" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrowUp)"/>
+                    <line x1="250" y1="60" x2="380" y2="150" stroke="#27ae60" stroke-width="2.5" marker-end="url(#arrowDown)"/>
+                    <text x="420" y="155" font-size="12" fill="#27ae60" font-weight="bold">ν₀-νᵥᵢᵦ</text>
+                    <text x="410" y="167" font-size="10" fill="#27ae60">(Stokes)</text>
+                    
+                    <!-- Anti-Stokes scattering (right) -->
+                    <line x1="100" y1="150" x2="270" y2="60" stroke="#E74C3C" stroke-width="2.5" marker-end="url(#arrowUp)"/>
+                    <line x1="270" y1="60" x2="400" y2="210" stroke="#E74C3C" stroke-width="2.5" marker-end="url(#arrowDown)"/>
+                    <text x="430" y="210" font-size="12" fill="#E74C3C" font-weight="bold">ν₀+νᵥᵢᵦ</text>
+                    <text x="420" y="200" font-size="10" fill="#E74C3C">(Anti-Stokes)</text>
+                    
+                    <!-- Frequency shift indicator -->
+                    <line x1="80" y1="200" x2="450" y2="200" stroke="#666" stroke-width="1"/>
+                    <text x="250" y="215" text-anchor="middle" font-size="11" fill="#666" font-weight="bold">Raman Shift (cm⁻¹)</text>
+                    
+                    <defs>
+                        <marker id="arrowUp" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+                        </marker>
+                        <marker id="arrowDown" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            
+            <div class="equation-box">
+                <div class="equation">Δν = ν₀ - νₛcattered</div>
+                <div class="equation-desc">
+                    <strong>Raman Shift:</strong> Chemical fingerprint without labels<br><br>
+                    <strong>Stokes:</strong> Energy loss<br>
+                    (molecule gains vibrational energy)<br><br>
+                    <strong>Anti-Stokes:</strong> Energy gain<br>
+                    (less intense, temperature dependent)<br><br>
+                    Provides molecular vibrational information
+                </div>
+            </div>
         </div>
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">SERS</div>
-            <div style="font-size: 14px; color: #333;">Surface-Enhanced Raman: 10⁶-10¹⁴ enhancement on metal nanoparticles</div>
+        
+        <div class="content-grid">
+            <div class="content-card">
+                <div class="card-title">🔬 Biological Applications</div>
+                <div class="card-desc">
+                    <strong>Cell imaging:</strong> Label-free analysis<br>
+                    <strong>Drug distribution:</strong> Tissue mapping<br>
+                    <strong>Cancer diagnostics:</strong> Tissue characterization<br>
+                    <strong>Protein structure:</strong> Secondary structure analysis
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <div class="card-title">✨ SERS (Surface-Enhanced)</div>
+                <div class="card-desc">
+                    <strong>Enhancement:</strong> 10⁶-10¹⁴ fold<br>
+                    Metal nanoparticles (Au, Ag)<br>
+                    Single molecule detection possible<br>
+                    Biosensing applications
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <div class="card-title">🗺️ Raman Imaging</div>
+                <div class="card-desc">
+                    Spatial mapping of molecular composition<br>
+                    Confocal Raman microscopy<br>
+                    Chemical maps of cells/tissues<br>
+                    Sub-micron resolution
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <div class="card-title">🆓 Label-free Analysis</div>
+                <div class="card-desc">
+                    No fluorophores needed<br>
+                    Native state biomolecules<br>
+                    Non-destructive measurement<br>
+                    Real-time monitoring possible
+                </div>
+            </div>
         </div>
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Raman Imaging</div>
-            <div style="font-size: 14px; color: #333;">Spatial mapping of molecular composition. Confocal setup.</div>
+        
+        <div class="sers-highlight">
+            <div style="font-size: 14px; font-weight: 700; margin-bottom: 4px;">
+                🌟 SERS Enhancement: 10⁶ to 10¹⁴ Signal Amplification
+            </div>
+            <div style="font-size: 12px; opacity: 0.95;">
+                Enables ultra-sensitive detection for biosensing and single-molecule studies
+            </div>
         </div>
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Label-free Analysis</div>
-            <div style="font-size: 14px; color: #333;">No fluorophores needed. Native state biomolecules.</div>
-        </div>
-    </div>
     </div>
 </body>
 </html>

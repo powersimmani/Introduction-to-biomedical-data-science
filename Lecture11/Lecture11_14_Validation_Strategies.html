@@ -35,39 +35,82 @@
             text-align: center;
         }
         
-        .content-list {
+        .pyramid-container {
             display: flex;
-            flex-direction: column;
-            gap: 15px;
+            justify-content: center;
             margin-bottom: 25px;
+            position: relative;
+            height: 320px;
         }
         
-        .content-card {
+        .pyramid-svg {
+            width: 100%;
+            max-width: 600px;
+        }
+        
+        .pyramid-level {
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .pyramid-level:hover {
+            opacity: 0.8;
+            filter: brightness(1.1);
+        }
+        
+        .pyramid-text {
+            fill: white;
+            font-weight: 700;
+            pointer-events: none;
+        }
+        
+        .pyramid-subtext {
+            fill: white;
+            font-size: 12px;
+            opacity: 0.95;
+            pointer-events: none;
+        }
+        
+        .level-number {
+            fill: white;
+            font-size: 20px;
+            font-weight: 700;
+            pointer-events: none;
+        }
+        
+        .info-section {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .info-card {
+            flex: 1;
             background: #f8f9fb;
             border-left: 5px solid #1E64C8;
-            padding: 18px 22px;
             border-radius: 8px;
+            padding: 16px 20px;
             transition: all 0.3s;
-            display: flex;
-            gap: 15px;
-            align-items: flex-start;
         }
         
-        .content-card:hover {
+        .info-card:hover {
             background: #e8f2ff;
-            transform: translateX(5px);
+            transform: translateY(-3px);
         }
         
-        .card-title {
-            font-size: 17px;
+        .info-icon {
+            font-size: 28px;
+            margin-bottom: 8px;
+        }
+        
+        .info-title {
+            font-size: 16px;
             font-weight: 700;
             color: #1E64C8;
-            min-width: 180px;
-            flex-shrink: 0;
+            margin-bottom: 8px;
         }
         
-        .card-content {
-            font-size: 16px;
+        .info-content {
+            font-size: 14px;
             color: #333;
             line-height: 1.5;
         }
@@ -81,6 +124,7 @@
             font-size: 16px;
             font-weight: 500;
             line-height: 1.6;
+            margin-top: 15px;
         }
     </style>
 </head>
@@ -88,22 +132,107 @@
     <div class="container">
         <div class="title">Validation Strategies</div>
         
-        <div class="content-list">
-            <div class="content-card">
-                <div class="card-title">Technical Validation</div>
-                <div class="card-content">Assay precision, accuracy, and reproducibility</div>
+        <div class="pyramid-container">
+            <svg class="pyramid-svg" viewBox="0 0 600 320">
+                <defs>
+                    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1E64C8;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#2874d8;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#2874d8;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#3884e8;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#3884e8;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#4894f8;stop-opacity:1" />
+                    </linearGradient>
+                    <linearGradient id="grad4" x1="0%" y1="0%" x2="0%" y2="100%">
+                        <stop offset="0%" style="stop-color:#4894f8;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#5088d4;stop-opacity:1" />
+                    </linearGradient>
+                </defs>
+                
+                <!-- Level 4: Clinical Utility (Top) -->
+                <g class="pyramid-level">
+                    <polygon points="300,20 220,90 380,90" fill="url(#grad1)"/>
+                    <circle cx="190" cy="55" r="18" fill="#ff6b6b"/>
+                    <text class="level-number" x="190" y="62" text-anchor="middle">4</text>
+                    <text class="pyramid-text" x="300" y="60" text-anchor="middle" font-size="16">Clinical Utility</text>
+                    <text class="pyramid-subtext" x="300" y="78" text-anchor="middle">Improved outcomes</text>
+                </g>
+                
+                <!-- Level 3: Clinical Validity -->
+                <g class="pyramid-level">
+                    <polygon points="220,90 160,170 440,170" fill="url(#grad2)"/>
+                    <circle cx="120" cy="130" r="18" fill="#ff9f6b"/>
+                    <text class="level-number" x="120" y="137" text-anchor="middle">3</text>
+                    <text class="pyramid-text" x="300" y="130" text-anchor="middle" font-size="16">Clinical Validity</text>
+                    <text class="pyramid-subtext" x="300" y="148" text-anchor="middle">Outcome association</text>
+                </g>
+                
+                <!-- Level 2: Analytical Validity -->
+                <g class="pyramid-level">
+                    <polygon points="160,170 100,250 500,250" fill="url(#grad3)"/>
+                    <circle cx="60" cy="210" r="18" fill="#ffd66b"/>
+                    <text class="level-number" x="60" y="217" text-anchor="middle">2</text>
+                    <text class="pyramid-text" x="300" y="205" text-anchor="middle" font-size="16">Analytical Validity</text>
+                    <text class="pyramid-subtext" x="300" y="223" text-anchor="middle">Reliable measurement</text>
+                </g>
+                
+                <!-- Level 1: Technical Validation (Base) -->
+                <g class="pyramid-level">
+                    <polygon points="100,250 40,310 560,310" fill="url(#grad4)"/>
+                    <circle cx="20" cy="280" r="18" fill="#6bff6b"/>
+                    <text class="level-number" x="20" y="287" text-anchor="middle">1</text>
+                    <text class="pyramid-text" x="300" y="280" text-anchor="middle" font-size="17">Technical Validation</text>
+                    <text class="pyramid-subtext" x="300" y="298" text-anchor="middle">Precision & accuracy</text>
+                </g>
+                
+                <!-- Arrows indicating progression -->
+                <defs>
+                    <marker id="arrowhead-up" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                        <polygon points="0 0, 10 5, 0 10" fill="#1E64C8" />
+                    </marker>
+                </defs>
+                <path d="M 520 280 L 520 60" stroke="#1E64C8" stroke-width="3" fill="none" 
+                      marker-end="url(#arrowhead-up)" stroke-dasharray="8,4"/>
+                <text x="535" y="170" fill="#1E64C8" font-size="13" font-weight="600">Validation</text>
+                <text x="535" y="185" fill="#1E64C8" font-size="13" font-weight="600">Progress</text>
+            </svg>
+        </div>
+        
+        <div class="info-section">
+            <div class="info-card">
+                <div class="info-icon">🔧</div>
+                <div class="info-title">Technical</div>
+                <div class="info-content">
+                    Assay precision, accuracy, and reproducibility in controlled settings
+                </div>
             </div>
-            <div class="content-card">
-                <div class="card-title">Clinical Validation</div>
-                <div class="card-content">Performance in intended patient population</div>
+            
+            <div class="info-card">
+                <div class="info-icon">📏</div>
+                <div class="info-title">Analytical</div>
+                <div class="info-content">
+                    Reliable and accurate measurement of biomarker across conditions
+                </div>
             </div>
-            <div class="content-card">
-                <div class="card-title">Analytical Validity</div>
-                <div class="card-content">Reliable and accurate measurement of biomarker</div>
+            
+            <div class="info-card">
+                <div class="info-icon">🏥</div>
+                <div class="info-title">Clinical</div>
+                <div class="info-content">
+                    Performance and association with outcome in patient population
+                </div>
             </div>
-            <div class="content-card">
-                <div class="card-title">Clinical Validity</div>
-                <div class="card-content">Association with clinical outcome verified</div>
+            
+            <div class="info-card">
+                <div class="info-icon">✅</div>
+                <div class="info-title">Utility</div>
+                <div class="info-content">
+                    Improves decision-making and patient outcomes in practice
+                </div>
             </div>
         </div>
         

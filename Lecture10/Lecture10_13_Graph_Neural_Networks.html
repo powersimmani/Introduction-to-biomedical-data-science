@@ -31,21 +31,28 @@
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
             text-align: center;
         }
         
-        .content-grid {
+        .main-visual {
             display: flex;
-            flex-direction: column;
-            gap: 22px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
         }
         
         .content-card {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 8px;
-            padding: 18px 24px;
+            padding: 14px 20px;
             transition: all 0.3s;
         }
         
@@ -56,22 +63,168 @@
         }
         
         .content-main {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         
         .content-desc {
-            font-size: 16px;
+            font-size: 14px;
             color: #555;
             font-weight: 400;
+        }
+
+        .atom-node {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .message-flow {
+            animation: flow 3s ease-in-out infinite;
+        }
+
+        @keyframes flow {
+            0% { stroke-dashoffset: 100; }
+            100% { stroke-dashoffset: 0; }
+        }
+
+        .legend {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            font-size: 12px;
+            color: #666;
+            margin-top: 10px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .legend-circle {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Graph Neural Networks</div>
+        
+        <div class="main-visual">
+            <svg width="860" height="200" viewBox="0 0 860 200">
+                <!-- Molecular Graph Structure -->
+                <!-- Center atom (Carbon) -->
+                <g class="atom-node">
+                    <circle cx="430" cy="100" r="25" fill="#1E64C8" opacity="0.3"/>
+                    <circle cx="430" cy="100" r="20" fill="#1E64C8"/>
+                    <text x="430" y="107" text-anchor="middle" font-size="16" fill="white" font-weight="bold">C</text>
+                </g>
+
+                <!-- Left atom (Oxygen) -->
+                <g class="atom-node">
+                    <circle cx="320" cy="100" r="22" fill="#e74c3c" opacity="0.3"/>
+                    <circle cx="320" cy="100" r="18" fill="#e74c3c"/>
+                    <text x="320" y="106" text-anchor="middle" font-size="14" fill="white" font-weight="bold">O</text>
+                </g>
+
+                <!-- Top atom (Nitrogen) -->
+                <g class="atom-node">
+                    <circle cx="430" cy="40" r="22" fill="#3498db" opacity="0.3"/>
+                    <circle cx="430" cy="40" r="18" fill="#3498db"/>
+                    <text x="430" y="46" text-anchor="middle" font-size="14" fill="white" font-weight="bold">N</text>
+                </g>
+
+                <!-- Right atom (Carbon) -->
+                <g class="atom-node">
+                    <circle cx="540" cy="100" r="22" fill="#2ecc71" opacity="0.3"/>
+                    <circle cx="540" cy="100" r="18" fill="#2ecc71"/>
+                    <text x="540" y="106" text-anchor="middle" font-size="14" fill="white" font-weight="bold">C</text>
+                </g>
+
+                <!-- Bottom atom (Hydrogen) -->
+                <g class="atom-node">
+                    <circle cx="430" cy="160" r="22" fill="#95a5a6" opacity="0.3"/>
+                    <circle cx="430" cy="160" r="18" fill="#95a5a6"/>
+                    <text x="430" y="166" text-anchor="middle" font-size="14" fill="white" font-weight="bold">H</text>
+                </g>
+
+                <!-- Bonds (edges) -->
+                <line x1="345" y1="100" x2="405" y2="100" stroke="#666" stroke-width="3" opacity="0.5"/>
+                <line x1="430" y1="65" x2="430" y2="75" stroke="#666" stroke-width="3" opacity="0.5"/>
+                <line x1="455" y1="100" x2="515" y2="100" stroke="#666" stroke-width="3" opacity="0.5"/>
+                <line x1="430" y1="125" x2="430" y2="135" stroke="#666" stroke-width="3" opacity="0.5"/>
+
+                <!-- Message passing arrows (animated) -->
+                <line x1="345" y1="95" x2="405" y2="95" stroke="#f39c12" stroke-width="2.5" marker-end="url(#arrow-msg)" stroke-dasharray="5,5" class="message-flow"/>
+                <line x1="435" y1="65" x2="435" y2="75" stroke="#f39c12" stroke-width="2.5" marker-end="url(#arrow-msg)" stroke-dasharray="5,5" class="message-flow"/>
+                <line x1="455" y1="95" x2="515" y2="95" stroke="#f39c12" stroke-width="2.5" marker-end="url(#arrow-msg)" stroke-dasharray="5,5" class="message-flow"/>
+                <line x1="435" y1="125" x2="435" y2="135" stroke="#f39c12" stroke-width="2.5" marker-end="url(#arrow-msg)" stroke-dasharray="5,5" class="message-flow"/>
+
+                <!-- Graph Convolution visualization -->
+                <g transform="translate(650, 50)">
+                    <rect x="0" y="0" width="180" height="100" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2" stroke-dasharray="5,5"/>
+                    <text x="90" y="25" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Graph Convolution</text>
+                    
+                    <!-- Input layer -->
+                    <circle cx="30" cy="50" r="6" fill="#3498db"/>
+                    <circle cx="30" cy="70" r="6" fill="#3498db"/>
+                    <circle cx="30" cy="90" r="6" fill="#3498db"/>
+                    
+                    <!-- Hidden layer -->
+                    <circle cx="90" cy="55" r="7" fill="#e74c3c"/>
+                    <circle cx="90" cy="75" r="7" fill="#e74c3c"/>
+                    
+                    <!-- Output -->
+                    <circle cx="150" cy="65" r="8" fill="#2ecc71"/>
+                    
+                    <!-- Connections -->
+                    <line x1="36" y1="50" x2="83" y2="55" stroke="#999" stroke-width="1" opacity="0.5"/>
+                    <line x1="36" y1="70" x2="83" y2="55" stroke="#999" stroke-width="1" opacity="0.5"/>
+                    <line x1="36" y1="90" x2="83" y2="55" stroke="#999" stroke-width="1" opacity="0.5"/>
+                    <line x1="36" y1="50" x2="83" y2="75" stroke="#999" stroke-width="1" opacity="0.5"/>
+                    <line x1="36" y1="70" x2="83" y2="75" stroke="#999" stroke-width="1" opacity="0.5"/>
+                    <line x1="36" y1="90" x2="83" y2="75" stroke="#999" stroke-width="1" opacity="0.5"/>
+                    <line x1="97" y1="55" x2="142" y2="65" stroke="#999" stroke-width="1" opacity="0.5"/>
+                    <line x1="97" y1="75" x2="142" y2="65" stroke="#999" stroke-width="1" opacity="0.5"/>
+                </g>
+
+                <!-- Process labels -->
+                <text x="250" y="100" text-anchor="middle" font-size="11" fill="#f39c12" font-weight="600">message</text>
+                <text x="430" y="25" text-anchor="middle" font-size="11" fill="#f39c12" font-weight="600">passing</text>
+                <text x="610" y="100" text-anchor="middle" font-size="11" fill="#f39c12" font-weight="600">aggregate</text>
+
+                <!-- Arrow markers -->
+                <defs>
+                    <marker id="arrow-msg" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#f39c12"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+
+        <div class="legend">
+            <div class="legend-item">
+                <div class="legend-circle" style="background: #1E64C8;"></div>
+                <span>Atoms (Nodes)</span>
+            </div>
+            <div class="legend-item">
+                <div style="width: 20px; height: 2px; background: #666;"></div>
+                <span>Bonds (Edges)</span>
+            </div>
+            <div class="legend-item">
+                <div style="width: 20px; height: 2px; background: #f39c12; border-top: 2px dashed #f39c12;"></div>
+                <span>Message Flow</span>
+            </div>
+        </div>
         
         <div class="content-grid">
             <div class="content-card">

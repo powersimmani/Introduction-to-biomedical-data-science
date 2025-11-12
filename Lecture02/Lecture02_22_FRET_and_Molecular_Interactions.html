@@ -6,36 +6,212 @@
     <title>FRET and Molecular Interactions</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Aptos, 'Segoe UI', sans-serif; background: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { width: 960px; height: 540px; padding: 30px 40px; background: white; }
-        .title { font-size: 28px; font-weight: 600; color: #1E64C8; margin-bottom: 22px; text-align: center; }
+        body { 
+            font-family: Aptos, 'Segoe UI', sans-serif; 
+            background: white; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+        }
+        .container { 
+            width: 960px; 
+            height: 540px; 
+            padding: 30px 40px; 
+            background: white; 
+        }
+        .title { 
+            font-size: 28px; 
+            font-weight: 600; 
+            color: #1E64C8; 
+            margin-bottom: 18px; 
+            text-align: center; 
+        }
+        .main-section {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .fret-diagram {
+            background: #f0f5fc;
+            border: 2px solid #1E64C8;
+            border-radius: 10px;
+            padding: 18px;
+        }
+        .equation-box {
+            background: linear-gradient(135deg, #1E64C8 0%, #2874d8 100%); 
+            border-radius: 10px; 
+            padding: 16px; 
+            text-align: center; 
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .equation-title {
+            font-size: 18px; 
+            font-weight: 700; 
+            margin-bottom: 10px;
+        }
+        .equation {
+            font-size: 22px; 
+            font-weight: 700;
+            font-family: 'Courier New', monospace;
+            margin-bottom: 12px;
+        }
+        .equation-desc {
+            font-size: 13px; 
+            opacity: 0.95;
+            line-height: 1.5;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 13px;
+        }
+        .content-card {
+            background: #f0f5fc; 
+            border: 2px solid #1E64C8; 
+            border-radius: 8px; 
+            padding: 13px;
+            transition: all 0.3s;
+        }
+        .content-card:hover {
+            background: #e0ebff;
+            transform: scale(1.02);
+        }
+        .card-title {
+            font-size: 15px; 
+            font-weight: 700; 
+            color: #1E64C8; 
+            margin-bottom: 6px;
+        }
+        .card-desc {
+            font-size: 13px; 
+            color: #333;
+            line-height: 1.4;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">FRET and Molecular Interactions</div>
-        <div style="background: linear-gradient(135deg, #1E64C8 0%, #2874d8 100%); border-radius: 10px; padding: 16px; margin-bottom: 15px; text-align: center; color: white;">
-        <div style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Förster Resonance Energy Transfer</div>
-        <div style="font-size: 15px; opacity: 0.95;">E = R₀⁶ / (R₀⁶ + r⁶)</div>
-    </div>
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px;">
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 13px;">
-            <div style="font-size: 16px; font-weight: 700; color: #1E64C8; margin-bottom: 6px;">R₀ Calculations</div>
-            <div style="font-size: 14px; color: #333;">Förster radius 2-10 nm. Depends on spectral overlap, orientation.</div>
+        
+        <div class="main-section">
+            <div class="fret-diagram">
+                <div style="font-size: 15px; font-weight: 700; color: #1E64C8; margin-bottom: 12px; text-align: center;">
+                    Förster Resonance Energy Transfer Mechanism
+                </div>
+                <svg width="100%" height="200" viewBox="0 0 520 200">
+                    <!-- Donor molecule (left) -->
+                    <circle cx="100" cy="100" r="40" fill="#3498db" opacity="0.3" stroke="#3498db" stroke-width="3"/>
+                    <text x="100" y="105" text-anchor="middle" font-size="14" fill="#3498db" font-weight="bold">Donor</text>
+                    
+                    <!-- Excited state indicator -->
+                    <circle cx="100" cy="60" r="5" fill="#FFD700"/>
+                    <text x="100" y="45" text-anchor="middle" font-size="11" fill="#666">Excited</text>
+                    
+                    <!-- Distance indicator -->
+                    <line x1="140" y1="100" x2="260" y2="100" stroke="#9b59b6" stroke-width="2" stroke-dasharray="5,3"/>
+                    <text x="200" y="92" text-anchor="middle" font-size="13" fill="#9b59b6" font-weight="bold">r</text>
+                    <text x="200" y="115" text-anchor="middle" font-size="10" fill="#9b59b6">(2-10 nm)</text>
+                    
+                    <!-- Energy transfer wave -->
+                    <path d="M 140 100 Q 165 85, 190 100 T 240 100" stroke="#f39c12" stroke-width="3" fill="none"/>
+                    <text x="190" y="75" text-anchor="middle" font-size="11" fill="#f39c12" font-weight="bold">Energy Transfer</text>
+                    
+                    <!-- Acceptor molecule (right) -->
+                    <circle cx="300" cy="100" r="40" fill="#27ae60" opacity="0.3" stroke="#27ae60" stroke-width="3"/>
+                    <text x="300" y="105" text-anchor="middle" font-size="14" fill="#27ae60" font-weight="bold">Acceptor</text>
+                    
+                    <!-- Emission from acceptor -->
+                    <line x1="300" y1="140" x2="300" y2="180" stroke="#27ae60" stroke-width="3" marker-end="url(#greenArrow)"/>
+                    <text x="320" y="165" font-size="11" fill="#27ae60" font-weight="bold">Emission</text>
+                    
+                    <!-- Spectral overlap representation -->
+                    <g transform="translate(380, 50)">
+                        <rect width="120" height="100" fill="none" stroke="#666" stroke-width="1" rx="5"/>
+                        <!-- Donor emission spectrum -->
+                        <path d="M 10 80 Q 30 20, 50 80" fill="#3498db" opacity="0.3"/>
+                        <!-- Acceptor absorption spectrum -->
+                        <path d="M 50 80 Q 70 20, 90 80" fill="#27ae60" opacity="0.3"/>
+                        <!-- Overlap region -->
+                        <rect x="40" y="30" width="20" height="50" fill="#f39c12" opacity="0.4"/>
+                        <text x="60" y="100" text-anchor="middle" font-size="9" fill="#666">Spectral</text>
+                        <text x="60" y="110" text-anchor="middle" font-size="9" fill="#666">Overlap</text>
+                    </g>
+                    
+                    <!-- Distance dependence graph -->
+                    <g transform="translate(380, 160)">
+                        <text x="60" y="0" text-anchor="middle" font-size="10" fill="#666" font-weight="bold">E ∝ 1/r⁶</text>
+                        <path d="M 10 30 Q 30 5, 110 30" stroke="#9b59b6" stroke-width="2" fill="none"/>
+                        <line x1="10" y1="30" x2="110" y2="30" stroke="#666" stroke-width="1"/>
+                        <text x="110" y="42" font-size="8" fill="#666">r</text>
+                    </g>
+                    
+                    <defs>
+                        <marker id="greenArrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#27ae60"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            
+            <div class="equation-box">
+                <div class="equation-title">FRET Efficiency</div>
+                <div class="equation">E = R₀⁶ / (R₀⁶ + r⁶)</div>
+                <div class="equation-desc">
+                    R₀: Förster radius<br>
+                    r: Donor-acceptor distance<br><br>
+                    When r = R₀, E = 50%<br><br>
+                    <strong>Highly distance-dependent:</strong><br>
+                    1/r⁶ relationship makes FRET exquisitely sensitive to small distance changes
+                </div>
+            </div>
         </div>
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 13px;">
-            <div style="font-size: 16px; font-weight: 700; color: #1E64C8; margin-bottom: 6px;">FRET Pairs</div>
-            <div style="font-size: 14px; color: #333;">CFP-YFP (classic), GFP-RFP, organic dye pairs</div>
+        
+        <div class="content-grid">
+            <div class="content-card">
+                <div class="card-title">📏 R₀ Calculations</div>
+                <div class="card-desc">
+                    Förster radius typically 2-10 nm<br>
+                    Depends on spectral overlap J(λ)<br>
+                    Quantum yield of donor<br>
+                    Orientation factor κ²
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <div class="card-title">🎨 FRET Pairs</div>
+                <div class="card-desc">
+                    <strong>Classic:</strong> CFP-YFP<br>
+                    <strong>Red-shifted:</strong> GFP-RFP<br>
+                    <strong>Organic dyes:</strong> Alexa Fluor, ATTO<br>
+                    <strong>Quantum dots:</strong> Semiconductor nanocrystals
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <div class="card-title">🔬 Biosensor Design</div>
+                <div class="card-desc">
+                    Conformational change sensors<br>
+                    <strong>Examples:</strong> Ca²⁺, cAMP, kinases<br>
+                    Protein-protein interactions<br>
+                    Enzyme activity reporters
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <div class="card-title">🧫 Live Cell Applications</div>
+                <div class="card-desc">
+                    Real-time protein interactions<br>
+                    Signaling pathway dynamics<br>
+                    Molecular proximity measurements<br>
+                    Drug screening assays
+                </div>
+            </div>
         </div>
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 13px;">
-            <div style="font-size: 16px; font-weight: 700; color: #1E64C8; margin-bottom: 6px;">Biosensor Design</div>
-            <div style="font-size: 14px; color: #333;">Conformational change sensors. Ca²⁺, cAMP, kinases.</div>
-        </div>
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 13px;">
-            <div style="font-size: 16px; font-weight: 700; color: #1E64C8; margin-bottom: 6px;">Live Cell Applications</div>
-            <div style="font-size: 14px; color: #333;">Real-time protein interactions. Signaling dynamics.</div>
-        </div>
-    </div>
     </div>
 </body>
 </html>

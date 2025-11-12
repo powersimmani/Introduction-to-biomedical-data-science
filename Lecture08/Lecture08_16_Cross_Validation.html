@@ -1,19 +1,212 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Cross-validation Strategies</title>
-<style>* {margin:0;padding:0;box-sizing:border-box;}body {font-family:Aptos,'Segoe UI',sans-serif;background:white;display:flex;justify-content:center;align-items:center;min-height:100vh;}
-.container {width:960px;height:540px;padding:35px 50px;}.title {font-size:36px;font-weight:700;color:#1E64C8;margin-bottom:25px;text-align:center;}
-.cv-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-bottom:20px;}.cv-card {background:linear-gradient(135deg,#f8fbff 0%,#e8f2ff 100%);border:3px solid #1E64C8;border-radius:10px;padding:16px 18px;text-align:center;}
-.cv-name {font-size:18px;font-weight:700;color:#1E64C8;margin-bottom:8px;}.cv-desc {font-size:14px;color:#333;line-height:1.3;margin-bottom:8px;}.cv-badge {background:white;border:2px solid #1E64C8;border-radius:4px;padding:4px 8px;font-size:12px;font-weight:600;display:inline-block;}
-.warning {background:#fff0f0;border:3px solid #dc3545;border-radius:10px;padding:14px 20px;text-align:center;}.warn-title {font-size:17px;font-weight:700;color:#dc3545;margin-bottom:6px;}.warn-text {font-size:14px;color:#333;}
-</style></head><body><div class="container"><div class="title">Cross-validation Strategies</div>
-<div class="cv-grid">
-<div class="cv-card"><div class="cv-name">K-Fold CV</div><div class="cv-desc">Split data into K folds, train on K-1, test on 1, repeat K times</div><div class="cv-badge">Standard: K=5 or 10</div></div>
-<div class="cv-card"><div class="cv-name">Stratified CV</div><div class="cv-desc">Preserve class distribution in each fold - crucial for imbalanced data</div><div class="cv-badge">Use for classification</div></div>
-<div class="cv-card"><div class="cv-name">Leave-One-Out</div><div class="cv-desc">Train on N-1 samples, test on 1, repeat N times</div><div class="cv-badge">For very small N</div></div>
-<div class="cv-card"><div class="cv-name">Nested CV</div><div class="cv-desc">Outer loop for evaluation, inner loop for hyperparameter tuning</div><div class="cv-badge">Unbiased estimates</div></div>
-<div class="cv-card"><div class="cv-name">Time Series Split</div><div class="cv-desc">Train on past, test on future - respects temporal order</div><div class="cv-badge">For longitudinal data</div></div>
-<div class="cv-card"><div class="cv-name">Group CV</div><div class="cv-desc">Keep all samples from same patient/site together</div><div class="cv-badge">Prevent data leakage</div></div>
-</div>
-<div class="warning"><div class="warn-title">⚠️ Biomedical Pitfall</div><div class="warn-text">Multiple samples from same patient must stay in same fold to avoid optimistic bias!</div></div>
-</div></body></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cross-validation Strategies</title>
+    <style>
+        * {margin:0;padding:0;box-sizing:border-box;}
+        body {font-family:Aptos,'Segoe UI',sans-serif;background:white;display:flex;justify-content:center;align-items:center;min-height:100vh;}
+        .container {width:960px;height:540px;padding:30px 45px;}
+        .title {font-size:36px;font-weight:700;color:#1E64C8;margin-bottom:20px;text-align:center;}
+        .cv-grid {display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:18px;}
+        .cv-card {background:linear-gradient(135deg,#f8fbff 0%,#e8f2ff 100%);border:3px solid #1E64C8;border-radius:10px;padding:14px 16px;text-align:center;}
+        .cv-name {font-size:17px;font-weight:700;color:#1E64C8;margin-bottom:6px;}
+        .cv-diagram {display:flex;justify-content:center;margin:8px 0;}
+        .cv-desc {font-size:12px;color:#333;line-height:1.3;margin-bottom:6px;}
+        .cv-badge {background:white;border:2px solid #1E64C8;border-radius:4px;padding:3px 8px;font-size:11px;font-weight:600;display:inline-block;}
+        .warning {background:#fff0f0;border:3px solid #dc3545;border-radius:10px;padding:12px 18px;text-align:center;}
+        .warn-title {font-size:16px;font-weight:700;color:#dc3545;margin-bottom:5px;}
+        .warn-text {font-size:13px;color:#333;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Cross-validation Strategies</div>
+        <div class="cv-grid">
+            <div class="cv-card">
+                <div class="cv-name">K-Fold CV</div>
+                <div class="cv-diagram">
+                    <svg width="200" height="65" viewBox="0 0 200 65">
+                        <!-- 5 folds -->
+                        <rect x="10" y="10" width="35" height="20" fill="#ff8c00" opacity="0.8" stroke="#1E64C8" stroke-width="1.5"/>
+                        <rect x="48" y="10" width="35" height="20" fill="#28a745" opacity="0.6" stroke="#1E64C8" stroke-width="1.5"/>
+                        <rect x="86" y="10" width="35" height="20" fill="#28a745" opacity="0.6" stroke="#1E64C8" stroke-width="1.5"/>
+                        <rect x="124" y="10" width="35" height="20" fill="#28a745" opacity="0.6" stroke="#1E64C8" stroke-width="1.5"/>
+                        <rect x="162" y="10" width="35" height="20" fill="#28a745" opacity="0.6" stroke="#1E64C8" stroke-width="1.5"/>
+                        
+                        <text x="27" y="24" text-anchor="middle" font-size="9" fill="white" font-weight="600">Test</text>
+                        <text x="65" y="24" text-anchor="middle" font-size="9" fill="white" font-weight="600">Train</text>
+                        <text x="103" y="24" text-anchor="middle" font-size="9" fill="white" font-weight="600">Train</text>
+                        <text x="141" y="24" text-anchor="middle" font-size="9" fill="white" font-weight="600">Train</text>
+                        <text x="179" y="24" text-anchor="middle" font-size="9" fill="white" font-weight="600">Train</text>
+                        
+                        <!-- Rotation indicator -->
+                        <path d="M 100 40 Q 120 50, 100 60" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrowk)"/>
+                        <text x="100" y="55" text-anchor="middle" font-size="9" fill="#666">Rotate</text>
+                        
+                        <defs>
+                            <marker id="arrowk" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L6,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="cv-desc">Split data into K folds, train on K-1, test on 1, repeat K times</div>
+                <div class="cv-badge">Standard: K=5 or 10</div>
+            </div>
+            
+            <div class="cv-card">
+                <div class="cv-name">Stratified CV</div>
+                <div class="cv-diagram">
+                    <svg width="200" height="65" viewBox="0 0 200 65">
+                        <!-- Class distribution preserved -->
+                        <g>
+                            <text x="100" y="15" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Class Balance Preserved</text>
+                            <!-- Fold 1 -->
+                            <rect x="20" y="22" width="30" height="12" fill="#3498db" opacity="0.7"/>
+                            <rect x="20" y="36" width="30" height="8" fill="#e74c3c" opacity="0.7"/>
+                            <text x="35" y="58" text-anchor="middle" font-size="9" fill="#666">Fold 1</text>
+                            
+                            <!-- Fold 2 -->
+                            <rect x="60" y="22" width="30" height="12" fill="#3498db" opacity="0.7"/>
+                            <rect x="60" y="36" width="30" height="8" fill="#e74c3c" opacity="0.7"/>
+                            <text x="75" y="58" text-anchor="middle" font-size="9" fill="#666">Fold 2</text>
+                            
+                            <!-- Fold 3 -->
+                            <rect x="100" y="22" width="30" height="12" fill="#3498db" opacity="0.7"/>
+                            <rect x="100" y="36" width="30" height="8" fill="#e74c3c" opacity="0.7"/>
+                            <text x="115" y="58" text-anchor="middle" font-size="9" fill="#666">Fold 3</text>
+                            
+                            <!-- Legend -->
+                            <rect x="145" y="28" width="12" height="6" fill="#3498db" opacity="0.7"/>
+                            <text x="162" y="33" font-size="8" fill="#666">Class +</text>
+                            <rect x="145" y="38" width="12" height="6" fill="#e74c3c" opacity="0.7"/>
+                            <text x="162" y="43" font-size="8" fill="#666">Class -</text>
+                        </g>
+                    </svg>
+                </div>
+                <div class="cv-desc">Preserve class distribution in each fold - crucial for imbalanced data</div>
+                <div class="cv-badge">Use for classification</div>
+            </div>
+            
+            <div class="cv-card">
+                <div class="cv-name">Leave-One-Out</div>
+                <div class="cv-diagram">
+                    <svg width="200" height="65" viewBox="0 0 200 65">
+                        <!-- N samples -->
+                        <g>
+                            <circle cx="30" cy="25" r="6" fill="#ff8c00" opacity="0.8"/>
+                            <circle cx="50" cy="25" r="6" fill="#28a745" opacity="0.6"/>
+                            <circle cx="70" cy="25" r="6" fill="#28a745" opacity="0.6"/>
+                            <circle cx="90" cy="25" r="6" fill="#28a745" opacity="0.6"/>
+                            <circle cx="110" cy="25" r="6" fill="#28a745" opacity="0.6"/>
+                            <circle cx="130" cy="25" r="6" fill="#28a745" opacity="0.6"/>
+                            <circle cx="150" cy="25" r="6" fill="#28a745" opacity="0.6"/>
+                            <circle cx="170" cy="25" r="6" fill="#28a745" opacity="0.6"/>
+                            
+                            <text x="30" y="42" text-anchor="middle" font-size="8" fill="#ff8c00" font-weight="600">Test</text>
+                            <text x="110" y="42" text-anchor="middle" font-size="8" fill="#28a745" font-weight="600">Train N-1</text>
+                            
+                            <text x="100" y="58" text-anchor="middle" font-size="9" fill="#666" font-style="italic">Repeat N times</text>
+                        </g>
+                    </svg>
+                </div>
+                <div class="cv-desc">Train on N-1 samples, test on 1, repeat N times</div>
+                <div class="cv-badge">For very small N</div>
+            </div>
+            
+            <div class="cv-card">
+                <div class="cv-name">Nested CV</div>
+                <div class="cv-diagram">
+                    <svg width="200" height="65" viewBox="0 0 200 65">
+                        <!-- Outer loop -->
+                        <rect x="20" y="10" width="160" height="25" fill="none" stroke="#1E64C8" stroke-width="2" rx="4"/>
+                        <text x="100" y="8" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">Outer: Evaluation</text>
+                        
+                        <!-- Inner loop -->
+                        <rect x="35" y="17" width="130" height="12" fill="none" stroke="#ff8c00" stroke-width="2" stroke-dasharray="3,2" rx="3"/>
+                        <text x="100" y="25" text-anchor="middle" font-size="8" fill="#ff8c00" font-weight="600">Inner: Hyperparameter Tuning</text>
+                        
+                        <text x="100" y="48" text-anchor="middle" font-size="9" fill="#666">Unbiased performance estimate</text>
+                    </svg>
+                </div>
+                <div class="cv-desc">Outer loop for evaluation, inner loop for hyperparameter tuning</div>
+                <div class="cv-badge">Unbiased estimates</div>
+            </div>
+            
+            <div class="cv-card">
+                <div class="cv-name">Time Series Split</div>
+                <div class="cv-diagram">
+                    <svg width="200" height="65" viewBox="0 0 200 65">
+                        <!-- Timeline with expanding window -->
+                        <line x1="20" y1="20" x2="180" y2="20" stroke="#666" stroke-width="1"/>
+                        
+                        <!-- Split 1 -->
+                        <rect x="20" y="10" width="40" height="8" fill="#28a745" opacity="0.6"/>
+                        <rect x="62" y="10" width="15" height="8" fill="#ff8c00" opacity="0.8"/>
+                        
+                        <!-- Split 2 -->
+                        <rect x="20" y="28" width="70" height="8" fill="#28a745" opacity="0.6"/>
+                        <rect x="92" y="28" width="15" height="8" fill="#ff8c00" opacity="0.8"/>
+                        
+                        <!-- Split 3 -->
+                        <rect x="20" y="46" width="100" height="8" fill="#28a745" opacity="0.6"/>
+                        <rect x="122" y="46" width="15" height="8" fill="#ff8c00" opacity="0.8"/>
+                        
+                        <!-- Arrow -->
+                        <path d="M 150 32 L 175 32" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowt)"/>
+                        <text x="162" y="28" text-anchor="middle" font-size="8" fill="#1E64C8" font-weight="600">Time →</text>
+                        
+                        <defs>
+                            <marker id="arrowt" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L6,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="cv-desc">Train on past, test on future - respects temporal order</div>
+                <div class="cv-badge">For longitudinal data</div>
+            </div>
+            
+            <div class="cv-card">
+                <div class="cv-name">Group CV</div>
+                <div class="cv-diagram">
+                    <svg width="200" height="65" viewBox="0 0 200 65">
+                        <!-- Patient groups -->
+                        <g>
+                            <!-- Group 1 (Patient A) -->
+                            <rect x="20" y="15" width="15" height="8" fill="#3498db" opacity="0.7"/>
+                            <rect x="20" y="25" width="15" height="8" fill="#3498db" opacity="0.7"/>
+                            <rect x="20" y="35" width="15" height="8" fill="#3498db" opacity="0.7"/>
+                            <text x="27" y="52" text-anchor="middle" font-size="8" fill="#666">P1</text>
+                            
+                            <!-- Group 2 (Patient B) -->
+                            <rect x="45" y="15" width="15" height="8" fill="#e74c3c" opacity="0.7"/>
+                            <rect x="45" y="25" width="15" height="8" fill="#e74c3c" opacity="0.7"/>
+                            <text x="52" y="52" text-anchor="middle" font-size="8" fill="#666">P2</text>
+                            
+                            <!-- Group 3 (Patient C) -->
+                            <rect x="70" y="15" width="15" height="8" fill="#2ecc71" opacity="0.7"/>
+                            <rect x="70" y="25" width="15" height="8" fill="#2ecc71" opacity="0.7"/>
+                            <rect x="70" y="35" width="15" height="8" fill="#2ecc71" opacity="0.7"/>
+                            <rect x="70" y="45" width="15" height="8" fill="#2ecc71" opacity="0.7"/>
+                            <text x="77" y="60" text-anchor="middle" font-size="8" fill="#666">P3</text>
+                            
+                            <text x="115" y="35" text-anchor="middle" font-size="10" fill="#dc3545" font-weight="600">All samples</text>
+                            <text x="115" y="45" text-anchor="middle" font-size="10" fill="#dc3545" font-weight="600">from same</text>
+                            <text x="115" y="55" text-anchor="middle" font-size="10" fill="#dc3545" font-weight="600">patient together!</text>
+                        </g>
+                    </svg>
+                </div>
+                <div class="cv-desc">Keep all samples from same patient/site together</div>
+                <div class="cv-badge">Prevent data leakage</div>
+            </div>
+        </div>
+        <div class="warning">
+            <div class="warn-title">⚠️ Biomedical Pitfall</div>
+            <div class="warn-text">Multiple samples from same patient must stay in same fold to avoid optimistic bias!</div>
+        </div>
+    </div>
+</body>
+</html>

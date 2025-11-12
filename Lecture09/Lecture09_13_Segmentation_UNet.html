@@ -31,23 +31,39 @@
             font-size: 28px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             text-align: center;
+        }
+        
+        .architecture-section {
+            background: #f8fbff;
+            border: 2.5px solid #1E64C8;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .arch-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1E64C8;
+            text-align: center;
+            margin-bottom: 15px;
         }
         
         .concept-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 18px;
         }
         
         .concept-card {
             background: white;
             border: 2.5px solid #1E64C8;
             border-radius: 10px;
-            padding: 18px;
+            padding: 16px;
             transition: all 0.3s;
-            min-height: 140px;
+            min-height: 100px;
         }
         
         .concept-card:hover {
@@ -57,14 +73,14 @@
         }
         
         .concept-name {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .concept-desc {
-            font-size: 15px;
+            font-size: 14px;
             color: #333;
             line-height: 1.5;
         }
@@ -74,33 +90,141 @@
     <div class="container">
         <div class="title">Segmentation with U-Net</div>
         
+        <div class="architecture-section">
+            <div class="arch-title">U-Net Architecture: Encoder-Decoder with Skip Connections</div>
+            <svg width="880" height="260" viewBox="0 0 880 260">
+                <!-- Input -->
+                <rect x="20" y="100" width="60" height="60" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                <text x="50" y="90" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">Input</text>
+                <text x="50" y="175" font-size="9" fill="#666" text-anchor="middle">256×256</text>
+                
+                <!-- Encoder Path (Contracting) -->
+                <!-- Level 1 -->
+                <rect x="100" y="95" width="50" height="50" fill="#1E64C8" stroke="#1E64C8" stroke-width="2" opacity="0.3"/>
+                <text x="125" y="175" font-size="9" fill="#666" text-anchor="middle">128×128</text>
+                <path d="M 80 130 L 100 130" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- Down arrow 1 -->
+                <path d="M 125 145 L 125 165" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="138" y="158" font-size="9" fill="#1E64C8">Pool</text>
+                
+                <!-- Level 2 -->
+                <rect x="105" y="170" width="40" height="40" fill="#1E64C8" stroke="#1E64C8" stroke-width="2" opacity="0.4"/>
+                <text x="125" y="225" font-size="9" fill="#666" text-anchor="middle">64×64</text>
+                
+                <!-- Down arrow 2 -->
+                <path d="M 125 210 L 145 230" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="152" y="222" font-size="9" fill="#1E64C8">Pool</text>
+                
+                <!-- Bottleneck -->
+                <rect x="160" y="220" width="35" height="35" fill="#1E64C8" stroke="#1E64C8" stroke-width="2" opacity="0.6"/>
+                <text x="177.5" y="213" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">Bottleneck</text>
+                <text x="177.5" y="265" font-size="9" fill="#666" text-anchor="middle">32×32</text>
+                
+                <!-- Decoder Path (Expanding) -->
+                <!-- Up arrow 1 -->
+                <path d="M 195 237 L 215 217" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="220" y="230" font-size="9" fill="#1E64C8">Up</text>
+                
+                <!-- Level 3 -->
+                <rect x="225" y="170" width="40" height="40" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2"/>
+                <text x="245" y="225" font-size="9" fill="#666" text-anchor="middle">64×64</text>
+                
+                <!-- Skip connection 1 -->
+                <path d="M 145 190 Q 185 190 225 190" stroke="#1E64C8" stroke-width="2" stroke-dasharray="4,3" fill="none"/>
+                <circle cx="145" cy="190" r="3" fill="#1E64C8"/>
+                <circle cx="225" cy="190" r="3" fill="#1E64C8"/>
+                <text x="185" y="185" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">skip</text>
+                
+                <!-- Up arrow 2 -->
+                <path d="M 245 170 L 245 150" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="258" y="162" font-size="9" fill="#1E64C8">Up</text>
+                
+                <!-- Level 4 -->
+                <rect x="225" y="95" width="50" height="50" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2"/>
+                <text x="250" y="175" font-size="9" fill="#666" text-anchor="middle">128×128</text>
+                
+                <!-- Skip connection 2 -->
+                <path d="M 150 120 Q 187.5 120 225 120" stroke="#1E64C8" stroke-width="2" stroke-dasharray="4,3" fill="none"/>
+                <circle cx="150" cy="120" r="3" fill="#1E64C8"/>
+                <circle cx="225" cy="120" r="3" fill="#1E64C8"/>
+                <text x="187.5" y="110" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">skip</text>
+                
+                <!-- Up arrow 3 -->
+                <path d="M 275 120 L 295 120" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="285" y="113" font-size="9" fill="#1E64C8">Up</text>
+                
+                <!-- Output -->
+                <rect x="305" y="100" width="60" height="60" fill="#b3d7ff" stroke="#1E64C8" stroke-width="2"/>
+                <text x="335" y="90" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">Output</text>
+                <text x="335" y="175" font-size="9" fill="#666" text-anchor="middle">256×256</text>
+                
+                <!-- Legend -->
+                <g transform="translate(400, 80)">
+                    <text x="0" y="0" font-size="13" fill="#1E64C8" font-weight="700">Key Components:</text>
+                    
+                    <!-- Encoder -->
+                    <rect x="0" y="10" width="30" height="20" fill="#1E64C8" opacity="0.4" stroke="#1E64C8" stroke-width="1"/>
+                    <text x="35" y="25" font-size="11" fill="#333">Encoder (Contracting path)</text>
+                    <text x="35" y="37" font-size="9" fill="#666">Captures context, reduces spatial dim</text>
+                    
+                    <!-- Decoder -->
+                    <rect x="0" y="50" width="30" height="20" fill="#d4e7ff" stroke="#1E64C8" stroke-width="1"/>
+                    <text x="35" y="65" font-size="11" fill="#333">Decoder (Expanding path)</text>
+                    <text x="35" y="77" font-size="9" fill="#666">Localizes, increases spatial dim</text>
+                    
+                    <!-- Skip -->
+                    <line x1="0" y1="95" x2="30" y2="95" stroke="#1E64C8" stroke-width="2" stroke-dasharray="4,3"/>
+                    <circle cx="15" cy="95" r="3" fill="#1E64C8"/>
+                    <text x="35" y="100" font-size="11" fill="#333">Skip Connections</text>
+                    <text x="35" y="112" font-size="9" fill="#666">Preserve spatial details</text>
+                    
+                    <!-- Bottleneck -->
+                    <rect x="0" y="125" width="30" height="20" fill="#1E64C8" opacity="0.6" stroke="#1E64C8" stroke-width="1"/>
+                    <text x="35" y="140" font-size="11" fill="#333">Bottleneck</text>
+                    <text x="35" y="152" font-size="9" fill="#666">Highest-level features</text>
+                    
+                    <!-- Operations -->
+                    <text x="0" y="175" font-size="11" fill="#1E64C8" font-weight="600">Operations:</text>
+                    <text x="0" y="190" font-size="10" fill="#333">• Conv + ReLU (2×)</text>
+                    <text x="0" y="203" font-size="10" fill="#333">• Max Pool 2×2 ↓</text>
+                    <text x="0" y="216" font-size="10" fill="#333">• Up-conv 2×2 ↑</text>
+                    <text x="0" y="229" font-size="10" fill="#333">• Concatenation</text>
+                </g>
+                
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+        
         <div class="concept-grid">
-
             <div class="concept-card">
                 <div class="concept-name">U-Net Architecture</div>
                 <div class="concept-desc">Encoder-decoder with skip connections. Standard for medical image segmentation</div>
             </div>
-        
+            
             <div class="concept-card">
                 <div class="concept-name">Skip Connections</div>
                 <div class="concept-desc">Combine low and high-level features. Preserve spatial details for precise boundaries</div>
             </div>
-        
+            
             <div class="concept-card">
                 <div class="concept-name">Loss Functions</div>
                 <div class="concept-desc">Dice loss, focal loss, boundary loss. Address class imbalance and boundary precision</div>
             </div>
-        
+            
             <div class="concept-card">
                 <div class="concept-name">3D U-Net</div>
                 <div class="concept-desc">Extension to volumetric data. Processes entire 3D volumes for organ/tumor segmentation</div>
             </div>
-        
+            
             <div class="concept-card">
                 <div class="concept-name">nnU-Net Framework</div>
                 <div class="concept-desc">Self-configuring U-Net. Automatically adapts to dataset characteristics</div>
             </div>
-        
         </div>
     </div>
 </body>

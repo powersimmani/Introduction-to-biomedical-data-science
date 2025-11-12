@@ -14,56 +14,75 @@
             align-items: center;
             min-height: 100vh;
         }
-        .container { width: 960px; padding: 40px 60px; }
+        .container { width: 960px; padding: 35px 50px; }
         .title {
             font-size: 28px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: center;
+        }
+        .main-section {
+            display: grid;
+            grid-template-columns: 1.3fr 1fr;
+            gap: 18px;
+            margin-bottom: 18px;
+        }
+        .jablonski-diagram {
+            background: #f0f5fc;
+            border: 2px solid #1E64C8;
+            border-radius: 10px;
+            padding: 20px;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #1E64C8 0%, #2874d8 100%);
+            color: white;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        .highlight-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .highlight-text {
+            font-size: 14px;
+            line-height: 1.6;
+            opacity: 0.95;
         }
         .content-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 15px;
         }
         .content-card {
             background: white;
             border: 2.5px solid #1E64C8;
             border-radius: 10px;
-            padding: 20px;
+            padding: 16px;
             transition: all 0.3s;
         }
         .content-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(30, 100, 200, 0.2);
             background: #f8fbff;
         }
         .card-title {
-            font-size: 19px;
+            font-size: 16px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .card-text {
-            font-size: 16px;
+            font-size: 14px;
             color: #555;
-            line-height: 1.6;
+            line-height: 1.5;
         }
-        .highlight-box {
-            background: #f0f5fc;
-            border: 2px solid #1E64C8;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
-        }
-        .list-item {
-            padding: 12px 20px;
-            background: #f8f9fa;
-            border-left: 4px solid #1E64C8;
-            border-radius: 6px;
-            margin-bottom: 10px;
-            font-size: 16px;
+        .card-text strong {
+            color: #1E64C8;
         }
     </style>
 </head>
@@ -71,54 +90,125 @@
     <div class="container">
         <div class="title">Fluorescence Principles</div>
         
-        <div class="highlight-box">
-            <div style="font-size: 20px; font-weight: 700; color: #1E64C8; margin-bottom: 12px;">
-                Jablonski Diagram
+        <div class="main-section">
+            <div class="jablonski-diagram">
+                <div style="font-size: 16px; font-weight: 700; color: #1E64C8; margin-bottom: 12px; text-align: center;">
+                    Jablonski Energy Diagram
+                </div>
+                <svg width="100%" height="240" viewBox="0 0 450 240">
+                    <!-- Energy levels -->
+                    <!-- S0 ground state -->
+                    <line x1="50" y1="200" x2="200" y2="200" stroke="#1E64C8" stroke-width="4"/>
+                    <text x="30" y="205" font-size="16" fill="#1E64C8" font-weight="bold">S₀</text>
+                    
+                    <!-- S1 excited state with vibrational levels -->
+                    <line x1="250" y1="80" x2="400" y2="80" stroke="#E74C3C" stroke-width="4"/>
+                    <line x1="250" y1="90" x2="390" y2="90" stroke="#E74C3C" stroke-width="2" opacity="0.5"/>
+                    <line x1="250" y1="100" x2="380" y2="100" stroke="#E74C3C" stroke-width="2" opacity="0.5"/>
+                    <text x="410" y="85" font-size="16" fill="#E74C3C" font-weight="bold">S₁</text>
+                    
+                    <!-- S0 vibrational levels -->
+                    <line x1="60" y1="190" x2="190" y2="190" stroke="#1E64C8" stroke-width="2" opacity="0.5"/>
+                    <line x1="70" y1="180" x2="180" y2="180" stroke="#1E64C8" stroke-width="2" opacity="0.5"/>
+                    
+                    <!-- Absorption arrow (blue, up) -->
+                    <defs>
+                        <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#3498db"/>
+                        </marker>
+                        <marker id="arrowGreen" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#27ae60"/>
+                        </marker>
+                        <marker id="arrowOrange" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#f39c12"/>
+                        </marker>
+                    </defs>
+                    
+                    <!-- Absorption -->
+                    <line x1="120" y1="200" x2="320" y2="100" stroke="#3498db" stroke-width="3" marker-end="url(#arrowBlue)"/>
+                    <text x="180" y="140" font-size="13" fill="#3498db" font-weight="bold">Absorption</text>
+                    <text x="185" y="155" font-size="11" fill="#3498db">(~10⁻¹⁵ s)</text>
+                    
+                    <!-- Vibrational relaxation (wavy line down) -->
+                    <path d="M 340 100 Q 345 105, 340 110 T 340 120 T 340 130" stroke="#f39c12" stroke-width="2.5" fill="none"/>
+                    <text x="350" y="115" font-size="11" fill="#f39c12" font-weight="bold">VR</text>
+                    
+                    <!-- Fluorescence emission (green, down) -->
+                    <line x1="320" y1="80" x2="120" y2="180" stroke="#27ae60" stroke-width="3" marker-end="url(#arrowGreen)"/>
+                    <text x="240" y="140" font-size="13" fill="#27ae60" font-weight="bold">Emission</text>
+                    <text x="245" y="155" font-size="11" fill="#27ae60">(~10⁻⁹ s)</text>
+                    
+                    <!-- Stokes shift indicator -->
+                    <line x1="220" y1="220" x2="280" y2="220" stroke="#9b59b6" stroke-width="2" stroke-dasharray="5,5"/>
+                    <text x="235" y="235" font-size="12" fill="#9b59b6" font-weight="bold">Stokes Shift</text>
+                    
+                    <!-- Energy axis -->
+                    <line x1="20" y1="210" x2="20" y2="50" stroke="#333" stroke-width="2" marker-end="url(#arrowBlack)"/>
+                    <text x="5" y="40" font-size="14" fill="#333" font-weight="bold">E</text>
+                    
+                    <marker id="arrowBlack" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+                    </marker>
+                </svg>
             </div>
-            <div style="font-size: 16px; color: #333; line-height: 1.6;">
-                S₀ → S₁ (absorption) → vibrational relaxation → S₁ → S₀ (emission)<br>
-                Typical timescale: absorption ~10⁻¹⁵ s, emission ~10⁻⁹ s
+            
+            <div class="highlight-box">
+                <div class="highlight-title">Jablonski Diagram</div>
+                <div class="highlight-text">
+                    S₀ → S₁ (absorption)<br>
+                    ↓ vibrational relaxation<br>
+                    S₁ → S₀ (emission)<br><br>
+                    <strong>Timescales:</strong><br>
+                    Absorption: ~10⁻¹⁵ s<br>
+                    VR: ~10⁻¹² s<br>
+                    Emission: ~10⁻⁹ s<br><br>
+                    <strong>Stokes Shift:</strong><br>
+                    λ_emission > λ_excitation
+                </div>
             </div>
         </div>
+        
         <div class="content-grid">
             <div class="content-card">
-                <div class="card-title">Excitation/Emission Spectra</div>
+                <div class="card-title">📊 Excitation/Emission Spectra</div>
                 <div class="card-text">
-                    Mirror image relationship<br>
-                    Stokes shift separation<br>
-                    Peak wavelengths for optimization<br>
-                    Spectral overlap considerations
+                    Mirror image relationship due to vibrational structure<br>
+                    Stokes shift separation enables detection<br>
+                    Peak wavelengths for filter optimization<br>
+                    Spectral overlap considerations for multicolor imaging
                 </div>
             </div>
+            
             <div class="content-card">
-                <div class="card-title">Fluorophore Properties</div>
+                <div class="card-title">✨ Fluorophore Properties</div>
                 <div class="card-text">
-                    <strong>Brightness:</strong> ε × Φ<br>
+                    <strong>Brightness:</strong> ε × Φ (extinction × quantum yield)<br>
                     <strong>Lifetime:</strong> τ (1-10 ns typical)<br>
                     <strong>Stokes shift:</strong> 20-100 nm<br>
-                    <strong>Photostability:</strong> varies widely
+                    <strong>Photostability:</strong> varies widely between fluorophores
                 </div>
             </div>
+            
             <div class="content-card">
-                <div class="card-title">Photobleaching</div>
+                <div class="card-title">⚠️ Photobleaching</div>
                 <div class="card-text">
-                    Irreversible fluorescence loss<br>
-                    ROS-mediated damage<br>
-                    Antifade reagents help<br>
-                    Limits imaging duration
+                    Irreversible fluorescence loss over time<br>
+                    Reactive oxygen species (ROS) mediated damage<br>
+                    Antifade reagents help preserve signal<br>
+                    Limits long-term imaging duration
                 </div>
             </div>
+            
             <div class="content-card">
-                <div class="card-title">FRET Basics</div>
+                <div class="card-title">🔗 FRET Basics</div>
                 <div class="card-text">
-                    Förster Resonance Energy Transfer<br>
-                    Distance-dependent (2-10 nm)<br>
-                    Donor-acceptor pair required<br>
-                    Molecular ruler application
+                    <strong>Förster Resonance Energy Transfer</strong><br>
+                    Distance-dependent (2-10 nm range)<br>
+                    Requires donor-acceptor pair<br>
+                    Molecular ruler for protein interactions
                 </div>
             </div>
         </div>
-    
     </div>
 </body>
 </html>

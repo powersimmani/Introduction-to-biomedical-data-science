@@ -1,6 +1,135 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Survival Analysis</title>
-<style>* {margin:0;padding:0;box-sizing:border-box;}body {font-family:Aptos,'Segoe UI',sans-serif;background: white;display:flex;justify-content:center;align-items:center;min-height:100vh;}
-.container {width:960px;height:540px;padding:35px 50px;background:white;}.title {font-size:36px;font-weight:700;color:#1E64C8;margin-bottom:25px;text-align:center;}</style>
-</head><body><div class="container"><div class="title">Survival Analysis</div><div style="background:#fff4e6;border:3px solid #ffc107;border-radius:12px;padding:16px 24px;margin-bottom:20px;text-align:center;"><strong style="color:#856404;">Time-to-event analysis:</strong> Death, disease recurrence, hospital readmission</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:15px;"><div style="background:#f8fbff;border:2.5px solid #1E64C8;border-radius:10px;padding:16px 18px;"><div style="font-size:18px;font-weight:700;color:#1E64C8;margin-bottom:10px;">Censoring Types</div><div style="font-size:14px;color:#333;line-height:1.5;">• Right censoring (most common)<br>• Left censoring<br>• Interval censoring</div></div><div style="background:#f8fbff;border:2.5px solid #1E64C8;border-radius:10px;padding:16px 18px;"><div style="font-size:18px;font-weight:700;color:#1E64C8;margin-bottom:10px;">Key Functions</div><div style="font-size:14px;color:#333;line-height:1.5;">• Survival function S(t)<br>• Hazard function h(t)<br>• Cumulative hazard H(t)</div></div><div style="background:#f8fbff;border:2.5px solid #1E64C8;border-radius:10px;padding:16px 18px;"><div style="font-size:18px;font-weight:700;color:#1E64C8;margin-bottom:10px;">Advanced Topics</div><div style="font-size:14px;color:#333;line-height:1.5;">• Competing risks<br>• Recurrent events<br>• Time-varying covariates</div></div><div style="background:#f8fbff;border:2.5px solid #1E64C8;border-radius:10px;padding:16px 18px;"><div style="font-size:18px;font-weight:700;color:#1E64C8;margin-bottom:10px;">Clinical Applications</div><div style="font-size:14px;color:#333;line-height:1.5;">• Overall survival (OS)<br>• Progression-free survival (PFS)<br>• Time to treatment failure</div></div></div></div></body></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Survival Analysis</title>
+    <style>
+        * {margin:0;padding:0;box-sizing:border-box;}
+        body {font-family:Aptos,'Segoe UI',sans-serif;background:white;display:flex;justify-content:center;align-items:center;min-height:100vh;}
+        .container {width:960px;height:540px;padding:30px 45px;background:white;}
+        .title {font-size:36px;font-weight:700;color:#1E64C8;margin-bottom:18px;text-align:center;}
+        .intro-box {background:#fff4e6;border:3px solid #ffc107;border-radius:12px;padding:14px 22px;margin-bottom:18px;text-align:center;}
+        .content-grid {display:grid;grid-template-columns:380px 1fr;gap:18px;}
+        .censoring-viz {background:#f8fbff;border:2.5px solid #1E64C8;border-radius:10px;padding:16px;}
+        .viz-title {font-size:17px;font-weight:700;color:#1E64C8;margin-bottom:10px;text-align:center;}
+        .info-grid {display:grid;grid-template-columns:1fr 1fr;gap:12px;}
+        .info-card {background:#f8fbff;border:2.5px solid #1E64C8;border-radius:10px;padding:14px 16px;}
+        .card-title {font-size:16px;font-weight:700;color:#1E64C8;margin-bottom:8px;}
+        .card-content {font-size:13px;color:#333;line-height:1.5;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Survival Analysis</div>
+        <div class="intro-box">
+            <strong style="color:#856404;">Time-to-event analysis:</strong> Death, disease recurrence, hospital readmission
+        </div>
+        <div class="content-grid">
+            <div class="censoring-viz">
+                <div class="viz-title">Censoring Visualization</div>
+                <svg width="350" height="280" viewBox="0 0 350 280">
+                    <!-- Timeline axis -->
+                    <line x1="50" y1="250" x2="330" y2="250" stroke="#333" stroke-width="2" marker-end="url(#arrow-time)"/>
+                    <text x="340" y="255" font-size="12" fill="#333">Time</text>
+                    
+                    <!-- Time markers -->
+                    <line x1="50" y1="245" x2="50" y2="255" stroke="#333" stroke-width="1.5"/>
+                    <text x="50" y="268" text-anchor="middle" font-size="10" fill="#666">0</text>
+                    
+                    <line x1="190" y1="245" x2="190" y2="255" stroke="#333" stroke-width="1.5"/>
+                    <text x="190" y="268" text-anchor="middle" font-size="10" fill="#666">Study End</text>
+                    
+                    <!-- Patient 1: Event occurred -->
+                    <text x="10" y="45" font-size="11" fill="#666">P1:</text>
+                    <line x1="50" y1="40" x2="130" y2="40" stroke="#28a745" stroke-width="4"/>
+                    <circle cx="130" cy="40" r="5" fill="#dc3545"/>
+                    <text x="145" y="43" font-size="10" fill="#dc3545" font-weight="600">Event ✗</text>
+                    
+                    <!-- Patient 2: Right censored (withdrew) -->
+                    <text x="10" y="85" font-size="11" fill="#666">P2:</text>
+                    <line x1="50" y1="80" x2="100" y2="80" stroke="#28a745" stroke-width="4"/>
+                    <line x1="100" y1="75" x2="105" y2="80" stroke="#ff8c00" stroke-width="2"/>
+                    <line x1="100" y1="85" x2="105" y2="80" stroke="#ff8c00" stroke-width="2"/>
+                    <text x="115" y="83" font-size="10" fill="#ff8c00" font-weight="600">Censored +</text>
+                    
+                    <!-- Patient 3: Event occurred later -->
+                    <text x="10" y="125" font-size="11" fill="#666">P3:</text>
+                    <line x1="50" y1="120" x2="170" y2="120" stroke="#28a745" stroke-width="4"/>
+                    <circle cx="170" cy="120" r="5" fill="#dc3545"/>
+                    <text x="185" y="123" font-size="10" fill="#dc3545" font-weight="600">Event ✗</text>
+                    
+                    <!-- Patient 4: Right censored (study end) -->
+                    <text x="10" y="165" font-size="11" fill="#666">P4:</text>
+                    <line x1="50" y1="160" x2="190" y2="160" stroke="#28a745" stroke-width="4"/>
+                    <line x1="190" y1="155" x2="195" y2="160" stroke="#ff8c00" stroke-width="2"/>
+                    <line x1="190" y1="165" x2="195" y2="160" stroke="#ff8c00" stroke-width="2"/>
+                    <text x="205" y="163" font-size="10" fill="#ff8c00" font-weight="600">Censored +</text>
+                    
+                    <!-- Patient 5: Early event -->
+                    <text x="10" y="205" font-size="11" fill="#666">P5:</text>
+                    <line x1="50" y1="200" x2="85" y2="200" stroke="#28a745" stroke-width="4"/>
+                    <circle cx="85" cy="200" r="5" fill="#dc3545"/>
+                    <text x="100" y="203" font-size="10" fill="#dc3545" font-weight="600">Event ✗</text>
+                    
+                    <!-- Legend -->
+                    <g transform="translate(220, 30)">
+                        <rect x="0" y="0" width="110" height="65" fill="#f8f9fa" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                        
+                        <line x1="10" y1="15" x2="30" y2="15" stroke="#28a745" stroke-width="3"/>
+                        <text x="35" y="18" font-size="10" fill="#333">Follow-up</text>
+                        
+                        <circle cx="20" cy="32" r="4" fill="#dc3545"/>
+                        <text x="35" y="35" font-size="10" fill="#333">Event</text>
+                        
+                        <line x1="17" y1="47" x2="23" y2="47" stroke="#ff8c00" stroke-width="2"/>
+                        <line x1="20" y1="44" x2="20" y2="50" stroke="#ff8c00" stroke-width="2"/>
+                        <text x="35" y="50" font-size="10" fill="#333">Censored</text>
+                    </g>
+                    
+                    <defs>
+                        <marker id="arrow-time" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#333"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-card">
+                    <div class="card-title">Censoring Types</div>
+                    <div class="card-content">
+                        • Right censoring (most common)<br>
+                        • Left censoring<br>
+                        • Interval censoring
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="card-title">Key Functions</div>
+                    <div class="card-content">
+                        • Survival function S(t)<br>
+                        • Hazard function h(t)<br>
+                        • Cumulative hazard H(t)
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="card-title">Advanced Topics</div>
+                    <div class="card-content">
+                        • Competing risks<br>
+                        • Recurrent events<br>
+                        • Time-varying covariates
+                    </div>
+                </div>
+                <div class="info-card">
+                    <div class="card-title">Clinical Applications</div>
+                    <div class="card-content">
+                        • Overall survival (OS)<br>
+                        • Progression-free survival (PFS)<br>
+                        • Time to treatment failure
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

@@ -8,36 +8,113 @@
         * {margin: 0; padding: 0; box-sizing: border-box;}
         body {font-family: Aptos, 'Segoe UI', sans-serif; background: white; display: flex; justify-content: center; align-items: center; min-height: 100vh;}
         .container {width: 960px; height: 540px; padding: 40px 50px; background: white;}
-        .title {font-size: 36px; font-weight: 700; color: #1E64C8; margin-bottom: 35px; text-align: center;}
-        .timeline {display: flex; flex-direction: column; gap: 20px;}
-        .timeline-item {display: grid; grid-template-columns: 120px 1fr; gap: 20px; align-items: center; padding: 18px; background: #f8f9fb; border-left: 4px solid #1E64C8; border-radius: 6px; transition: all 0.3s;}
+        .title {font-size: 36px; font-weight: 700; color: #1E64C8; margin-bottom: 30px; text-align: center;}
+        
+        .visual-timeline {
+            background: #f8f9fb;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            position: relative;
+        }
+        
+        .timeline-svg {
+            width: 100%;
+            height: 240px;
+        }
+        
+        .timeline {display: flex; flex-direction: column; gap: 18px;}
+        .timeline-item {display: grid; grid-template-columns: 120px 1fr; gap: 20px; align-items: center; padding: 16px; background: #f8f9fb; border-left: 4px solid #1E64C8; border-radius: 6px; transition: all 0.3s;}
         .timeline-item:hover {background: #e8f2ff; transform: translateX(5px);}
         .timeline-week {font-size: 18px; font-weight: 700; color: #1E64C8;}
-        .timeline-content {font-size: 16px; color: #333; line-height: 1.6;}
-        .full-width-box {background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%); color: white; padding: 18px 25px; border-radius: 8px; text-align: center; font-size: 17px; font-weight: 500; margin-top: 20px;}
+        .timeline-content {font-size: 15px; color: #333; line-height: 1.5;}
+        .full-width-box {background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%); color: white; padding: 15px 22px; border-radius: 8px; text-align: center; font-size: 16px; font-weight: 500;}
+        
+        @keyframes progressFill {
+            0% { width: 0%; }
+            100% { width: 100%; }
+        }
+        
+        .progress-bar {
+            animation: progressFill 3s ease-in-out infinite;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Project Timeline</div>
-        <div class="timeline">
-            <div class="timeline-item">
-                <div class="timeline-week">Week 1</div>
-                <div class="timeline-content"><strong>Project Proposal:</strong> Submit 2-page proposal with team members, problem statement, approach, and expected outcomes</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-week">Week 3</div>
-                <div class="timeline-content"><strong>Progress Checkpoint:</strong> 10-minute meeting with instructor, preliminary results, identify challenges</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-week">Week 5</div>
-                <div class="timeline-content"><strong>Draft Results:</strong> Share interim findings, code review session, peer feedback</div>
-            </div>
-            <div class="timeline-item">
-                <div class="timeline-week">Week 7</div>
-                <div class="timeline-content"><strong>Final Presentation:</strong> 12-minute presentation + 5-minute Q&A, submit all deliverables</div>
-            </div>
+        
+        <div class="visual-timeline">
+            <svg class="timeline-svg" viewBox="0 0 800 240">
+                <!-- Timeline base -->
+                <line x1="50" y1="120" x2="750" y2="120" stroke="#1E64C8" stroke-width="3"/>
+                
+                <!-- Week 1 -->
+                <g transform="translate(50, 120)">
+                    <circle cx="0" cy="0" r="12" fill="#1E64C8"/>
+                    <text x="0" y="5" font-size="12" font-weight="700" fill="white" text-anchor="middle">1</text>
+                    <text x="0" y="-25" font-size="13" font-weight="700" fill="#1E64C8" text-anchor="middle">Week 1</text>
+                    
+                    <rect x="-60" y="20" width="120" height="70" rx="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="0" y="40" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">📝 Proposal</text>
+                    <text x="0" y="55" font-size="9" fill="#666" text-anchor="middle">Team formation</text>
+                    <text x="0" y="68" font-size="9" fill="#666" text-anchor="middle">Problem definition</text>
+                    <text x="0" y="81" font-size="9" fill="#666" text-anchor="middle">2-page document</text>
+                </g>
+                
+                <!-- Week 3 -->
+                <g transform="translate(283, 120)">
+                    <circle cx="0" cy="0" r="12" fill="#1E64C8"/>
+                    <text x="0" y="5" font-size="12" font-weight="700" fill="white" text-anchor="middle">3</text>
+                    <text x="0" y="-25" font-size="13" font-weight="700" fill="#1E64C8" text-anchor="middle">Week 3</text>
+                    
+                    <rect x="-60" y="20" width="120" height="70" rx="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="0" y="40" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">🔍 Progress</text>
+                    <text x="0" y="55" font-size="9" fill="#666" text-anchor="middle">Checkpoint meeting</text>
+                    <text x="0" y="68" font-size="9" fill="#666" text-anchor="middle">10-min review</text>
+                    <text x="0" y="81" font-size="9" fill="#666" text-anchor="middle">Early results</text>
+                </g>
+                
+                <!-- Week 5 -->
+                <g transform="translate(517, 120)">
+                    <circle cx="0" cy="0" r="12" fill="#1E64C8"/>
+                    <text x="0" y="5" font-size="12" font-weight="700" fill="white" text-anchor="middle">5</text>
+                    <text x="0" y="-25" font-size="13" font-weight="700" fill="#1E64C8" text-anchor="middle">Week 5</text>
+                    
+                    <rect x="-60" y="20" width="120" height="70" rx="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="0" y="40" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">📊 Draft</text>
+                    <text x="0" y="55" font-size="9" fill="#666" text-anchor="middle">Share findings</text>
+                    <text x="0" y="68" font-size="9" fill="#666" text-anchor="middle">Code review</text>
+                    <text x="0" y="81" font-size="9" fill="#666" text-anchor="middle">Peer feedback</text>
+                </g>
+                
+                <!-- Week 7 -->
+                <g transform="translate(750, 120)">
+                    <circle cx="0" cy="0" r="12" fill="#4CAF50"/>
+                    <text x="0" y="5" font-size="12" font-weight="700" fill="white" text-anchor="middle">7</text>
+                    <text x="0" y="-25" font-size="13" font-weight="700" fill="#4CAF50" text-anchor="middle">Week 7</text>
+                    
+                    <rect x="-60" y="20" width="120" height="70" rx="6" fill="#e8fff2" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="0" y="40" font-size="11" font-weight="600" fill="#4CAF50" text-anchor="middle">🎓 Final</text>
+                    <text x="0" y="55" font-size="9" fill="#666" text-anchor="middle">12-min presentation</text>
+                    <text x="0" y="68" font-size="9" fill="#666" text-anchor="middle">5-min Q&A</text>
+                    <text x="0" y="81" font-size="9" fill="#666" text-anchor="middle">All deliverables</text>
+                </g>
+                
+                <!-- Progress indicator -->
+                <g transform="translate(50, 105)">
+                    <rect x="0" y="0" width="700" height="4" fill="#e0e0e0" rx="2"/>
+                    <rect x="0" y="0" width="0" height="4" fill="#4CAF50" rx="2" class="progress-bar">
+                        <animate attributeName="width" from="0" to="700" dur="7s" repeatCount="indefinite"/>
+                    </rect>
+                </g>
+                
+                <!-- Week markers -->
+                <text x="50" y="15" font-size="10" fill="#999" text-anchor="middle">Start</text>
+                <text x="750" y="15" font-size="10" fill="#4CAF50" font-weight="600" text-anchor="middle">Completion</text>
+            </svg>
         </div>
+        
         <div class="full-width-box">
             <strong>Review Sessions:</strong> Optional office hours every week for technical questions and guidance
         </div>

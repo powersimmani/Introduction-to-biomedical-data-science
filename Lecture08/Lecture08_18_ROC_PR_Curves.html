@@ -1,6 +1,135 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>ROC and PR Curves</title>
-<style>* {margin:0;padding:0;box-sizing:border-box;}body {font-family:Aptos,'Segoe UI',sans-serif;background: white;display:flex;justify-content:center;align-items:center;min-height:100vh;}
-.container {width:960px;height:540px;padding:35px 50px;background:white;}.title {font-size:36px;font-weight:700;color:#1E64C8;margin-bottom:25px;text-align:center;}</style>
-</head><body><div class="container"><div class="title">ROC and PR Curves</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:20px;"><div style="background:#f8fbff;border:3px solid #1E64C8;border-radius:10px;padding:20px;"><div style="font-size:22px;font-weight:700;color:#1E64C8;margin-bottom:12px;text-align:center;">ROC Curve</div><div style="font-size:15px;color:#333;margin-bottom:10px;">Plots TPR vs FPR at various thresholds</div><div style="font-size:14px;color:#555;">• AUC: 0.5 = random, 1.0 = perfect<br>• Good for balanced datasets<br>• Threshold-independent metric</div></div><div style="background:#f8fbff;border:3px solid #1E64C8;border-radius:10px;padding:20px;"><div style="font-size:22px;font-weight:700;color:#1E64C8;margin-bottom:12px;text-align:center;">PR Curve</div><div style="font-size:15px;color:#333;margin-bottom:10px;">Plots Precision vs Recall</div><div style="font-size:14px;color:#555;">• Better for imbalanced data<br>• Focus on positive class<br>• More informative for rare diseases</div></div></div><div style="background:#e8f5e9;border-left:5px solid #28a745;border-radius:8px;padding:14px 20px;margin-top:20px;text-align:center;"><strong style="color:#28a745;">Clinical Decision: </strong>Choose operating point based on cost of FP vs FN</div></div></body></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ROC and PR Curves</title>
+    <style>
+        * {margin:0;padding:0;box-sizing:border-box;}
+        body {font-family:Aptos,'Segoe UI',sans-serif;background:white;display:flex;justify-content:center;align-items:center;min-height:100vh;}
+        .container {width:960px;height:540px;padding:30px 45px;background:white;}
+        .title {font-size:36px;font-weight:700;color:#1E64C8;margin-bottom:20px;text-align:center;}
+        .curves-section {display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-bottom:18px;}
+        .curve-card {background:#f8fbff;border:3px solid #1E64C8;border-radius:10px;padding:18px;}
+        .curve-title {font-size:22px;font-weight:700;color:#1E64C8;margin-bottom:10px;text-align:center;}
+        .curve-viz {display:flex;justify-content:center;margin-bottom:10px;}
+        .curve-desc {font-size:14px;color:#333;margin-bottom:8px;}
+        .curve-points {font-size:13px;color:#555;line-height:1.5;}
+        .decision-box {background:#e8f5e9;border-left:5px solid #28a745;border-radius:8px;padding:12px 18px;text-align:center;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">ROC and PR Curves</div>
+        <div class="curves-section">
+            <div class="curve-card">
+                <div class="curve-title">ROC Curve</div>
+                <div class="curve-viz">
+                    <svg width="380" height="260" viewBox="0 0 380 260">
+                        <!-- Axes -->
+                        <line x1="50" y1="220" x2="350" y2="220" stroke="#333" stroke-width="2"/>
+                        <line x1="50" y1="20" x2="50" y2="220" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Axis labels -->
+                        <text x="200" y="250" text-anchor="middle" font-size="13" fill="#333" font-weight="600">False Positive Rate (1-Specificity)</text>
+                        <text x="15" y="120" text-anchor="middle" font-size="13" fill="#333" font-weight="600" transform="rotate(-90 15 120)">True Positive Rate (Sensitivity)</text>
+                        
+                        <!-- Tick marks and labels -->
+                        <text x="50" y="235" text-anchor="middle" font-size="11" fill="#666">0.0</text>
+                        <text x="200" y="235" text-anchor="middle" font-size="11" fill="#666">0.5</text>
+                        <text x="350" y="235" text-anchor="middle" font-size="11" fill="#666">1.0</text>
+                        
+                        <text x="40" y="225" text-anchor="end" font-size="11" fill="#666">0.0</text>
+                        <text x="40" y="120" text-anchor="end" font-size="11" fill="#666">0.5</text>
+                        <text x="40" y="25" text-anchor="end" font-size="11" fill="#666">1.0</text>
+                        
+                        <!-- Diagonal reference line (random classifier) -->
+                        <line x1="50" y1="220" x2="350" y2="20" stroke="#999" stroke-width="1.5" stroke-dasharray="5,5"/>
+                        <text x="270" y="90" font-size="11" fill="#999" font-style="italic">Random (AUC=0.5)</text>
+                        
+                        <!-- Perfect classifier line -->
+                        <path d="M 50,220 L 50,20 L 350,20" stroke="#28a745" stroke-width="2" stroke-dasharray="3,3" fill="none" opacity="0.5"/>
+                        <text x="140" y="15" font-size="11" fill="#28a745" font-weight="600">Perfect (AUC=1.0)</text>
+                        
+                        <!-- Good classifier curve -->
+                        <path d="M 50,220 Q 80,120 110,70 T 170,35 T 260,23 T 350,20" 
+                              stroke="#1E64C8" stroke-width="3" fill="none"/>
+                        
+                        <!-- AUC shaded area -->
+                        <path d="M 50,220 Q 80,120 110,70 T 170,35 T 260,23 T 350,20 L 350,220 Z" 
+                              fill="#1E64C8" opacity="0.1"/>
+                        
+                        <!-- AUC label -->
+                        <text x="180" y="180" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">AUC = 0.85</text>
+                        
+                        <!-- Operating point -->
+                        <circle cx="170" cy="35" r="5" fill="#ff8c00" stroke="white" stroke-width="2"/>
+                        <text x="185" y="32" font-size="11" fill="#ff8c00" font-weight="600">Operating Point</text>
+                    </svg>
+                </div>
+                <div class="curve-desc"><strong>Plots TPR vs FPR at various thresholds</strong></div>
+                <div class="curve-points">
+                    • AUC: 0.5 = random, 1.0 = perfect<br>
+                    • Good for balanced datasets<br>
+                    • Threshold-independent metric
+                </div>
+            </div>
+            
+            <div class="curve-card">
+                <div class="curve-title">PR Curve</div>
+                <div class="curve-viz">
+                    <svg width="380" height="260" viewBox="0 0 380 260">
+                        <!-- Axes -->
+                        <line x1="50" y1="220" x2="350" y2="220" stroke="#333" stroke-width="2"/>
+                        <line x1="50" y1="20" x2="50" y2="220" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Axis labels -->
+                        <text x="200" y="250" text-anchor="middle" font-size="13" fill="#333" font-weight="600">Recall (Sensitivity)</text>
+                        <text x="15" y="120" text-anchor="middle" font-size="13" fill="#333" font-weight="600" transform="rotate(-90 15 120)">Precision (PPV)</text>
+                        
+                        <!-- Tick marks and labels -->
+                        <text x="50" y="235" text-anchor="middle" font-size="11" fill="#666">0.0</text>
+                        <text x="200" y="235" text-anchor="middle" font-size="11" fill="#666">0.5</text>
+                        <text x="350" y="235" text-anchor="middle" font-size="11" fill="#666">1.0</text>
+                        
+                        <text x="40" y="225" text-anchor="end" font-size="11" fill="#666">0.0</text>
+                        <text x="40" y="120" text-anchor="end" font-size="11" fill="#666">0.5</text>
+                        <text x="40" y="25" text-anchor="end" font-size="11" fill="#666">1.0</text>
+                        
+                        <!-- Baseline (depends on class prevalence) -->
+                        <line x1="50" y1="170" x2="350" y2="170" stroke="#999" stroke-width="1.5" stroke-dasharray="5,5"/>
+                        <text x="250" y="165" font-size="11" fill="#999" font-style="italic">Baseline (prevalence)</text>
+                        
+                        <!-- Perfect classifier -->
+                        <path d="M 50,20 L 350,20 L 350,220" stroke="#28a745" stroke-width="2" stroke-dasharray="3,3" fill="none" opacity="0.5"/>
+                        <text x="280" y="15" font-size="11" fill="#28a745" font-weight="600">Perfect</text>
+                        
+                        <!-- Good classifier curve (PR curve drops more steeply) -->
+                        <path d="M 50,20 Q 100,25 150,40 T 250,100 T 320,160 T 350,200" 
+                              stroke="#e74c3c" stroke-width="3" fill="none"/>
+                        
+                        <!-- PR-AUC shaded area -->
+                        <path d="M 50,20 Q 100,25 150,40 T 250,100 T 320,160 T 350,200 L 350,220 L 50,220 Z" 
+                              fill="#e74c3c" opacity="0.1"/>
+                        
+                        <!-- PR-AUC label -->
+                        <text x="170" y="130" text-anchor="middle" font-size="14" fill="#e74c3c" font-weight="700">PR-AUC = 0.72</text>
+                        
+                        <!-- Operating point -->
+                        <circle cx="250" cy="100" r="5" fill="#ff8c00" stroke="white" stroke-width="2"/>
+                    </svg>
+                </div>
+                <div class="curve-desc"><strong>Plots Precision vs Recall</strong></div>
+                <div class="curve-points">
+                    • Better for imbalanced data<br>
+                    • Focus on positive class<br>
+                    • More informative for rare diseases
+                </div>
+            </div>
+        </div>
+        <div class="decision-box">
+            <strong style="color:#28a745;">Clinical Decision: </strong>Choose operating point based on cost of FP vs FN
+        </div>
+    </div>
+</body>
+</html>

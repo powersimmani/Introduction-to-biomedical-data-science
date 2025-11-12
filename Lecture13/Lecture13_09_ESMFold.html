@@ -31,50 +31,169 @@
             font-size: 32px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
         }
         
-        .content-list {
+        .content-wrapper {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            gap: 25px;
+            height: 385px;
         }
         
-        .content-item {
+        .comparison-diagram {
+            flex: 1.5;
             display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 18px 24px;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .features-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        
+        .feature-box {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 6px;
+            padding: 13px 18px;
             transition: all 0.3s ease;
-            font-size: 19px;
-            color: #333;
         }
         
-        .content-item:hover {
+        .feature-box:hover {
             background: #e8f2ff;
             transform: translateX(8px);
         }
         
-        .bullet {
-            width: 10px;
-            height: 10px;
-            background: #1E64C8;
-            border-radius: 50%;
-            flex-shrink: 0;
+        .feature-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 3px;
+        }
+        
+        .feature-info {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .speed-indicator {
+            animation: speedPulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes speedPulse {
+            0%, 100% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.8; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">ESMFold</div>
-        <div class="content-list">
-            <div class="content-item"><div class="bullet"></div><div>Language model only</div></div><div class="content-item"><div class="bullet"></div><div>No MSA required</div></div><div class="content-item"><div class="bullet"></div><div>Speed benefits</div></div><div class="content-item"><div class="bullet"></div><div>Metagenomic applications</div></div><div class="content-item"><div class="bullet"></div><div>Limitations</div></div>
+        <div class="content-wrapper">
+            <div class="comparison-diagram">
+                <svg width="550" height="385" viewBox="0 0 550 385">
+                    <text x="275" y="25" font-size="15" fill="#333" text-anchor="middle" font-weight="600">Language Model-Only Approach</text>
+                    
+                    <!-- Comparison: Traditional vs ESMFold -->
+                    <g transform="translate(20, 50)">
+                        <!-- Traditional (with MSA) -->
+                        <g>
+                            <text x="0" y="0" font-size="13" fill="#666" font-weight="600">Traditional (e.g., AlphaFold2):</text>
+                            
+                            <rect x="0" y="10" width="100" height="35" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                            <text x="50" y="23" font-size="11" fill="#333" text-anchor="middle">Sequence</text>
+                            <text x="50" y="37" font-size="10" fill="#666" text-anchor="middle">Search</text>
+                            
+                            <path d="M 105,27 L 120,27" stroke="#e0a800" stroke-width="2"/>
+                            <text x="112" y="23" font-size="10" fill="#666">→</text>
+                            
+                            <rect x="125" y="10" width="100" height="35" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                            <text x="175" y="23" font-size="11" fill="#333" text-anchor="middle">MSA</text>
+                            <text x="175" y="37" font-size="10" fill="#666" text-anchor="middle">Generation</text>
+                            
+                            <path d="M 230,27 L 245,27" stroke="#e0a800" stroke-width="2"/>
+                            <text x="237" y="23" font-size="10" fill="#666">→</text>
+                            
+                            <rect x="250" y="10" width="100" height="35" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                            <text x="300" y="23" font-size="11" fill="#333" text-anchor="middle">Structure</text>
+                            <text x="300" y="37" font-size="10" fill="#666" text-anchor="middle">Prediction</text>
+                            
+                            <text x="175" y="65" font-size="10" fill="#e0a800" text-anchor="middle" font-weight="600">⏱️ Slow (minutes to hours)</text>
+                        </g>
+                        
+                        <!-- ESMFold (no MSA) -->
+                        <g transform="translate(0, 100)">
+                            <text x="0" y="0" font-size="13" fill="#1E64C8" font-weight="600">ESMFold:</text>
+                            
+                            <rect x="0" y="10" width="150" height="45" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" class="speed-indicator"/>
+                            <text x="75" y="25" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">ESM-2</text>
+                            <text x="75" y="40" font-size="10" fill="#666" text-anchor="middle">Language Model</text>
+                            <text x="75" y="52" font-size="9" fill="#666" text-anchor="middle">(650M params)</text>
+                            
+                            <path d="M 155,32 L 175,32" stroke="#1E64C8" stroke-width="2.5"/>
+                            <text x="165" y="28" font-size="12" fill="#1E64C8" font-weight="bold">→</text>
+                            
+                            <rect x="180" y="10" width="170" height="45" rx="5" fill="#d4edda" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="265" y="25" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">Structure Module</text>
+                            <text x="265" y="40" font-size="10" fill="#666" text-anchor="middle">(AlphaFold-like)</text>
+                            <text x="265" y="52" font-size="9" fill="#666" text-anchor="middle">Direct 3D prediction</text>
+                            
+                            <text x="175" y="75" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">⚡ Fast (seconds)</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Key Innovation -->
+                    <g transform="translate(30, 270)">
+                        <rect x="0" y="0" width="490" height="85" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        
+                        <text x="245" y="20" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="700">Key Innovation: No MSA Required</text>
+                        
+                        <g transform="translate(20, 30)">
+                            <circle cx="5" cy="5" r="4" fill="#1E64C8"/>
+                            <text x="15" y="10" font-size="11" fill="#333">Evolutionary info learned directly from 250M+ protein sequences</text>
+                        </g>
+                        
+                        <g transform="translate(20, 50)">
+                            <circle cx="5" cy="5" r="4" fill="#1E64C8"/>
+                            <text x="15" y="10" font-size="11" fill="#333">60× faster than AlphaFold2 (seconds vs minutes)</text>
+                        </g>
+                        
+                        <g transform="translate(20, 70)">
+                            <circle cx="5" cy="5" r="4" fill="#1E64C8"/>
+                            <text x="15" y="10" font-size="11" fill="#333">Enables metagenomic-scale structure prediction</text>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="features-list">
+                <div class="feature-box">
+                    <div class="feature-label">Language model only</div>
+                    <div class="feature-info">ESM-2 pretrained transformer</div>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-label">No MSA required</div>
+                    <div class="feature-info">Single sequence input</div>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-label">Speed benefits</div>
+                    <div class="feature-info">60× faster inference</div>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-label">Metagenomic applications</div>
+                    <div class="feature-info">Unknown protein discovery</div>
+                </div>
+                <div class="feature-box">
+                    <div class="feature-label">Limitations</div>
+                    <div class="feature-info">Lower accuracy on orphan proteins</div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

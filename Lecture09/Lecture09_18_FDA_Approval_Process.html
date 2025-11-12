@@ -31,23 +31,39 @@
             font-size: 28px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             text-align: center;
+        }
+        
+        .flowchart-section {
+            background: #f8fbff;
+            border: 2.5px solid #1E64C8;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .flowchart-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1E64C8;
+            text-align: center;
+            margin-bottom: 15px;
         }
         
         .concept-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 18px;
         }
         
         .concept-card {
             background: white;
             border: 2.5px solid #1E64C8;
             border-radius: 10px;
-            padding: 18px;
+            padding: 16px;
             transition: all 0.3s;
-            min-height: 140px;
+            min-height: 100px;
         }
         
         .concept-card:hover {
@@ -57,14 +73,14 @@
         }
         
         .concept-name {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .concept-desc {
-            font-size: 15px;
+            font-size: 14px;
             color: #333;
             line-height: 1.5;
         }
@@ -74,33 +90,120 @@
     <div class="container">
         <div class="title">FDA Approval Process</div>
         
+        <div class="flowchart-section">
+            <div class="flowchart-title">Regulatory Pathways for AI/ML Medical Devices</div>
+            <svg width="880" height="260" viewBox="0 0 880 260">
+                <!-- Start -->
+                <ellipse cx="440" cy="25" rx="80" ry="20" fill="#1E64C8" opacity="0.8"/>
+                <text x="440" y="30" font-size="12" fill="white" font-weight="600" text-anchor="middle">New AI Device</text>
+                
+                <!-- Decision diamond -->
+                <path d="M 440 55 L 520 100 L 440 145 L 360 100 Z" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                <text x="440" y="97" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">Predicate</text>
+                <text x="440" y="110" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">exists?</text>
+                
+                <!-- Arrow down from start -->
+                <path d="M 440 45 L 440 55" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- YES path to 510(k) -->
+                <path d="M 360 100 L 240 100" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="300" y="93" font-size="10" fill="#1E64C8" font-weight="600">YES</text>
+                
+                <!-- 510(k) pathway -->
+                <rect x="120" y="70" width="120" height="60" rx="8" fill="#b3d7ff" stroke="#1E64C8" stroke-width="2"/>
+                <text x="180" y="92" font-size="13" fill="#1E64C8" font-weight="700" text-anchor="middle">510(k)</text>
+                <text x="180" y="107" font-size="10" fill="#333" text-anchor="middle">Substantial</text>
+                <text x="180" y="120" font-size="10" fill="#333" text-anchor="middle">Equivalence</text>
+                
+                <text x="180" y="150" font-size="9" fill="#666" text-anchor="middle" font-weight="600">⏱ 3-6 months</text>
+                <rect x="155" y="155" width="50" height="12" rx="6" fill="#90ee90" opacity="0.6"/>
+                <text x="180" y="164" font-size="8" fill="#333" font-weight="600" text-anchor="middle">FASTEST</text>
+                
+                <!-- NO path decision -->
+                <path d="M 520 100 L 600 100" stroke="#1E64C8" stroke-width="2"/>
+                <text x="560" y="93" font-size="10" fill="#1E64C8" font-weight="600">NO</text>
+                
+                <!-- Risk decision -->
+                <path d="M 680 50 L 720 100 L 680 150 L 640 100 Z" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                <text x="680" y="97" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">High</text>
+                <text x="680" y="110" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">Risk?</text>
+                
+                <path d="M 600 100 L 640 100" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- De Novo (Low-Moderate Risk) -->
+                <path d="M 680 50 L 680 20" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="710" y="35" font-size="10" fill="#1E64C8" font-weight="600">NO</text>
+                
+                <rect x="600" y="0" width="160" height="20" rx="10" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2"/>
+                <text x="680" y="14" font-size="12" fill="#1E64C8" font-weight="700" text-anchor="middle">De Novo Classification</text>
+                
+                <g transform="translate(610, 25)">
+                    <text x="70" y="0" font-size="9" fill="#333" text-anchor="middle">Novel low-moderate risk</text>
+                    <text x="70" y="12" font-size="9" fill="#666" font-weight="600" text-anchor="middle">⏱ 6-12 months</text>
+                </g>
+                
+                <!-- PMA (High Risk) -->
+                <path d="M 680 150 L 680 180" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="710" y="165" font-size="10" fill="#1E64C8" font-weight="600">YES</text>
+                
+                <rect x="600" y="180" width="160" height="60" rx="8" fill="#ffb3b3" opacity="0.4" stroke="#1E64C8" stroke-width="2"/>
+                <text x="680" y="202" font-size="13" fill="#1E64C8" font-weight="700" text-anchor="middle">PMA</text>
+                <text x="680" y="217" font-size="10" fill="#333" text-anchor="middle">Premarket Approval</text>
+                <text x="680" y="230" font-size="9" fill="#333" text-anchor="middle">Clinical trials required</text>
+                
+                <text x="680" y="255" font-size="9" fill="#666" text-anchor="middle" font-weight="600">⏱ 12-18+ months</text>
+                
+                <!-- Post-market monitoring for all -->
+                <rect x="90" y="190" width="200" height="50" rx="8" fill="#fff9e6" stroke="#1E64C8" stroke-width="2" stroke-dasharray="4,3"/>
+                <text x="190" y="208" font-size="12" fill="#1E64C8" font-weight="700" text-anchor="middle">Post-Market Surveillance</text>
+                <text x="190" y="223" font-size="9" fill="#333" text-anchor="middle">All pathways require continuous</text>
+                <text x="190" y="235" font-size="9" fill="#333" text-anchor="middle">monitoring and reporting</text>
+                
+                <!-- Arrows to post-market -->
+                <path d="M 180 130 L 180 190" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="3,2" marker-end="url(#arrowhead)"/>
+                
+                <!-- Legend -->
+                <g transform="translate(20, 10)">
+                    <text x="0" y="0" font-size="10" fill="#666" font-weight="600">Risk Level:</text>
+                    <circle cx="0" cy="12" r="4" fill="#90ee90" opacity="0.6"/>
+                    <text x="8" y="15" font-size="8" fill="#666">Class II (Low-Mod)</text>
+                    <circle cx="0" cy="25" r="4" fill="#ffb3b3" opacity="0.6"/>
+                    <text x="8" y="28" font-size="8" fill="#666">Class III (High)</text>
+                </g>
+                
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+        
         <div class="concept-grid">
-
             <div class="concept-card">
                 <div class="concept-name">510(k) Pathway</div>
                 <div class="concept-desc">Substantial equivalence to existing device. Fastest route, ~3-6 months if predicate exists</div>
             </div>
-        
+            
             <div class="concept-card">
                 <div class="concept-name">De Novo Classification</div>
                 <div class="concept-desc">Novel low-to-moderate risk devices. Creates new device category, ~6-12 months</div>
             </div>
-        
+            
             <div class="concept-card">
                 <div class="concept-name">PMA Requirements</div>
                 <div class="concept-desc">Premarket Approval for high-risk devices. Most rigorous, requires clinical trials</div>
             </div>
-        
+            
             <div class="concept-card">
                 <div class="concept-name">Software Modifications</div>
                 <div class="concept-desc">When algorithm changes require new submission. Predetermined change control plans</div>
             </div>
-        
+            
             <div class="concept-card">
                 <div class="concept-name">Real-World Surveillance</div>
                 <div class="concept-desc">Post-market monitoring. Detect performance drift or adverse events</div>
             </div>
-        
         </div>
     </div>
 </body>

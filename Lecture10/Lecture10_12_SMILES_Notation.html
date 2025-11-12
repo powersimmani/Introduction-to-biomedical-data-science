@@ -31,21 +31,28 @@
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-align: center;
         }
         
-        .content-grid {
+        .main-visual {
             display: flex;
-            flex-direction: column;
-            gap: 22px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
         }
         
         .content-card {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 8px;
-            padding: 18px 24px;
+            padding: 14px 20px;
             transition: all 0.3s;
         }
         
@@ -56,22 +63,165 @@
         }
         
         .content-main {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         
         .content-desc {
-            font-size: 16px;
+            font-size: 14px;
             color: #555;
             font-weight: 400;
+        }
+
+        .smiles-char {
+            animation: highlight 3s ease-in-out infinite;
+        }
+
+        @keyframes highlight {
+            0%, 100% { fill: #1E64C8; }
+            50% { fill: #f39c12; }
+        }
+
+        .transform-arrow {
+            animation: pulse-arrow 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-arrow {
+            0%, 100% { opacity: 0.5; }
+            50% { opacity: 1; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">SMILES Notation</div>
+        
+        <div class="main-visual">
+            <svg width="860" height="220" viewBox="0 0 860 220">
+                <!-- Example 1: Ethanol -->
+                <g transform="translate(40, 20)">
+                    <rect x="0" y="0" width="230" height="180" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="115" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Ethanol</text>
+                    
+                    <!-- Chemical structure -->
+                    <g transform="translate(50, 50)">
+                        <!-- Atoms -->
+                        <circle cx="20" cy="30" r="12" fill="#95a5a6"/>
+                        <text x="20" y="35" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
+                        
+                        <circle cx="60" cy="30" r="12" fill="#95a5a6"/>
+                        <text x="60" y="35" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
+                        
+                        <circle cx="100" cy="30" r="12" fill="#e74c3c"/>
+                        <text x="100" y="35" text-anchor="middle" font-size="11" font-weight="600" fill="white">O</text>
+                        
+                        <!-- Bonds -->
+                        <line x1="32" y1="30" x2="48" y2="30" stroke="#2c3e50" stroke-width="3"/>
+                        <line x1="72" y1="30" x2="88" y2="30" stroke="#2c3e50" stroke-width="3"/>
+                        
+                        <!-- Hydrogens -->
+                        <text x="20" y="10" text-anchor="middle" font-size="9" fill="#666">H₃</text>
+                        <text x="60" y="55" text-anchor="middle" font-size="9" fill="#666">H₂</text>
+                        <text x="100" y="10" text-anchor="middle" font-size="9" fill="#666">H</text>
+                    </g>
+                    
+                    <!-- Arrow -->
+                    <path d="M 115 95 L 115 110" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow-s)" class="transform-arrow"/>
+                    
+                    <!-- SMILES -->
+                    <rect x="30" y="120" width="170" height="45" rx="6" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="115" y="140" text-anchor="middle" font-size="16" font-weight="600" fill="#1E64C8" font-family="monospace">CCO</text>
+                    <text x="115" y="157" text-anchor="middle" font-size="10" fill="#666">SMILES String</text>
+                </g>
+
+                <!-- Example 2: Benzene ring -->
+                <g transform="translate(310, 20)">
+                    <rect x="0" y="0" width="230" height="180" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="115" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Benzene</text>
+                    
+                    <!-- Benzene structure -->
+                    <g transform="translate(70, 50)">
+                        <polygon points="50,10 70,25 70,55 50,70 30,55 30,25" 
+                                 fill="none" stroke="#2c3e50" stroke-width="3"/>
+                        
+                        <!-- Double bonds -->
+                        <line x1="50" y1="15" x2="67" y2="27" stroke="#2c3e50" stroke-width="2"/>
+                        <line x1="67" y1="52" x2="50" y2="65" stroke="#2c3e50" stroke-width="2"/>
+                        <line x1="33" y1="52" x2="33" y2="28" stroke="#2c3e50" stroke-width="2"/>
+                        
+                        <!-- Atoms -->
+                        <circle cx="50" cy="10" r="10" fill="#95a5a6"/>
+                        <circle cx="70" cy="25" r="10" fill="#95a5a6"/>
+                        <circle cx="70" cy="55" r="10" fill="#95a5a6"/>
+                        <circle cx="50" cy="70" r="10" fill="#95a5a6"/>
+                        <circle cx="30" cy="55" r="10" fill="#95a5a6"/>
+                        <circle cx="30" cy="25" r="10" fill="#95a5a6"/>
+                        
+                        <text x="50" y="14" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
+                        <text x="70" y="29" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
+                        <text x="70" y="59" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
+                        <text x="50" y="74" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
+                        <text x="30" y="59" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
+                        <text x="30" y="29" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
+                    </g>
+                    
+                    <!-- Arrow -->
+                    <path d="M 115 95 L 115 110" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow-s)" class="transform-arrow"/>
+                    
+                    <!-- SMILES with ring notation -->
+                    <rect x="30" y="120" width="170" height="45" rx="6" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="115" y="140" text-anchor="middle" font-size="16" font-weight="600" fill="#1E64C8" font-family="monospace">c1ccccc1</text>
+                    <text x="115" y="157" text-anchor="middle" font-size="10" fill="#666">Ring Closure</text>
+                </g>
+
+                <!-- Example 3: Branching -->
+                <g transform="translate(580, 20)">
+                    <rect x="0" y="0" width="230" height="180" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="115" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Branched</text>
+                    
+                    <!-- Branched structure -->
+                    <g transform="translate(60, 50)">
+                        <!-- Main chain -->
+                        <circle cx="30" cy="40" r="12" fill="#95a5a6"/>
+                        <text x="30" y="45" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
+                        
+                        <circle cx="70" cy="40" r="12" fill="#95a5a6"/>
+                        <text x="70" y="45" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
+                        
+                        <circle cx="110" cy="40" r="12" fill="#95a5a6"/>
+                        <text x="110" y="45" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
+                        
+                        <!-- Branch -->
+                        <circle cx="70" cy="10" r="12" fill="#2ecc71"/>
+                        <text x="70" y="15" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
+                        
+                        <!-- Bonds -->
+                        <line x1="42" y1="40" x2="58" y2="40" stroke="#2c3e50" stroke-width="3"/>
+                        <line x1="82" y1="40" x2="98" y2="40" stroke="#2c3e50" stroke-width="3"/>
+                        <line x1="70" y1="28" x2="70" y2="22" stroke="#2c3e50" stroke-width="3"/>
+                    </g>
+                    
+                    <!-- Arrow -->
+                    <path d="M 115 95 L 115 110" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow-s)" class="transform-arrow"/>
+                    
+                    <!-- SMILES with branching -->
+                    <rect x="30" y="120" width="170" height="45" rx="6" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="115" y="140" text-anchor="middle" font-size="16" font-weight="600" font-family="monospace">
+                        <tspan fill="#1E64C8">CC</tspan><tspan fill="#2ecc71">(C)</tspan><tspan fill="#1E64C8">C</tspan>
+                    </text>
+                    <text x="115" y="157" text-anchor="middle" font-size="10" fill="#666">Branching ()</text>
+                </g>
+
+                <!-- Arrow marker -->
+                <defs>
+                    <marker id="arrow-s" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
         
         <div class="content-grid">
             <div class="content-card">

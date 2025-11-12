@@ -23,56 +23,83 @@
             font-size: 28px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             text-align: center;
         }
-        .wave-equation {
+        .wave-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        .wave-visualization {
             background: #f0f5fc;
             border: 2px solid #1E64C8;
             border-radius: 10px;
-            padding: 25px;
-            margin-bottom: 30px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .wave-equation {
+            background: linear-gradient(135deg, #1E64C8 0%, #2874d8 100%);
+            border-radius: 10px;
+            padding: 20px;
             text-align: center;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
         }
         .equation {
             font-size: 24px;
             font-weight: 600;
-            color: #1E64C8;
             font-family: 'Courier New', monospace;
+            margin-bottom: 10px;
+        }
+        .equation-desc {
+            font-size: 14px;
+            opacity: 0.9;
         }
         .properties-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 25px;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
         }
         .property-card {
             background: white;
             border: 2.5px solid #1E64C8;
             border-radius: 10px;
-            padding: 20px;
+            padding: 15px;
             transition: all 0.3s;
+            text-align: center;
         }
         .property-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(30, 100, 200, 0.2);
             background: #f8fbff;
         }
+        .property-icon {
+            font-size: 32px;
+            margin-bottom: 8px;
+        }
         .property-name {
-            font-size: 19px;
+            font-size: 16px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .property-desc {
-            font-size: 16px;
+            font-size: 13px;
             color: #555;
-            line-height: 1.5;
+            line-height: 1.4;
         }
         .formula {
             font-family: 'Courier New', monospace;
             color: #1E64C8;
             font-weight: 600;
+            font-size: 14px;
+            margin-top: 5px;
         }
     </style>
 </head>
@@ -80,40 +107,79 @@
     <div class="container">
         <div class="title">Electromagnetic Wave Properties</div>
         
-        <div class="wave-equation">
-            <div class="equation">E(x,t) = E₀ cos(kx - ωt + φ)</div>
-            <div style="margin-top: 12px; font-size: 16px; color: #666;">
-                Wave equation describing electric field oscillation
+        <div class="wave-section">
+            <div class="wave-visualization">
+                <svg width="100%" height="140" viewBox="0 0 400 140">
+                    <!-- Electric field wave (blue) -->
+                    <path d="M 10 70 Q 35 20, 60 70 T 110 70 T 160 70 T 210 70 T 260 70 T 310 70 T 360 70" 
+                          stroke="#1E64C8" stroke-width="3" fill="none"/>
+                    <!-- Magnetic field wave (red) -->
+                    <path d="M 60 70 L 60 20 M 60 70 L 60 120 M 110 70 L 110 20 M 110 70 L 110 120 M 160 70 L 160 20 M 160 70 L 160 120 M 210 70 L 210 20 M 210 70 L 210 120" 
+                          stroke="#E74C3C" stroke-width="2.5" opacity="0.7"/>
+                    <!-- Wavelength arrow -->
+                    <line x1="60" y1="100" x2="160" y2="100" stroke="#555" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="110" y="118" text-anchor="middle" font-size="14" fill="#555">λ</text>
+                    <!-- Direction arrow -->
+                    <line x1="350" y1="70" x2="380" y2="70" stroke="#555" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="390" y="75" font-size="14" fill="#555">c</text>
+                    <!-- Labels -->
+                    <text x="370" y="20" font-size="12" fill="#1E64C8" font-weight="bold">E</text>
+                    <text x="240" y="130" font-size="12" fill="#E74C3C" font-weight="bold">B</text>
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                            <polygon points="0 0, 10 3.5, 0 7" fill="#555"/>
+                        </marker>
+                    </defs>
+                </svg>
+                <div style="font-size: 13px; color: #666; margin-top: 10px;">
+                    Electric (E) and Magnetic (B) fields oscillate perpendicular to each other
+                </div>
+            </div>
+            
+            <div class="wave-equation">
+                <div class="equation">E(x,t) = E₀ cos(kx - ωt + φ)</div>
+                <div class="equation-desc">Wave equation describing electric field oscillation</div>
+                <div style="margin-top: 15px; font-size: 13px;">
+                    k = 2π/λ (wave number)<br>
+                    ω = 2πν (angular frequency)
+                </div>
             </div>
         </div>
         
         <div class="properties-grid">
             <div class="property-card">
+                <div class="property-icon">📏</div>
                 <div class="property-name">Wavelength (λ)</div>
-                <div class="property-desc">Distance between wave crests<br><span class="formula">c = λν</span></div>
+                <div class="property-desc">Distance between wave crests</div>
+                <div class="formula">c = λν</div>
             </div>
             
             <div class="property-card">
+                <div class="property-icon">⚡</div>
                 <div class="property-name">Frequency (ν)</div>
                 <div class="property-desc">Oscillations per second<br>Measured in Hertz (Hz)</div>
             </div>
             
             <div class="property-card">
+                <div class="property-icon">🚀</div>
                 <div class="property-name">Speed of Light (c)</div>
                 <div class="property-desc">3 × 10⁸ m/s in vacuum<br>Reduced in media: c/n</div>
             </div>
             
             <div class="property-card">
+                <div class="property-icon">🔄</div>
                 <div class="property-name">Polarization</div>
                 <div class="property-desc">Direction of E-field oscillation<br>Linear, circular, elliptical</div>
             </div>
             
             <div class="property-card">
+                <div class="property-icon">🧲</div>
                 <div class="property-name">E and B Fields</div>
                 <div class="property-desc">Perpendicular oscillating fields<br>Energy transport mechanism</div>
             </div>
             
             <div class="property-card">
+                <div class="property-icon">〰️</div>
                 <div class="property-name">Coherence</div>
                 <div class="property-desc">Phase relationship maintenance<br>Critical for interferometry</div>
             </div>

@@ -31,21 +31,28 @@
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
         }
         
-        .content-grid {
+        .visual-diagram {
             display: flex;
-            flex-direction: column;
-            gap: 22px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
         }
         
         .content-card {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 8px;
-            padding: 18px 24px;
+            padding: 14px 20px;
             transition: all 0.3s;
         }
         
@@ -56,22 +63,104 @@
         }
         
         .content-main {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         
         .content-desc {
-            font-size: 16px;
+            font-size: 14px;
             color: #555;
             font-weight: 400;
+        }
+
+        .process-icon {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .arrow-animate {
+            animation: flow 2s ease-in-out infinite;
+        }
+
+        @keyframes flow {
+            0%, 100% { stroke-dashoffset: 0; }
+            50% { stroke-dashoffset: 10; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Target Identification</div>
+        
+        <div class="visual-diagram">
+            <svg width="860" height="140" viewBox="0 0 860 140">
+                <!-- Disease -->
+                <g>
+                    <circle cx="70" cy="70" r="45" fill="#ff6b6b" opacity="0.2"/>
+                    <circle cx="70" cy="70" r="35" fill="#ff6b6b" opacity="0.4" class="process-icon"/>
+                    <text x="70" y="65" text-anchor="middle" font-size="32" fill="#ff6b6b">🦠</text>
+                    <text x="70" y="110" text-anchor="middle" font-size="14" font-weight="600" fill="#333">Disease</text>
+                </g>
+
+                <!-- Arrow 1 -->
+                <line x1="120" y1="70" x2="180" y2="70" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)" stroke-dasharray="5,5" class="arrow-animate"/>
+
+                <!-- Genome -->
+                <g>
+                    <rect x="190" y="35" width="90" height="70" rx="8" fill="#4ecdc4" opacity="0.2"/>
+                    <rect x="195" y="40" width="80" height="60" rx="6" fill="#4ecdc4" opacity="0.4" class="process-icon"/>
+                    <text x="235" y="65" text-anchor="middle" font-size="28" fill="#4ecdc4">🧬</text>
+                    <text x="235" y="90" text-anchor="middle" font-size="13" font-weight="600" fill="#333">Druggable</text>
+                    <text x="235" y="105" text-anchor="middle" font-size="13" font-weight="600" fill="#333">Genome</text>
+                </g>
+
+                <!-- Arrow 2 -->
+                <line x1="285" y1="70" x2="345" y2="70" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)" stroke-dasharray="5,5" class="arrow-animate"/>
+
+                <!-- Target -->
+                <g>
+                    <circle cx="400" cy="70" r="45" fill="#95e1d3" opacity="0.2"/>
+                    <circle cx="400" cy="70" r="35" fill="#95e1d3" opacity="0.4" class="process-icon"/>
+                    <text x="400" y="65" text-anchor="middle" font-size="32" fill="#2d6a4f">🎯</text>
+                    <text x="400" y="110" text-anchor="middle" font-size="14" font-weight="600" fill="#333">Target</text>
+                </g>
+
+                <!-- Arrow 3 -->
+                <line x1="450" y1="70" x2="510" y2="70" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)" stroke-dasharray="5,5" class="arrow-animate"/>
+
+                <!-- Validation -->
+                <g>
+                    <rect x="520" y="35" width="90" height="70" rx="8" fill="#a8dadc" opacity="0.2"/>
+                    <rect x="525" y="40" width="80" height="60" rx="6" fill="#a8dadc" opacity="0.4" class="process-icon"/>
+                    <text x="565" y="65" text-anchor="middle" font-size="28" fill="#457b9d">✓</text>
+                    <text x="565" y="90" text-anchor="middle" font-size="13" font-weight="600" fill="#333">Validation</text>
+                </g>
+
+                <!-- Arrow 4 -->
+                <line x1="615" y1="70" x2="675" y2="70" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)" stroke-dasharray="5,5" class="arrow-animate"/>
+
+                <!-- Network -->
+                <g>
+                    <circle cx="730" cy="70" r="45" fill="#f4a261" opacity="0.2"/>
+                    <circle cx="730" cy="70" r="35" fill="#f4a261" opacity="0.4" class="process-icon"/>
+                    <text x="730" y="65" text-anchor="middle" font-size="28" fill="#e76f51">🕸️</text>
+                    <text x="730" y="110" text-anchor="middle" font-size="14" font-weight="600" fill="#333">Network</text>
+                </g>
+
+                <!-- Arrow marker definition -->
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
         
         <div class="content-grid">
             <div class="content-card">

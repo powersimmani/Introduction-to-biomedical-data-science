@@ -6,38 +6,187 @@
     <title>UV-Vis Spectroscopy</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Aptos, 'Segoe UI', sans-serif; background: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { width: 960px; height: 540px; padding: 30px 40px; background: white; }
-        .title { font-size: 28px; font-weight: 600; color: #1E64C8; margin-bottom: 22px; text-align: center; }
+        body { 
+            font-family: Aptos, 'Segoe UI', sans-serif; 
+            background: white; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+        }
+        .container { 
+            width: 960px; 
+            height: 540px; 
+            padding: 30px 40px; 
+            background: white; 
+        }
+        .title { 
+            font-size: 28px; 
+            font-weight: 600; 
+            color: #1E64C8; 
+            margin-bottom: 18px; 
+            text-align: center; 
+        }
+        .beer-law {
+            background: linear-gradient(135deg, #1E64C8 0%, #2874d8 100%); 
+            border-radius: 12px; 
+            padding: 16px; 
+            margin-bottom: 16px; 
+            text-align: center; 
+            color: white;
+        }
+        .equation {
+            font-size: 24px; 
+            font-weight: 700; 
+            font-family: 'Courier New', monospace; 
+            margin-bottom: 6px;
+        }
+        .equation-desc {
+            font-size: 14px; 
+            opacity: 0.95;
+        }
+        .main-section {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .spectrometer-diagram {
+            background: #f0f5fc;
+            border: 2px solid #1E64C8;
+            border-radius: 10px;
+            padding: 18px;
+        }
+        .applications-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 12px;
+        }
+        .app-card {
+            background: #f0f5fc; 
+            border: 2px solid #1E64C8; 
+            border-radius: 8px; 
+            padding: 13px;
+            transition: all 0.3s;
+        }
+        .app-card:hover {
+            background: #e0ebff;
+            transform: translateY(-2px);
+        }
+        .app-title {
+            font-size: 15px; 
+            font-weight: 700; 
+            color: #1E64C8; 
+            margin-bottom: 6px;
+        }
+        .app-desc {
+            font-size: 13px; 
+            color: #333;
+            line-height: 1.4;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">UV-Vis Spectroscopy</div>
         
-        <div style="background: linear-gradient(135deg, #1E64C8 0%, #2874d8 100%); border-radius: 12px; padding: 18px; margin-bottom: 18px; text-align: center; color: white;">
-            <div style="font-size: 24px; font-weight: 700; font-family: Courier New, monospace; margin-bottom: 8px;">A = εbc = -log₁₀(I/I₀)</div>
-            <div style="font-size: 15px; opacity: 0.95;">ε: molar absorptivity (M⁻¹cm⁻¹) | b: path length (cm) | c: concentration (M)</div>
-        </div>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-            <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-                <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Chromophores in Biology</div>
-                <div style="font-size: 14px; color: #333;">Proteins (Trp, Tyr: 280nm) | DNA/RNA (260nm) | Heme (Soret: 420nm)</div>
-            </div>
-            <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-                <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Spectrophotometer Design</div>
-                <div style="font-size: 14px; color: #333;">Light source → Monochromator → Sample → Detector</div>
-            </div>
-            <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-                <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Cuvette Selection</div>
-                <div style="font-size: 14px; color: #333;">Quartz (UV) | Glass/Plastic (Vis only) | 1cm path standard</div>
-            </div>
-            <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-                <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Baseline Corrections</div>
-                <div style="font-size: 14px; color: #333;">Buffer blank essential. Scatter correction for turbid samples.</div>
+        <div class="beer-law">
+            <div class="equation">A = εbc = -log₁₀(I/I₀)</div>
+            <div class="equation-desc">
+                ε: molar absorptivity (M⁻¹cm⁻¹) | b: path length (cm) | c: concentration (M)
             </div>
         </div>
-    
+        
+        <div class="main-section">
+            <div class="spectrometer-diagram">
+                <div style="font-size: 15px; font-weight: 700; color: #1E64C8; margin-bottom: 12px; text-align: center;">
+                    Spectrophotometer Design
+                </div>
+                <svg width="100%" height="160" viewBox="0 0 500 160">
+                    <!-- Light source -->
+                    <circle cx="40" cy="80" r="20" fill="#FFD700" opacity="0.8"/>
+                    <text x="40" y="115" text-anchor="middle" font-size="11" fill="#666" font-weight="bold">Light</text>
+                    <text x="40" y="127" text-anchor="middle" font-size="11" fill="#666">Source</text>
+                    
+                    <!-- Light rays -->
+                    <line x1="60" y1="70" x2="95" y2="70" stroke="#FFD700" stroke-width="2"/>
+                    <line x1="60" y1="80" x2="95" y2="80" stroke="#FFD700" stroke-width="2"/>
+                    <line x1="60" y1="90" x2="95" y2="90" stroke="#FFD700" stroke-width="2"/>
+                    
+                    <!-- Monochromator (prism) -->
+                    <polygon points="100,50 140,80 100,110" fill="#87CEEB" opacity="0.6" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="120" y="130" text-anchor="middle" font-size="10" fill="#666" font-weight="bold">Monochromator</text>
+                    
+                    <!-- Selected wavelength -->
+                    <line x1="140" y1="80" x2="240" y2="80" stroke="#0000FF" stroke-width="3"/>
+                    <text x="190" y="70" text-anchor="middle" font-size="10" fill="#0000FF" font-weight="bold">λ selected</text>
+                    
+                    <!-- Sample cuvette -->
+                    <rect x="250" y="50" width="60" height="60" fill="#e8f4f8" stroke="#1E64C8" stroke-width="3" rx="5"/>
+                    <rect x="260" y="60" width="40" height="40" fill="#ADD8E6" opacity="0.5"/>
+                    <text x="280" y="130" text-anchor="middle" font-size="10" fill="#666" font-weight="bold">Sample</text>
+                    
+                    <!-- Transmitted light -->
+                    <line x1="310" y1="80" x2="390" y2="80" stroke="#0000FF" stroke-width="2.5" opacity="0.6"/>
+                    <text x="350" y="70" text-anchor="middle" font-size="10" fill="#666">I (transmitted)</text>
+                    
+                    <!-- Detector -->
+                    <rect x="400" y="60" width="50" height="40" fill="#1E64C8" opacity="0.3" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="425" y="85" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="bold">PMT</text>
+                    <text x="425" y="130" text-anchor="middle" font-size="10" fill="#666" font-weight="bold">Detector</text>
+                    
+                    <!-- I0 reference path (dashed) -->
+                    <line x1="190" y1="30" x2="425" y2="30" stroke="#666" stroke-width="1.5" stroke-dasharray="5,3"/>
+                    <text x="310" y="22" text-anchor="middle" font-size="9" fill="#666">I₀ (reference)</text>
+                </svg>
+            </div>
+            
+            <div style="display: flex; flex-direction: column; gap: 12px;">
+                <div class="app-card">
+                    <div class="app-title">🧬 Chromophores in Biology</div>
+                    <div class="app-desc">
+                        <strong>Proteins:</strong> Trp, Tyr (280 nm)<br>
+                        <strong>DNA/RNA:</strong> 260 nm<br>
+                        <strong>Heme:</strong> Soret band (420 nm)
+                    </div>
+                </div>
+                <div class="app-card">
+                    <div class="app-title">📊 Cuvette Selection</div>
+                    <div class="app-desc">
+                        <strong>Quartz:</strong> UV region<br>
+                        <strong>Glass/Plastic:</strong> Visible only<br>
+                        <strong>Standard:</strong> 1 cm path length
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="applications-grid">
+            <div class="app-card">
+                <div class="app-title">🎯 Applications</div>
+                <div class="app-desc">
+                    Protein quantification | DNA/RNA purity | Enzyme kinetics | Drug screening
+                </div>
+            </div>
+            <div class="app-card">
+                <div class="app-title">⚙️ Baseline Corrections</div>
+                <div class="app-desc">
+                    Buffer blank essential | Scatter correction for turbid samples | Temperature control
+                </div>
+            </div>
+            <div class="app-card">
+                <div class="app-title">📈 Linear Range</div>
+                <div class="app-desc">
+                    A = 0.1-1.0 optimal | Beyond A=2: non-linear | Dilute if necessary
+                </div>
+            </div>
+            <div class="app-card">
+                <div class="app-title">💡 Light Sources</div>
+                <div class="app-desc">
+                    Deuterium (UV) | Tungsten-halogen (Visible) | Xenon flash lamps
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>

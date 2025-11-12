@@ -25,29 +25,38 @@
             height: 540px;
             padding: 40px 60px;
             background: white;
+            display: flex;
+            flex-direction: column;
         }
         
         .title {
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
         }
         
+        .main-content {
+            display: flex;
+            gap: 30px;
+            flex: 1;
+        }
+        
         .content-grid {
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 13px;
+            flex: 1;
         }
         
         .content-card {
             background: #f8fbff;
             border-left: 5px solid #1E64C8;
             border-radius: 8px;
-            padding: 16px 22px;
+            padding: 13px 20px;
             transition: all 0.3s;
         }
         
@@ -57,16 +66,23 @@
         }
         
         .card-label {
-            font-size: 19px;
+            font-size: 17px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
         
         .card-desc {
-            font-size: 17px;
+            font-size: 15px;
             color: #333;
             line-height: 1.4;
+        }
+        
+        .diagram-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
@@ -74,28 +90,115 @@
     <div class="container">
         <div class="title">PET Imaging</div>
         
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="card-label">Positron annihilation</div>
-                <div class="card-desc">511 keV photons in opposite directions</div>
+        <div class="main-content">
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-label">Positron annihilation</div>
+                    <div class="card-desc">511 keV photons in opposite directions</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Coincidence detection</div>
+                    <div class="card-desc">Simultaneous detection localizes source</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Radiotracers (FDG, etc.)</div>
+                    <div class="card-desc">FDG shows glucose metabolism</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">SUV calculations</div>
+                    <div class="card-desc">Standardized uptake value quantification</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">PET/CT integration</div>
+                    <div class="card-desc">Functional and anatomical fusion</div>
+                </div>
             </div>
-            <div class="content-card">
-                <div class="card-label">Coincidence detection</div>
-                <div class="card-desc">Simultaneous detection localizes source</div>
+            
+            <div class="diagram-container">
+                <svg width="420" height="400" viewBox="0 0 420 400">
+                    <!-- Detector Ring -->
+                    <circle cx="210" cy="200" r="140" fill="none" stroke="#666" stroke-width="3" stroke-dasharray="5,5"/>
+                    <text x="210" y="30" text-anchor="middle" font-size="11" fill="#666" font-weight="600">Detector Ring</text>
+                    
+                    <!-- Individual Detectors -->
+                    <rect x="205" y="45" width="10" height="20" fill="#4A90E2" stroke="#1E64C8" stroke-width="1"/>
+                    <rect x="205" y="335" width="10" height="20" fill="#4A90E2" stroke="#1E64C8" stroke-width="1"/>
+                    <rect x="65" y="195" width="20" height="10" fill="#4A90E2" stroke="#1E64C8" stroke-width="1"/>
+                    <rect x="335" y="195" width="20" height="10" fill="#4A90E2" stroke="#1E64C8" stroke-width="1"/>
+                    
+                    <!-- More detectors around ring -->
+                    <rect x="145" y="75" width="15" height="15" fill="#4A90E2" stroke="#1E64C8" stroke-width="1" transform="rotate(-45 152 82)"/>
+                    <rect x="260" y="75" width="15" height="15" fill="#4A90E2" stroke="#1E64C8" stroke-width="1" transform="rotate(45 267 82)"/>
+                    <rect x="145" y="310" width="15" height="15" fill="#4A90E2" stroke="#1E64C8" stroke-width="1" transform="rotate(45 152 317)"/>
+                    <rect x="260" y="310" width="15" height="15" fill="#4A90E2" stroke="#1E64C8" stroke-width="1" transform="rotate(-45 267 317)"/>
+                    
+                    <!-- Patient/Tissue representation -->
+                    <ellipse cx="210" cy="200" rx="60" ry="80" fill="#FFE5CC" stroke="#CC8866" stroke-width="2" opacity="0.5"/>
+                    <text x="210" y="290" text-anchor="middle" font-size="10" fill="#CC8866" font-weight="600">Patient tissue</text>
+                    
+                    <!-- Radiotracer molecule -->
+                    <circle cx="210" cy="200" r="8" fill="#FF6B6B" stroke="#CC0000" stroke-width="2"/>
+                    <text x="210" y="218" text-anchor="middle" font-size="9" fill="#CC0000" font-weight="700">¹⁸F-FDG</text>
+                    
+                    <!-- Positron emission -->
+                    <circle cx="218" cy="200" r="4" fill="#FF1493" stroke="#CC0066" stroke-width="1.5"/>
+                    <text x="230" y="203" font-size="10" fill="#FF1493" font-weight="700">e⁺</text>
+                    
+                    <!-- Electron in tissue -->
+                    <circle cx="226" cy="200" r="4" fill="#4169E1" stroke="#0000CC" stroke-width="1.5"/>
+                    <text x="238" y="203" font-size="10" fill="#4169E1" font-weight="700">e⁻</text>
+                    
+                    <!-- Annihilation point -->
+                    <circle cx="222" cy="200" r="12" fill="yellow" opacity="0.5"/>
+                    <circle cx="222" cy="200" r="8" fill="orange" opacity="0.6"/>
+                    <text x="222" y="188" text-anchor="middle" font-size="9" fill="#FF4500" font-weight="700">Annihilation</text>
+                    
+                    <!-- 511 keV Photons -->
+                    <!-- Photon 1 (to left detector) -->
+                    <defs>
+                        <marker id="photon" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#00FF00"/>
+                        </marker>
+                    </defs>
+                    <line x1="222" y1="200" x2="85" y2="200" stroke="#00FF00" stroke-width="3" marker-end="url(#photon)"/>
+                    <text x="140" y="190" font-size="10" fill="#00FF00" font-weight="700">γ 511 keV</text>
+                    
+                    <!-- Photon 2 (to right detector) -->
+                    <line x1="222" y1="200" x2="355" y2="200" stroke="#00FF00" stroke-width="3" marker-end="url(#photon)"/>
+                    <text x="280" y="190" font-size="10" fill="#00FF00" font-weight="700">γ 511 keV</text>
+                    
+                    <!-- 180° angle indicator -->
+                    <path d="M 100 200 A 120 120 0 0 1 340 200" fill="none" stroke="#666" stroke-width="1" stroke-dasharray="2,2"/>
+                    <text x="210" y="155" text-anchor="middle" font-size="11" fill="#666" font-weight="600">180° ± 0.5°</text>
+                    
+                    <!-- Coincidence detection -->
+                    <rect x="40" y="195" width="30" height="10" fill="#FFD700" stroke="#FFA500" stroke-width="2"/>
+                    <rect x="350" y="195" width="30" height="10" fill="#FFD700" stroke="#FFA500" stroke-width="2"/>
+                    <text x="55" y="175" font-size="9" fill="#FFA500" font-weight="600">Detector 1</text>
+                    <text x="365" y="175" font-size="9" fill="#FFA500" font-weight="600">Detector 2</text>
+                    
+                    <!-- Timing window -->
+                    <rect x="150" y="10" width="120" height="30" fill="#f0f8ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="210" y="25" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="700">Coincidence Window</text>
+                    <text x="210" y="37" text-anchor="middle" font-size="9" fill="#333">~4-12 ns</text>
+                    
+                    <!-- Equation box -->
+                    <rect x="20" y="320" width="180" height="70" fill="#fff8f0" stroke="#FFA500" stroke-width="2" rx="5"/>
+                    <text x="110" y="340" text-anchor="middle" font-size="11" fill="#FFA500" font-weight="700">Positron Annihilation</text>
+                    <text x="110" y="360" text-anchor="middle" font-size="10" fill="#333">e⁺ + e⁻ → 2γ (511 keV)</text>
+                    <text x="110" y="377" text-anchor="middle" font-size="9" fill="#666">Opposite directions (180°)</text>
+                    
+                    <!-- SUV box -->
+                    <rect x="220" y="320" width="180" height="70" fill="#f0fff0" stroke="#28a745" stroke-width="2" rx="5"/>
+                    <text x="310" y="340" text-anchor="middle" font-size="11" fill="#28a745" font-weight="700">SUV Formula</text>
+                    <text x="310" y="360" text-anchor="middle" font-size="9" fill="#333">SUV = Activity / (Dose / Weight)</text>
+                    <text x="310" y="377" text-anchor="middle" font-size="9" fill="#666">Quantifies tracer uptake</text>
+                    
+                    <!-- Line of Response (LOR) -->
+                    <line x1="75" y1="200" x2="345" y2="200" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="4,4" opacity="0.5"/>
+                    <text x="210" y="170" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">Line of Response (LOR)</text>
+                </svg>
             </div>
-            <div class="content-card">
-                <div class="card-label">Radiotracers (FDG, etc.)</div>
-                <div class="card-desc">FDG shows glucose metabolism</div>
-            </div>
-            <div class="content-card">
-                <div class="card-label">SUV calculations</div>
-                <div class="card-desc">Standardized uptake value quantification</div>
-            </div>
-            <div class="content-card">
-                <div class="card-label">PET/CT integration</div>
-                <div class="card-desc">Functional and anatomical fusion</div>
-            </div>
-
         </div>
     </div>
 </body>

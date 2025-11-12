@@ -31,50 +31,185 @@
             font-size: 32px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
         }
         
-        .content-list {
+        .content-wrapper {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            gap: 25px;
+            height: 385px;
         }
         
-        .content-item {
+        .crispr-mechanism {
+            flex: 1.5;
             display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 18px 24px;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .optimization-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        
+        .opt-card {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 6px;
+            padding: 13px 18px;
             transition: all 0.3s ease;
-            font-size: 19px;
-            color: #333;
         }
         
-        .content-item:hover {
+        .opt-card:hover {
             background: #e8f2ff;
             transform: translateX(8px);
         }
         
-        .bullet {
-            width: 10px;
-            height: 10px;
-            background: #1E64C8;
-            border-radius: 50%;
-            flex-shrink: 0;
+        .opt-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 3px;
+        }
+        
+        .opt-desc {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .cut-animation {
+            animation: cutFlash 2s ease-in-out infinite;
+        }
+        
+        @keyframes cutFlash {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">CRISPR Optimization</div>
-        <div class="content-list">
-            <div class="content-item"><div class="bullet"></div><div>Guide RNA design</div></div><div class="content-item"><div class="bullet"></div><div>Off-target prediction</div></div><div class="content-item"><div class="bullet"></div><div>Efficiency scoring</div></div><div class="content-item"><div class="bullet"></div><div>Prime editing</div></div><div class="content-item"><div class="bullet"></div><div>Base editing</div></div>
+        <div class="content-wrapper">
+            <div class="crispr-mechanism">
+                <svg width="560" height="385" viewBox="0 0 560 385">
+                    <text x="280" y="25" font-size="15" fill="#333" text-anchor="middle" font-weight="600">CRISPR-Cas9 Guide RNA Design</text>
+                    
+                    <!-- Target DNA -->
+                    <g transform="translate(80, 60)">
+                        <text x="0" y="0" font-size="12" fill="#666" font-weight="600">Target DNA Sequence:</text>
+                        
+                        <rect x="0" y="10" width="400" height="30" rx="4" fill="#f0f0f0" stroke="#999" stroke-width="1.5"/>
+                        
+                        <!-- PAM sequence (NGG) -->
+                        <rect x="300" y="10" width="60" height="30" rx="4" fill="#ffcccc" stroke="#cc0000" stroke-width="2"/>
+                        <text x="330" y="30" font-size="12" fill="#cc0000" text-anchor="middle" font-weight="700">NGG</text>
+                        <text x="330" y="55" font-size="9" fill="#cc0000" text-anchor="middle" font-weight="600">PAM site</text>
+                        
+                        <!-- Target site -->
+                        <rect x="80" y="10" width="215" height="30" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="187" y="30" font-size="11" fill="#333" text-anchor="middle" font-family="monospace">20bp target sequence</text>
+                        <text x="187" y="55" font-size="9" fill="#1E64C8" text-anchor="middle" font-weight="600">Guide RNA binding site</text>
+                        
+                        <!-- Upstream -->
+                        <text x="40" y="30" font-size="11" fill="#999" text-anchor="middle">...</text>
+                        <!-- Downstream -->
+                        <text x="380" y="30" font-size="11" fill="#999" text-anchor="middle">...</text>
+                    </g>
+                    
+                    <!-- Guide RNA Design -->
+                    <g transform="translate(80, 140)">
+                        <text x="0" y="0" font-size="12" fill="#1E64C8" font-weight="700">Guide RNA (gRNA):</text>
+                        
+                        <rect x="0" y="10" width="400" height="35" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        
+                        <!-- Spacer -->
+                        <rect x="80" y="10" width="215" height="35" rx="5" fill="#cce5ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="187" y="26" font-size="11" fill="#333" text-anchor="middle" font-weight="600">20nt spacer sequence</text>
+                        <text x="187" y="39" font-size="9" fill="#666" text-anchor="middle">(complementary to target)</text>
+                        
+                        <!-- Scaffold -->
+                        <text x="340" y="30" font-size="10" fill="#666" text-anchor="middle">scaffold</text>
+                        
+                        <text x="200" y="65" font-size="10" fill="#666" text-anchor="middle" font-style="italic">Designed to match target + optimize efficiency</text>
+                    </g>
+                    
+                    <!-- Cas9 + gRNA Complex -->
+                    <g transform="translate(140, 190)">
+                        <ellipse cx="140" cy="30" rx="120" ry="35" fill="#f8f9fa" stroke="#2874d8" stroke-width="2"/>
+                        <text x="140" y="25" font-size="13" fill="#2874d8" text-anchor="middle" font-weight="700">Cas9 Protein</text>
+                        <text x="140" y="40" font-size="10" fill="#666" text-anchor="middle">+ gRNA complex</text>
+                        
+                        <!-- Arrow pointing down -->
+                        <defs>
+                            <marker id="arrowdown" markerWidth="10" markerHeight="10" refX="5" refY="9" orient="auto">
+                                <polygon points="0 0, 10 0, 5 10" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        <path d="M 140,70 L 140,85" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowdown)"/>
+                    </g>
+                    
+                    <!-- DNA Cutting -->
+                    <g transform="translate(80, 280)">
+                        <rect x="0" y="0" width="400" height="25" rx="4" fill="#f0f0f0" stroke="#999" stroke-width="1.5"/>
+                        
+                        <!-- Cut site visualization -->
+                        <g class="cut-animation">
+                            <line x1="190" y1="0" x2="190" y2="25" stroke="#cc0000" stroke-width="3"/>
+                            <line x1="210" y1="0" x2="210" y2="25" stroke="#cc0000" stroke-width="3"/>
+                            
+                            <text x="200" y="20" font-size="14" fill="#cc0000" text-anchor="middle" font-weight="bold">✂</text>
+                        </g>
+                        
+                        <text x="200" y="45" font-size="10" fill="#cc0000" text-anchor="middle" font-weight="600">Double-strand break (DSB)</text>
+                    </g>
+                    
+                    <!-- AI Optimization Panel -->
+                    <g transform="translate(60, 325)">
+                        <rect x="0" y="0" width="440" height="50" rx="6" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                        <text x="220" y="18" font-size="12" fill="#333" text-anchor="middle" font-weight="700">🤖 AI-Powered Optimization:</text>
+                        
+                        <g transform="translate(20, 25)">
+                            <circle cx="3" cy="3" r="2.5" fill="#e0a800"/>
+                            <text x="10" y="7" font-size="10" fill="#333">On-target efficiency scoring</text>
+                            
+                            <circle cx="150" cy="3" r="2.5" fill="#e0a800"/>
+                            <text x="157" y="7" font-size="10" fill="#333">Off-target prediction</text>
+                            
+                            <circle cx="290" cy="3" r="2.5" fill="#e0a800"/>
+                            <text x="297" y="7" font-size="10" fill="#333">Edit outcome prediction</text>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="optimization-list">
+                <div class="opt-card">
+                    <div class="opt-title">Guide RNA design</div>
+                    <div class="opt-desc">20nt spacer + scaffold optimization</div>
+                </div>
+                <div class="opt-card">
+                    <div class="opt-title">Off-target prediction</div>
+                    <div class="opt-desc">Minimize unintended cuts</div>
+                </div>
+                <div class="opt-card">
+                    <div class="opt-title">Efficiency scoring</div>
+                    <div class="opt-desc">On-target activity models</div>
+                </div>
+                <div class="opt-card">
+                    <div class="opt-title">Prime editing</div>
+                    <div class="opt-desc">Precise base substitutions</div>
+                </div>
+                <div class="opt-card">
+                    <div class="opt-title">Base editing</div>
+                    <div class="opt-desc">C→T, A→G conversions</div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

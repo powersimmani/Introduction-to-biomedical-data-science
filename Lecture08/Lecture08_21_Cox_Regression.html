@@ -1,6 +1,117 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Cox Regression</title>
-<style>* {margin:0;padding:0;box-sizing:border-box;}body {font-family:Aptos,'Segoe UI',sans-serif;background: white;display:flex;justify-content:center;align-items:center;min-height:100vh;}
-.container {width:960px;height:540px;padding:35px 50px;background:white;}.title {font-size:36px;font-weight:700;color:#1E64C8;margin-bottom:25px;text-align:center;}</style>
-</head><body><div class="container"><div class="title">Cox Proportional Hazards Model</div><div style="font-size:17px;text-align:center;margin-bottom:20px;color:#666;">Gold standard for survival analysis in clinical research</div><div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;"><div style="background:#f8fbff;border:3px solid #1E64C8;border-radius:10px;padding:18px 20px;"><div style="font-size:19px;font-weight:700;color:#1E64C8;margin-bottom:10px;">Model Formula</div><div style="font-family:monospace;background:white;padding:12px;border-radius:6px;font-size:14px;text-align:center;">h(t|X) = h₀(t) · exp(β₁X₁ + ... + βₚXₚ)</div><div style="font-size:14px;color:#555;margin-top:8px;">Hazard ratio = exp(β)</div></div><div style="background:#f8fbff;border:3px solid #1E64C8;border-radius:10px;padding:18px 20px;"><div style="font-size:19px;font-weight:700;color:#1E64C8;margin-bottom:10px;">Key Assumptions</div><div style="font-size:14px;color:#333;line-height:1.6;">• Proportional hazards<br>• Linear relationship with log-hazard<br>• Independent censoring</div></div></div><div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px;"><div style="background:#e8f5e9;border:2px solid #28a745;border-radius:8px;padding:12px;text-align:center;"><strong style="color:#28a745;">Time-varying Covariates</strong><br><span style="font-size:13px;color:#555;">Handle changing predictors</span></div><div style="background:#e8f5e9;border:2px solid #28a745;border-radius:8px;padding:12px;text-align:center;"><strong style="color:#28a745;">Stratification</strong><br><span style="font-size:13px;color:#555;">When PH assumption violated</span></div><div style="background:#e8f5e9;border:2px solid #28a745;border-radius:8px;padding:12px;text-align:center;"><strong style="color:#28a745;">Penalized Cox</strong><br><span style="font-size:13px;color:#555;">High-dimensional data</span></div></div></div></body></html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cox Regression</title>
+    <style>
+        * {margin:0;padding:0;box-sizing:border-box;}
+        body {font-family:Aptos,'Segoe UI',sans-serif;background:white;display:flex;justify-content:center;align-items:center;min-height:100vh;}
+        .container {width:960px;height:540px;padding:30px 45px;background:white;}
+        .title {font-size:36px;font-weight:700;color:#1E64C8;margin-bottom:16px;text-align:center;}
+        .subtitle {font-size:16px;text-align:center;margin-bottom:18px;color:#666;}
+        .main-grid {display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+        .formula-card {background:#f8fbff;border:3px solid #1E64C8;border-radius:10px;padding:18px 20px;}
+        .assumptions-card {background:#f8fbff;border:3px solid #1E64C8;border-radius:10px;padding:18px 20px;}
+        .card-title {font-size:18px;font-weight:700;color:#1E64C8;margin-bottom:12px;text-align:center;}
+        .formula-content {background:white;padding:14px;border-radius:6px;margin-bottom:10px;text-align:center;}
+        .formula-main {font-family:monospace;font-size:15px;color:#333;margin-bottom:8px;}
+        .formula-note {font-size:13px;color:#666;margin-top:8px;}
+        .hazard-viz {display:flex;justify-content:center;margin-top:10px;}
+        .assumptions-list {font-size:14px;color:#333;line-height:1.7;}
+        .extensions-section {display:grid;grid-template-columns:repeat(3,1fr);gap:10px;}
+        .extension-item {background:#e8f5e9;border:2px solid #28a745;border-radius:8px;padding:10px;text-align:center;}
+        .ext-title {font-size:14px;font-weight:700;color:#28a745;margin-bottom:4px;}
+        .ext-note {font-size:12px;color:#555;}
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="title">Cox Proportional Hazards Model</div>
+        <div class="subtitle">Gold standard for survival analysis in clinical research</div>
+        <div class="main-grid">
+            <div class="formula-card">
+                <div class="card-title">Model Formula</div>
+                <div class="formula-content">
+                    <div class="formula-main">h(t|X) = h₀(t) · exp(β₁X₁ + ... + βₚXₚ)</div>
+                    <div class="formula-note">Hazard ratio = exp(β)</div>
+                </div>
+                <div class="hazard-viz">
+                    <svg width="300" height="130" viewBox="0 0 300 130">
+                        <!-- Baseline hazard -->
+                        <text x="150" y="15" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">Hazard Rate Over Time</text>
+                        
+                        <!-- Axes -->
+                        <line x1="30" y1="110" x2="280" y2="110" stroke="#333" stroke-width="1.5"/>
+                        <line x1="30" y1="30" x2="30" y2="110" stroke="#333" stroke-width="1.5"/>
+                        
+                        <!-- Labels -->
+                        <text x="150" y="128" text-anchor="middle" font-size="10" fill="#666">Time</text>
+                        <text x="10" y="70" text-anchor="middle" font-size="10" fill="#666" transform="rotate(-90 10 70)">Hazard</text>
+                        
+                        <!-- Baseline hazard curve (h₀(t)) -->
+                        <path d="M 30,90 Q 80,85 130,75 T 230,55 T 280,45" 
+                              stroke="#999" stroke-width="2.5" fill="none" stroke-dasharray="5,3"/>
+                        <text x="245" y="42" font-size="10" fill="#999" font-weight="600">h₀(t)</text>
+                        
+                        <!-- Higher risk group (HR > 1) -->
+                        <path d="M 30,70 Q 80,65 130,55 T 230,35 T 280,28" 
+                              stroke="#dc3545" stroke-width="2.5" fill="none"/>
+                        <text x="245" y="25" font-size="10" fill="#dc3545" font-weight="600">HR=2.0</text>
+                        
+                        <!-- Lower risk group (HR < 1) -->
+                        <path d="M 30,100 Q 80,98 130,93 T 230,85 T 280,80" 
+                              stroke="#28a745" stroke-width="2.5" fill="none"/>
+                        <text x="245" y="77" font-size="10" fill="#28a745" font-weight="600">HR=0.5</text>
+                        
+                        <!-- Proportional hazards annotation -->
+                        <line x1="150" y1="52" x2="150" y2="92" stroke="#1E64C8" stroke-width="1" stroke-dasharray="2,2"/>
+                        <text x="165" y="72" font-size="9" fill="#1E64C8" font-style="italic">Constant ratio</text>
+                    </svg>
+                </div>
+            </div>
+            <div class="assumptions-card">
+                <div class="card-title">Key Assumptions</div>
+                <div class="assumptions-list">
+                    • <strong>Proportional hazards:</strong> HR constant over time<br>
+                    • <strong>Linear relationship:</strong> with log-hazard<br>
+                    • <strong>Independent censoring:</strong> uninformative
+                </div>
+                <div style="margin-top:14px;">
+                    <svg width="280" height="70" viewBox="0 0 280 70">
+                        <text x="140" y="15" text-anchor="middle" font-size="11" fill="#666" font-weight="600">Testing PH Assumption</text>
+                        
+                        <!-- Schoenfeld residuals plot concept -->
+                        <rect x="20" y="25" width="240" height="40" fill="#f8f9fa" stroke="#1E64C8" stroke-width="1.5" rx="4"/>
+                        
+                        <!-- Random scatter (PH holds) -->
+                        <circle cx="50" cy="40" r="2" fill="#28a745"/>
+                        <circle cx="80" cy="52" r="2" fill="#28a745"/>
+                        <circle cx="110" cy="35" r="2" fill="#28a745"/>
+                        <circle cx="140" cy="48" r="2" fill="#28a745"/>
+                        <circle cx="170" cy="42" r="2" fill="#28a745"/>
+                        <circle cx="200" cy="55" r="2" fill="#28a745"/>
+                        <circle cx="230" cy="38" r="2" fill="#28a745"/>
+                        
+                        <text x="140" y="62" text-anchor="middle" font-size="9" fill="#666" font-style="italic">Flat trend = PH holds ✓</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+        <div class="extensions-section">
+            <div class="extension-item">
+                <div class="ext-title">Time-varying Covariates</div>
+                <div class="ext-note">Handle changing predictors</div>
+            </div>
+            <div class="extension-item">
+                <div class="ext-title">Stratification</div>
+                <div class="ext-note">When PH assumption violated</div>
+            </div>
+            <div class="extension-item">
+                <div class="ext-title">Penalized Cox</div>
+                <div class="ext-note">High-dimensional data</div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

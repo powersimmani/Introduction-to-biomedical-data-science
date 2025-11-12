@@ -31,23 +31,85 @@
             font-size: 28px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             text-align: center;
+        }
+        
+        .workflow {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 25px;
+            padding: 0 20px;
+        }
+        
+        .workflow-step {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+        }
+        
+        .step-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 32px;
+            margin-bottom: 12px;
+            box-shadow: 0 6px 20px rgba(30, 100, 200, 0.3);
+            transition: all 0.3s;
+        }
+        
+        .workflow-step:hover .step-icon {
+            transform: scale(1.15) rotate(5deg);
+        }
+        
+        .step-label {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1E64C8;
+            text-align: center;
+            margin-bottom: 6px;
+        }
+        
+        .step-description {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            max-width: 140px;
+        }
+        
+        .arrow-connector {
+            position: absolute;
+            right: -30px;
+            top: 30px;
+        }
+        
+        .workflow-step:last-child .arrow-connector {
+            display: none;
         }
         
         .content-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 18px;
             margin-bottom: 20px;
         }
         
         .content-card {
             background: #f8f9fb;
             border-left: 5px solid #1E64C8;
-            padding: 20px;
+            padding: 18px 20px;
             border-radius: 8px;
             transition: all 0.3s;
+            display: flex;
+            gap: 15px;
+            align-items: center;
         }
         
         .content-card:hover {
@@ -55,26 +117,35 @@
             transform: translateX(5px);
         }
         
+        .card-icon {
+            font-size: 32px;
+            flex-shrink: 0;
+        }
+        
+        .card-text {
+            flex: 1;
+        }
+        
         .card-title {
-            font-size: 18px;
+            font-size: 17px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 12px;
+            margin-bottom: 6px;
         }
         
         .card-content {
-            font-size: 16px;
+            font-size: 15px;
             color: #333;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
         .highlight-box {
             background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
             color: white;
-            padding: 20px;
+            padding: 18px 25px;
             border-radius: 10px;
             text-align: center;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 500;
             line-height: 1.6;
         }
@@ -84,32 +155,94 @@
     <div class="container">
         <div class="title">Liquid Biopsy</div>
         
+        <div class="workflow">
+            <div class="workflow-step">
+                <div class="step-icon">💉</div>
+                <div class="step-label">Blood Draw</div>
+                <div class="step-description">Non-invasive sample collection</div>
+                <svg class="arrow-connector" width="50" height="20" viewBox="0 0 50 20">
+                    <defs>
+                        <marker id="arrow1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                        </marker>
+                    </defs>
+                    <line x1="0" y1="10" x2="45" y2="10" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow1)" />
+                </svg>
+            </div>
+            
+            <div class="workflow-step">
+                <div class="step-icon">🔬</div>
+                <div class="step-label">Isolation</div>
+                <div class="step-description">Separate target analytes</div>
+                <svg class="arrow-connector" width="50" height="20" viewBox="0 0 50 20">
+                    <defs>
+                        <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                        </marker>
+                    </defs>
+                    <line x1="0" y1="10" x2="45" y2="10" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow2)" />
+                </svg>
+            </div>
+            
+            <div class="workflow-step">
+                <div class="step-icon">🧬</div>
+                <div class="step-label">Analysis</div>
+                <div class="step-description">NGS or PCR detection</div>
+                <svg class="arrow-connector" width="50" height="20" viewBox="0 0 50 20">
+                    <defs>
+                        <marker id="arrow3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                        </marker>
+                    </defs>
+                    <line x1="0" y1="10" x2="45" y2="10" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow3)" />
+                </svg>
+            </div>
+            
+            <div class="workflow-step">
+                <div class="step-icon">📊</div>
+                <div class="step-label">Results</div>
+                <div class="step-description">Clinical interpretation</div>
+            </div>
+        </div>
+        
         <div class="content-grid">
             <div class="content-card">
-                <div class="card-title">ctDNA Detection</div>
-                <div class="card-content">
-                    Circulating tumor DNA analysis from blood samples
+                <div class="card-icon">🧪</div>
+                <div class="card-text">
+                    <div class="card-title">ctDNA Detection</div>
+                    <div class="card-content">
+                        Circulating tumor DNA analysis from blood samples
+                    </div>
                 </div>
             </div>
             
             <div class="content-card">
-                <div class="card-title">CTCs Analysis</div>
-                <div class="card-content">
-                    Circulating Tumor Cells isolation and characterization
+                <div class="card-icon">🔴</div>
+                <div class="card-text">
+                    <div class="card-title">CTCs Analysis</div>
+                    <div class="card-content">
+                        Circulating Tumor Cells isolation and characterization
+                    </div>
                 </div>
             </div>
             
             <div class="content-card">
-                <div class="card-title">Exosomes</div>
-                <div class="card-content">
-                    Extracellular vesicles carrying tumor-derived molecules
+                <div class="card-icon">📦</div>
+                <div class="card-text">
+                    <div class="card-title">Exosomes</div>
+                    <div class="card-content">
+                        Extracellular vesicles carrying tumor-derived molecules
+                    </div>
                 </div>
             </div>
             
             <div class="content-card">
-                <div class="card-title">Early Detection</div>
-                <div class="card-content">
-                    Non-invasive screening for cancer presence
+                <div class="card-icon">🎯</div>
+                <div class="card-text">
+                    <div class="card-title">Early Detection</div>
+                    <div class="card-content">
+                        Non-invasive screening for cancer presence
+                    </div>
                 </div>
             </div>
         </div>

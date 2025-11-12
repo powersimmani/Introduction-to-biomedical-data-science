@@ -1,0 +1,417 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Machine Learning for Biomedical Data - Slides</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: Aptos, 'Segoe UI', sans-serif;
+            background: linear-gradient(135deg, #1E64C8 0%, #2874d8 100%);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 1200px;
+            background: white;
+            border-radius: 20px;
+            padding: 50px 60px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            margin: 40px auto;
+        }
+        
+        .header {
+            text-align: center;
+            margin-bottom: 50px;
+            padding-bottom: 30px;
+            border-bottom: 3px solid #1E64C8;
+        }
+        
+        .main-title {
+            font-size: 42px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 15px;
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        .lecture-title {
+            font-size: 14px;
+            color: #555;
+            margin-top: 5px;
+            line-height: 1.3;
+        }
+        
+        .instructor-info {
+            background: #f0f5fc;
+            border-left: 4px solid #1E64C8;
+            border-radius: 8px;
+            padding: 20px 25px;
+            margin-bottom: 40px;
+        }
+        
+        .instructor-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 8px;
+        }
+        
+        .instructor-email {
+            font-size: 16px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            margin-top: 50px;
+            text-align: center;
+        }
+        
+        .lectures-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .lecture-card {
+            background: white;
+            border: 3px solid #1E64C8;
+            border-radius: 12px;
+            padding: 25px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .lecture-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(30, 100, 200, 0.3);
+            background: #f8fbff;
+        }
+        
+        .lecture-number {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 8px;
+        }
+        
+        .lecture-status {
+            font-size: 14px;
+            color: #666;
+            font-weight: 500;
+        }
+        
+        /* Practical Section Styles */
+        .practical-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .practical-card {
+            background: white;
+            border: 3px solid #28a745;
+            border-radius: 12px;
+            padding: 25px 20px;
+            text-align: center;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+        }
+        
+        .practical-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 24px rgba(40, 167, 69, 0.3);
+            background: #f8fff9;
+        }
+        
+        .practical-number {
+            font-size: 22px;
+            font-weight: 700;
+            color: #28a745;
+            margin-bottom: 8px;
+        }
+        
+        .practical-title {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.3;
+        }
+        
+        .drive-icon {
+            font-size: 32px;
+            margin-bottom: 10px;
+            display: block;
+        }
+        
+        .note-section {
+            background: #fff4e6;
+            border: 2px solid #1E64C8;
+            border-radius: 10px;
+            padding: 20px 25px;
+            text-align: center;
+        }
+        
+        .note-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 10px;
+        }
+        
+        .note-text {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .note-code {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            padding: 4px 8px;
+            font-family: 'Courier New', monospace;
+            color: #1E64C8;
+            font-weight: 600;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 30px 25px;
+            }
+            
+            .main-title {
+                font-size: 32px;
+            }
+            
+            .lectures-grid,
+            .practical-grid {
+                grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+                gap: 15px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <div class="main-title">Machine Learning for Biomedical Data</div>
+            <div class="subtitle">Biomedical Data Science Course</div>
+        </div>
+        
+        <div class="instructor-info">
+            <div class="instructor-name">Instructor: Ho-min Park</div>
+            <div class="instructor-email">
+                📧 homin.park@ghent.ac.kr<br>
+                📧 powersimmani@gmail.com
+            </div>
+        </div>
+        
+        <div class="section-title">Course Lectures</div>
+        
+        <div class="lectures-grid">
+            <a href="Lecture01/lecture01_slideshow.html" class="lecture-card">
+                <div class="lecture-number">Lecture 01</div>
+                <div class="lecture-title">From Atoms to Life - Molecular Basis of Biology</div>
+            </a>
+            
+            <a href="Lecture02/lecture02_slideshow.html" class="lecture-card">
+                <div class="lecture-number">Lecture 02</div>
+                <div class="lecture-title">Electromagnetic Spectrum and Biomedical Measurements</div>
+            </a>
+            
+            <a href="Lecture03/lecture03_slideshow.html" class="lecture-card">
+                <div class="lecture-number">Lecture 03</div>
+                <div class="lecture-title">Biomedical Imaging Technologies</div>
+            </a>
+            
+            <a href="Lecture04/Lecture04_slideshow.html" class="lecture-card">
+                <div class="lecture-number">Lecture 04</div>
+                <div class="lecture-title">Next-Generation Sequencing and Genomics</div>
+            </a>
+            
+            <a href="Lecture05/lecture05_slideshow.html" class="lecture-card">
+                <div class="lecture-number">Lecture 05</div>
+                <div class="lecture-title">Transcriptomics and Single-Cell Analysis</div>
+            </a>
+            
+            <a href="Lecture06/lecture06_slideshow.html" class="lecture-card">
+                <div class="lecture-number">Lecture 06</div>
+                <div class="lecture-title">Proteomics and Metabolomics</div>
+            </a>
+            
+            <a href="Lecture07/lecture07_slideshow.html" class="lecture-card">
+                <div class="lecture-number">Lecture 07</div>
+                <div class="lecture-title">Clinical Data and Electronic Health Records</div>
+            </a>
+            
+            <a href="Lecture08/lecture08_slideshow.html" class="lecture-card">
+                <div class="lecture-number">Lecture 08</div>
+                <div class="lecture-title">ML Fundamentals for Biomedical Data</div>
+            </a>
+            
+            <a href="Lecture09/lecture09_slideshow.html" class="lecture-card">
+                <div class="lecture-number">Lecture 09</div>
+                <div class="lecture-title">Deep Learning for Medical Imaging</div>
+            </a>
+            
+            <a href="Lecture10/lecture10_slideshow.html" class="lecture-card">
+                <div class="lecture-number">Lecture 10</div>
+                <div class="lecture-title">Drug Discovery and Molecular ML</div>
+            </a>
+            
+            <a href="Lecture11/Lecture11_Slideshow.html" class="lecture-card">
+                <div class="lecture-number">Lecture 11</div>
+                <div class="lecture-title">Precision Medicine and Biomarkers</div>
+            </a>
+            
+            <a href="Lecture12/lecture12_slideshow.html" class="lecture-card">
+                <div class="lecture-number">Lecture 12</div>
+                <div class="lecture-title">Multi-Modal Data Integration</div>
+            </a>
+            
+            <a href="Lecture13/Lecture13_slideshow.html" class="lecture-card">
+                <div class="lecture-number">Lecture 13</div>
+                <div class="lecture-title">AI Models and Biological Understanding</div>
+            </a>
+            
+            <a href="Lecture14/lecture14_slideshow.html" class="lecture-card">
+                <div class="lecture-number">Lecture 14</div>
+                <div class="lecture-title">Ethics, Regulation, and Implementation</div>
+            </a>
+            
+            <a href="Lecture15/lecture15_slideshow.html" class="lecture-card">
+                <div class="lecture-number">Lecture 15</div>
+                <div class="lecture-title">Future Directions and Career Paths</div>
+            </a>
+        </div>
+        
+        <!-- Practical Section -->
+        <div class="section-title">📚 Practical Materials</div>
+        
+        <div class="practical-grid">
+            <a href="https://colab.research.google.com/drive/1kfplEqp8qKkgfAVIS8hKIWchOfWhLzPf" class="practical-card" target="_blank">
+                <span class="drive-icon">📓</span>
+                <div class="practical-number">Lecture 01</div>
+                <div class="practical-title">From Atoms to Life - Molecular Basis of Biology</div>
+            </a>
+            
+            <a href="https://colab.research.google.com/drive/1mnbvO32L-_L3zQMPN4LduNI35NRYcCej" class="practical-card" target="_blank">
+                <span class="drive-icon">📓</span>
+                <div class="practical-number">Lecture 02</div>
+                <div class="practical-title">Electromagnetic Spectrum and Biomedical Measurements</div>
+            </a>
+            
+            <a href="https://colab.research.google.com/drive/1GSBaP7l2Ax-U1_ayGOvyQCggKTVxJTnK" class="practical-card" target="_blank">
+                <span class="drive-icon">📓</span>
+                <div class="practical-number">Lecture 03</div>
+                <div class="practical-title">Biomedical Imaging Technologies</div>
+            </a>
+            
+            <a href="https://colab.research.google.com/drive/1HSaeGAEq5zCbYjQbALkITLfmUfikv8ss" class="practical-card" target="_blank">
+                <span class="drive-icon">📓</span>
+                <div class="practical-number">Lecture 04</div>
+                <div class="practical-title">Next-Generation Sequencing and Genomics</div>
+            </a>
+            
+            <a href="https://colab.research.google.com/drive/14HPx4VFz35w-DQCzBE3BBwapYNiv_V9n" class="practical-card" target="_blank">
+                <span class="drive-icon">📓</span>
+                <div class="practical-number">Lecture 05</div>
+                <div class="practical-title">Transcriptomics and Single-Cell Analysis</div>
+            </a>
+            
+            <a href="https://colab.research.google.com/drive/1SstxYs16Vcj66xrAKFA3XPqjUhv0ZTx_" class="practical-card" target="_blank">
+                <span class="drive-icon">📓</span>
+                <div class="practical-number">Lecture 06</div>
+                <div class="practical-title">Proteomics and Metabolomics</div>
+            </a>
+            
+            <a href="https://colab.research.google.com/drive/18pTVZcUTCdp4cjEATylEn6fI8s7_1Mh6" class="practical-card" target="_blank">
+                <span class="drive-icon">📓</span>
+                <div class="practical-number">Lecture 07</div>
+                <div class="practical-title">Clinical Data and Electronic Health Records</div>
+            </a>
+            
+            <a href="https://colab.research.google.com/drive/1u35r5qnVoX7bGn1iwznCFmBUR6TR-SB6" class="practical-card" target="_blank">
+                <span class="drive-icon">📓</span>
+                <div class="practical-number">Lecture 08</div>
+                <div class="practical-title">ML Fundamentals for Biomedical Data</div>
+            </a>
+            
+            <a href="https://colab.research.google.com/drive/17KDxYjP7qtpxOkcdI7NQ4akSwG6WJ90T" class="practical-card" target="_blank">
+                <span class="drive-icon">📓</span>
+                <div class="practical-number">Lecture 09</div>
+                <div class="practical-title">Deep Learning for Medical Imaging</div>
+            </a>
+            
+            <a href="https://colab.research.google.com/drive/1AXU-jG11Of6gmiD865Mh79ddAaVhgvKr" class="practical-card" target="_blank">
+                <span class="drive-icon">📓</span>
+                <div class="practical-number">Lecture 10</div>
+                <div class="practical-title">Drug Discovery and Molecular ML</div>
+            </a>
+            
+            <a href="https://colab.research.google.com/drive/1o-4M4XwGaued1_WF_0WfjzU1dwvZ0qb8" class="practical-card" target="_blank">
+                <span class="drive-icon">📓</span>
+                <div class="practical-number">Lecture 11</div>
+                <div class="practical-title">Precision Medicine and Biomarkers</div>
+            </a>
+            
+            <a href="https://colab.research.google.com/drive/1XnFigqzrRAmtlOIQE8jE6GxnEFdhL-W2" class="practical-card" target="_blank">
+                <span class="drive-icon">📓</span>
+                <div class="practical-number">Lecture 12</div>
+                <div class="practical-title">Multi-Modal Data Integration</div>
+            </a>
+            
+            <a href="https://colab.research.google.com/drive/10TKODIZNHnMRRdxOxy3Hg9n8_Svx8rEw" class="practical-card" target="_blank">
+                <span class="drive-icon">📓</span>
+                <div class="practical-number">Lecture 13</div>
+                <div class="practical-title">AI Models and Biological Understanding</div>
+            </a>
+            
+            <a href="https://colab.research.google.com/drive/1TqLzIzzFonicnmo8tBtgj-wj10qWZwcQ" class="practical-card" target="_blank">
+                <span class="drive-icon">📓</span>
+                <div class="practical-number">Lecture 14</div>
+                <div class="practical-title">Ethics, Regulation, and Implementation</div>
+            </a>
+            
+            <a href="https://colab.research.google.com/drive/1O67Byk4la4xHGdjN4nEXpnFKWLw6f9ea" class="practical-card" target="_blank">
+                <span class="drive-icon">📓</span>
+                <div class="practical-number">Lecture 15</div>
+                <div class="practical-title">Future Directions and Career Paths</div>
+            </a>
+        </div>
+        
+        <div class="note-section">
+            <div class="note-title">📝 Note</div>
+            <div class="note-text">
+                Click on any practical card to open the Jupyter Notebook directly in Google Colab.
+            </div>
+        </div>
+    </div>
+</body>
+</html>

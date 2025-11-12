@@ -23,7 +23,7 @@
         .container {
             width: 960px;
             height: 540px;
-            padding: 40px 60px;
+            padding: 35px 50px;
             background: white;
         }
         
@@ -31,63 +31,144 @@
             font-size: 24px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             text-align: center;
         }
         
-        .levels-container {
-            display: flex;
-            flex-direction: column;
-            gap: 20px;
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 280px;
+            gap: 25px;
+            height: calc(100% - 80px);
         }
         
-        .level-item {
+        .phases-list {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .phase-item {
             background: #f8f9fb;
             border-left: 5px solid #1E64C8;
-            padding: 20px 25px;
+            padding: 18px 22px;
             border-radius: 8px;
             transition: all 0.3s;
         }
         
-        .level-item:hover {
+        .phase-item:hover {
             background: #e8f2ff;
             transform: translateX(8px);
         }
         
-        .level-name {
-            font-size: 20px;
+        .phase-name {
+            font-size: 19px;
             font-weight: 700;
             color: #1E64C8;
             margin-bottom: 8px;
         }
         
-        .level-desc {
-            font-size: 17px;
+        .phase-desc {
+            font-size: 16px;
             color: #333;
             line-height: 1.5;
+        }
+        
+        .cycle-diagram {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border: 2px solid #4CAF50;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .diagram-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #2E7D32;
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Cell Cycle and Division</div>
+        <div class="title">🔄 Cell Cycle and Division</div>
         
-        <div class="levels-container">
-            <div class="level-item">
-                <div class="level-name">G1 Phase</div>
-                <div class="level-desc">Cell growth and normal metabolism. Decision point for division.</div>
+        <div class="main-layout">
+            <div class="phases-list">
+                <div class="phase-item">
+                    <div class="phase-name">G1 Phase (Gap 1)</div>
+                    <div class="phase-desc">Cell growth and normal metabolism. Decision point for division at G1/S checkpoint.</div>
+                </div>
+                <div class="phase-item" style="border-left-color: #2196F3;">
+                    <div class="phase-name" style="color: #2196F3;">S Phase (Synthesis)</div>
+                    <div class="phase-desc">DNA replication occurs. Chromosomes are duplicated. Histone synthesis.</div>
+                </div>
+                <div class="phase-item" style="border-left-color: #FF9800;">
+                    <div class="phase-name" style="color: #FF9800;">G2 Phase (Gap 2)</div>
+                    <div class="phase-desc">Preparation for mitosis. Protein synthesis and organelle duplication. G2/M checkpoint.</div>
+                </div>
+                <div class="phase-item" style="border-left-color: #E91E63;">
+                    <div class="phase-name" style="color: #E91E63;">M Phase (Mitosis)</div>
+                    <div class="phase-desc">Nuclear division: Prophase → Metaphase → Anaphase → Telophase → Cytokinesis</div>
+                </div>
             </div>
-            <div class="level-item">
-                <div class="level-name">S Phase</div>
-                <div class="level-desc">DNA replication. Chromosomes duplicated.</div>
-            </div>
-            <div class="level-item">
-                <div class="level-name">G2 Phase</div>
-                <div class="level-desc">Preparation for mitosis. Protein synthesis and organelle duplication.</div>
-            </div>
-            <div class="level-item">
-                <div class="level-name">M Phase (Mitosis)</div>
-                <div class="level-desc">Nuclear division: Prophase → Metaphase → Anaphase → Telophase → Cytokinesis</div>
+            
+            <div class="cycle-diagram">
+                <div class="diagram-title">Cell Cycle</div>
+                <svg width="240" height="340" viewBox="0 0 240 340">
+                    <!-- Main cycle circle -->
+                    <circle cx="120" cy="170" r="90" fill="none" stroke="#4CAF50" stroke-width="3"/>
+                    
+                    <!-- G1 Phase (top-right quadrant) -->
+                    <path d="M 120 80 A 90 90 0 0 1 210 170" fill="none" stroke="#1E64C8" stroke-width="12" opacity="0.7"/>
+                    <text x="165" y="115" font-size="16" fill="#1E64C8" font-weight="bold">G1</text>
+                    
+                    <!-- S Phase (bottom-right quadrant) -->
+                    <path d="M 210 170 A 90 90 0 0 1 120 260" fill="none" stroke="#2196F3" stroke-width="12" opacity="0.7"/>
+                    <text x="165" y="225" font-size="16" fill="#2196F3" font-weight="bold">S</text>
+                    
+                    <!-- G2 Phase (bottom-left quadrant) -->
+                    <path d="M 120 260 A 90 90 0 0 1 30 170" fill="none" stroke="#FF9800" stroke-width="12" opacity="0.7"/>
+                    <text x="55" y="225" font-size="16" fill="#FF9800" font-weight="bold">G2</text>
+                    
+                    <!-- M Phase (top-left quadrant) -->
+                    <path d="M 30 170 A 90 90 0 0 1 120 80" fill="none" stroke="#E91E63" stroke-width="12" opacity="0.7"/>
+                    <text x="55" y="115" font-size="16" fill="#E91E63" font-weight="bold">M</text>
+                    
+                    <!-- Center: Interphase label -->
+                    <text x="120" y="165" text-anchor="middle" font-size="14" fill="#666" font-weight="bold">Interphase</text>
+                    <text x="120" y="182" text-anchor="middle" font-size="12" fill="#666">(G1 + S + G2)</text>
+                    
+                    <!-- Checkpoints -->
+                    <circle cx="165" cy="135" r="8" fill="#FF5722"/>
+                    <text x="185" y="130" font-size="10" fill="#FF5722" font-weight="bold">G1/S</text>
+                    <text x="185" y="142" font-size="10" fill="#FF5722" font-weight="bold">checkpoint</text>
+                    
+                    <circle cx="75" cy="205" r="8" fill="#FF5722"/>
+                    <text x="15" y="200" font-size="10" fill="#FF5722" font-weight="bold">G2/M</text>
+                    <text x="15" y="212" font-size="10" fill="#FF5722" font-weight="bold">checkpoint</text>
+                    
+                    <!-- Arrows showing direction -->
+                    <defs>
+                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#4CAF50"/>
+                        </marker>
+                    </defs>
+                    <path d="M 120 75 L 125 70" stroke="#4CAF50" stroke-width="2" marker-end="url(#arrow)"/>
+                    
+                    <!-- G0 Phase (exit) -->
+                    <line x1="120" y1="80" x2="120" y2="30" stroke="#9E9E9E" stroke-width="2" stroke-dasharray="5,5"/>
+                    <text x="130" y="50" font-size="11" fill="#9E9E9E" font-weight="bold">G0 (quiescent)</text>
+                    
+                    <!-- Duration labels -->
+                    <text x="120" y="305" text-anchor="middle" font-size="11" fill="#666" font-weight="600">Typical Duration:</text>
+                    <text x="120" y="320" text-anchor="middle" font-size="10" fill="#666">G1: 5-6h | S: 10-12h</text>
+                    <text x="120" y="335" text-anchor="middle" font-size="10" fill="#666">G2: 3-4h | M: 1-2h</text>
+                </svg>
             </div>
         </div>
     </div>

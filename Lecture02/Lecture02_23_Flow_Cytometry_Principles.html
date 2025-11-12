@@ -6,35 +6,232 @@
     <title>Flow Cytometry Principles</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Aptos, 'Segoe UI', sans-serif; background: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { width: 960px; height: 540px; padding: 30px 40px; background: white; }
-        .title { font-size: 28px; font-weight: 600; color: #1E64C8; margin-bottom: 22px; text-align: center; }
+        body { 
+            font-family: Aptos, 'Segoe UI', sans-serif; 
+            background: white; 
+            display: flex; 
+            justify-content: center; 
+            align-items: center; 
+            min-height: 100vh; 
+        }
+        .container { 
+            width: 960px; 
+            height: 540px; 
+            padding: 30px 40px; 
+            background: white; 
+        }
+        .title { 
+            font-size: 28px; 
+            font-weight: 600; 
+            color: #1E64C8; 
+            margin-bottom: 18px; 
+            text-align: center; 
+        }
+        .main-section {
+            display: grid;
+            grid-template-columns: 1.2fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .flow-diagram {
+            background: #f0f5fc;
+            border: 2px solid #1E64C8;
+            border-radius: 10px;
+            padding: 18px;
+        }
+        .specs-box {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+        .spec-card {
+            background: linear-gradient(135deg, #1E64C8 10%, #2874d8 100%);
+            color: white;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .spec-title {
+            font-size: 14px;
+            opacity: 0.9;
+            margin-bottom: 5px;
+        }
+        .spec-value {
+            font-size: 22px;
+            font-weight: 700;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 13px;
+            margin-bottom: 12px;
+        }
+        .content-card {
+            background: #f0f5fc; 
+            border: 2px solid #1E64C8; 
+            border-radius: 8px; 
+            padding: 13px;
+            transition: all 0.3s;
+        }
+        .content-card:hover {
+            background: #e0ebff;
+            transform: translateY(-2px);
+        }
+        .card-title {
+            font-size: 15px; 
+            font-weight: 700; 
+            color: #1E64C8; 
+            margin-bottom: 6px;
+        }
+        .card-desc {
+            font-size: 13px; 
+            color: #333;
+            line-height: 1.4;
+        }
+        .applications-banner {
+            background: #f8f9fa; 
+            border-left: 4px solid #1E64C8; 
+            padding: 12px; 
+            border-radius: 6px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Flow Cytometry Principles</div>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px; margin-bottom: 15px;">
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Fluidics System</div>
-            <div style="font-size: 14px; color: #333;">Hydrodynamic focusing. Single-cell interrogation at 10,000 cells/s.</div>
+        
+        <div class="main-section">
+            <div class="flow-diagram">
+                <div style="font-size: 15px; font-weight: 700; color: #1E64C8; margin-bottom: 12px; text-align: center;">
+                    Flow Cytometer System
+                </div>
+                <svg width="100%" height="230" viewBox="0 0 500 230">
+                    <!-- Sample injection -->
+                    <rect x="50" y="10" width="60" height="40" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="80" y="35" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="bold">Sample</text>
+                    
+                    <!-- Flow cell with hydrodynamic focusing -->
+                    <polygon points="120,80 160,60 160,120 120,100" fill="#ADD8E6" opacity="0.5" stroke="#1E64C8" stroke-width="2"/>
+                    <line x1="80" y1="50" x2="120" y2="90" stroke="#666" stroke-width="2"/>
+                    
+                    <!-- Sheath fluid -->
+                    <line x1="140" y1="40" x2="140" y2="60" stroke="#3498db" stroke-width="3"/>
+                    <line x1="140" y1="120" x2="140" y2="140" stroke="#3498db" stroke-width="3"/>
+                    <text x="180" y="45" font-size="10" fill="#3498db">Sheath fluid</text>
+                    
+                    <!-- Single cell stream -->
+                    <line x1="160" y1="90" x2="260" y2="90" stroke="#E74C3C" stroke-width="2" stroke-dasharray="3,3"/>
+                    <circle cx="200" cy="90" r="3" fill="#E74C3C"/>
+                    <circle cx="220" cy="90" r="3" fill="#E74C3C"/>
+                    <circle cx="240" cy="90" r="3" fill="#E74C3C"/>
+                    <text x="200" y="75" text-anchor="middle" font-size="9" fill="#666">Single cells</text>
+                    
+                    <!-- Laser intersection -->
+                    <line x1="270" y1="50" x2="270" y2="130" stroke="#FFD700" stroke-width="5" opacity="0.6"/>
+                    <text x="280" y="60" font-size="10" fill="#f39c12" font-weight="bold">Laser</text>
+                    <text x="280" y="72" font-size="9" fill="#f39c12">488 nm</text>
+                    
+                    <!-- Scattered light -->
+                    <line x1="270" y1="90" x2="310" y2="70" stroke="#3498db" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="320" y="65" font-size="9" fill="#666" font-weight="bold">FSC</text>
+                    
+                    <line x1="270" y1="90" x2="310" y2="90" stroke="#27ae60" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="320" y="88" font-size="9" fill="#666" font-weight="bold">SSC</text>
+                    
+                    <!-- Fluorescence collection -->
+                    <g>
+                        <line x1="270" y1="90" x2="310" y2="110" stroke="#9b59b6" stroke-width="2" marker-end="url(#arrow)"/>
+                        <text x="320" y="113" font-size="9" fill="#666" font-weight="bold">FL1</text>
+                        
+                        <line x1="270" y1="90" x2="310" y2="125" stroke="#E74C3C" stroke-width="2" marker-end="url(#arrow)"/>
+                        <text x="320" y="128" font-size="9" fill="#666" font-weight="bold">FL2</text>
+                    </g>
+                    
+                    <!-- Detectors -->
+                    <rect x="350" y="55" width="100" height="80" fill="#1E64C8" opacity="0.1" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="400" y="80" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="bold">Detectors</text>
+                    <text x="400" y="95" text-anchor="middle" font-size="9" fill="#666">(PMTs)</text>
+                    <text x="400" y="108" text-anchor="middle" font-size="9" fill="#666">Dichroic mirrors</text>
+                    <text x="400" y="121" text-anchor="middle" font-size="9" fill="#666">Optical filters</text>
+                    
+                    <!-- Data processing -->
+                    <rect x="360" y="150" width="80" height="35" fill="#27ae60" opacity="0.2" stroke="#27ae60" stroke-width="2" rx="5"/>
+                    <text x="400" y="172" text-anchor="middle" font-size="10" fill="#27ae60" font-weight="bold">Data Processing</text>
+                    
+                    <line x1="400" y1="135" x2="400" y2="150" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+                    
+                    <!-- Output -->
+                    <text x="400" y="205" text-anchor="middle" font-size="11" fill="#666" font-weight="bold">📊 Dot plots, Histograms</text>
+                    <line x1="400" y1="185" x2="400" y2="195" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+                    
+                    <defs>
+                        <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            
+            <div class="specs-box">
+                <div class="spec-card">
+                    <div class="spec-title">Analysis Speed</div>
+                    <div class="spec-value">10,000/s</div>
+                </div>
+                <div class="spec-card" style="background: linear-gradient(135deg, #27ae60 10%, #2ecc71 100%);">
+                    <div class="spec-title">Typical Lasers</div>
+                    <div class="spec-value" style="font-size: 16px;">405, 488, 561, 640 nm</div>
+                </div>
+                <div class="spec-card" style="background: linear-gradient(135deg, #E74C3C 10%, #e67e73 100%);">
+                    <div class="spec-title">Parameters/Cell</div>
+                    <div class="spec-value">20-50+</div>
+                </div>
+            </div>
         </div>
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Laser Excitation</div>
-            <div style="font-size: 14px; color: #333;">Multiple lasers: 405, 488, 561, 640 nm common.</div>
+        
+        <div class="content-grid">
+            <div class="content-card">
+                <div class="card-title">💧 Fluidics System</div>
+                <div class="card-desc">
+                    Hydrodynamic focusing creates single-cell stream<br>
+                    Sheath fluid (PBS) surrounds sample<br>
+                    Laminar flow for precise alignment
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <div class="card-title">💡 Laser Excitation</div>
+                <div class="card-desc">
+                    Multiple lasers for multicolor detection<br>
+                    Common: 405, 488, 561, 640 nm<br>
+                    Each excites different fluorophores
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <div class="card-title">📡 Detection Channels</div>
+                <div class="card-desc">
+                    <strong>FSC:</strong> Forward scatter (cell size)<br>
+                    <strong>SSC:</strong> Side scatter (granularity)<br>
+                    <strong>FL1-FLn:</strong> Fluorescence PMTs
+                </div>
+            </div>
+            
+            <div class="content-card">
+                <div class="card-title">⚙️ Compensation</div>
+                <div class="card-desc">
+                    Corrects spectral overlap between fluorophores<br>
+                    Single-color controls essential<br>
+                    Software or hardware compensation
+                </div>
+            </div>
         </div>
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Detection Channels</div>
-            <div style="font-size: 14px; color: #333;">FSC, SSC, multiple fluorescence PMTs. Dichroic mirrors.</div>
+        
+        <div class="applications-banner">
+            <div style="font-size: 14px; color: #333; font-weight: 600; margin-bottom: 4px;">🔬 Applications:</div>
+            <div style="font-size: 13px; color: #555;">
+                Immunophenotyping • Cell cycle analysis • Apoptosis detection • Rare cell identification • Biomarker expression
+            </div>
         </div>
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Compensation</div>
-            <div style="font-size: 14px; color: #333;">Correct spectral overlap. Single-color controls essential.</div>
-        </div>
-    </div>
-    <div style="background: #f8f9fa; border-left: 4px solid #1E64C8; padding: 12px; border-radius: 6px;">
-        <div style="font-size: 15px; color: #333;">Applications: Immunophenotyping, cell cycle, apoptosis, rare cell detection</div>
-    </div>
     </div>
 </body>
 </html>

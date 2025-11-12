@@ -31,21 +31,80 @@
             font-size: 28px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: center;
+        }
+        
+        .stratification-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            height: 300px;
+            position: relative;
+        }
+        
+        .diagram-svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .patient-group {
+            fill: #1E64C8;
+            stroke: white;
+            stroke-width: 3;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+        
+        .patient-group:hover {
+            opacity: 0.8;
+        }
+        
+        .group-high-risk {
+            fill: #ff6b6b;
+        }
+        
+        .group-medium-risk {
+            fill: #ffa500;
+        }
+        
+        .group-low-risk {
+            fill: #4CAF50;
+        }
+        
+        .label-text {
+            fill: white;
+            font-weight: 700;
+            text-anchor: middle;
+            pointer-events: none;
+        }
+        
+        .label-subtext {
+            fill: white;
+            font-size: 11px;
+            text-anchor: middle;
+            pointer-events: none;
+        }
+        
+        .flow-arrow {
+            fill: none;
+            stroke: #1E64C8;
+            stroke-width: 3;
+            marker-end: url(#arrowhead);
         }
         
         .content-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 20px;
+            gap: 18px;
+            margin-bottom: 18px;
         }
         
         .content-card {
             background: #f8f9fb;
             border-left: 5px solid #1E64C8;
-            padding: 20px;
+            padding: 16px 20px;
             border-radius: 8px;
             transition: all 0.3s;
         }
@@ -55,26 +114,36 @@
             transform: translateX(5px);
         }
         
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .card-icon {
+            font-size: 22px;
+        }
+        
         .card-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 12px;
         }
         
         .card-content {
-            font-size: 16px;
+            font-size: 14px;
             color: #333;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
         .highlight-box {
             background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
             color: white;
-            padding: 20px;
+            padding: 16px 25px;
             border-radius: 10px;
             text-align: center;
-            font-size: 17px;
+            font-size: 15px;
             font-weight: 500;
             line-height: 1.6;
         }
@@ -84,30 +153,99 @@
     <div class="container">
         <div class="title">Patient Stratification</div>
         
+        <div class="stratification-diagram">
+            <svg class="diagram-svg" viewBox="0 0 900 300">
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                    </marker>
+                </defs>
+                
+                <!-- Patient population -->
+                <rect x="50" y="120" width="140" height="60" rx="8" fill="#1E64C8"/>
+                <text class="label-text" x="120" y="145" font-size="16">Patient</text>
+                <text class="label-text" x="120" y="165" font-size="16">Population</text>
+                
+                <!-- Analysis step -->
+                <circle cx="300" cy="150" r="45" fill="#5088d4"/>
+                <text class="label-text" x="300" y="145" font-size="14">Biomarker</text>
+                <text class="label-text" x="300" y="162" font-size="14">Analysis</text>
+                
+                <!-- Arrows from population to analysis -->
+                <path class="flow-arrow" d="M 190 150 L 255 150"/>
+                
+                <!-- Stratified groups -->
+                <!-- High risk -->
+                <path class="flow-arrow" d="M 340 130 L 450 80"/>
+                <rect class="patient-group group-high-risk" x="450" y="50" width="140" height="60" rx="8"/>
+                <text class="label-text" x="520" y="72" font-size="15">High Risk</text>
+                <text class="label-subtext" x="520" y="90" font-size="12">Intensive therapy</text>
+                
+                <!-- Medium risk -->
+                <path class="flow-arrow" d="M 345 150 L 450 150"/>
+                <rect class="patient-group group-medium-risk" x="450" y="120" width="140" height="60" rx="8"/>
+                <text class="label-text" x="520" y="142" font-size="15">Medium Risk</text>
+                <text class="label-subtext" x="520" y="160" font-size="12">Standard therapy</text>
+                
+                <!-- Low risk -->
+                <path class="flow-arrow" d="M 340 170 L 450 220"/>
+                <rect class="patient-group group-low-risk" x="450" y="190" width="140" height="60" rx="8"/>
+                <text class="label-text" x="520" y="212" font-size="15">Low Risk</text>
+                <text class="label-subtext" x="520" y="230" font-size="12">Observation</text>
+                
+                <!-- Treatment assignment -->
+                <path class="flow-arrow" d="M 590 80 L 680 100"/>
+                <path class="flow-arrow" d="M 590 150 L 680 135"/>
+                <path class="flow-arrow" d="M 590 220 L 680 170"/>
+                
+                <rect x="680" y="100" width="150" height="70" rx="8" fill="#1E64C8" opacity="0.9"/>
+                <text class="label-text" x="755" y="125" font-size="14">Treatment</text>
+                <text class="label-text" x="755" y="145" font-size="14">Assignment</text>
+                <text class="label-subtext" x="755" y="162" font-size="11">Personalized approach</text>
+                
+                <!-- Icons -->
+                <text x="120" y="200" font-size="24" text-anchor="middle">👥</text>
+                <text x="300" y="210" font-size="24" text-anchor="middle">🔬</text>
+                <text x="755" y="195" font-size="24" text-anchor="middle">💊</text>
+            </svg>
+        </div>
+        
         <div class="content-grid">
             <div class="content-card">
-                <div class="card-title">Subgroup Identification</div>
+                <div class="card-header">
+                    <div class="card-icon">🎯</div>
+                    <div class="card-title">Subgroup Identification</div>
+                </div>
                 <div class="card-content">
                     Clustering and classification to define patient groups
                 </div>
             </div>
             
             <div class="content-card">
-                <div class="card-title">Risk Groups</div>
+                <div class="card-header">
+                    <div class="card-icon">📊</div>
+                    <div class="card-title">Risk Groups</div>
+                </div>
                 <div class="card-content">
                     Stratify patients by disease risk or prognosis
                 </div>
             </div>
             
             <div class="content-card">
-                <div class="card-title">Treatment Assignment</div>
+                <div class="card-header">
+                    <div class="card-icon">💊</div>
+                    <div class="card-title">Treatment Assignment</div>
+                </div>
                 <div class="card-content">
                     Match therapies to molecular profiles
                 </div>
             </div>
             
             <div class="content-card">
-                <div class="card-title">Enrichment Strategies</div>
+                <div class="card-header">
+                    <div class="card-icon">✨</div>
+                    <div class="card-title">Enrichment Strategies</div>
+                </div>
                 <div class="card-content">
                     Select patients likely to benefit from intervention
                 </div>

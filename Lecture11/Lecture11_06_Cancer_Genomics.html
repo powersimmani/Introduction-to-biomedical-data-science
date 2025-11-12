@@ -31,21 +31,112 @@
             font-size: 28px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: center;
         }
         
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+        .evolution-container {
+            display: flex;
+            gap: 25px;
             margin-bottom: 20px;
+        }
+        
+        .evolution-timeline {
+            flex: 1.5;
+            background: #f8f9fb;
+            border-radius: 12px;
+            padding: 25px;
+            position: relative;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 20px;
+            bottom: 20px;
+            width: 4px;
+            background: linear-gradient(180deg, #4CAF50 0%, #ffa500 50%, #ff6b6b 100%);
+            border-radius: 2px;
+        }
+        
+        .timeline-event {
+            position: relative;
+            margin-bottom: 35px;
+            padding-left: 15px;
+        }
+        
+        .timeline-event:last-child {
+            margin-bottom: 0;
+        }
+        
+        .event-marker {
+            position: absolute;
+            left: -38px;
+            top: 5px;
+            width: 28px;
+            height: 28px;
+            background: white;
+            border: 4px solid #1E64C8;
+            border-radius: 50%;
+            box-shadow: 0 2px 8px rgba(30, 100, 200, 0.3);
+        }
+        
+        .event-marker.driver {
+            background: #ff6b6b;
+            border-color: #ff6b6b;
+        }
+        
+        .event-marker.passenger {
+            background: #e0e0e0;
+            border-color: #999;
+        }
+        
+        .event-title {
+            font-size: 15px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 4px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .event-icon {
+            font-size: 18px;
+        }
+        
+        .event-description {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.4;
+        }
+        
+        .stage-label {
+            font-size: 11px;
+            font-weight: 600;
+            color: #666;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .content-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
         }
         
         .content-card {
             background: #f8f9fb;
             border-left: 5px solid #1E64C8;
-            padding: 20px;
+            padding: 16px 18px;
             border-radius: 8px;
             transition: all 0.3s;
         }
@@ -55,26 +146,36 @@
             transform: translateX(5px);
         }
         
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+        }
+        
+        .card-icon {
+            font-size: 22px;
+        }
+        
         .card-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 12px;
         }
         
         .card-content {
-            font-size: 16px;
+            font-size: 14px;
             color: #333;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
         .highlight-box {
             background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
             color: white;
-            padding: 20px;
+            padding: 16px 25px;
             border-radius: 10px;
             text-align: center;
-            font-size: 17px;
+            font-size: 15px;
             font-weight: 500;
             line-height: 1.6;
         }
@@ -84,32 +185,110 @@
     <div class="container">
         <div class="title">Cancer Genomics</div>
         
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="card-title">Driver Mutations</div>
-                <div class="card-content">
-                    Mutations providing selective growth advantage to cancer cells
+        <div class="evolution-container">
+            <div class="evolution-timeline">
+                <div class="timeline">
+                    <div class="timeline-event">
+                        <div class="stage-label">Stage 1: Initiation</div>
+                        <div class="event-marker driver"></div>
+                        <div class="event-title">
+                            <span class="event-icon">🎯</span>
+                            <span>First Driver Mutation</span>
+                        </div>
+                        <div class="event-description">
+                            Mutation provides growth advantage (e.g., TP53, KRAS)
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-event">
+                        <div class="stage-label">Stage 2: Expansion</div>
+                        <div class="event-marker passenger"></div>
+                        <div class="event-title">
+                            <span class="event-icon">📈</span>
+                            <span>Clonal Expansion</span>
+                        </div>
+                        <div class="event-description">
+                            Cell population grows, accumulates passenger mutations
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-event">
+                        <div class="stage-label">Stage 3: Progression</div>
+                        <div class="event-marker driver"></div>
+                        <div class="event-title">
+                            <span class="event-icon">⚡</span>
+                            <span>Additional Drivers</span>
+                        </div>
+                        <div class="event-description">
+                            Sequential genetic changes drive tumor progression
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-event">
+                        <div class="stage-label">Stage 4: Heterogeneity</div>
+                        <div class="event-marker"></div>
+                        <div class="event-title">
+                            <span class="event-icon">🌳</span>
+                            <span>Branching Evolution</span>
+                        </div>
+                        <div class="event-description">
+                            Multiple subclones emerge with distinct genetic profiles
+                        </div>
+                    </div>
+                    
+                    <div class="timeline-event">
+                        <div class="stage-label">Stage 5: Metastasis</div>
+                        <div class="event-marker driver"></div>
+                        <div class="event-title">
+                            <span class="event-icon">🚀</span>
+                            <span>Invasive Phenotype</span>
+                        </div>
+                        <div class="event-description">
+                            Cells acquire ability to invade and colonize distant sites
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="content-card">
-                <div class="card-title">Passenger Mutations</div>
-                <div class="card-content">
-                    Neutral mutations accumulated during tumor evolution
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-header">
+                        <div class="card-icon">🎯</div>
+                        <div class="card-title">Driver Mutations</div>
+                    </div>
+                    <div class="card-content">
+                        Mutations providing selective growth advantage to cancer cells
+                    </div>
                 </div>
-            </div>
-            
-            <div class="content-card">
-                <div class="card-title">Clonal Evolution</div>
-                <div class="card-content">
-                    Tumor progression through sequential genetic changes
+                
+                <div class="content-card">
+                    <div class="card-header">
+                        <div class="card-icon">🔘</div>
+                        <div class="card-title">Passenger Mutations</div>
+                    </div>
+                    <div class="card-content">
+                        Neutral mutations accumulated during tumor evolution
+                    </div>
                 </div>
-            </div>
-            
-            <div class="content-card">
-                <div class="card-title">Tumor Heterogeneity</div>
-                <div class="card-content">
-                    Genetic diversity within and between tumors
+                
+                <div class="content-card">
+                    <div class="card-header">
+                        <div class="card-icon">🌱</div>
+                        <div class="card-title">Clonal Evolution</div>
+                    </div>
+                    <div class="card-content">
+                        Tumor progression through sequential genetic changes
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-header">
+                        <div class="card-icon">🧩</div>
+                        <div class="card-title">Tumor Heterogeneity</div>
+                    </div>
+                    <div class="card-content">
+                        Genetic diversity within and between tumors
+                    </div>
                 </div>
             </div>
         </div>

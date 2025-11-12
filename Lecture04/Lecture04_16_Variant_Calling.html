@@ -23,8 +23,19 @@
             margin-bottom: 30px;
             text-align: center;
         }
-        .section {
-            margin-bottom: 25px;
+        .visual-section {
+            background: #f8fbff;
+            border: 2px solid #1E64C8;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .content-box {
+            background: #f8fbff;
+            border: 2px solid #1E64C8;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
         }
         .section-title {
             font-size: 22px;
@@ -33,13 +44,6 @@
             margin-bottom: 15px;
             padding-bottom: 8px;
             border-bottom: 2px solid #e0e8f4;
-        }
-        .content-box {
-            background: #f8fbff;
-            border: 2px solid #1E64C8;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 15px;
         }
         .bullet-list {
             display: flex;
@@ -58,6 +62,32 @@
             font-weight: bold;
             margin-right: 12px;
             font-size: 20px;
+        }
+        .spec-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .spec-box {
+            background: #f0f5fc;
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+        }
+        .spec-label {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+        .spec-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1E64C8;
+        }
+        .section {
+            margin-bottom: 25px;
         }
         .info-grid {
             display: grid;
@@ -81,45 +111,50 @@
             color: #333;
             line-height: 1.6;
         }
-        .highlight-box {
-            background: #fff4e6;
-            border: 2px solid #1E64C8;
-            border-radius: 8px;
-            padding: 18px 24px;
-            text-align: center;
-        }
-        .highlight-text {
-            font-size: 18px;
-            color: #333;
-            font-weight: 500;
-        }
-        .spec-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-        .spec-box {
-            background: #f0f5fc;
-            border: 2px solid #1E64C8;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-        }
-        .spec-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
-        }
-        .spec-value {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1E64C8;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Variant Calling</div>
+        
+        <div class="visual-section">
+            <div style="display: flex; justify-content: center; margin-bottom: 15px;">
+                <svg width="800" height="140" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Reference sequence -->
+                    <text x="10" y="15" font-size="12" fill="#666" font-weight="bold">Reference:</text>
+                    <rect x="10" y="20" width="780" height="18" fill="#E0E0E0" rx="2"/>
+                    <text x="20" y="34" font-size="11" fill="#333" font-family="monospace">...ATCG</text>
+                    <text x="60" y="34" font-size="11" fill="#FF6B6B" font-family="monospace" font-weight="bold">A</text>
+                    <text x="75" y="34" font-size="11" fill="#333" font-family="monospace">TCGATCGATCG...</text>
+                    
+                    <!-- Sample reads showing SNV -->
+                    <text x="10" y="60" font-size="12" fill="#1E64C8" font-weight="bold">Sample Reads:</text>
+                    <rect x="50" y="48" width="100" height="14" fill="#1E64C8" opacity="0.2" rx="2"/>
+                    <text x="55" y="59" font-size="10" fill="#1E64C8" font-family="monospace">ATCG<tspan fill="#4CAF50" font-weight="bold">G</tspan>TCGAT</text>
+                    
+                    <rect x="50" y="65" width="100" height="14" fill="#1E64C8" opacity="0.2" rx="2"/>
+                    <text x="55" y="76" font-size="10" fill="#1E64C8" font-family="monospace">ATCG<tspan fill="#4CAF50" font-weight="bold">G</tspan>TCGAT</text>
+                    
+                    <rect x="50" y="82" width="100" height="14" fill="#1E64C8" opacity="0.2" rx="2"/>
+                    <text x="55" y="93" font-size="10" fill="#1E64C8" font-family="monospace">ATCGATCGAT</text>
+                    
+                    <rect x="50" y="99" width="100" height="14" fill="#1E64C8" opacity="0.2" rx="2"/>
+                    <text x="55" y="110" font-size="10" fill="#1E64C8" font-family="monospace">ATCG<tspan fill="#4CAF50" font-weight="bold">G</tspan>TCGAT</text>
+                    
+                    <!-- Variant indication -->
+                    <circle cx="90" cy="34" r="8" fill="none" stroke="#FF6B6B" stroke-width="2"/>
+                    <text x="170" y="80" font-size="13" fill="#4CAF50" font-weight="bold">→ SNV Detected: A>G</text>
+                    <text x="170" y="96" font-size="11" fill="#666">Allele Frequency: 75% (3/4 reads)</text>
+                    
+                    <!-- Confidence visualization -->
+                    <rect x="400" y="45" width="350" height="70" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2" rx="4"/>
+                    <text x="410" y="62" font-size="12" fill="#1E64C8" font-weight="bold">Confidence Metrics:</text>
+                    <text x="420" y="80" font-size="11" fill="#333">✓ Coverage depth: 4x</text>
+                    <text x="420" y="95" font-size="11" fill="#333">✓ Base quality: Q35+</text>
+                    <text x="420" y="110" font-size="11" fill="#333">✓ Mapping quality: 60</text>
+                </svg>
+            </div>
+        </div>
         
         <div class="content-box">
             <div class="section-title">Variant Calling Process</div>
@@ -130,6 +165,7 @@
                 <div class="bullet-item">Filter low-quality and false positive calls</div>
             </div>
         </div>
+        
         <div class="spec-grid">
             <div class="spec-box">
                 <div class="spec-label">GATK</div>
@@ -147,6 +183,7 @@
                 <div style="font-size: 13px; color: #666; margin-top: 5px;">Google AI method</div>
             </div>
         </div>
+        
         <div class="section">
             <div class="section-title">Variant Types</div>
             <div class="info-grid">

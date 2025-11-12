@@ -31,20 +31,27 @@
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 35px;
+            margin-bottom: 25px;
             text-align: center;
+        }
+        
+        .visual-section {
+            background: #f8f9fb;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 15px;
         }
         
         .content-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 25px;
+            gap: 20px;
         }
         
         .info-box {
             background: #f8f9fb;
             border-left: 4px solid #1E64C8;
-            padding: 20px 22px;
+            padding: 18px 20px;
             border-radius: 6px;
             transition: all 0.3s;
         }
@@ -55,47 +62,135 @@
         }
         
         .info-title {
-            font-size: 19px;
+            font-size: 18px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         
         .info-content {
-            font-size: 16px;
+            font-size: 15px;
             color: #333;
-            line-height: 1.7;
+            line-height: 1.6;
         }
         
         .bullet {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         
         .bullet::before {
             content: "•";
             color: #1E64C8;
             font-weight: bold;
-            margin-right: 10px;
-            font-size: 18px;
+            margin-right: 8px;
+            font-size: 16px;
         }
         
         .full-width-box {
             grid-column: 1 / -1;
             background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
             color: white;
-            padding: 18px 25px;
+            padding: 15px 22px;
             border-radius: 8px;
             text-align: center;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 500;
+        }
+        
+        @keyframes flowAnimation {
+            0%, 100% { stroke-dashoffset: 0; }
+            50% { stroke-dashoffset: 10; }
+        }
+        
+        .flow-line {
+            animation: flowAnimation 2s linear infinite;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Synthetic Data Generation</div>
+        
+        <div class="visual-section">
+            <svg width="100%" height="150" viewBox="0 0 850 150">
+                <!-- Pipeline Flow -->
+                <!-- Real Data -->
+                <g transform="translate(20, 40)">
+                    <rect x="0" y="0" width="100" height="70" rx="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="50" y="25" font-size="12" font-weight="600" fill="#1E64C8" text-anchor="middle">Real Patient</text>
+                    <text x="50" y="40" font-size="12" font-weight="600" fill="#1E64C8" text-anchor="middle">Data</text>
+                    <text x="50" y="60" font-size="10" fill="#666" text-anchor="middle">(Private 🔒)</text>
+                </g>
+                
+                <!-- Arrow 1 -->
+                <defs>
+                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                    </marker>
+                </defs>
+                <path d="M 130 75 L 180 75" stroke="#1E64C8" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow)" class="flow-line"/>
+                
+                <!-- Generation Methods -->
+                <g transform="translate(190, 20)">
+                    <rect x="0" y="0" width="140" height="110" rx="6" fill="#1E64C8" opacity="0.9" stroke="#5088d4" stroke-width="2"/>
+                    <text x="70" y="20" font-size="13" font-weight="700" fill="white" text-anchor="middle">Generation Engine</text>
+                    
+                    <rect x="10" y="30" width="120" height="18" rx="3" fill="white" opacity="0.9"/>
+                    <text x="70" y="43" font-size="10" font-weight="600" fill="#1E64C8" text-anchor="middle">GAN / VAE</text>
+                    
+                    <rect x="10" y="52" width="120" height="18" rx="3" fill="white" opacity="0.9"/>
+                    <text x="70" y="65" font-size="10" font-weight="600" fill="#1E64C8" text-anchor="middle">Diffusion Models</text>
+                    
+                    <rect x="10" y="74" width="120" height="18" rx="3" fill="white" opacity="0.9"/>
+                    <text x="70" y="87" font-size="10" font-weight="600" fill="#1E64C8" text-anchor="middle">Statistical Sim</text>
+                    
+                    <text x="70" y="105" font-size="9" fill="white" text-anchor="middle">🤖 AI-Powered</text>
+                </g>
+                
+                <!-- Arrow 2 -->
+                <path d="M 340 75 L 390 75" stroke="#1E64C8" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow)" class="flow-line" style="animation-delay: 0.5s"/>
+                
+                <!-- Synthetic Data -->
+                <g transform="translate(400, 40)">
+                    <rect x="0" y="0" width="100" height="70" rx="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="50" y="25" font-size="12" font-weight="600" fill="#1E64C8" text-anchor="middle">Synthetic</text>
+                    <text x="50" y="40" font-size="12" font-weight="600" fill="#1E64C8" text-anchor="middle">Data</text>
+                    <text x="50" y="60" font-size="10" fill="#666" text-anchor="middle">(Shareable ✓)</text>
+                </g>
+                
+                <!-- Arrow 3 -->
+                <path d="M 510 75 L 560 75" stroke="#1E64C8" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arrow)" class="flow-line" style="animation-delay: 1s"/>
+                
+                <!-- Validation -->
+                <g transform="translate(570, 20)">
+                    <rect x="0" y="0" width="130" height="110" rx="6" fill="#5088d4" opacity="0.2" stroke="#1E64C8" stroke-width="2" stroke-dasharray="3,2"/>
+                    <text x="65" y="18" font-size="12" font-weight="700" fill="#1E64C8" text-anchor="middle">Validation</text>
+                    
+                    <g transform="translate(10, 25)">
+                        <text x="0" y="0" font-size="10" fill="#333">✓ Statistical similarity</text>
+                        <text x="0" y="18" font-size="10" fill="#333">✓ Clinical utility</text>
+                        <text x="0" y="36" font-size="10" fill="#333">✓ Privacy preserved</text>
+                        <text x="0" y="54" font-size="10" fill="#333">✓ Task performance</text>
+                    </g>
+                    
+                    <circle cx="65" cy="100" r="8" fill="#4CAF50" opacity="0.8"/>
+                    <text x="65" y="104" font-size="10" font-weight="bold" fill="white" text-anchor="middle">✓</text>
+                </g>
+                
+                <!-- Arrow 4 to Applications -->
+                <path d="M 710 75 L 750 75" stroke="#4CAF50" stroke-width="2" fill="none" marker-end="url(#arrow)" class="flow-line" style="animation-delay: 1.5s"/>
+                
+                <!-- Applications -->
+                <g transform="translate(760, 55)">
+                    <text x="0" y="0" font-size="11" font-weight="600" fill="#1E64C8">Use Cases:</text>
+                    <text x="0" y="15" font-size="9" fill="#666">• Training</text>
+                    <text x="0" y="28" font-size="9" fill="#666">• Testing</text>
+                    <text x="0" y="41" font-size="9" fill="#666">• Sharing</text>
+                </g>
+            </svg>
+        </div>
         
         <div class="content-section">
             <div class="info-box">

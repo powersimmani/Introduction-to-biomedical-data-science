@@ -23,16 +23,14 @@
             margin-bottom: 30px;
             text-align: center;
         }
-        .section {
-            margin-bottom: 25px;
-        }
-        .section-title {
-            font-size: 22px;
-            font-weight: 600;
-            color: #1E64C8;
-            margin-bottom: 15px;
-            padding-bottom: 8px;
-            border-bottom: 2px solid #e0e8f4;
+        .pipeline-visual {
+            background: #f8fbff;
+            border: 2px solid #1E64C8;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
         }
         .content-box {
             background: #f8fbff;
@@ -41,23 +39,13 @@
             padding: 20px;
             margin-bottom: 15px;
         }
-        .bullet-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .bullet-item {
-            display: flex;
-            align-items: flex-start;
-            font-size: 17px;
-            color: #333;
-        }
-        .bullet-item::before {
-            content: "•";
+        .section-title {
+            font-size: 22px;
+            font-weight: 600;
             color: #1E64C8;
-            font-weight: bold;
-            margin-right: 12px;
-            font-size: 20px;
+            margin-bottom: 15px;
+            padding-bottom: 8px;
+            border-bottom: 2px solid #e0e8f4;
         }
         .info-grid {
             display: grid;
@@ -81,45 +69,106 @@
             color: #333;
             line-height: 1.6;
         }
-        .highlight-box {
-            background: #fff4e6;
-            border: 2px solid #1E64C8;
-            border-radius: 8px;
-            padding: 18px 24px;
-            text-align: center;
-        }
-        .highlight-text {
-            font-size: 18px;
-            color: #333;
-            font-weight: 500;
-        }
-        .spec-grid {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-        }
-        .spec-box {
-            background: #f0f5fc;
-            border: 2px solid #1E64C8;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
-        }
-        .spec-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
-        }
-        .spec-value {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1E64C8;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Hands-on: NGS Pipeline</div>
+        
+        <div class="pipeline-visual">
+            <svg width="880" height="380" xmlns="http://www.w3.org/2000/svg">
+                <!-- Step 1: FASTQ Input -->
+                <rect x="10" y="10" width="120" height="60" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                <text x="70" y="30" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">Raw Reads</text>
+                <text x="70" y="48" font-size="11" fill="#666" text-anchor="middle">FASTQ</text>
+                <text x="70" y="60" font-size="10" fill="#666" font-family="monospace" text-anchor="middle">@SEQ_ID</text>
+                
+                <!-- Arrow to QC -->
+                <path d="M 70 75 L 70 100" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-down)"/>
+                
+                <!-- Step 2: Quality Control -->
+                <rect x="10" y="105" width="120" height="60" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                <text x="70" y="125" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">1. Quality Control</text>
+                <circle cx="50" cy="145" r="8" fill="#4CAF50"/>
+                <circle cx="70" cy="145" r="8" fill="#FFA726"/>
+                <circle cx="90" cy="145" r="8" fill="#FF6B6B"/>
+                <text x="70" y="160" font-size="9" fill="#666" text-anchor="middle">FastQC/MultiQC</text>
+                
+                <!-- Arrow to Alignment -->
+                <path d="M 135 135 L 180 135" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-right)"/>
+                
+                <!-- Step 3: Read Alignment -->
+                <rect x="185" y="105" width="120" height="60" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                <text x="245" y="125" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">2. Alignment</text>
+                <!-- Reference and reads -->
+                <rect x="195" y="135" width="100" height="4" fill="#CCCCCC" rx="1"/>
+                <rect x="200" y="132" width="30" height="8" fill="#1E64C8" opacity="0.5" rx="1"/>
+                <rect x="240" y="132" width="30" height="8" fill="#1E64C8" opacity="0.5" rx="1"/>
+                <text x="245" y="158" font-size="9" fill="#666" text-anchor="middle">BWA-MEM</text>
+                
+                <!-- Arrow down -->
+                <path d="M 245 170 L 245 195" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-down)"/>
+                
+                <!-- Step 4: SAM to BAM -->
+                <rect x="185" y="200" width="120" height="60" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                <text x="245" y="220" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">3. SAM → BAM</text>
+                <rect x="200" y="230" width="35" height="20" fill="#FFA726" opacity="0.3" stroke="#FFA726" stroke-width="1.5" rx="2"/>
+                <text x="217" y="243" font-size="10" fill="#666" text-anchor="middle">SAM</text>
+                <path d="M 238 240 L 248 240" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-right)"/>
+                <rect x="253" y="230" width="35" height="20" fill="#1E64C8" opacity="0.3" stroke="#1E64C8" stroke-width="1.5" rx="2"/>
+                <text x="270" y="243" font-size="10" fill="#666" text-anchor="middle">BAM</text>
+                
+                <!-- Arrow to Dedup -->
+                <path d="M 310 230 L 355 230" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-right)"/>
+                
+                <!-- Step 5: Mark Duplicates -->
+                <rect x="360" y="200" width="120" height="60" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                <text x="420" y="220" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">4. Mark Duplicates</text>
+                <!-- Duplicate illustration -->
+                <rect x="375" y="230" width="30" height="6" fill="#1E64C8" opacity="0.7" rx="1"/>
+                <rect x="375" y="240" width="30" height="6" fill="#1E64C8" opacity="0.3" rx="1"/>
+                <text x="410" y="243" font-size="16" fill="#FF6B6B">✗</text>
+                <rect x="420" y="230" width="30" height="6" fill="#1E64C8" opacity="0.7" rx="1"/>
+                
+                <!-- Arrow down -->
+                <path d="M 420 265 L 420 290" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-down)"/>
+                
+                <!-- Step 6: Variant Calling -->
+                <rect x="360" y="295" width="120" height="60" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                <text x="420" y="315" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">5. Variant Calling</text>
+                <!-- Variant visualization -->
+                <text x="385" y="335" font-size="11" fill="#CCCCCC" font-family="monospace">Ref: A</text>
+                <text x="385" y="348" font-size="11" fill="#4CAF50" font-family="monospace" font-weight="bold">Alt: G</text>
+                
+                <!-- Arrow to Filter -->
+                <path d="M 485 325 L 530 325" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-right)"/>
+                
+                <!-- Step 7: Variant Filtering -->
+                <rect x="535" y="295" width="120" height="60" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                <text x="595" y="315" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">6. Filter Variants</text>
+                <!-- Filter funnel -->
+                <path d="M 560 330 L 560 345 L 575 345 L 580 350 L 590 350 L 595 345 L 610 345 L 610 330 Z" fill="#4CAF50" opacity="0.3" stroke="#4CAF50" stroke-width="1.5"/>
+                <text x="595" y="350" font-size="10" fill="#666" text-anchor="middle">VCF</text>
+                
+                <!-- Final arrow to output -->
+                <path d="M 660 325 L 700 325" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-right)"/>
+                
+                <!-- Step 8: Final Output -->
+                <rect x="705" y="295" width="160" height="60" fill="#4CAF50" opacity="0.2" stroke="#4CAF50" stroke-width="2" rx="6"/>
+                <text x="785" y="315" font-size="13" fill="#4CAF50" font-weight="bold" text-anchor="middle">Filtered Variants</text>
+                <text x="785" y="335" font-size="11" fill="#666" text-anchor="middle">High-quality VCF</text>
+                <text x="785" y="350" font-size="10" fill="#4CAF50" font-weight="bold" text-anchor="middle">✓ Ready for annotation</text>
+                
+                <defs>
+                    <marker id="arrow-right" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                        <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                    </marker>
+                    <marker id="arrow-down" markerWidth="10" markerHeight="10" refX="5" refY="8" orient="auto">
+                        <polygon points="0 0, 5 10, 10 0" fill="#1E64C8"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
         
         <div class="content-box">
             <div class="section-title">Standard NGS Analysis Pipeline</div>
@@ -145,6 +194,7 @@
                 <div>gatk VariantFiltration -R reference.fa -V sample.vcf -O sample.filtered.vcf</div>
             </div>
         </div>
+        
         <div class="info-grid">
             <div class="info-box">
                 <div class="info-label">Required Software</div>

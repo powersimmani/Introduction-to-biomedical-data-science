@@ -31,21 +31,88 @@
             font-size: 28px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             text-align: center;
         }
         
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+        .pgx-diagram {
+            display: flex;
+            gap: 25px;
             margin-bottom: 20px;
+        }
+        
+        .diagram-flow {
+            flex: 1.2;
+            background: #f8f9fb;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+        }
+        
+        .flow-step {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            transition: all 0.3s;
+            padding: 12px;
+            border-radius: 8px;
+        }
+        
+        .flow-step:hover {
+            background: #e8f2ff;
+            transform: translateX(5px);
+        }
+        
+        .step-circle {
+            width: 55px;
+            height: 55px;
+            background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 26px;
+            box-shadow: 0 4px 12px rgba(30, 100, 200, 0.3);
+            flex-shrink: 0;
+        }
+        
+        .step-content {
+            flex: 1;
+        }
+        
+        .step-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 4px;
+        }
+        
+        .step-description {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.4;
+        }
+        
+        .arrow-down {
+            text-align: center;
+            font-size: 24px;
+            color: #1E64C8;
+            margin: -5px 0;
+        }
+        
+        .content-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 14px;
         }
         
         .content-card {
             background: #f8f9fb;
             border-left: 5px solid #1E64C8;
-            padding: 20px;
+            padding: 14px 18px;
             border-radius: 8px;
             transition: all 0.3s;
         }
@@ -56,27 +123,38 @@
         }
         
         .card-title {
-            font-size: 18px;
+            font-size: 15px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 12px;
+            margin-bottom: 6px;
         }
         
         .card-content {
-            font-size: 16px;
+            font-size: 13px;
             color: #333;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         
         .highlight-box {
             background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
             color: white;
-            padding: 20px;
+            padding: 16px 25px;
             border-radius: 10px;
             text-align: center;
-            font-size: 17px;
+            font-size: 15px;
             font-weight: 500;
             line-height: 1.6;
+        }
+        
+        .example-label {
+            display: inline-block;
+            background: #5088d4;
+            color: white;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 600;
+            margin-left: 6px;
         }
     </style>
 </head>
@@ -84,32 +162,84 @@
     <div class="container">
         <div class="title">Pharmacogenomics (PGx)</div>
         
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="card-title">PGx Variants</div>
-                <div class="card-content">
-                    Genetic variations affecting drug response, metabolism, and efficacy
+        <div class="pgx-diagram">
+            <div class="diagram-flow">
+                <div class="flow-step">
+                    <div class="step-circle">🧬</div>
+                    <div class="step-content">
+                        <div class="step-title">Genetic Variant</div>
+                        <div class="step-description">SNPs in drug-related genes <span class="example-label">CYP2D6*4</span></div>
+                    </div>
+                </div>
+                
+                <div class="arrow-down">↓</div>
+                
+                <div class="flow-step">
+                    <div class="step-circle">⚗️</div>
+                    <div class="step-content">
+                        <div class="step-title">Altered Function</div>
+                        <div class="step-description">Changed enzyme activity or expression level</div>
+                    </div>
+                </div>
+                
+                <div class="arrow-down">↓</div>
+                
+                <div class="flow-step">
+                    <div class="step-circle">💊</div>
+                    <div class="step-content">
+                        <div class="step-title">Drug Metabolism</div>
+                        <div class="step-description">Modified drug exposure and response</div>
+                    </div>
+                </div>
+                
+                <div class="arrow-down">↓</div>
+                
+                <div class="flow-step">
+                    <div class="step-circle">📊</div>
+                    <div class="step-content">
+                        <div class="step-title">Clinical Outcome</div>
+                        <div class="step-description">Efficacy, toxicity, or adverse reactions</div>
+                    </div>
+                </div>
+                
+                <div class="arrow-down">↓</div>
+                
+                <div class="flow-step">
+                    <div class="step-circle">🎯</div>
+                    <div class="step-content">
+                        <div class="step-title">Dose Adjustment</div>
+                        <div class="step-description">Personalized dosing recommendation</div>
+                    </div>
                 </div>
             </div>
             
-            <div class="content-card">
-                <div class="card-title">Drug Metabolism</div>
-                <div class="card-content">
-                    CYP450 enzymes and transporter polymorphisms impact drug levels
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-title">PGx Variants</div>
+                    <div class="card-content">
+                        Genetic variations affecting drug response, metabolism, and efficacy
+                    </div>
                 </div>
-            </div>
-            
-            <div class="content-card">
-                <div class="card-title">Dosing Algorithms</div>
-                <div class="card-content">
-                    Genotype-guided dosing for warfarin, clopidogrel, and more
+                
+                <div class="content-card">
+                    <div class="card-title">Drug Metabolism</div>
+                    <div class="card-content">
+                        CYP450 enzymes and transporter polymorphisms impact drug levels
+                    </div>
                 </div>
-            </div>
-            
-            <div class="content-card">
-                <div class="card-title">CPIC Guidelines</div>
-                <div class="card-content">
-                    Clinical Pharmacogenetics Implementation Consortium standards
+                
+                <div class="content-card">
+                    <div class="card-title">Dosing Algorithms</div>
+                    <div class="card-content">
+                        Genotype-guided dosing for warfarin, clopidogrel, and more
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <div class="card-title">CPIC Guidelines</div>
+                    <div class="card-content">
+                        Clinical Pharmacogenetics Implementation Consortium standards
+                    </div>
                 </div>
             </div>
         </div>

@@ -31,7 +31,7 @@
             font-size: 28px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             text-align: center;
         }
         
@@ -42,41 +42,96 @@
             margin-bottom: 20px;
         }
         
-        .content-card {
+        .trial-card {
             background: #f8f9fb;
-            border-left: 5px solid #1E64C8;
+            border: 3px solid #1E64C8;
+            border-radius: 12px;
             padding: 20px;
-            border-radius: 8px;
             transition: all 0.3s;
+            position: relative;
+            overflow: hidden;
         }
         
-        .content-card:hover {
+        .trial-card:hover {
             background: #e8f2ff;
-            transform: translateX(5px);
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(30, 100, 200, 0.3);
+        }
+        
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+        
+        .card-icon {
+            width: 45px;
+            height: 45px;
+            background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            box-shadow: 0 4px 12px rgba(30, 100, 200, 0.3);
         }
         
         .card-title {
             font-size: 18px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 12px;
+            flex: 1;
         }
         
         .card-content {
-            font-size: 16px;
+            font-size: 15px;
             color: #333;
             line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        
+        .visual-diagram {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 2px dashed #1E64C8;
+        }
+        
+        .diagram-svg {
+            width: 100%;
+            height: 70px;
         }
         
         .highlight-box {
             background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
             color: white;
-            padding: 20px;
+            padding: 18px 25px;
             border-radius: 10px;
             text-align: center;
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 500;
             line-height: 1.6;
+        }
+        
+        .basket-tumor {
+            fill: none;
+            stroke: white;
+            stroke-width: 2;
+        }
+        
+        .umbrella-arm {
+            fill: white;
+            opacity: 0.9;
+        }
+        
+        .platform-box {
+            fill: white;
+            opacity: 0.9;
+        }
+        
+        .stratified-group {
+            fill: white;
+            opacity: 0.9;
         }
     </style>
 </head>
@@ -85,31 +140,138 @@
         <div class="title">Clinical Trial Design</div>
         
         <div class="content-grid">
-            <div class="content-card">
-                <div class="card-title">Basket Trials</div>
+            <div class="trial-card">
+                <div class="card-header">
+                    <div class="card-icon">🧺</div>
+                    <div class="card-title">Basket Trials</div>
+                </div>
                 <div class="card-content">
                     Multiple tumor types with same molecular alteration
                 </div>
+                <div class="visual-diagram">
+                    <svg class="diagram-svg" viewBox="0 0 300 70">
+                        <!-- Central biomarker -->
+                        <circle cx="150" cy="35" r="18" fill="#1E64C8"/>
+                        <text x="150" y="40" fill="white" font-size="11" font-weight="bold" text-anchor="middle">BRAF</text>
+                        
+                        <!-- Different tumors -->
+                        <circle class="basket-tumor" cx="80" cy="15" r="12"/>
+                        <text x="80" y="19" fill="#1E64C8" font-size="9" font-weight="bold" text-anchor="middle">Lung</text>
+                        <line x1="92" y1="20" x2="135" y2="30" stroke="#1E64C8" stroke-width="2"/>
+                        
+                        <circle class="basket-tumor" cx="80" cy="55" r="12"/>
+                        <text x="80" y="59" fill="#1E64C8" font-size="9" font-weight="bold" text-anchor="middle">Colon</text>
+                        <line x1="92" y1="50" x2="135" y2="40" stroke="#1E64C8" stroke-width="2"/>
+                        
+                        <circle class="basket-tumor" cx="220" cy="15" r="12"/>
+                        <text x="220" y="19" fill="#1E64C8" font-size="9" font-weight="bold" text-anchor="middle">Melanoma</text>
+                        <line x1="208" y1="20" x2="165" y2="30" stroke="#1E64C8" stroke-width="2"/>
+                        
+                        <circle class="basket-tumor" cx="220" cy="55" r="12"/>
+                        <text x="220" y="59" fill="#1E64C8" font-size="9" font-weight="bold" text-anchor="middle">Thyroid</text>
+                        <line x1="208" y1="50" x2="165" y2="40" stroke="#1E64C8" stroke-width="2"/>
+                    </svg>
+                </div>
             </div>
             
-            <div class="content-card">
-                <div class="card-title">Umbrella Trials</div>
+            <div class="trial-card">
+                <div class="card-header">
+                    <div class="card-icon">☂️</div>
+                    <div class="card-title">Umbrella Trials</div>
+                </div>
                 <div class="card-content">
                     Single disease with multiple biomarker-driven arms
                 </div>
-            </div>
-            
-            <div class="content-card">
-                <div class="card-title">Platform Trials</div>
-                <div class="card-content">
-                    Perpetual trials adding/dropping arms dynamically
+                <div class="visual-diagram">
+                    <svg class="diagram-svg" viewBox="0 0 300 70">
+                        <!-- Single disease -->
+                        <rect x="130" y="5" width="40" height="20" rx="4" fill="#1E64C8"/>
+                        <text x="150" y="18" fill="white" font-size="10" font-weight="bold" text-anchor="middle">NSCLC</text>
+                        
+                        <!-- Arms -->
+                        <line x1="150" y1="25" x2="70" y2="50" stroke="#1E64C8" stroke-width="2"/>
+                        <line x1="150" y1="25" x2="150" y2="50" stroke="#1E64C8" stroke-width="2"/>
+                        <line x1="150" y1="25" x2="230" y2="50" stroke="#1E64C8" stroke-width="2"/>
+                        
+                        <rect class="umbrella-arm" x="50" y="50" width="40" height="16" rx="3"/>
+                        <text x="70" y="61" fill="#1E64C8" font-size="9" font-weight="bold" text-anchor="middle">EGFR+</text>
+                        
+                        <rect class="umbrella-arm" x="130" y="50" width="40" height="16" rx="3"/>
+                        <text x="150" y="61" fill="#1E64C8" font-size="9" font-weight="bold" text-anchor="middle">ALK+</text>
+                        
+                        <rect class="umbrella-arm" x="210" y="50" width="40" height="16" rx="3"/>
+                        <text x="230" y="61" fill="#1E64C8" font-size="9" font-weight="bold" text-anchor="middle">KRAS+</text>
+                    </svg>
                 </div>
             </div>
             
-            <div class="content-card">
-                <div class="card-title">Biomarker-stratified</div>
+            <div class="trial-card">
+                <div class="card-header">
+                    <div class="card-icon">🔄</div>
+                    <div class="card-title">Platform Trials</div>
+                </div>
+                <div class="card-content">
+                    Perpetual trials adding/dropping arms dynamically
+                </div>
+                <div class="visual-diagram">
+                    <svg class="diagram-svg" viewBox="0 0 300 70">
+                        <!-- Platform -->
+                        <rect x="100" y="10" width="100" height="50" rx="6" fill="#1E64C8"/>
+                        <text x="150" y="30" fill="white" font-size="12" font-weight="bold" text-anchor="middle">Platform</text>
+                        <text x="150" y="45" fill="white" font-size="9" text-anchor="middle">Master Protocol</text>
+                        
+                        <!-- Dynamic arms -->
+                        <rect class="platform-box" x="20" y="20" width="55" height="12" rx="2"/>
+                        <text x="47.5" y="29" fill="#1E64C8" font-size="8" font-weight="bold" text-anchor="middle">Arm 1</text>
+                        <line x1="75" y1="26" x2="100" y2="30" stroke="white" stroke-width="2" stroke-dasharray="3,2"/>
+                        
+                        <rect class="platform-box" x="20" y="38" width="55" height="12" rx="2"/>
+                        <text x="47.5" y="47" fill="#1E64C8" font-size="8" font-weight="bold" text-anchor="middle">Arm 2</text>
+                        <line x1="75" y1="44" x2="100" y2="40" stroke="white" stroke-width="2" stroke-dasharray="3,2"/>
+                        
+                        <rect class="platform-box" x="225" y="20" width="55" height="12" rx="2"/>
+                        <text x="252.5" y="29" fill="#1E64C8" font-size="8" font-weight="bold" text-anchor="middle">New Arm</text>
+                        <line x1="200" y1="30" x2="225" y2="26" stroke="white" stroke-width="2" stroke-dasharray="3,2"/>
+                        <text x="270" y="15" fill="#4CAF50" font-size="10" font-weight="bold">+</text>
+                        
+                        <rect class="platform-box" x="225" y="38" width="55" height="12" rx="2" opacity="0.3"/>
+                        <text x="252.5" y="47" fill="#666" font-size="8" font-weight="bold" text-anchor="middle">Dropped</text>
+                        <line x1="200" y1="40" x2="225" y2="44" stroke="white" stroke-width="2" stroke-dasharray="3,2" opacity="0.3"/>
+                        <text x="270" y="52" fill="#f44336" font-size="10" font-weight="bold">-</text>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="trial-card">
+                <div class="card-header">
+                    <div class="card-icon">📊</div>
+                    <div class="card-title">Biomarker-stratified</div>
+                </div>
                 <div class="card-content">
                     Randomization based on biomarker status
+                </div>
+                <div class="visual-diagram">
+                    <svg class="diagram-svg" viewBox="0 0 300 70">
+                        <!-- Patients -->
+                        <rect x="10" y="25" width="70" height="20" rx="4" fill="#1E64C8"/>
+                        <text x="45" y="38" fill="white" font-size="10" font-weight="bold" text-anchor="middle">Patients</text>
+                        
+                        <!-- Biomarker test -->
+                        <circle cx="130" cy="35" r="18" fill="#5088d4"/>
+                        <text x="130" y="40" fill="white" font-size="9" font-weight="bold" text-anchor="middle">Test</text>
+                        <line x1="80" y1="35" x2="112" y2="35" stroke="#1E64C8" stroke-width="2"/>
+                        
+                        <!-- Stratified groups -->
+                        <line x1="148" y1="35" x2="170" y2="20" stroke="#1E64C8" stroke-width="2"/>
+                        <rect class="stratified-group" x="170" y="10" width="50" height="16" rx="2"/>
+                        <text x="195" y="21" fill="#4CAF50" font-size="9" font-weight="bold" text-anchor="middle">Positive</text>
+                        <text x="245" y="21" fill="#1E64C8" font-size="8" text-anchor="start">→ Drug A</text>
+                        
+                        <line x1="148" y1="35" x2="170" y2="50" stroke="#1E64C8" stroke-width="2"/>
+                        <rect class="stratified-group" x="170" y="44" width="50" height="16" rx="2"/>
+                        <text x="195" y="55" fill="#f44336" font-size="9" font-weight="bold" text-anchor="middle">Negative</text>
+                        <text x="245" y="55" fill="#1E64C8" font-size="8" text-anchor="start">→ Drug B</text>
+                    </svg>
                 </div>
             </div>
         </div>

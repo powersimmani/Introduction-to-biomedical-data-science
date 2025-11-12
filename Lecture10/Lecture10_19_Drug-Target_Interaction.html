@@ -31,21 +31,28 @@
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-align: center;
         }
         
-        .content-grid {
+        .main-visual {
             display: flex;
-            flex-direction: column;
-            gap: 22px;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 14px;
         }
         
         .content-card {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 8px;
-            padding: 18px 24px;
+            padding: 14px 20px;
             transition: all 0.3s;
         }
         
@@ -56,22 +63,172 @@
         }
         
         .content-main {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         
         .content-desc {
-            font-size: 16px;
+            font-size: 14px;
             color: #555;
             font-weight: 400;
+        }
+
+        .interaction-pulse {
+            animation: pulse-interact 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse-interact {
+            0%, 100% { r: 8; opacity: 0.7; }
+            50% { r: 10; opacity: 1; }
+        }
+
+        .network-edge {
+            animation: flow-edge 3s ease-in-out infinite;
+        }
+
+        @keyframes flow-edge {
+            0%, 100% { stroke-dashoffset: 0; }
+            50% { stroke-dashoffset: 10; }
+        }
+
+        .prediction-box {
+            animation: glow-predict 2s ease-in-out infinite;
+        }
+
+        @keyframes glow-predict {
+            0%, 100% { filter: drop-shadow(0 0 2px rgba(30, 100, 200, 0.3)); }
+            50% { filter: drop-shadow(0 0 6px rgba(30, 100, 200, 0.7)); }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Drug-Target Interaction</div>
+        
+        <div class="main-visual">
+            <svg width="860" height="220" viewBox="0 0 860 220">
+                <!-- Drug molecules (left side) -->
+                <g transform="translate(50, 50)">
+                    <text x="60" y="-10" text-anchor="middle" font-size="13" font-weight="600" fill="#e74c3c">Drugs</text>
+                    
+                    <!-- Drug 1 -->
+                    <circle cx="60" cy="20" r="18" fill="#e74c3c" opacity="0.8"/>
+                    <text x="60" y="26" text-anchor="middle" font-size="11" fill="white" font-weight="600">D1</text>
+                    
+                    <!-- Drug 2 -->
+                    <circle cx="60" cy="60" r="18" fill="#e67e22" opacity="0.8"/>
+                    <text x="60" y="66" text-anchor="middle" font-size="11" fill="white" font-weight="600">D2</text>
+                    
+                    <!-- Drug 3 -->
+                    <circle cx="60" cy="100" r="18" fill="#f39c12" opacity="0.8"/>
+                    <text x="60" y="106" text-anchor="middle" font-size="11" fill="white" font-weight="600">D3</text>
+                    
+                    <!-- Drug 4 -->
+                    <circle cx="60" cy="140" r="18" fill="#d35400" opacity="0.8"/>
+                    <text x="60" y="146" text-anchor="middle" font-size="11" fill="white" font-weight="600">D4</text>
+                </g>
+
+                <!-- Target proteins (right side) -->
+                <g transform="translate(670, 50)">
+                    <text x="60" y="-10" text-anchor="middle" font-size="13" font-weight="600" fill="#3498db">Targets</text>
+                    
+                    <!-- Target 1 -->
+                    <circle cx="60" cy="20" r="18" fill="#3498db" opacity="0.8"/>
+                    <text x="60" y="26" text-anchor="middle" font-size="11" fill="white" font-weight="600">T1</text>
+                    
+                    <!-- Target 2 -->
+                    <circle cx="60" cy="60" r="18" fill="#2980b9" opacity="0.8"/>
+                    <text x="60" y="66" text-anchor="middle" font-size="11" fill="white" font-weight="600">T2</text>
+                    
+                    <!-- Target 3 -->
+                    <circle cx="60" cy="100" r="18" fill="#1abc9c" opacity="0.8"/>
+                    <text x="60" y="106" text-anchor="middle" font-size="11" fill="white" font-weight="600">T3</text>
+                    
+                    <!-- Target 4 -->
+                    <circle cx="60" cy="140" r="18" fill="#16a085" opacity="0.8"/>
+                    <text x="60" y="146" text-anchor="middle" font-size="11" fill="white" font-weight="600">T4</text>
+                </g>
+
+                <!-- Interaction network (edges) -->
+                <g>
+                    <!-- Strong interactions (thick lines) -->
+                    <line x1="128" y1="70" x2="730" y2="70" stroke="#2ecc71" stroke-width="4" opacity="0.6" class="network-edge"/>
+                    <circle cx="429" cy="70" r="0" fill="#2ecc71" class="interaction-pulse"/>
+                    
+                    <line x1="128" y1="110" x2="730" y2="150" stroke="#2ecc71" stroke-width="4" opacity="0.6" class="network-edge"/>
+                    <circle cx="429" cy="130" r="0" fill="#2ecc71" class="interaction-pulse"/>
+                    
+                    <!-- Moderate interactions (medium lines) -->
+                    <line x1="128" y1="70" x2="730" y2="110" stroke="#f39c12" stroke-width="3" opacity="0.5" stroke-dasharray="5,3"/>
+                    <line x1="128" y1="150" x2="730" y2="150" stroke="#f39c12" stroke-width="3" opacity="0.5" stroke-dasharray="5,3"/>
+                    
+                    <!-- Weak interactions (thin lines) -->
+                    <line x1="128" y1="110" x2="730" y2="70" stroke="#95a5a6" stroke-width="2" opacity="0.3" stroke-dasharray="3,2"/>
+                    <line x1="128" y1="150" x2="730" y2="110" stroke="#95a5a6" stroke-width="2" opacity="0.3" stroke-dasharray="3,2"/>
+                    <line x1="128" y1="190" x2="730" y2="190" stroke="#95a5a6" stroke-width="2" opacity="0.3" stroke-dasharray="3,2"/>
+                </g>
+
+                <!-- Central prediction model -->
+                <g transform="translate(330, 35)" class="prediction-box">
+                    <rect x="0" y="0" width="200" height="150" rx="12" fill="#f8f9fa" stroke="#1E64C8" stroke-width="3"/>
+                    <text x="100" y="25" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">ML Predictor</text>
+                    
+                    <!-- Neural network representation -->
+                    <g transform="translate(40, 40)">
+                        <!-- Input -->
+                        <circle cx="10" cy="30" r="6" fill="#e74c3c"/>
+                        <circle cx="10" cy="50" r="6" fill="#3498db"/>
+                        <text x="25" y="32" font-size="9" fill="#666">Drug</text>
+                        <text x="25" y="52" font-size="9" fill="#666">Target</text>
+                        
+                        <!-- Hidden layers -->
+                        <circle cx="60" cy="25" r="5" fill="#9b59b6"/>
+                        <circle cx="60" cy="40" r="5" fill="#9b59b6"/>
+                        <circle cx="60" cy="55" r="5" fill="#9b59b6"/>
+                        <circle cx="60" cy="70" r="5" fill="#9b59b6"/>
+                        
+                        <circle cx="100" cy="30" r="5" fill="#34495e"/>
+                        <circle cx="100" cy="50" r="5" fill="#34495e"/>
+                        <circle cx="100" cy="70" r="5" fill="#34495e"/>
+                        
+                        <!-- Output -->
+                        <circle cx="140" cy="40" r="7" fill="#2ecc71"/>
+                        <text x="135" y="60" font-size="9" fill="#666" text-anchor="middle">Score</text>
+                        
+                        <!-- Connections -->
+                        <line x1="16" y1="30" x2="55" y2="30" stroke="#bdc3c7" stroke-width="1"/>
+                        <line x1="16" y1="50" x2="55" y2="50" stroke="#bdc3c7" stroke-width="1"/>
+                        <line x1="65" y1="40" x2="95" y2="40" stroke="#bdc3c7" stroke-width="1"/>
+                        <line x1="105" y1="40" x2="133" y2="40" stroke="#bdc3c7" stroke-width="1"/>
+                    </g>
+                    
+                    <text x="100" y="130" text-anchor="middle" font-size="10" fill="#666">Binary / Affinity</text>
+                </g>
+
+                <!-- Legend -->
+                <g transform="translate(350, 200)">
+                    <line x1="0" y1="5" x2="30" y2="5" stroke="#2ecc71" stroke-width="4"/>
+                    <text x="35" y="9" font-size="10" fill="#666">Strong (IC₅₀ < 100nM)</text>
+                    
+                    <line x1="170" y1="5" x2="200" y2="5" stroke="#f39c12" stroke-width="3" stroke-dasharray="5,3"/>
+                    <text x="205" y="9" font-size="10" fill="#666">Moderate</text>
+                </g>
+
+                <!-- Polypharmacology annotation -->
+                <g transform="translate(50, 10)">
+                    <rect x="0" y="0" width="130" height="25" rx="5" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+                    <text x="65" y="16" text-anchor="middle" font-size="11" font-weight="600" fill="#856404">Polypharmacology</text>
+                </g>
+
+                <!-- Selectivity annotation -->
+                <g transform="translate(680, 10)">
+                    <rect x="0" y="0" width="100" height="25" rx="5" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
+                    <text x="50" y="16" text-anchor="middle" font-size="11" font-weight="600" fill="#155724">Selectivity</text>
+                </g>
+            </svg>
+        </div>
         
         <div class="content-grid">
             <div class="content-card">

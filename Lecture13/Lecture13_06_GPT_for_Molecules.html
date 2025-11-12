@@ -31,50 +31,193 @@
             font-size: 32px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
         }
         
-        .content-list {
+        .content-wrapper {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            gap: 30px;
+            height: 370px;
         }
         
-        .content-item {
+        .generation-visual {
+            flex: 1.3;
             display: flex;
-            align-items: center;
-            gap: 20px;
-            padding: 18px 24px;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .features-grid {
+            flex: 1;
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 15px;
+            align-content: center;
+        }
+        
+        .feature-card {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 6px;
+            padding: 14px 18px;
             transition: all 0.3s ease;
-            font-size: 19px;
-            color: #333;
         }
         
-        .content-item:hover {
+        .feature-card:hover {
             background: #e8f2ff;
             transform: translateX(8px);
         }
         
-        .bullet {
-            width: 10px;
-            height: 10px;
-            background: #1E64C8;
-            border-radius: 50%;
-            flex-shrink: 0;
+        .feature-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 3px;
+        }
+        
+        .feature-desc {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .token-appear {
+            animation: tokenAppear 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes tokenAppear {
+            0%, 100% { opacity: 0.3; transform: scale(0.9); }
+            50% { opacity: 1; transform: scale(1); }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">GPT for Molecules</div>
-        <div class="content-list">
-            <div class="content-item"><div class="bullet"></div><div>SMILES generation</div></div><div class="content-item"><div class="bullet"></div><div>Chemical language models</div></div><div class="content-item"><div class="bullet"></div><div>Property conditioning</div></div><div class="content-item"><div class="bullet"></div><div>Reaction prediction</div></div><div class="content-item"><div class="bullet"></div><div>Retrosynthesis</div></div>
+        <div class="content-wrapper">
+            <div class="generation-visual">
+                <svg width="500" height="370" viewBox="0 0 500 370">
+                    <!-- Title -->
+                    <text x="250" y="25" font-size="15" fill="#333" text-anchor="middle" font-weight="600">SMILES Generation Process</text>
+                    
+                    <!-- GPT Model -->
+                    <g transform="translate(50, 50)">
+                        <rect x="0" y="0" width="150" height="200" rx="10" fill="#f8f9fa" stroke="#1E64C8" stroke-width="3"/>
+                        <text x="75" y="30" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="700">GPT Model</text>
+                        
+                        <!-- Layers representation -->
+                        <rect x="20" y="50" width="110" height="25" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="75" y="67" font-size="11" fill="#333" text-anchor="middle">Attention Layer</text>
+                        
+                        <rect x="20" y="85" width="110" height="25" rx="4" fill="#e8f2ff" stroke="#2874d8" stroke-width="1.5"/>
+                        <text x="75" y="102" font-size="11" fill="#333" text-anchor="middle">Feed Forward</text>
+                        
+                        <rect x="20" y="120" width="110" height="25" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="75" y="137" font-size="11" fill="#333" text-anchor="middle">Attention Layer</text>
+                        
+                        <rect x="20" y="155" width="110" height="25" rx="4" fill="#e8f2ff" stroke="#2874d8" stroke-width="1.5"/>
+                        <text x="75" y="172" font-size="11" fill="#333" text-anchor="middle">Feed Forward</text>
+                    </g>
+                    
+                    <!-- Arrow -->
+                    <defs>
+                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                    <path d="M 210,150 L 250,150" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow)"/>
+                    
+                    <!-- Sequential Generation -->
+                    <g transform="translate(260, 70)">
+                        <text x="0" y="0" font-size="13" fill="#666" font-weight="600">Autoregressive Generation:</text>
+                        
+                        <!-- Step 1 -->
+                        <g transform="translate(0, 20)">
+                            <circle cx="5" cy="5" r="4" fill="#1E64C8"/>
+                            <text x="15" y="10" font-size="12" fill="#333">C C ( C ) O</text>
+                            <rect x="90" y="-5" width="20" height="18" rx="3" fill="#fff3cd" stroke="#1E64C8" stroke-width="1.5" class="token-appear"/>
+                            <text x="100" y="9" font-size="12" fill="#666" text-anchor="middle">→</text>
+                        </g>
+                        
+                        <!-- Step 2 -->
+                        <g transform="translate(0, 45)">
+                            <circle cx="5" cy="5" r="4" fill="#1E64C8"/>
+                            <text x="15" y="10" font-size="12" fill="#333">C C ( C ) O C</text>
+                            <rect x="107" y="-5" width="20" height="18" rx="3" fill="#fff3cd" stroke="#1E64C8" stroke-width="1.5" class="token-appear" style="animation-delay: 0.5s"/>
+                            <text x="117" y="9" font-size="12" fill="#666" text-anchor="middle">=</text>
+                        </g>
+                        
+                        <!-- Step 3 -->
+                        <g transform="translate(0, 70)">
+                            <circle cx="5" cy="5" r="4" fill="#1E64C8"/>
+                            <text x="15" y="10" font-size="12" fill="#333">C C ( C ) O C = O</text>
+                            <rect x="124" y="-5" width="20" height="18" rx="3" fill="#d4edda" stroke="#1E64C8" stroke-width="1.5"/>
+                            <text x="134" y="9" font-size="12" fill="#333" text-anchor="middle">✓</text>
+                        </g>
+                        
+                        <text x="0" y="110" font-size="11" fill="#666" font-style="italic">Token-by-token prediction</text>
+                    </g>
+                    
+                    <!-- Molecular Structure -->
+                    <g transform="translate(260, 230)">
+                        <text x="0" y="0" font-size="13" fill="#666" font-weight="600">Generated Molecule:</text>
+                        
+                        <!-- Simple molecular diagram -->
+                        <g transform="translate(40, 20)">
+                            <circle cx="0" cy="0" r="8" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="0" y="4" font-size="10" fill="#333" text-anchor="middle" font-weight="600">C</text>
+                            
+                            <line x1="7" y1="0" x2="23" y2="0" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <circle cx="30" cy="0" r="8" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="30" y="4" font-size="10" fill="#333" text-anchor="middle" font-weight="600">C</text>
+                            
+                            <line x1="30" y1="7" x2="30" y2="23" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <circle cx="30" cy="30" r="8" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="30" y="34" font-size="10" fill="#333" text-anchor="middle" font-weight="600">O</text>
+                            
+                            <line x1="37" y1="0" x2="53" y2="0" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <circle cx="60" cy="0" r="8" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="60" y="4" font-size="10" fill="#333" text-anchor="middle" font-weight="600">C</text>
+                            
+                            <line x1="67" y1="0" x2="83" y2="0" stroke="#1E64C8" stroke-width="3"/>
+                            <line x1="67" y1="3" x2="83" y2="3" stroke="#1E64C8" stroke-width="3"/>
+                            
+                            <circle cx="90" cy="0" r="8" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="90" y="4" font-size="10" fill="#333" text-anchor="middle" font-weight="600">O</text>
+                        </g>
+                        
+                        <text x="0" y="80" font-size="11" fill="#666">Ethyl acetate: CC(C)OC=O</text>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="features-grid">
+                <div class="feature-card">
+                    <div class="feature-title">SMILES generation</div>
+                    <div class="feature-desc">String-based molecular representation</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-title">Chemical language models</div>
+                    <div class="feature-desc">ChemGPT, MolGPT architectures</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-title">Property conditioning</div>
+                    <div class="feature-desc">Control molecular attributes</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-title">Reaction prediction</div>
+                    <div class="feature-desc">Reactants → Products mapping</div>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-title">Retrosynthesis</div>
+                    <div class="feature-desc">Backward synthesis planning</div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

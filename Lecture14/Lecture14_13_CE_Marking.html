@@ -31,46 +31,99 @@
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             padding-bottom: 20px;
             border-bottom: 3px solid #1E64C8;
         }
         
-        .content-section {
-            display: flex;
-            flex-direction: column;
+        .ce-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
             gap: 18px;
+            height: 340px;
         }
         
-        .bullet-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 16px 20px;
+        .ce-card {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
-            border-radius: 8px;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
             transition: all 0.3s ease;
         }
         
-        .bullet-item:hover {
+        .ce-card:hover {
             background: #e8f2ff;
-            transform: translateX(8px);
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(30, 100, 200, 0.2);
+            z-index: 5;
         }
         
-        .bullet {
-            color: #1E64C8;
-            font-size: 24px;
-            font-weight: bold;
-            line-height: 1;
+        .card-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
         }
         
-        .bullet-item span:last-child {
+        .card-icon {
+            width: 50px;
+            height: 50px;
+        }
+        
+        .card-title {
             font-size: 20px;
-            color: #333;
-            font-weight: 500;
-            line-height: 1.4;
+            font-weight: 700;
+            color: #1E64C8;
+            line-height: 1.2;
+        }
+        
+        .card-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .content-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 15px;
+            color: #555;
+        }
+        
+        .item-bullet {
+            width: 8px;
+            height: 8px;
+            background: #1E64C8;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .special-card {
+            grid-column: span 2;
+            border-left: 4px solid #ffc107;
+        }
+        
+        .special-card .card-title {
+            color: #ffc107;
+        }
+        
+        .special-card .item-bullet {
+            background: #ffc107;
+        }
+        
+        .ce-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 45px;
+            height: 45px;
         }
     </style>
 </head>
@@ -78,26 +131,143 @@
     <div class="container">
         <div class="title">CE Marking</div>
         
-        <div class="content-section">
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>MDR requirements</span>
+        <div class="ce-grid">
+            <div class="ce-card">
+                <div class="card-header">
+                    <svg class="card-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="20" y="25" width="60" height="55" rx="5" fill="none" stroke="#1E64C8" stroke-width="4"/>
+                        <line x1="35" y1="40" x2="65" y2="40" stroke="#1E64C8" stroke-width="3"/>
+                        <line x1="35" y1="52" x2="65" y2="52" stroke="#1E64C8" stroke-width="3"/>
+                        <line x1="35" y1="64" x2="55" y2="64" stroke="#1E64C8" stroke-width="3"/>
+                        <circle cx="75" cy="30" r="10" fill="#1E64C8"/>
+                        <text x="75" y="36" text-anchor="middle" font-size="12" font-weight="bold" fill="white">EU</text>
+                    </svg>
+                    <div class="card-title">MDR<br>Requirements</div>
+                </div>
+                <div class="card-content">
+                    <div class="content-item">
+                        <div class="item-bullet"></div>
+                        <span>Medical Device Regulation 2017/745</span>
+                    </div>
+                    <div class="content-item">
+                        <div class="item-bullet"></div>
+                        <span>Technical documentation</span>
+                    </div>
+                    <div class="content-item">
+                        <div class="item-bullet"></div>
+                        <span>Conformity assessment</span>
+                    </div>
+                </div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Risk classification</span>
+            
+            <div class="ce-card">
+                <div class="card-header">
+                    <svg class="card-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 50 15 L 85 40 L 75 75 L 25 75 L 15 40 Z" fill="none" stroke="#ff6b6b" stroke-width="4"/>
+                        <rect x="35" y="35" width="10" height="35" rx="2" fill="#ff6b6b" opacity="0.3"/>
+                        <rect x="50" y="45" width="10" height="25" rx="2" fill="#ff6b6b" opacity="0.6"/>
+                        <rect x="65" y="55" width="10" height="15" rx="2" fill="#ff6b6b"/>
+                        <text x="50" y="28" text-anchor="middle" font-size="14" font-weight="bold" fill="#ff6b6b">RISK</text>
+                    </svg>
+                    <div class="card-title">Risk<br>Classification</div>
+                </div>
+                <div class="card-content">
+                    <div class="content-item">
+                        <div class="item-bullet"></div>
+                        <span>Class I, IIa, IIb, III</span>
+                    </div>
+                    <div class="content-item">
+                        <div class="item-bullet"></div>
+                        <span>Rule-based classification</span>
+                    </div>
+                    <div class="content-item">
+                        <div class="item-bullet"></div>
+                        <span>Notified Body involvement</span>
+                    </div>
+                </div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Clinical evaluation</span>
+            
+            <div class="ce-card">
+                <div class="card-header">
+                    <svg class="card-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="45" r="30" fill="none" stroke="#1E64C8" stroke-width="4"/>
+                        <path d="M 35 45 L 47 57 L 65 35" fill="none" stroke="#28a745" stroke-width="5" stroke-linecap="round"/>
+                        <rect x="30" y="70" width="40" height="15" rx="3" fill="#1E64C8"/>
+                        <line x1="35" y1="77" x2="65" y2="77" stroke="white" stroke-width="2"/>
+                        <line x1="35" y1="81" x2="55" y2="81" stroke="white" stroke-width="2"/>
+                    </svg>
+                    <div class="card-title">Clinical<br>Evaluation</div>
+                </div>
+                <div class="card-content">
+                    <div class="content-item">
+                        <div class="item-bullet"></div>
+                        <span>Clinical data requirements</span>
+                    </div>
+                    <div class="content-item">
+                        <div class="item-bullet"></div>
+                        <span>Benefit-risk analysis</span>
+                    </div>
+                    <div class="content-item">
+                        <div class="item-bullet"></div>
+                        <span>Clinical evaluation report</span>
+                    </div>
+                </div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Post-market surveillance</span>
+            
+            <div class="ce-card">
+                <div class="card-header">
+                    <svg class="card-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="25" y="30" width="50" height="45" rx="5" fill="none" stroke="#1E64C8" stroke-width="4"/>
+                        <circle cx="40" cy="50" r="6" fill="#1E64C8"/>
+                        <circle cx="60" cy="50" r="6" fill="#1E64C8"/>
+                        <path d="M 40 50 L 60 50" stroke="#1E64C8" stroke-width="3" stroke-dasharray="3,3"/>
+                        <path d="M 35 62 L 40 67 L 50 57" fill="none" stroke="#28a745" stroke-width="3" stroke-linecap="round"/>
+                        <circle cx="75" cy="25" r="8" fill="#1E64C8"/>
+                        <text x="75" y="30" text-anchor="middle" font-size="12" font-weight="bold" fill="white">↻</text>
+                    </svg>
+                    <div class="card-title">Post-market<br>Surveillance</div>
+                </div>
+                <div class="card-content">
+                    <div class="content-item">
+                        <div class="item-bullet"></div>
+                        <span>PMS plan & reports</span>
+                    </div>
+                    <div class="content-item">
+                        <div class="item-bullet"></div>
+                        <span>Vigilance reporting</span>
+                    </div>
+                    <div class="content-item">
+                        <div class="item-bullet"></div>
+                        <span>PSUR requirements</span>
+                    </div>
+                </div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>UKCA divergence</span>
+            
+            <div class="ce-card special-card">
+                <svg class="ce-badge" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="40" fill="none" stroke="#ffc107" stroke-width="5"/>
+                    <text x="50" y="42" text-anchor="middle" font-size="20" font-weight="bold" fill="#ffc107">UK</text>
+                    <text x="50" y="62" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffc107">CA</text>
+                </svg>
+                <div class="card-header">
+                    <svg class="card-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 20 40 L 50 20 L 80 40 L 80 75 L 20 75 Z" fill="none" stroke="#ffc107" stroke-width="4"/>
+                        <rect x="40" y="50" width="20" height="25" fill="#ffc107" opacity="0.3"/>
+                        <circle cx="50" cy="40" r="8" fill="#ffc107"/>
+                        <path d="M 35 30 L 50 15 L 65 30" fill="none" stroke="#ffc107" stroke-width="3" stroke-linecap="round"/>
+                    </svg>
+                    <div class="card-title">UKCA Divergence</div>
+                </div>
+                <div class="card-content">
+                    <div class="content-item">
+                        <div class="item-bullet"></div>
+                        <span>Post-Brexit UK requirements • Separate conformity assessment</span>
+                    </div>
+                    <div class="content-item">
+                        <div class="item-bullet"></div>
+                        <span>UK Approved Body vs. Notified Body • Dual marking considerations</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

@@ -39,7 +39,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
         }
         
         .fusion-card {
@@ -64,25 +64,31 @@
             text-align: center;
         }
         
+        .fusion-diagram {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 15px;
+        }
+        
         .fusion-desc {
-            font-size: 16px;
+            font-size: 15px;
             color: #333;
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 12px;
             line-height: 1.5;
         }
         
         .feature-list {
             display: flex;
             flex-direction: column;
-            gap: 8px;
+            gap: 6px;
         }
         
         .feature-item {
             background: #f8fbff;
             border-left: 3px solid #1E64C8;
-            padding: 8px 12px;
-            font-size: 15px;
+            padding: 7px 12px;
+            font-size: 14px;
             color: #333;
             border-radius: 4px;
         }
@@ -92,7 +98,7 @@
             border: 2px solid #1E64C8;
             border-radius: 10px;
             padding: 15px 20px;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
         
         .intermediate-title {
@@ -103,8 +109,14 @@
             text-align: center;
         }
         
+        .intermediate-diagram {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 10px;
+        }
+        
         .intermediate-desc {
-            font-size: 16px;
+            font-size: 15px;
             color: #333;
             text-align: center;
             line-height: 1.5;
@@ -126,8 +138,9 @@
         }
         
         .tradeoffs-text {
-            font-size: 16px;
+            font-size: 15px;
             color: #333;
+            line-height: 1.6;
         }
     </style>
 </head>
@@ -138,28 +151,140 @@
         <div class="comparison-grid">
             <div class="fusion-card">
                 <div class="fusion-name">Early Fusion</div>
-                <div class="fusion-desc">Concatenation approaches</div>
+                <div class="fusion-diagram">
+                    <svg width="200" height="140" viewBox="0 0 200 140">
+                        <!-- Data 1 -->
+                        <rect x="10" y="10" width="60" height="30" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="40" y="30" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">Data 1</text>
+                        
+                        <!-- Data 2 -->
+                        <rect x="10" y="50" width="60" height="30" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="40" y="70" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">Data 2</text>
+                        
+                        <!-- Data 3 -->
+                        <rect x="10" y="90" width="60" height="30" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="40" y="110" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">Data 3</text>
+                        
+                        <!-- Arrows to concatenation -->
+                        <path d="M 70 25 L 90 55" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrowblue)"/>
+                        <path d="M 70 65 L 90 65" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrowblue)"/>
+                        <path d="M 70 105 L 90 75" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrowblue)"/>
+                        
+                        <!-- Concatenate box -->
+                        <rect x="90" y="50" width="40" height="30" fill="#1E64C8" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="110" y="70" text-anchor="middle" font-size="11" fill="white" font-weight="600">Concat</text>
+                        
+                        <!-- Arrow to model -->
+                        <path d="M 130 65 L 150 65" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrowblue)"/>
+                        
+                        <!-- Model -->
+                        <rect x="150" y="50" width="40" height="30" fill="#2874d8" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="170" y="70" text-anchor="middle" font-size="11" fill="white" font-weight="600">Model</text>
+                        
+                        <!-- Arrow markers -->
+                        <defs>
+                            <marker id="arrowblue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="fusion-desc">Feature-level concatenation</div>
                 <div class="feature-list">
-                    <div class="feature-item">Feature-level integration</div>
-                    <div class="feature-item">Combined representation</div>
-                    <div class="feature-item">Joint learning</div>
+                    <div class="feature-item">✓ Captures feature interactions</div>
+                    <div class="feature-item">✓ Joint representation learning</div>
+                    <div class="feature-item">✗ Computationally expensive</div>
                 </div>
             </div>
             
             <div class="fusion-card">
                 <div class="fusion-name">Late Fusion</div>
-                <div class="fusion-desc">Decision-level fusion</div>
+                <div class="fusion-diagram">
+                    <svg width="200" height="140" viewBox="0 0 200 140">
+                        <!-- Data 1 + Model 1 -->
+                        <rect x="10" y="10" width="50" height="25" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="35" y="27" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600">Data 1</text>
+                        <path d="M 60 22.5 L 75 22.5" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowblue2)"/>
+                        <rect x="75" y="10" width="40" height="25" fill="#2874d8" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="95" y="27" text-anchor="middle" font-size="10" fill="white" font-weight="600">Model 1</text>
+                        
+                        <!-- Data 2 + Model 2 -->
+                        <rect x="10" y="50" width="50" height="25" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="35" y="67" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600">Data 2</text>
+                        <path d="M 60 62.5 L 75 62.5" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowblue2)"/>
+                        <rect x="75" y="50" width="40" height="25" fill="#2874d8" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="95" y="67" text-anchor="middle" font-size="10" fill="white" font-weight="600">Model 2</text>
+                        
+                        <!-- Data 3 + Model 3 -->
+                        <rect x="10" y="90" width="50" height="25" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="35" y="107" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600">Data 3</text>
+                        <path d="M 60 102.5 L 75 102.5" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowblue2)"/>
+                        <rect x="75" y="90" width="40" height="25" fill="#2874d8" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="95" y="107" text-anchor="middle" font-size="10" fill="white" font-weight="600">Model 3</text>
+                        
+                        <!-- Arrows to fusion -->
+                        <path d="M 115 22.5 L 135 55" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowblue2)"/>
+                        <path d="M 115 62.5 L 135 62.5" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowblue2)"/>
+                        <path d="M 115 102.5 L 135 70" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowblue2)"/>
+                        
+                        <!-- Fusion box -->
+                        <rect x="135" y="50" width="55" height="25" fill="#1E64C8" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="162.5" y="67" text-anchor="middle" font-size="10" fill="white" font-weight="600">Ensemble</text>
+                        
+                        <defs>
+                            <marker id="arrowblue2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="fusion-desc">Decision-level combination</div>
                 <div class="feature-list">
-                    <div class="feature-item">Independent models</div>
-                    <div class="feature-item">Prediction combination</div>
-                    <div class="feature-item">Ensemble approaches</div>
+                    <div class="feature-item">✓ Flexible and modular</div>
+                    <div class="feature-item">✓ Independent training</div>
+                    <div class="feature-item">✗ Misses feature interactions</div>
                 </div>
             </div>
         </div>
         
         <div class="intermediate-section">
             <div class="intermediate-title">Intermediate Fusion</div>
-            <div class="intermediate-desc">Combines features at intermediate layers, balancing early and late fusion benefits</div>
+            <div class="intermediate-diagram">
+                <svg width="300" height="80" viewBox="0 0 300 80">
+                    <!-- Input layers -->
+                    <rect x="10" y="10" width="50" height="20" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2" rx="4"/>
+                    <text x="35" y="24" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Input 1</text>
+                    <rect x="10" y="40" width="50" height="20" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2" rx="4"/>
+                    <text x="35" y="54" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Input 2</text>
+                    
+                    <!-- Early processing -->
+                    <path d="M 60 20 L 80 30" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowblue3)"/>
+                    <path d="M 60 50 L 80 40" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowblue3)"/>
+                    <rect x="80" y="25" width="45" height="20" fill="#5088d4" stroke="#1E64C8" stroke-width="2" rx="4"/>
+                    <text x="102.5" y="39" text-anchor="middle" font-size="9" fill="white" font-weight="600">Layer 1</text>
+                    
+                    <!-- Intermediate fusion point -->
+                    <path d="M 125 35 L 145 35" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowblue3)"/>
+                    <rect x="145" y="25" width="45" height="20" fill="#1E64C8" stroke="#1E64C8" stroke-width="2" rx="4"/>
+                    <text x="167.5" y="39" text-anchor="middle" font-size="9" fill="white" font-weight="600">Fusion</text>
+                    
+                    <!-- Later processing -->
+                    <path d="M 190 35 L 210 35" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowblue3)"/>
+                    <rect x="210" y="25" width="45" height="20" fill="#2874d8" stroke="#1E64C8" stroke-width="2" rx="4"/>
+                    <text x="232.5" y="39" text-anchor="middle" font-size="9" fill="white" font-weight="600">Layer 2</text>
+                    
+                    <!-- Output -->
+                    <path d="M 255 35 L 275 35" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowblue3)"/>
+                    <circle cx="285" cy="35" r="8" fill="#1E64C8" stroke="#1E64C8" stroke-width="2"/>
+                    
+                    <defs>
+                        <marker id="arrowblue3" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L7,3 z" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            <div class="intermediate-desc">Combines features at intermediate layers, balancing both approaches</div>
         </div>
         
         <div class="tradeoffs-box">

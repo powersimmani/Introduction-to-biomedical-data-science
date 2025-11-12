@@ -31,8 +31,18 @@
             font-size: 20px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
+        }
+        
+        .diagram-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: #f8fbff;
+            border-radius: 10px;
         }
         
         .features-grid {
@@ -70,7 +80,90 @@
 </head>
 <body>
     <div class="container">
-        <div class="title">Matrix Factorization</div>
+        <div class="title">Matrix Factorization for Multi-Omics Integration</div>
+        
+        <div class="diagram-section">
+            <svg width="700" height="140" viewBox="0 0 700 140">
+                <!-- Multi-omics data matrix X -->
+                <g>
+                    <rect x="10" y="30" width="140" height="100" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="80" y="20" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">Data Matrix X</text>
+                    
+                    <!-- Matrix grid lines -->
+                    <line x1="10" y1="55" x2="150" y2="55" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                    <line x1="10" y1="80" x2="150" y2="80" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                    <line x1="10" y1="105" x2="150" y2="105" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                    
+                    <line x1="45" y1="30" x2="45" y2="130" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                    <line x1="80" y1="30" x2="80" y2="130" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                    <line x1="115" y1="30" x2="115" y2="130" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                    
+                    <!-- Labels -->
+                    <text x="80" y="145" text-anchor="middle" font-size="11" fill="#666">(samples × features)</text>
+                </g>
+                
+                <!-- Approximately equals -->
+                <text x="180" y="85" text-anchor="middle" font-size="24" fill="#1E64C8" font-weight="700">≈</text>
+                
+                <!-- Factor matrix W -->
+                <g>
+                    <rect x="220" y="40" width="80" height="100" fill="#5088d4" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="260" y="25" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">W</text>
+                    
+                    <!-- Matrix grid -->
+                    <line x1="220" y1="65" x2="300" y2="65" stroke="white" stroke-width="0.5" opacity="0.5"/>
+                    <line x1="220" y1="90" x2="300" y2="90" stroke="white" stroke-width="0.5" opacity="0.5"/>
+                    <line x1="220" y1="115" x2="300" y2="115" stroke="white" stroke-width="0.5" opacity="0.5"/>
+                    
+                    <line x1="245" y1="40" x2="245" y2="140" stroke="white" stroke-width="0.5" opacity="0.5"/>
+                    <line x1="275" y1="40" x2="275" y2="140" stroke="white" stroke-width="0.5" opacity="0.5"/>
+                    
+                    <text x="260" y="152" text-anchor="middle" font-size="10" fill="#666">(samples × k)</text>
+                </g>
+                
+                <!-- Multiplication symbol -->
+                <text x="325" y="85" text-anchor="middle" font-size="20" fill="#1E64C8" font-weight="700">×</text>
+                
+                <!-- Factor matrix H -->
+                <g>
+                    <rect x="350" y="55" width="120" height="60" fill="#2874d8" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="410" y="45" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">H</text>
+                    
+                    <!-- Matrix grid -->
+                    <line x1="350" y1="80" x2="470" y2="80" stroke="white" stroke-width="0.5" opacity="0.5"/>
+                    
+                    <line x1="380" y1="55" x2="380" y2="115" stroke="white" stroke-width="0.5" opacity="0.5"/>
+                    <line x1="410" y1="55" x2="410" y2="115" stroke="white" stroke-width="0.5" opacity="0.5"/>
+                    <line x1="440" y1="55" x2="440" y2="115" stroke="white" stroke-width="0.5" opacity="0.5"/>
+                    
+                    <text x="410" y="130" text-anchor="middle" font-size="10" fill="#666">(k × features)</text>
+                </g>
+                
+                <!-- Labels for interpretation -->
+                <g>
+                    <!-- Sample factors label -->
+                    <text x="260" y="165" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600">Sample</text>
+                    <text x="260" y="177" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600">Factors</text>
+                    
+                    <!-- Feature factors label -->
+                    <text x="410" y="145" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600">Feature Factors</text>
+                </g>
+                
+                <!-- Shared/Specific annotation -->
+                <g>
+                    <rect x="520" y="35" width="170" height="100" fill="#fff4e6" stroke="#1E64C8" stroke-width="2" stroke-dasharray="5,5" rx="5"/>
+                    <text x="605" y="25" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="700">Factor Types</text>
+                    
+                    <circle cx="540" cy="60" r="6" fill="#1E64C8"/>
+                    <text x="555" y="65" font-size="11" fill="#333">Shared factors</text>
+                    <text x="555" y="77" font-size="10" fill="#666">(across modalities)</text>
+                    
+                    <circle cx="540" cy="100" r="6" fill="#5088d4"/>
+                    <text x="555" y="105" font-size="11" fill="#333">Specific factors</text>
+                    <text x="555" y="117" font-size="10" fill="#666">(modality-specific)</text>
+                </g>
+            </svg>
+        </div>
         
         <div class="features-grid">
             

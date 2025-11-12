@@ -31,46 +31,103 @@
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
             text-align: center;
             padding-bottom: 20px;
             border-bottom: 3px solid #1E64C8;
         }
         
-        .content-section {
+        .surveillance-cycle {
             display: flex;
-            flex-direction: column;
-            gap: 18px;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            height: 360px;
         }
         
-        .bullet-item {
+        .cycle-center {
+            width: 140px;
+            height: 140px;
+            background: linear-gradient(135deg, #1E64C8 0%, #2874d8 100%);
+            border-radius: 50%;
             display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 16px 20px;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: 700;
+            text-align: center;
+            box-shadow: 0 8px 24px rgba(30, 100, 200, 0.3);
+            position: absolute;
+            z-index: 10;
+        }
+        
+        .cycle-item {
+            position: absolute;
+            width: 160px;
             background: #f8f9fa;
-            border-left: 4px solid #1E64C8;
-            border-radius: 8px;
+            border: 3px solid #1E64C8;
+            border-radius: 12px;
+            padding: 18px;
             transition: all 0.3s ease;
         }
         
-        .bullet-item:hover {
+        .cycle-item:hover {
             background: #e8f2ff;
-            transform: translateX(8px);
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(30, 100, 200, 0.25);
+            z-index: 5;
         }
         
-        .bullet {
+        .item-icon {
+            width: 50px;
+            height: 50px;
+            margin: 0 auto 10px;
+            display: block;
+        }
+        
+        .item-name {
+            font-size: 15px;
+            font-weight: 700;
             color: #1E64C8;
-            font-size: 24px;
-            font-weight: bold;
-            line-height: 1;
+            text-align: center;
+            line-height: 1.3;
         }
         
-        .bullet-item span:last-child {
-            font-size: 20px;
-            color: #333;
-            font-weight: 500;
-            line-height: 1.4;
+        /* Position items in a circle */
+        .item-1 { top: 10px; left: 50%; transform: translateX(-50%); }
+        .item-2 { top: 80px; right: 40px; }
+        .item-3 { bottom: 80px; right: 40px; }
+        .item-4 { bottom: 10px; left: 50%; transform: translateX(-50%); }
+        .item-5 { bottom: 80px; left: 40px; }
+        
+        /* Circular arrow */
+        .arrow-circle {
+            position: absolute;
+            width: 320px;
+            height: 320px;
+            border: 3px dashed #1E64C8;
+            border-radius: 50%;
+            opacity: 0.4;
+            animation: rotate 20s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .arrow-head {
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%) translateY(-10px);
+            width: 0;
+            height: 0;
+            border-left: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-bottom: 15px solid #1E64C8;
+            opacity: 0.6;
         }
     </style>
 </head>
@@ -78,26 +135,63 @@
     <div class="container">
         <div class="title">Post-market Surveillance</div>
         
-        <div class="content-section">
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Adverse event reporting</span>
+        <div class="surveillance-cycle">
+            <div class="arrow-circle">
+                <div class="arrow-head"></div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Performance monitoring</span>
+            
+            <div class="cycle-center">
+                Continuous<br>Monitoring
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Periodic reviews</span>
+            
+            <div class="cycle-item item-1">
+                <svg class="item-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="35" r="15" fill="#ff6b6b"/>
+                    <path d="M 35 50 L 50 70 L 65 50" fill="#ff6b6b"/>
+                    <rect x="40" y="70" width="20" height="20" fill="#ff6b6b"/>
+                    <text x="50" y="45" text-anchor="middle" font-size="20" font-weight="bold" fill="white">!</text>
+                </svg>
+                <div class="item-name">Adverse Event<br>Reporting</div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Field corrections</span>
+            
+            <div class="cycle-item item-2">
+                <svg class="item-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="15" y="25" width="70" height="50" rx="5" fill="none" stroke="#1E64C8" stroke-width="4"/>
+                    <rect x="25" y="45" width="15" height="20" fill="#1E64C8"/>
+                    <rect x="45" y="35" width="15" height="30" fill="#1E64C8" opacity="0.7"/>
+                    <rect x="65" y="40" width="15" height="25" fill="#1E64C8" opacity="0.4"/>
+                    <path d="M 20 25 L 30 15 L 80 15 L 85 20" fill="none" stroke="#1E64C8" stroke-width="3"/>
+                </svg>
+                <div class="item-name">Performance<br>Monitoring</div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Recalls</span>
+            
+            <div class="cycle-item item-3">
+                <svg class="item-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="35" fill="none" stroke="#1E64C8" stroke-width="4"/>
+                    <circle cx="50" cy="50" r="25" fill="none" stroke="#1E64C8" stroke-width="3"/>
+                    <path d="M 50 25 L 50 50 L 70 50" stroke="#1E64C8" stroke-width="4" stroke-linecap="round"/>
+                    <circle cx="50" cy="50" r="5" fill="#1E64C8"/>
+                </svg>
+                <div class="item-name">Periodic<br>Reviews</div>
+            </div>
+            
+            <div class="cycle-item item-4">
+                <svg class="item-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 30 30 L 70 30 L 70 60 L 50 80 L 30 60 Z" fill="none" stroke="#ffc107" stroke-width="4"/>
+                    <circle cx="50" cy="45" r="8" fill="#ffc107"/>
+                    <path d="M 50 35 L 50 45 M 50 50 L 50 52" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <div class="item-name">Field<br>Corrections</div>
+            </div>
+            
+            <div class="cycle-item item-5">
+                <svg class="item-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="25" y="35" width="50" height="45" rx="5" fill="none" stroke="#ff6b6b" stroke-width="4"/>
+                    <path d="M 35 35 L 35 25 L 65 25 L 65 35" fill="none" stroke="#ff6b6b" stroke-width="4"/>
+                    <circle cx="50" cy="57" r="12" fill="#ff6b6b"/>
+                    <path d="M 44 57 L 48 61 L 56 52" fill="none" stroke="white" stroke-width="3" stroke-linecap="round"/>
+                </svg>
+                <div class="item-name">Recalls</div>
             </div>
         </div>
     </div>

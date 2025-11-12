@@ -7,16 +7,17 @@
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: Aptos, 'Segoe UI', sans-serif; background: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { width: 960px; height: 540px; padding: 35px 50px; background: white; }
-        .title { font-size: 36px; font-weight: 700; color: #1E64C8; margin-bottom: 25px; text-align: center; }
-        .methods-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; }
-        .method-card { background: #f8fbff; border: 3px solid #1E64C8; border-radius: 12px; padding: 20px 24px; transition: all 0.3s; }
-        .method-card:hover { transform: scale(1.03); box-shadow: 0 8px 20px rgba(30, 100, 200, 0.3); }
-        .method-name { font-size: 22px; font-weight: 700; color: #1E64C8; margin-bottom: 12px; text-align: center; }
-        .method-desc { font-size: 15px; color: #333; margin-bottom: 12px; line-height: 1.5; text-align: center; }
-        .use-cases { background: white; border: 2px solid #1E64C8; border-radius: 6px; padding: 10px 12px; }
-        .use-title { font-size: 14px; font-weight: 700; color: #1E64C8; margin-bottom: 6px; }
-        .use-item { font-size: 13px; color: #555; padding-left: 14px; position: relative; margin-bottom: 3px; }
+        .container { width: 960px; height: 540px; padding: 30px 45px; background: white; }
+        .title { font-size: 36px; font-weight: 700; color: #1E64C8; margin-bottom: 20px; text-align: center; }
+        .methods-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 16px; }
+        .method-card { background: #f8fbff; border: 3px solid #1E64C8; border-radius: 12px; padding: 16px 18px; transition: all 0.3s; }
+        .method-card:hover { transform: scale(1.02); box-shadow: 0 8px 20px rgba(30, 100, 200, 0.3); }
+        .method-name { font-size: 20px; font-weight: 700; color: #1E64C8; margin-bottom: 8px; text-align: center; }
+        .method-desc { font-size: 13px; color: #333; margin-bottom: 10px; line-height: 1.4; text-align: center; }
+        .method-viz { display: flex; justify-content: center; margin-bottom: 8px; }
+        .use-cases { background: white; border: 2px solid #1E64C8; border-radius: 6px; padding: 8px 10px; }
+        .use-title { font-size: 12px; font-weight: 700; color: #1E64C8; margin-bottom: 4px; }
+        .use-item { font-size: 11px; color: #555; padding-left: 12px; position: relative; margin-bottom: 2px; }
         .use-item::before { content: "→"; position: absolute; left: 0; color: #1E64C8; font-weight: 700; }
     </style>
 </head>
@@ -27,6 +28,74 @@
             <div class="method-card">
                 <div class="method-name">PCA</div>
                 <div class="method-desc">Principal Component Analysis - linear transformation preserving maximum variance</div>
+                <div class="method-viz">
+                    <svg width="400" height="140" viewBox="0 0 400 140">
+                        <!-- High-D data -->
+                        <g>
+                            <text x="60" y="15" text-anchor="middle" font-size="11" fill="#666" font-weight="600">High-D Space</text>
+                            <circle cx="30" cy="50" r="3" fill="#1E64C8" opacity="0.6"/>
+                            <circle cx="50" cy="35" r="3" fill="#1E64C8" opacity="0.6"/>
+                            <circle cx="70" cy="60" r="3" fill="#1E64C8" opacity="0.6"/>
+                            <circle cx="45" cy="75" r="3" fill="#1E64C8" opacity="0.6"/>
+                            <circle cx="65" cy="45" r="3" fill="#e74c3c" opacity="0.6"/>
+                            <circle cx="85" cy="30" r="3" fill="#e74c3c" opacity="0.6"/>
+                            <circle cx="75" cy="55" r="3" fill="#e74c3c" opacity="0.6"/>
+                            <circle cx="60" cy="70" r="3" fill="#e74c3c" opacity="0.6"/>
+                            
+                            <!-- Ellipse showing data distribution -->
+                            <ellipse cx="57" cy="52" rx="32" ry="25" fill="none" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="3,2" transform="rotate(-25 57 52)"/>
+                            
+                            <!-- PC1 direction -->
+                            <line x1="20" y1="75" x2="90" y2="30" stroke="#ff8c00" stroke-width="2" marker-end="url(#arrow-pc)"/>
+                            <text x="95" y="28" font-size="9" fill="#ff8c00" font-weight="600">PC1</text>
+                            
+                            <!-- PC2 direction -->
+                            <line x1="30" y1="30" x2="85" y2="75" stroke="#28a745" stroke-width="1.5" marker-end="url(#arrow-pc2)"/>
+                            <text x="88" y="80" font-size="9" fill="#28a745" font-weight="600">PC2</text>
+                        </g>
+                        
+                        <!-- Arrow -->
+                        <path d="M 120 60 L 165 60" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow-main)"/>
+                        <text x="142" y="52" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Project</text>
+                        
+                        <!-- 2D projection -->
+                        <g>
+                            <text x="260" y="15" text-anchor="middle" font-size="11" fill="#666" font-weight="600">2D Projection</text>
+                            <!-- Axes -->
+                            <line x1="195" y1="100" x2="325" y2="100" stroke="#333" stroke-width="1.5"/>
+                            <line x1="195" y1="30" x2="195" y2="100" stroke="#333" stroke-width="1.5"/>
+                            <text x="330" y="103" font-size="9" fill="#666">PC1</text>
+                            <text x="192" y="25" font-size="9" fill="#666" text-anchor="end">PC2</text>
+                            
+                            <!-- Projected points with separation -->
+                            <circle cx="210" cy="85" r="3.5" fill="#1E64C8" opacity="0.8"/>
+                            <circle cx="225" cy="90" r="3.5" fill="#1E64C8" opacity="0.8"/>
+                            <circle cx="240" cy="80" r="3.5" fill="#1E64C8" opacity="0.8"/>
+                            <circle cx="230" cy="70" r="3.5" fill="#1E64C8" opacity="0.8"/>
+                            
+                            <circle cx="270" cy="50" r="3.5" fill="#e74c3c" opacity="0.8"/>
+                            <circle cx="285" cy="45" r="3.5" fill="#e74c3c" opacity="0.8"/>
+                            <circle cx="300" cy="55" r="3.5" fill="#e74c3c" opacity="0.8"/>
+                            <circle cx="290" cy="40" r="3.5" fill="#e74c3c" opacity="0.8"/>
+                            
+                            <!-- Separation line -->
+                            <line x1="260" y1="30" x2="260" y2="100" stroke="#28a745" stroke-width="1.5" stroke-dasharray="4,2"/>
+                            <text x="265" y="65" font-size="9" fill="#28a745" font-weight="600">Separated!</text>
+                        </g>
+                        
+                        <defs>
+                            <marker id="arrow-pc" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L6,3 z" fill="#ff8c00"/>
+                            </marker>
+                            <marker id="arrow-pc2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L6,3 z" fill="#28a745"/>
+                            </marker>
+                            <marker id="arrow-main" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
                 <div class="use-cases">
                     <div class="use-title">Clinical Applications:</div>
                     <div class="use-item">Gene expression clustering</div>
@@ -34,9 +103,77 @@
                     <div class="use-item">Batch effect detection</div>
                 </div>
             </div>
+            
             <div class="method-card">
                 <div class="method-name">t-SNE</div>
                 <div class="method-desc">t-Distributed Stochastic Neighbor Embedding - nonlinear visualization method</div>
+                <div class="method-viz">
+                    <svg width="400" height="140" viewBox="0 0 400 140">
+                        <!-- High-D neighborhoods -->
+                        <g>
+                            <text x="70" y="15" text-anchor="middle" font-size="11" fill="#666" font-weight="600">High-D (preserve neighborhoods)</text>
+                            
+                            <!-- Cluster 1 -->
+                            <circle cx="30" cy="50" r="22" fill="#3498db" opacity="0.1" stroke="#3498db" stroke-width="1"/>
+                            <circle cx="25" cy="45" r="3" fill="#3498db" opacity="0.7"/>
+                            <circle cx="35" cy="48" r="3" fill="#3498db" opacity="0.7"/>
+                            <circle cx="30" cy="55" r="3" fill="#3498db" opacity="0.7"/>
+                            
+                            <!-- Cluster 2 -->
+                            <circle cx="75" cy="45" r="22" fill="#e74c3c" opacity="0.1" stroke="#e74c3c" stroke-width="1"/>
+                            <circle cx="70" cy="40" r="3" fill="#e74c3c" opacity="0.7"/>
+                            <circle cx="80" cy="43" r="3" fill="#e74c3c" opacity="0.7"/>
+                            <circle cx="75" cy="50" r="3" fill="#e74c3c" opacity="0.7"/>
+                            
+                            <!-- Cluster 3 -->
+                            <circle cx="55" cy="80" r="22" fill="#2ecc71" opacity="0.1" stroke="#2ecc71" stroke-width="1"/>
+                            <circle cx="50" cy="75" r="3" fill="#2ecc71" opacity="0.7"/>
+                            <circle cx="60" cy="78" r="3" fill="#2ecc71" opacity="0.7"/>
+                            <circle cx="55" cy="85" r="3" fill="#2ecc71" opacity="0.7"/>
+                        </g>
+                        
+                        <!-- Transform arrow -->
+                        <path d="M 130 60 L 175 60" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow-tsne)"/>
+                        <text x="152" y="52" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">t-SNE</text>
+                        
+                        <!-- 2D embedding -->
+                        <g>
+                            <text x="280" y="15" text-anchor="middle" font-size="11" fill="#666" font-weight="600">2D (clusters revealed)</text>
+                            
+                            <!-- Cluster 1 - top left -->
+                            <circle cx="220" cy="50" r="3.5" fill="#3498db" opacity="0.9"/>
+                            <circle cx="228" cy="45" r="3.5" fill="#3498db" opacity="0.9"/>
+                            <circle cx="215" cy="58" r="3.5" fill="#3498db" opacity="0.9"/>
+                            <circle cx="235" cy="55" r="3.5" fill="#3498db" opacity="0.9"/>
+                            <circle cx="223" cy="62" r="3.5" fill="#3498db" opacity="0.9"/>
+                            
+                            <!-- Cluster 2 - top right -->
+                            <circle cx="300" cy="45" r="3.5" fill="#e74c3c" opacity="0.9"/>
+                            <circle cx="310" cy="50" r="3.5" fill="#e74c3c" opacity="0.9"/>
+                            <circle cx="295" cy="55" r="3.5" fill="#e74c3c" opacity="0.9"/>
+                            <circle cx="318" cy="58" r="3.5" fill="#e74c3c" opacity="0.9"/>
+                            <circle cx="305" cy="62" r="3.5" fill="#e74c3c" opacity="0.9"/>
+                            
+                            <!-- Cluster 3 - bottom center -->
+                            <circle cx="265" cy="90" r="3.5" fill="#2ecc71" opacity="0.9"/>
+                            <circle cx="275" cy="85" r="3.5" fill="#2ecc71" opacity="0.9"/>
+                            <circle cx="258" cy="95" r="3.5" fill="#2ecc71" opacity="0.9"/>
+                            <circle cx="280" cy="95" r="3.5" fill="#2ecc71" opacity="0.9"/>
+                            <circle cx="270" cy="100" r="3.5" fill="#2ecc71" opacity="0.9"/>
+                            
+                            <!-- Cluster boundaries -->
+                            <ellipse cx="226" cy="54" rx="16" ry="14" fill="none" stroke="#3498db" stroke-width="1.5" stroke-dasharray="2,2"/>
+                            <ellipse cx="307" cy="54" rx="16" ry="14" fill="none" stroke="#e74c3c" stroke-width="1.5" stroke-dasharray="2,2"/>
+                            <ellipse cx="269" cy="93" rx="16" ry="13" fill="none" stroke="#2ecc71" stroke-width="1.5" stroke-dasharray="2,2"/>
+                        </g>
+                        
+                        <defs>
+                            <marker id="arrow-tsne" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
                 <div class="use-cases">
                     <div class="use-title">Clinical Applications:</div>
                     <div class="use-item">Single-cell RNA-seq visualization</div>
@@ -44,9 +181,78 @@
                     <div class="use-item">Exploratory data analysis</div>
                 </div>
             </div>
+            
             <div class="method-card">
                 <div class="method-name">UMAP</div>
                 <div class="method-desc">Uniform Manifold Approximation - faster than t-SNE, preserves global structure</div>
+                <div class="method-viz">
+                    <svg width="400" height="140" viewBox="0 0 400 140">
+                        <!-- Manifold representation -->
+                        <g>
+                            <text x="70" y="15" text-anchor="middle" font-size="11" fill="#666" font-weight="600">High-D Manifold</text>
+                            
+                            <!-- 3D-looking manifold -->
+                            <ellipse cx="55" cy="65" rx="40" ry="25" fill="#1E64C8" opacity="0.1" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <!-- Points on manifold -->
+                            <circle cx="30" cy="55" r="3" fill="#ff8c00" opacity="0.8"/>
+                            <circle cx="45" cy="50" r="3" fill="#ff8c00" opacity="0.8"/>
+                            <circle cx="65" cy="53" r="3" fill="#28a745" opacity="0.8"/>
+                            <circle cx="80" cy="58" r="3" fill="#28a745" opacity="0.8"/>
+                            <circle cx="40" cy="75" r="3" fill="#e74c3c" opacity="0.8"/>
+                            <circle cx="55" cy="80" r="3" fill="#e74c3c" opacity="0.8"/>
+                            <circle cx="70" cy="75" r="3" fill="#9b59b6" opacity="0.8"/>
+                            
+                            <!-- Manifold structure lines -->
+                            <path d="M 25,60 Q 50,45 75,55" stroke="#1E64C8" stroke-width="1" fill="none" opacity="0.3"/>
+                            <path d="M 35,70 Q 55,75 75,70" stroke="#1E64C8" stroke-width="1" fill="none" opacity="0.3"/>
+                        </g>
+                        
+                        <!-- Transform arrow -->
+                        <path d="M 130 60 L 175 60" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow-umap)"/>
+                        <text x="152" y="52" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">UMAP</text>
+                        <text x="152" y="72" text-anchor="middle" font-size="9" fill="#666" font-style="italic">fast & global</text>
+                        
+                        <!-- 2D embedding with structure -->
+                        <g>
+                            <text x="280" y="15" text-anchor="middle" font-size="11" fill="#666" font-weight="600">2D (structure preserved)</text>
+                            
+                            <!-- Axes for reference -->
+                            <line x1="200" y1="105" x2="360" y2="105" stroke="#ddd" stroke-width="1"/>
+                            <line x1="200" y1="35" x2="200" y2="105" stroke="#ddd" stroke-width="1"/>
+                            
+                            <!-- Group 1 -->
+                            <circle cx="220" cy="50" r="4" fill="#ff8c00" opacity="0.9"/>
+                            <circle cx="235" cy="45" r="4" fill="#ff8c00" opacity="0.9"/>
+                            <circle cx="228" cy="58" r="4" fill="#ff8c00" opacity="0.9"/>
+                            
+                            <!-- Group 2 -->
+                            <circle cx="285" cy="48" r="4" fill="#28a745" opacity="0.9"/>
+                            <circle cx="300" cy="52" r="4" fill="#28a745" opacity="0.9"/>
+                            <circle cx="293" cy="60" r="4" fill="#28a745" opacity="0.9"/>
+                            
+                            <!-- Group 3 -->
+                            <circle cx="240" cy="85" r="4" fill="#e74c3c" opacity="0.9"/>
+                            <circle cx="255" cy="88" r="4" fill="#e74c3c" opacity="0.9"/>
+                            <circle cx="248" cy="95" r="4" fill="#e74c3c" opacity="0.9"/>
+                            
+                            <!-- Group 4 -->
+                            <circle cx="320" cy="75" r="4" fill="#9b59b6" opacity="0.9"/>
+                            <circle cx="330" cy="80" r="4" fill="#9b59b6" opacity="0.9"/>
+                            <circle cx="325" cy="88" r="4" fill="#9b59b6" opacity="0.9"/>
+                            
+                            <!-- Connection showing global structure -->
+                            <path d="M 228,52 Q 260,50 292,54" stroke="#1E64C8" stroke-width="1" stroke-dasharray="3,2" fill="none" opacity="0.3"/>
+                            <path d="M 247,88 Q 285,82 325,82" stroke="#1E64C8" stroke-width="1" stroke-dasharray="3,2" fill="none" opacity="0.3"/>
+                        </g>
+                        
+                        <defs>
+                            <marker id="arrow-umap" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
                 <div class="use-cases">
                     <div class="use-title">Clinical Applications:</div>
                     <div class="use-item">Large dataset visualization</div>
@@ -54,9 +260,92 @@
                     <div class="use-item">Trajectory inference</div>
                 </div>
             </div>
+            
             <div class="method-card">
                 <div class="method-name">Autoencoders</div>
                 <div class="method-desc">Deep learning compression - learns nonlinear representations</div>
+                <div class="method-viz">
+                    <svg width="400" height="140" viewBox="0 0 400 140">
+                        <!-- Input layer -->
+                        <g>
+                            <text x="50" y="20" text-anchor="middle" font-size="10" fill="#666" font-weight="600">Input</text>
+                            <circle cx="50" cy="40" r="4" fill="#1E64C8" opacity="0.7"/>
+                            <circle cx="50" cy="55" r="4" fill="#1E64C8" opacity="0.7"/>
+                            <circle cx="50" cy="70" r="4" fill="#1E64C8" opacity="0.7"/>
+                            <circle cx="50" cy="85" r="4" fill="#1E64C8" opacity="0.7"/>
+                            <circle cx="50" cy="100" r="4" fill="#1E64C8" opacity="0.7"/>
+                            <text x="50" y="118" text-anchor="middle" font-size="9" fill="#666">High-D</text>
+                        </g>
+                        
+                        <!-- Hidden layer 1 -->
+                        <g>
+                            <circle cx="120" cy="50" r="4" fill="#ff8c00" opacity="0.6"/>
+                            <circle cx="120" cy="70" r="4" fill="#ff8c00" opacity="0.6"/>
+                            <circle cx="120" cy="90" r="4" fill="#ff8c00" opacity="0.6"/>
+                        </g>
+                        
+                        <!-- Bottleneck (latent space) -->
+                        <g>
+                            <text x="190" y="20" text-anchor="middle" font-size="10" fill="#28a745" font-weight="600">Latent Space</text>
+                            <circle cx="190" cy="65" r="5" fill="#28a745" opacity="0.8"/>
+                            <circle cx="190" cy="85" r="5" fill="#28a745" opacity="0.8"/>
+                            <text x="190" y="105" text-anchor="middle" font-size="9" fill="#28a745" font-weight="600">Low-D</text>
+                        </g>
+                        
+                        <!-- Hidden layer 2 (decoder) -->
+                        <g>
+                            <circle cx="260" cy="50" r="4" fill="#ff8c00" opacity="0.6"/>
+                            <circle cx="260" cy="70" r="4" fill="#ff8c00" opacity="0.6"/>
+                            <circle cx="260" cy="90" r="4" fill="#ff8c00" opacity="0.6"/>
+                        </g>
+                        
+                        <!-- Output layer -->
+                        <g>
+                            <text x="330" y="20" text-anchor="middle" font-size="10" fill="#666" font-weight="600">Output</text>
+                            <circle cx="330" cy="40" r="4" fill="#1E64C8" opacity="0.7"/>
+                            <circle cx="330" cy="55" r="4" fill="#1E64C8" opacity="0.7"/>
+                            <circle cx="330" cy="70" r="4" fill="#1E64C8" opacity="0.7"/>
+                            <circle cx="330" cy="85" r="4" fill="#1E64C8" opacity="0.7"/>
+                            <circle cx="330" cy="100" r="4" fill="#1E64C8" opacity="0.7"/>
+                            <text x="330" y="118" text-anchor="middle" font-size="9" fill="#666">Reconstructed</text>
+                        </g>
+                        
+                        <!-- Connections (sample) -->
+                        <line x1="54" y1="40" x2="116" y2="50" stroke="#ddd" stroke-width="0.5"/>
+                        <line x1="54" y1="55" x2="116" y2="70" stroke="#ddd" stroke-width="0.5"/>
+                        <line x1="54" y1="85" x2="116" y2="90" stroke="#ddd" stroke-width="0.5"/>
+                        
+                        <line x1="124" y1="70" x2="185" y2="75" stroke="#ddd" stroke-width="0.5"/>
+                        <line x1="124" y1="90" x2="185" y2="85" stroke="#ddd" stroke-width="0.5"/>
+                        
+                        <line x1="195" y1="75" x2="256" y2="70" stroke="#ddd" stroke-width="0.5"/>
+                        <line x1="195" y1="85" x2="256" y2="90" stroke="#ddd" stroke-width="0.5"/>
+                        
+                        <line x1="264" y1="50" x2="326" y2="40" stroke="#ddd" stroke-width="0.5"/>
+                        <line x1="264" y1="70" x2="326" y2="70" stroke="#ddd" stroke-width="0.5"/>
+                        <line x1="264" y1="90" x2="326" y2="100" stroke="#ddd" stroke-width="0.5"/>
+                        
+                        <!-- Labels -->
+                        <text x="85" y="125" text-anchor="middle" font-size="9" fill="#666" font-style="italic">Encoder</text>
+                        <text x="295" y="125" text-anchor="middle" font-size="9" fill="#666" font-style="italic">Decoder</text>
+                        
+                        <!-- Arrow showing compression -->
+                        <path d="M 80 130 L 155 130" stroke="#28a745" stroke-width="2" marker-end="url(#arrow-ae1)"/>
+                        <text x="117" y="142" text-anchor="middle" font-size="8" fill="#28a745">Compress</text>
+                        
+                        <path d="M 225 130 L 300 130" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-ae2)"/>
+                        <text x="262" y="142" text-anchor="middle" font-size="8" fill="#1E64C8">Reconstruct</text>
+                        
+                        <defs>
+                            <marker id="arrow-ae1" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L6,3 z" fill="#28a745"/>
+                            </marker>
+                            <marker id="arrow-ae2" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L6,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
                 <div class="use-cases">
                     <div class="use-title">Clinical Applications:</div>
                     <div class="use-item">Feature extraction for prediction</div>

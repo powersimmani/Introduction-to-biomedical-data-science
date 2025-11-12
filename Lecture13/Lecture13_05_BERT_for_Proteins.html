@@ -31,50 +31,170 @@
             font-size: 32px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 35px;
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
         }
         
-        .content-list {
+        .content-wrapper {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            gap: 30px;
+            height: 370px;
         }
         
-        .content-item {
+        .architecture-visual {
+            flex: 1.2;
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 18px 24px;
+            justify-content: center;
+        }
+        
+        .features-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .feature-item {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 6px;
+            padding: 15px 20px;
             transition: all 0.3s ease;
-            font-size: 19px;
-            color: #333;
         }
         
-        .content-item:hover {
+        .feature-item:hover {
             background: #e8f2ff;
             transform: translateX(8px);
         }
         
-        .bullet {
-            width: 10px;
-            height: 10px;
-            background: #1E64C8;
-            border-radius: 50%;
-            flex-shrink: 0;
+        .feature-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 4px;
+        }
+        
+        .feature-desc {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .mask-animation {
+            animation: maskBlink 2s ease-in-out infinite;
+        }
+        
+        @keyframes maskBlink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.3; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">BERT for Proteins</div>
-        <div class="content-list">
-            <div class="content-item"><div class="bullet"></div><div>ProtBERT architecture</div></div><div class="content-item"><div class="bullet"></div><div>Masked language modeling</div></div><div class="content-item"><div class="bullet"></div><div>Attention patterns</div></div><div class="content-item"><div class="bullet"></div><div>Structural insights</div></div><div class="content-item"><div class="bullet"></div><div>Function prediction</div></div>
+        <div class="content-wrapper">
+            <div class="architecture-visual">
+                <svg width="450" height="370" viewBox="0 0 450 370">
+                    <!-- Input Sequence -->
+                    <text x="225" y="25" font-size="14" fill="#333" text-anchor="middle" font-weight="600">Protein Sequence</text>
+                    
+                    <g transform="translate(80, 40)">
+                        <rect x="0" y="0" width="40" height="30" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="20" y="20" font-size="14" fill="#333" text-anchor="middle">M</text>
+                        
+                        <rect x="50" y="0" width="40" height="30" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="70" y="20" font-size="14" fill="#333" text-anchor="middle">K</text>
+                        
+                        <rect x="100" y="0" width="40" height="30" rx="3" fill="#fff3cd" stroke="#1E64C8" stroke-width="2" class="mask-animation"/>
+                        <text x="120" y="20" font-size="14" fill="#666" text-anchor="middle">[M]</text>
+                        
+                        <rect x="150" y="0" width="40" height="30" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="170" y="20" font-size="14" fill="#333" text-anchor="middle">L</text>
+                        
+                        <rect x="200" y="0" width="40" height="30" rx="3" fill="#fff3cd" stroke="#1E64C8" stroke-width="2" class="mask-animation"/>
+                        <text x="220" y="20" font-size="14" fill="#666" text-anchor="middle">[M]</text>
+                        
+                        <rect x="250" y="0" width="40" height="30" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="270" y="20" font-size="14" fill="#333" text-anchor="middle">V</text>
+                    </g>
+                    
+                    <!-- BERT Architecture -->
+                    <g transform="translate(100, 100)">
+                        <!-- Encoder Blocks -->
+                        <rect x="0" y="0" width="250" height="35" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="125" y="23" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="600">Multi-Head Self-Attention</text>
+                        
+                        <rect x="0" y="45" width="250" height="30" rx="5" fill="#f8f9fa" stroke="#2874d8" stroke-width="2"/>
+                        <text x="125" y="65" font-size="13" fill="#2874d8" text-anchor="middle" font-weight="600">Feed Forward Network</text>
+                        
+                        <rect x="0" y="85" width="250" height="35" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="125" y="108" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="600">Multi-Head Self-Attention</text>
+                        
+                        <rect x="0" y="130" width="250" height="30" rx="5" fill="#f8f9fa" stroke="#2874d8" stroke-width="2"/>
+                        <text x="125" y="150" font-size="13" fill="#2874d8" text-anchor="middle" font-weight="600">Feed Forward Network</text>
+                        
+                        <text x="125" y="180" font-size="11" fill="#666" text-anchor="middle">× 12 Encoder Layers</text>
+                    </g>
+                    
+                    <!-- Output -->
+                    <g transform="translate(80, 300)">
+                        <rect x="0" y="0" width="40" height="30" rx="3" fill="#d4edda" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="20" y="20" font-size="14" fill="#333" text-anchor="middle">M</text>
+                        
+                        <rect x="50" y="0" width="40" height="30" rx="3" fill="#d4edda" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="70" y="20" font-size="14" fill="#333" text-anchor="middle">K</text>
+                        
+                        <rect x="100" y="0" width="40" height="30" rx="3" fill="#c3e6cb" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="120" y="20" font-size="14" fill="#333" text-anchor="middle" font-weight="600">A</text>
+                        
+                        <rect x="150" y="0" width="40" height="30" rx="3" fill="#d4edda" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="170" y="20" font-size="14" fill="#333" text-anchor="middle">L</text>
+                        
+                        <rect x="200" y="0" width="40" height="30" rx="3" fill="#c3e6cb" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="220" y="20" font-size="14" fill="#333" text-anchor="middle" font-weight="600">I</text>
+                        
+                        <rect x="250" y="0" width="40" height="30" rx="3" fill="#d4edda" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="270" y="20" font-size="14" fill="#333" text-anchor="middle">V</text>
+                    </g>
+                    
+                    <text x="225" y="355" font-size="12" fill="#666" text-anchor="middle">Predicted: [MASK] → Amino Acid</text>
+                    
+                    <!-- Arrows -->
+                    <defs>
+                        <marker id="arrowblue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                    <path d="M 225,75 L 225,95" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowblue)"/>
+                    <path d="M 225,285 L 225,295" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowblue)"/>
+                </svg>
+            </div>
+            
+            <div class="features-list">
+                <div class="feature-item">
+                    <div class="feature-title">ProtBERT architecture</div>
+                    <div class="feature-desc">12-layer bidirectional encoder</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-title">Masked language modeling</div>
+                    <div class="feature-desc">15% random masking strategy</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-title">Attention patterns</div>
+                    <div class="feature-desc">Learns residue interactions</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-title">Structural insights</div>
+                    <div class="feature-desc">Captures 3D contact maps</div>
+                </div>
+                <div class="feature-item">
+                    <div class="feature-title">Function prediction</div>
+                    <div class="feature-desc">GO terms, EC numbers</div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

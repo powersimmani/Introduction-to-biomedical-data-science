@@ -35,10 +35,74 @@
             text-align: center;
         }
         
-        .content-grid {
+        .main-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
+            grid-template-rows: auto 1fr;
             gap: 20px;
+            height: calc(100% - 60px);
+        }
+        
+        .energy-chart {
+            grid-column: 1 / -1;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f2ff 100%);
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            padding: 15px 20px;
+            height: 120px;
+        }
+        
+        .chart-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .bars-container {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 70px;
+        }
+        
+        .bar-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin: 0 5px;
+        }
+        
+        .bar {
+            width: 100%;
+            background: linear-gradient(to top, #1E64C8, #4A90E2);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            transition: all 0.3s;
+        }
+        
+        .bar:hover {
+            opacity: 0.8;
+        }
+        
+        .bar-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+            margin-top: 5px;
+        }
+        
+        .bar-value {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            font-weight: 600;
+            color: #1E64C8;
+            white-space: nowrap;
         }
         
         .info-box {
@@ -46,6 +110,8 @@
             border-left: 4px solid #1E64C8;
             padding: 16px 18px;
             border-radius: 6px;
+            display: flex;
+            flex-direction: column;
         }
         
         .info-title {
@@ -53,12 +119,21 @@
             font-weight: 600;
             color: #1E64C8;
             margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .bond-icon {
+            width: 24px;
+            height: 24px;
         }
         
         .info-content {
             font-size: 15px;
             color: #333;
             line-height: 1.5;
+            flex: 1;
         }
         
         .bullet {
@@ -80,9 +155,46 @@
     <div class="container">
         <div class="title">Chemical Bonds in Biology</div>
         
-        <div class="content-grid">
+        <div class="main-layout">
+            <div class="energy-chart">
+                <div class="chart-title">⚡ Bond Energy Comparison</div>
+                <div class="bars-container">
+                    <div class="bar-item">
+                        <div class="bar" style="height: 100%;">
+                            <div class="bar-value">50-200</div>
+                        </div>
+                        <div class="bar-label">Covalent</div>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar" style="height: 35%; background: linear-gradient(to top, #FFA726, #FFB74D);">
+                            <div class="bar-value">5-10</div>
+                        </div>
+                        <div class="bar-label">Ionic</div>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar" style="height: 15%; background: linear-gradient(to top, #66BB6A, #81C784);">
+                            <div class="bar-value">1-5</div>
+                        </div>
+                        <div class="bar-label">H-bond</div>
+                    </div>
+                    <div class="bar-item">
+                        <div class="bar" style="height: 5%; background: linear-gradient(to top, #EF5350, #E57373);">
+                            <div class="bar-value">&lt;1</div>
+                        </div>
+                        <div class="bar-label">Van der Waals</div>
+                    </div>
+                </div>
+            </div>
+            
             <div class="info-box">
-                <div class="info-title">Covalent Bonds</div>
+                <div class="info-title">
+                    <svg class="bond-icon" viewBox="0 0 24 24" fill="#1E64C8">
+                        <circle cx="6" cy="12" r="3"/>
+                        <circle cx="18" cy="12" r="3"/>
+                        <line x1="9" y1="12" x2="15" y2="12" stroke="#1E64C8" stroke-width="2"/>
+                    </svg>
+                    Covalent Bonds
+                </div>
                 <div class="info-content">
                     <div class="bullet">Strong electron sharing</div>
                     <div class="bullet">Single, double, triple bonds</div>
@@ -92,7 +204,15 @@
             </div>
             
             <div class="info-box">
-                <div class="info-title">Ionic Interactions</div>
+                <div class="info-title">
+                    <svg class="bond-icon" viewBox="0 0 24 24" fill="none" stroke="#FFA726" stroke-width="2">
+                        <circle cx="8" cy="12" r="4"/>
+                        <circle cx="16" cy="12" r="4"/>
+                        <text x="7" y="13" font-size="6" fill="#FFA726">+</text>
+                        <text x="15" y="13" font-size="6" fill="#FFA726">-</text>
+                    </svg>
+                    Ionic Interactions
+                </div>
                 <div class="info-content">
                     <div class="bullet">Electrostatic attractions</div>
                     <div class="bullet">Important in protein folding</div>
@@ -102,7 +222,15 @@
             </div>
             
             <div class="info-box">
-                <div class="info-title">Hydrogen Bonds</div>
+                <div class="info-title">
+                    <svg class="bond-icon" viewBox="0 0 24 24" fill="none" stroke="#66BB6A" stroke-width="2">
+                        <circle cx="6" cy="12" r="3" fill="#66BB6A" opacity="0.3"/>
+                        <circle cx="18" cy="12" r="3" fill="#66BB6A" opacity="0.3"/>
+                        <line x1="9" y1="12" x2="15" y2="12" stroke-dasharray="2,2"/>
+                        <text x="11" y="10" font-size="6" fill="#66BB6A">H</text>
+                    </svg>
+                    Hydrogen Bonds
+                </div>
                 <div class="info-content">
                     <div class="bullet">Weak but numerous</div>
                     <div class="bullet">Critical for DNA base pairing</div>
@@ -112,15 +240,20 @@
             </div>
             
             <div class="info-box">
-                <div class="info-title">Van der Waals Forces</div>
+                <div class="info-title">
+                    <svg class="bond-icon" viewBox="0 0 24 24" fill="none" stroke="#EF5350" stroke-width="1.5">
+                        <circle cx="12" cy="12" r="8" stroke-dasharray="3,3" opacity="0.5"/>
+                        <circle cx="12" cy="12" r="2" fill="#EF5350"/>
+                    </svg>
+                    Van der Waals Forces
+                </div>
                 <div class="info-content">
                     <div class="bullet">Weakest interactions</div>
                     <div class="bullet">Important in close packing</div>
                     <div class="bullet">Hydrophobic effect</div>
-                    <div class="bullet">Energy: <1 kcal/mol</div>
+                    <div class="bullet">Energy: &lt;1 kcal/mol</div>
                 </div>
             </div>
-            
         </div>
     </div>
 </body>

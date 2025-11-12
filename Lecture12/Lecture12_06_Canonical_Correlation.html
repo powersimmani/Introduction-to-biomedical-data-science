@@ -31,8 +31,18 @@
             font-size: 20px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
+        }
+        
+        .diagram-section {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin-bottom: 20px;
+            padding: 20px;
+            background: #f8fbff;
+            border-radius: 10px;
         }
         
         .features-grid {
@@ -71,6 +81,89 @@
 <body>
     <div class="container">
         <div class="title">Canonical Correlation Analysis (CCA)</div>
+        
+        <div class="diagram-section">
+            <svg width="700" height="160" viewBox="0 0 700 160">
+                <!-- Modality 1 -->
+                <g>
+                    <ellipse cx="120" cy="80" rx="85" ry="60" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2.5"/>
+                    <text x="120" y="50" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">Modality 1</text>
+                    <text x="120" y="70" text-anchor="middle" font-size="12" fill="#333">(e.g., Genomics)</text>
+                    
+                    <!-- Data points -->
+                    <circle cx="95" cy="85" r="3" fill="#1E64C8"/>
+                    <circle cx="110" cy="95" r="3" fill="#1E64C8"/>
+                    <circle cx="125" cy="90" r="3" fill="#1E64C8"/>
+                    <circle cx="135" cy="100" r="3" fill="#1E64C8"/>
+                    <circle cx="105" cy="105" r="3" fill="#1E64C8"/>
+                    
+                    <!-- Projection arrow -->
+                    <path d="M 180 80 L 235 80" stroke="#5088d4" stroke-width="3" fill="none" marker-end="url(#arrow1)"/>
+                    <text x="207" y="70" text-anchor="middle" font-size="11" fill="#5088d4" font-weight="600">Project</text>
+                </g>
+                
+                <!-- Canonical variate U -->
+                <g>
+                    <rect x="240" y="60" width="80" height="40" fill="#5088d4" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="280" y="78" text-anchor="middle" font-size="13" fill="white" font-weight="700">U = w₁ᵀX₁</text>
+                    <text x="280" y="92" text-anchor="middle" font-size="10" fill="white">Canonical</text>
+                    <text x="280" y="103" text-anchor="middle" font-size="10" fill="white">Variate 1</text>
+                </g>
+                
+                <!-- Correlation -->
+                <g>
+                    <path d="M 320 80 L 380 80" stroke="#1E64C8" stroke-width="4" fill="none"/>
+                    <text x="350" y="70" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">max corr</text>
+                    <text x="350" y="95" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600">ρ(U,V)</text>
+                    
+                    <!-- Correlation coefficient display -->
+                    <circle cx="350" cy="115" r="20" fill="none" stroke="#1E64C8" stroke-width="2" stroke-dasharray="2,2"/>
+                    <text x="350" y="120" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="700">0.85</text>
+                </g>
+                
+                <!-- Canonical variate V -->
+                <g>
+                    <rect x="380" y="60" width="80" height="40" fill="#2874d8" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="420" y="78" text-anchor="middle" font-size="13" fill="white" font-weight="700">V = w₂ᵀX₂</text>
+                    <text x="420" y="92" text-anchor="middle" font-size="10" fill="white">Canonical</text>
+                    <text x="420" y="103" text-anchor="middle" font-size="10" fill="white">Variate 2</text>
+                </g>
+                
+                <!-- Modality 2 -->
+                <g>
+                    <ellipse cx="580" cy="80" rx="85" ry="60" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2.5"/>
+                    <text x="580" y="50" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">Modality 2</text>
+                    <text x="580" y="70" text-anchor="middle" font-size="12" fill="#333">(e.g., Transcriptomics)</text>
+                    
+                    <!-- Data points -->
+                    <circle cx="555" cy="85" r="3" fill="#2874d8"/>
+                    <circle cx="570" cy="95" r="3" fill="#2874d8"/>
+                    <circle cx="585" cy="90" r="3" fill="#2874d8"/>
+                    <circle cx="595" cy="100" r="3" fill="#2874d8"/>
+                    <circle cx="565" cy="105" r="3" fill="#2874d8"/>
+                    
+                    <!-- Projection arrow -->
+                    <path d="M 520 80 L 465 80" stroke="#2874d8" stroke-width="3" fill="none" marker-start="url(#arrow2)"/>
+                    <text x="492" y="70" text-anchor="middle" font-size="11" fill="#2874d8" font-weight="600">Project</text>
+                </g>
+                
+                <!-- Objective function -->
+                <g>
+                    <rect x="210" y="135" width="280" height="20" fill="#fff4e6" stroke="#1E64C8" stroke-width="1" stroke-dasharray="3,3" rx="10"/>
+                    <text x="350" y="149" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600">Objective: max corr(w₁ᵀX₁, w₂ᵀX₂) subject to constraints</text>
+                </g>
+                
+                <!-- Arrow markers -->
+                <defs>
+                    <marker id="arrow1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#5088d4"/>
+                    </marker>
+                    <marker id="arrow2" markerWidth="10" markerHeight="10" refX="0" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M9,0 L9,6 L0,3 z" fill="#2874d8"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
         
         <div class="features-grid">
             

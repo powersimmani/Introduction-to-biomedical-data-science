@@ -23,56 +23,6 @@
             margin-bottom: 30px;
             text-align: center;
         }
-        .process-flow {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-bottom: 25px;
-        }
-        .flow-item {
-            background: #f8fbff;
-            border: 2px solid #1E64C8;
-            border-radius: 8px;
-            padding: 15px 20px;
-        }
-        .flow-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1E64C8;
-            margin-bottom: 5px;
-        }
-        .flow-desc {
-            font-size: 16px;
-            color: #666;
-        }
-        .flow-arrow {
-            text-align: center;
-            font-size: 24px;
-            color: #1E64C8;
-            font-weight: bold;
-        }
-        .info-boxes {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        .info-box {
-            background: #f0f5fc;
-            border-left: 4px solid #1E64C8;
-            padding: 18px 22px;
-            border-radius: 6px;
-        }
-        .info-title {
-            font-size: 18px;
-            font-weight: 600;
-            color: #1E64C8;
-            margin-bottom: 10px;
-        }
-        .info-text {
-            font-size: 16px;
-            color: #333;
-            line-height: 1.6;
-        }
         .comparison-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
@@ -89,6 +39,14 @@
             font-size: 22px;
             font-weight: 700;
             text-align: center;
+        }
+        .compare-visual {
+            padding: 20px;
+            background: white;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 120px;
         }
         .compare-content {
             padding: 20px;
@@ -139,6 +97,21 @@
         <div class="comparison-grid">
             <div class="compare-box">
                 <div class="compare-title" style="background: #e8f2ff; color: #1E64C8;">Single-end (SE)</div>
+                <div class="compare-visual">
+                    <svg width="200" height="80" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Reference DNA -->
+                        <rect x="10" y="35" width="180" height="8" fill="#CCCCCC" rx="2"/>
+                        <!-- Single read -->
+                        <rect x="20" y="32" width="60" height="14" fill="#1E64C8" rx="2" opacity="0.8"/>
+                        <path d="M 80 39 L 90 39" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-se)"/>
+                        <text x="25" y="42" font-size="10" fill="white" font-weight="bold">Read 1</text>
+                        <defs>
+                            <marker id="arrow-se" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                                <polygon points="0 0, 8 4, 0 8" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
                 <div class="compare-content">
                     <div class="compare-item"><strong>Method:</strong> Sequence from one end only</div>
                     <div class="compare-item"><strong>Read Length:</strong> 50-150 bp</div>
@@ -149,6 +122,30 @@
             </div>
             <div class="compare-box">
                 <div class="compare-title" style="background: #1E64C8; color: white;">Paired-end (PE)</div>
+                <div class="compare-visual">
+                    <svg width="200" height="80" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Reference DNA -->
+                        <rect x="10" y="35" width="180" height="8" fill="#CCCCCC" rx="2"/>
+                        <!-- Paired reads -->
+                        <rect x="20" y="32" width="60" height="14" fill="#1E64C8" rx="2" opacity="0.8"/>
+                        <rect x="110" y="32" width="60" height="14" fill="#4CAF50" rx="2" opacity="0.8"/>
+                        <path d="M 80 39 L 90 39" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-pe1)"/>
+                        <path d="M 110 39 L 100 39" stroke="#4CAF50" stroke-width="2" marker-end="url(#arrow-pe2)"/>
+                        <text x="25" y="42" font-size="10" fill="white" font-weight="bold">Read 1</text>
+                        <text x="115" y="42" font-size="10" fill="white" font-weight="bold">Read 2</text>
+                        <!-- Insert size indicator -->
+                        <line x1="50" y1="55" x2="140" y2="55" stroke="#FF6B6B" stroke-width="1.5" stroke-dasharray="3,3"/>
+                        <text x="75" y="65" font-size="9" fill="#FF6B6B">Insert size</text>
+                        <defs>
+                            <marker id="arrow-pe1" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                                <polygon points="0 0, 8 4, 0 8" fill="#1E64C8"/>
+                            </marker>
+                            <marker id="arrow-pe2" markerWidth="8" markerHeight="8" refX="2" refY="4" orient="auto">
+                                <polygon points="8 0, 0 4, 8 8" fill="#4CAF50"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
                 <div class="compare-content">
                     <div class="compare-item"><strong>Method:</strong> Sequence from both ends</div>
                     <div class="compare-item"><strong>Read Length:</strong> 2 × (75-300) bp</div>

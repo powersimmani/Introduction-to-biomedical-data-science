@@ -35,28 +35,35 @@
             text-align: center;
         }
         
-        .content-grid {
+        .main-layout {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 20px;
+            height: calc(100% - 60px);
+        }
+        
+        .left-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 15px;
         }
         
         .info-box {
             background: #f8f9fb;
             border-left: 4px solid #1E64C8;
-            padding: 16px 18px;
+            padding: 14px 16px;
             border-radius: 6px;
         }
         
         .info-title {
-            font-size: 17px;
+            font-size: 16px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         
         .info-content {
-            font-size: 15px;
+            font-size: 14px;
             color: #333;
             line-height: 1.5;
         }
@@ -64,7 +71,7 @@
         .bullet {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 6px;
+            margin-bottom: 5px;
         }
         
         .bullet::before {
@@ -72,55 +79,140 @@
             color: #1E64C8;
             font-weight: bold;
             margin-right: 8px;
+            font-size: 14px;
+        }
+        
+        .replication-diagram {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border: 2px solid #FF9800;
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .diagram-title {
             font-size: 16px;
+            font-weight: 600;
+            color: #E65100;
+            margin-bottom: 15px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">DNA Replication Mechanism</div>
+        <div class="title">🧬 DNA Replication Mechanism</div>
         
-        <div class="content-grid">
-            <div class="info-box">
-                <div class="info-title">Semiconservative Replication</div>
-                <div class="info-content">
-                    <div class="bullet">Each strand serves as template</div>
-                    <div class="bullet">Two identical daughter DNA molecules</div>
-                    <div class="bullet">Proven by Meselson-Stahl experiment</div>
-                    <div class="bullet">Ensures genetic continuity</div>
+        <div class="main-layout">
+            <div class="left-grid">
+                <div class="info-box">
+                    <div class="info-title">🔄 Semiconservative Replication</div>
+                    <div class="info-content">
+                        <div class="bullet">Each strand serves as template</div>
+                        <div class="bullet">Two identical daughter DNA molecules</div>
+                        <div class="bullet">Proven by Meselson-Stahl experiment</div>
+                        <div class="bullet">Ensures genetic continuity</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">⚙️ DNA Polymerase III</div>
+                    <div class="info-content">
+                        <div class="bullet">Main replication enzyme in prokaryotes</div>
+                        <div class="bullet">Adds nucleotides 5' → 3'</div>
+                        <div class="bullet">Requires RNA primer</div>
+                        <div class="bullet">Processivity: ~500,000 bp</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">↔️ Leading vs Lagging Strand</div>
+                    <div class="info-content">
+                        <div class="bullet">Leading: continuous synthesis</div>
+                        <div class="bullet">Lagging: discontinuous synthesis</div>
+                        <div class="bullet">Okazaki fragments (~1000-2000 nt)</div>
+                        <div class="bullet">DNA ligase joins fragments</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">✓ Proofreading</div>
+                    <div class="info-content">
+                        <div class="bullet">3' → 5' exonuclease activity</div>
+                        <div class="bullet">Error rate: ~1 in 10⁷ bases</div>
+                        <div class="bullet">Removes mismatched nucleotides</div>
+                        <div class="bullet">Ensures high fidelity</div>
+                    </div>
                 </div>
             </div>
             
-            <div class="info-box">
-                <div class="info-title">DNA Polymerase III</div>
-                <div class="info-content">
-                    <div class="bullet">Main replication enzyme in prokaryotes</div>
-                    <div class="bullet">Adds nucleotides 5' → 3'</div>
-                    <div class="bullet">Requires RNA primer</div>
-                    <div class="bullet">Processivity: ~500,000 bp</div>
-                </div>
+            <div class="replication-diagram">
+                <div class="diagram-title">Replication Fork</div>
+                <svg width="260" height="360" viewBox="0 0 260 360">
+                    <!-- Original DNA -->
+                    <line x1="50" y1="40" x2="210" y2="40" stroke="#666" stroke-width="4"/>
+                    <line x1="50" y1="60" x2="210" y2="60" stroke="#666" stroke-width="4"/>
+                    <text x="130" y="25" text-anchor="middle" font-size="12" fill="#666" font-weight="bold">Parent DNA</text>
+                    
+                    <!-- Fork opening -->
+                    <path d="M 50 60 Q 70 100 60 140" stroke="#666" stroke-width="4" fill="none"/>
+                    <path d="M 210 60 Q 190 100 200 140" stroke="#666" stroke-width="4" fill="none"/>
+                    
+                    <!-- Helicase -->
+                    <circle cx="130" cy="70" r="20" fill="#FF9800" opacity="0.8"/>
+                    <text x="130" y="75" text-anchor="middle" font-size="10" fill="white" font-weight="bold">Helicase</text>
+                    
+                    <!-- Leading strand (continuous) -->
+                    <path d="M 60 140 L 60 250" stroke="#4CAF50" stroke-width="4"/>
+                    <path d="M 60 250 L 70 250" stroke="#4CAF50" stroke-width="4" stroke-dasharray="5,5"/>
+                    <text x="30" y="195" font-size="11" fill="#4CAF50" font-weight="bold" transform="rotate(-90, 30, 195)">Leading</text>
+                    
+                    <!-- DNA Pol III on leading -->
+                    <circle cx="60" cy="210" r="15" fill="#4CAF50" opacity="0.8"/>
+                    <text x="60" y="213" text-anchor="middle" font-size="8" fill="white" font-weight="bold">Pol III</text>
+                    
+                    <!-- Lagging strand (discontinuous) -->
+                    <path d="M 200 140 L 200 170" stroke="#E91E63" stroke-width="4"/>
+                    <path d="M 200 180 L 200 210" stroke="#E91E63" stroke-width="4"/>
+                    <path d="M 200 220 L 200 250" stroke="#E91E63" stroke-width="4"/>
+                    <text x="230" y="195" font-size="11" fill="#E91E63" font-weight="bold" transform="rotate(-90, 230, 195)">Lagging</text>
+                    
+                    <!-- Okazaki fragments -->
+                    <text x="220" y="165" font-size="9" fill="#E91E63" font-weight="bold">Okazaki</text>
+                    <text x="220" y="175" font-size="9" fill="#E91E63" font-weight="bold">fragments</text>
+                    
+                    <!-- DNA Pol III on lagging -->
+                    <circle cx="200" cy="190" r="15" fill="#E91E63" opacity="0.8"/>
+                    <text x="200" y="193" text-anchor="middle" font-size="8" fill="white" font-weight="bold">Pol III</text>
+                    
+                    <!-- Primase -->
+                    <circle cx="200" cy="230" r="12" fill="#2196F3" opacity="0.8"/>
+                    <text x="200" y="233" text-anchor="middle" font-size="7" fill="white" font-weight="bold">Primase</text>
+                    
+                    <!-- Direction arrows -->
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+                        </marker>
+                    </defs>
+                    
+                    <line x1="40" y1="290" x2="40" y2="330" stroke="#333" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="50" y="310" font-size="11" fill="#333" font-weight="bold">5' → 3'</text>
+                    <text x="50" y="325" font-size="11" fill="#333" font-weight="bold">synthesis</text>
+                    
+                    <!-- Legend -->
+                    <rect x="100" y="280" width="140" height="70" fill="white" stroke="#666" stroke-width="1" rx="4"/>
+                    <text x="170" y="295" text-anchor="middle" font-size="10" fill="#666" font-weight="bold">Key Enzymes</text>
+                    <line x1="110" y1="305" x2="130" y2="305" stroke="#FF9800" stroke-width="3"/>
+                    <text x="135" y="309" font-size="9" fill="#333">Helicase (unwind)</text>
+                    <line x1="110" y1="320" x2="130" y2="320" stroke="#4CAF50" stroke-width="3"/>
+                    <text x="135" y="324" font-size="9" fill="#333">Pol III (synthesize)</text>
+                    <line x1="110" y1="335" x2="130" y2="335" stroke="#2196F3" stroke-width="3"/>
+                    <text x="135" y="339" font-size="9" fill="#333">Primase (primer)</text>
+                </svg>
             </div>
-            
-            <div class="info-box">
-                <div class="info-title">Leading vs Lagging Strand</div>
-                <div class="info-content">
-                    <div class="bullet">Leading: continuous synthesis</div>
-                    <div class="bullet">Lagging: discontinuous synthesis</div>
-                    <div class="bullet">Okazaki fragments (~1000-2000 nt)</div>
-                    <div class="bullet">DNA ligase joins fragments</div>
-                </div>
-            </div>
-            
-            <div class="info-box">
-                <div class="info-title">Proofreading</div>
-                <div class="info-content">
-                    <div class="bullet">3' → 5' exonuclease activity</div>
-                    <div class="bullet">Error rate: ~1 in 10⁷ bases</div>
-                    <div class="bullet">Removes mismatched nucleotides</div>
-                    <div class="bullet">Ensures high fidelity</div>
-                </div>
-            </div>
-            
         </div>
     </div>
 </body>
