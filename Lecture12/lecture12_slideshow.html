@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -177,7 +177,7 @@
     <script>
         let currentSlideIndex = 0;
         
-        // 전체 슬라이드 순서
+        // Complete slide order
         const slides = [
             { title: "Multi-Modal Data Integration", file: "Lecture12_01_Title.html", part: null },
             { title: "Lecture Contents", file: "Lecture12_02_Lecture_Contents.html", part: null },
@@ -222,7 +222,7 @@
         function initializeSlides() {
             const container = document.getElementById('slideContainer');
             
-            // 모든 슬라이드를 미리 생성
+            // Pre-create all slides
             slides.forEach((slide, index) => {
                 const slideDiv = document.createElement('div');
                 slideDiv.className = 'slide';
@@ -235,24 +235,24 @@
                 container.appendChild(slideDiv);
             });
             
-            // 첫 번째 슬라이드 표시
+            // Show the first slide
             showSlide(0);
         }
         
         function showSlide(index) {
-            // 모든 슬라이드 숨기기
+            // Hide all slides
             const allSlides = document.querySelectorAll('.slide');
             allSlides.forEach(slide => {
                 slide.classList.remove('active');
             });
             
-            // 현재 슬라이드 표시
+            // Show current slide
             const currentSlide = document.getElementById(`slide-${index}`);
             if (currentSlide) {
                 currentSlide.classList.add('active');
             }
             
-            // 제목 업데이트 (파트 정보 포함)
+            // Update title (including part info)
             const slideInfo = slides[index];
             let titleText = slideInfo.title;
             if (slideInfo.part) {
@@ -260,15 +260,15 @@
             }
             document.getElementById('slideTitle').textContent = titleText;
             
-            // 카운터 업데이트
+            // Update counter
             document.getElementById('currentSlide').textContent = index + 1;
             document.getElementById('totalSlides').textContent = slides.length;
             
-            // 진행 바 업데이트
+            // Update progress bar
             const progress = ((index + 1) / slides.length) * 100;
             document.getElementById('progressFill').style.width = progress + '%';
             
-            // 버튼 상태 업데이트
+            // Update button states
             document.getElementById('prevBtn').disabled = (index === 0);
             document.getElementById('nextBtn').disabled = (index === slides.length - 1);
         }
@@ -281,7 +281,7 @@
             }
         }
         
-        // 키보드 네비게이션
+        // Keyboard navigation
         document.addEventListener('keydown', (event) => {
             if (event.key === 'ArrowLeft') {
                 changeSlide(-1);
@@ -297,7 +297,7 @@
             }
         });
         
-        // 초기화
+        // Initialize
         window.addEventListener('load', initializeSlides);
     </script>
 </body>
