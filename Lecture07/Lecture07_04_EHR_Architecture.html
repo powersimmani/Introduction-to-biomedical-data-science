@@ -35,11 +35,18 @@
             text-align: center;
         }
         
+        .architecture-diagram {
+            margin-bottom: 30px;
+            background: #f8fbff;
+            border: 2.5px solid #1E64C8;
+            border-radius: 10px;
+            padding: 25px;
+        }
+        
         .architecture-grid {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 25px;
-            margin-bottom: 30px;
         }
         
         .component-card {
@@ -109,9 +116,46 @@
     <div class="container">
         <div class="title">EHR Architecture</div>
         
+        <!-- Architecture Diagram -->
+        <div class="architecture-diagram">
+            <svg width="100%" height="220" viewBox="0 0 870 220">
+                <!-- User Interface Layer -->
+                <rect x="10" y="10" width="850" height="50" fill="#1E64C8" rx="5"/>
+                <text x="435" y="40" text-anchor="middle" fill="white" font-size="18" font-weight="bold">User Interfaces (Web, Mobile)</text>
+                
+                <!-- API Services Layer -->
+                <rect x="10" y="75" width="850" height="50" fill="#2874d8" rx="5"/>
+                <text x="435" y="105" text-anchor="middle" fill="white" font-size="18" font-weight="bold">API Services (REST, FHIR)</text>
+                
+                <!-- Business Logic Layer -->
+                <rect x="10" y="140" width="850" height="50" fill="#5088d4" rx="5"/>
+                <text x="435" y="170" text-anchor="middle" fill="white" font-size="18" font-weight="bold">Business Logic Layer</text>
+                
+                <!-- Database Layer -->
+                <g>
+                    <rect x="10" y="205" width="410" height="10" fill="#6ba3e0" rx="3"/>
+                    <text x="215" y="217" text-anchor="middle" fill="#333" font-size="14" font-weight="600">Relational DB</text>
+                    
+                    <rect x="450" y="205" width="410" height="10" fill="#6ba3e0" rx="3"/>
+                    <text x="655" y="217" text-anchor="middle" fill="#333" font-size="14" font-weight="600">NoSQL / Document Store</text>
+                </g>
+                
+                <!-- Arrows -->
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                    </marker>
+                </defs>
+                
+                <line x1="435" y1="60" x2="435" y2="75" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <line x1="435" y1="125" x2="435" y2="140" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <line x1="435" y1="190" x2="435" y2="205" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+            </svg>
+        </div>
+        
         <div class="architecture-grid">
             <div class="component-card">
-                <div class="component-title">Database Design</div>
+                <div class="component-title">📊 Database Design</div>
                 <div class="component-content">
                     <div class="bullet">Relational databases (PostgreSQL, MySQL)</div>
                     <div class="bullet">NoSQL for unstructured data</div>
@@ -121,7 +165,7 @@
             </div>
             
             <div class="component-card">
-                <div class="component-title">Application Layers</div>
+                <div class="component-title">⚙️ Application Layers</div>
                 <div class="component-content">
                     <div class="bullet">Presentation layer (UI/UX)</div>
                     <div class="bullet">Business logic layer</div>
@@ -131,7 +175,7 @@
             </div>
             
             <div class="component-card">
-                <div class="component-title">User Interfaces</div>
+                <div class="component-title">💻 User Interfaces</div>
                 <div class="component-content">
                     <div class="bullet">Web-based portals</div>
                     <div class="bullet">Mobile applications</div>
@@ -141,7 +185,7 @@
             </div>
             
             <div class="component-card">
-                <div class="component-title">API Services</div>
+                <div class="component-title">🔌 API Services</div>
                 <div class="component-content">
                     <div class="bullet">RESTful APIs</div>
                     <div class="bullet">FHIR endpoints</div>
@@ -151,8 +195,8 @@
             </div>
         </div>
         
-        <div class="deployment-section">
-            <div class="deployment-title">Cloud Deployment</div>
+        <div class="deployment-section" style="margin-top: 25px;">
+            <div class="deployment-title">☁️ Cloud Deployment</div>
             <div class="deployment-text">
                 Modern EHRs leverage cloud infrastructure (AWS, Azure, GCP) for scalability, disaster recovery, and compliance with healthcare regulations (HIPAA, GDPR)
             </div>

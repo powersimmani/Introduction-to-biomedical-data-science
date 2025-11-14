@@ -35,28 +35,18 @@
             text-align: center;
         }
         
-        .content-grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
-        
-        .content-grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+        .etl-diagram {
+            margin-bottom: 30px;
+            background: #f8fbff;
+            border: 2.5px solid #1E64C8;
+            border-radius: 10px;
+            padding: 25px;
         }
         
         .content-grid-4 {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-        }
-        
-        .content-grid-5 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
         }
         
         .content-card {
@@ -106,9 +96,82 @@
     <div class="container">
         <div class="title">Data Warehousing for EHR</div>
         
+        <!-- ETL Process Diagram -->
+        <div class="etl-diagram">
+            <svg width="100%" height="180" viewBox="0 0 870 180">
+                <!-- Operational Systems -->
+                <g>
+                    <rect x="10" y="20" width="180" height="140" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="100" y="45" text-anchor="middle" fill="#1E64C8" font-size="16" font-weight="bold">Operational</text>
+                    <text x="100" y="65" text-anchor="middle" fill="#1E64C8" font-size="16" font-weight="bold">Systems</text>
+                    
+                    <circle cx="50" cy="100" r="15" fill="#5088d4"/>
+                    <text x="50" y="105" text-anchor="middle" fill="white" font-size="12" font-weight="bold">EHR</text>
+                    
+                    <circle cx="100" cy="100" r="15" fill="#5088d4"/>
+                    <text x="100" y="105" text-anchor="middle" fill="white" font-size="12" font-weight="bold">LAB</text>
+                    
+                    <circle cx="150" cy="100" r="15" fill="#5088d4"/>
+                    <text x="150" y="105" text-anchor="middle" fill="white" font-size="12" font-weight="bold">RIS</text>
+                    
+                    <rect x="30" y="130" width="140" height="20" fill="#6ba3e0" rx="3"/>
+                    <text x="100" y="145" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Source Data</text>
+                </g>
+                
+                <!-- Extract -->
+                <g>
+                    <rect x="220" y="50" width="120" height="80" fill="#1E64C8" rx="5"/>
+                    <text x="280" y="75" text-anchor="middle" fill="white" font-size="16" font-weight="bold">EXTRACT</text>
+                    <text x="280" y="95" text-anchor="middle" fill="white" font-size="13">• Read data</text>
+                    <text x="280" y="112" text-anchor="middle" fill="white" font-size="13">• Filter</text>
+                </g>
+                
+                <!-- Transform -->
+                <g>
+                    <rect x="370" y="50" width="120" height="80" fill="#2874d8" rx="5"/>
+                    <text x="430" y="75" text-anchor="middle" fill="white" font-size="16" font-weight="bold">TRANSFORM</text>
+                    <text x="430" y="95" text-anchor="middle" fill="white" font-size="13">• Clean</text>
+                    <text x="430" y="112" text-anchor="middle" fill="white" font-size="13">• Standardize</text>
+                </g>
+                
+                <!-- Load -->
+                <g>
+                    <rect x="520" y="50" width="120" height="80" fill="#5088d4" rx="5"/>
+                    <text x="580" y="75" text-anchor="middle" fill="white" font-size="16" font-weight="bold">LOAD</text>
+                    <text x="580" y="95" text-anchor="middle" fill="white" font-size="13">• Insert</text>
+                    <text x="580" y="112" text-anchor="middle" fill="white" font-size="13">• Update</text>
+                </g>
+                
+                <!-- Data Warehouse -->
+                <g>
+                    <rect x="670" y="20" width="180" height="140" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="760" y="45" text-anchor="middle" fill="#1E64C8" font-size="16" font-weight="bold">Data</text>
+                    <text x="760" y="65" text-anchor="middle" fill="#1E64C8" font-size="16" font-weight="bold">Warehouse</text>
+                    
+                    <rect x="690" y="80" width="140" height="25" fill="#6ba3e0" rx="3"/>
+                    <text x="760" y="98" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Fact Tables</text>
+                    
+                    <rect x="690" y="115" width="140" height="25" fill="#6ba3e0" rx="3"/>
+                    <text x="760" y="133" text-anchor="middle" fill="white" font-size="12" font-weight="bold">Dimension Tables</text>
+                </g>
+                
+                <!-- Arrows -->
+                <defs>
+                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                    </marker>
+                </defs>
+                
+                <line x1="190" y1="90" x2="220" y2="90" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow)"/>
+                <line x1="340" y1="90" x2="370" y2="90" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow)"/>
+                <line x1="490" y1="90" x2="520" y2="90" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow)"/>
+                <line x1="640" y1="90" x2="670" y2="90" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow)"/>
+            </svg>
+        </div>
+        
         <div class="content-grid-4">
             <div class="content-card">
-                <div class="content-title">ETL Processes</div>
+                <div class="content-title">📥 ETL Processes</div>
                 <div class="content-list">
                     <div class="bullet">Extract from operational systems</div>
                     <div class="bullet">Transform & clean data</div>
@@ -117,7 +180,7 @@
                 </div>
             </div>
             <div class="content-card">
-                <div class="content-title">Data Marts</div>
+                <div class="content-title">📊 Data Marts</div>
                 <div class="content-list">
                     <div class="bullet">Disease-specific repositories</div>
                     <div class="bullet">Quality improvement data</div>
@@ -126,7 +189,7 @@
                 </div>
             </div>
             <div class="content-card">
-                <div class="content-title">Star Schema</div>
+                <div class="content-title">⭐ Star Schema</div>
                 <div class="content-list">
                     <div class="bullet">Fact tables (encounters, labs)</div>
                     <div class="bullet">Dimension tables (patient, time)</div>
@@ -135,7 +198,7 @@
                 </div>
             </div>
             <div class="content-card">
-                <div class="content-title">Real-time vs Batch</div>
+                <div class="content-title">⏱️ Real-time vs Batch</div>
                 <div class="content-list">
                     <div class="bullet">Batch: overnight processing</div>
                     <div class="bullet">Real-time: streaming analytics</div>

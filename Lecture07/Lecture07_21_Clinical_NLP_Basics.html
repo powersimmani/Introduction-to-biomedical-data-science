@@ -35,28 +35,18 @@
             text-align: center;
         }
         
-        .content-grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
-        
-        .content-grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+        .pipeline-diagram {
+            margin-bottom: 30px;
+            background: #f8fbff;
+            border: 2.5px solid #1E64C8;
+            border-radius: 10px;
+            padding: 25px;
         }
         
         .content-grid-4 {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-        }
-        
-        .content-grid-5 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
         }
         
         .content-card {
@@ -106,9 +96,88 @@
     <div class="container">
         <div class="title">Clinical NLP Basics</div>
         
+        <!-- NLP Pipeline Diagram -->
+        <div class="pipeline-diagram">
+            <svg width="100%" height="200" viewBox="0 0 870 200">
+                <!-- Input: Clinical Text -->
+                <g>
+                    <rect x="10" y="60" width="120" height="80" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="70" y="85" text-anchor="middle" fill="#1E64C8" font-size="14" font-weight="bold">Clinical</text>
+                    <text x="70" y="105" text-anchor="middle" fill="#1E64C8" font-size="14" font-weight="bold">Text</text>
+                    <text x="70" y="125" text-anchor="middle" fill="#666" font-size="10" font-style="italic">"Patient has"</text>
+                    <text x="70" y="138" text-anchor="middle" fill="#666" font-size="10" font-style="italic">"diabetes..."</text>
+                </g>
+                
+                <!-- Step 1: Preprocessing -->
+                <g>
+                    <rect x="160" y="70" width="110" height="60" fill="#1E64C8" rx="5"/>
+                    <text x="215" y="93" text-anchor="middle" fill="white" font-size="14" font-weight="bold">Preprocess</text>
+                    <text x="215" y="110" text-anchor="middle" fill="white" font-size="11">Segment</text>
+                    <text x="215" y="123" text-anchor="middle" fill="white" font-size="11">Clean</text>
+                </g>
+                
+                <!-- Step 2: Tokenization -->
+                <g>
+                    <rect x="300" y="70" width="110" height="60" fill="#2874d8" rx="5"/>
+                    <text x="355" y="93" text-anchor="middle" fill="white" font-size="14" font-weight="bold">Tokenize</text>
+                    <text x="355" y="110" text-anchor="middle" fill="white" font-size="11">Split words</text>
+                    <text x="355" y="123" text-anchor="middle" fill="white" font-size="11">Handle abbr.</text>
+                </g>
+                
+                <!-- Step 3: NER -->
+                <g>
+                    <rect x="440" y="70" width="110" height="60" fill="#5088d4" rx="5"/>
+                    <text x="495" y="90" text-anchor="middle" fill="white" font-size="14" font-weight="bold">NER</text>
+                    <text x="495" y="107" text-anchor="middle" fill="white" font-size="11">Extract</text>
+                    <text x="495" y="123" text-anchor="middle" fill="white" font-size="11">entities</text>
+                </g>
+                
+                <!-- Step 4: Negation/Context -->
+                <g>
+                    <rect x="580" y="70" width="110" height="60" fill="#6ba3e0" rx="5"/>
+                    <text x="635" y="90" text-anchor="middle" fill="white" font-size="13" font-weight="bold">Context</text>
+                    <text x="635" y="107" text-anchor="middle" fill="white" font-size="11">Negation</text>
+                    <text x="635" y="123" text-anchor="middle" fill="white" font-size="11">Temporal</text>
+                </g>
+                
+                <!-- Output: Structured Data -->
+                <g>
+                    <rect x="720" y="60" width="130" height="80" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="785" y="85" text-anchor="middle" fill="#1E64C8" font-size="14" font-weight="bold">Structured</text>
+                    <text x="785" y="105" text-anchor="middle" fill="#1E64C8" font-size="14" font-weight="bold">Output</text>
+                    
+                    <rect x="735" y="115" width="100" height="18" fill="#6ba3e0" rx="3"/>
+                    <text x="785" y="128" text-anchor="middle" fill="white" font-size="10" font-weight="600">Diabetes: Present</text>
+                </g>
+                
+                <!-- Pipeline Arrows -->
+                <defs>
+                    <marker id="arrow4" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                    </marker>
+                </defs>
+                
+                <line x1="130" y1="100" x2="160" y2="100" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow4)"/>
+                <line x1="270" y1="100" x2="300" y2="100" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow4)"/>
+                <line x1="410" y1="100" x2="440" y2="100" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow4)"/>
+                <line x1="550" y1="100" x2="580" y2="100" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow4)"/>
+                <line x1="690" y1="100" x2="720" y2="100" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow4)"/>
+                
+                <!-- Labels below -->
+                <text x="215" y="155" text-anchor="middle" fill="#1E64C8" font-size="11" font-weight="600">Step 1</text>
+                <text x="355" y="155" text-anchor="middle" fill="#1E64C8" font-size="11" font-weight="600">Step 2</text>
+                <text x="495" y="155" text-anchor="middle" fill="#1E64C8" font-size="11" font-weight="600">Step 3</text>
+                <text x="635" y="155" text-anchor="middle" fill="#1E64C8" font-size="11" font-weight="600">Step 4</text>
+                
+                <!-- Bottom process line -->
+                <line x1="160" y1="170" x2="690" y2="170" stroke="#1E64C8" stroke-width="2"/>
+                <text x="425" y="190" text-anchor="middle" fill="#1E64C8" font-size="13" font-weight="bold">Clinical NLP Pipeline</text>
+            </svg>
+        </div>
+        
         <div class="content-grid-4">
             <div class="content-card">
-                <div class="content-title">Text Preprocessing</div>
+                <div class="content-title">📝 Text Preprocessing</div>
                 <div class="content-list">
                     <div class="bullet">Sentence segmentation</div>
                     <div class="bullet">Lowercasing, punctuation removal</div>
@@ -117,7 +186,7 @@
                 </div>
             </div>
             <div class="content-card">
-                <div class="content-title">Tokenization</div>
+                <div class="content-title">✂️ Tokenization</div>
                 <div class="content-list">
                     <div class="bullet">Word-level tokens</div>
                     <div class="bullet">Subword tokenization (BPE)</div>
@@ -126,7 +195,7 @@
                 </div>
             </div>
             <div class="content-card">
-                <div class="content-title">Named Entity Recognition</div>
+                <div class="content-title">🏷️ Named Entity Recognition</div>
                 <div class="content-list">
                     <div class="bullet">Diseases, symptoms</div>
                     <div class="bullet">Medications, dosages</div>
@@ -135,7 +204,7 @@
                 </div>
             </div>
             <div class="content-card">
-                <div class="content-title">Negation & Section Detection</div>
+                <div class="content-title">🔍 Negation & Section Detection</div>
                 <div class="content-list">
                     <div class="bullet">NegEx, ConText algorithms</div>
                     <div class="bullet">Identifying negated findings</div>

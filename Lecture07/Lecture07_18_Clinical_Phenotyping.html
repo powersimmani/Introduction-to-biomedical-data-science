@@ -35,28 +35,18 @@
             text-align: center;
         }
         
-        .content-grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
-        
-        .content-grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+        .workflow-diagram {
+            margin-bottom: 30px;
+            background: #f8fbff;
+            border: 2.5px solid #1E64C8;
+            border-radius: 10px;
+            padding: 25px;
         }
         
         .content-grid-4 {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-        }
-        
-        .content-grid-5 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
         }
         
         .content-card {
@@ -106,9 +96,84 @@
     <div class="container">
         <div class="title">Clinical Phenotyping</div>
         
+        <!-- Phenotyping Workflow Diagram -->
+        <div class="workflow-diagram">
+            <svg width="100%" height="200" viewBox="0 0 870 200">
+                <!-- Step 1: EHR Data -->
+                <g>
+                    <rect x="20" y="40" width="130" height="120" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="85" y="60" text-anchor="middle" fill="#1E64C8" font-size="14" font-weight="bold">EHR Data</text>
+                    
+                    <rect x="30" y="75" width="110" height="20" fill="#6ba3e0" rx="3"/>
+                    <text x="85" y="90" text-anchor="middle" fill="white" font-size="11" font-weight="600">ICD Codes</text>
+                    
+                    <rect x="30" y="100" width="110" height="20" fill="#6ba3e0" rx="3"/>
+                    <text x="85" y="115" text-anchor="middle" fill="white" font-size="11" font-weight="600">Labs</text>
+                    
+                    <rect x="30" y="125" width="110" height="20" fill="#6ba3e0" rx="3"/>
+                    <text x="85" y="140" text-anchor="middle" fill="white" font-size="11" font-weight="600">Medications</text>
+                </g>
+                
+                <!-- Step 2: Algorithm -->
+                <g>
+                    <rect x="185" y="60" width="140" height="80" fill="#1E64C8" rx="5"/>
+                    <text x="255" y="85" text-anchor="middle" fill="white" font-size="14" font-weight="bold">Phenotype</text>
+                    <text x="255" y="103" text-anchor="middle" fill="white" font-size="14" font-weight="bold">Algorithm</text>
+                    <text x="255" y="125" text-anchor="middle" fill="white" font-size="12">Rule-based or ML</text>
+                </g>
+                
+                <!-- Step 3: Validation -->
+                <g>
+                    <rect x="360" y="60" width="140" height="80" fill="#2874d8" rx="5"/>
+                    <text x="430" y="85" text-anchor="middle" fill="white" font-size="14" font-weight="bold">Validation</text>
+                    <text x="430" y="108" text-anchor="middle" fill="white" font-size="12">Chart review</text>
+                    <text x="430" y="125" text-anchor="middle" fill="white" font-size="12">PPV, Sensitivity</text>
+                </g>
+                
+                <!-- Step 4: Cohort -->
+                <g>
+                    <circle cx="580" cy="100" r="55" fill="#5088d4" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="580" y="95" text-anchor="middle" fill="white" font-size="14" font-weight="bold">Identified</text>
+                    <text x="580" y="112" text-anchor="middle" fill="white" font-size="14" font-weight="bold">Cohort</text>
+                </g>
+                
+                <!-- Step 5: Applications -->
+                <g>
+                    <rect x="670" y="40" width="180" height="120" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="760" y="60" text-anchor="middle" fill="#1E64C8" font-size="14" font-weight="bold">Applications</text>
+                    
+                    <rect x="680" y="70" width="160" height="22" fill="#6ba3e0" rx="3"/>
+                    <text x="760" y="86" text-anchor="middle" fill="white" font-size="11" font-weight="600">Clinical Trials</text>
+                    
+                    <rect x="680" y="97" width="160" height="22" fill="#6ba3e0" rx="3"/>
+                    <text x="760" y="113" text-anchor="middle" fill="white" font-size="11" font-weight="600">Quality Improvement</text>
+                    
+                    <rect x="680" y="124" width="160" height="22" fill="#6ba3e0" rx="3"/>
+                    <text x="760" y="140" text-anchor="middle" fill="white" font-size="11" font-weight="600">Research Studies</text>
+                </g>
+                
+                <!-- Arrows -->
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                    </marker>
+                </defs>
+                
+                <line x1="150" y1="100" x2="185" y2="100" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                <line x1="325" y1="100" x2="360" y2="100" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                <line x1="500" y1="100" x2="525" y2="100" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                <line x1="635" y1="100" x2="670" y2="100" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                
+                <!-- Feedback arrow -->
+                <path d="M 430 145 Q 430 180, 255 180 Q 80 180, 80 160" 
+                      stroke="#5088d4" stroke-width="2" fill="none" stroke-dasharray="5,5" marker-end="url(#arrowhead)"/>
+                <text x="255" y="195" text-anchor="middle" fill="#5088d4" font-size="11" font-weight="600">Iterative Refinement</text>
+            </svg>
+        </div>
+        
         <div class="content-grid-4">
             <div class="content-card">
-                <div class="content-title">Computable Phenotypes</div>
+                <div class="content-title">📋 Computable Phenotypes</div>
                 <div class="content-list">
                     <div class="bullet">Standardized disease definitions</div>
                     <div class="bullet">ICD codes + labs + meds</div>
@@ -117,7 +182,7 @@
                 </div>
             </div>
             <div class="content-card">
-                <div class="content-title">Rule-Based Methods</div>
+                <div class="content-title">📐 Rule-Based Methods</div>
                 <div class="content-list">
                     <div class="bullet">Boolean logic (AND, OR, NOT)</div>
                     <div class="bullet">Diagnosis code combinations</div>
@@ -126,7 +191,7 @@
                 </div>
             </div>
             <div class="content-card">
-                <div class="content-title">Machine Learning Approaches</div>
+                <div class="content-title">🤖 Machine Learning Approaches</div>
                 <div class="content-list">
                     <div class="bullet">Supervised classification</div>
                     <div class="bullet">Feature engineering from EHR</div>
@@ -135,7 +200,7 @@
                 </div>
             </div>
             <div class="content-card">
-                <div class="content-title">Validation Strategies</div>
+                <div class="content-title">✓ Validation Strategies</div>
                 <div class="content-list">
                     <div class="bullet">Chart review (gold standard)</div>
                     <div class="bullet">PPV, NPV, sensitivity, specificity</div>
