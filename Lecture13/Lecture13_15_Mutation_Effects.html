@@ -31,50 +31,200 @@
             font-size: 32px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
         }
         
-        .content-list {
+        .content-wrapper {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            gap: 25px;
+            height: 385px;
         }
         
-        .content-item {
+        .mutation-diagram {
+            flex: 1.5;
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 18px 24px;
+            justify-content: center;
+        }
+        
+        .effects-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        
+        .effect-card {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 6px;
+            padding: 13px 18px;
             transition: all 0.3s ease;
-            font-size: 19px;
-            color: #333;
         }
         
-        .content-item:hover {
+        .effect-card:hover {
             background: #e8f2ff;
             transform: translateX(8px);
         }
         
-        .bullet {
-            width: 10px;
-            height: 10px;
-            background: #1E64C8;
-            border-radius: 50%;
-            flex-shrink: 0;
+        .effect-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 3px;
+        }
+        
+        .effect-desc {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .mutation-flash {
+            animation: mutationFlash 2s ease-in-out infinite;
+        }
+        
+        @keyframes mutationFlash {
+            0%, 100% { fill: #ffcccc; stroke: #cc0000; }
+            50% { fill: #ff6666; stroke: #ff0000; }
+        }
+        
+        .impact-wave {
+            animation: impactWave 3s ease-out infinite;
+        }
+        
+        @keyframes impactWave {
+            0% { r: 10; opacity: 1; }
+            100% { r: 40; opacity: 0; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Mutation Effects</div>
-        <div class="content-list">
-            <div class="content-item"><div class="bullet"></div><div>Pathogenicity prediction</div></div><div class="content-item"><div class="bullet"></div><div>Stability changes</div></div><div class="content-item"><div class="bullet"></div><div>Function impact</div></div><div class="content-item"><div class="bullet"></div><div>Evolutionary constraints</div></div><div class="content-item"><div class="bullet"></div><div>Clinical interpretation</div></div>
+        <div class="content-wrapper">
+            <div class="mutation-diagram">
+                <svg width="560" height="385" viewBox="0 0 560 385">
+                    <text x="280" y="20" font-size="15" fill="#333" text-anchor="middle" font-weight="600">Mutation Impact Analysis</text>
+                    
+                    <!-- Wild Type Sequence -->
+                    <g transform="translate(60, 50)">
+                        <text x="0" y="0" font-size="12" fill="#666" font-weight="600">Wild Type:</text>
+                        <rect x="0" y="10" width="440" height="35" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        
+                        <g transform="translate(10, 18)" font-family="monospace" font-size="14">
+                            <text x="0" y="15" fill="#333">M K L V F F A </text>
+                            <text x="120" y="15" fill="#1E64C8" font-weight="700">R</text>
+                            <text x="135" y="15" fill="#333"> G I L S D N Q K Y</text>
+                        </g>
+                        
+                        <text x="350" y="32" font-size="10" fill="#666">Position 234</text>
+                    </g>
+                    
+                    <!-- Mutation Arrow -->
+                    <defs>
+                        <marker id="mutArrow" markerWidth="10" markerHeight="10" refX="5" refY="9" orient="auto">
+                            <polygon points="0 0, 10 0, 5 10" fill="#cc0000"/>
+                        </marker>
+                    </defs>
+                    <path d="M 280,100 L 280,120" stroke="#cc0000" stroke-width="2.5" marker-end="url(#mutArrow)"/>
+                    <text x="300" y="115" font-size="11" fill="#cc0000" font-weight="600">R234W</text>
+                    
+                    <!-- Mutant Sequence -->
+                    <g transform="translate(60, 130)">
+                        <text x="0" y="0" font-size="12" fill="#666" font-weight="600">Mutant:</text>
+                        <rect x="0" y="10" width="440" height="35" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                        
+                        <g transform="translate(10, 18)" font-family="monospace" font-size="14">
+                            <text x="0" y="15" fill="#333">M K L V F F A </text>
+                            <rect x="115" y="2" width="20" height="18" rx="2" class="mutation-flash"/>
+                            <text x="120" y="15" fill="#cc0000" font-weight="700">W</text>
+                            <text x="135" y="15" fill="#333"> G I L S D N Q K Y</text>
+                        </g>
+                        
+                        <!-- Impact wave effect -->
+                        <circle cx="130" cy="27" r="10" fill="none" stroke="#cc0000" stroke-width="2" opacity="1" class="impact-wave"/>
+                    </g>
+                    
+                    <!-- Effects Analysis Panel -->
+                    <g transform="translate(60, 195)">
+                        <rect x="0" y="0" width="440" height="160" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="220" y="20" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="700">Predicted Effects</text>
+                        
+                        <!-- Structure Impact -->
+                        <g transform="translate(20, 35)">
+                            <rect x="0" y="0" width="190" height="50" rx="5" fill="#ffcccc" stroke="#cc0000" stroke-width="1.5"/>
+                            <text x="95" y="18" font-size="11" fill="#cc0000" text-anchor="middle" font-weight="600">Structural Impact</text>
+                            
+                            <g transform="translate(10, 25)">
+                                <circle cx="5" cy="5" r="3" fill="#cc0000"/>
+                                <text x="12" y="8" font-size="9" fill="#333">ΔΔG: +3.2 kcal/mol</text>
+                                
+                                <circle cx="95" cy="5" r="3" fill="#cc0000"/>
+                                <text x="102" y="8" font-size="9" fill="#333">Destabilizing</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Function Impact -->
+                        <g transform="translate(230, 35)">
+                            <rect x="0" y="0" width="190" height="50" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="1.5"/>
+                            <text x="95" y="18" font-size="11" fill="#e0a800" text-anchor="middle" font-weight="600">Functional Impact</text>
+                            
+                            <g transform="translate(10, 25)">
+                                <circle cx="5" cy="5" r="3" fill="#e0a800"/>
+                                <text x="12" y="8" font-size="9" fill="#333">Activity: 12% WT</text>
+                                
+                                <circle cx="95" cy="5" r="3" fill="#e0a800"/>
+                                <text x="102" y="8" font-size="9" fill="#333">Loss of function</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Clinical Significance -->
+                        <g transform="translate(20, 95)">
+                            <rect x="0" y="0" width="400" height="45" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                            <text x="200" y="18" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">Clinical Interpretation</text>
+                            
+                            <g transform="translate(15, 25)">
+                                <!-- Pathogenicity score bar -->
+                                <text x="0" y="0" font-size="10" fill="#333">Pathogenicity:</text>
+                                <rect x="75" y="-7" width="150" height="10" rx="2" fill="#e0e0e0"/>
+                                <rect x="75" y="-7" width="135" height="10" rx="2" fill="#cc0000" opacity="0.7"/>
+                                <text x="235" y="0" font-size="10" fill="#cc0000" font-weight="600">90% (Likely Pathogenic)</text>
+                            </g>
+                        </g>
+                    </g>
+                    
+                    <!-- Evolutionary Conservation -->
+                    <g transform="translate(210, 365)">
+                        <text x="0" y="0" font-size="10" fill="#666" text-anchor="middle">Conservation Score: 0.98 (Highly Conserved)</text>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="effects-panel">
+                <div class="effect-card">
+                    <div class="effect-name">Pathogenicity prediction</div>
+                    <div class="effect-desc">Disease association scoring</div>
+                </div>
+                <div class="effect-card">
+                    <div class="effect-name">Stability changes</div>
+                    <div class="effect-desc">ΔΔG calculation</div>
+                </div>
+                <div class="effect-card">
+                    <div class="effect-name">Function impact</div>
+                    <div class="effect-desc">Activity & binding changes</div>
+                </div>
+                <div class="effect-card">
+                    <div class="effect-name">Evolutionary constraints</div>
+                    <div class="effect-desc">Conservation analysis</div>
+                </div>
+                <div class="effect-card">
+                    <div class="effect-name">Clinical interpretation</div>
+                    <div class="effect-desc">Variant classification</div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

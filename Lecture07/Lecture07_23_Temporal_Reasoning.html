@@ -35,28 +35,18 @@
             text-align: center;
         }
         
-        .content-grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
-        
-        .content-grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+        .temporal-diagram {
+            margin-bottom: 30px;
+            background: #f8fbff;
+            border: 2.5px solid #1E64C8;
+            border-radius: 10px;
+            padding: 25px;
         }
         
         .content-grid-4 {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-        }
-        
-        .content-grid-5 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
         }
         
         .content-card {
@@ -106,41 +96,160 @@
     <div class="container">
         <div class="title">Temporal Reasoning</div>
         
+        <!-- Patient Timeline Visualization -->
+        <div class="temporal-diagram">
+            <svg width="100%" height="260" viewBox="0 0 870 260">
+                <!-- Title -->
+                <text x="435" y="20" text-anchor="middle" fill="#1E64C8" font-size="16" font-weight="bold">Clinical Timeline & Temporal Relationships</text>
+                
+                <!-- Main Timeline -->
+                <line x1="50" y1="100" x2="820" y2="100" stroke="#1E64C8" stroke-width="3"/>
+                
+                <!-- Arrow marker definition -->
+                <defs>
+                    <marker id="arrow5" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                        <polygon points="0 0, 8 3, 0 6" fill="#1E64C8" />
+                    </marker>
+                </defs>
+                
+                <!-- Time markers -->
+                <g>
+                    <!-- Start -->
+                    <line x1="50" y1="95" x2="50" y2="105" stroke="#1E64C8" stroke-width="3"/>
+                    <text x="50" y="120" text-anchor="middle" fill="#666" font-size="10">Jan 1</text>
+                    
+                    <!-- Month markers -->
+                    <line x1="200" y1="95" x2="200" y2="105" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="200" y="120" text-anchor="middle" fill="#666" font-size="10">Mar 1</text>
+                    
+                    <line x1="350" y1="95" x2="350" y2="105" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="350" y="120" text-anchor="middle" fill="#666" font-size="10">May 1</text>
+                    
+                    <line x1="500" y1="95" x2="500" y2="105" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="500" y="120" text-anchor="middle" fill="#666" font-size="10">Jul 1</text>
+                    
+                    <line x1="650" y1="95" x2="650" y2="105" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="650" y="120" text-anchor="middle" fill="#666" font-size="10">Sep 1</text>
+                    
+                    <line x1="820" y1="95" x2="820" y2="105" stroke="#1E64C8" stroke-width="3"/>
+                    <text x="820" y="120" text-anchor="middle" fill="#666" font-size="10">Dec 31</text>
+                </g>
+                
+                <!-- Clinical Events -->
+                <g>
+                    <!-- Diagnosis Event -->
+                    <circle cx="100" cy="100" r="8" fill="#ff6b6b"/>
+                    <rect x="60" y="50" width="80" height="35" fill="#ff6b6b" rx="5"/>
+                    <text x="100" y="65" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Diagnosis</text>
+                    <text x="100" y="78" text-anchor="middle" fill="white" font-size="9">Diabetes</text>
+                    <line x1="100" y1="85" x2="100" y2="92" stroke="#ff6b6b" stroke-width="2"/>
+                    
+                    <!-- Medication Start -->
+                    <circle cx="150" cy="100" r="8" fill="#4caf50"/>
+                    <rect x="110" y="135" width="80" height="35" fill="#4caf50" rx="5"/>
+                    <text x="150" y="150" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Med Start</text>
+                    <text x="150" y="163" text-anchor="middle" fill="white" font-size="9">Metformin</text>
+                    <line x1="150" y1="108" x2="150" y2="135" stroke="#4caf50" stroke-width="2"/>
+                    
+                    <!-- Lab Test -->
+                    <circle cx="280" cy="100" r="8" fill="#2196f3"/>
+                    <rect x="240" y="50" width="80" height="35" fill="#2196f3" rx="5"/>
+                    <text x="280" y="65" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Lab Test</text>
+                    <text x="280" y="78" text-anchor="middle" fill="white" font-size="9">HbA1c: 7.8</text>
+                    <line x1="280" y1="85" x2="280" y2="92" stroke="#2196f3" stroke-width="2"/>
+                    
+                    <!-- Symptom Period -->
+                    <rect x="380" y="95" width="100" height="10" fill="#ff9800" opacity="0.7" rx="2"/>
+                    <rect x="360" y="135" width="140" height="35" fill="#ff9800" rx="5"/>
+                    <text x="430" y="150" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Symptoms</text>
+                    <text x="430" y="163" text-anchor="middle" fill="white" font-size="9">Nausea (2 weeks)</text>
+                    <line x1="430" y1="108" x2="430" y2="135" stroke="#ff9800" stroke-width="2"/>
+                    
+                    <!-- Follow-up Visit -->
+                    <circle cx="550" cy="100" r="8" fill="#9c27b0"/>
+                    <rect x="510" y="50" width="80" height="35" fill="#9c27b0" rx="5"/>
+                    <text x="550" y="65" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Follow-up</text>
+                    <text x="550" y="78" text-anchor="middle" fill="white" font-size="9">Dose adj.</text>
+                    <line x1="550" y1="85" x2="550" y2="92" stroke="#9c27b0" stroke-width="2"/>
+                    
+                    <!-- Outcome -->
+                    <circle cx="700" cy="100" r="8" fill="#66bb6a"/>
+                    <rect x="660" y="135" width="80" height="35" fill="#66bb6a" rx="5"/>
+                    <text x="700" y="150" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Outcome</text>
+                    <text x="700" y="163" text-anchor="middle" fill="white" font-size="9">Controlled</text>
+                    <line x1="700" y1="108" x2="700" y2="135" stroke="#66bb6a" stroke-width="2"/>
+                </g>
+                
+                <!-- Temporal Relationships -->
+                <g>
+                    <!-- BEFORE relationship -->
+                    <path d="M 100 40 Q 125 20, 150 40" stroke="#1E64C8" stroke-width="1.5" fill="none" marker-end="url(#arrow5)"/>
+                    <text x="125" y="25" text-anchor="middle" fill="#1E64C8" font-size="9" font-weight="600">BEFORE</text>
+                    
+                    <!-- DURING relationship -->
+                    <rect x="380" y="180" width="100" height="20" fill="#ff9800" opacity="0.2" rx="3"/>
+                    <text x="430" y="195" text-anchor="middle" fill="#ff9800" font-size="9" font-weight="600">DURING</text>
+                    
+                    <!-- AFTER relationship -->
+                    <path d="M 550 40 Q 625 20, 700 40" stroke="#1E64C8" stroke-width="1.5" fill="none" stroke-dasharray="3,3" marker-end="url(#arrow5)"/>
+                    <text x="625" y="25" text-anchor="middle" fill="#1E64C8" font-size="9" font-weight="600">AFTER</text>
+                </g>
+                
+                <!-- Temporal Expression Examples -->
+                <g>
+                    <rect x="50" y="210" width="770" height="40" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="5"/>
+                    <text x="60" y="225" fill="#1E64C8" font-size="11" font-weight="600">Temporal Expressions:</text>
+                    <text x="180" y="225" fill="#666" font-size="10">"3 days ago" → Relative</text>
+                    <text x="310" y="225" fill="#666" font-size="10">"Jan 15, 2024" → Absolute</text>
+                    <text x="450" y="225" fill="#666" font-size="10">"for 2 weeks" → Duration</text>
+                    <text x="580" y="225" fill="#666" font-size="10">"twice daily" → Frequency</text>
+                    <text x="700" y="225" fill="#666" font-size="10">"since diagnosis" → Anchored</text>
+                    
+                    <text x="60" y="242" fill="#1E64C8" font-size="11" font-weight="600">Allen's Relations:</text>
+                    <text x="180" y="242" fill="#666" font-size="10">BEFORE, AFTER, MEETS, OVERLAPS, DURING, STARTS, FINISHES, EQUALS</text>
+                </g>
+            </svg>
+        </div>
+        
         <div class="content-grid-4">
             <div class="content-card">
-                <div class="content-title">Time Expression Extraction</div>
+                <div class="content-title">📅 Time Expressions</div>
                 <div class="content-list">
                     <div class="bullet">Absolute dates (Jan 1, 2024)</div>
                     <div class="bullet">Relative dates (3 days ago)</div>
                     <div class="bullet">Durations (for 2 weeks)</div>
                     <div class="bullet">Frequencies (twice daily)</div>
+                    <div class="bullet">Anchored times (since surgery)</div>
                 </div>
             </div>
             <div class="content-card">
-                <div class="content-title">Event Ordering</div>
+                <div class="content-title">🔗 Event Ordering</div>
                 <div class="content-list">
-                    <div class="bullet">BEFORE, AFTER, OVERLAP</div>
-                    <div class="bullet">Medication start/stop</div>
-                    <div class="bullet">Surgery dates</div>
-                    <div class="bullet">Symptom onset timing</div>
+                    <div class="bullet">BEFORE / AFTER relations</div>
+                    <div class="bullet">OVERLAPS / DURING</div>
+                    <div class="bullet">STARTS / FINISHES</div>
+                    <div class="bullet">Medication timelines</div>
+                    <div class="bullet">Symptom progression</div>
                 </div>
             </div>
             <div class="content-card">
-                <div class="content-title">Timeline Construction</div>
+                <div class="content-title">📊 Timeline Construction</div>
                 <div class="content-list">
                     <div class="bullet">Patient journey visualization</div>
-                    <div class="bullet">Merging multi-source data</div>
-                    <div class="bullet">Handling conflicts</div>
-                    <div class="bullet">Uncertainty representation</div>
+                    <div class="bullet">Multi-source data fusion</div>
+                    <div class="bullet">Conflict resolution rules</div>
+                    <div class="bullet">Uncertainty handling</div>
+                    <div class="bullet">Missing data imputation</div>
                 </div>
             </div>
             <div class="content-card">
-                <div class="content-title">Clinical Applications</div>
+                <div class="content-title">🎯 Clinical Applications</div>
                 <div class="content-list">
                     <div class="bullet">Disease progression tracking</div>
-                    <div class="bullet">Treatment efficacy evaluation</div>
+                    <div class="bullet">Treatment response timing</div>
                     <div class="bullet">Adverse event detection</div>
-                    <div class="bullet">Longitudinal phenotyping</div>
+                    <div class="bullet">Readmission prediction</div>
+                    <div class="bullet">Longitudinal outcomes</div>
                 </div>
             </div>
         </div>

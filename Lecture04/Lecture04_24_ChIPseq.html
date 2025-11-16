@@ -38,27 +38,6 @@
             padding-bottom: 8px;
             border-bottom: 2px solid #e0e8f4;
         }
-        .bullet-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .bullet-item {
-            display: flex;
-            align-items: flex-start;
-            font-size: 17px;
-            color: #333;
-        }
-        .bullet-item::before {
-            content: "•";
-            color: #1E64C8;
-            font-weight: bold;
-            margin-right: 12px;
-            font-size: 20px;
-        }
-        .section {
-            margin-bottom: 25px;
-        }
         .workflow-visual {
             display: flex;
             justify-content: center;
@@ -108,84 +87,265 @@
         <div class="title">ChIP-seq (Chromatin Immunoprecipitation Sequencing)</div>
         
         <div class="content-box">
-            <div class="section-title">Overview</div>
-            <div class="bullet-list">
-                <div class="bullet-item">Identify protein-DNA binding sites genome-wide</div>
-                <div class="bullet-item">Study transcription factor binding</div>
-                <div class="bullet-item">Map histone modifications (epigenetics)</div>
-                <div class="bullet-item">Understand gene regulation mechanisms</div>
-            </div>
-        </div>
-        
-        <div class="section">
-            <div class="section-title">ChIP-seq Workflow</div>
+            <div class="section-title">ChIP-seq Mechanism and Workflow</div>
             <div class="workflow-visual">
-                <svg width="880" height="160" xmlns="http://www.w3.org/2000/svg">
+                <svg width="900" height="520" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Background -->
+                    <rect x="5" y="5" width="890" height="510" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="10"/>
+                    
+                    <!-- Title -->
+                    <text x="450" y="30" font-size="18" fill="#1E64C8" font-weight="bold" text-anchor="middle">ChIP-seq: Mapping Protein-DNA Interactions</text>
+                    
                     <!-- Step 1: Crosslink -->
-                    <rect x="5" y="10" width="155" height="140" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
-                    <text x="82" y="30" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">Crosslink</text>
-                    <!-- DNA with protein -->
-                    <rect x="40" y="60" width="85" height="6" fill="#1E64C8" rx="2"/>
-                    <ellipse cx="82" cy="55" rx="25" ry="15" fill="#FF6B6B" opacity="0.7"/>
-                    <text x="82" y="58" font-size="10" fill="white" font-weight="bold" text-anchor="middle">TF</text>
-                    <path d="M 75 70 L 75 75 L 89 75 L 89 70" stroke="#666" stroke-width="1.5" fill="none"/>
-                    <text x="82" y="95" font-size="11" fill="#666" text-anchor="middle">Protein-DNA</text>
-                    <text x="82" y="135" font-size="10" fill="#666" text-anchor="middle">Formaldehyde</text>
+                    <g transform="translate(30, 50)">
+                        <rect x="0" y="0" width="180" height="200" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                        <text x="90" y="20" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">1. Crosslink</text>
+                        
+                        <!-- Cell with chromatin -->
+                        <circle cx="90" cy="80" r="45" fill="white" stroke="#1E64C8" stroke-width="2"/>
+                        
+                        <!-- Nucleus -->
+                        <circle cx="90" cy="80" r="25" fill="#f0f5fc" stroke="#666" stroke-width="1" stroke-dasharray="2,2"/>
+                        
+                        <!-- DNA-protein complex -->
+                        <g transform="translate(70, 65)">
+                            <!-- DNA helix -->
+                            <path d="M 0 0 Q 10 5 20 0 T 40 0" stroke="#1E64C8" stroke-width="3" fill="none"/>
+                            <path d="M 0 10 Q 10 5 20 10 T 40 10" stroke="#1E64C8" stroke-width="3" fill="none"/>
+                            <!-- Connecting lines -->
+                            <line x1="5" y1="0" x2="5" y2="10" stroke="#1E64C8" stroke-width="1"/>
+                            <line x1="15" y1="0" x2="15" y2="10" stroke="#1E64C8" stroke-width="1"/>
+                            <line x1="25" y1="0" x2="25" y2="10" stroke="#1E64C8" stroke-width="1"/>
+                            <line x1="35" y1="0" x2="35" y2="10" stroke="#1E64C8" stroke-width="1"/>
+                            
+                            <!-- Protein (transcription factor) -->
+                            <ellipse cx="20" cy="5" rx="15" ry="12" fill="#FF6B6B" opacity="0.7"/>
+                            <text x="20" y="9" font-size="8" fill="white" font-weight="bold" text-anchor="middle">TF</text>
+                        </g>
+                        
+                        <!-- Formaldehyde -->
+                        <text x="90" y="145" font-size="11" fill="#666" text-anchor="middle">Formaldehyde</text>
+                        <path d="M 60 150 L 70 160 M 65 155 L 75 145" stroke="#FFA726" stroke-width="2"/>
+                        <path d="M 100 150 L 110 160 M 105 155 L 115 145" stroke="#FFA726" stroke-width="2"/>
+                        
+                        <!-- Crosslink bonds -->
+                        <circle cx="75" cy="75" r="2" fill="#FFA726"/>
+                        <circle cx="105" cy="85" r="2" fill="#FFA726"/>
+                        
+                        <text x="90" y="185" font-size="10" fill="#666" text-anchor="middle">Fix protein-DNA</text>
+                        <text x="90" y="198" font-size="10" fill="#666" text-anchor="middle">interactions</text>
+                    </g>
                     
                     <!-- Arrow 1 -->
-                    <path d="M 165 80 L 185 80" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-chip)"/>
+                    <path d="M 220 150 L 250 150" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow-chip)"/>
                     
                     <!-- Step 2: Fragment -->
-                    <rect x="190" y="10" width="130" height="140" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
-                    <text x="255" y="30" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">Fragment</text>
-                    <!-- Fragmented DNA -->
-                    <rect x="210" y="55" width="30" height="5" fill="#1E64C8" rx="1"/>
-                    <circle cx="225" cy="50" r="8" fill="#FF6B6B" opacity="0.7"/>
-                    <rect x="215" y="75" width="25" height="5" fill="#1E64C8" rx="1"/>
-                    <circle cx="227" cy="70" r="8" fill="#FF6B6B" opacity="0.7"/>
-                    <rect x="255" y="60" width="35" height="5" fill="#1E64C8" rx="1"/>
-                    <circle cx="272" cy="55" r="8" fill="#FF6B6B" opacity="0.7"/>
-                    <text x="255" y="135" font-size="10" fill="#666" text-anchor="middle">Sonication</text>
+                    <g transform="translate(260, 50)">
+                        <rect x="0" y="0" width="180" height="200" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                        <text x="90" y="20" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">2. Fragment</text>
+                        
+                        <!-- Sonication visualization -->
+                        <g transform="translate(20, 40)">
+                            <!-- Sound waves -->
+                            <path d="M 10 30 Q 15 25 20 30 T 30 30" stroke="#4CAF50" stroke-width="2" fill="none" opacity="0.6"/>
+                            <path d="M 10 40 Q 15 35 20 40 T 30 40" stroke="#4CAF50" stroke-width="2" fill="none" opacity="0.6"/>
+                            <path d="M 10 50 Q 15 45 20 50 T 30 50" stroke="#4CAF50" stroke-width="2" fill="none" opacity="0.6"/>
+                            
+                            <!-- Chromatin fragments -->
+                            <g transform="translate(50, 20)">
+                                <!-- Fragment 1 -->
+                                <rect x="0" y="0" width="40" height="6" fill="#1E64C8" rx="2"/>
+                                <circle cx="20" cy="3" r="8" fill="#FF6B6B" opacity="0.7"/>
+                                
+                                <!-- Fragment 2 -->
+                                <rect x="50" y="15" width="35" height="6" fill="#1E64C8" rx="2"/>
+                                <circle cx="65" cy="18" r="8" fill="#FF6B6B" opacity="0.7"/>
+                                
+                                <!-- Fragment 3 -->
+                                <rect x="10" y="30" width="45" height="6" fill="#1E64C8" rx="2"/>
+                                
+                                <!-- Fragment 4 -->
+                                <rect x="60" y="35" width="30" height="6" fill="#1E64C8" rx="2"/>
+                                <circle cx="75" cy="38" r="8" fill="#FF6B6B" opacity="0.7"/>
+                                
+                                <!-- Fragment 5 -->
+                                <rect x="20" y="50" width="38" height="6" fill="#1E64C8" rx="2"/>
+                            </g>
+                        </g>
+                        
+                        <text x="90" y="130" font-size="11" fill="#666" text-anchor="middle">Sonication</text>
+                        <text x="90" y="145" font-size="10" fill="#666" text-anchor="middle">200-500 bp fragments</text>
+                        
+                        <!-- Size distribution graph -->
+                        <rect x="30" y="155" width="120" height="35" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+                        <path d="M 40 180 Q 90 160 140 180" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                        <text x="90" y="197" font-size="9" fill="#666" text-anchor="middle">Size distribution</text>
+                    </g>
                     
                     <!-- Arrow 2 -->
-                    <path d="M 325 80 L 345 80" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-chip)"/>
+                    <path d="M 450 150 L 480 150" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow-chip)"/>
                     
-                    <!-- Step 3: IP -->
-                    <rect x="350" y="10" width="140" height="140" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
-                    <text x="420" y="30" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">Immunoprecipitate</text>
-                    <!-- Antibody binding -->
-                    <circle cx="420" cy="70" r="25" fill="#4CAF50" opacity="0.3" stroke="#4CAF50" stroke-width="2"/>
-                    <circle cx="410" cy="65" r="10" fill="#FF6B6B" opacity="0.7"/>
-                    <rect x="403" y="72" width="14" height="4" fill="#1E64C8" rx="1"/>
-                    <path d="M 395 65 L 385 65 Q 380 65 380 70 L 380 75" stroke="#4CAF50" stroke-width="2" fill="none"/>
-                    <circle cx="380" cy="80" r="5" fill="#4CAF50"/>
-                    <text x="420" y="125" font-size="10" fill="#666" text-anchor="middle">Antibody</text>
-                    <text x="420" y="138" font-size="10" fill="#666" text-anchor="middle">capture</text>
+                    <!-- Step 3: Immunoprecipitation -->
+                    <g transform="translate(490, 50)">
+                        <rect x="0" y="0" width="180" height="200" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                        <text x="90" y="20" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">3. Immunoprecipitate</text>
+                        
+                        <!-- Antibody capture -->
+                        <g transform="translate(30, 40)">
+                            <!-- Magnetic bead -->
+                            <circle cx="60" cy="60" r="35" fill="#CCCCCC" opacity="0.3" stroke="#666" stroke-width="2"/>
+                            <text x="60" y="63" font-size="10" fill="#666" text-anchor="middle">Bead</text>
+                            
+                            <!-- Antibodies on bead -->
+                            <g transform="translate(45, 35)">
+                                <!-- Antibody 1 -->
+                                <path d="M 0 0 L 0 -10 M -3 -10 L 3 -10" stroke="#4CAF50" stroke-width="2"/>
+                                <path d="M -3 -10 Q -3 -15 -6 -18" stroke="#4CAF50" stroke-width="2" fill="none"/>
+                                <path d="M 3 -10 Q 3 -15 6 -18" stroke="#4CAF50" stroke-width="2" fill="none"/>
+                                
+                                <!-- Antibody 2 -->
+                                <g transform="translate(20, 5)">
+                                    <path d="M 0 0 L 0 -10 M -3 -10 L 3 -10" stroke="#4CAF50" stroke-width="2"/>
+                                    <path d="M -3 -10 Q -3 -15 -6 -18" stroke="#4CAF50" stroke-width="2" fill="none"/>
+                                    <path d="M 3 -10 Q 3 -15 6 -18" stroke="#4CAF50" stroke-width="2" fill="none"/>
+                                </g>
+                                
+                                <!-- Antibody 3 -->
+                                <g transform="translate(10, -5) rotate(30)">
+                                    <path d="M 0 0 L 0 -10 M -3 -10 L 3 -10" stroke="#4CAF50" stroke-width="2"/>
+                                    <path d="M -3 -10 Q -3 -15 -6 -18" stroke="#4CAF50" stroke-width="2" fill="none"/>
+                                    <path d="M 3 -10 Q 3 -15 6 -18" stroke="#4CAF50" stroke-width="2" fill="none"/>
+                                </g>
+                            </g>
+                            
+                            <!-- Captured DNA-protein complex -->
+                            <rect x="35" y="10" width="30" height="4" fill="#1E64C8" rx="1"/>
+                            <circle cx="50" cy="12" r="6" fill="#FF6B6B" opacity="0.7"/>
+                            <text x="50" y="15" font-size="6" fill="white" font-weight="bold" text-anchor="middle">TF</text>
+                            
+                            <!-- Non-bound fragments washing away -->
+                            <g opacity="0.3">
+                                <rect x="85" y="30" width="25" height="3" fill="#1E64C8" rx="1"/>
+                                <rect x="90" y="50" width="28" height="3" fill="#1E64C8" rx="1"/>
+                                <rect x="80" y="70" width="30" height="3" fill="#1E64C8" rx="1"/>
+                            </g>
+                        </g>
+                        
+                        <text x="90" y="130" font-size="11" fill="#666" text-anchor="middle">Specific antibody</text>
+                        <text x="90" y="145" font-size="10" fill="#666" text-anchor="middle">against target protein</text>
+                        
+                        <!-- Specificity indicator -->
+                        <rect x="40" y="155" width="100" height="35" fill="white" stroke="#4CAF50" stroke-width="2" rx="3"/>
+                        <text x="90" y="170" font-size="10" fill="#4CAF50" font-weight="bold" text-anchor="middle">High Specificity</text>
+                        <text x="90" y="183" font-size="9" fill="#666" text-anchor="middle">Target enrichment</text>
+                    </g>
                     
                     <!-- Arrow 3 -->
-                    <path d="M 495 80 L 515 80" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-chip)"/>
+                    <path d="M 680 150 L 710 150" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow-chip)"/>
                     
-                    <!-- Step 4: Reverse crosslink -->
-                    <rect x="520" y="10" width="150" height="140" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
-                    <text x="595" y="30" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">Reverse crosslink</text>
-                    <!-- Purified DNA -->
-                    <rect x="550" y="60" width="90" height="6" fill="#1E64C8" rx="2"/>
-                    <rect x="555" y="75" width="80" height="6" fill="#1E64C8" rx="2"/>
-                    <rect x="560" y="90" width="70" height="6" fill="#1E64C8" rx="2"/>
-                    <text x="595" y="125" font-size="10" fill="#666" text-anchor="middle">Purify DNA</text>
+                    <!-- Step 4: Reverse crosslink & Sequence -->
+                    <g transform="translate(720, 50)">
+                        <rect x="0" y="0" width="160" height="200" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                        <text x="80" y="20" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">4. Process & Seq</text>
+                        
+                        <!-- Reverse crosslink -->
+                        <g transform="translate(20, 35)">
+                            <text x="60" y="0" font-size="10" fill="#666" text-anchor="middle">Reverse crosslink</text>
+                            <text x="60" y="12" font-size="9" fill="#666" text-anchor="middle">(65°C overnight)</text>
+                            
+                            <!-- DNA purification -->
+                            <rect x="30" y="20" width="60" height="5" fill="#1E64C8" rx="2"/>
+                            <rect x="25" y="30" width="70" height="5" fill="#1E64C8" rx="2" opacity="0.7"/>
+                            <rect x="35" y="40" width="50" height="5" fill="#1E64C8" rx="2" opacity="0.5"/>
+                            
+                            <text x="60" y="58" font-size="9" fill="#666" text-anchor="middle">Purified DNA</text>
+                        </g>
+                        
+                        <!-- Sequencing output -->
+                        <g transform="translate(15, 110)">
+                            <rect x="0" y="0" width="130" height="70" fill="white" stroke="#1E64C8" stroke-width="1" rx="3"/>
+                            <text x="65" y="15" font-size="10" fill="#1E64C8" font-weight="bold" text-anchor="middle">NGS Output</text>
+                            
+                            <!-- Reads -->
+                            <text x="10" y="30" font-size="8" fill="#666" font-family="monospace">ATCGATCG...</text>
+                            <text x="10" y="40" font-size="8" fill="#666" font-family="monospace">GCTAGCTA...</text>
+                            <text x="10" y="50" font-size="8" fill="#666" font-family="monospace">TACGTACG...</text>
+                            <text x="10" y="60" font-size="8" fill="#666" font-family="monospace">CGATCGAT...</text>
+                        </g>
+                    </g>
                     
-                    <!-- Arrow 4 -->
-                    <path d="M 675 80 L 695 80" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-chip)"/>
+                    <!-- Data Analysis Section -->
+                    <g transform="translate(30, 270)">
+                        <rect x="0" y="0" width="840" height="220" fill="white" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        <text x="420" y="25" font-size="16" fill="#1E64C8" font-weight="bold" text-anchor="middle">ChIP-seq Data Analysis Pipeline</text>
+                        
+                        <!-- Analysis steps -->
+                        <g transform="translate(20, 45)">
+                            <!-- Step 1: Alignment -->
+                            <rect x="0" y="0" width="120" height="60" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                            <text x="60" y="20" font-size="11" fill="#1E64C8" font-weight="bold" text-anchor="middle">Read Alignment</text>
+                            <text x="60" y="35" font-size="9" fill="#666" text-anchor="middle">Map to genome</text>
+                            <text x="60" y="48" font-size="9" fill="#666" text-anchor="middle">(BWA, Bowtie2)</text>
+                            
+                            <path d="M 125 30 L 155 30" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-chip)"/>
+                            
+                            <!-- Step 2: Peak calling -->
+                            <rect x="160" y="0" width="120" height="60" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                            <text x="220" y="20" font-size="11" fill="#1E64C8" font-weight="bold" text-anchor="middle">Peak Calling</text>
+                            <text x="220" y="35" font-size="9" fill="#666" text-anchor="middle">Find enriched regions</text>
+                            <text x="220" y="48" font-size="9" fill="#666" text-anchor="middle">(MACS2, SICER)</text>
+                            
+                            <path d="M 285 30 L 315 30" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-chip)"/>
+                            
+                            <!-- Step 3: Annotation -->
+                            <rect x="320" y="0" width="120" height="60" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                            <text x="380" y="20" font-size="11" fill="#1E64C8" font-weight="bold" text-anchor="middle">Annotation</text>
+                            <text x="380" y="35" font-size="9" fill="#666" text-anchor="middle">Assign to genes</text>
+                            <text x="380" y="48" font-size="9" fill="#666" text-anchor="middle">(ChIPseeker)</text>
+                            
+                            <path d="M 445 30 L 475 30" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-chip)"/>
+                            
+                            <!-- Step 4: Motif analysis -->
+                            <rect x="480" y="0" width="120" height="60" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                            <text x="540" y="20" font-size="11" fill="#1E64C8" font-weight="bold" text-anchor="middle">Motif Analysis</text>
+                            <text x="540" y="35" font-size="9" fill="#666" text-anchor="middle">Find binding motifs</text>
+                            <text x="540" y="48" font-size="9" fill="#666" text-anchor="middle">(HOMER, MEME)</text>
+                            
+                            <path d="M 605 30 L 635 30" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-chip)"/>
+                            
+                            <!-- Step 5: Visualization -->
+                            <rect x="640" y="0" width="120" height="60" fill="#4CAF50" opacity="0.2" stroke="#4CAF50" stroke-width="2" rx="4"/>
+                            <text x="700" y="20" font-size="11" fill="#333" font-weight="bold" text-anchor="middle">Visualization</text>
+                            <text x="700" y="35" font-size="9" fill="#666" text-anchor="middle">Browser tracks</text>
+                            <text x="700" y="48" font-size="9" fill="#666" text-anchor="middle">(IGV, deepTools)</text>
+                        </g>
+                        
+                        <!-- Peak visualization -->
+                        <g transform="translate(100, 130)">
+                            <rect x="0" y="0" width="640" height="70" fill="#f8fbff" stroke="#666" stroke-width="1" rx="4"/>
+                            <text x="320" y="15" font-size="11" fill="#1E64C8" font-weight="bold" text-anchor="middle">Example: ChIP-seq Peak Profile</text>
+                            
+                            <!-- Genome track -->
+                            <line x1="30" y1="40" x2="610" y2="40" stroke="#666" stroke-width="1"/>
+                            
+                            <!-- ChIP signal peaks -->
+                            <path d="M 50 40 L 50 35 Q 80 20 110 35 L 110 40" fill="#FF6B6B" opacity="0.5" stroke="#FF6B6B" stroke-width="1"/>
+                            <path d="M 200 40 L 200 25 Q 250 10 300 25 L 300 40" fill="#FF6B6B" opacity="0.7" stroke="#FF6B6B" stroke-width="1"/>
+                            <path d="M 380 40 L 380 30 Q 410 15 440 30 L 440 40" fill="#FF6B6B" opacity="0.6" stroke="#FF6B6B" stroke-width="1"/>
+                            <path d="M 520 40 L 520 32 Q 545 20 570 32 L 570 40" fill="#FF6B6B" opacity="0.5" stroke="#FF6B6B" stroke-width="1"/>
+                            
+                            <!-- Gene annotations -->
+                            <rect x="190" y="45" width="120" height="8" fill="#1E64C8" opacity="0.3" rx="2"/>
+                            <text x="250" y="62" font-size="9" fill="#1E64C8" text-anchor="middle">Target Gene</text>
+                            
+                            <!-- Input control (baseline) -->
+                            <line x1="30" y1="38" x2="610" y2="38" stroke="#CCCCCC" stroke-width="1" stroke-dasharray="2,2"/>
+                            <text x="30" y="35" font-size="8" fill="#666">Input</text>
+                            <text x="30" y="25" font-size="8" fill="#FF6B6B">ChIP</text>
+                        </g>
+                    </g>
                     
-                    <!-- Step 5: Sequence -->
-                    <rect x="700" y="10" width="170" height="140" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
-                    <text x="785" y="30" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">Sequence</text>
-                    <!-- NGS output -->
-                    <rect x="720" y="50" width="130" height="50" fill="white" stroke="#1E64C8" stroke-width="1.5" rx="3"/>
-                    <text x="785" y="70" font-size="11" fill="#1E64C8" font-family="monospace">ATCGATCG...</text>
-                    <text x="785" y="85" font-size="11" fill="#1E64C8" font-family="monospace">GCTAGCTA...</text>
-                    <text x="785" y="125" font-size="10" fill="#666" text-anchor="middle">NGS</text>
-                    
+                    <!-- Arrow definition -->
                     <defs>
                         <marker id="arrow-chip" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
                             <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
@@ -201,15 +361,14 @@
                 <div class="info-text">• Transcription factors (TFs)<br>• H3K4me3 (active promoters)<br>• H3K27ac (active enhancers)<br>• H3K27me3 (repression)</div>
             </div>
             <div class="info-box">
-                <div class="info-label">Analysis Tools</div>
-                <div class="info-text">• MACS2 (peak calling)<br>• deepTools (visualization)<br>• Homer (motif discovery)<br>• DiffBind (differential binding)</div>
+                <div class="info-label">Critical Controls</div>
+                <div class="info-text">• Input DNA (no IP)<br>• IgG control (non-specific)<br>• Biological replicates<br>• Technical validation</div>
             </div>
         </div>
         
         <div class="highlight-box">
-            <div class="highlight-text">Requires high-quality antibodies and input control samples</div>
+            <div class="highlight-text">Requires high-quality antibodies and proper controls for reliable results</div>
         </div>
-    
     </div>
 </body>
 </html>

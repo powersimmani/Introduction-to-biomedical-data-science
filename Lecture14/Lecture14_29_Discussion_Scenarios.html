@@ -31,46 +31,172 @@
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
             text-align: center;
             padding-bottom: 20px;
             border-bottom: 3px solid #1E64C8;
         }
         
-        .content-section {
+        .scenarios-container {
+            height: 340px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 12px;
         }
         
-        .bullet-item {
+        .scenario-row {
+            flex: 1;
             display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 16px 20px;
+            gap: 12px;
+        }
+        
+        .scenario-card {
+            flex: 1;
             background: #f8f9fa;
-            border-left: 4px solid #1E64C8;
-            border-radius: 8px;
+            border-radius: 12px;
+            padding: 16px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
             transition: all 0.3s ease;
+            border: 3px solid transparent;
+            cursor: pointer;
         }
         
-        .bullet-item:hover {
+        .scenario-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(30, 100, 200, 0.2);
+            z-index: 10;
+        }
+        
+        .ethical-scenario {
+            border-left: 5px solid #ff6b6b;
+        }
+        
+        .ethical-scenario:hover {
+            background: #fff5f5;
+            border-color: #ff6b6b;
+        }
+        
+        .regulatory-scenario {
+            border-left: 5px solid #1E64C8;
+        }
+        
+        .regulatory-scenario:hover {
             background: #e8f2ff;
-            transform: translateX(8px);
+            border-color: #1E64C8;
         }
         
-        .bullet {
-            color: #1E64C8;
-            font-size: 24px;
-            font-weight: bold;
-            line-height: 1;
+        .implementation-scenario {
+            border-left: 5px solid #ffc107;
         }
         
-        .bullet-item span:last-child {
-            font-size: 20px;
+        .implementation-scenario:hover {
+            background: #fffbf0;
+            border-color: #ffc107;
+        }
+        
+        .group-scenario {
+            border-left: 5px solid #28a745;
+        }
+        
+        .group-scenario:hover {
+            background: #f0fdf4;
+            border-color: #28a745;
+        }
+        
+        .solution-scenario {
+            border-left: 5px solid #6f42c1;
+        }
+        
+        .solution-scenario:hover {
+            background: #f8f5ff;
+            border-color: #6f42c1;
+        }
+        
+        .scenario-header {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 10px;
+        }
+        
+        .scenario-icon {
+            width: 40px;
+            height: 40px;
+            flex-shrink: 0;
+        }
+        
+        .scenario-title {
+            font-size: 14px;
+            font-weight: 700;
             color: #333;
-            font-weight: 500;
+            line-height: 1.2;
+        }
+        
+        .scenario-content {
+            flex: 1;
+            font-size: 11px;
+            color: #666;
             line-height: 1.4;
+            margin-bottom: 8px;
+        }
+        
+        .scenario-prompt {
+            background: white;
+            padding: 6px 8px;
+            border-radius: 6px;
+            font-size: 10px;
+            color: #333;
+            font-style: italic;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+        
+        .prompt-icon {
+            width: 14px;
+            height: 14px;
+            flex-shrink: 0;
+        }
+        
+        .difficulty-badge {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 9px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .easy-badge {
+            background: #28a745;
+        }
+        
+        .medium-badge {
+            background: #ffc107;
+        }
+        
+        .hard-badge {
+            background: #ff6b6b;
+        }
+        
+        .time-indicator {
+            position: absolute;
+            bottom: 8px;
+            right: 8px;
+            font-size: 9px;
+            color: #999;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+        
+        .clock-icon {
+            width: 10px;
+            height: 10px;
         }
     </style>
 </head>
@@ -78,26 +204,166 @@
     <div class="container">
         <div class="title">Discussion Scenarios</div>
         
-        <div class="content-section">
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Ethical dilemmas</span>
+        <div class="scenarios-container">
+            <div class="scenario-row">
+                <!-- Ethical Dilemma -->
+                <div class="scenario-card ethical-scenario">
+                    <span class="difficulty-badge hard-badge">COMPLEX</span>
+                    <div class="scenario-header">
+                        <svg class="scenario-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="35" fill="#ff6b6b" opacity="0.2"/>
+                            <path d="M 30 30 L 50 50 L 70 30" fill="none" stroke="#ff6b6b" stroke-width="4"/>
+                            <path d="M 30 70 L 50 50 L 70 70" fill="none" stroke="#ff6b6b" stroke-width="4"/>
+                            <circle cx="50" cy="50" r="8" fill="#ff6b6b"/>
+                        </svg>
+                        <div class="scenario-title">Ethical Dilemma:<br>Bias in AI Diagnosis</div>
+                    </div>
+                    <div class="scenario-content">
+                        Your AI system shows 95% accuracy overall but only 70% for minority populations. The hospital wants to deploy immediately due to staffing shortages.
+                    </div>
+                    <div class="scenario-prompt">
+                        <svg class="prompt-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="30" fill="none" stroke="#ff6b6b" stroke-width="3"/>
+                            <text x="50" y="58" text-anchor="middle" font-size="36" font-weight="bold" fill="#ff6b6b">?</text>
+                        </svg>
+                        <span>What ethical principles guide your decision?</span>
+                    </div>
+                    <div class="time-indicator">
+                        <svg class="clock-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="30" fill="none" stroke="#999" stroke-width="6"/>
+                            <path d="M 50 30 L 50 50 L 65 50" stroke="#999" stroke-width="6" stroke-linecap="round"/>
+                        </svg>
+                        <span>20 min</span>
+                    </div>
+                </div>
+                
+                <!-- Regulatory Challenge -->
+                <div class="scenario-card regulatory-scenario">
+                    <span class="difficulty-badge medium-badge">MODERATE</span>
+                    <div class="scenario-header">
+                        <svg class="scenario-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <rect x="20" y="25" width="60" height="50" rx="5" fill="none" stroke="#1E64C8" stroke-width="4"/>
+                            <path d="M 35 40 L 50 30 L 65 40" fill="none" stroke="#1E64C8" stroke-width="3"/>
+                            <circle cx="50" cy="55" r="10" fill="#1E64C8" opacity="0.3"/>
+                            <text x="50" y="60" text-anchor="middle" font-size="16" font-weight="bold" fill="#1E64C8">§</text>
+                        </svg>
+                        <div class="scenario-title">Regulatory Challenge:<br>Cross-Border Data</div>
+                    </div>
+                    <div class="scenario-content">
+                        Your AI needs training data from EU, US, and Asia. Each region has different privacy laws. How do you ensure compliance?
+                    </div>
+                    <div class="scenario-prompt">
+                        <svg class="prompt-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="30" fill="none" stroke="#1E64C8" stroke-width="3"/>
+                            <text x="50" y="58" text-anchor="middle" font-size="36" font-weight="bold" fill="#1E64C8">?</text>
+                        </svg>
+                        <span>Design a compliant data strategy</span>
+                    </div>
+                    <div class="time-indicator">
+                        <svg class="clock-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="30" fill="none" stroke="#999" stroke-width="6"/>
+                            <path d="M 50 30 L 50 50 L 65 50" stroke="#999" stroke-width="6" stroke-linecap="round"/>
+                        </svg>
+                        <span>15 min</span>
+                    </div>
+                </div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Regulatory challenges</span>
+            
+            <div class="scenario-row">
+                <!-- Implementation Issue -->
+                <div class="scenario-card implementation-scenario">
+                    <span class="difficulty-badge medium-badge">MODERATE</span>
+                    <div class="scenario-header">
+                        <svg class="scenario-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 30 40 L 50 25 L 70 40 L 70 70 L 30 70 Z" fill="none" stroke="#ffc107" stroke-width="4"/>
+                            <circle cx="50" cy="50" r="10" fill="#ffc107" opacity="0.3"/>
+                            <path d="M 45 50 L 50 45 L 55 50 L 50 55 Z" fill="#ffc107"/>
+                        </svg>
+                        <div class="scenario-title">Implementation:<br>Resistance to Change</div>
+                    </div>
+                    <div class="scenario-content">
+                        Senior physicians refuse to use the new AI system, citing trust issues. Junior staff are enthusiastic but lack authority.
+                    </div>
+                    <div class="scenario-prompt">
+                        <svg class="prompt-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="30" fill="none" stroke="#ffc107" stroke-width="3"/>
+                            <text x="50" y="58" text-anchor="middle" font-size="36" font-weight="bold" fill="#ffc107">?</text>
+                        </svg>
+                        <span>Create a change management plan</span>
+                    </div>
+                    <div class="time-indicator">
+                        <svg class="clock-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="30" fill="none" stroke="#999" stroke-width="6"/>
+                            <path d="M 50 30 L 50 50 L 65 50" stroke="#999" stroke-width="6" stroke-linecap="round"/>
+                        </svg>
+                        <span>15 min</span>
+                    </div>
+                </div>
+                
+                <!-- Group Exercise -->
+                <div class="scenario-card group-scenario">
+                    <span class="difficulty-badge easy-badge">COLLABORATIVE</span>
+                    <div class="scenario-header">
+                        <svg class="scenario-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="35" cy="35" r="12" fill="#28a745" opacity="0.3"/>
+                            <circle cx="65" cy="35" r="12" fill="#28a745" opacity="0.5"/>
+                            <circle cx="35" cy="65" r="12" fill="#28a745" opacity="0.7"/>
+                            <circle cx="65" cy="65" r="12" fill="#28a745"/>
+                            <path d="M 35 35 L 65 35 L 65 65 L 35 65 Z" fill="none" stroke="#28a745" stroke-width="2"/>
+                        </svg>
+                        <div class="scenario-title">Group Exercise:<br>ROI Calculation</div>
+                    </div>
+                    <div class="scenario-content">
+                        Calculate the 5-year ROI for an AI radiology system. Consider costs, benefits, and risks.
+                    </div>
+                    <div class="scenario-prompt">
+                        <svg class="prompt-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="30" fill="none" stroke="#28a745" stroke-width="3"/>
+                            <text x="50" y="58" text-anchor="middle" font-size="36" font-weight="bold" fill="#28a745">?</text>
+                        </svg>
+                        <span>Teams present business case</span>
+                    </div>
+                    <div class="time-indicator">
+                        <svg class="clock-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="30" fill="none" stroke="#999" stroke-width="6"/>
+                            <path d="M 50 30 L 50 50 L 65 50" stroke="#999" stroke-width="6" stroke-linecap="round"/>
+                        </svg>
+                        <span>30 min</span>
+                    </div>
+                </div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Implementation issues</span>
-            </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Group exercises</span>
-            </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Solution development</span>
+            
+            <div class="scenario-row">
+                <!-- Solution Development -->
+                <div class="scenario-card solution-scenario" style="grid-column: span 2;">
+                    <span class="difficulty-badge hard-badge">ADVANCED</span>
+                    <div class="scenario-header">
+                        <svg class="scenario-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M 50 20 L 80 35 L 80 65 L 50 80 L 20 65 L 20 35 Z" fill="none" stroke="#6f42c1" stroke-width="4"/>
+                            <circle cx="50" cy="50" r="20" fill="#6f42c1" opacity="0.3"/>
+                            <path d="M 40 45 L 50 55 L 60 45" fill="none" stroke="#6f42c1" stroke-width="3"/>
+                            <path d="M 50 35 L 50 55" stroke="#6f42c1" stroke-width="3"/>
+                        </svg>
+                        <div class="scenario-title">Solution Development: Complete AI Governance Framework</div>
+                    </div>
+                    <div class="scenario-content">
+                        Design a comprehensive governance framework for a multi-site healthcare system implementing various AI tools. Address ethics committees, audit procedures, liability allocation, training requirements, and continuous improvement processes. Consider stakeholder engagement, regulatory compliance across jurisdictions, and long-term sustainability.
+                    </div>
+                    <div class="scenario-prompt">
+                        <svg class="prompt-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="30" fill="none" stroke="#6f42c1" stroke-width="3"/>
+                            <text x="50" y="58" text-anchor="middle" font-size="36" font-weight="bold" fill="#6f42c1">?</text>
+                        </svg>
+                        <span>Develop full implementation roadmap with milestones and success metrics</span>
+                    </div>
+                    <div class="time-indicator">
+                        <svg class="clock-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                            <circle cx="50" cy="50" r="30" fill="none" stroke="#999" stroke-width="6"/>
+                            <path d="M 50 30 L 50 50 L 65 50" stroke="#999" stroke-width="6" stroke-linecap="round"/>
+                        </svg>
+                        <span>45 min</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

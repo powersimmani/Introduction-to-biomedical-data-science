@@ -1,34 +1,225 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Time-to-Event Prediction</title>
-<style>* {margin:0;padding:0;box-sizing:border-box;}body {font-family:Aptos,'Segoe UI',sans-serif;background:white;display:flex;justify-content:center;align-items:center;min-height:100vh;}
-.container {width:960px;height:540px;padding:35px 50px;background:white;}.title {font-size:36px;font-weight:700;color:#1E64C8;margin-bottom:25px;text-align:center;}</style>
-</head><body><div class="container">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Time-to-Event Prediction</title>
+    <style>
+        * {margin:0;padding:0;box-sizing:border-box;}
+        body {font-family:Aptos,'Segoe UI',sans-serif;background:white;display:flex;justify-content:center;align-items:center;min-height:100vh;}
+        .container {width:960px;height:540px;padding:30px 45px;background:white;}
+        .title {font-size:36px;font-weight:700;color:#1E64C8;margin-bottom:20px;text-align:center;}
+        .methods-section {display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:16px;}
+        .method-card {background:linear-gradient(135deg,#f8fbff 0%,#e8f2ff 100%);border:3px solid #1E64C8;border-radius:10px;padding:14px;text-align:center;transition:all 0.3s;}
+        .method-card:hover {transform:translateY(-3px);box-shadow:0 6px 16px rgba(30,100,200,0.3);}
+        .method-viz {height:120px;display:flex;justify-content:center;align-items:center;margin-bottom:8px;}
+        .method-name {font-size:18px;font-weight:700;color:#1E64C8;margin-bottom:6px;}
+        .method-desc {font-size:13px;color:#333;line-height:1.4;}
+        .metrics-box {background:#f8fbff;border:3px solid #1E64C8;border-radius:10px;padding:16px 20px;}
+        .metrics-title {font-size:19px;font-weight:700;color:#1E64C8;margin-bottom:10px;text-align:center;}
+        .metrics-grid {display:flex;gap:12px;justify-content:center;flex-wrap:wrap;}
+        .metric-item {background:white;border:2px solid #1E64C8;border-radius:6px;padding:8px 14px;font-size:14px;font-weight:600;position:relative;overflow:hidden;}
+        .metric-item::before {content:'';position:absolute;top:0;left:0;width:100%;height:3px;background:linear-gradient(90deg,#1E64C8,#5088d4);}
+    </style>
+</head>
+<body>
+    <div class="container">
         <div class="title">Time-to-Event Prediction with ML</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:18px;">
-            <div style="background:linear-gradient(135deg,#f8fbff 0%,#e8f2ff 100%);border:3px solid #1E64C8;border-radius:10px;padding:16px;text-align:center;">
-                <div style="font-size:32px;margin-bottom:8px;">🌲</div>
-                <div style="font-size:19px;font-weight:700;color:#1E64C8;margin-bottom:8px;">Random Survival Forests</div>
-                <div style="font-size:14px;color:#333;">Ensemble method, handles non-linearity, feature importance</div>
+        
+        <div class="methods-section">
+            <!-- Random Survival Forests -->
+            <div class="method-card">
+                <div class="method-viz">
+                    <svg width="280" height="120" viewBox="0 0 280 120">
+                        <!-- Tree ensemble visualization -->
+                        <g transform="translate(10,10)">
+                            <!-- Tree 1 -->
+                            <g transform="translate(0,0)">
+                                <circle cx="30" cy="15" r="5" fill="#28a745"/>
+                                <line x1="30" y1="20" x2="20" y2="35" stroke="#333" stroke-width="1.5"/>
+                                <line x1="30" y1="20" x2="40" y2="35" stroke="#333" stroke-width="1.5"/>
+                                <circle cx="20" cy="38" r="4" fill="#ff8c00"/>
+                                <circle cx="40" cy="38" r="4" fill="#ff8c00"/>
+                                <line x1="20" y1="42" x2="15" y2="52" stroke="#333" stroke-width="1"/>
+                                <line x1="20" y1="42" x2="25" y2="52" stroke="#333" stroke-width="1"/>
+                                <rect x="12" y="52" width="6" height="6" fill="#1E64C8"/>
+                                <rect x="22" y="52" width="6" height="6" fill="#e74c3c"/>
+                                <text x="30" y="75" text-anchor="middle" font-size="8" fill="#666">Tree 1</text>
+                            </g>
+                            
+                            <!-- Tree 2 -->
+                            <g transform="translate(70,0)">
+                                <circle cx="30" cy="15" r="5" fill="#28a745"/>
+                                <line x1="30" y1="20" x2="20" y2="35" stroke="#333" stroke-width="1.5"/>
+                                <line x1="30" y1="20" x2="40" y2="35" stroke="#333" stroke-width="1.5"/>
+                                <circle cx="20" cy="38" r="4" fill="#ff8c00"/>
+                                <circle cx="40" cy="38" r="4" fill="#ff8c00"/>
+                                <line x1="40" y1="42" x2="35" y2="52" stroke="#333" stroke-width="1"/>
+                                <line x1="40" y1="42" x2="45" y2="52" stroke="#333" stroke-width="1"/>
+                                <rect x="32" y="52" width="6" height="6" fill="#1E64C8"/>
+                                <rect x="42" y="52" width="6" height="6" fill="#e74c3c"/>
+                                <text x="30" y="75" text-anchor="middle" font-size="8" fill="#666">Tree 2</text>
+                            </g>
+                            
+                            <!-- Tree 3 -->
+                            <g transform="translate(140,0)">
+                                <circle cx="30" cy="15" r="5" fill="#28a745"/>
+                                <line x1="30" y1="20" x2="20" y2="35" stroke="#333" stroke-width="1.5"/>
+                                <line x1="30" y1="20" x2="40" y2="35" stroke="#333" stroke-width="1.5"/>
+                                <circle cx="20" cy="38" r="4" fill="#ff8c00"/>
+                                <circle cx="40" cy="38" r="4" fill="#ff8c00"/>
+                                <line x1="20" y1="42" x2="15" y2="52" stroke="#333" stroke-width="1"/>
+                                <line x1="20" y1="42" x2="25" y2="52" stroke="#333" stroke-width="1"/>
+                                <rect x="12" y="52" width="6" height="6" fill="#e74c3c"/>
+                                <rect x="22" y="52" width="6" height="6" fill="#1E64C8"/>
+                                <text x="30" y="75" text-anchor="middle" font-size="8" fill="#666">Tree N</text>
+                            </g>
+                            
+                            <!-- Aggregation arrow -->
+                            <path d="M 210,40 L 240,40" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowRSF)"/>
+                            <text x="225" y="35" text-anchor="middle" font-size="9" fill="#1E64C8">Ensemble</text>
+                            
+                            <!-- Survival curve output -->
+                            <rect x="245" y="25" width="30" height="30" fill="none" stroke="#1E64C8" stroke-width="1.5"/>
+                            <path d="M 248,50 Q 255,45 262,38 T 272,28" stroke="#28a745" stroke-width="2" fill="none"/>
+                            <text x="260" y="65" text-anchor="middle" font-size="8" fill="#666">S(t)</text>
+                        </g>
+                        
+                        <text x="140" y="105" text-anchor="middle" font-size="9" fill="#666" font-style="italic">Splits on survival time & censoring</text>
+                        
+                        <defs>
+                            <marker id="arrowRSF" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L6,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="method-name">Random Survival Forests</div>
+                <div class="method-desc">Ensemble method, handles non-linearity, feature importance</div>
             </div>
-            <div style="background:linear-gradient(135deg,#f8fbff 0%,#e8f2ff 100%);border:3px solid #1E64C8;border-radius:10px;padding:16px;text-align:center;">
-                <div style="font-size:32px;margin-bottom:8px;">🧠</div>
-                <div style="font-size:19px;font-weight:700;color:#1E64C8;margin-bottom:8px;">DeepSurv</div>
-                <div style="font-size:14px;color:#333;">Neural networks for survival, learns complex patterns</div>
+            
+            <!-- DeepSurv -->
+            <div class="method-card">
+                <div class="method-viz">
+                    <svg width="280" height="120" viewBox="0 0 280 120">
+                        <!-- Neural network for survival -->
+                        <g transform="translate(40,15)">
+                            <!-- Input layer -->
+                            <text x="0" y="-5" text-anchor="middle" font-size="9" fill="#666">Input</text>
+                            <circle cx="0" cy="15" r="4" fill="#1E64C8" opacity="0.7"/>
+                            <circle cx="0" cy="30" r="4" fill="#1E64C8" opacity="0.7"/>
+                            <circle cx="0" cy="45" r="4" fill="#1E64C8" opacity="0.7"/>
+                            <circle cx="0" cy="60" r="4" fill="#1E64C8" opacity="0.7"/>
+                            <text x="0" y="77" text-anchor="middle" font-size="8" fill="#666">Features</text>
+                            
+                            <!-- Hidden layer 1 -->
+                            <circle cx="50" cy="20" r="4" fill="#ff8c00" opacity="0.7"/>
+                            <circle cx="50" cy="37" r="4" fill="#ff8c00" opacity="0.7"/>
+                            <circle cx="50" cy="54" r="4" fill="#ff8c00" opacity="0.7"/>
+                            
+                            <!-- Hidden layer 2 -->
+                            <circle cx="100" cy="25" r="4" fill="#ff8c00" opacity="0.7"/>
+                            <circle cx="100" cy="45" r="4" fill="#ff8c00" opacity="0.7"/>
+                            
+                            <!-- Output layer -->
+                            <circle cx="150" cy="35" r="5" fill="#28a745" opacity="0.8"/>
+                            <text x="150" y="-5" text-anchor="middle" font-size="9" fill="#666">Output</text>
+                            <text x="150" y="55" text-anchor="middle" font-size="8" fill="#28a745" font-weight="600">log h(t|x)</text>
+                            
+                            <!-- Connections -->
+                            <line x1="4" y1="15" x2="46" y2="20" stroke="#ddd" stroke-width="0.8"/>
+                            <line x1="4" y1="30" x2="46" y2="37" stroke="#ddd" stroke-width="0.8"/>
+                            <line x1="4" y1="45" x2="46" y2="54" stroke="#ddd" stroke-width="0.8"/>
+                            
+                            <line x1="54" y1="20" x2="96" y2="25" stroke="#ddd" stroke-width="0.8"/>
+                            <line x1="54" y1="37" x2="96" y2="45" stroke="#ddd" stroke-width="0.8"/>
+                            
+                            <line x1="104" y1="25" x2="145" y2="35" stroke="#ddd" stroke-width="0.8"/>
+                            <line x1="104" y1="45" x2="145" y2="35" stroke="#ddd" stroke-width="0.8"/>
+                            
+                            <!-- Cox partial likelihood -->
+                            <rect x="175" y="25" width="60" height="20" fill="#f8fbff" stroke="#1E64C8" stroke-width="1.5" rx="3"/>
+                            <text x="205" y="38" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">Cox Loss</text>
+                            
+                            <path d="M 155,35 L 172,35" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowDS)"/>
+                        </g>
+                        
+                        <text x="140" y="105" text-anchor="middle" font-size="9" fill="#666" font-style="italic">Deep learning + Cox regression</text>
+                        
+                        <defs>
+                            <marker id="arrowDS" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L6,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="method-name">DeepSurv</div>
+                <div class="method-desc">Neural networks for survival, learns complex patterns</div>
             </div>
-            <div style="background:linear-gradient(135deg,#f8fbff 0%,#e8f2ff 100%);border:3px solid #1E64C8;border-radius:10px;padding:16px;text-align:center;">
-                <div style="font-size:32px;margin-bottom:8px;">⏱️</div>
-                <div style="font-size:19px;font-weight:700;color:#1E64C8;margin-bottom:8px;">Discrete Time Models</div>
-                <div style="font-size:14px;color:#333;">Logistic regression per time interval</div>
+            
+            <!-- Discrete Time Models -->
+            <div class="method-card">
+                <div class="method-viz">
+                    <svg width="280" height="120" viewBox="0 0 280 120">
+                        <!-- Time intervals visualization -->
+                        <g transform="translate(20,25)">
+                            <!-- Timeline -->
+                            <line x1="10" y1="50" x2="240" y2="50" stroke="#333" stroke-width="2"/>
+                            
+                            <!-- Time intervals -->
+                            <rect x="10" y="40" width="45" height="20" fill="#1E64C8" opacity="0.3" stroke="#1E64C8" stroke-width="1.5"/>
+                            <text x="32" y="55" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">t₁</text>
+                            
+                            <rect x="55" y="40" width="45" height="20" fill="#1E64C8" opacity="0.3" stroke="#1E64C8" stroke-width="1.5"/>
+                            <text x="77" y="55" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">t₂</text>
+                            
+                            <rect x="100" y="40" width="45" height="20" fill="#1E64C8" opacity="0.3" stroke="#1E64C8" stroke-width="1.5"/>
+                            <text x="122" y="55" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">t₃</text>
+                            
+                            <rect x="145" y="40" width="45" height="20" fill="#1E64C8" opacity="0.3" stroke="#1E64C8" stroke-width="1.5"/>
+                            <text x="167" y="55" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">t₄</text>
+                            
+                            <rect x="190" y="40" width="50" height="20" fill="#1E64C8" opacity="0.3" stroke="#1E64C8" stroke-width="1.5"/>
+                            <text x="215" y="55" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">t₅+</text>
+                            
+                            <!-- Binary classification per interval -->
+                            <text x="125" y="25" text-anchor="middle" font-size="10" fill="#666" font-weight="600">Binary Classification per Interval</text>
+                            
+                            <!-- Probability indicators -->
+                            <circle cx="32" cy="70" r="3" fill="#28a745"/>
+                            <text x="32" y="85" text-anchor="middle" font-size="8" fill="#28a745">0.95</text>
+                            
+                            <circle cx="77" cy="70" r="3" fill="#28a745"/>
+                            <text x="77" y="85" text-anchor="middle" font-size="8" fill="#28a745">0.88</text>
+                            
+                            <circle cx="122" cy="70" r="3" fill="#ffc107"/>
+                            <text x="122" y="85" text-anchor="middle" font-size="8" fill="#ffc107">0.72</text>
+                            
+                            <circle cx="167" cy="70" r="3" fill="#ff8c00"/>
+                            <text x="167" y="85" text-anchor="middle" font-size="8" fill="#ff8c00">0.45</text>
+                            
+                            <circle cx="215" cy="70" r="3" fill="#dc3545"/>
+                            <text x="215" y="85" text-anchor="middle" font-size="8" fill="#dc3545">0.20</text>
+                            
+                            <text x="125" y="10" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">P(T > tᵢ | T > tᵢ₋₁)</text>
+                        </g>
+                    </svg>
+                </div>
+                <div class="method-name">Discrete Time Models</div>
+                <div class="method-desc">Logistic regression per time interval</div>
             </div>
         </div>
-        <div style="background:#f8fbff;border:3px solid #1E64C8;border-radius:10px;padding:18px 22px;">
-            <div style="font-size:20px;font-weight:700;color:#1E64C8;margin-bottom:12px;text-align:center;">Evaluation Metrics</div>
-            <div style="display:flex;gap:15px;justify-content:center;">
-                <div style="background:white;border:2px solid #1E64C8;border-radius:6px;padding:10px 16px;font-size:15px;font-weight:600;">C-index (Concordance)</div>
-                <div style="background:white;border:2px solid #1E64C8;border-radius:6px;padding:10px 16px;font-size:15px;font-weight:600;">Time-dependent AUC</div>
-                <div style="background:white;border:2px solid #1E64C8;border-radius:6px;padding:10px 16px;font-size:15px;font-weight:600;">Calibration plots</div>
-                <div style="background:white;border:2px solid #1E64C8;border-radius:6px;padding:10px 16px;font-size:15px;font-weight:600;">Brier score</div>
+        
+        <div class="metrics-box">
+            <div class="metrics-title">Evaluation Metrics</div>
+            <div class="metrics-grid">
+                <div class="metric-item">C-index (Concordance)</div>
+                <div class="metric-item">Time-dependent AUC</div>
+                <div class="metric-item">Calibration plots</div>
+                <div class="metric-item">Brier score</div>
+                <div class="metric-item">Integrated Brier Score</div>
             </div>
         </div>
-    </div></body></html>
+    </div>
+</body>
+</html>

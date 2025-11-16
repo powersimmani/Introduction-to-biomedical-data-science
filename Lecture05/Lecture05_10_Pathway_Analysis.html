@@ -24,81 +24,193 @@
             font-size: 28px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
         }
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-        .content-card {
-            background: white;
-            border: 2.5px solid #1E64C8;
-            border-radius: 10px;
-            padding: 16px;
-            transition: all 0.3s;
-        }
-        .content-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(30, 100, 200, 0.2);
-            background: #f8fbff;
-        }
-        .card-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1E64C8;
-            margin-bottom: 8px;
-        }
-        .card-desc {
-            font-size: 15px;
-            color: #333;
-            line-height: 1.4;
+        .visual-content {
+            width: 100%;
+            height: 430px;
         }
         .note-box {
             background: #f0f5fc;
             border-left: 4px solid #1E64C8;
             border-radius: 6px;
             padding: 12px 18px;
-            margin-top: 15px;
+            margin-top: 10px;
         }
         .note-text {
             font-size: 16px;
             color: #333;
             font-weight: 600;
         }
-        .highlight {
-            color: #1E64C8;
-            font-weight: 700;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Pathway Analysis</div>
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="card-title">Gene Set Enrichment</div>
-                <div class="card-desc">Identify coordinated changes in functional groups</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Over-representation</div>
-                <div class="card-desc">Fisher's exact test for enrichment in DE genes</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">GSEA Algorithm</div>
-                <div class="card-desc">Uses full ranked gene list, not just DE genes</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Pathway Databases</div>
-                <div class="card-desc">GO, KEGG, Reactome, MSigDB</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Network Analysis</div>
-                <div class="card-desc">Protein-protein interactions and regulatory networks</div>
-            </div>
-
+        <div class="visual-content">
+            <svg width="100%" height="100%" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
+                <!-- Main Title -->
+                <text x="450" y="25" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">From Genes to Biological Pathways</text>
+                
+                <!-- Over-representation Analysis -->
+                <g id="ora">
+                    <rect x="20" y="50" width="280" height="180" rx="10" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                    <text x="160" y="75" font-family="Aptos, sans-serif" font-size="15" font-weight="700" fill="#0D47A1" text-anchor="middle">Over-representation (ORA)</text>
+                    
+                    <!-- Venn diagram representation -->
+                    <g transform="translate(100, 100)">
+                        <!-- Background circle (all genes) -->
+                        <circle cx="60" cy="60" r="55" fill="#E0E0E0" opacity="0.3"/>
+                        <text x="60" y="30" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">All Genes</text>
+                        
+                        <!-- DE genes circle -->
+                        <circle cx="45" cy="70" r="30" fill="#FF5722" opacity="0.5"/>
+                        <text x="25" y="70" font-family="Aptos, sans-serif" font-size="9" fill="white" font-weight="600">DE</text>
+                        
+                        <!-- Pathway genes circle -->
+                        <circle cx="75" cy="70" r="35" fill="#2196F3" opacity="0.5"/>
+                        <text x="95" y="70" font-family="Aptos, sans-serif" font-size="9" fill="white" font-weight="600">Pathway</text>
+                        
+                        <!-- Overlap -->
+                        <text x="60" y="75" font-family="Aptos, sans-serif" font-size="11" fill="#333" font-weight="700" text-anchor="middle">?</text>
+                    </g>
+                    
+                    <!-- Fisher's test -->
+                    <rect x="30" y="190" width="260" height="30" rx="5" fill="white" stroke="#1976D2" stroke-width="1"/>
+                    <text x="160" y="208" font-family="Aptos, sans-serif" font-size="11" fill="#0D47A1" text-anchor="middle">Fisher's Exact Test → p-value</text>
+                </g>
+                
+                <!-- GSEA -->
+                <g id="gsea">
+                    <rect x="320" y="50" width="560" height="180" rx="10" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+                    <text x="600" y="75" font-family="Aptos, sans-serif" font-size="15" font-weight="700" fill="#E65100" text-anchor="middle">Gene Set Enrichment Analysis (GSEA)</text>
+                    
+                    <!-- Ranked gene list -->
+                    <g transform="translate(340, 90)">
+                        <text x="0" y="0" font-family="Aptos, sans-serif" font-size="11" fill="#666">Ranked Gene List</text>
+                        
+                        <!-- Gradient bar -->
+                        <defs>
+                            <linearGradient id="rankGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#D32F2F;stop-opacity:1" />
+                                <stop offset="50%" style="stop-color:#E0E0E0;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#1976D2;stop-opacity:1" />
+                            </linearGradient>
+                        </defs>
+                        <rect x="0" y="5" width="520" height="20" fill="url(#rankGradient)"/>
+                        
+                        <text x="0" y="40" font-family="Aptos, sans-serif" font-size="10" fill="#D32F2F">↓ Down</text>
+                        <text x="480" y="40" font-family="Aptos, sans-serif" font-size="10" fill="#1976D2">Up ↑</text>
+                        
+                        <!-- Gene set marks -->
+                        <line x1="100" y1="5" x2="100" y2="25" stroke="#333" stroke-width="2"/>
+                        <line x1="120" y1="5" x2="120" y2="25" stroke="#333" stroke-width="2"/>
+                        <line x1="380" y1="5" x2="380" y2="25" stroke="#333" stroke-width="2"/>
+                        <line x1="400" y1="5" x2="400" y2="25" stroke="#333" stroke-width="2"/>
+                        <line x1="420" y1="5" x2="420" y2="25" stroke="#333" stroke-width="2"/>
+                        <line x1="450" y1="5" x2="450" y2="25" stroke="#333" stroke-width="2"/>
+                        
+                        <text x="260" y="-5" font-family="Aptos, sans-serif" font-size="10" fill="#333" text-anchor="middle">Gene Set Members ↓</text>
+                    </g>
+                    
+                    <!-- Enrichment Score Plot -->
+                    <g transform="translate(340, 150)">
+                        <text x="0" y="0" font-family="Aptos, sans-serif" font-size="11" fill="#666">Enrichment Score</text>
+                        
+                        <!-- Axes -->
+                        <line x1="0" y1="40" x2="520" y2="40" stroke="#999" stroke-width="1"/>
+                        <line x1="0" y1="10" x2="0" y2="60" stroke="#999" stroke-width="1"/>
+                        
+                        <!-- ES curve -->
+                        <path d="M 0 40 L 100 20 L 120 15 L 200 25 L 380 22 L 400 15 L 420 10 L 450 8 L 520 20" 
+                              stroke="#F57C00" stroke-width="2.5" fill="none"/>
+                        
+                        <!-- Peak ES -->
+                        <circle cx="450" cy="8" r="4" fill="#E65100"/>
+                        <text x="460" y="5" font-family="Aptos, sans-serif" font-size="10" fill="#E65100" font-weight="600">ES = 0.65</text>
+                        
+                        <text x="260" y="60" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">Leading Edge</text>
+                    </g>
+                </g>
+                
+                <!-- Pathway Databases -->
+                <g id="databases">
+                    <text x="450" y="255" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#1E64C8" text-anchor="middle">Pathway Databases</text>
+                    
+                    <!-- GO -->
+                    <g transform="translate(20, 275)">
+                        <rect x="0" y="0" width="200" height="120" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+                        <text x="100" y="25" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#1B5E20" text-anchor="middle">Gene Ontology (GO)</text>
+                        
+                        <circle cx="30" cy="50" r="3" fill="#388E3C"/>
+                        <text x="40" y="54" font-family="Aptos, sans-serif" font-size="11" fill="#333">Biological Process</text>
+                        
+                        <circle cx="30" cy="70" r="3" fill="#388E3C"/>
+                        <text x="40" y="74" font-family="Aptos, sans-serif" font-size="11" fill="#333">Molecular Function</text>
+                        
+                        <circle cx="30" cy="90" r="3" fill="#388E3C"/>
+                        <text x="40" y="94" font-family="Aptos, sans-serif" font-size="11" fill="#333">Cellular Component</text>
+                        
+                        <text x="100" y="110" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Hierarchical ontology</text>
+                    </g>
+                    
+                    <!-- KEGG -->
+                    <g transform="translate(240, 275)">
+                        <rect x="0" y="0" width="200" height="120" rx="8" fill="#FCE4EC" stroke="#C2185B" stroke-width="2"/>
+                        <text x="100" y="25" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#880E4F" text-anchor="middle">KEGG</text>
+                        
+                        <circle cx="30" cy="50" r="3" fill="#C2185B"/>
+                        <text x="40" y="54" font-family="Aptos, sans-serif" font-size="11" fill="#333">Metabolic pathways</text>
+                        
+                        <circle cx="30" cy="70" r="3" fill="#C2185B"/>
+                        <text x="40" y="74" font-family="Aptos, sans-serif" font-size="11" fill="#333">Signaling pathways</text>
+                        
+                        <circle cx="30" cy="90" r="3" fill="#C2185B"/>
+                        <text x="40" y="94" font-family="Aptos, sans-serif" font-size="11" fill="#333">Disease pathways</text>
+                        
+                        <text x="100" y="110" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Curated pathway maps</text>
+                    </g>
+                    
+                    <!-- Reactome -->
+                    <g transform="translate(460, 275)">
+                        <rect x="0" y="0" width="200" height="120" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                        <text x="100" y="25" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#0D47A1" text-anchor="middle">Reactome</text>
+                        
+                        <circle cx="30" cy="50" r="3" fill="#1976D2"/>
+                        <text x="40" y="54" font-family="Aptos, sans-serif" font-size="11" fill="#333">Reactions</text>
+                        
+                        <circle cx="30" cy="70" r="3" fill="#1976D2"/>
+                        <text x="40" y="74" font-family="Aptos, sans-serif" font-size="11" fill="#333">Complexes</text>
+                        
+                        <circle cx="30" cy="90" r="3" fill="#1976D2"/>
+                        <text x="40" y="94" font-family="Aptos, sans-serif" font-size="11" fill="#333">Entities</text>
+                        
+                        <text x="100" y="110" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Peer-reviewed pathways</text>
+                    </g>
+                    
+                    <!-- MSigDB -->
+                    <g transform="translate(680, 275)">
+                        <rect x="0" y="0" width="200" height="120" rx="8" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2"/>
+                        <text x="100" y="25" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#4A148C" text-anchor="middle">MSigDB</text>
+                        
+                        <circle cx="30" cy="50" r="3" fill="#7B1FA2"/>
+                        <text x="40" y="54" font-family="Aptos, sans-serif" font-size="11" fill="#333">Hallmark sets</text>
+                        
+                        <circle cx="30" cy="70" r="3" fill="#7B1FA2"/>
+                        <text x="40" y="74" font-family="Aptos, sans-serif" font-size="11" fill="#333">Curated sets</text>
+                        
+                        <circle cx="30" cy="90" r="3" fill="#7B1FA2"/>
+                        <text x="40" y="94" font-family="Aptos, sans-serif" font-size="11" fill="#333">Computational sets</text>
+                        
+                        <text x="100" y="110" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Broad collection</text>
+                    </g>
+                </g>
+                
+                <!-- Bottom note -->
+                <rect x="20" y="405" width="860" height="15" rx="5" fill="#f0f5fc"/>
+                <text x="450" y="416" font-family="Aptos, sans-serif" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">ORA: Simple but threshold-dependent | GSEA: Uses all genes, more powerful | Choose database based on biological question</text>
+            </svg>
         </div>
         <div class="note-box">
             <div class="note-text">💡 Pathways provide biological context for gene expression changes</div>

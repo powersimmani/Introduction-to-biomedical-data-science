@@ -31,50 +31,214 @@
             font-size: 32px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
         }
         
-        .content-list {
+        .content-wrapper {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            gap: 25px;
+            height: 385px;
         }
         
-        .content-item {
+        .function-diagram {
+            flex: 1.5;
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 18px 24px;
+            justify-content: center;
+        }
+        
+        .prediction-methods {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        
+        .method-item {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 6px;
+            padding: 13px 18px;
             transition: all 0.3s ease;
-            font-size: 19px;
-            color: #333;
         }
         
-        .content-item:hover {
+        .method-item:hover {
             background: #e8f2ff;
             transform: translateX(8px);
         }
         
-        .bullet {
-            width: 10px;
-            height: 10px;
-            background: #1E64C8;
-            border-radius: 50%;
-            flex-shrink: 0;
+        .method-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 3px;
+        }
+        
+        .method-info {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .protein-rotate {
+            animation: proteinRotate 8s linear infinite;
+        }
+        
+        @keyframes proteinRotate {
+            from { transform: rotate(0deg); }
+            to { transform: rotate(360deg); }
+        }
+        
+        .function-pulse {
+            animation: functionPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes functionPulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Protein Function</div>
-        <div class="content-list">
-            <div class="content-item"><div class="bullet"></div><div>GO term prediction</div></div><div class="content-item"><div class="bullet"></div><div>EC number classification</div></div><div class="content-item"><div class="bullet"></div><div>Domain annotation</div></div><div class="content-item"><div class="bullet"></div><div>Interaction prediction</div></div><div class="content-item"><div class="bullet"></div><div>Evolutionary insights</div></div>
+        <div class="content-wrapper">
+            <div class="function-diagram">
+                <svg width="560" height="385" viewBox="0 0 560 385">
+                    <text x="280" y="20" font-size="15" fill="#333" text-anchor="middle" font-weight="600">Multi-Level Function Prediction</text>
+                    
+                    <!-- Central Protein -->
+                    <g transform="translate(280, 180)">
+                        <g class="protein-rotate">
+                            <!-- Protein structure (simplified) -->
+                            <circle cx="0" cy="0" r="45" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <!-- Alpha helices -->
+                            <path d="M -20,-30 Q -15,-20 -10,-30 T 0,-30 T 10,-30" stroke="#1E64C8" stroke-width="3" fill="none"/>
+                            <path d="M -30,0 Q -20,5 -30,10" stroke="#2874d8" stroke-width="3" fill="none"/>
+                            <path d="M 30,0 Q 20,5 30,10" stroke="#2874d8" stroke-width="3" fill="none"/>
+                            
+                            <!-- Beta sheets -->
+                            <rect x="-15" y="15" width="30" height="4" fill="#1E64C8" opacity="0.7"/>
+                            <rect x="-15" y="22" width="30" height="4" fill="#2874d8" opacity="0.7"/>
+                            
+                            <text x="0" y="5" font-size="12" fill="#333" text-anchor="middle" font-weight="600">Protein</text>
+                        </g>
+                    </g>
+                    
+                    <!-- GO Terms (Gene Ontology) -->
+                    <g transform="translate(60, 60)">
+                        <rect x="0" y="0" width="140" height="80" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="70" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="700">GO Terms</text>
+                        
+                        <g transform="translate(10, 30)">
+                            <circle cx="5" cy="5" r="3" fill="#1E64C8"/>
+                            <text x="12" y="8" font-size="10" fill="#333">Molecular Function</text>
+                            
+                            <circle cx="5" cy="20" r="3" fill="#2874d8"/>
+                            <text x="12" y="23" font-size="10" fill="#333">Biological Process</text>
+                            
+                            <circle cx="5" cy="35" r="3" fill="#5fa3e8"/>
+                            <text x="12" y="38" font-size="10" fill="#333">Cellular Component</text>
+                        </g>
+                        
+                        <path d="M 140,70 L 235,155" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="3,3" class="function-pulse"/>
+                    </g>
+                    
+                    <!-- EC Numbers -->
+                    <g transform="translate(360, 60)">
+                        <rect x="0" y="0" width="140" height="80" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                        <text x="70" y="20" font-size="12" fill="#e0a800" text-anchor="middle" font-weight="700">EC Numbers</text>
+                        
+                        <g transform="translate(10, 30)">
+                            <text x="0" y="10" font-size="10" fill="#333" font-family="monospace">EC 3.4.21.4</text>
+                            <text x="0" y="25" font-size="9" fill="#666">Serine protease</text>
+                            <text x="0" y="40" font-size="9" fill="#666">Catalytic activity</text>
+                        </g>
+                        
+                        <path d="M 360,70 L 325,155" stroke="#e0a800" stroke-width="1.5" stroke-dasharray="3,3" class="function-pulse" style="animation-delay: 0.5s"/>
+                    </g>
+                    
+                    <!-- Domain Annotation -->
+                    <g transform="translate(60, 250)">
+                        <rect x="0" y="0" width="140" height="80" rx="5" fill="#d4edda" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="70" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="700">Domains</text>
+                        
+                        <g transform="translate(10, 30)">
+                            <!-- Domain visualization -->
+                            <rect x="0" y="0" width="120" height="8" rx="2" fill="#e0e0e0"/>
+                            <rect x="5" y="0" width="30" height="8" rx="2" fill="#1E64C8" opacity="0.8"/>
+                            <rect x="45" y="0" width="25" height="8" rx="2" fill="#2874d8" opacity="0.8"/>
+                            <rect x="80" y="0" width="35" height="8" rx="2" fill="#5fa3e8" opacity="0.8"/>
+                            
+                            <text x="60" y="22" font-size="9" fill="#666" text-anchor="middle">Kinase domain</text>
+                            <text x="60" y="35" font-size="9" fill="#666" text-anchor="middle">SH2 domain</text>
+                        </g>
+                        
+                        <path d="M 140,260 L 235,205" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="3,3" class="function-pulse" style="animation-delay: 1s"/>
+                    </g>
+                    
+                    <!-- Protein Interactions -->
+                    <g transform="translate(360, 250)">
+                        <rect x="0" y="0" width="140" height="80" rx="5" fill="#e3f2fd" stroke="#2874d8" stroke-width="2"/>
+                        <text x="70" y="20" font-size="12" fill="#2874d8" text-anchor="middle" font-weight="700">Interactions</text>
+                        
+                        <g transform="translate(35, 30)">
+                            <!-- Network visualization -->
+                            <circle cx="35" cy="20" r="8" fill="#2874d8" opacity="0.8"/>
+                            <circle cx="15" cy="15" r="5" fill="#5fa3e8"/>
+                            <circle cx="55" cy="15" r="5" fill="#5fa3e8"/>
+                            <circle cx="15" cy="35" r="5" fill="#5fa3e8"/>
+                            <circle cx="55" cy="35" r="5" fill="#5fa3e8"/>
+                            
+                            <line x1="35" y1="20" x2="15" y2="15" stroke="#2874d8" stroke-width="1" opacity="0.5"/>
+                            <line x1="35" y1="20" x2="55" y2="15" stroke="#2874d8" stroke-width="1" opacity="0.5"/>
+                            <line x1="35" y1="20" x2="15" y2="35" stroke="#2874d8" stroke-width="1" opacity="0.5"/>
+                            <line x1="35" y1="20" x2="55" y2="35" stroke="#2874d8" stroke-width="1" opacity="0.5"/>
+                        </g>
+                        
+                        <path d="M 360,260 L 325,205" stroke="#2874d8" stroke-width="1.5" stroke-dasharray="3,3" class="function-pulse" style="animation-delay: 1.5s"/>
+                    </g>
+                    
+                    <!-- Evolutionary Context -->
+                    <g transform="translate(180, 340)">
+                        <rect x="0" y="0" width="200" height="35" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="100" y="15" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">Evolutionary Insights</text>
+                        <text x="100" y="27" font-size="9" fill="#666" text-anchor="middle">Conservation patterns → Functional importance</text>
+                    </g>
+                    
+                    <!-- ML Model indicator -->
+                    <g transform="translate(230, 120)">
+                        <rect x="0" y="0" width="100" height="25" rx="12" fill="#fff3cd" stroke="#e0a800" stroke-width="1.5"/>
+                        <text x="50" y="17" font-size="10" fill="#e0a800" text-anchor="middle" font-weight="600">🤖 AI Model</text>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="prediction-methods">
+                <div class="method-item">
+                    <div class="method-label">GO term prediction</div>
+                    <div class="method-info">Molecular/biological/cellular</div>
+                </div>
+                <div class="method-item">
+                    <div class="method-label">EC number classification</div>
+                    <div class="method-info">Enzyme commission numbers</div>
+                </div>
+                <div class="method-item">
+                    <div class="method-label">Domain annotation</div>
+                    <div class="method-info">Functional regions identification</div>
+                </div>
+                <div class="method-item">
+                    <div class="method-label">Interaction prediction</div>
+                    <div class="method-info">Protein-protein networks</div>
+                </div>
+                <div class="method-item">
+                    <div class="method-label">Evolutionary insights</div>
+                    <div class="method-info">Conservation-function mapping</div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

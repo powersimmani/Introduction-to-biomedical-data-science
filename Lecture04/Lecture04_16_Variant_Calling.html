@@ -30,13 +30,6 @@
             padding: 20px;
             margin-bottom: 20px;
         }
-        .content-box {
-            background: #f8fbff;
-            border: 2px solid #1E64C8;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 15px;
-        }
         .section-title {
             font-size: 22px;
             font-weight: 600;
@@ -44,24 +37,6 @@
             margin-bottom: 15px;
             padding-bottom: 8px;
             border-bottom: 2px solid #e0e8f4;
-        }
-        .bullet-list {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-        }
-        .bullet-item {
-            display: flex;
-            align-items: flex-start;
-            font-size: 17px;
-            color: #333;
-        }
-        .bullet-item::before {
-            content: "•";
-            color: #1E64C8;
-            font-weight: bold;
-            margin-right: 12px;
-            font-size: 20px;
         }
         .spec-grid {
             display: grid;
@@ -85,9 +60,6 @@
             font-size: 18px;
             font-weight: 700;
             color: #1E64C8;
-        }
-        .section {
-            margin-bottom: 25px;
         }
         .info-grid {
             display: grid;
@@ -119,50 +91,209 @@
         
         <div class="visual-section">
             <div style="display: flex; justify-content: center; margin-bottom: 15px;">
-                <svg width="800" height="140" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Reference sequence -->
-                    <text x="10" y="15" font-size="12" fill="#666" font-weight="bold">Reference:</text>
-                    <rect x="10" y="20" width="780" height="18" fill="#E0E0E0" rx="2"/>
-                    <text x="20" y="34" font-size="11" fill="#333" font-family="monospace">...ATCG</text>
-                    <text x="60" y="34" font-size="11" fill="#FF6B6B" font-family="monospace" font-weight="bold">A</text>
-                    <text x="75" y="34" font-size="11" fill="#333" font-family="monospace">TCGATCGATCG...</text>
+                <svg width="900" height="500" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Title -->
+                    <text x="450" y="20" font-size="18" fill="#1E64C8" font-weight="bold" text-anchor="middle">Variant Calling Process & Algorithm</text>
                     
-                    <!-- Sample reads showing SNV -->
-                    <text x="10" y="60" font-size="12" fill="#1E64C8" font-weight="bold">Sample Reads:</text>
-                    <rect x="50" y="48" width="100" height="14" fill="#1E64C8" opacity="0.2" rx="2"/>
-                    <text x="55" y="59" font-size="10" fill="#1E64C8" font-family="monospace">ATCG<tspan fill="#4CAF50" font-weight="bold">G</tspan>TCGAT</text>
+                    <!-- Part 1: Read Alignment Visualization -->
+                    <g transform="translate(20, 40)">
+                        <rect x="0" y="0" width="420" height="200" fill="white" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        <text x="210" y="20" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">Step 1: Aligned Reads at Variant Position</text>
+                        
+                        <!-- Reference sequence -->
+                        <text x="10" y="45" font-size="12" fill="#666" font-weight="bold">Reference:</text>
+                        <rect x="80" y="35" width="320" height="18" fill="#E0E0E0" rx="2"/>
+                        <text x="85" y="48" font-size="11" fill="#333" font-family="monospace">...ATCG</text>
+                        <text x="125" y="48" font-size="11" fill="#FF6B6B" font-family="monospace" font-weight="bold">A</text>
+                        <text x="135" y="48" font-size="11" fill="#333" font-family="monospace">TCGATCGATCG...</text>
+                        
+                        <!-- Position marker -->
+                        <line x1="130" y1="55" x2="130" y2="180" stroke="#FF6B6B" stroke-width="1" stroke-dasharray="2,2"/>
+                        <text x="130" y="195" font-size="10" fill="#FF6B6B" text-anchor="middle">chr1:10177</text>
+                        
+                        <!-- Aligned reads -->
+                        <text x="10" y="75" font-size="12" fill="#666" font-weight="bold">Reads:</text>
+                        
+                        <!-- Read 1 - variant -->
+                        <rect x="85" y="65" width="120" height="14" fill="#1E64C8" opacity="0.15" rx="2"/>
+                        <text x="90" y="76" font-size="10" fill="#1E64C8" font-family="monospace">ATCG</text>
+                        <text x="122" y="76" font-size="10" fill="#4CAF50" font-family="monospace" font-weight="bold">G</text>
+                        <text x="132" y="76" font-size="10" fill="#1E64C8" font-family="monospace">TCGAT</text>
+                        <text x="210" y="76" font-size="9" fill="#666">Q:35</text>
+                        
+                        <!-- Read 2 - variant -->
+                        <rect x="85" y="82" width="120" height="14" fill="#1E64C8" opacity="0.15" rx="2"/>
+                        <text x="90" y="93" font-size="10" fill="#1E64C8" font-family="monospace">ATCG</text>
+                        <text x="122" y="93" font-size="10" fill="#4CAF50" font-family="monospace" font-weight="bold">G</text>
+                        <text x="132" y="93" font-size="10" fill="#1E64C8" font-family="monospace">TCGAT</text>
+                        <text x="210" y="93" font-size="9" fill="#666">Q:38</text>
+                        
+                        <!-- Read 3 - reference -->
+                        <rect x="85" y="99" width="120" height="14" fill="#1E64C8" opacity="0.15" rx="2"/>
+                        <text x="90" y="110" font-size="10" fill="#1E64C8" font-family="monospace">ATCG</text>
+                        <text x="122" y="110" font-size="10" fill="#FF6B6B" font-family="monospace" font-weight="bold">A</text>
+                        <text x="132" y="110" font-size="10" fill="#1E64C8" font-family="monospace">TCGAT</text>
+                        <text x="210" y="110" font-size="9" fill="#666">Q:32</text>
+                        
+                        <!-- Read 4 - variant -->
+                        <rect x="85" y="116" width="120" height="14" fill="#1E64C8" opacity="0.15" rx="2"/>
+                        <text x="90" y="127" font-size="10" fill="#1E64C8" font-family="monospace">ATCG</text>
+                        <text x="122" y="127" font-size="10" fill="#4CAF50" font-family="monospace" font-weight="bold">G</text>
+                        <text x="132" y="127" font-size="10" fill="#1E64C8" font-family="monospace">TCGAT</text>
+                        <text x="210" y="127" font-size="9" fill="#666">Q:40</text>
+                        
+                        <!-- Read 5 - variant -->
+                        <rect x="85" y="133" width="120" height="14" fill="#1E64C8" opacity="0.15" rx="2"/>
+                        <text x="90" y="144" font-size="10" fill="#1E64C8" font-family="monospace">ATCG</text>
+                        <text x="122" y="144" font-size="10" fill="#4CAF50" font-family="monospace" font-weight="bold">G</text>
+                        <text x="132" y="144" font-size="10" fill="#1E64C8" font-family="monospace">TCGAT</text>
+                        <text x="210" y="144" font-size="9" fill="#666">Q:36</text>
+                        
+                        <!-- Read 6 - reference -->
+                        <rect x="85" y="150" width="120" height="14" fill="#1E64C8" opacity="0.15" rx="2"/>
+                        <text x="90" y="161" font-size="10" fill="#1E64C8" font-family="monospace">ATCG</text>
+                        <text x="122" y="161" font-size="10" fill="#FF6B6B" font-family="monospace" font-weight="bold">A</text>
+                        <text x="132" y="161" font-size="10" fill="#1E64C8" font-family="monospace">TCGAT</text>
+                        <text x="210" y="161" font-size="9" fill="#666">Q:30</text>
+                        
+                        <!-- Summary box -->
+                        <rect x="250" y="80" width="150" height="80" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                        <text x="325" y="100" font-size="12" fill="#1E64C8" font-weight="bold" text-anchor="middle">Pileup Summary</text>
+                        <text x="260" y="120" font-size="11" fill="#333">Depth: 6 reads</text>
+                        <text x="260" y="135" font-size="11" fill="#4CAF50">Alt (G): 4 reads (67%)</text>
+                        <text x="260" y="150" font-size="11" fill="#FF6B6B">Ref (A): 2 reads (33%)</text>
+                    </g>
                     
-                    <rect x="50" y="65" width="100" height="14" fill="#1E64C8" opacity="0.2" rx="2"/>
-                    <text x="55" y="76" font-size="10" fill="#1E64C8" font-family="monospace">ATCG<tspan fill="#4CAF50" font-weight="bold">G</tspan>TCGAT</text>
+                    <!-- Arrow to next step -->
+                    <path d="M 450 140 L 480 140" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow)"/>
                     
-                    <rect x="50" y="82" width="100" height="14" fill="#1E64C8" opacity="0.2" rx="2"/>
-                    <text x="55" y="93" font-size="10" fill="#1E64C8" font-family="monospace">ATCGATCGAT</text>
+                    <!-- Part 2: Statistical Analysis -->
+                    <g transform="translate(490, 40)">
+                        <rect x="0" y="0" width="380" height="200" fill="white" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        <text x="190" y="20" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">Step 2: Statistical Analysis</text>
+                        
+                        <!-- Bayesian calculation visualization -->
+                        <rect x="20" y="35" width="340" height="60" fill="#f8fbff" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                        <text x="190" y="55" font-size="12" fill="#1E64C8" font-weight="bold" text-anchor="middle">Bayesian Genotype Likelihood</text>
+                        <text x="190" y="75" font-size="10" fill="#666" font-family="monospace" text-anchor="middle">P(G|D) = P(D|G) × P(G) / P(D)</text>
+                        <text x="190" y="88" font-size="9" fill="#666" text-anchor="middle">G=genotype, D=observed data</text>
+                        
+                        <!-- Genotype probabilities -->
+                        <text x="30" y="115" font-size="11" fill="#1E64C8" font-weight="bold">Genotype Likelihoods:</text>
+                        
+                        <!-- Bar chart for genotype probabilities -->
+                        <g transform="translate(30, 125)">
+                            <!-- 0/0 (AA) -->
+                            <rect x="0" y="0" width="30" height="40" fill="#FF6B6B" opacity="0.3"/>
+                            <text x="15" y="50" font-size="10" fill="#666" text-anchor="middle">0/0</text>
+                            <text x="15" y="62" font-size="9" fill="#666" text-anchor="middle">(AA)</text>
+                            <text x="15" y="-5" font-size="9" fill="#FF6B6B" text-anchor="middle">5%</text>
+                            
+                            <!-- 0/1 (AG) -->
+                            <rect x="50" y="-30" width="30" height="70" fill="#FFA726" opacity="0.7"/>
+                            <text x="65" y="50" font-size="10" fill="#666" text-anchor="middle">0/1</text>
+                            <text x="65" y="62" font-size="9" fill="#666" text-anchor="middle">(AG)</text>
+                            <text x="65" y="-35" font-size="9" fill="#FFA726" text-anchor="middle">85%</text>
+                            
+                            <!-- 1/1 (GG) -->
+                            <rect x="100" y="10" width="30" height="30" fill="#4CAF50" opacity="0.3"/>
+                            <text x="115" y="50" font-size="10" fill="#666" text-anchor="middle">1/1</text>
+                            <text x="115" y="62" font-size="9" fill="#666" text-anchor="middle">(GG)</text>
+                            <text x="115" y="5" font-size="9" fill="#4CAF50" text-anchor="middle">10%</text>
+                        </g>
+                        
+                        <!-- Quality metrics -->
+                        <rect x="200" y="105" width="150" height="80" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                        <text x="275" y="125" font-size="12" fill="#1E64C8" font-weight="bold" text-anchor="middle">Quality Metrics</text>
+                        <text x="210" y="145" font-size="10" fill="#333">QUAL: 85</text>
+                        <text x="210" y="160" font-size="10" fill="#333">GQ (Genotype Quality): 42</text>
+                        <text x="210" y="175" font-size="10" fill="#333">DP (Depth): 6</text>
+                    </g>
                     
-                    <rect x="50" y="99" width="100" height="14" fill="#1E64C8" opacity="0.2" rx="2"/>
-                    <text x="55" y="110" font-size="10" fill="#1E64C8" font-family="monospace">ATCG<tspan fill="#4CAF50" font-weight="bold">G</tspan>TCGAT</text>
+                    <!-- Part 3: Variant Decision Process -->
+                    <g transform="translate(20, 260)">
+                        <rect x="0" y="0" width="850" height="220" fill="white" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        <text x="425" y="20" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">Step 3: Variant Calling Decision Pipeline</text>
+                        
+                        <!-- Decision flow -->
+                        <g transform="translate(50, 40)">
+                            <!-- Input -->
+                            <rect x="0" y="20" width="100" height="50" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                            <text x="50" y="40" font-size="11" fill="#1E64C8" font-weight="bold" text-anchor="middle">Aligned</text>
+                            <text x="50" y="55" font-size="11" fill="#1E64C8" font-weight="bold" text-anchor="middle">BAM File</text>
+                            
+                            <path d="M 105 45 L 135 45" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow)"/>
+                            
+                            <!-- Local realignment -->
+                            <rect x="140" y="20" width="100" height="50" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                            <text x="190" y="40" font-size="11" fill="#666" text-anchor="middle">Local</text>
+                            <text x="190" y="55" font-size="11" fill="#666" text-anchor="middle">Realignment</text>
+                            
+                            <path d="M 245 45 L 275 45" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow)"/>
+                            
+                            <!-- Base quality recalibration -->
+                            <rect x="280" y="20" width="100" height="50" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                            <text x="330" y="40" font-size="11" fill="#666" text-anchor="middle">Base Quality</text>
+                            <text x="330" y="55" font-size="11" fill="#666" text-anchor="middle">Recalibration</text>
+                            
+                            <path d="M 385 45 L 415 45" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow)"/>
+                            
+                            <!-- Variant calling -->
+                            <rect x="420" y="20" width="100" height="50" fill="#4CAF50" opacity="0.3" stroke="#4CAF50" stroke-width="2" rx="6"/>
+                            <text x="470" y="40" font-size="11" fill="#333" font-weight="bold" text-anchor="middle">Variant</text>
+                            <text x="470" y="55" font-size="11" fill="#333" font-weight="bold" text-anchor="middle">Calling</text>
+                            
+                            <path d="M 525 45 L 555 45" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow)"/>
+                            
+                            <!-- Filtering -->
+                            <rect x="560" y="20" width="100" height="50" fill="#FFA726" opacity="0.3" stroke="#FFA726" stroke-width="2" rx="6"/>
+                            <text x="610" y="40" font-size="11" fill="#333" font-weight="bold" text-anchor="middle">Variant</text>
+                            <text x="610" y="55" font-size="11" fill="#333" font-weight="bold" text-anchor="middle">Filtering</text>
+                            
+                            <path d="M 665 45 L 695 45" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow)"/>
+                            
+                            <!-- Output -->
+                            <rect x="700" y="20" width="100" height="50" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                            <text x="750" y="40" font-size="11" fill="#1E64C8" font-weight="bold" text-anchor="middle">Final</text>
+                            <text x="750" y="55" font-size="11" fill="#1E64C8" font-weight="bold" text-anchor="middle">VCF File</text>
+                        </g>
+                        
+                        <!-- Filter criteria -->
+                        <g transform="translate(100, 120)">
+                            <rect x="0" y="0" width="650" height="80" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                            <text x="325" y="20" font-size="12" fill="#1E64C8" font-weight="bold" text-anchor="middle">Common Filtering Criteria</text>
+                            
+                            <g transform="translate(30, 35)">
+                                <!-- Filter 1 -->
+                                <rect x="0" y="0" width="140" height="35" fill="white" stroke="#666" stroke-width="1" rx="4"/>
+                                <text x="70" y="15" font-size="10" fill="#666" text-anchor="middle">Quality Score</text>
+                                <text x="70" y="28" font-size="10" fill="#1E64C8" font-weight="bold" text-anchor="middle">QUAL ≥ 30</text>
+                                
+                                <!-- Filter 2 -->
+                                <rect x="155" y="0" width="140" height="35" fill="white" stroke="#666" stroke-width="1" rx="4"/>
+                                <text x="225" y="15" font-size="10" fill="#666" text-anchor="middle">Read Depth</text>
+                                <text x="225" y="28" font-size="10" fill="#1E64C8" font-weight="bold" text-anchor="middle">DP ≥ 10</text>
+                                
+                                <!-- Filter 3 -->
+                                <rect x="310" y="0" width="140" height="35" fill="white" stroke="#666" stroke-width="1" rx="4"/>
+                                <text x="380" y="15" font-size="10" fill="#666" text-anchor="middle">Allele Balance</text>
+                                <text x="380" y="28" font-size="10" fill="#1E64C8" font-weight="bold" text-anchor="middle">0.25 ≤ AF ≤ 0.75</text>
+                                
+                                <!-- Filter 4 -->
+                                <rect x="465" y="0" width="140" height="35" fill="white" stroke="#666" stroke-width="1" rx="4"/>
+                                <text x="535" y="15" font-size="10" fill="#666" text-anchor="middle">Strand Bias</text>
+                                <text x="535" y="28" font-size="10" fill="#1E64C8" font-weight="bold" text-anchor="middle">FS < 60</text>
+                            </g>
+                        </g>
+                    </g>
                     
-                    <!-- Variant indication -->
-                    <circle cx="90" cy="34" r="8" fill="none" stroke="#FF6B6B" stroke-width="2"/>
-                    <text x="170" y="80" font-size="13" fill="#4CAF50" font-weight="bold">→ SNV Detected: A>G</text>
-                    <text x="170" y="96" font-size="11" fill="#666">Allele Frequency: 75% (3/4 reads)</text>
-                    
-                    <!-- Confidence visualization -->
-                    <rect x="400" y="45" width="350" height="70" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2" rx="4"/>
-                    <text x="410" y="62" font-size="12" fill="#1E64C8" font-weight="bold">Confidence Metrics:</text>
-                    <text x="420" y="80" font-size="11" fill="#333">✓ Coverage depth: 4x</text>
-                    <text x="420" y="95" font-size="11" fill="#333">✓ Base quality: Q35+</text>
-                    <text x="420" y="110" font-size="11" fill="#333">✓ Mapping quality: 60</text>
+                    <!-- Arrow definition -->
+                    <defs>
+                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                            <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
                 </svg>
-            </div>
-        </div>
-        
-        <div class="content-box">
-            <div class="section-title">Variant Calling Process</div>
-            <div class="bullet-list">
-                <div class="bullet-item">Identify differences between sample and reference genome</div>
-                <div class="bullet-item">Distinguish true variants from sequencing errors</div>
-                <div class="bullet-item">Calculate confidence scores for each variant</div>
-                <div class="bullet-item">Filter low-quality and false positive calls</div>
             </div>
         </div>
         
@@ -184,7 +315,7 @@
             </div>
         </div>
         
-        <div class="section">
+        <div style="margin-top: 25px;">
             <div class="section-title">Variant Types</div>
             <div class="info-grid">
                 <div class="info-box">
@@ -205,7 +336,6 @@
                 </div>
             </div>
         </div>
-    
     </div>
 </body>
 </html>

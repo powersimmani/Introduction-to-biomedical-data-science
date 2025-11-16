@@ -47,59 +47,67 @@
             border-radius: 12px;
             padding: 20px;
             display: flex;
-            flex-direction: column;
-            justify-content: space-around;
-        }
-        
-        .flow-step {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            transition: all 0.3s;
-            padding: 12px;
-            border-radius: 8px;
-        }
-        
-        .flow-step:hover {
-            background: #e8f2ff;
-            transform: translateX(5px);
-        }
-        
-        .step-circle {
-            width: 55px;
-            height: 55px;
-            background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
             justify-content: center;
-            font-size: 26px;
-            box-shadow: 0 4px 12px rgba(30, 100, 200, 0.3);
-            flex-shrink: 0;
+            align-items: center;
         }
         
-        .step-content {
-            flex: 1;
+        .flow-svg {
+            width: 100%;
+            height: 320px;
         }
         
-        .step-title {
-            font-size: 16px;
-            font-weight: 700;
-            color: #1E64C8;
-            margin-bottom: 4px;
+        .dna-path {
+            stroke: #1E64C8;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            animation: dash 3s linear infinite;
         }
         
-        .step-description {
+        @keyframes dash {
+            to {
+                stroke-dashoffset: -50;
+            }
+        }
+        
+        .enzyme-circle {
+            fill: #5088d4;
+            stroke: white;
+            stroke-width: 3;
+            filter: drop-shadow(0 4px 8px rgba(30, 100, 200, 0.3));
+        }
+        
+        .mutation-marker {
+            fill: #ff6b6b;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+        
+        .drug-molecule {
+            fill: #4CAF50;
+            stroke: white;
+            stroke-width: 2;
+        }
+        
+        .flow-arrow {
+            stroke: #1E64C8;
+            stroke-width: 2.5;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+        
+        .process-label {
+            fill: #333;
             font-size: 13px;
-            color: #555;
-            line-height: 1.4;
+            font-weight: 600;
         }
         
-        .arrow-down {
-            text-align: center;
+        .icon-text {
             font-size: 24px;
-            color: #1E64C8;
-            margin: -5px 0;
         }
         
         .content-grid {
@@ -156,6 +164,31 @@
             font-weight: 600;
             margin-left: 6px;
         }
+        
+        .metabolic-path {
+            stroke: #1E64C8;
+            stroke-width: 2;
+            fill: none;
+            stroke-dasharray: 5,3;
+            opacity: 0.6;
+        }
+        
+        .outcome-box {
+            fill: white;
+            stroke: #1E64C8;
+            stroke-width: 2;
+            rx: 8;
+        }
+        
+        .outcome-good {
+            fill: #e8f8e8;
+            stroke: #4CAF50;
+        }
+        
+        .outcome-bad {
+            fill: #ffe8e8;
+            stroke: #ff6b6b;
+        }
     </style>
 </head>
 <body>
@@ -164,53 +197,94 @@
         
         <div class="pgx-diagram">
             <div class="diagram-flow">
-                <div class="flow-step">
-                    <div class="step-circle">🧬</div>
-                    <div class="step-content">
-                        <div class="step-title">Genetic Variant</div>
-                        <div class="step-description">SNPs in drug-related genes <span class="example-label">CYP2D6*4</span></div>
-                    </div>
-                </div>
-                
-                <div class="arrow-down">↓</div>
-                
-                <div class="flow-step">
-                    <div class="step-circle">⚗️</div>
-                    <div class="step-content">
-                        <div class="step-title">Altered Function</div>
-                        <div class="step-description">Changed enzyme activity or expression level</div>
-                    </div>
-                </div>
-                
-                <div class="arrow-down">↓</div>
-                
-                <div class="flow-step">
-                    <div class="step-circle">💊</div>
-                    <div class="step-content">
-                        <div class="step-title">Drug Metabolism</div>
-                        <div class="step-description">Modified drug exposure and response</div>
-                    </div>
-                </div>
-                
-                <div class="arrow-down">↓</div>
-                
-                <div class="flow-step">
-                    <div class="step-circle">📊</div>
-                    <div class="step-content">
-                        <div class="step-title">Clinical Outcome</div>
-                        <div class="step-description">Efficacy, toxicity, or adverse reactions</div>
-                    </div>
-                </div>
-                
-                <div class="arrow-down">↓</div>
-                
-                <div class="flow-step">
-                    <div class="step-circle">🎯</div>
-                    <div class="step-content">
-                        <div class="step-title">Dose Adjustment</div>
-                        <div class="step-description">Personalized dosing recommendation</div>
-                    </div>
-                </div>
+                <svg class="flow-svg" viewBox="0 0 400 320">
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                        </marker>
+                        <pattern id="dnaPattern" x="0" y="0" width="20" height="20" patternUnits="userSpaceOnUse">
+                            <path d="M0,10 Q10,0 20,10 T40,10" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                        </pattern>
+                    </defs>
+                    
+                    <!-- Stage 1: DNA with variant -->
+                    <g transform="translate(50, 30)">
+                        <!-- DNA double helix visualization -->
+                        <path class="dna-path" d="M0,0 Q10,-10 20,0 T40,0 T60,0 T80,0" stroke-dasharray="5,5"/>
+                        <path class="dna-path" d="M0,5 Q10,15 20,5 T40,5 T60,5 T80,5" stroke-dasharray="5,5"/>
+                        <!-- Connecting lines -->
+                        <line x1="10" y1="-5" x2="10" y2="10" stroke="#1E64C8" stroke-width="1" opacity="0.5"/>
+                        <line x1="30" y1="-5" x2="30" y2="10" stroke="#1E64C8" stroke-width="1" opacity="0.5"/>
+                        <line x1="50" y1="-5" x2="50" y2="10" stroke="#1E64C8" stroke-width="1" opacity="0.5"/>
+                        <line x1="70" y1="-5" x2="70" y2="10" stroke="#1E64C8" stroke-width="1" opacity="0.5"/>
+                        
+                        <!-- Mutation marker -->
+                        <circle class="mutation-marker" cx="40" cy="2" r="8"/>
+                        <text x="40" y="6" fill="white" font-size="10" font-weight="bold" text-anchor="middle">!</text>
+                        
+                        <text class="process-label" x="40" y="30">Genetic Variant</text>
+                        <text class="process-label" x="40" y="45" font-size="11" opacity="0.8">CYP2D6*4</text>
+                    </g>
+                    
+                    <!-- Arrow 1 -->
+                    <path class="flow-arrow" d="M130,40 L170,80"/>
+                    
+                    <!-- Stage 2: Enzyme -->
+                    <g transform="translate(170, 80)">
+                        <!-- Enzyme representation -->
+                        <circle class="enzyme-circle" cx="30" cy="20" r="25"/>
+                        <text class="icon-text" x="30" y="28" text-anchor="middle">⚗️</text>
+                        
+                        <!-- Activity indicators -->
+                        <g opacity="0.5">
+                            <line x1="10" y1="20" x2="0" y2="20" stroke="#ff6b6b" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="50" y1="20" x2="60" y2="20" stroke="#ff6b6b" stroke-width="3" stroke-linecap="round"/>
+                            <line x1="30" y1="0" x2="30" y2="-10" stroke="#ff6b6b" stroke-width="3" stroke-linecap="round"/>
+                        </g>
+                        
+                        <text class="process-label" x="30" y="60">Altered Function</text>
+                        <text class="process-label" x="30" y="75" font-size="11" opacity="0.8">↓ Activity</text>
+                    </g>
+                    
+                    <!-- Arrow 2 -->
+                    <path class="flow-arrow" d="M230,120 L270,160"/>
+                    
+                    <!-- Stage 3: Drug Metabolism -->
+                    <g transform="translate(250, 160)">
+                        <!-- Drug molecules -->
+                        <circle class="drug-molecule" cx="20" cy="10" r="8"/>
+                        <circle class="drug-molecule" cx="35" cy="15" r="8"/>
+                        <circle class="drug-molecule" cx="50" cy="10" r="8"/>
+                        <text class="icon-text" x="35" y="20" text-anchor="middle">💊</text>
+                        
+                        <!-- Metabolic pathway indicators -->
+                        <path class="metabolic-path" d="M60,15 Q80,5 100,15"/>
+                        <path class="metabolic-path" d="M60,15 Q80,25 100,15"/>
+                        
+                        <text class="process-label" x="35" y="45">Drug Metabolism</text>
+                        <text class="process-label" x="35" y="60" font-size="11" opacity="0.8">Modified exposure</text>
+                    </g>
+                    
+                    <!-- Arrow 3 -->
+                    <path class="flow-arrow" d="M320,200 L320,240"/>
+                    
+                    <!-- Stage 4: Clinical Outcomes -->
+                    <g transform="translate(260, 240)">
+                        <!-- Outcome boxes -->
+                        <rect class="outcome-good" x="0" y="0" width="50" height="30" rx="5"/>
+                        <text x="25" y="18" font-size="11" text-anchor="middle">Efficacy</text>
+                        
+                        <rect class="outcome-bad" x="60" y="0" width="50" height="30" rx="5"/>
+                        <text x="85" y="18" font-size="11" text-anchor="middle">Toxicity</text>
+                        
+                        <text class="process-label" x="55" y="50">Clinical Outcome</text>
+                    </g>
+                    
+                    <!-- Feedback loop for dose adjustment -->
+                    <path class="flow-arrow" d="M320,270 Q380,270 380,200 Q380,100 340,60" stroke-dasharray="8,4" opacity="0.6"/>
+                    <text class="process-label" x="350" y="180" font-size="11" fill="#1E64C8">Dose</text>
+                    <text class="process-label" x="350" y="195" font-size="11" fill="#1E64C8">Adjustment</text>
+                </svg>
             </div>
             
             <div class="content-grid">

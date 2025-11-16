@@ -31,41 +31,32 @@
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-align: center;
         }
         
-        .content-grid {
+        .main-visual {
             display: flex;
-            flex-direction: column;
-            gap: 22px;
+            justify-content: center;
+            align-items: center;
         }
-        
-        .content-card {
-            background: #f8f9fa;
-            border-left: 4px solid #1E64C8;
-            border-radius: 8px;
-            padding: 18px 24px;
-            transition: all 0.3s;
+
+        @keyframes expand {
+            0%, 100% { transform: scaleX(1); }
+            50% { transform: scaleX(1.05); }
         }
-        
-        .content-card:hover {
-            background: #e8f2ff;
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(30, 100, 200, 0.15);
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
         }
-        
-        .content-main {
-            font-size: 20px;
-            font-weight: 600;
-            color: #1E64C8;
-            margin-bottom: 6px;
+
+        .phase-bar {
+            animation: expand 3s ease-in-out infinite;
         }
-        
-        .content-desc {
-            font-size: 16px;
-            color: #555;
-            font-weight: 400;
+
+        .highlight-text {
+            animation: pulse 2s ease-in-out infinite;
         }
     </style>
 </head>
@@ -73,27 +64,183 @@
     <div class="container">
         <div class="title">Clinical Trials</div>
         
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="content-main">Phase I-III design</div>
-                <div class="content-desc">Human testing stages</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">Biomarker strategies</div>
-                <div class="content-desc">Patient selection & monitoring</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">Adaptive trials</div>
-                <div class="content-desc">Flexible trial designs</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">Real-world evidence</div>
-                <div class="content-desc">Post-market data collection</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">Regulatory submission</div>
-                <div class="content-desc">FDA/EMA approval process</div>
-            </div>
+        <div class="main-visual">
+            <svg width="860" height="440" viewBox="0 0 860 440">
+                <!-- Phase I -->
+                <g transform="translate(100, 80)">
+                    <rect x="-50" y="-30" width="100" height="60" rx="8" fill="#e3f2fd" stroke="#1E64C8" stroke-width="2.5" class="phase-bar"/>
+                    <text x="0" y="-5" text-anchor="middle" font-size="16" font-weight="700" fill="#1E64C8">Phase I</text>
+                    <text x="0" y="15" text-anchor="middle" font-size="11" fill="#666">Safety</text>
+                    
+                    <!-- People icon -->
+                    <g transform="translate(-15, -50)">
+                        <circle cx="0" cy="0" r="4" fill="#1E64C8"/>
+                        <rect x="-4" y="4" width="8" height="10" fill="#1E64C8"/>
+                        <text x="15" y="5" font-size="12" font-weight="600" fill="#1E64C8">20-100</text>
+                    </g>
+                    
+                    <!-- Details -->
+                    <g transform="translate(0, 50)">
+                        <rect x="-60" y="0" width="120" height="80" rx="6" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+                        <text x="0" y="15" text-anchor="middle" font-size="10" font-weight="600" fill="#495057">Focus:</text>
+                        <text x="0" y="30" text-anchor="middle" font-size="9" fill="#666">• Dose escalation</text>
+                        <text x="0" y="43" text-anchor="middle" font-size="9" fill="#666">• Pharmacokinetics</text>
+                        <text x="0" y="56" text-anchor="middle" font-size="9" fill="#666">• MTD finding</text>
+                        <text x="0" y="72" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">3-6 months</text>
+                    </g>
+                </g>
+
+                <!-- Phase II -->
+                <g transform="translate(280, 80)">
+                    <rect x="-60" y="-30" width="120" height="60" rx="8" fill="#fff3cd" stroke="#ffc107" stroke-width="2.5" class="phase-bar"/>
+                    <text x="0" y="-5" text-anchor="middle" font-size="16" font-weight="700" fill="#f57f17">Phase II</text>
+                    <text x="0" y="15" text-anchor="middle" font-size="11" fill="#666">Efficacy</text>
+                    
+                    <!-- People icons -->
+                    <g transform="translate(-25, -50)">
+                        <circle cx="0" cy="0" r="4" fill="#ffc107"/>
+                        <rect x="-4" y="4" width="8" height="10" fill="#ffc107"/>
+                        <circle cx="12" cy="0" r="4" fill="#ffc107"/>
+                        <rect x="8" y="4" width="8" height="10" fill="#ffc107"/>
+                        <text x="25" y="5" font-size="12" font-weight="600" fill="#f57f17">100-300</text>
+                    </g>
+                    
+                    <!-- Details -->
+                    <g transform="translate(0, 50)">
+                        <rect x="-70" y="0" width="140" height="80" rx="6" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+                        <text x="0" y="15" text-anchor="middle" font-size="10" font-weight="600" fill="#495057">Focus:</text>
+                        <text x="0" y="30" text-anchor="middle" font-size="9" fill="#666">• Optimal dosing</text>
+                        <text x="0" y="43" text-anchor="middle" font-size="9" fill="#666">• Efficacy signals</text>
+                        <text x="0" y="56" text-anchor="middle" font-size="9" fill="#666">• Biomarker validation</text>
+                        <text x="0" y="72" text-anchor="middle" font-size="10" fill="#ffc107" font-weight="600">6 months - 2 years</text>
+                    </g>
+                </g>
+
+                <!-- Phase III -->
+                <g transform="translate(480, 80)">
+                    <rect x="-70" y="-30" width="140" height="60" rx="8" fill="#d4edda" stroke="#28a745" stroke-width="2.5" class="phase-bar"/>
+                    <text x="0" y="-5" text-anchor="middle" font-size="16" font-weight="700" fill="#155724">Phase III</text>
+                    <text x="0" y="15" text-anchor="middle" font-size="11" fill="#666">Confirmation</text>
+                    
+                    <!-- People icons (many) -->
+                    <g transform="translate(-40, -50)">
+                        <circle cx="0" cy="0" r="4" fill="#28a745"/>
+                        <rect x="-4" y="4" width="8" height="10" fill="#28a745"/>
+                        <circle cx="12" cy="0" r="4" fill="#28a745"/>
+                        <rect x="8" y="4" width="8" height="10" fill="#28a745"/>
+                        <circle cx="24" cy="0" r="4" fill="#28a745"/>
+                        <rect x="20" y="4" width="8" height="10" fill="#28a745"/>
+                        <text x="35" y="5" font-size="12" font-weight="600" fill="#155724">300-3000</text>
+                    </g>
+                    
+                    <!-- Details -->
+                    <g transform="translate(0, 50)">
+                        <rect x="-80" y="0" width="160" height="80" rx="6" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+                        <text x="0" y="15" text-anchor="middle" font-size="10" font-weight="600" fill="#495057">Focus:</text>
+                        <text x="0" y="30" text-anchor="middle" font-size="9" fill="#666">• Comparative effectiveness</text>
+                        <text x="0" y="43" text-anchor="middle" font-size="9" fill="#666">• Safety profile</text>
+                        <text x="0" y="56" text-anchor="middle" font-size="9" fill="#666">• Regulatory endpoints</text>
+                        <text x="0" y="72" text-anchor="middle" font-size="10" fill="#28a745" font-weight="600">1-4 years</text>
+                    </g>
+                </g>
+
+                <!-- FDA Approval -->
+                <g transform="translate(660, 80)">
+                    <rect x="-50" y="-30" width="100" height="60" rx="8" fill="#fce4ec" stroke="#e91e63" stroke-width="3"/>
+                    <text x="0" y="-5" text-anchor="middle" font-size="16" font-weight="700" fill="#c2185b">FDA/EMA</text>
+                    <text x="0" y="15" text-anchor="middle" font-size="11" fill="#666">Approval</text>
+                    
+                    <!-- Checkmark -->
+                    <g transform="translate(0, -50)" class="highlight-text">
+                        <circle cx="0" cy="0" r="15" fill="#e91e63"/>
+                        <path d="M -8 0 L -3 5 L 8 -8" stroke="white" stroke-width="3" fill="none" stroke-linecap="round"/>
+                    </g>
+                </g>
+
+                <!-- Phase IV (Post-market) -->
+                <g transform="translate(760, 80)">
+                    <rect x="-40" y="-30" width="80" height="60" rx="8" fill="#e1bee7" stroke="#9c27b0" stroke-width="2" stroke-dasharray="5,3"/>
+                    <text x="0" y="-5" text-anchor="middle" font-size="14" font-weight="700" fill="#6a1b9a">Phase IV</text>
+                    <text x="0" y="15" text-anchor="middle" font-size="10" fill="#666">Post-market</text>
+                    
+                    <!-- Details -->
+                    <g transform="translate(0, 50)">
+                        <rect x="-50" y="0" width="100" height="65" rx="6" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+                        <text x="0" y="15" text-anchor="middle" font-size="10" font-weight="600" fill="#495057">RWE:</text>
+                        <text x="0" y="30" text-anchor="middle" font-size="9" fill="#666">• Long-term</text>
+                        <text x="0" y="43" text-anchor="middle" font-size="9" fill="#666">• Surveillance</text>
+                        <text x="0" y="56" text-anchor="middle" font-size="9" fill="#666">• Ongoing</text>
+                    </g>
+                </g>
+
+                <!-- Flow arrows -->
+                <path d="M 150 80 L 220 80" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrow)"/>
+                <path d="M 340 80 L 410 80" stroke="#ffc107" stroke-width="2.5" marker-end="url(#arrow-yellow)"/>
+                <path d="M 550 80 L 610 80" stroke="#28a745" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+                <path d="M 710 80 L 720 80" stroke="#e91e63" stroke-width="2" marker-end="url(#arrow-pink)" stroke-dasharray="5,3"/>
+
+                <!-- Success rates -->
+                <g transform="translate(150, 220)">
+                    <text x="0" y="0" text-anchor="middle" font-size="11" fill="#e74c3c" font-weight="600">70% success</text>
+                </g>
+                <g transform="translate(340, 220)">
+                    <text x="0" y="0" text-anchor="middle" font-size="11" fill="#e74c3c" font-weight="600">33% success</text>
+                </g>
+                <g transform="translate(550, 220)">
+                    <text x="0" y="0" text-anchor="middle" font-size="11" fill="#e74c3c" font-weight="600">25-30% success</text>
+                </g>
+
+                <!-- Key Features -->
+                <g transform="translate(200, 280)">
+                    <rect x="-100" y="0" width="200" height="100" rx="8" fill="#e8f4f8" stroke="#17a2b8" stroke-width="2"/>
+                    <text x="0" y="20" text-anchor="middle" font-size="13" font-weight="600" fill="#0c5460">Biomarker Strategies</text>
+                    <text x="0" y="40" text-anchor="middle" font-size="10" fill="#666">• Patient selection</text>
+                    <text x="0" y="55" text-anchor="middle" font-size="10" fill="#666">• Response monitoring</text>
+                    <text x="0" y="70" text-anchor="middle" font-size="10" fill="#666">• Surrogate endpoints</text>
+                    <text x="0" y="85" text-anchor="middle" font-size="10" fill="#666">• Precision medicine</text>
+                </g>
+
+                <g transform="translate(430, 280)">
+                    <rect x="-100" y="0" width="200" height="100" rx="8" fill="#fff3cd" stroke="#ff9800" stroke-width="2"/>
+                    <text x="0" y="20" text-anchor="middle" font-size="13" font-weight="600" fill="#e65100">Adaptive Trials</text>
+                    <text x="0" y="40" text-anchor="middle" font-size="10" fill="#666">• Dose finding</text>
+                    <text x="0" y="55" text-anchor="middle" font-size="10" fill="#666">• Sample size re-estimation</text>
+                    <text x="0" y="70" text-anchor="middle" font-size="10" fill="#666">• Seamless phase transition</text>
+                    <text x="0" y="85" text-anchor="middle" font-size="10" fill="#666">• Bayesian approaches</text>
+                </g>
+
+                <g transform="translate(660, 280)">
+                    <rect x="-100" y="0" width="200" height="100" rx="8" fill="#f3e5f5" stroke="#9c27b0" stroke-width="2"/>
+                    <text x="0" y="20" text-anchor="middle" font-size="13" font-weight="600" fill="#6a1b9a">Real-World Evidence</text>
+                    <text x="0" y="40" text-anchor="middle" font-size="10" fill="#666">• EHR data mining</text>
+                    <text x="0" y="55" text-anchor="middle" font-size="10" fill="#666">• Claims analysis</text>
+                    <text x="0" y="70" text-anchor="middle" font-size="10" fill="#666">• Registry studies</text>
+                    <text x="0" y="85" text-anchor="middle" font-size="10" fill="#666">• Digital biomarkers</text>
+                </g>
+
+                <!-- Timeline bar -->
+                <g transform="translate(100, 400)">
+                    <rect x="0" y="0" width="560" height="20" rx="10" fill="#e0e0e0"/>
+                    <rect x="0" y="0" width="450" height="20" rx="10" fill="#1E64C8" opacity="0.6"/>
+                    <text x="280" y="14" text-anchor="middle" font-size="11" fill="white" font-weight="600">Total: 10-15 years, $1-3 billion</text>
+                </g>
+
+                <!-- Arrow markers -->
+                <defs>
+                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                    </marker>
+                    <marker id="arrow-yellow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#ffc107"/>
+                    </marker>
+                    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#28a745"/>
+                    </marker>
+                    <marker id="arrow-pink" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#e91e63"/>
+                    </marker>
+                </defs>
+            </svg>
         </div>
     </div>
 </body>

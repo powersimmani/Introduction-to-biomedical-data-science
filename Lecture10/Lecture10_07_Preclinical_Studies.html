@@ -31,41 +31,32 @@
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
             text-align: center;
         }
         
-        .content-grid {
+        .main-visual {
             display: flex;
-            flex-direction: column;
-            gap: 22px;
+            justify-content: center;
+            align-items: center;
         }
-        
-        .content-card {
-            background: #f8f9fa;
-            border-left: 4px solid #1E64C8;
-            border-radius: 8px;
-            padding: 18px 24px;
-            transition: all 0.3s;
+
+        @keyframes flow {
+            0% { stroke-dashoffset: 10; }
+            100% { stroke-dashoffset: 0; }
         }
-        
-        .content-card:hover {
-            background: #e8f2ff;
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(30, 100, 200, 0.15);
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.7; }
+            50% { opacity: 1; }
         }
-        
-        .content-main {
-            font-size: 20px;
-            font-weight: 600;
-            color: #1E64C8;
-            margin-bottom: 6px;
+
+        .flow-line {
+            animation: flow 2s linear infinite;
         }
-        
-        .content-desc {
-            font-size: 16px;
-            color: #555;
-            font-weight: 400;
+
+        .stage-icon {
+            animation: pulse 2s ease-in-out infinite;
         }
     </style>
 </head>
@@ -73,27 +64,169 @@
     <div class="container">
         <div class="title">Preclinical Studies</div>
         
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="content-main">In vitro assays</div>
-                <div class="content-desc">Cell-based testing</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">Animal models</div>
-                <div class="content-desc">In vivo efficacy testing</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">Toxicology studies</div>
-                <div class="content-desc">Safety assessment</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">PK/PD modeling</div>
-                <div class="content-desc">Pharmacokinetic/pharmacodynamic</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">IND preparation</div>
-                <div class="content-desc">Regulatory submission readiness</div>
-            </div>
+        <div class="main-visual">
+            <svg width="860" height="430" viewBox="0 0 860 430">
+                <!-- Timeline arrow -->
+                <line x1="50" y1="400" x2="810" y2="400" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow)"/>
+                <text x="430" y="425" text-anchor="middle" font-size="12" fill="#666">Timeline: 1-2 years</text>
+
+                <!-- In Vitro Assays -->
+                <g transform="translate(120, 100)">
+                    <rect x="-60" y="-40" width="120" height="80" rx="8" fill="#e3f2fd" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="0" y="-20" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">In Vitro</text>
+                    
+                    <!-- Petri dish icon -->
+                    <circle cx="0" cy="5" r="18" fill="none" stroke="#1E64C8" stroke-width="2" class="stage-icon"/>
+                    <circle cx="0" cy="5" r="8" fill="#64b5f6" opacity="0.5"/>
+                    <circle cx="-5" cy="2" r="3" fill="#1976d2"/>
+                    <circle cx="4" cy="6" r="3" fill="#1976d2"/>
+                    
+                    <text x="0" y="35" text-anchor="middle" font-size="11" fill="#666">Cell-based</text>
+                </g>
+
+                <!-- Animal Models -->
+                <g transform="translate(280, 100)">
+                    <rect x="-60" y="-40" width="120" height="80" rx="8" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+                    <text x="0" y="-20" text-anchor="middle" font-size="14" font-weight="600" fill="#f57f17">Animal Models</text>
+                    
+                    <!-- Mouse icon -->
+                    <g class="stage-icon">
+                        <ellipse cx="0" cy="5" rx="15" ry="10" fill="#ffc107" opacity="0.6"/>
+                        <circle cx="-8" cy="3" r="6" fill="#ffc107"/>
+                        <circle cx="-10" cy="0" r="3" fill="#fff"/>
+                        <circle cx="-6" cy="0" r="3" fill="#fff"/>
+                        <circle cx="-8" cy="1" r="1" fill="#333"/>
+                    </g>
+                    
+                    <text x="0" y="35" text-anchor="middle" font-size="11" fill="#666">In vivo efficacy</text>
+                </g>
+
+                <!-- Toxicology Studies -->
+                <g transform="translate(440, 100)">
+                    <rect x="-60" y="-40" width="120" height="80" rx="8" fill="#ffebee" stroke="#f44336" stroke-width="2"/>
+                    <text x="0" y="-20" text-anchor="middle" font-size="14" font-weight="600" fill="#c62828">Toxicology</text>
+                    
+                    <!-- Warning icon -->
+                    <g class="stage-icon">
+                        <path d="M 0 -10 L -10 15 L 10 15 Z" fill="#f44336"/>
+                        <text x="0" y="10" text-anchor="middle" font-size="16" fill="white" font-weight="bold">!</text>
+                    </g>
+                    
+                    <text x="0" y="35" text-anchor="middle" font-size="11" fill="#666">Safety profile</text>
+                </g>
+
+                <!-- PK/PD Modeling -->
+                <g transform="translate(600, 100)">
+                    <rect x="-60" y="-40" width="120" height="80" rx="8" fill="#e8f4f8" stroke="#17a2b8" stroke-width="2"/>
+                    <text x="0" y="-20" text-anchor="middle" font-size="14" font-weight="600" fill="#0c5460">PK/PD</text>
+                    
+                    <!-- Graph icon -->
+                    <g class="stage-icon">
+                        <rect x="-15" y="-5" width="30" height="20" fill="none" stroke="#17a2b8" stroke-width="1.5"/>
+                        <path d="M -12 10 Q -5 0, 0 2 T 12 8" fill="none" stroke="#17a2b8" stroke-width="2"/>
+                    </g>
+                    
+                    <text x="0" y="35" text-anchor="middle" font-size="11" fill="#666">Dose modeling</text>
+                </g>
+
+                <!-- IND Preparation -->
+                <g transform="translate(760, 100)">
+                    <rect x="-60" y="-40" width="120" height="80" rx="8" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
+                    <text x="0" y="-20" text-anchor="middle" font-size="14" font-weight="600" fill="#155724">IND Ready</text>
+                    
+                    <!-- Document icon -->
+                    <g class="stage-icon">
+                        <rect x="-10" y="-8" width="20" height="25" fill="#28a745" opacity="0.3"/>
+                        <rect x="-10" y="-8" width="20" height="25" fill="none" stroke="#28a745" stroke-width="2"/>
+                        <line x1="-6" y1="-2" x2="6" y2="-2" stroke="#28a745" stroke-width="1.5"/>
+                        <line x1="-6" y1="3" x2="6" y2="3" stroke="#28a745" stroke-width="1.5"/>
+                        <line x1="-6" y1="8" x2="6" y2="8" stroke="#28a745" stroke-width="1.5"/>
+                    </g>
+                    
+                    <text x="0" y="35" text-anchor="middle" font-size="11" fill="#666">Regulatory</text>
+                </g>
+
+                <!-- Detail boxes for each stage -->
+                <g transform="translate(120, 200)">
+                    <rect x="-55" y="0" width="110" height="70" rx="6" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+                    <text x="0" y="15" text-anchor="middle" font-size="10" font-weight="600" fill="#495057">Assays:</text>
+                    <text x="0" y="30" text-anchor="middle" font-size="9" fill="#666">• Binding</text>
+                    <text x="0" y="43" text-anchor="middle" font-size="9" fill="#666">• Cell viability</text>
+                    <text x="0" y="56" text-anchor="middle" font-size="9" fill="#666">• Target engage</text>
+                </g>
+
+                <g transform="translate(280, 200)">
+                    <rect x="-55" y="0" width="110" height="70" rx="6" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+                    <text x="0" y="15" text-anchor="middle" font-size="10" font-weight="600" fill="#495057">Models:</text>
+                    <text x="0" y="30" text-anchor="middle" font-size="9" fill="#666">• Rodent</text>
+                    <text x="0" y="43" text-anchor="middle" font-size="9" fill="#666">• Non-rodent</text>
+                    <text x="0" y="56" text-anchor="middle" font-size="9" fill="#666">• Disease models</text>
+                </g>
+
+                <g transform="translate(440, 200)">
+                    <rect x="-55" y="0" width="110" height="70" rx="6" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+                    <text x="0" y="15" text-anchor="middle" font-size="10" font-weight="600" fill="#495057">Studies:</text>
+                    <text x="0" y="30" text-anchor="middle" font-size="9" fill="#666">• Acute</text>
+                    <text x="0" y="43" text-anchor="middle" font-size="9" fill="#666">• Chronic</text>
+                    <text x="0" y="56" text-anchor="middle" font-size="9" fill="#666">• Genotoxicity</text>
+                </g>
+
+                <g transform="translate(600, 200)">
+                    <rect x="-55" y="0" width="110" height="70" rx="6" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+                    <text x="0" y="15" text-anchor="middle" font-size="10" font-weight="600" fill="#495057">Analysis:</text>
+                    <text x="0" y="30" text-anchor="middle" font-size="9" fill="#666">• ADME</text>
+                    <text x="0" y="43" text-anchor="middle" font-size="9" fill="#666">• Dose-response</text>
+                    <text x="0" y="56" text-anchor="middle" font-size="9" fill="#666">• Biomarkers</text>
+                </g>
+
+                <g transform="translate(760, 200)">
+                    <rect x="-55" y="0" width="110" height="70" rx="6" fill="#f8f9fa" stroke="#dee2e6" stroke-width="1"/>
+                    <text x="0" y="15" text-anchor="middle" font-size="10" font-weight="600" fill="#495057">Package:</text>
+                    <text x="0" y="30" text-anchor="middle" font-size="9" fill="#666">• CMC data</text>
+                    <text x="0" y="43" text-anchor="middle" font-size="9" fill="#666">• Tox reports</text>
+                    <text x="0" y="56" text-anchor="middle" font-size="9" fill="#666">• Clinical plan</text>
+                </g>
+
+                <!-- Flow arrows between stages -->
+                <path d="M 180 100 L 220 100" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,3" class="flow-line"/>
+                <path d="M 340 100 L 380 100" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,3" class="flow-line"/>
+                <path d="M 500 100 L 540 100" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,3" class="flow-line"/>
+                <path d="M 660 100 L 700 100" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow)" stroke-dasharray="5,3" class="flow-line"/>
+
+                <!-- Go/No-Go Decision Points -->
+                <g transform="translate(260, 320)">
+                    <rect x="-100" y="-25" width="200" height="50" rx="25" fill="#fff3cd" stroke="#ff9800" stroke-width="2.5"/>
+                    <text x="0" y="0" text-anchor="middle" font-size="14" font-weight="600" fill="#e65100">Go/No-Go Decision</text>
+                    <text x="0" y="18" text-anchor="middle" font-size="11" fill="#666">Safety & Efficacy Gates</text>
+                </g>
+
+                <g transform="translate(600, 320)">
+                    <rect x="-100" y="-25" width="200" height="50" rx="25" fill="#d1ecf1" stroke="#17a2b8" stroke-width="2.5"/>
+                    <text x="0" y="0" text-anchor="middle" font-size="14" font-weight="600" fill="#0c5460">First-in-Human</text>
+                    <text x="0" y="18" text-anchor="middle" font-size="11" fill="#666">Clinical Phase I Ready</text>
+                </g>
+
+                <!-- Connecting decision points -->
+                <path d="M 120 140 Q 120 320, 160 320" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="3,2"/>
+                <path d="M 280 140 Q 280 320, 260 320" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="3,2"/>
+                <path d="M 440 140 Q 440 320, 360 320" stroke="#ff9800" stroke-width="1.5" stroke-dasharray="3,2"/>
+                
+                <path d="M 360 320 L 500 320" stroke="#17a2b8" stroke-width="2" marker-end="url(#arrow-blue)"/>
+                <path d="M 700 320 L 760 140" stroke="#28a745" stroke-width="2.5" marker-end="url(#arrow-green)"/>
+
+                <!-- Arrow markers -->
+                <defs>
+                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                    </marker>
+                    <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#17a2b8"/>
+                    </marker>
+                    <marker id="arrow-green" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#28a745"/>
+                    </marker>
+                </defs>
+            </svg>
         </div>
     </div>
 </body>

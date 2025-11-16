@@ -25,29 +25,38 @@
             height: 540px;
             padding: 40px 60px;
             background: white;
+            display: flex;
+            flex-direction: column;
         }
         
         .title {
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
         }
         
+        .main-content {
+            display: flex;
+            gap: 30px;
+            flex: 1;
+        }
+        
         .content-grid {
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 13px;
+            flex: 1;
         }
         
         .content-card {
             background: #f8fbff;
             border-left: 5px solid #1E64C8;
             border-radius: 8px;
-            padding: 16px 22px;
+            padding: 13px 20px;
             transition: all 0.3s;
         }
         
@@ -57,16 +66,23 @@
         }
         
         .card-label {
-            font-size: 19px;
+            font-size: 17px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
         
         .card-desc {
-            font-size: 17px;
+            font-size: 15px;
             color: #333;
             line-height: 1.4;
+        }
+        
+        .diagram-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
@@ -74,28 +90,269 @@
     <div class="container">
         <div class="title">Feature Extraction</div>
         
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="card-label">Texture analysis</div>
-                <div class="card-desc">GLCM, LBP patterns</div>
+        <div class="main-content">
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-label">Texture analysis</div>
+                    <div class="card-desc">GLCM, LBP patterns</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Shape descriptors</div>
+                    <div class="card-desc">Area, perimeter, circularity, moments</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Intensity statistics</div>
+                    <div class="card-desc">Mean, std, min/max, histogram metrics</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Haralick features</div>
+                    <div class="card-desc">14 texture features from GLCM</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Radiomics</div>
+                    <div class="card-desc">High-throughput feature extraction</div>
+                </div>
             </div>
-            <div class="content-card">
-                <div class="card-label">Shape descriptors</div>
-                <div class="card-desc">Area, perimeter, circularity, moments</div>
+            
+            <div class="diagram-container">
+                <svg width="420" height="400" viewBox="0 0 420 400">
+                    <!-- GLCM Matrix Visualization -->
+                    <g id="glcm">
+                        <rect x="10" y="10" width="190" height="115" fill="#f0f8ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="105" y="28" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">GLCM (Gray Level Co-occurrence)</text>
+                        
+                        <!-- Small image example -->
+                        <g transform="translate(20, 35)">
+                            <text x="0" y="-2" font-size="8" fill="#666">Image:</text>
+                            <rect x="0" y="3" width="15" height="15" fill="#333" stroke="#000" stroke-width="0.5"/>
+                            <rect x="15" y="3" width="15" height="15" fill="#666" stroke="#000" stroke-width="0.5"/>
+                            <rect x="30" y="3" width="15" height="15" fill="#333" stroke="#000" stroke-width="0.5"/>
+                            <rect x="0" y="18" width="15" height="15" fill="#666" stroke="#000" stroke-width="0.5"/>
+                            <rect x="15" y="18" width="15" height="15" fill="#999" stroke="#000" stroke-width="0.5"/>
+                            <rect x="30" y="18" width="15" height="15" fill="#666" stroke="#000" stroke-width="0.5"/>
+                            <rect x="0" y="33" width="15" height="15" fill="#333" stroke="#000" stroke-width="0.5"/>
+                            <rect x="15" y="33" width="15" height="15" fill="#666" stroke="#000" stroke-width="0.5"/>
+                            <rect x="30" y="33" width="15" height="15" fill="#333" stroke="#000" stroke-width="0.5"/>
+                        </g>
+                        
+                        <!-- Arrow -->
+                        <line x1="70" y1="60" x2="90" y2="60" stroke="#4A90E2" stroke-width="2" marker-end="url(#arrowRight)"/>
+                        <defs>
+                            <marker id="arrowRight" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                                <polygon points="0 0, 8 3, 0 6" fill="#4A90E2"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- GLCM matrix -->
+                        <g transform="translate(95, 40)">
+                            <text x="45" y="-2" text-anchor="middle" font-size="8" fill="#666">GLCM Matrix:</text>
+                            <!-- Matrix grid -->
+                            <rect x="10" y="3" width="20" height="20" fill="#E8F2FF" stroke="#1E64C8" stroke-width="1"/>
+                            <text x="20" y="16" text-anchor="middle" font-size="9" fill="#333">4</text>
+                            <rect x="30" y="3" width="20" height="20" fill="#E8F2FF" stroke="#1E64C8" stroke-width="1"/>
+                            <text x="40" y="16" text-anchor="middle" font-size="9" fill="#333">2</text>
+                            <rect x="50" y="3" width="20" height="20" fill="#E8F2FF" stroke="#1E64C8" stroke-width="1"/>
+                            <text x="60" y="16" text-anchor="middle" font-size="9" fill="#333">1</text>
+                            
+                            <rect x="10" y="23" width="20" height="20" fill="#E8F2FF" stroke="#1E64C8" stroke-width="1"/>
+                            <text x="20" y="36" text-anchor="middle" font-size="9" fill="#333">2</text>
+                            <rect x="30" y="23" width="20" height="20" fill="#B8D4F1" stroke="#1E64C8" stroke-width="1"/>
+                            <text x="40" y="36" text-anchor="middle" font-size="9" fill="#333">3</text>
+                            <rect x="50" y="23" width="20" height="20" fill="#E8F2FF" stroke="#1E64C8" stroke-width="1"/>
+                            <text x="60" y="36" text-anchor="middle" font-size="9" fill="#333">2</text>
+                            
+                            <rect x="10" y="43" width="20" height="20" fill="#E8F2FF" stroke="#1E64C8" stroke-width="1"/>
+                            <text x="20" y="56" text-anchor="middle" font-size="9" fill="#333">1</text>
+                            <rect x="30" y="43" width="20" height="20" fill="#E8F2FF" stroke="#1E64C8" stroke-width="1"/>
+                            <text x="40" y="56" text-anchor="middle" font-size="9" fill="#333">2</text>
+                            <rect x="50" y="43" width="20" height="20" fill="#E8F2FF" stroke="#1E64C8" stroke-width="1"/>
+                            <text x="60" y="56" text-anchor="middle" font-size="9" fill="#333">0</text>
+                        </g>
+                        
+                        <text x="105" y="115" text-anchor="middle" font-size="8" fill="#666">Captures texture patterns</text>
+                    </g>
+                    
+                    <!-- LBP Pattern -->
+                    <g id="lbp">
+                        <rect x="210" y="10" width="200" height="115" fill="#fff8f0" stroke="#FFA500" stroke-width="2" rx="5"/>
+                        <text x="310" y="28" text-anchor="middle" font-size="11" fill="#FFA500" font-weight="700">LBP (Local Binary Pattern)</text>
+                        
+                        <!-- LBP calculation -->
+                        <g transform="translate(220, 35)">
+                            <!-- 3x3 grid -->
+                            <rect x="0" y="0" width="15" height="15" fill="#E8E8E8" stroke="#666" stroke-width="1"/>
+                            <text x="7" y="11" text-anchor="middle" font-size="8" fill="#333">6</text>
+                            <rect x="15" y="0" width="15" height="15" fill="#E8E8E8" stroke="#666" stroke-width="1"/>
+                            <text x="22" y="11" text-anchor="middle" font-size="8" fill="#333">5</text>
+                            <rect x="30" y="0" width="15" height="15" fill="#E8E8E8" stroke="#666" stroke-width="1"/>
+                            <text x="37" y="11" text-anchor="middle" font-size="8" fill="#333">2</text>
+                            
+                            <rect x="0" y="15" width="15" height="15" fill="#E8E8E8" stroke="#666" stroke-width="1"/>
+                            <text x="7" y="26" text-anchor="middle" font-size="8" fill="#333">7</text>
+                            <rect x="15" y="15" width="15" height="15" fill="#FFE5CC" stroke="#FFA500" stroke-width="2"/>
+                            <text x="22" y="26" text-anchor="middle" font-size="8" fill="#FFA500" font-weight="600">4</text>
+                            <rect x="30" y="15" width="15" height="15" fill="#E8E8E8" stroke="#666" stroke-width="1"/>
+                            <text x="37" y="26" text-anchor="middle" font-size="8" fill="#333">1</text>
+                            
+                            <rect x="0" y="30" width="15" height="15" fill="#E8E8E8" stroke="#666" stroke-width="1"/>
+                            <text x="7" y="41" text-anchor="middle" font-size="8" fill="#333">9</text>
+                            <rect x="15" y="30" width="15" height="15" fill="#E8E8E8" stroke="#666" stroke-width="1"/>
+                            <text x="22" y="41" text-anchor="middle" font-size="8" fill="#333">8</text>
+                            <rect x="30" y="30" width="15" height="15" fill="#E8E8E8" stroke="#666" stroke-width="1"/>
+                            <text x="37" y="41" text-anchor="middle" font-size="8" fill="#333">3</text>
+                        </g>
+                        
+                        <!-- Arrow -->
+                        <text x="280" y="60" text-anchor="middle" font-size="10" fill="#FFA500">→</text>
+                        
+                        <!-- Binary pattern -->
+                        <g transform="translate(300, 35)">
+                            <text x="30" y="-2" text-anchor="middle" font-size="8" fill="#666">Binary:</text>
+                            <rect x="0" y="3" width="10" height="10" fill="#333" stroke="#000" stroke-width="1"/>
+                            <text x="5" y="10" text-anchor="middle" font-size="7" fill="white">1</text>
+                            <rect x="10" y="3" width="10" height="10" fill="#333" stroke="#000" stroke-width="1"/>
+                            <text x="15" y="10" text-anchor="middle" font-size="7" fill="white">1</text>
+                            <rect x="20" y="3" width="10" height="10" fill="white" stroke="#000" stroke-width="1"/>
+                            <text x="25" y="10" text-anchor="middle" font-size="7" fill="#333">0</text>
+                            
+                            <rect x="0" y="13" width="10" height="10" fill="#333" stroke="#000" stroke-width="1"/>
+                            <text x="5" y="20" text-anchor="middle" font-size="7" fill="white">1</text>
+                            <rect x="20" y="13" width="10" height="10" fill="white" stroke="#000" stroke-width="1"/>
+                            <text x="25" y="20" text-anchor="middle" font-size="7" fill="#333">0</text>
+                            
+                            <rect x="0" y="23" width="10" height="10" fill="#333" stroke="#000" stroke-width="1"/>
+                            <text x="5" y="30" text-anchor="middle" font-size="7" fill="white">1</text>
+                            <rect x="10" y="23" width="10" height="10" fill="#333" stroke="#000" stroke-width="1"/>
+                            <text x="15" y="30" text-anchor="middle" font-size="7" fill="white">1</text>
+                            <rect x="20" y="23" width="10" height="10" fill="white" stroke="#000" stroke-width="1"/>
+                            <text x="25" y="30" text-anchor="middle" font-size="7" fill="#333">0</text>
+                        </g>
+                        
+                        <!-- Result -->
+                        <g transform="translate(340, 45)">
+                            <text x="25" y="0" text-anchor="middle" font-size="8" fill="#666">Pattern:</text>
+                            <text x="25" y="12" text-anchor="middle" font-size="10" fill="#FFA500" font-weight="600">11011100₂</text>
+                            <text x="25" y="24" text-anchor="middle" font-size="10" fill="#333">= 220</text>
+                        </g>
+                        
+                        <text x="310" y="115" text-anchor="middle" font-size="8" fill="#666">Rotation invariant texture</text>
+                    </g>
+                    
+                    <!-- Shape Descriptors -->
+                    <g id="shape">
+                        <rect x="10" y="135" width="190" height="120" fill="#f0fff0" stroke="#28a745" stroke-width="2" rx="5"/>
+                        <text x="105" y="153" text-anchor="middle" font-size="11" fill="#28a745" font-weight="700">Shape Descriptors</text>
+                        
+                        <!-- Sample shape -->
+                        <g transform="translate(30, 160)">
+                            <ellipse cx="35" cy="30" rx="30" ry="20" fill="#90EE90" stroke="#28a745" stroke-width="2" opacity="0.5"/>
+                            
+                            <!-- Annotations -->
+                            <line x1="35" y1="30" x2="65" y2="30" stroke="#FF6B6B" stroke-width="1.5"/>
+                            <text x="68" y="32" font-size="8" fill="#FF6B6B">Major axis</text>
+                            
+                            <line x1="35" y1="30" x2="35" y2="10" stroke="#4A90E2" stroke-width="1.5"/>
+                            <text x="38" y="8" font-size="8" fill="#4A90E2">Minor axis</text>
+                            
+                            <!-- Centroid -->
+                            <circle cx="35" cy="30" r="2" fill="#333"/>
+                            <text x="35" y="45" text-anchor="middle" font-size="8" fill="#333">Centroid</text>
+                        </g>
+                        
+                        <!-- Features list -->
+                        <g transform="translate(110, 165)">
+                            <text x="0" y="0" font-size="9" fill="#333">• Area = πab</text>
+                            <text x="0" y="12" font-size="9" fill="#333">• Perimeter ≈ 2π√((a²+b²)/2)</text>
+                            <text x="0" y="24" font-size="9" fill="#333">• Circularity = 4πA/P²</text>
+                            <text x="0" y="36" font-size="9" fill="#333">• Eccentricity = √(1-b²/a²)</text>
+                            <text x="0" y="48" font-size="9" fill="#333">• Solidity = A/A_convex</text>
+                            <text x="0" y="60" font-size="9" fill="#333">• Hu moments (7)</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Haralick Features -->
+                    <g id="haralick">
+                        <rect x="210" y="135" width="200" height="120" fill="#FFE5FF" stroke="#9C27B0" stroke-width="2" rx="5"/>
+                        <text x="310" y="153" text-anchor="middle" font-size="11" fill="#9C27B0" font-weight="700">Haralick Features (from GLCM)</text>
+                        
+                        <!-- Feature categories -->
+                        <g transform="translate(220, 160)">
+                            <text x="0" y="10" font-size="9" fill="#9C27B0" font-weight="600">Statistical:</text>
+                            <text x="5" y="22" font-size="8" fill="#333">• Energy (uniformity)</text>
+                            <text x="5" y="32" font-size="8" fill="#333">• Entropy (randomness)</text>
+                            <text x="5" y="42" font-size="8" fill="#333">• Contrast (local variations)</text>
+                            
+                            <text x="95" y="10" font-size="9" fill="#9C27B0" font-weight="600">Correlation:</text>
+                            <text x="100" y="22" font-size="8" fill="#333">• Homogeneity</text>
+                            <text x="100" y="32" font-size="8" fill="#333">• Correlation</text>
+                            <text x="100" y="42" font-size="8" fill="#333">• Dissimilarity</text>
+                            
+                            <text x="0" y="58" font-size="9" fill="#9C27B0" font-weight="600">Higher-order:</text>
+                            <text x="5" y="70" font-size="8" fill="#333">• Cluster shade</text>
+                            <text x="5" y="80" font-size="8" fill="#333">• Cluster prominence</text>
+                            
+                            <text x="95" y="58" font-size="9" fill="#9C27B0" font-weight="600">Information:</text>
+                            <text x="100" y="70" font-size="8" fill="#333">• IMC1, IMC2</text>
+                            <text x="100" y="80" font-size="8" fill="#333">• Max probability</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Radiomics Pipeline -->
+                    <g id="radiomics">
+                        <rect x="10" y="265" width="400" height="125" fill="#E3F2FD" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="210" y="283" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Radiomics Pipeline</text>
+                        
+                        <!-- Pipeline flow -->
+                        <g transform="translate(20, 290)">
+                            <!-- Image -->
+                            <rect x="0" y="0" width="50" height="40" fill="white" stroke="#666" stroke-width="1.5" rx="3"/>
+                            <rect x="10" y="10" width="30" height="20" fill="#E8E8E8" stroke="#666" stroke-width="1"/>
+                            <circle cx="25" cy="20" r="8" fill="#FF6B6B" opacity="0.5"/>
+                            <text x="25" y="52" text-anchor="middle" font-size="8" fill="#666">Medical Image</text>
+                            
+                            <!-- Arrow 1 -->
+                            <line x1="52" y1="20" x2="68" y2="20" stroke="#4A90E2" stroke-width="2" marker-end="url(#arrowRight)"/>
+                            
+                            <!-- Segmentation -->
+                            <rect x="70" y="0" width="50" height="40" fill="#f0fff0" stroke="#28a745" stroke-width="1.5" rx="3"/>
+                            <rect x="80" y="10" width="30" height="20" fill="#E8E8E8" stroke="#666" stroke-width="1"/>
+                            <circle cx="95" cy="20" r="8" fill="#28a745"/>
+                            <text x="95" y="52" text-anchor="middle" font-size="8" fill="#28a745">Segment ROI</text>
+                            
+                            <!-- Arrow 2 -->
+                            <line x1="122" y1="20" x2="138" y2="20" stroke="#4A90E2" stroke-width="2" marker-end="url(#arrowRight)"/>
+                            
+                            <!-- Feature extraction -->
+                            <rect x="140" y="0" width="80" height="40" fill="#fff8f0" stroke="#FFA500" stroke-width="1.5" rx="3"/>
+                            <text x="180" y="12" text-anchor="middle" font-size="8" fill="#FFA500" font-weight="600">Extract Features</text>
+                            <text x="180" y="22" text-anchor="middle" font-size="7" fill="#666">• Shape (14)</text>
+                            <text x="180" y="30" text-anchor="middle" font-size="7" fill="#666">• Texture (45)</text>
+                            <text x="180" y="38" text-anchor="middle" font-size="7" fill="#666">• Intensity (18)</text>
+                            <text x="180" y="52" text-anchor="middle" font-size="8" fill="#FFA500">1000+ features</text>
+                            
+                            <!-- Arrow 3 -->
+                            <line x1="222" y1="20" x2="238" y2="20" stroke="#4A90E2" stroke-width="2" marker-end="url(#arrowRight)"/>
+                            
+                            <!-- Analysis -->
+                            <rect x="240" y="0" width="60" height="40" fill="#FFE5FF" stroke="#9C27B0" stroke-width="1.5" rx="3"/>
+                            <text x="270" y="15" text-anchor="middle" font-size="8" fill="#9C27B0" font-weight="600">ML Analysis</text>
+                            <text x="270" y="27" text-anchor="middle" font-size="7" fill="#666">Classification</text>
+                            <text x="270" y="52" text-anchor="middle" font-size="8" fill="#9C27B0">Prediction</text>
+                            
+                            <!-- Arrow 4 -->
+                            <line x1="302" y1="20" x2="318" y2="20" stroke="#4A90E2" stroke-width="2" marker-end="url(#arrowRight)"/>
+                            
+                            <!-- Clinical decision -->
+                            <rect x="320" y="0" width="60" height="40" fill="#D4EDDA" stroke="#28a745" stroke-width="2" rx="3"/>
+                            <text x="350" y="15" text-anchor="middle" font-size="8" fill="#28a745" font-weight="600">Clinical</text>
+                            <text x="350" y="27" text-anchor="middle" font-size="8" fill="#28a745" font-weight="600">Decision</text>
+                            <text x="350" y="52" text-anchor="middle" font-size="8" fill="#28a745">Outcome</text>
+                        </g>
+                        
+                        <text x="210" y="375" text-anchor="middle" font-size="9" fill="#666">Quantitative imaging biomarkers for precision medicine</text>
+                    </g>
+                </svg>
             </div>
-            <div class="content-card">
-                <div class="card-label">Intensity statistics</div>
-                <div class="card-desc">Mean, std, min/max, histogram metrics</div>
-            </div>
-            <div class="content-card">
-                <div class="card-label">Haralick features</div>
-                <div class="card-desc">14 texture features from GLCM</div>
-            </div>
-            <div class="content-card">
-                <div class="card-label">Radiomics</div>
-                <div class="card-desc">High-throughput feature extraction</div>
-            </div>
-
         </div>
     </div>
 </body>

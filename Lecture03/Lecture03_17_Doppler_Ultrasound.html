@@ -25,29 +25,38 @@
             height: 540px;
             padding: 40px 60px;
             background: white;
+            display: flex;
+            flex-direction: column;
         }
         
         .title {
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
         }
         
+        .main-content {
+            display: flex;
+            gap: 30px;
+            flex: 1;
+        }
+        
         .content-grid {
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 13px;
+            flex: 1;
         }
         
         .content-card {
             background: #f8fbff;
             border-left: 5px solid #1E64C8;
             border-radius: 8px;
-            padding: 16px 22px;
+            padding: 13px 20px;
             transition: all 0.3s;
         }
         
@@ -57,16 +66,23 @@
         }
         
         .card-label {
-            font-size: 19px;
+            font-size: 17px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
         
         .card-desc {
-            font-size: 17px;
+            font-size: 15px;
             color: #333;
             line-height: 1.4;
+        }
+        
+        .diagram-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
@@ -74,28 +90,174 @@
     <div class="container">
         <div class="title">Doppler Ultrasound</div>
         
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="card-label">Doppler shift principle</div>
-                <div class="card-desc">Frequency change with moving blood</div>
+        <div class="main-content">
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-label">Doppler shift principle</div>
+                    <div class="card-desc">Frequency change with moving blood</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Color flow mapping</div>
+                    <div class="card-desc">Direction and velocity visualization</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Power Doppler</div>
+                    <div class="card-desc">More sensitive to low flow</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Spectral analysis</div>
+                    <div class="card-desc">Velocity vs time waveforms</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Clinical applications</div>
+                    <div class="card-desc">Vascular, cardiac, obstetric imaging</div>
+                </div>
             </div>
-            <div class="content-card">
-                <div class="card-label">Color flow mapping</div>
-                <div class="card-desc">Direction and velocity visualization</div>
+            
+            <div class="diagram-container">
+                <svg width="420" height="400" viewBox="0 0 420 400">
+                    <!-- Transducer -->
+                    <rect x="185" y="20" width="50" height="20" fill="#4A90E2" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                    <text x="210" y="35" text-anchor="middle" font-size="10" fill="white" font-weight="700">Transducer</text>
+                    
+                    <!-- Transmitted ultrasound waves -->
+                    <defs>
+                        <pattern id="wavePattern" x="0" y="0" width="20" height="10" patternUnits="userSpaceOnUse">
+                            <path d="M 0 5 Q 5 0, 10 5 T 20 5" stroke="#4A90E2" stroke-width="1.5" fill="none" opacity="0.6"/>
+                        </pattern>
+                        <marker id="flowArrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#CC0000"/>
+                        </marker>
+                        <marker id="blueArrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                    
+                    <!-- Incident beam -->
+                    <path d="M 210 40 L 190 100 L 190 180 L 210 240" fill="#4A90E2" opacity="0.15" stroke="#4A90E2" stroke-width="1"/>
+                    <path d="M 210 40 L 230 100 L 230 180 L 210 240" fill="#4A90E2" opacity="0.15" stroke="#4A90E2" stroke-width="1"/>
+                    
+                    <!-- Blood vessel -->
+                    <ellipse cx="210" cy="140" rx="80" ry="25" fill="#FFE5CC" stroke="#CC8866" stroke-width="2"/>
+                    <text x="210" y="120" text-anchor="middle" font-size="10" fill="#CC8866" font-weight="600">Blood Vessel</text>
+                    
+                    <!-- Blood flow -->
+                    <line x1="140" y1="140" x2="280" y2="140" stroke="#CC0000" stroke-width="3" marker-end="url(#flowArrow)" opacity="0.7"/>
+                    
+                    <!-- Red blood cells -->
+                    <ellipse cx="160" cy="140" rx="8" ry="5" fill="#CC0000" opacity="0.8"/>
+                    <ellipse cx="185" cy="142" rx="8" ry="5" fill="#CC0000" opacity="0.8"/>
+                    <ellipse cx="210" cy="138" rx="8" ry="5" fill="#CC0000" opacity="0.8"/>
+                    <ellipse cx="235" cy="141" rx="8" ry="5" fill="#CC0000" opacity="0.8"/>
+                    <ellipse cx="260" cy="139" rx="8" ry="5" fill="#CC0000" opacity="0.8"/>
+                    
+                    <text x="290" y="143" font-size="9" fill="#CC0000" font-weight="600">Flow</text>
+                    
+                    <!-- Transmitted waves (going down) -->
+                    <g id="transmitted">
+                        <path d="M 200 50 Q 205 55, 210 50" stroke="#4A90E2" stroke-width="2" fill="none"/>
+                        <path d="M 200 60 Q 205 65, 210 60" stroke="#4A90E2" stroke-width="2" fill="none" opacity="0.8"/>
+                        <path d="M 200 70 Q 205 75, 210 70" stroke="#4A90E2" stroke-width="2" fill="none" opacity="0.6"/>
+                        <path d="M 200 80 Q 205 85, 210 80" stroke="#4A90E2" stroke-width="2" fill="none" opacity="0.4"/>
+                        <text x="225" y="65" font-size="9" fill="#4A90E2" font-weight="600">f₀</text>
+                    </g>
+                    
+                    <!-- Reflected waves (compressed - higher frequency) -->
+                    <g id="reflected">
+                        <path d="M 200 200 Q 202 195, 204 200" stroke="#00FF00" stroke-width="2" fill="none"/>
+                        <path d="M 206 200 Q 208 195, 210 200" stroke="#00FF00" stroke-width="2" fill="none"/>
+                        <path d="M 200 210 Q 202 205, 204 210" stroke="#00FF00" stroke-width="2" fill="none" opacity="0.8"/>
+                        <path d="M 206 210 Q 208 205, 210 210" stroke="#00FF00" stroke-width="2" fill="none" opacity="0.8"/>
+                        <text x="225" y="205" font-size="9" fill="#00FF00" font-weight="600">f₀ + Δf</text>
+                    </g>
+                    
+                    <!-- Doppler equation -->
+                    <rect x="15" y="260" width="180" height="75" fill="#f0f8ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="105" y="280" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Doppler Equation</text>
+                    <text x="105" y="300" text-anchor="middle" font-size="10" fill="#333">Δf = 2 · f₀ · v · cos θ / c</text>
+                    <text x="105" y="318" text-anchor="middle" font-size="8" fill="#666">Δf = frequency shift</text>
+                    <text x="105" y="330" text-anchor="middle" font-size="8" fill="#666">v = blood velocity, θ = angle</text>
+                    
+                    <!-- Color Doppler display -->
+                    <rect x="225" y="260" width="180" height="75" fill="#fff8f0" stroke="#FFA500" stroke-width="2" rx="5"/>
+                    <text x="315" y="280" text-anchor="middle" font-size="11" fill="#FFA500" font-weight="700">Color Doppler Mapping</text>
+                    
+                    <!-- Color bar -->
+                    <rect x="245" y="290" width="140" height="15" fill="url(#colorGradient)"/>
+                    <defs>
+                        <linearGradient id="colorGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#0000FF;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#000000;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#FF0000;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <text x="245" y="320" font-size="9" fill="#0000FF" font-weight="600">Away</text>
+                    <text x="315" y="320" text-anchor="middle" font-size="9" fill="#333">No flow</text>
+                    <text x="385" y="320" text-anchor="end" font-size="9" fill="#FF0000" font-weight="600">Toward</text>
+                    
+                    <!-- Spectral Doppler waveform -->
+                    <g id="spectral">
+                        <rect x="15" y="350" width="390" height="40" fill="#1a1a1a" stroke="#666" stroke-width="2"/>
+                        
+                        <!-- Waveform -->
+                        <path d="M 30 370 Q 50 360, 70 370 Q 90 360, 110 370 Q 130 360, 150 370 Q 170 360, 190 370 Q 210 360, 230 370 Q 250 360, 270 370 Q 290 360, 310 370 Q 330 360, 350 370 Q 370 360, 390 370" 
+                              stroke="#00FF00" stroke-width="2" fill="none"/>
+                        
+                        <text x="210" y="345" text-anchor="middle" font-size="10" fill="#333" font-weight="600">Spectral Doppler (Velocity vs Time)</text>
+                        
+                        <!-- Axis labels -->
+                        <text x="20" y="365" font-size="8" fill="#00FF00">+</text>
+                        <text x="20" y="380" font-size="8" fill="#00FF00">-</text>
+                        <text x="395" y="385" font-size="8" fill="#666">Time</text>
+                    </g>
+                    
+                    <!-- Application icons -->
+                    <g id="applications" transform="translate(300, 50)">
+                        <rect x="0" y="0" width="110" height="140" fill="#f0fff0" stroke="#28a745" stroke-width="2" rx="5"/>
+                        <text x="55" y="18" text-anchor="middle" font-size="10" fill="#28a745" font-weight="700">Applications</text>
+                        
+                        <!-- Cardiac -->
+                        <g transform="translate(10, 28)">
+                            <path d="M 10 5 C 10 2, 7 0, 5 0 S 0 2, 0 5 C 0 8, 5 12, 5 12 S 10 8, 10 5" fill="#FF6B6B" stroke="#CC0000" stroke-width="1"/>
+                            <text x="15" y="10" font-size="9" fill="#333">Cardiac valves</text>
+                        </g>
+                        
+                        <!-- Vascular -->
+                        <g transform="translate(10, 50)">
+                            <circle cx="5" cy="5" r="5" fill="none" stroke="#4A90E2" stroke-width="2"/>
+                            <line x1="5" y1="0" x2="5" y2="10" stroke="#4A90E2" stroke-width="2"/>
+                            <text x="15" y="9" font-size="9" fill="#333">Carotid stenosis</text>
+                        </g>
+                        
+                        <!-- Obstetric -->
+                        <g transform="translate(10, 72)">
+                            <ellipse cx="5" cy="5" rx="5" ry="6" fill="#FFE5CC" stroke="#CC8866" stroke-width="1.5"/>
+                            <text x="15" y="9" font-size="9" fill="#333">Fetal heart rate</text>
+                        </g>
+                        
+                        <!-- Portal vein -->
+                        <g transform="translate(10, 94)">
+                            <rect x="0" y="2" width="10" height="6" fill="#9966CC" stroke="#663399" stroke-width="1" rx="1"/>
+                            <text x="15" y="9" font-size="9" fill="#333">Portal vein flow</text>
+                        </g>
+                        
+                        <!-- DVT -->
+                        <g transform="translate(10, 116)">
+                            <rect x="0" y="0" width="10" height="10" fill="#CC6666" stroke="#993333" stroke-width="1"/>
+                            <text x="15" y="9" font-size="9" fill="#333">DVT detection</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Angle dependency indicator -->
+                    <g transform="translate(100, 160)">
+                        <line x1="0" y1="0" x2="30" y2="-20" stroke="#1E64C8" stroke-width="2" stroke-dasharray="3,3"/>
+                        <arc x="0" y="0" width="25" height="25" start="0" end="35" stroke="#FFA500" stroke-width="1.5" fill="none"/>
+                        <text x="15" y="-25" font-size="9" fill="#FFA500" font-weight="600">θ</text>
+                        <text x="-20" y="20" font-size="8" fill="#666">Angle matters!</text>
+                        <text x="-20" y="30" font-size="8" fill="#666">Best: 30-60°</text>
+                    </g>
+                </svg>
             </div>
-            <div class="content-card">
-                <div class="card-label">Power Doppler</div>
-                <div class="card-desc">More sensitive to low flow</div>
-            </div>
-            <div class="content-card">
-                <div class="card-label">Spectral analysis</div>
-                <div class="card-desc">Velocity vs time waveforms</div>
-            </div>
-            <div class="content-card">
-                <div class="card-label">Clinical applications</div>
-                <div class="card-desc">Vascular, cardiac, obstetric imaging</div>
-            </div>
-
         </div>
     </div>
 </body>

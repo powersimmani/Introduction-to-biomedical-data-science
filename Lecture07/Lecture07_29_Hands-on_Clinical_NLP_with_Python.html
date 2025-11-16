@@ -35,28 +35,18 @@
             text-align: center;
         }
         
-        .content-grid-2 {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 25px;
-        }
-        
-        .content-grid-3 {
-            display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 20px;
+        .code-example-diagram {
+            margin-bottom: 25px;
+            background: #f8fbff;
+            border: 2.5px solid #1E64C8;
+            border-radius: 10px;
+            padding: 20px;
         }
         
         .content-grid-4 {
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
-        }
-        
-        .content-grid-5 {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
         }
         
         .content-card {
@@ -100,47 +90,172 @@
             font-size: 18px;
             flex-shrink: 0;
         }
+        
+        .code-block {
+            background: #263238;
+            color: #aed581;
+            padding: 12px;
+            border-radius: 5px;
+            font-family: 'Consolas', 'Monaco', monospace;
+            font-size: 11px;
+            overflow-x: auto;
+            margin: 8px 0;
+        }
+        
+        .code-comment {
+            color: #546e7a;
+        }
+        
+        .code-keyword {
+            color: #ff5370;
+        }
+        
+        .code-string {
+            color: #ffb74d;
+        }
+        
+        .code-function {
+            color: #82b1ff;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Hands-on: Clinical NLP with Python</div>
         
+        <!-- Code Example with Pipeline -->
+        <div class="code-example-diagram">
+            <div style="text-align: center; margin-bottom: 15px;">
+                <span style="color: #1E64C8; font-size: 14px; font-weight: bold;">Clinical NLP Pipeline Example</span>
+            </div>
+            
+            <!-- scispaCy Example -->
+            <div class="code-block">
+<span class="code-comment"># Install: pip install scispacy</span>
+<span class="code-keyword">import</span> spacy
+<span class="code-keyword">import</span> scispacy
+<span class="code-keyword">from</span> scispacy.linking <span class="code-keyword">import</span> EntityLinker
+
+<span class="code-comment"># Load clinical model</span>
+nlp = spacy.<span class="code-function">load</span>(<span class="code-string">"en_core_sci_md"</span>)
+nlp.<span class="code-function">add_pipe</span>(<span class="code-string">"scispacy_linker"</span>, config={<span class="code-string">"resolve_abbreviations"</span>: <span class="code-keyword">True</span>})
+
+<span class="code-comment"># Process clinical text</span>
+text = <span class="code-string">"Patient prescribed metformin 500mg for T2DM. HbA1c was 7.2%"</span>
+doc = <span class="code-function">nlp</span>(text)
+
+<span class="code-comment"># Extract entities</span>
+<span class="code-keyword">for</span> ent <span class="code-keyword">in</span> doc.ents:
+    <span class="code-function">print</span>(f<span class="code-string">"{ent.text} → {ent.label_}"</span>)
+    <span class="code-keyword">if</span> ent._.kb_ents:
+        cui = ent._.kb_ents[0][0]  <span class="code-comment"># UMLS CUI</span>
+        <span class="code-function">print</span>(f<span class="code-string">"  UMLS: {cui}"</span>)
+            </div>
+            
+            <!-- BioBERT Example -->
+            <div class="code-block" style="margin-top: 15px;">
+<span class="code-comment"># BioBERT for NER using Transformers</span>
+<span class="code-keyword">from</span> transformers <span class="code-keyword">import</span> AutoTokenizer, AutoModelForTokenClassification
+<span class="code-keyword">import</span> torch
+
+<span class="code-comment"># Load BioBERT model</span>
+tokenizer = AutoTokenizer.<span class="code-function">from_pretrained</span>(<span class="code-string">"dmis-lab/biobert-v1.1"</span>)
+model = AutoModelForTokenClassification.<span class="code-function">from_pretrained</span>(
+    <span class="code-string">"dmis-lab/biobert-v1.1"</span>
+)
+
+<span class="code-comment"># Tokenize and predict</span>
+inputs = <span class="code-function">tokenizer</span>(text, return_tensors=<span class="code-string">"pt"</span>)
+outputs = <span class="code-function">model</span>(**inputs)
+predictions = torch.argmax(outputs.logits, dim=2)
+            </div>
+        </div>
+        
+        <!-- Visual Pipeline Flow -->
+        <div class="code-example-diagram" style="padding: 15px;">
+            <svg width="100%" height="100" viewBox="0 0 870 100">
+                <text x="435" y="20" text-anchor="middle" fill="#1E64C8" font-size="14" font-weight="bold">NLP Pipeline Flow</text>
+                
+                <!-- Pipeline Steps -->
+                <rect x="30" y="35" width="120" height="50" fill="#1E64C8" rx="5"/>
+                <text x="90" y="55" text-anchor="middle" fill="white" font-size="11" font-weight="bold">1. Load Text</text>
+                <text x="90" y="70" text-anchor="middle" fill="white" font-size="9">Clinical notes</text>
+                
+                <rect x="180" y="35" width="120" height="50" fill="#2874d8" rx="5"/>
+                <text x="240" y="55" text-anchor="middle" fill="white" font-size="11" font-weight="bold">2. Preprocess</text>
+                <text x="240" y="70" text-anchor="middle" fill="white" font-size="9">Clean, tokenize</text>
+                
+                <rect x="330" y="35" width="120" height="50" fill="#5088d4" rx="5"/>
+                <text x="390" y="55" text-anchor="middle" fill="white" font-size="11" font-weight="bold">3. NER</text>
+                <text x="390" y="70" text-anchor="middle" fill="white" font-size="9">Extract entities</text>
+                
+                <rect x="480" y="35" width="120" height="50" fill="#6ba3e0" rx="5"/>
+                <text x="540" y="55" text-anchor="middle" fill="white" font-size="11" font-weight="bold">4. Link</text>
+                <text x="540" y="70" text-anchor="middle" fill="white" font-size="9">UMLS CUIs</text>
+                
+                <rect x="630" y="35" width="120" height="50" fill="#66bb6a" rx="5"/>
+                <text x="690" y="55" text-anchor="middle" fill="white" font-size="11" font-weight="bold">5. Output</text>
+                <text x="690" y="70" text-anchor="middle" fill="white" font-size="9">Structured data</text>
+                
+                <!-- Progress indicator -->
+                <rect x="780" y="35" width="70" height="50" fill="#ff9800" rx="5"/>
+                <text x="815" y="55" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Evaluate</text>
+                <text x="815" y="70" text-anchor="middle" fill="white" font-size="9">F1 score</text>
+                
+                <!-- Arrows -->
+                <defs>
+                    <marker id="arrow9" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                        <polygon points="0 0, 8 3, 0 6" fill="#1E64C8" />
+                    </marker>
+                </defs>
+                
+                <line x1="150" y1="60" x2="180" y2="60" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow9)"/>
+                <line x1="300" y1="60" x2="330" y2="60" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow9)"/>
+                <line x1="450" y1="60" x2="480" y2="60" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow9)"/>
+                <line x1="600" y1="60" x2="630" y2="60" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow9)"/>
+                <line x1="750" y1="60" x2="780" y2="60" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow9)"/>
+            </svg>
+        </div>
+        
         <div class="content-grid-4">
             <div class="content-card">
-                <div class="content-title">spaCy Medical (scispaCy)</div>
+                <div class="content-title">🔬 scispaCy</div>
                 <div class="content-list">
                     <div class="bullet">pip install scispacy</div>
-                    <div class="bullet">en_core_sci_sm model</div>
-                    <div class="bullet">NER for biomedical entities</div>
+                    <div class="bullet">Biomedical NER models</div>
+                    <div class="bullet">UMLS entity linking</div>
                     <div class="bullet">Abbreviation detection</div>
+                    <div class="bullet">Negation with NegEx</div>
                 </div>
             </div>
             <div class="content-card">
-                <div class="content-title">MedCAT Tutorial</div>
+                <div class="content-title">🏥 MedCAT</div>
                 <div class="content-list">
-                    <div class="bullet">Medical Concept Annotation Tool</div>
-                    <div class="bullet">Unsupervised learning from UMLS</div>
-                    <div class="bullet">Link entities to CUIs</div>
-                    <div class="bullet">Negation & context detection</div>
+                    <div class="bullet">Medical Concept Annotation</div>
+                    <div class="bullet">Unsupervised learning</div>
+                    <div class="bullet">Active learning interface</div>
+                    <div class="bullet">Context detection</div>
+                    <div class="bullet">SNOMED/UMLS linking</div>
                 </div>
             </div>
             <div class="content-card">
-                <div class="content-title">BioBERT Usage</div>
+                <div class="content-title">🤖 BioBERT/ClinicalBERT</div>
                 <div class="content-list">
-                    <div class="bullet">Pretrained on PubMed + PMC</div>
-                    <div class="bullet">Fine-tune on clinical notes</div>
-                    <div class="bullet">NER, relation extraction</div>
-                    <div class="bullet">Hugging Face transformers</div>
+                    <div class="bullet">Pretrained on PubMed/MIMIC</div>
+                    <div class="bullet">Fine-tuning for NER</div>
+                    <div class="bullet">Relation extraction</div>
+                    <div class="bullet">Question answering</div>
+                    <div class="bullet">Hugging Face integration</div>
                 </div>
             </div>
             <div class="content-card">
-                <div class="content-title">Pipeline Creation</div>
+                <div class="content-title">📊 Evaluation Metrics</div>
                 <div class="content-list">
-                    <div class="bullet">Load clinical notes</div>
-                    <div class="bullet">Preprocess & tokenize</div>
-                    <div class="bullet">Extract entities</div>
-                    <div class="bullet">Evaluate with precision, recall, F1</div>
+                    <div class="bullet">Precision: correct/predicted</div>
+                    <div class="bullet">Recall: correct/actual</div>
+                    <div class="bullet">F1 score: harmonic mean</div>
+                    <div class="bullet">Entity vs token level</div>
+                    <div class="bullet">Cross-validation</div>
                 </div>
             </div>
         </div>

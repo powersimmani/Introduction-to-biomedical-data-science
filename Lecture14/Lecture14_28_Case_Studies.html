@@ -31,46 +31,166 @@
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
             text-align: center;
             padding-bottom: 20px;
             border-bottom: 3px solid #1E64C8;
         }
         
-        .content-section {
+        .cases-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            grid-template-rows: repeat(2, 1fr);
+            gap: 15px;
+            height: 340px;
+        }
+        
+        .case-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
             display: flex;
             flex-direction: column;
-            gap: 18px;
-        }
-        
-        .bullet-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 16px 20px;
-            background: #f8f9fa;
-            border-left: 4px solid #1E64C8;
-            border-radius: 8px;
+            position: relative;
             transition: all 0.3s ease;
+            border: 3px solid transparent;
         }
         
-        .bullet-item:hover {
-            background: #e8f2ff;
-            transform: translateX(8px);
+        .case-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 20px rgba(30, 100, 200, 0.2);
+            z-index: 10;
         }
         
-        .bullet {
+        .success-case {
+            border-left: 5px solid #28a745;
+        }
+        
+        .success-case:hover {
+            background: #f0fdf4;
+            border-color: #28a745;
+        }
+        
+        .failure-case {
+            border-left: 5px solid #ff6b6b;
+        }
+        
+        .failure-case:hover {
+            background: #fff5f5;
+            border-color: #ff6b6b;
+        }
+        
+        .case-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 12px;
+        }
+        
+        .case-icon {
+            width: 50px;
+            height: 50px;
+            flex-shrink: 0;
+        }
+        
+        .case-info {
+            flex: 1;
+        }
+        
+        .case-title {
+            font-size: 16px;
+            font-weight: 700;
             color: #1E64C8;
-            font-size: 24px;
-            font-weight: bold;
-            line-height: 1;
+            margin-bottom: 3px;
         }
         
-        .bullet-item span:last-child {
-            font-size: 20px;
+        .case-type {
+            font-size: 11px;
+            color: #666;
+            font-style: italic;
+        }
+        
+        .case-metrics {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+        
+        .metric-item {
+            flex: 1;
+            background: white;
+            padding: 8px;
+            border-radius: 6px;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1E64C8;
+        }
+        
+        .metric-label {
+            font-size: 10px;
+            color: #666;
+            margin-top: 2px;
+        }
+        
+        .case-lessons {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+        }
+        
+        .lesson-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 12px;
             color: #333;
-            font-weight: 500;
-            line-height: 1.4;
+        }
+        
+        .lesson-bullet {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+        
+        .success-bullet {
+            background: #28a745;
+        }
+        
+        .failure-bullet {
+            background: #ff6b6b;
+        }
+        
+        .warning-bullet {
+            background: #ffc107;
+        }
+        
+        .case-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            padding: 3px 10px;
+            border-radius: 12px;
+            font-size: 10px;
+            font-weight: 700;
+            color: white;
+        }
+        
+        .success-badge {
+            background: #28a745;
+        }
+        
+        .failure-badge {
+            background: #ff6b6b;
+        }
+        
+        .mixed-badge {
+            background: #ffc107;
         }
     </style>
 </head>
@@ -78,26 +198,179 @@
     <div class="container">
         <div class="title">Case Studies</div>
         
-        <div class="content-section">
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Success stories</span>
+        <div class="cases-grid">
+            <!-- Success Story 1 -->
+            <div class="case-card success-case">
+                <span class="case-badge success-badge">SUCCESS</span>
+                <div class="case-header">
+                    <svg class="case-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="35" fill="#28a745" opacity="0.2"/>
+                        <path d="M 30 50 L 45 65 L 70 35" fill="none" stroke="#28a745" stroke-width="6" stroke-linecap="round"/>
+                    </svg>
+                    <div class="case-info">
+                        <div class="case-title">Diabetic Retinopathy AI</div>
+                        <div class="case-type">Google Health / Screening Tool</div>
+                    </div>
+                </div>
+                <div class="case-metrics">
+                    <div class="metric-item">
+                        <div class="metric-value">90%</div>
+                        <div class="metric-label">Sensitivity</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value">98%</div>
+                        <div class="metric-label">Specificity</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value">50K+</div>
+                        <div class="metric-label">Patients</div>
+                    </div>
+                </div>
+                <div class="case-lessons">
+                    <div class="lesson-item">
+                        <div class="lesson-bullet success-bullet"></div>
+                        <span>Strong clinical validation across populations</span>
+                    </div>
+                    <div class="lesson-item">
+                        <div class="lesson-bullet success-bullet"></div>
+                        <span>Clear regulatory pathway (FDA approved)</span>
+                    </div>
+                    <div class="lesson-item">
+                        <div class="lesson-bullet success-bullet"></div>
+                        <span>Effective provider training program</span>
+                    </div>
+                </div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Failure analysis</span>
+            
+            <!-- Failure Case -->
+            <div class="case-card failure-case">
+                <span class="case-badge failure-badge">LESSONS</span>
+                <div class="case-header">
+                    <svg class="case-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="35" fill="#ff6b6b" opacity="0.2"/>
+                        <path d="M 35 35 L 65 65 M 65 35 L 35 65" stroke="#ff6b6b" stroke-width="6" stroke-linecap="round"/>
+                    </svg>
+                    <div class="case-info">
+                        <div class="case-title">Watson for Oncology</div>
+                        <div class="case-type">IBM / Treatment Recommendations</div>
+                    </div>
+                </div>
+                <div class="case-metrics">
+                    <div class="metric-item">
+                        <div class="metric-value" style="color: #ff6b6b;">Limited</div>
+                        <div class="metric-label">Adoption</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value" style="color: #ff6b6b;">High</div>
+                        <div class="metric-label">Cost</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value" style="color: #ff6b6b;">Variable</div>
+                        <div class="metric-label">Results</div>
+                    </div>
+                </div>
+                <div class="case-lessons">
+                    <div class="lesson-item">
+                        <div class="lesson-bullet failure-bullet"></div>
+                        <span>Insufficient local data adaptation</span>
+                    </div>
+                    <div class="lesson-item">
+                        <div class="lesson-bullet failure-bullet"></div>
+                        <span>Over-promised capabilities</span>
+                    </div>
+                    <div class="lesson-item">
+                        <div class="lesson-bullet failure-bullet"></div>
+                        <span>Poor integration with workflows</span>
+                    </div>
+                </div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Lessons learned</span>
+            
+            <!-- Mixed/Learning Case -->
+            <div class="case-card success-case">
+                <span class="case-badge mixed-badge">EVOLVING</span>
+                <div class="case-header">
+                    <svg class="case-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 50 20 L 85 40 L 75 75 L 25 75 L 15 40 Z" fill="none" stroke="#ffc107" stroke-width="4"/>
+                        <circle cx="50" cy="50" r="15" fill="#ffc107" opacity="0.3"/>
+                        <text x="50" y="58" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffc107">!</text>
+                    </svg>
+                    <div class="case-info">
+                        <div class="case-title">Sepsis Prediction Model</div>
+                        <div class="case-type">Epic Systems / Risk Alert</div>
+                    </div>
+                </div>
+                <div class="case-metrics">
+                    <div class="metric-item">
+                        <div class="metric-value" style="color: #ffc107;">63%</div>
+                        <div class="metric-label">PPV</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value" style="color: #28a745;">Wide</div>
+                        <div class="metric-label">Deploy</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value" style="color: #ffc107;">Mixed</div>
+                        <div class="metric-label">Reviews</div>
+                    </div>
+                </div>
+                <div class="case-lessons">
+                    <div class="lesson-item">
+                        <div class="lesson-bullet warning-bullet"></div>
+                        <span>Alert fatigue concerns addressed</span>
+                    </div>
+                    <div class="lesson-item">
+                        <div class="lesson-bullet success-bullet"></div>
+                        <span>Continuous model improvement</span>
+                    </div>
+                    <div class="lesson-item">
+                        <div class="lesson-bullet warning-bullet"></div>
+                        <span>Need for local calibration</span>
+                    </div>
+                </div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Implementation tips</span>
-            </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Regulatory examples</span>
+            
+            <!-- Regulatory Example -->
+            <div class="case-card success-case">
+                <span class="case-badge success-badge">LANDMARK</span>
+                <div class="case-header">
+                    <svg class="case-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="20" y="25" width="60" height="50" rx="5" fill="none" stroke="#1E64C8" stroke-width="4"/>
+                        <circle cx="50" cy="50" r="15" fill="#1E64C8" opacity="0.3"/>
+                        <path d="M 35 50 L 45 60 L 65 40" fill="none" stroke="#1E64C8" stroke-width="5" stroke-linecap="round"/>
+                    </svg>
+                    <div class="case-info">
+                        <div class="case-title">IDx-DR</div>
+                        <div class="case-type">First Autonomous AI / FDA De Novo</div>
+                    </div>
+                </div>
+                <div class="case-metrics">
+                    <div class="metric-item">
+                        <div class="metric-value">1st</div>
+                        <div class="metric-label">FDA AI</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value">87%</div>
+                        <div class="metric-label">Accuracy</div>
+                    </div>
+                    <div class="metric-item">
+                        <div class="metric-value">2018</div>
+                        <div class="metric-label">Approved</div>
+                    </div>
+                </div>
+                <div class="case-lessons">
+                    <div class="lesson-item">
+                        <div class="lesson-bullet success-bullet"></div>
+                        <span>Clear intended use definition</span>
+                    </div>
+                    <div class="lesson-item">
+                        <div class="lesson-bullet success-bullet"></div>
+                        <span>Robust clinical trial design</span>
+                    </div>
+                    <div class="lesson-item">
+                        <div class="lesson-bullet success-bullet"></div>
+                        <span>Set regulatory precedent</span>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

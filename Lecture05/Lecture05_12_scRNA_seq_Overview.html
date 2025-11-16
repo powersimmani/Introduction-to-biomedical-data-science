@@ -24,44 +24,19 @@
             font-size: 28px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
         }
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-        .content-card {
-            background: white;
-            border: 2.5px solid #1E64C8;
-            border-radius: 10px;
-            padding: 16px;
-            transition: all 0.3s;
-        }
-        .content-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(30, 100, 200, 0.2);
-            background: #f8fbff;
-        }
-        .card-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1E64C8;
-            margin-bottom: 8px;
-        }
-        .card-desc {
-            font-size: 15px;
-            color: #333;
-            line-height: 1.4;
+        .visual-content {
+            width: 100%;
+            height: 430px;
         }
         .note-box {
             background: #f0f5fc;
             border-left: 4px solid #1E64C8;
             border-radius: 6px;
             padding: 12px 18px;
-            margin-top: 15px;
+            margin-top: 10px;
         }
         .note-text {
             font-size: 16px;
@@ -73,28 +48,92 @@
 <body>
     <div class="container">
         <div class="title">scRNA-seq Overview</div>
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="card-title">Historical Development</div>
-                <div class="card-desc">From Tang et al. 2009 to modern high-throughput platforms</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Technology Comparison</div>
-                <div class="card-desc">Droplet vs plate-based methods</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Throughput vs Depth</div>
-                <div class="card-desc">10X: 10K cells/run, Smart-seq: 100-1000 genes more</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Cost per Cell</div>
-                <div class="card-desc">$0.05-1.00 depending on platform and scale</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Applications</div>
-                <div class="card-desc">Cell atlases, development, disease, drug screening</div>
-            </div>
-
+        <div class="visual-content">
+            <svg width="100%" height="100%" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
+                <!-- Timeline -->
+                <text x="450" y="25" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">Evolution & Comparison of Single-Cell Technologies</text>
+                
+                <!-- Timeline axis -->
+                <line x1="50" y1="80" x2="850" y2="80" stroke="#999" stroke-width="2"/>
+                
+                <!-- Timeline points -->
+                <g id="timeline">
+                    <!-- 2009 Tang et al. -->
+                    <circle cx="150" cy="80" r="6" fill="#FF5722"/>
+                    <text x="150" y="60" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#D32F2F" text-anchor="middle">2009</text>
+                    <text x="150" y="100" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Tang et al.</text>
+                    
+                    <!-- 2013 Smart-seq -->
+                    <circle cx="350" cy="80" r="6" fill="#2196F3"/>
+                    <text x="350" y="60" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#0D47A1" text-anchor="middle">2013</text>
+                    <text x="350" y="100" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Smart-seq</text>
+                    
+                    <!-- 2015 Drop-seq -->
+                    <circle cx="550" cy="80" r="6" fill="#4CAF50"/>
+                    <text x="550" y="60" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#1B5E20" text-anchor="middle">2015</text>
+                    <text x="550" y="100" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Drop-seq</text>
+                    
+                    <!-- 2017 10X -->
+                    <circle cx="750" cy="80" r="6" fill="#9C27B0"/>
+                    <text x="750" y="60" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#6A1B9A" text-anchor="middle">2017</text>
+                    <text x="750" y="100" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">10X v2</text>
+                </g>
+                
+                <!-- Platform Comparison Chart -->
+                <g id="comparison-chart" transform="translate(50, 140)">
+                    <text x="400" y="0" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#1E64C8" text-anchor="middle">Throughput vs Depth Trade-off</text>
+                    
+                    <!-- Axes -->
+                    <line x1="0" y1="200" x2="800" y2="200" stroke="#666" stroke-width="2"/>
+                    <line x1="0" y1="200" x2="0" y2="20" stroke="#666" stroke-width="2"/>
+                    
+                    <!-- Axis labels -->
+                    <text x="400" y="220" font-family="Aptos, sans-serif" font-size="12" fill="#666" text-anchor="middle">Throughput (cells/run) →</text>
+                    <text x="-100" y="10" font-family="Aptos, sans-serif" font-size="12" fill="#666" text-anchor="middle" transform="rotate(-90 -100 110)">Depth (genes/cell) →</text>
+                    
+                    <!-- Platform bubbles -->
+                    <!-- Smart-seq2 - Low throughput, High depth -->
+                    <circle cx="150" cy="50" r="35" fill="#2196F3" opacity="0.6"/>
+                    <text x="150" y="50" font-family="Aptos, sans-serif" font-size="12" font-weight="700" fill="white" text-anchor="middle">Smart-seq</text>
+                    <text x="150" y="65" font-family="Aptos, sans-serif" font-size="9" fill="white" text-anchor="middle">100s cells</text>
+                    <text x="150" y="75" font-family="Aptos, sans-serif" font-size="9" fill="white" text-anchor="middle">10K genes</text>
+                    
+                    <!-- 10X - High throughput, Medium depth -->
+                    <circle cx="600" cy="120" r="45" fill="#9C27B0" opacity="0.6"/>
+                    <text x="600" y="115" font-family="Aptos, sans-serif" font-size="12" font-weight="700" fill="white" text-anchor="middle">10X</text>
+                    <text x="600" y="130" font-family="Aptos, sans-serif" font-size="9" fill="white" text-anchor="middle">10K cells</text>
+                    <text x="600" y="140" font-family="Aptos, sans-serif" font-size="9" fill="white" text-anchor="middle">3K genes</text>
+                    
+                    <!-- Drop-seq - Very high throughput, Lower depth -->
+                    <circle cx="700" cy="160" r="30" fill="#4CAF50" opacity="0.6"/>
+                    <text x="700" y="160" font-family="Aptos, sans-serif" font-size="12" font-weight="700" fill="white" text-anchor="middle">Drop-seq</text>
+                    <text x="700" y="173" font-family="Aptos, sans-serif" font-size="9" fill="white" text-anchor="middle">100K cells</text>
+                    
+                    <!-- Cost indicators -->
+                    <text x="150" y="15" font-family="Aptos, sans-serif" font-size="10" fill="#D32F2F" text-anchor="middle">$$$</text>
+                    <text x="600" y="70" font-family="Aptos, sans-serif" font-size="10" fill="#388E3C" text-anchor="middle">$</text>
+                    <text x="700" y="125" font-family="Aptos, sans-serif" font-size="10" fill="#388E3C" text-anchor="middle">$</text>
+                </g>
+                
+                <!-- Applications -->
+                <g id="applications" transform="translate(50, 370)">
+                    <rect x="0" y="0" width="180" height="40" rx="5" fill="#FFEBEE" stroke="#D32F2F" stroke-width="1"/>
+                    <text x="90" y="15" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#D32F2F" text-anchor="middle">Cell Atlases</text>
+                    <text x="90" y="28" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Human Cell Atlas</text>
+                    
+                    <rect x="200" y="0" width="180" height="40" rx="5" fill="#E3F2FD" stroke="#1976D2" stroke-width="1"/>
+                    <text x="290" y="15" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#1976D2" text-anchor="middle">Development</text>
+                    <text x="290" y="28" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Lineage tracing</text>
+                    
+                    <rect x="400" y="0" width="180" height="40" rx="5" fill="#E8F5E9" stroke="#388E3C" stroke-width="1"/>
+                    <text x="490" y="15" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#388E3C" text-anchor="middle">Disease</text>
+                    <text x="490" y="28" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Tumor heterogeneity</text>
+                    
+                    <rect x="600" y="0" width="200" height="40" rx="5" fill="#FFF3E0" stroke="#F57C00" stroke-width="1"/>
+                    <text x="700" y="15" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#E65100" text-anchor="middle">Drug Discovery</text>
+                    <text x="700" y="28" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Target identification</text>
+                </g>
+            </svg>
         </div>
         <div class="note-box">
             <div class="note-text">💡 Revolution in understanding cellular heterogeneity</div>

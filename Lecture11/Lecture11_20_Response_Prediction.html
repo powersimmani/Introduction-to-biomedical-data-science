@@ -46,6 +46,7 @@
             background: #f8f9fb;
             border-radius: 12px;
             padding: 20px;
+            position: relative;
         }
         
         .timeline-svg {
@@ -53,36 +54,86 @@
             height: 240px;
         }
         
-        .timeline-line {
-            stroke: #1E64C8;
-            stroke-width: 3;
-            fill: none;
+        .grid-line {
+            stroke: #e0e0e0;
+            stroke-width: 1;
         }
         
-        .time-point {
+        .axis-line {
+            stroke: #666;
+            stroke-width: 2;
+        }
+        
+        .response-curve-good {
+            stroke: #4CAF50;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            animation: drawLine 2s ease-in-out;
+        }
+        
+        .response-curve-partial {
+            stroke: #ffa500;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-dasharray: 8,4;
+            animation: drawLine 2s ease-in-out;
+        }
+        
+        .response-curve-poor {
+            stroke: #ff6b6b;
+            stroke-width: 3;
+            fill: none;
+            stroke-linecap: round;
+            stroke-dasharray: 5,5;
+            animation: drawLine 2s ease-in-out;
+        }
+        
+        @keyframes drawLine {
+            from {
+                stroke-dashoffset: 500;
+            }
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        .response-area-good {
+            fill: #4CAF50;
+            opacity: 0.1;
+        }
+        
+        .response-area-poor {
+            fill: #ff6b6b;
+            opacity: 0.1;
+        }
+        
+        .biomarker-point {
             fill: #1E64C8;
             stroke: white;
-            stroke-width: 3;
-            cursor: pointer;
-            transition: all 0.3s;
+            stroke-width: 2;
+            filter: drop-shadow(0 2px 4px rgba(30, 100, 200, 0.3));
+            animation: pulse 2s ease-in-out infinite;
         }
         
-        .time-point:hover {
-            fill: #5088d4;
-            r: 18;
+        @keyframes pulse {
+            0%, 100% { r: 6; opacity: 1; }
+            50% { r: 8; opacity: 0.8; }
         }
         
-        .response-line {
-            stroke: #4CAF50;
-            stroke-width: 4;
+        .prediction-marker {
+            stroke: #ff9f6b;
+            stroke-width: 2;
+            stroke-dasharray: 6,3;
             fill: none;
         }
         
-        .non-response-line {
-            stroke: #ff6b6b;
-            stroke-width: 4;
+        .treatment-marker {
+            stroke: #1E64C8;
+            stroke-width: 2;
+            stroke-dasharray: 6,3;
             fill: none;
-            stroke-dasharray: 8,4;
         }
         
         .label-text {
@@ -94,6 +145,23 @@
         .axis-label {
             fill: #666;
             font-size: 11px;
+        }
+        
+        .ctdna-bar {
+            fill: #5088d4;
+            opacity: 0.7;
+            animation: growBar 1s ease-out;
+        }
+        
+        @keyframes growBar {
+            from { height: 0; }
+        }
+        
+        .threshold-line {
+            stroke: #ff6b6b;
+            stroke-width: 1.5;
+            stroke-dasharray: 10,5;
+            opacity: 0.8;
         }
         
         .content-grid {
@@ -168,6 +236,10 @@
             width: 30px;
             height: 3px;
         }
+        
+        .imaging-icon {
+            font-size: 16px;
+        }
     </style>
 </head>
 <body>
@@ -177,9 +249,15 @@
         <div class="prediction-flow">
             <div class="timeline-container">
                 <svg class="timeline-svg" viewBox="0 0 500 240">
+                    <!-- Grid lines -->
+                    <line class="grid-line" x1="50" y1="180" x2="450" y2="180"/>
+                    <line class="grid-line" x1="50" y1="140" x2="450" y2="140"/>
+                    <line class="grid-line" x1="50" y1="100" x2="450" y2="100"/>
+                    <line class="grid-line" x1="50" y1="60" x2="450" y2="60"/>
+                    
                     <!-- Axes -->
-                    <line x1="50" y1="200" x2="450" y2="200" stroke="#ccc" stroke-width="2"/>
-                    <line x1="50" y1="200" x2="50" y2="30" stroke="#ccc" stroke-width="2"/>
+                    <line class="axis-line" x1="50" y1="200" x2="450" y2="200"/>
+                    <line class="axis-line" x1="50" y1="200" x2="50" y2="30"/>
                     
                     <!-- Axis labels -->
                     <text class="axis-label" x="250" y="225" text-anchor="middle">Time (weeks)</text>
@@ -192,44 +270,70 @@
                     <text class="label-text" x="350" y="215" text-anchor="middle">12</text>
                     <text class="label-text" x="450" y="215" text-anchor="middle">16</text>
                     
+                    <!-- Response levels -->
+                    <text class="axis-label" x="35" y="180" text-anchor="end" font-size="10">20%</text>
+                    <text class="axis-label" x="35" y="140" text-anchor="end" font-size="10">40%</text>
+                    <text class="axis-label" x="35" y="100" text-anchor="end" font-size="10">60%</text>
+                    <text class="axis-label" x="35" y="60" text-anchor="end" font-size="10">80%</text>
+                    
                     <!-- Baseline -->
-                    <line x1="50" y1="140" x2="450" y2="140" stroke="#ccc" stroke-width="1" stroke-dasharray="5,3"/>
+                    <line class="threshold-line" x1="50" y1="140" x2="450" y2="140"/>
                     <text class="axis-label" x="460" y="144" font-size="10">Baseline</text>
                     
-                    <!-- Responder line -->
-                    <path class="response-line" d="M 50 140 L 150 120 L 250 90 L 350 70 L 450 60"/>
+                    <!-- Good responder curve with area -->
+                    <path class="response-area-good" d="M50,140 Q150,120 250,80 Q350,50 450,40 L450,200 L50,200 Z"/>
+                    <path class="response-curve-good" d="M50,140 Q150,120 250,80 Q350,50 450,40"/>
                     
-                    <!-- Non-responder line -->
-                    <path class="non-response-line" d="M 50 140 L 150 145 L 250 155 L 350 170 L 450 180"/>
+                    <!-- Partial responder curve -->
+                    <path class="response-curve-partial" d="M50,140 Q150,130 250,120 Q350,110 450,100"/>
                     
-                    <!-- Time points -->
-                    <circle class="time-point" cx="50" cy="140" r="8"/>
-                    <circle class="time-point" cx="150" cy="120" r="8"/>
-                    <circle class="time-point" cx="250" cy="90" r="8"/>
-                    <circle class="time-point" cx="350" cy="70" r="8"/>
-                    <circle class="time-point" cx="450" cy="60" r="8"/>
+                    <!-- Poor responder curve with area -->
+                    <path class="response-area-poor" d="M50,140 Q150,145 250,155 Q350,170 450,180 L450,200 L50,200 Z"/>
+                    <path class="response-curve-poor" d="M50,140 Q150,145 250,155 Q350,170 450,180"/>
+                    
+                    <!-- Biomarker measurement points -->
+                    <circle class="biomarker-point" cx="50" cy="140" r="6"/>
+                    <circle class="biomarker-point" cx="150" cy="120" r="6"/>
+                    <circle class="biomarker-point" cx="250" cy="80" r="6"/>
                     
                     <!-- Treatment start marker -->
-                    <line x1="50" y1="200" x2="50" y2="30" stroke="#1E64C8" stroke-width="2" stroke-dasharray="6,3"/>
+                    <line class="treatment-marker" x1="50" y1="200" x2="50" y2="30"/>
                     <text class="label-text" x="55" y="25" fill="#1E64C8" font-size="11">Treatment Start</text>
                     
                     <!-- Early prediction marker -->
-                    <line x1="150" y1="200" x2="150" y2="30" stroke="#ff9f6b" stroke-width="2" stroke-dasharray="6,3"/>
+                    <line class="prediction-marker" x1="150" y1="200" x2="150" y2="30"/>
                     <text class="label-text" x="155" y="25" fill="#ff9f6b" font-size="11">Early Prediction</text>
                     
-                    <!-- Labels -->
-                    <text class="label-text" x="420" y="55" fill="#4CAF50" font-size="13">Responder</text>
-                    <text class="label-text" x="400" y="185" fill="#ff6b6b" font-size="13">Non-responder</text>
+                    <!-- Labels for response types -->
+                    <text class="label-text" x="420" y="35" fill="#4CAF50" font-size="13">Complete</text>
+                    <text class="label-text" x="420" y="95" fill="#ffa500" font-size="13">Partial</text>
+                    <text class="label-text" x="420" y="185" fill="#ff6b6b" font-size="13">Progressive</text>
+                    
+                    <!-- ctDNA dynamics visualization -->
+                    <g transform="translate(0, -20)">
+                        <rect class="ctdna-bar" x="70" y="170" width="10" height="20" fill="#5088d4" opacity="0.6"/>
+                        <rect class="ctdna-bar" x="170" y="165" width="10" height="25" fill="#5088d4" opacity="0.6" style="animation-delay: 0.2s"/>
+                        <rect class="ctdna-bar" x="270" y="150" width="10" height="40" fill="#5088d4" opacity="0.6" style="animation-delay: 0.4s"/>
+                        <rect class="ctdna-bar" x="370" y="140" width="10" height="50" fill="#5088d4" opacity="0.6" style="animation-delay: 0.6s"/>
+                    </g>
+                    
+                    <!-- Imaging markers -->
+                    <text class="imaging-icon" x="250" y="100" text-anchor="middle">📸</text>
+                    <text class="imaging-icon" x="350" y="70" text-anchor="middle">📸</text>
                 </svg>
                 
                 <div class="legend">
                     <div class="legend-item">
                         <div class="legend-line" style="background: #4CAF50;"></div>
-                        <span>Good Response</span>
+                        <span>Complete Response</span>
                     </div>
                     <div class="legend-item">
-                        <div class="legend-line" style="background: #ff6b6b; opacity: 0.7;"></div>
-                        <span>Poor Response</span>
+                        <div class="legend-line" style="background: #ffa500;"></div>
+                        <span>Partial Response</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-line" style="background: #ff6b6b;"></div>
+                        <span>Progressive Disease</span>
                     </div>
                 </div>
             </div>

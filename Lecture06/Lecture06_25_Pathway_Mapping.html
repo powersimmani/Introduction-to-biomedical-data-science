@@ -29,16 +29,17 @@
         }
         .pathway-visual {
             margin-bottom: 22px;
-            padding: 20px;
+            padding: 25px;
             background: linear-gradient(135deg, #f8fbff 0%, #ffffff 100%);
             border-radius: 10px;
             display: flex;
             justify-content: center;
             align-items: center;
+            position: relative;
         }
         .network-diagram {
             width: 100%;
-            height: 110px;
+            height: 180px;
         }
         .content-grid {
             display: grid;
@@ -51,10 +52,19 @@
             padding: 16px 20px;
             border-radius: 6px;
             transition: all 0.3s;
+            position: relative;
         }
         .content-card:hover {
             background: #e8f2ff;
             transform: translateX(5px);
+        }
+        .card-icon {
+            position: absolute;
+            top: 16px;
+            right: 20px;
+            width: 35px;
+            height: 35px;
+            opacity: 0.3;
         }
         .card-title {
             font-size: 17px;
@@ -79,6 +89,24 @@
             margin-right: 8px;
             font-size: 15px;
         }
+        @keyframes metaboliteFlow {
+            0% { offset-distance: 0%; }
+            100% { offset-distance: 100%; }
+        }
+        @keyframes pulse {
+            0%, 100% { r: 18; opacity: 0.8; }
+            50% { r: 20; opacity: 1; }
+        }
+        .metabolite-pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+        @keyframes highlight {
+            0%, 100% { stroke-width: 3; opacity: 0.8; }
+            50% { stroke-width: 4; opacity: 1; }
+        }
+        .pathway-highlight {
+            animation: highlight 3s ease-in-out infinite;
+        }
     </style>
 </head>
 <body>
@@ -86,59 +114,174 @@
         <div class="title">Pathway Mapping</div>
         
         <div class="pathway-visual">
-            <svg class="network-diagram" viewBox="0 0 800 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-                <!-- Central pathway -->
-                <circle cx="100" cy="55" r="18" fill="#4CAF50" opacity="0.8"/>
-                <circle cx="200" cy="55" r="18" fill="#2196F3" opacity="0.8"/>
-                <circle cx="300" cy="55" r="18" fill="#FF9800" opacity="0.8"/>
-                <circle cx="400" cy="55" r="18" fill="#9C27B0" opacity="0.8"/>
-                <circle cx="500" cy="55" r="18" fill="#F44336" opacity="0.8"/>
-                <circle cx="600" cy="55" r="18" fill="#00BCD4" opacity="0.8"/>
-                <circle cx="700" cy="55" r="18" fill="#4CAF50" opacity="0.8"/>
+            <svg class="network-diagram" viewBox="0 0 900 180" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <!-- Glycolysis pathway -->
+                <g id="glycolysis">
+                    <text x="50" y="20" font-size="12" fill="#1E64C8" font-weight="bold">Glycolysis</text>
+                    
+                    <!-- Glucose -->
+                    <circle cx="50" cy="50" r="18" fill="#4CAF50" class="metabolite-pulse"/>
+                    <text x="50" y="54" font-size="10" fill="white" text-anchor="middle" font-weight="600">Glc</text>
+                    
+                    <!-- G6P -->
+                    <circle cx="130" cy="50" r="18" fill="#2196F3"/>
+                    <text x="130" y="54" font-size="10" fill="white" text-anchor="middle" font-weight="600">G6P</text>
+                    
+                    <!-- F6P -->
+                    <circle cx="210" cy="50" r="18" fill="#2196F3"/>
+                    <text x="210" y="54" font-size="10" fill="white" text-anchor="middle" font-weight="600">F6P</text>
+                    
+                    <!-- F1,6BP -->
+                    <circle cx="290" cy="50" r="18" fill="#FF9800"/>
+                    <text x="290" y="54" font-size="10" fill="white" text-anchor="middle" font-weight="600">FBP</text>
+                    
+                    <!-- GAP/DHAP -->
+                    <circle cx="370" cy="50" r="18" fill="#9C27B0"/>
+                    <text x="370" y="54" font-size="10" fill="white" text-anchor="middle" font-weight="600">GAP</text>
+                    
+                    <!-- Pyruvate -->
+                    <circle cx="450" cy="50" r="18" fill="#F44336" class="metabolite-pulse"/>
+                    <text x="450" y="54" font-size="10" fill="white" text-anchor="middle" font-weight="600">Pyr</text>
+                    
+                    <!-- Pathway arrows -->
+                    <defs>
+                        <marker id="arrowPath" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                    
+                    <path d="M68 50 L112 50" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowPath)" class="pathway-highlight"/>
+                    <path d="M148 50 L192 50" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowPath)"/>
+                    <path d="M228 50 L272 50" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowPath)"/>
+                    <path d="M308 50 L352 50" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowPath)"/>
+                    <path d="M388 50 L432 50" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowPath)" class="pathway-highlight"/>
+                    
+                    <!-- ATP/ADP labels -->
+                    <text x="90" y="40" font-size="8" fill="#ff6b6b">ATP</text>
+                    <text x="90" y="70" font-size="8" fill="#4CAF50">ADP</text>
+                    <text x="250" y="40" font-size="8" fill="#ff6b6b">ATP</text>
+                    <text x="250" y="70" font-size="8" fill="#4CAF50">ADP</text>
+                    <text x="410" y="40" font-size="8" fill="#4CAF50">ATP</text>
+                    <text x="410" y="70" font-size="8" fill="#ff6b6b">ADP</text>
+                </g>
                 
-                <!-- Connections -->
-                <path d="M118 55 L182 55" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowblue)"/>
-                <path d="M218 55 L282 55" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowblue)"/>
-                <path d="M318 55 L382 55" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowblue)"/>
-                <path d="M418 55 L482 55" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowblue)"/>
-                <path d="M518 55 L582 55" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowblue)"/>
-                <path d="M618 55 L682 55" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowblue)"/>
+                <!-- TCA Cycle -->
+                <g id="tca-cycle">
+                    <text x="600" y="20" font-size="12" fill="#1E64C8" font-weight="bold">TCA Cycle</text>
+                    
+                    <!-- Central circle for cycle -->
+                    <circle cx="650" cy="90" r="50" fill="none" stroke="#1E64C8" stroke-width="2" stroke-dasharray="5,3" opacity="0.3"/>
+                    
+                    <!-- Acetyl-CoA -->
+                    <circle cx="600" cy="50" r="18" fill="#00BCD4"/>
+                    <text x="600" y="54" font-size="10" fill="white" text-anchor="middle" font-weight="600">AcCoA</text>
+                    
+                    <!-- Citrate -->
+                    <circle cx="650" cy="40" r="16" fill="#4CAF50"/>
+                    <text x="650" y="44" font-size="9" fill="white" text-anchor="middle" font-weight="600">Cit</text>
+                    
+                    <!-- Isocitrate -->
+                    <circle cx="700" cy="60" r="16" fill="#2196F3"/>
+                    <text x="700" y="64" font-size="9" fill="white" text-anchor="middle" font-weight="600">ICit</text>
+                    
+                    <!-- α-KG -->
+                    <circle cx="710" cy="110" r="16" fill="#FF9800"/>
+                    <text x="710" y="114" font-size="9" fill="white" text-anchor="middle" font-weight="600">αKG</text>
+                    
+                    <!-- Succinyl-CoA -->
+                    <circle cx="670" cy="140" r="16" fill="#9C27B0"/>
+                    <text x="670" y="144" font-size="9" fill="white" text-anchor="middle" font-weight="600">SCoA</text>
+                    
+                    <!-- Succinate -->
+                    <circle cx="620" cy="140" r="16" fill="#F44336"/>
+                    <text x="620" y="144" font-size="9" fill="white" text-anchor="middle" font-weight="600">Suc</text>
+                    
+                    <!-- Fumarate -->
+                    <circle cx="580" cy="110" r="16" fill="#795548"/>
+                    <text x="580" y="114" font-size="9" fill="white" text-anchor="middle" font-weight="600">Fum</text>
+                    
+                    <!-- Malate -->
+                    <circle cx="580" cy="60" r="16" fill="#607D8B"/>
+                    <text x="580" y="64" font-size="9" fill="white" text-anchor="middle" font-weight="600">Mal</text>
+                    
+                    <!-- OAA -->
+                    <circle cx="620" cy="40" r="16" fill="#FF5722"/>
+                    <text x="620" y="44" font-size="9" fill="white" text-anchor="middle" font-weight="600">OAA</text>
+                    
+                    <!-- Cycle arrows -->
+                    <path d="M634 42 Q640 35, 646 38" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowPath)"/>
+                    <path d="M664 45 Q680 50, 688 56" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowPath)"/>
+                    <path d="M706 72 Q712 90, 708 98" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowPath)"/>
+                    <path d="M698 115 Q690 125, 682 132" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowPath)"/>
+                    <path d="M656 138 Q640 140, 634 138" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowPath)"/>
+                    <path d="M606 134 Q595 125, 588 116" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowPath)"/>
+                    <path d="M580 94 Q580 80, 580 76" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowPath)"/>
+                    <path d="M588 52 Q600 45, 606 42" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowPath)"/>
+                    
+                    <!-- NADH/CO2 labels -->
+                    <text x="730" y="85" font-size="8" fill="#4CAF50">NADH</text>
+                    <text x="730" y="95" font-size="8" fill="#ff6b6b">CO₂</text>
+                    <text x="690" y="160" font-size="8" fill="#4CAF50">GTP</text>
+                    <text x="560" y="85" font-size="8" fill="#4CAF50">FADH₂</text>
+                </g>
+                
+                <!-- Connection from Glycolysis to TCA -->
+                <path d="M468 50 Q530 50, 582 50" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowPath)" stroke-dasharray="5,3" opacity="0.7"/>
                 
                 <!-- Branch pathways -->
-                <circle cx="200" cy="15" r="12" fill="#5088d4" opacity="0.6"/>
-                <circle cx="400" cy="15" r="12" fill="#5088d4" opacity="0.6"/>
-                <circle cx="600" cy="15" r="12" fill="#5088d4" opacity="0.6"/>
+                <g id="branches">
+                    <!-- Pentose phosphate -->
+                    <circle cx="130" cy="120" r="14" fill="#5088d4" opacity="0.6"/>
+                    <text x="130" y="124" font-size="8" fill="white" text-anchor="middle" font-weight="600">PPP</text>
+                    <path d="M130 68 L130 106" stroke="#5088d4" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrowPath)"/>
+                    
+                    <!-- Amino acid synthesis -->
+                    <circle cx="290" cy="120" r="14" fill="#5088d4" opacity="0.6"/>
+                    <text x="290" y="124" font-size="8" fill="white" text-anchor="middle" font-weight="600">AA</text>
+                    <path d="M290 68 L290 106" stroke="#5088d4" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrowPath)"/>
+                    
+                    <!-- Lactate -->
+                    <circle cx="450" cy="120" r="14" fill="#5088d4" opacity="0.6"/>
+                    <text x="450" y="124" font-size="8" fill="white" text-anchor="middle" font-weight="600">Lac</text>
+                    <path d="M450 68 L450 106" stroke="#5088d4" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrowPath)"/>
+                    
+                    <!-- Glutamine metabolism -->
+                    <circle cx="780" cy="90" r="14" fill="#5088d4" opacity="0.6"/>
+                    <text x="780" y="94" font-size="8" fill="white" text-anchor="middle" font-weight="600">Gln</text>
+                    <path d="M726 110 L766 90" stroke="#5088d4" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrowPath)"/>
+                </g>
                 
-                <circle cx="300" cy="95" r="12" fill="#5088d4" opacity="0.6"/>
-                <circle cx="500" cy="95" r="12" fill="#5088d4" opacity="0.6"/>
-                
-                <path d="M200 37 L200 27" stroke="#5088d4" stroke-width="2" stroke-dasharray="3,3"/>
-                <path d="M400 37 L400 27" stroke="#5088d4" stroke-width="2" stroke-dasharray="3,3"/>
-                <path d="M600 37 L600 27" stroke="#5088d4" stroke-width="2" stroke-dasharray="3,3"/>
-                
-                <path d="M300 73 L300 83" stroke="#5088d4" stroke-width="2" stroke-dasharray="3,3"/>
-                <path d="M500 73 L500 83" stroke="#5088d4" stroke-width="2" stroke-dasharray="3,3"/>
-                
-                <!-- Labels -->
-                <text x="95" y="60" font-size="10" fill="white" font-weight="600" text-anchor="middle">M1</text>
-                <text x="195" y="60" font-size="10" fill="white" font-weight="600" text-anchor="middle">M2</text>
-                <text x="295" y="60" font-size="10" fill="white" font-weight="600" text-anchor="middle">M3</text>
-                <text x="395" y="60" font-size="10" fill="white" font-weight="600" text-anchor="middle">M4</text>
-                <text x="495" y="60" font-size="10" fill="white" font-weight="600" text-anchor="middle">M5</text>
-                <text x="595" y="60" font-size="10" fill="white" font-weight="600" text-anchor="middle">M6</text>
-                <text x="695" y="60" font-size="10" fill="white" font-weight="600" text-anchor="middle">M7</text>
-                
-                <!-- Arrow marker definition -->
-                <defs>
-                    <marker id="arrowblue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
-                        <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
-                    </marker>
-                </defs>
+                <!-- Flux indicators -->
+                <g id="flux">
+                    <rect x="810" y="40" width="70" height="100" rx="5" fill="white" stroke="#1E64C8" stroke-width="1.5"/>
+                    <text x="845" y="55" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">Flux</text>
+                    
+                    <!-- Flux bars -->
+                    <rect x="820" y="65" width="50" height="5" rx="2" fill="#4CAF50"/>
+                    <text x="825" y="80" font-size="7" fill="#666">Glycolysis</text>
+                    
+                    <rect x="820" y="85" width="40" height="5" rx="2" fill="#2196F3"/>
+                    <text x="825" y="100" font-size="7" fill="#666">TCA</text>
+                    
+                    <rect x="820" y="105" width="30" height="5" rx="2" fill="#FF9800"/>
+                    <text x="825" y="120" font-size="7" fill="#666">PPP</text>
+                    
+                    <rect x="820" y="125" width="25" height="5" rx="2" fill="#9C27B0"/>
+                    <text x="825" y="140" font-size="7" fill="#666">AA synth</text>
+                </g>
             </svg>
         </div>
         
         <div class="content-grid">
             <div class="content-card">
+                <svg class="card-icon" viewBox="0 0 35 35">
+                    <rect x="8" y="10" width="19" height="15" rx="2" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                    <circle cx="12" cy="17" r="2" fill="#4CAF50"/>
+                    <circle cx="17" cy="14" r="2" fill="#2196F3"/>
+                    <circle cx="23" cy="18" r="2" fill="#ff6b6b"/>
+                    <line x1="12" y1="17" x2="17" y2="14" stroke="#1E64C8" stroke-width="1"/>
+                    <line x1="17" y1="14" x2="23" y2="18" stroke="#1E64C8" stroke-width="1"/>
+                </svg>
                 <div class="card-title">KEGG Pathways</div>
                 <div class="card-content">
                     <div class="bullet">Kyoto Encyclopedia database</div>
@@ -148,6 +291,14 @@
             </div>
             
             <div class="content-card">
+                <svg class="card-icon" viewBox="0 0 35 35">
+                    <circle cx="12" cy="12" r="3" stroke="#1E64C8" stroke-width="1.5" fill="none"/>
+                    <circle cx="23" cy="12" r="3" stroke="#1E64C8" stroke-width="1.5" fill="none"/>
+                    <circle cx="17" cy="23" r="3" stroke="#1E64C8" stroke-width="1.5" fill="none"/>
+                    <line x1="12" y1="12" x2="23" y2="12" stroke="#5088d4" stroke-width="1"/>
+                    <line x1="12" y1="12" x2="17" y2="23" stroke="#5088d4" stroke-width="1"/>
+                    <line x1="23" y1="12" x2="17" y2="23" stroke="#5088d4" stroke-width="1"/>
+                </svg>
                 <div class="card-title">Metabolic Networks</div>
                 <div class="card-content">
                     <div class="bullet">Biochemical connections</div>
@@ -157,6 +308,11 @@
             </div>
             
             <div class="content-card">
+                <svg class="card-icon" viewBox="0 0 35 35">
+                    <circle cx="17" cy="17" r="8" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                    <circle cx="17" cy="17" r="3" fill="#ff6b6b"/>
+                    <text x="17" y="20" font-size="6" fill="white" text-anchor="middle">13C</text>
+                </svg>
                 <div class="card-title">Flux Analysis</div>
                 <div class="card-content">
                     <div class="bullet">13C glucose/glutamine tracing</div>
@@ -166,6 +322,10 @@
             </div>
             
             <div class="content-card">
+                <svg class="card-icon" viewBox="0 0 35 35">
+                    <rect x="10" y="10" width="15" height="15" rx="2" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                    <path d="M13 17 L17 20 L22 14" stroke="#4CAF50" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
                 <div class="card-title">Integration Tools</div>
                 <div class="card-content">
                     <div class="bullet">MetaboAnalyst, XCMS</div>
@@ -173,7 +333,6 @@
                     <div class="bullet">Multi-omics integration</div>
                 </div>
             </div>
-            
         </div>
     </div>
 </body>

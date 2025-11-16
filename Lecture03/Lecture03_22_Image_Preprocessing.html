@@ -25,29 +25,38 @@
             height: 540px;
             padding: 40px 60px;
             background: white;
+            display: flex;
+            flex-direction: column;
         }
         
         .title {
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
         }
         
+        .main-content {
+            display: flex;
+            gap: 30px;
+            flex: 1;
+        }
+        
         .content-grid {
             display: flex;
             flex-direction: column;
-            gap: 18px;
+            gap: 13px;
+            flex: 1;
         }
         
         .content-card {
             background: #f8fbff;
             border-left: 5px solid #1E64C8;
             border-radius: 8px;
-            padding: 16px 22px;
+            padding: 13px 20px;
             transition: all 0.3s;
         }
         
@@ -57,16 +66,23 @@
         }
         
         .card-label {
-            font-size: 19px;
+            font-size: 17px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 5px;
+            margin-bottom: 4px;
         }
         
         .card-desc {
-            font-size: 17px;
+            font-size: 15px;
             color: #333;
             line-height: 1.4;
+        }
+        
+        .diagram-container {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
     </style>
 </head>
@@ -74,28 +90,259 @@
     <div class="container">
         <div class="title">Image Preprocessing</div>
         
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="card-label">Noise reduction</div>
-                <div class="card-desc">Gaussian, median, bilateral filtering</div>
+        <div class="main-content">
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="card-label">Noise reduction</div>
+                    <div class="card-desc">Gaussian, median, bilateral filtering</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Contrast enhancement</div>
+                    <div class="card-desc">Stretching, adaptive methods</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Histogram equalization</div>
+                    <div class="card-desc">Uniform intensity distribution</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Morphological operations</div>
+                    <div class="card-desc">Erosion, dilation, opening, closing</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-label">Registration basics</div>
+                    <div class="card-desc">Aligning multiple images</div>
+                </div>
             </div>
-            <div class="content-card">
-                <div class="card-label">Contrast enhancement</div>
-                <div class="card-desc">Stretching, adaptive methods</div>
+            
+            <div class="diagram-container">
+                <svg width="420" height="400" viewBox="0 0 420 400">
+                    <!-- Preprocessing Pipeline -->
+                    <text x="210" y="15" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="700">Preprocessing Pipeline</text>
+                    
+                    <!-- Original Image -->
+                    <g id="original">
+                        <rect x="170" y="25" width="80" height="60" fill="#E8E8E8" stroke="#666" stroke-width="2"/>
+                        <!-- Simulated noisy image -->
+                        <circle cx="190" cy="45" r="8" fill="#999" opacity="0.6"/>
+                        <circle cx="210" cy="60" r="6" fill="#999" opacity="0.5"/>
+                        <circle cx="230" cy="50" r="7" fill="#999" opacity="0.4"/>
+                        <!-- Noise dots -->
+                        <circle cx="180" cy="40" r="1" fill="#333"/>
+                        <circle cx="195" cy="55" r="1" fill="#333"/>
+                        <circle cx="220" cy="45" r="1" fill="#333"/>
+                        <circle cx="185" cy="70" r="1" fill="#333"/>
+                        <circle cx="240" cy="65" r="1" fill="#333"/>
+                        <text x="210" y="98" text-anchor="middle" font-size="10" fill="#666" font-weight="600">Original (Noisy)</text>
+                    </g>
+                    
+                    <!-- Arrow down -->
+                    <defs>
+                        <marker id="arrowDown" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#4A90E2"/>
+                        </marker>
+                    </defs>
+                    <line x1="210" y1="105" x2="210" y2="125" stroke="#4A90E2" stroke-width="2" marker-end="url(#arrowDown)"/>
+                    
+                    <!-- Noise Reduction Demo -->
+                    <g id="noise-reduction" transform="translate(0, 130)">
+                        <rect x="10" y="0" width="90" height="70" fill="#f0f8ff" stroke="#4A90E2" stroke-width="2" rx="3"/>
+                        <text x="55" y="15" text-anchor="middle" font-size="10" fill="#4A90E2" font-weight="700">Gaussian Filter</text>
+                        
+                        <!-- Filter kernel -->
+                        <g transform="translate(25, 20)">
+                            <rect x="0" y="0" width="15" height="15" fill="#E8F2FF" stroke="#4A90E2" stroke-width="1"/>
+                            <text x="7" y="11" text-anchor="middle" font-size="8" fill="#333">1</text>
+                            <rect x="15" y="0" width="15" height="15" fill="#E8F2FF" stroke="#4A90E2" stroke-width="1"/>
+                            <text x="22" y="11" text-anchor="middle" font-size="8" fill="#333">2</text>
+                            <rect x="30" y="0" width="15" height="15" fill="#E8F2FF" stroke="#4A90E2" stroke-width="1"/>
+                            <text x="37" y="11" text-anchor="middle" font-size="8" fill="#333">1</text>
+                            
+                            <rect x="0" y="15" width="15" height="15" fill="#E8F2FF" stroke="#4A90E2" stroke-width="1"/>
+                            <text x="7" y="26" text-anchor="middle" font-size="8" fill="#333">2</text>
+                            <rect x="15" y="15" width="15" height="15" fill="#B8D4F1" stroke="#4A90E2" stroke-width="1.5"/>
+                            <text x="22" y="26" text-anchor="middle" font-size="8" fill="#1E64C8" font-weight="600">4</text>
+                            <rect x="30" y="15" width="15" height="15" fill="#E8F2FF" stroke="#4A90E2" stroke-width="1"/>
+                            <text x="37" y="26" text-anchor="middle" font-size="8" fill="#333">2</text>
+                            
+                            <rect x="0" y="30" width="15" height="15" fill="#E8F2FF" stroke="#4A90E2" stroke-width="1"/>
+                            <text x="7" y="41" text-anchor="middle" font-size="8" fill="#333">1</text>
+                            <rect x="15" y="30" width="15" height="15" fill="#E8F2FF" stroke="#4A90E2" stroke-width="1"/>
+                            <text x="22" y="41" text-anchor="middle" font-size="8" fill="#333">2</text>
+                            <rect x="30" y="30" width="15" height="15" fill="#E8F2FF" stroke="#4A90E2" stroke-width="1"/>
+                            <text x="37" y="41" text-anchor="middle" font-size="8" fill="#333">1</text>
+                        </g>
+                        <text x="55" y="65" text-anchor="middle" font-size="8" fill="#666">/16</text>
+                    </g>
+                    
+                    <!-- Median Filter -->
+                    <g id="median-filter" transform="translate(110, 130)">
+                        <rect x="0" y="0" width="90" height="70" fill="#fff8f0" stroke="#FFA500" stroke-width="2" rx="3"/>
+                        <text x="45" y="15" text-anchor="middle" font-size="10" fill="#FFA500" font-weight="700">Median Filter</text>
+                        
+                        <!-- Median concept -->
+                        <g transform="translate(10, 25)">
+                            <text x="5" y="0" font-size="8" fill="#666">Values:</text>
+                            <text x="5" y="12" font-size="8" fill="#333">3, 5, 7, 9, <tspan fill="#FFA500" font-weight="600">12</tspan>, 15, 21, 22, 25</text>
+                            <text x="35" y="27" text-anchor="middle" font-size="8" fill="#FFA500" font-weight="600">↓ Median</text>
+                            <text x="35" y="38" text-anchor="middle" font-size="9" fill="#333">Output: 12</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Bilateral Filter -->
+                    <g id="bilateral-filter" transform="translate(210, 130)">
+                        <rect x="0" y="0" width="90" height="70" fill="#f0fff0" stroke="#28a745" stroke-width="2" rx="3"/>
+                        <text x="45" y="15" text-anchor="middle" font-size="10" fill="#28a745" font-weight="700">Bilateral Filter</text>
+                        
+                        <!-- Bilateral concept -->
+                        <text x="45" y="30" text-anchor="middle" font-size="8" fill="#333">Spatial + Intensity</text>
+                        <text x="45" y="42" text-anchor="middle" font-size="8" fill="#666">Preserves edges</text>
+                        <line x1="15" y1="48" x2="35" y2="48" stroke="#28a745" stroke-width="2"/>
+                        <line x1="35" y1="48" x2="35" y2="55" stroke="#28a745" stroke-width="2"/>
+                        <line x1="35" y1="55" x2="75" y2="55" stroke="#28a745" stroke-width="2"/>
+                        <text x="45" y="65" text-anchor="middle" font-size="7" fill="#28a745">Edge retained</text>
+                    </g>
+                    
+                    <!-- Histogram Equalization -->
+                    <g id="histogram" transform="translate(310, 130)">
+                        <rect x="0" y="0" width="100" height="70" fill="#FFE5E5" stroke="#CC0000" stroke-width="2" rx="3"/>
+                        <text x="50" y="15" text-anchor="middle" font-size="10" fill="#CC0000" font-weight="700">Histogram Eq.</text>
+                        
+                        <!-- Before histogram -->
+                        <g transform="translate(10, 25)">
+                            <rect x="0" y="25" width="5" height="10" fill="#999"/>
+                            <rect x="6" y="20" width="5" height="15" fill="#999"/>
+                            <rect x="12" y="15" width="5" height="20" fill="#999"/>
+                            <rect x="18" y="18" width="5" height="17" fill="#999"/>
+                            <rect x="24" y="28" width="5" height="7" fill="#999"/>
+                            <rect x="30" y="32" width="5" height="3" fill="#999"/>
+                            <text x="17" y="44" text-anchor="middle" font-size="7" fill="#666">Before</text>
+                        </g>
+                        
+                        <!-- Arrow -->
+                        <text x="50" y="42" text-anchor="middle" font-size="10" fill="#CC0000">→</text>
+                        
+                        <!-- After histogram -->
+                        <g transform="translate(55, 25)">
+                            <rect x="0" y="20" width="5" height="15" fill="#4A90E2"/>
+                            <rect x="6" y="18" width="5" height="17" fill="#4A90E2"/>
+                            <rect x="12" y="17" width="5" height="18" fill="#4A90E2"/>
+                            <rect x="18" y="17" width="5" height="18" fill="#4A90E2"/>
+                            <rect x="24" y="18" width="5" height="17" fill="#4A90E2"/>
+                            <rect x="30" y="20" width="5" height="15" fill="#4A90E2"/>
+                            <text x="17" y="44" text-anchor="middle" font-size="7" fill="#666">After</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Morphological Operations -->
+                    <g id="morphology" transform="translate(10, 210)">
+                        <rect x="0" y="0" width="400" height="80" fill="#f8f8ff" stroke="#9C27B0" stroke-width="2" rx="5"/>
+                        <text x="200" y="18" text-anchor="middle" font-size="11" fill="#9C27B0" font-weight="700">Morphological Operations</text>
+                        
+                        <!-- Erosion -->
+                        <g transform="translate(10, 25)">
+                            <text x="40" y="8" text-anchor="middle" font-size="9" fill="#9C27B0" font-weight="600">Erosion</text>
+                            <rect x="10" y="12" width="25" height="25" fill="#666" stroke="#333" stroke-width="1"/>
+                            <rect x="15" y="17" width="15" height="15" fill="white"/>
+                            <text x="22" y="45" text-anchor="middle" font-size="10" fill="#666">→</text>
+                            <rect x="35" y="12" width="25" height="25" fill="#666" stroke="#333" stroke-width="1"/>
+                            <rect x="42" y="19" width="11" height="11" fill="white"/>
+                            <text x="35" y="50" text-anchor="middle" font-size="8" fill="#666">Shrinks</text>
+                        </g>
+                        
+                        <!-- Dilation -->
+                        <g transform="translate(110, 25)">
+                            <text x="40" y="8" text-anchor="middle" font-size="9" fill="#9C27B0" font-weight="600">Dilation</text>
+                            <rect x="10" y="12" width="25" height="25" fill="#666" stroke="#333" stroke-width="1"/>
+                            <rect x="17" y="19" width="11" height="11" fill="white"/>
+                            <text x="22" y="45" text-anchor="middle" font-size="10" fill="#666">→</text>
+                            <rect x="35" y="12" width="25" height="25" fill="#666" stroke="#333" stroke-width="1"/>
+                            <rect x="40" y="17" width="15" height="15" fill="white"/>
+                            <text x="35" y="50" text-anchor="middle" font-size="8" fill="#666">Expands</text>
+                        </g>
+                        
+                        <!-- Opening -->
+                        <g transform="translate(210, 25)">
+                            <text x="40" y="8" text-anchor="middle" font-size="9" fill="#9C27B0" font-weight="600">Opening</text>
+                            <rect x="10" y="12" width="25" height="25" fill="#666" stroke="#333" stroke-width="1"/>
+                            <rect x="15" y="17" width="6" height="15" fill="white"/>
+                            <rect x="22" y="17" width="8" height="15" fill="white"/>
+                            <text x="22" y="45" text-anchor="middle" font-size="10" fill="#666">→</text>
+                            <rect x="35" y="12" width="25" height="25" fill="#666" stroke="#333" stroke-width="1"/>
+                            <rect x="40" y="17" width="6" height="15" fill="white"/>
+                            <rect x="49" y="17" width="6" height="15" fill="white"/>
+                            <text x="35" y="50" text-anchor="middle" font-size="8" fill="#666">Separates</text>
+                        </g>
+                        
+                        <!-- Closing -->
+                        <g transform="translate(310, 25)">
+                            <text x="40" y="8" text-anchor="middle" font-size="9" fill="#9C27B0" font-weight="600">Closing</text>
+                            <rect x="10" y="12" width="25" height="25" fill="#666" stroke="#333" stroke-width="1"/>
+                            <rect x="14" y="17" width="7" height="15" fill="white"/>
+                            <rect x="24" y="17" width="7" height="15" fill="white"/>
+                            <text x="22" y="45" text-anchor="middle" font-size="10" fill="#666">→</text>
+                            <rect x="35" y="12" width="25" height="25" fill="#666" stroke="#333" stroke-width="1"/>
+                            <rect x="40" y="17" width="15" height="15" fill="white"/>
+                            <text x="35" y="50" text-anchor="middle" font-size="8" fill="#666">Connects</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Complete Pipeline Flow -->
+                    <g id="pipeline">
+                        <rect x="10" y="300" width="400" height="85" fill="#E3F2FD" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="210" y="318" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Complete Pipeline Example</text>
+                        
+                        <!-- Flow diagram -->
+                        <g transform="translate(20, 325)">
+                            <!-- Input -->
+                            <rect x="0" y="0" width="50" height="30" fill="white" stroke="#666" stroke-width="1.5" rx="3"/>
+                            <text x="25" y="12" text-anchor="middle" font-size="8" fill="#333">Raw</text>
+                            <text x="25" y="22" text-anchor="middle" font-size="8" fill="#333">Image</text>
+                            
+                            <!-- Arrow 1 -->
+                            <line x1="52" y1="15" x2="68" y2="15" stroke="#4A90E2" stroke-width="2" marker-end="url(#arrowDown)"/>
+                            
+                            <!-- Denoise -->
+                            <rect x="70" y="0" width="50" height="30" fill="#f0f8ff" stroke="#4A90E2" stroke-width="1.5" rx="3"/>
+                            <text x="95" y="12" text-anchor="middle" font-size="8" fill="#4A90E2">Denoise</text>
+                            <text x="95" y="22" text-anchor="middle" font-size="7" fill="#666">(Median)</text>
+                            
+                            <!-- Arrow 2 -->
+                            <line x1="122" y1="15" x2="138" y2="15" stroke="#4A90E2" stroke-width="2" marker-end="url(#arrowDown)"/>
+                            
+                            <!-- Enhance -->
+                            <rect x="140" y="0" width="50" height="30" fill="#fff8f0" stroke="#FFA500" stroke-width="1.5" rx="3"/>
+                            <text x="165" y="12" text-anchor="middle" font-size="8" fill="#FFA500">Enhance</text>
+                            <text x="165" y="22" text-anchor="middle" font-size="7" fill="#666">(Hist. Eq.)</text>
+                            
+                            <!-- Arrow 3 -->
+                            <line x1="192" y1="15" x2="208" y2="15" stroke="#4A90E2" stroke-width="2" marker-end="url(#arrowDown)"/>
+                            
+                            <!-- Segment -->
+                            <rect x="210" y="0" width="50" height="30" fill="#f0fff0" stroke="#28a745" stroke-width="1.5" rx="3"/>
+                            <text x="235" y="12" text-anchor="middle" font-size="8" fill="#28a745">Segment</text>
+                            <text x="235" y="22" text-anchor="middle" font-size="7" fill="#666">(Threshold)</text>
+                            
+                            <!-- Arrow 4 -->
+                            <line x1="262" y1="15" x2="278" y2="15" stroke="#4A90E2" stroke-width="2" marker-end="url(#arrowDown)"/>
+                            
+                            <!-- Morphology -->
+                            <rect x="280" y="0" width="50" height="30" fill="#FFE5FF" stroke="#9C27B0" stroke-width="1.5" rx="3"/>
+                            <text x="305" y="12" text-anchor="middle" font-size="8" fill="#9C27B0">Morph.</text>
+                            <text x="305" y="22" text-anchor="middle" font-size="7" fill="#666">(Clean)</text>
+                            
+                            <!-- Arrow 5 -->
+                            <line x1="332" y1="15" x2="348" y2="15" stroke="#4A90E2" stroke-width="2" marker-end="url(#arrowDown)"/>
+                            
+                            <!-- Output -->
+                            <rect x="350" y="0" width="50" height="30" fill="#D4EDDA" stroke="#28a745" stroke-width="2" rx="3"/>
+                            <text x="375" y="12" text-anchor="middle" font-size="8" fill="#28a745" font-weight="600">Ready</text>
+                            <text x="375" y="22" text-anchor="middle" font-size="8" fill="#28a745" font-weight="600">Image</text>
+                        </g>
+                        
+                        <text x="210" y="370" text-anchor="middle" font-size="9" fill="#666">Each step targets specific image quality issues</text>
+                    </g>
+                </svg>
             </div>
-            <div class="content-card">
-                <div class="card-label">Histogram equalization</div>
-                <div class="card-desc">Uniform intensity distribution</div>
-            </div>
-            <div class="content-card">
-                <div class="card-label">Morphological operations</div>
-                <div class="card-desc">Erosion, dilation, opening, closing</div>
-            </div>
-            <div class="content-card">
-                <div class="card-label">Registration basics</div>
-                <div class="card-desc">Aligning multiple images</div>
-            </div>
-
         </div>
     </div>
 </body>

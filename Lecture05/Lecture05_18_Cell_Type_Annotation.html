@@ -24,44 +24,19 @@
             font-size: 28px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
         }
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-        .content-card {
-            background: white;
-            border: 2.5px solid #1E64C8;
-            border-radius: 10px;
-            padding: 16px;
-            transition: all 0.3s;
-        }
-        .content-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(30, 100, 200, 0.2);
-            background: #f8fbff;
-        }
-        .card-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1E64C8;
-            margin-bottom: 8px;
-        }
-        .card-desc {
-            font-size: 15px;
-            color: #333;
-            line-height: 1.4;
+        .visual-content {
+            width: 100%;
+            height: 430px;
         }
         .note-box {
             background: #f0f5fc;
             border-left: 4px solid #1E64C8;
             border-radius: 6px;
             padding: 12px 18px;
-            margin-top: 15px;
+            margin-top: 10px;
         }
         .note-text {
             font-size: 16px;
@@ -73,28 +48,173 @@
 <body>
     <div class="container">
         <div class="title">Cell Type Annotation</div>
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="card-title">Marker Genes</div>
-                <div class="card-desc">Known markers from literature and databases</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Reference Mapping</div>
-                <div class="card-desc">Transfer labels from annotated datasets</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Automated Methods</div>
-                <div class="card-desc">SingleR, scmap, CellTypist</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Confidence Scores</div>
-                <div class="card-desc">Assess certainty of annotations</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Novel Cell Types</div>
-                <div class="card-desc">Identify and characterize unknown populations</div>
-            </div>
-
+        <div class="visual-content">
+            <svg width="100%" height="100%" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
+                <!-- Annotation Pipeline -->
+                <text x="450" y="25" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">Cell Type Annotation Pipeline</text>
+                
+                <!-- Starting clusters -->
+                <g id="clusters">
+                    <rect x="20" y="50" width="200" height="160" rx="10" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                    <text x="120" y="75" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#0D47A1" text-anchor="middle">Clustered Cells</text>
+                    
+                    <!-- UMAP with unlabeled clusters -->
+                    <rect x="40" y="90" width="160" height="110" rx="5" fill="white" stroke="#1976D2" stroke-width="1"/>
+                    
+                    <!-- Cluster 0 -->
+                    <circle cx="80" cy="120" r="15" fill="#BDBDBD" opacity="0.6"/>
+                    <text x="80" y="125" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#333" text-anchor="middle">0</text>
+                    
+                    <!-- Cluster 1 -->
+                    <circle cx="130" cy="110" r="18" fill="#BDBDBD" opacity="0.6"/>
+                    <text x="130" y="115" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#333" text-anchor="middle">1</text>
+                    
+                    <!-- Cluster 2 -->
+                    <circle cx="160" cy="150" r="12" fill="#BDBDBD" opacity="0.6"/>
+                    <text x="160" y="154" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#333" text-anchor="middle">2</text>
+                    
+                    <!-- Cluster 3 -->
+                    <circle cx="100" cy="170" r="14" fill="#BDBDBD" opacity="0.6"/>
+                    <text x="100" y="174" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#333" text-anchor="middle">3</text>
+                </g>
+                
+                <path d="M 225 130 L 265 130" stroke="#1E64C8" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+                
+                <!-- Annotation Methods -->
+                <g id="methods">
+                    <rect x="270" y="50" width="350" height="160" rx="10" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+                    <text x="445" y="75" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#E65100" text-anchor="middle">Annotation Methods</text>
+                    
+                    <!-- Manual -->
+                    <rect x="280" y="90" width="100" height="110" rx="5" fill="#FFEBEE" stroke="#D32F2F" stroke-width="1"/>
+                    <text x="330" y="110" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#C62828" text-anchor="middle">Manual</text>
+                    
+                    <text x="330" y="130" font-family="Aptos, sans-serif" font-size="9" fill="#333" text-anchor="middle">Marker genes:</text>
+                    <text x="330" y="145" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">CD3D → T cells</text>
+                    <text x="330" y="158" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">CD14 → Monocytes</text>
+                    <text x="330" y="171" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">CD79A → B cells</text>
+                    <text x="330" y="184" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">NKG7 → NK cells</text>
+                    
+                    <!-- Reference -->
+                    <rect x="390" y="90" width="110" height="110" rx="5" fill="#E3F2FD" stroke="#1976D2" stroke-width="1"/>
+                    <text x="445" y="110" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#0D47A1" text-anchor="middle">Reference</text>
+                    
+                    <text x="445" y="130" font-family="Aptos, sans-serif" font-size="9" fill="#333" text-anchor="middle">Transfer labels:</text>
+                    <text x="445" y="145" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">• SingleR</text>
+                    <text x="445" y="158" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">• scmap</text>
+                    <text x="445" y="171" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">• Seurat anchors</text>
+                    <text x="445" y="184" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">• CellTypist</text>
+                    
+                    <!-- Automated -->
+                    <rect x="510" y="90" width="100" height="110" rx="5" fill="#E8F5E9" stroke="#388E3C" stroke-width="1"/>
+                    <text x="560" y="110" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#1B5E20" text-anchor="middle">Automated</text>
+                    
+                    <text x="560" y="130" font-family="Aptos, sans-serif" font-size="9" fill="#333" text-anchor="middle">ML methods:</text>
+                    <text x="560" y="145" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">• scCATCH</text>
+                    <text x="560" y="158" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">• CHETAH</text>
+                    <text x="560" y="171" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">• Garnett</text>
+                    <text x="560" y="184" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">• CellAssign</text>
+                </g>
+                
+                <path d="M 625 130 L 665 130" stroke="#1E64C8" stroke-width="3" fill="none" marker-end="url(#arrow)"/>
+                
+                <!-- Annotated result -->
+                <g id="annotated">
+                    <rect x="670" y="50" width="210" height="160" rx="10" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2"/>
+                    <text x="775" y="75" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#4A148C" text-anchor="middle">Annotated Cells</text>
+                    
+                    <!-- UMAP with labeled clusters -->
+                    <rect x="690" y="90" width="170" height="110" rx="5" fill="white" stroke="#7B1FA2" stroke-width="1"/>
+                    
+                    <!-- T cells -->
+                    <circle cx="730" cy="120" r="15" fill="#2196F3" opacity="0.8"/>
+                    <text x="730" y="124" font-family="Aptos, sans-serif" font-size="9" font-weight="600" fill="white" text-anchor="middle">T cells</text>
+                    
+                    <!-- B cells -->
+                    <circle cx="780" cy="110" r="18" fill="#4CAF50" opacity="0.8"/>
+                    <text x="780" y="114" font-family="Aptos, sans-serif" font-size="9" font-weight="600" fill="white" text-anchor="middle">B cells</text>
+                    
+                    <!-- NK cells -->
+                    <circle cx="810" cy="150" r="12" fill="#FF9800" opacity="0.8"/>
+                    <text x="810" y="154" font-family="Aptos, sans-serif" font-size="8" font-weight="600" fill="white" text-anchor="middle">NK</text>
+                    
+                    <!-- Monocytes -->
+                    <circle cx="750" cy="170" r="14" fill="#F44336" opacity="0.8"/>
+                    <text x="750" y="174" font-family="Aptos, sans-serif" font-size="8" font-weight="600" fill="white" text-anchor="middle">Mono</text>
+                </g>
+                
+                <!-- Quality Control -->
+                <g id="quality">
+                    <rect x="20" y="230" width="860" height="170" rx="10" fill="#f5f5f5" stroke="#666" stroke-width="1"/>
+                    <text x="450" y="255" font-family="Aptos, sans-serif" font-size="15" font-weight="700" fill="#1E64C8" text-anchor="middle">Annotation Quality Control</text>
+                    
+                    <!-- Confidence scores -->
+                    <g transform="translate(50, 270)">
+                        <rect x="0" y="0" width="180" height="110" rx="5" fill="white" stroke="#1976D2" stroke-width="1"/>
+                        <text x="90" y="20" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#0D47A1" text-anchor="middle">Confidence Scores</text>
+                        
+                        <rect x="10" y="35" width="100" height="8" rx="2" fill="#4CAF50"/>
+                        <text x="115" y="42" font-family="Aptos, sans-serif" font-size="9" fill="#333">T cells: 0.95</text>
+                        
+                        <rect x="10" y="50" width="85" height="8" rx="2" fill="#8BC34A"/>
+                        <text x="115" y="57" font-family="Aptos, sans-serif" font-size="9" fill="#333">B cells: 0.85</text>
+                        
+                        <rect x="10" y="65" width="75" height="8" rx="2" fill="#FFC107"/>
+                        <text x="115" y="72" font-family="Aptos, sans-serif" font-size="9" fill="#333">NK cells: 0.75</text>
+                        
+                        <rect x="10" y="80" width="50" height="8" rx="2" fill="#FF9800"/>
+                        <text x="115" y="87" font-family="Aptos, sans-serif" font-size="9" fill="#333">Unknown: 0.50</text>
+                        
+                        <text x="90" y="105" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">Threshold: > 0.70</text>
+                    </g>
+                    
+                    <!-- Marker validation -->
+                    <g transform="translate(250, 270)">
+                        <rect x="0" y="0" width="180" height="110" rx="5" fill="white" stroke="#388E3C" stroke-width="1"/>
+                        <text x="90" y="20" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#1B5E20" text-anchor="middle">Marker Validation</text>
+                        
+                        <text x="10" y="40" font-family="Aptos, sans-serif" font-size="9" fill="#333">✓ Expected markers present</text>
+                        <text x="10" y="55" font-family="Aptos, sans-serif" font-size="9" fill="#333">✓ Mutually exclusive</text>
+                        <text x="10" y="70" font-family="Aptos, sans-serif" font-size="9" fill="#333">✓ Consistent expression</text>
+                        <text x="10" y="85" font-family="Aptos, sans-serif" font-size="9" fill="#D32F2F">✗ Novel populations?</text>
+                        <text x="10" y="100" font-family="Aptos, sans-serif" font-size="9" fill="#FF9800">⚠ Doublets detected</text>
+                    </g>
+                    
+                    <!-- Novel cell types -->
+                    <g transform="translate(450, 270)">
+                        <rect x="0" y="0" width="180" height="110" rx="5" fill="white" stroke="#7B1FA2" stroke-width="1"/>
+                        <text x="90" y="20" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#4A148C" text-anchor="middle">Novel Discovery</text>
+                        
+                        <circle cx="45" cy="55" r="20" fill="#BA68C8" opacity="0.3"/>
+                        <text x="45" y="59" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#4A148C" text-anchor="middle">?</text>
+                        
+                        <text x="90" y="45" font-family="Aptos, sans-serif" font-size="9" fill="#333">Unknown cluster:</text>
+                        <text x="90" y="60" font-family="Aptos, sans-serif" font-size="8" fill="#666">• DE analysis</text>
+                        <text x="90" y="73" font-family="Aptos, sans-serif" font-size="8" fill="#666">• GO enrichment</text>
+                        <text x="90" y="86" font-family="Aptos, sans-serif" font-size="8" fill="#666">• Literature search</text>
+                        <text x="90" y="99" font-family="Aptos, sans-serif" font-size="8" fill="#666">• Experimental validation</text>
+                    </g>
+                    
+                    <!-- Best practices -->
+                    <g transform="translate(650, 270)">
+                        <rect x="0" y="0" width="200" height="110" rx="5" fill="white" stroke="#F57C00" stroke-width="1"/>
+                        <text x="100" y="20" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#E65100" text-anchor="middle">Best Practices</text>
+                        
+                        <text x="10" y="40" font-family="Aptos, sans-serif" font-size="9" fill="#333">1. Use multiple methods</text>
+                        <text x="10" y="55" font-family="Aptos, sans-serif" font-size="9" fill="#333">2. Validate with markers</text>
+                        <text x="10" y="70" font-family="Aptos, sans-serif" font-size="9" fill="#333">3. Check confidence scores</text>
+                        <text x="10" y="85" font-family="Aptos, sans-serif" font-size="9" fill="#333">4. Manual curation</text>
+                        <text x="10" y="100" font-family="Aptos, sans-serif" font-size="9" fill="#333">5. Iterative refinement</text>
+                    </g>
+                </g>
+                
+                <!-- Arrow marker -->
+                <defs>
+                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                    </marker>
+                </defs>
+            </svg>
         </div>
         <div class="note-box">
             <div class="note-text">💡 Combine automated tools with manual curation</div>

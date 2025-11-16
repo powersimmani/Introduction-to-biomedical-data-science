@@ -32,31 +32,45 @@
             justify-content: center;
             align-items: center;
             margin-bottom: 25px;
-            padding: 15px;
+            padding: 20px;
             background: linear-gradient(to right, #f8fbff, #ffffff, #f8fbff);
-            border-radius: 8px;
+            border-radius: 12px;
+            position: relative;
         }
         .process-step {
             display: flex;
             flex-direction: column;
             align-items: center;
             flex: 1;
+            position: relative;
         }
-        .process-icon {
-            width: 80px;
-            height: 60px;
-            margin-bottom: 8px;
+        .process-visual {
+            width: 150px;
+            height: 120px;
+            margin-bottom: 10px;
         }
         .process-label {
-            font-size: 14px;
+            font-size: 15px;
             font-weight: 600;
             color: #1E64C8;
             text-align: center;
         }
-        .process-arrow {
-            font-size: 28px;
-            color: #1E64C8;
-            margin: 0 15px;
+        .process-sublabel {
+            font-size: 12px;
+            color: #666;
+            margin-top: 3px;
+        }
+        .flow-arrow {
+            position: absolute;
+            width: 50px;
+            height: 30px;
+            top: 35%;
+        }
+        .arrow-1 {
+            left: 27%;
+        }
+        .arrow-2 {
+            right: 27%;
         }
         .content-grid {
             display: grid;
@@ -69,10 +83,19 @@
             padding: 16px 20px;
             border-radius: 6px;
             transition: all 0.3s;
+            position: relative;
         }
         .content-card:hover {
             background: #e8f2ff;
             transform: translateX(5px);
+        }
+        .card-icon {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            width: 35px;
+            height: 35px;
+            opacity: 0.3;
         }
         .card-title {
             font-size: 17px;
@@ -97,6 +120,13 @@
             margin-right: 8px;
             font-size: 15px;
         }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .animated-ion {
+            animation: pulse 2s infinite;
+        }
     </style>
 </head>
 <body>
@@ -105,47 +135,141 @@
         
         <div class="process-diagram">
             <div class="process-step">
-                <svg class="process-icon" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="20" cy="30" r="6" fill="#5088d4" opacity="0.3"/>
-                    <circle cx="35" cy="25" r="7" fill="#1E64C8"/>
-                    <circle cx="28" cy="35" r="5" fill="#5088d4" opacity="0.3"/>
-                    <circle cx="42" cy="32" r="5" fill="#5088d4" opacity="0.3"/>
-                    <rect x="55" y="20" width="20" height="20" rx="2" stroke="#1E64C8" stroke-width="2" fill="none"/>
-                    <circle cx="65" cy="30" r="5" fill="#1E64C8"/>
+                <svg class="process-visual" viewBox="0 0 150 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- MS1 Chamber -->
+                    <rect x="10" y="20" width="130" height="80" rx="8" fill="#f8fbff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="75" y="15" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="bold">MS1</text>
+                    
+                    <!-- Ion cloud -->
+                    <g opacity="0.3">
+                        <circle cx="30" cy="50" r="5" fill="#5088d4"/>
+                        <circle cx="40" cy="60" r="5" fill="#5088d4"/>
+                        <circle cx="35" cy="70" r="5" fill="#5088d4"/>
+                    </g>
+                    
+                    <!-- Selected precursor ion -->
+                    <circle cx="50" cy="60" r="8" fill="#ff6b6b" class="animated-ion"/>
+                    <text x="50" y="64" font-size="10" fill="white" text-anchor="middle" font-weight="bold">m/z</text>
+                    
+                    <g opacity="0.3">
+                        <circle cx="65" cy="55" r="5" fill="#5088d4"/>
+                        <circle cx="70" cy="65" r="5" fill="#5088d4"/>
+                        <circle cx="60" cy="75" r="5" fill="#5088d4"/>
+                    </g>
+                    
+                    <!-- Selection window -->
+                    <rect x="90" y="40" width="40" height="40" rx="4" fill="none" stroke="#ff6b6b" stroke-width="2" stroke-dasharray="4,2"/>
+                    <circle cx="110" cy="60" r="7" fill="#ff6b6b"/>
+                    <text x="110" y="95" font-size="10" fill="#1E64C8" text-anchor="middle">Isolated</text>
                 </svg>
-                <div class="process-label">MS1: Select<br>Precursor</div>
+                <div class="process-label">MS1: Select Precursor
+                    <div class="process-sublabel">Ion Isolation</div>
+                </div>
             </div>
-            
-            <div class="process-arrow">→</div>
             
             <div class="process-step">
-                <svg class="process-icon" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="25" cy="30" r="8" fill="#1E64C8"/>
-                    <path d="M33 30 L40 25 M33 30 L42 30 M33 30 L40 35" stroke="#ff6b6b" stroke-width="3"/>
-                    <circle cx="48" cy="20" r="3" fill="#5088d4"/>
-                    <circle cx="50" cy="30" r="3" fill="#5088d4"/>
-                    <circle cx="48" cy="40" r="3" fill="#5088d4"/>
-                    <circle cx="58" cy="25" r="2.5" fill="#1E64C8"/>
-                    <circle cx="60" cy="35" r="2.5" fill="#1E64C8"/>
+                <svg class="process-visual" viewBox="0 0 150 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Collision cell -->
+                    <rect x="20" y="25" width="110" height="70" rx="8" fill="#fff5f5" stroke="#ff6b6b" stroke-width="2"/>
+                    <text x="75" y="15" font-size="11" fill="#ff6b6b" text-anchor="middle" font-weight="bold">Collision Cell</text>
+                    
+                    <!-- Precursor ion entering -->
+                    <circle cx="35" cy="60" r="8" fill="#ff6b6b"/>
+                    <text x="35" y="64" font-size="9" fill="white" text-anchor="middle" font-weight="bold">m/z</text>
+                    
+                    <!-- Collision energy -->
+                    <path d="M45 60 L55 55 M45 60 L55 60 M45 60 L55 65" stroke="#FF9800" stroke-width="3" stroke-linecap="round"/>
+                    <text x="50" y="85" font-size="9" fill="#FF9800" text-anchor="middle" font-weight="bold">CID</text>
+                    
+                    <!-- Fragment ions -->
+                    <circle cx="75" cy="45" r="5" fill="#4CAF50"/>
+                    <text x="75" y="48" font-size="8" fill="white" text-anchor="middle">b</text>
+                    
+                    <circle cx="85" cy="60" r="5" fill="#2196F3"/>
+                    <text x="85" y="63" font-size="8" fill="white" text-anchor="middle">y</text>
+                    
+                    <circle cx="95" cy="50" r="4" fill="#9C27B0"/>
+                    <circle cx="100" cy="70" r="4" fill="#FF9800"/>
+                    <circle cx="110" cy="55" r="4" fill="#00BCD4"/>
+                    <circle cx="115" cy="65" r="4" fill="#4CAF50"/>
+                    
+                    <!-- Gas molecules -->
+                    <g opacity="0.2">
+                        <circle cx="50" cy="40" r="3" fill="#666"/>
+                        <circle cx="65" cy="75" r="3" fill="#666"/>
+                        <circle cx="90" cy="35" r="3" fill="#666"/>
+                        <circle cx="105" cy="80" r="3" fill="#666"/>
+                    </g>
                 </svg>
-                <div class="process-label">Fragmentation<br>(CID/HCD/ETD)</div>
+                <div class="process-label">Fragmentation
+                    <div class="process-sublabel">CID / HCD / ETD</div>
+                </div>
             </div>
-            
-            <div class="process-arrow">→</div>
             
             <div class="process-step">
-                <svg class="process-icon" viewBox="0 0 80 60" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="10" y="10" width="60" height="40" rx="2" stroke="#1E64C8" stroke-width="2" fill="none"/>
-                    <path d="M15 35 L15 30 L20 25 L25 32 L30 22 L35 28 L40 20 L45 26 L50 24 L55 30 L60 28 L65 32" stroke="#1E64C8" stroke-width="2" fill="none"/>
-                    <line x1="15" y1="45" x2="65" y2="45" stroke="#5088d4" stroke-width="1"/>
-                    <line x1="15" y1="45" x2="15" y2="15" stroke="#5088d4" stroke-width="1"/>
+                <svg class="process-visual" viewBox="0 0 150 120" fill="none" xmlns="http://www.w3.org/2000/svg">
+                    <!-- MS2 spectrum -->
+                    <rect x="10" y="20" width="130" height="80" rx="8" fill="#f8fbff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="75" y="15" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="bold">MS2</text>
+                    
+                    <!-- Axes -->
+                    <line x1="25" y1="85" x2="125" y2="85" stroke="#5088d4" stroke-width="1.5"/>
+                    <line x1="25" y1="85" x2="25" y2="30" stroke="#5088d4" stroke-width="1.5"/>
+                    
+                    <!-- Spectrum peaks -->
+                    <line x1="35" y1="85" x2="35" y2="65" stroke="#4CAF50" stroke-width="3" stroke-linecap="round"/>
+                    <text x="35" y="62" font-size="8" fill="#4CAF50" text-anchor="middle">b₂</text>
+                    
+                    <line x1="50" y1="85" x2="50" y2="50" stroke="#2196F3" stroke-width="3" stroke-linecap="round"/>
+                    <text x="50" y="47" font-size="8" fill="#2196F3" text-anchor="middle">y₃</text>
+                    
+                    <line x1="65" y1="85" x2="65" y2="70" stroke="#9C27B0" stroke-width="3" stroke-linecap="round"/>
+                    <text x="65" y="67" font-size="8" fill="#9C27B0" text-anchor="middle">b₃</text>
+                    
+                    <line x1="80" y1="85" x2="80" y2="40" stroke="#ff6b6b" stroke-width="3" stroke-linecap="round"/>
+                    <text x="80" y="37" font-size="8" fill="#ff6b6b" text-anchor="middle">y₅</text>
+                    
+                    <line x1="95" y1="85" x2="95" y2="60" stroke="#FF9800" stroke-width="3" stroke-linecap="round"/>
+                    <text x="95" y="57" font-size="8" fill="#FF9800" text-anchor="middle">b₄</text>
+                    
+                    <line x1="110" y1="85" x2="110" y2="55" stroke="#00BCD4" stroke-width="3" stroke-linecap="round"/>
+                    <text x="110" y="52" font-size="8" fill="#00BCD4" text-anchor="middle">y₇</text>
+                    
+                    <!-- Axis labels -->
+                    <text x="75" y="98" font-size="9" fill="#1E64C8" text-anchor="middle">m/z</text>
+                    <text x="15" y="55" font-size="9" fill="#1E64C8" text-anchor="middle" transform="rotate(-90, 15, 55)">Intensity</text>
                 </svg>
-                <div class="process-label">MS2: Analyze<br>Fragments</div>
+                <div class="process-label">MS2: Analyze Fragments
+                    <div class="process-sublabel">Sequence Info</div>
+                </div>
             </div>
+            
+            <!-- Flow arrows -->
+            <svg class="flow-arrow arrow-1" viewBox="0 0 50 30">
+                <defs>
+                    <marker id="arrowMS1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                    </marker>
+                </defs>
+                <path d="M5 15 L40 15" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrowMS1)"/>
+            </svg>
+            
+            <svg class="flow-arrow arrow-2" viewBox="0 0 50 30">
+                <defs>
+                    <marker id="arrowMS2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                    </marker>
+                </defs>
+                <path d="M5 15 L40 15" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrowMS2)"/>
+            </svg>
         </div>
         
         <div class="content-grid">
             <div class="content-card">
+                <svg class="card-icon" viewBox="0 0 35 35">
+                    <rect x="5" y="10" width="25" height="15" rx="2" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                    <circle cx="17" cy="17" r="5" fill="#ff6b6b" opacity="0.5"/>
+                </svg>
                 <div class="card-title">Precursor Selection</div>
                 <div class="card-content">
                     <div class="bullet">Isolate specific m/z ions</div>
@@ -155,6 +279,10 @@
             </div>
             
             <div class="content-card">
+                <svg class="card-icon" viewBox="0 0 35 35">
+                    <circle cx="17" cy="17" r="5" fill="#ff6b6b"/>
+                    <path d="M22 17 L27 14 M22 17 L27 17 M22 17 L27 20" stroke="#FF9800" stroke-width="2"/>
+                </svg>
                 <div class="card-title">Fragmentation Methods</div>
                 <div class="card-content">
                     <div class="bullet">CID: collision-induced dissociation</div>
@@ -164,6 +292,9 @@
             </div>
             
             <div class="content-card">
+                <svg class="card-icon" viewBox="0 0 35 35">
+                    <path d="M10 25 L10 20 L15 15 L20 22 L25 18" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                </svg>
                 <div class="card-title">Product Ion Spectra</div>
                 <div class="card-content">
                     <div class="bullet">b-ions and y-ions from peptides</div>
@@ -173,6 +304,11 @@
             </div>
             
             <div class="content-card">
+                <svg class="card-icon" viewBox="0 0 35 35">
+                    <rect x="8" y="10" width="19" height="15" rx="2" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                    <circle cx="13" cy="17" r="2" fill="#5088d4"/>
+                    <circle cx="22" cy="17" r="2" fill="#5088d4"/>
+                </svg>
                 <div class="card-title">Data Acquisition</div>
                 <div class="card-content">
                     <div class="bullet">DDA: data-dependent acquisition</div>
@@ -180,7 +316,6 @@
                     <div class="bullet">Parallel reaction monitoring (PRM)</div>
                 </div>
             </div>
-            
         </div>
     </div>
 </body>

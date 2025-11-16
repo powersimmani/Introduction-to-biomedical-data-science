@@ -24,81 +24,154 @@
             font-size: 28px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
         }
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-        .content-card {
-            background: white;
-            border: 2.5px solid #1E64C8;
-            border-radius: 10px;
-            padding: 16px;
-            transition: all 0.3s;
-        }
-        .content-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(30, 100, 200, 0.2);
-            background: #f8fbff;
-        }
-        .card-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1E64C8;
-            margin-bottom: 8px;
-        }
-        .card-desc {
-            font-size: 15px;
-            color: #333;
-            line-height: 1.4;
+        .visual-content {
+            width: 100%;
+            height: 430px;
         }
         .note-box {
             background: #f0f5fc;
             border-left: 4px solid #1E64C8;
             border-radius: 6px;
             padding: 12px 18px;
-            margin-top: 15px;
+            margin-top: 10px;
         }
         .note-text {
             font-size: 16px;
             color: #333;
             font-weight: 600;
         }
-        .highlight {
-            color: #1E64C8;
-            font-weight: 700;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Multiple Testing Correction</div>
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="card-title">FDR vs FWER</div>
-                <div class="card-desc">False Discovery Rate vs Family-Wise Error Rate</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Benjamini-Hochberg</div>
-                <div class="card-desc">Controls FDR - less conservative than Bonferroni</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Q-value Estimation</div>
-                <div class="card-desc">Minimum FDR at which a test is called significant</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Permutation Tests</div>
-                <div class="card-desc">Empirical null distribution for complex designs</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Power Considerations</div>
-                <div class="card-desc">More tests = need more samples or larger effects</div>
-            </div>
-
+        <div class="visual-content">
+            <svg width="100%" height="100%" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
+                <!-- Problem Illustration -->
+                <text x="450" y="25" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">The Multiple Testing Problem</text>
+                
+                <!-- Left: Without Correction -->
+                <g id="without-correction">
+                    <rect x="20" y="50" width="420" height="160" rx="10" fill="#FFEBEE" stroke="#D32F2F" stroke-width="2"/>
+                    <text x="230" y="75" font-family="Aptos, sans-serif" font-size="15" font-weight="700" fill="#C62828" text-anchor="middle">Without Correction</text>
+                    
+                    <!-- Gene testing illustration -->
+                    <text x="40" y="100" font-family="Aptos, sans-serif" font-size="12" fill="#333">Testing 20,000 genes at α = 0.05:</text>
+                    
+                    <rect x="40" y="110" width="380" height="30" rx="5" fill="#FFCDD2"/>
+                    <text x="230" y="130" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#B71C1C" text-anchor="middle">Expected false positives = 20,000 × 0.05 = 1,000 genes!</text>
+                    
+                    <!-- Visual representation -->
+                    <g transform="translate(40, 150)">
+                        <!-- True negatives -->
+                        <rect x="0" y="0" width="300" height="40" fill="#E0E0E0"/>
+                        <text x="150" y="25" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">19,000 True Null</text>
+                        
+                        <!-- False positives highlighted -->
+                        <rect x="300" y="0" width="80" height="40" fill="#FF5252"/>
+                        <text x="340" y="25" font-family="Aptos, sans-serif" font-size="11" fill="white" font-weight="600" text-anchor="middle">1,000 FP</text>
+                    </g>
+                </g>
+                
+                <!-- Right: With Correction -->
+                <g id="with-correction">
+                    <rect x="460" y="50" width="420" height="160" rx="10" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+                    <text x="670" y="75" font-family="Aptos, sans-serif" font-size="15" font-weight="700" fill="#1B5E20" text-anchor="middle">With FDR Control</text>
+                    
+                    <!-- FDR control explanation -->
+                    <text x="480" y="100" font-family="Aptos, sans-serif" font-size="12" fill="#333">Benjamini-Hochberg at FDR = 0.05:</text>
+                    
+                    <rect x="480" y="110" width="380" height="30" rx="5" fill="#C8E6C9"/>
+                    <text x="670" y="130" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#1B5E20" text-anchor="middle">Controls proportion of false discoveries ≤ 5%</text>
+                    
+                    <!-- Visual representation -->
+                    <g transform="translate(480, 150)">
+                        <!-- True positives -->
+                        <rect x="0" y="0" width="100" height="40" fill="#4CAF50"/>
+                        <text x="50" y="25" font-family="Aptos, sans-serif" font-size="11" fill="white" font-weight="600" text-anchor="middle">95 TP</text>
+                        
+                        <!-- Controlled false positives -->
+                        <rect x="100" y="0" width="20" height="40" fill="#FF9800"/>
+                        <text x="110" y="25" font-family="Aptos, sans-serif" font-size="10" fill="white" text-anchor="middle">5</text>
+                        
+                        <!-- Remaining -->
+                        <rect x="120" y="0" width="260" height="40" fill="#E0E0E0"/>
+                        <text x="250" y="25" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">Not called significant</text>
+                    </g>
+                </g>
+                
+                <!-- Method Comparison -->
+                <g id="method-comparison">
+                    <text x="450" y="235" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#1E64C8" text-anchor="middle">Correction Methods</text>
+                    
+                    <!-- Bonferroni -->
+                    <g transform="translate(20, 250)">
+                        <rect x="0" y="0" width="200" height="140" rx="8" fill="#FCE4EC" stroke="#C2185B" stroke-width="2"/>
+                        <text x="100" y="25" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#880E4F" text-anchor="middle">Bonferroni (FWER)</text>
+                        
+                        <text x="10" y="45" font-family="Aptos, sans-serif" font-size="11" fill="#333">Formula:</text>
+                        <rect x="10" y="50" width="180" height="25" rx="4" fill="white"/>
+                        <text x="100" y="67" font-family="Aptos, sans-serif" font-size="11" font-family="monospace" fill="#880E4F" text-anchor="middle">p_adjusted = p × n</text>
+                        
+                        <text x="10" y="95" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#C2185B">Very Conservative</text>
+                        <text x="10" y="110" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Controls FWER < α</text>
+                        <text x="10" y="125" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Few false positives</text>
+                        <text x="10" y="140" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Many false negatives</text>
+                    </g>
+                    
+                    <!-- Benjamini-Hochberg -->
+                    <g transform="translate(240, 250)">
+                        <rect x="0" y="0" width="200" height="140" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                        <text x="100" y="25" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#0D47A1" text-anchor="middle">Benjamini-Hochberg</text>
+                        
+                        <text x="10" y="45" font-family="Aptos, sans-serif" font-size="11" fill="#333">Formula:</text>
+                        <rect x="10" y="50" width="180" height="25" rx="4" fill="white"/>
+                        <text x="100" y="67" font-family="Aptos, sans-serif" font-size="11" font-family="monospace" fill="#0D47A1" text-anchor="middle">p(i) ≤ (i/m) × α</text>
+                        
+                        <text x="10" y="95" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#1976D2">Balanced</text>
+                        <text x="10" y="110" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Controls FDR < α</text>
+                        <text x="10" y="125" font-family="Aptos, sans-serif" font-size="10" fill="#333">• More discoveries</text>
+                        <text x="10" y="140" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Standard for genomics</text>
+                    </g>
+                    
+                    <!-- Q-value -->
+                    <g transform="translate(460, 250)">
+                        <rect x="0" y="0" width="200" height="140" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+                        <text x="100" y="25" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#E65100" text-anchor="middle">Q-value</text>
+                        
+                        <text x="10" y="45" font-family="Aptos, sans-serif" font-size="11" fill="#333">Concept:</text>
+                        <rect x="10" y="50" width="180" height="25" rx="4" fill="white"/>
+                        <text x="100" y="67" font-family="Aptos, sans-serif" font-size="11" fill="#E65100" text-anchor="middle">Min FDR at threshold</text>
+                        
+                        <text x="10" y="95" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#F57C00">Adaptive</text>
+                        <text x="10" y="110" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Estimates π₀</text>
+                        <text x="10" y="125" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Data-driven</text>
+                        <text x="10" y="140" font-family="Aptos, sans-serif" font-size="10" fill="#333">• More powerful</text>
+                    </g>
+                    
+                    <!-- Permutation -->
+                    <g transform="translate(680, 250)">
+                        <rect x="0" y="0" width="200" height="140" rx="8" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2"/>
+                        <text x="100" y="25" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#4A148C" text-anchor="middle">Permutation</text>
+                        
+                        <text x="10" y="45" font-family="Aptos, sans-serif" font-size="11" fill="#333">Approach:</text>
+                        <rect x="10" y="50" width="180" height="25" rx="4" fill="white"/>
+                        <text x="100" y="67" font-family="Aptos, sans-serif" font-size="11" fill="#4A148C" text-anchor="middle">Empirical null dist.</text>
+                        
+                        <text x="10" y="95" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#7B1FA2">Non-parametric</text>
+                        <text x="10" y="110" font-family="Aptos, sans-serif" font-size="10" fill="#333">• No assumptions</text>
+                        <text x="10" y="125" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Computationally intensive</text>
+                        <text x="10" y="140" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Complex designs</text>
+                    </g>
+                </g>
+                
+                <!-- Power vs Control Trade-off -->
+                <rect x="20" y="400" width="860" height="15" rx="5" fill="#f0f5fc"/>
+                <text x="450" y="411" font-family="Aptos, sans-serif" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">Trade-off: Strict control (Bonferroni) → Few discoveries | Relaxed control (FDR) → More discoveries with controlled error</text>
+            </svg>
         </div>
         <div class="note-box">
             <div class="note-text">💡 Testing 20,000 genes requires careful multiple testing correction</div>

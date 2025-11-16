@@ -31,50 +31,247 @@
             font-size: 32px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
         }
         
-        .content-list {
+        .content-wrapper {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            gap: 25px;
+            height: 385px;
         }
         
-        .content-item {
+        .evolution-visual {
+            flex: 1.5;
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 18px 24px;
+            justify-content: center;
+        }
+        
+        .methods-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        
+        .method-box {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 6px;
+            padding: 13px 18px;
             transition: all 0.3s ease;
-            font-size: 19px;
-            color: #333;
         }
         
-        .content-item:hover {
+        .method-box:hover {
             background: #e8f2ff;
             transform: translateX(8px);
         }
         
-        .bullet {
-            width: 10px;
-            height: 10px;
-            background: #1E64C8;
-            border-radius: 50%;
-            flex-shrink: 0;
+        .method-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 3px;
+        }
+        
+        .method-info {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .branch-grow {
+            animation: branchGrow 4s ease-in-out infinite;
+        }
+        
+        @keyframes branchGrow {
+            0% { stroke-dashoffset: 100; }
+            100% { stroke-dashoffset: 0; }
+        }
+        
+        .node-pulse {
+            animation: nodePulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes nodePulse {
+            0%, 100% { r: 6; opacity: 0.8; }
+            50% { r: 8; opacity: 1; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Evolution Modeling</div>
-        <div class="content-list">
-            <div class="content-item"><div class="bullet"></div><div>Sequence evolution</div></div><div class="content-item"><div class="bullet"></div><div>Phylogenetic inference</div></div><div class="content-item"><div class="bullet"></div><div>Ancestral reconstruction</div></div><div class="content-item"><div class="bullet"></div><div>Coevolution</div></div><div class="content-item"><div class="bullet"></div><div>Fitness landscapes</div></div>
+        <div class="content-wrapper">
+            <div class="evolution-visual">
+                <svg width="560" height="385" viewBox="0 0 560 385">
+                    <text x="280" y="20" font-size="15" fill="#333" text-anchor="middle" font-weight="600">Phylogenetic Analysis & Evolution</text>
+                    
+                    <!-- Phylogenetic Tree -->
+                    <g transform="translate(100, 50)">
+                        <text x="-40" y="0" font-size="12" fill="#666" font-weight="600">Phylogenetic Tree:</text>
+                        
+                        <!-- Root -->
+                        <circle cx="0" cy="100" r="6" fill="#1E64C8" class="node-pulse"/>
+                        <text x="-30" y="105" font-size="9" fill="#666">Ancestor</text>
+                        
+                        <!-- Branches with animation -->
+                        <defs>
+                            <linearGradient id="branchGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                                <stop offset="0%" style="stop-color:#1E64C8;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#2874d8;stop-opacity:0.6" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Main branches -->
+                        <line x1="0" y1="100" x2="80" y2="50" stroke="url(#branchGradient)" stroke-width="2.5" stroke-dasharray="100" class="branch-grow"/>
+                        <line x1="0" y1="100" x2="80" y2="100" stroke="url(#branchGradient)" stroke-width="2.5" stroke-dasharray="100" class="branch-grow" style="animation-delay: 0.5s"/>
+                        <line x1="0" y1="100" x2="80" y2="150" stroke="url(#branchGradient)" stroke-width="2.5" stroke-dasharray="100" class="branch-grow" style="animation-delay: 1s"/>
+                        
+                        <!-- Sub-branches -->
+                        <line x1="80" y1="50" x2="140" y2="30" stroke="#2874d8" stroke-width="2" stroke-dasharray="60" class="branch-grow" style="animation-delay: 1.5s"/>
+                        <line x1="80" y1="50" x2="140" y2="70" stroke="#2874d8" stroke-width="2" stroke-dasharray="60" class="branch-grow" style="animation-delay: 1.5s"/>
+                        
+                        <line x1="80" y1="100" x2="140" y2="85" stroke="#2874d8" stroke-width="2" stroke-dasharray="60" class="branch-grow" style="animation-delay: 2s"/>
+                        <line x1="80" y1="100" x2="140" y2="115" stroke="#2874d8" stroke-width="2" stroke-dasharray="60" class="branch-grow" style="animation-delay: 2s"/>
+                        
+                        <line x1="80" y1="150" x2="140" y2="135" stroke="#2874d8" stroke-width="2" stroke-dasharray="60" class="branch-grow" style="animation-delay: 2.5s"/>
+                        <line x1="80" y1="150" x2="140" y2="165" stroke="#2874d8" stroke-width="2" stroke-dasharray="60" class="branch-grow" style="animation-delay: 2.5s"/>
+                        
+                        <!-- Terminal nodes (species) -->
+                        <circle cx="140" cy="30" r="6" fill="#ffcccc" stroke="#cc0000" stroke-width="1.5" class="node-pulse" style="animation-delay: 0.3s"/>
+                        <text x="150" y="33" font-size="9" fill="#333">Human</text>
+                        
+                        <circle cx="140" cy="70" r="6" fill="#ccffcc" stroke="#00cc00" stroke-width="1.5" class="node-pulse" style="animation-delay: 0.6s"/>
+                        <text x="150" y="73" font-size="9" fill="#333">Chimp</text>
+                        
+                        <circle cx="140" cy="85" r="6" fill="#ccccff" stroke="#0000cc" stroke-width="1.5" class="node-pulse" style="animation-delay: 0.9s"/>
+                        <text x="150" y="88" font-size="9" fill="#333">Mouse</text>
+                        
+                        <circle cx="140" cy="115" r="6" fill="#ffffcc" stroke="#cccc00" stroke-width="1.5" class="node-pulse" style="animation-delay: 1.2s"/>
+                        <text x="150" y="118" font-size="9" fill="#333">Rat</text>
+                        
+                        <circle cx="140" cy="135" r="6" fill="#ffccff" stroke="#cc00cc" stroke-width="1.5" class="node-pulse" style="animation-delay: 1.5s"/>
+                        <text x="150" y="138" font-size="9" fill="#333">Zebrafish</text>
+                        
+                        <circle cx="140" cy="165" r="6" fill="#ccffff" stroke="#00cccc" stroke-width="1.5" class="node-pulse" style="animation-delay: 1.8s"/>
+                        <text x="150" y="168" font-size="9" fill="#333">Fugu</text>
+                        
+                        <!-- Time scale -->
+                        <line x1="0" y1="190" x2="140" y2="190" stroke="#999" stroke-width="1" stroke-dasharray="2,2"/>
+                        <text x="0" y="205" font-size="9" fill="#666">500 MYA</text>
+                        <text x="140" y="205" font-size="9" fill="#666" text-anchor="end">Present</text>
+                    </g>
+                    
+                    <!-- Sequence Evolution -->
+                    <g transform="translate(320, 50)">
+                        <text x="0" y="0" font-size="12" fill="#666" font-weight="600">Sequence Evolution:</text>
+                        
+                        <rect x="0" y="10" width="180" height="30" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="90" y="30" font-size="10" fill="#333" text-anchor="middle" font-family="monospace">ATGGCTAAACGT...</text>
+                        
+                        <path d="M 90,45 L 90,60" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="2,2"/>
+                        
+                        <rect x="0" y="65" width="85" height="25" rx="4" fill="#fff3cd" stroke="#e0a800" stroke-width="1.5"/>
+                        <text x="42" y="82" font-size="10" fill="#333" text-anchor="middle" font-family="monospace">ATGGTTAA...</text>
+                        
+                        <rect x="95" y="65" width="85" height="25" rx="4" fill="#d4edda" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="137" y="82" font-size="10" fill="#333" text-anchor="middle" font-family="monospace">ATGGCTGA...</text>
+                        
+                        <!-- Mutation indicators -->
+                        <circle cx="32" cy="82" r="8" fill="#cc0000" opacity="0.3"/>
+                        <text x="32" y="104" font-size="8" fill="#cc0000" text-anchor="middle">C→T</text>
+                        
+                        <circle cx="147" cy="82" r="8" fill="#cc0000" opacity="0.3"/>
+                        <text x="147" y="104" font-size="8" fill="#cc0000" text-anchor="middle">A→G</text>
+                    </g>
+                    
+                    <!-- Coevolution Network -->
+                    <g transform="translate(350, 140)">
+                        <text x="0" y="0" font-size="12" fill="#666" font-weight="600">Coevolution:</text>
+                        
+                        <rect x="-20" y="10" width="150" height="120" rx="6" fill="#f8f9fa" stroke="#2874d8" stroke-width="1.5"/>
+                        
+                        <!-- Protein interaction network -->
+                        <g transform="translate(55, 50)">
+                            <circle cx="0" cy="0" r="12" fill="#2874d8" opacity="0.8"/>
+                            <text x="0" y="3" font-size="8" fill="#fff" text-anchor="middle" font-weight="600">P1</text>
+                            
+                            <circle cx="-30" cy="-20" r="8" fill="#5fa3e8" opacity="0.8"/>
+                            <text x="-30" y="-17" font-size="7" fill="#fff" text-anchor="middle">P2</text>
+                            
+                            <circle cx="30" cy="-20" r="8" fill="#5fa3e8" opacity="0.8"/>
+                            <text x="30" y="-17" font-size="7" fill="#fff" text-anchor="middle">P3</text>
+                            
+                            <circle cx="-30" cy="20" r="8" fill="#5fa3e8" opacity="0.8"/>
+                            <text x="-30" y="23" font-size="7" fill="#fff" text-anchor="middle">P4</text>
+                            
+                            <circle cx="30" cy="20" r="8" fill="#5fa3e8" opacity="0.8"/>
+                            <text x="30" y="23" font-size="7" fill="#fff" text-anchor="middle">P5</text>
+                            
+                            <!-- Coevolution links -->
+                            <line x1="0" y1="0" x2="-30" y2="-20" stroke="#2874d8" stroke-width="2" opacity="0.5"/>
+                            <line x1="0" y1="0" x2="30" y2="-20" stroke="#2874d8" stroke-width="2" opacity="0.5"/>
+                            <line x1="0" y1="0" x2="-30" y2="20" stroke="#2874d8" stroke-width="2" opacity="0.5"/>
+                            <line x1="0" y1="0" x2="30" y2="20" stroke="#2874d8" stroke-width="2" opacity="0.5"/>
+                            <line x1="-30" y1="-20" x2="30" y2="-20" stroke="#5fa3e8" stroke-width="1" opacity="0.3"/>
+                            <line x1="-30" y1="20" x2="30" y2="20" stroke="#5fa3e8" stroke-width="1" opacity="0.3"/>
+                        </g>
+                        
+                        <text x="55" y="115" font-size="9" fill="#666" text-anchor="middle">Correlated mutations</text>
+                    </g>
+                    
+                    <!-- Fitness Landscape -->
+                    <g transform="translate(100, 280)">
+                        <rect x="0" y="0" width="360" height="90" rx="6" fill="#f8f9fa" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="180" y="18" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="700">Fitness Landscape</text>
+                        
+                        <!-- 3D landscape visualization (2D projection) -->
+                        <g transform="translate(30, 30)">
+                            <path d="M 0,40 Q 30,20 60,35 T 120,30 T 180,38 T 240,25 T 300,40" 
+                                  stroke="#1E64C8" stroke-width="2" fill="none"/>
+                            <path d="M 0,40 Q 30,20 60,35 T 120,30 T 180,38 T 240,25 T 300,40 L 300,50 L 0,50 Z" 
+                                  fill="#e8f2ff" opacity="0.5"/>
+                            
+                            <!-- Peak points -->
+                            <circle cx="60" cy="35" r="4" fill="#1E64C8"/>
+                            <text x="60" y="30" font-size="8" fill="#333" text-anchor="middle">Peak 1</text>
+                            
+                            <circle cx="240" cy="25" r="4" fill="#1E64C8"/>
+                            <text x="240" y="20" font-size="8" fill="#333" text-anchor="middle">Peak 2</text>
+                            
+                            <!-- Current position -->
+                            <circle cx="180" cy="38" r="5" fill="#cc0000"/>
+                            <text x="180" y="55" font-size="8" fill="#cc0000" text-anchor="middle">Current</text>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="methods-list">
+                <div class="method-box">
+                    <div class="method-title">Sequence evolution</div>
+                    <div class="method-info">Substitution models & rates</div>
+                </div>
+                <div class="method-box">
+                    <div class="method-title">Phylogenetic inference</div>
+                    <div class="method-info">Tree reconstruction methods</div>
+                </div>
+                <div class="method-box">
+                    <div class="method-title">Ancestral reconstruction</div>
+                    <div class="method-info">Ancient sequence prediction</div>
+                </div>
+                <div class="method-box">
+                    <div class="method-title">Coevolution</div>
+                    <div class="method-info">Correlated mutations analysis</div>
+                </div>
+                <div class="method-box">
+                    <div class="method-title">Fitness landscapes</div>
+                    <div class="method-info">Adaptive evolution mapping</div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

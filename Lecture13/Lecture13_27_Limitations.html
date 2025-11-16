@@ -31,50 +31,237 @@
             font-size: 32px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
         }
         
-        .content-list {
+        .content-wrapper {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            gap: 25px;
+            height: 385px;
         }
         
-        .content-item {
+        .limitations-visual {
+            flex: 1.5;
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 18px 24px;
+            justify-content: center;
+        }
+        
+        .challenges-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        
+        .challenge-item {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 6px;
+            padding: 13px 18px;
             transition: all 0.3s ease;
-            font-size: 19px;
-            color: #333;
         }
         
-        .content-item:hover {
+        .challenge-item:hover {
             background: #e8f2ff;
             transform: translateX(8px);
         }
         
-        .bullet {
-            width: 10px;
-            height: 10px;
-            background: #1E64C8;
-            border-radius: 50%;
-            flex-shrink: 0;
+        .challenge-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 3px;
+        }
+        
+        .challenge-desc {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .warning-flash {
+            animation: warningFlash 2s ease-in-out infinite;
+        }
+        
+        @keyframes warningFlash {
+            0%, 100% { fill: #ffcccc; stroke: #cc0000; opacity: 0.8; }
+            50% { fill: #ff6666; stroke: #ff0000; opacity: 1; }
+        }
+        
+        .data-flow {
+            animation: dataFlowAnim 3s linear infinite;
+        }
+        
+        @keyframes dataFlowAnim {
+            0% { stroke-dashoffset: 20; }
+            100% { stroke-dashoffset: 0; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Limitations</div>
-        <div class="content-list">
-            <div class="content-item"><div class="bullet"></div><div>Data biases</div></div><div class="content-item"><div class="bullet"></div><div>Generalization gaps</div></div><div class="content-item"><div class="bullet"></div><div>Interpretability challenges</div></div><div class="content-item"><div class="bullet"></div><div>Experimental validation</div></div><div class="content-item"><div class="bullet"></div><div>Computational costs</div></div>
+        <div class="content-wrapper">
+            <div class="limitations-visual">
+                <svg width="560" height="385" viewBox="0 0 560 385">
+                    <text x="280" y="20" font-size="15" fill="#333" text-anchor="middle" font-weight="600">Current Challenges in Biological AI</text>
+                    
+                    <!-- Data Biases -->
+                    <g transform="translate(60, 50)">
+                        <rect x="0" y="0" width="200" height="80" rx="6" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                        <text x="100" y="18" font-size="12" fill="#e0a800" text-anchor="middle" font-weight="700">Data Biases</text>
+                        
+                        <!-- Bias visualization -->
+                        <g transform="translate(20, 30)">
+                            <!-- Imbalanced dataset -->
+                            <rect x="0" y="0" width="60" height="30" rx="3" fill="#e0a800" opacity="0.8"/>
+                            <text x="30" y="20" font-size="10" fill="#333" text-anchor="middle">Human</text>
+                            
+                            <rect x="65" y="10" width="30" height="20" rx="3" fill="#e0a800" opacity="0.5"/>
+                            <text x="80" y="25" font-size="9" fill="#666" text-anchor="middle">Mouse</text>
+                            
+                            <rect x="100" y="15" width="20" height="15" rx="3" fill="#e0a800" opacity="0.3"/>
+                            <text x="110" y="27" font-size="8" fill="#999" text-anchor="middle">Other</text>
+                            
+                            <rect x="125" y="20" width="15" height="10" rx="2" fill="#e0a800" opacity="0.2"/>
+                            <text x="132" y="28" font-size="7" fill="#aaa" text-anchor="middle">?</text>
+                        </g>
+                        
+                        <text x="100" y="50" font-size="9" fill="#666" text-anchor="middle">Taxonomic skew</text>
+                    </g>
+                    
+                    <!-- Generalization Gaps -->
+                    <g transform="translate(300, 50)">
+                        <rect x="0" y="0" width="200" height="80" rx="6" fill="#ffcccc" stroke="#cc0000" stroke-width="2" class="warning-flash"/>
+                        <text x="100" y="18" font-size="12" fill="#cc0000" text-anchor="middle" font-weight="700">Generalization Gaps</text>
+                        
+                        <!-- Gap visualization -->
+                        <g transform="translate(30, 30)">
+                            <!-- Training domain -->
+                            <ellipse cx="40" cy="20" rx="35" ry="15" fill="#cc0000" opacity="0.3"/>
+                            <text x="40" y="23" font-size="9" fill="#333" text-anchor="middle">Training</text>
+                            
+                            <!-- Test domain (partially overlapping) -->
+                            <ellipse cx="80" cy="20" rx="35" ry="15" fill="#0000cc" opacity="0.3"/>
+                            <text x="80" y="23" font-size="9" fill="#333" text-anchor="middle">Real-world</text>
+                            
+                            <!-- Gap area -->
+                            <text x="100" y="40" font-size="14" fill="#cc0000" text-anchor="middle">⚠</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Interpretability Challenges -->
+                    <g transform="translate(160, 160)">
+                        <rect x="0" y="0" width="240" height="90" rx="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="120" y="18" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="700">Interpretability Challenges</text>
+                        
+                        <!-- Black box visualization -->
+                        <g transform="translate(60, 30)">
+                            <!-- Input -->
+                            <rect x="0" y="10" width="40" height="20" rx="3" fill="#d4edda" stroke="#1E64C8" stroke-width="1.5"/>
+                            <text x="20" y="24" font-size="9" fill="#333" text-anchor="middle">Input</text>
+                            
+                            <path d="M 45,20 L 65,20" stroke="#1E64C8" stroke-width="2" marker-end="url(#limArrow)" stroke-dasharray="5,5" class="data-flow"/>
+                            
+                            <!-- Black box -->
+                            <rect x="70" y="0" width="60" height="40" rx="5" fill="#333" opacity="0.8"/>
+                            <text x="100" y="24" font-size="10" fill="#fff" text-anchor="middle">?</text>
+                            
+                            <path d="M 135,20 L 155,20" stroke="#1E64C8" stroke-width="2" marker-end="url(#limArrow)" stroke-dasharray="5,5" class="data-flow"/>
+                            
+                            <!-- Output -->
+                            <rect x="160" y="10" width="40" height="20" rx="3" fill="#d4edda" stroke="#1E64C8" stroke-width="1.5"/>
+                            <text x="180" y="24" font-size="9" fill="#333" text-anchor="middle">Output</text>
+                            
+                            <defs>
+                                <marker id="limArrow" markerWidth="6" markerHeight="6" refX="5" refY="2" orient="auto">
+                                    <polygon points="0 0, 6 2, 0 4" fill="#1E64C8"/>
+                                </marker>
+                            </defs>
+                        </g>
+                        
+                        <text x="120" y="60" font-size="9" fill="#666" text-anchor="middle">What learned features matter?</text>
+                    </g>
+                    
+                    <!-- Experimental Validation -->
+                    <g transform="translate(60, 270)">
+                        <rect x="0" y="0" width="200" height="90" rx="6" fill="#d4edda" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="100" y="18" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="700">Experimental Validation</text>
+                        
+                        <!-- Validation bottleneck -->
+                        <g transform="translate(30, 30)">
+                            <!-- AI predictions -->
+                            <rect x="0" y="0" width="50" height="8" rx="2" fill="#1E64C8" opacity="0.8"/>
+                            <rect x="0" y="10" width="50" height="8" rx="2" fill="#1E64C8" opacity="0.8"/>
+                            <rect x="0" y="20" width="50" height="8" rx="2" fill="#1E64C8" opacity="0.8"/>
+                            <rect x="0" y="30" width="50" height="8" rx="2" fill="#1E64C8" opacity="0.8"/>
+                            <text x="25" y="50" font-size="8" fill="#666" text-anchor="middle">1000s/day</text>
+                            
+                            <path d="M 55,20 L 85,20" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <!-- Bottleneck -->
+                            <path d="M 90,10 L 90,30 L 100,20 Z" fill="#cc0000" opacity="0.5"/>
+                            
+                            <path d="M 105,20 L 135,20" stroke="#cc0000" stroke-width="2"/>
+                            
+                            <!-- Lab validation -->
+                            <rect x="140" y="16" width="30" height="8" rx="2" fill="#cc0000" opacity="0.5"/>
+                            <text x="155" y="35" font-size="8" fill="#666" text-anchor="middle">10s/day</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Computational Costs -->
+                    <g transform="translate(300, 270)">
+                        <rect x="0" y="0" width="200" height="90" rx="6" fill="#e3f2fd" stroke="#2874d8" stroke-width="2"/>
+                        <text x="100" y="18" font-size="12" fill="#2874d8" text-anchor="middle" font-weight="700">Computational Costs</text>
+                        
+                        <!-- Cost visualization -->
+                        <g transform="translate(30, 30)">
+                            <!-- GPU cluster -->
+                            <rect x="0" y="0" width="25" height="20" rx="2" fill="#2874d8" opacity="0.7"/>
+                            <rect x="30" y="0" width="25" height="20" rx="2" fill="#2874d8" opacity="0.7"/>
+                            <rect x="60" y="0" width="25" height="20" rx="2" fill="#2874d8" opacity="0.7"/>
+                            <rect x="90" y="0" width="25" height="20" rx="2" fill="#2874d8" opacity="0.7"/>
+                            
+                            <text x="57" y="35" font-size="9" fill="#666" text-anchor="middle">1000s of GPUs</text>
+                            
+                            <!-- Cost indicator -->
+                            <text x="57" y="48" font-size="10" fill="#2874d8" text-anchor="middle" font-weight="600">$$$$</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Solutions/Mitigations panel -->
+                    <g transform="translate(150, 140)">
+                        <text x="130" y="0" font-size="11" fill="#666" text-anchor="middle" font-weight="600" font-style="italic">Ongoing Research Areas</text>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="challenges-list">
+                <div class="challenge-item">
+                    <div class="challenge-name">Data biases</div>
+                    <div class="challenge-desc">Taxonomic & functional skew</div>
+                </div>
+                <div class="challenge-item">
+                    <div class="challenge-name">Generalization gaps</div>
+                    <div class="challenge-desc">Out-of-distribution failures</div>
+                </div>
+                <div class="challenge-item">
+                    <div class="challenge-name">Interpretability challenges</div>
+                    <div class="challenge-desc">Black box models</div>
+                </div>
+                <div class="challenge-item">
+                    <div class="challenge-name">Experimental validation</div>
+                    <div class="challenge-desc">Lab throughput bottleneck</div>
+                </div>
+                <div class="challenge-item">
+                    <div class="challenge-name">Computational costs</div>
+                    <div class="challenge-desc">Training & inference expense</div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

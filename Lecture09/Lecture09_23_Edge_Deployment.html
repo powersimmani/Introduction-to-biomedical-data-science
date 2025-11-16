@@ -31,8 +31,24 @@
             font-size: 28px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
             text-align: center;
+        }
+        
+        .deployment-architecture {
+            background: #f8fbff;
+            border: 2.5px solid #1E64C8;
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        
+        .architecture-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1E64C8;
+            text-align: center;
+            margin-bottom: 15px;
         }
         
         .concept-grid {
@@ -74,8 +90,206 @@
     <div class="container">
         <div class="title">Edge Deployment</div>
         
+        <div class="deployment-architecture">
+            <div class="architecture-title">Model Compression and Edge Deployment Pipeline</div>
+            <svg width="880" height="280" viewBox="0 0 880 280">
+                <!-- Original Model -->
+                <g transform="translate(30, 30)">
+                    <rect x="0" y="0" width="140" height="100" rx="10" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2.5"/>
+                    <text x="70" y="20" font-size="12" fill="#1E64C8" font-weight="700" text-anchor="middle">Original Model</text>
+                    
+                    <rect x="20" y="30" width="100" height="15" rx="3" fill="#1E64C8" opacity="0.8"/>
+                    <text x="70" y="41" font-size="9" fill="white" text-anchor="middle">ResNet-152</text>
+                    
+                    <text x="70" y="58" font-size="9" fill="#666" text-anchor="middle">Size: 230 MB</text>
+                    <text x="70" y="70" font-size="9" fill="#666" text-anchor="middle">FLOPs: 11.3B</text>
+                    <text x="70" y="82" font-size="9" fill="#666" text-anchor="middle">Latency: 85ms</text>
+                    <text x="70" y="94" font-size="9" fill="#dc3545" font-weight="600" text-anchor="middle">❌ Too large for edge</text>
+                </g>
+                
+                <!-- Compression Methods -->
+                <g transform="translate(200, 20)">
+                    <text x="180" y="0" font-size="13" fill="#1E64C8" font-weight="700" text-anchor="middle">Compression Techniques</text>
+                    
+                    <!-- Quantization -->
+                    <g transform="translate(0, 15)">
+                        <rect x="0" y="0" width="160" height="50" rx="8" fill="#fff9e6" stroke="#ffc107" stroke-width="2"/>
+                        <text x="80" y="18" font-size="10" fill="#ffc107" font-weight="600" text-anchor="middle">Quantization</text>
+                        
+                        <rect x="15" y="24" width="30" height="18" rx="3" fill="#ffc107" opacity="0.3"/>
+                        <text x="30" y="35" font-size="8" fill="#333" text-anchor="middle">FP32</text>
+                        
+                        <path d="M 48 33 L 62 33" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                        
+                        <rect x="65" y="24" width="30" height="18" rx="3" fill="#ffc107" opacity="0.6"/>
+                        <text x="80" y="35" font-size="8" fill="#333" text-anchor="middle">INT8</text>
+                        
+                        <path d="M 98 33 L 112 33" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                        
+                        <rect x="115" y="24" width="30" height="18" rx="3" fill="#ffc107" opacity="0.9"/>
+                        <text x="130" y="35" font-size="8" fill="#333" text-anchor="middle">INT4</text>
+                    </g>
+                    
+                    <!-- Pruning -->
+                    <g transform="translate(200, 15)">
+                        <rect x="0" y="0" width="160" height="50" rx="8" fill="#ffe6f0" stroke="#e91e63" stroke-width="2"/>
+                        <text x="80" y="18" font-size="10" fill="#e91e63" font-weight="600" text-anchor="middle">Pruning</text>
+                        
+                        <!-- Network visualization -->
+                        <g transform="translate(20, 22)">
+                            <!-- Original -->
+                            <circle cx="10" cy="10" r="3" fill="#e91e63"/>
+                            <circle cx="25" cy="10" r="3" fill="#e91e63"/>
+                            <circle cx="40" cy="10" r="3" fill="#e91e63"/>
+                            <line x1="10" y1="10" x2="25" y2="10" stroke="#e91e63" stroke-width="1"/>
+                            <line x1="25" y1="10" x2="40" y2="10" stroke="#e91e63" stroke-width="1"/>
+                            
+                            <path d="M 45 10 L 55 10" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                            
+                            <!-- Pruned -->
+                            <circle cx="65" cy="10" r="3" fill="#e91e63"/>
+                            <circle cx="80" cy="10" r="3" fill="#ccc" stroke="#e91e63" stroke-width="0.5" stroke-dasharray="1,1"/>
+                            <circle cx="95" cy="10" r="3" fill="#e91e63"/>
+                            <circle cx="110" cy="10" r="3" fill="#ccc" stroke="#e91e63" stroke-width="0.5" stroke-dasharray="1,1"/>
+                            <line x1="65" y1="10" x2="95" y2="10" stroke="#e91e63" stroke-width="1"/>
+                        </g>
+                        <text x="80" y="47" font-size="8" fill="#666" text-anchor="middle">Remove 60% weights</text>
+                    </g>
+                    
+                    <!-- Knowledge Distillation -->
+                    <g transform="translate(0, 73)">
+                        <rect x="0" y="0" width="360" height="50" rx="8" fill="#e6f3ff" stroke="#17a2b8" stroke-width="2"/>
+                        <text x="180" y="18" font-size="10" fill="#17a2b8" font-weight="600" text-anchor="middle">Knowledge Distillation</text>
+                        
+                        <!-- Teacher-Student -->
+                        <rect x="20" y="24" width="60" height="20" rx="3" fill="#17a2b8" opacity="0.8"/>
+                        <text x="50" y="36" font-size="8" fill="white" text-anchor="middle">Teacher</text>
+                        
+                        <path d="M 80 34 L 100 34" stroke="#17a2b8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <text x="90" y="30" font-size="8" fill="#17a2b8">KL</text>
+                        
+                        <rect x="100" y="24" width="40" height="20" rx="3" fill="#17a2b8" opacity="0.4"/>
+                        <text x="120" y="36" font-size="8" fill="#333" text-anchor="middle">Student</text>
+                        
+                        <text x="200" y="36" font-size="8" fill="#666">10× smaller, 95% accuracy</text>
+                    </g>
+                    
+                    <!-- Neural Architecture Search -->
+                    <g transform="translate(0, 131)">
+                        <rect x="0" y="0" width="360" height="50" rx="8" fill="#f0f5fc" stroke="#6f42c1" stroke-width="2"/>
+                        <text x="180" y="18" font-size="10" fill="#6f42c1" font-weight="600" text-anchor="middle">Architecture Optimization</text>
+                        
+                        <text x="180" y="32" font-size="9" fill="#666" text-anchor="middle">MobileNet, EfficientNet-Lite, ShuffleNet</text>
+                        <text x="180" y="44" font-size="8" fill="#666" text-anchor="middle">Designed for mobile/edge devices</text>
+                    </g>
+                </g>
+                
+                <!-- Optimized Model -->
+                <g transform="translate(600, 30)">
+                    <rect x="0" y="0" width="140" height="100" rx="10" fill="#e8ffe8" stroke="#28a745" stroke-width="2.5"/>
+                    <text x="70" y="20" font-size="12" fill="#28a745" font-weight="700" text-anchor="middle">Optimized Model</text>
+                    
+                    <rect x="20" y="30" width="100" height="15" rx="3" fill="#28a745" opacity="0.6"/>
+                    <text x="70" y="41" font-size="9" fill="white" text-anchor="middle">MobileNet-INT8</text>
+                    
+                    <text x="70" y="58" font-size="9" fill="#666" text-anchor="middle">Size: 4.3 MB</text>
+                    <text x="70" y="70" font-size="9" fill="#666" text-anchor="middle">FLOPs: 0.58B</text>
+                    <text x="70" y="82" font-size="9" fill="#666" text-anchor="middle">Latency: 7ms</text>
+                    <text x="70" y="94" font-size="9" fill="#28a745" font-weight="600" text-anchor="middle">✓ Edge-ready!</text>
+                </g>
+                
+                <!-- Deployment Targets -->
+                <g transform="translate(30, 150)">
+                    <text x="420" y="0" font-size="13" fill="#1E64C8" font-weight="700" text-anchor="middle">Deployment Targets</text>
+                    
+                    <!-- Mobile -->
+                    <g transform="translate(0, 15)">
+                        <rect x="0" y="0" width="160" height="90" rx="8" fill="#fff0f0" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="80" y="18" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">Mobile Devices</text>
+                        
+                        <rect x="20" y="25" width="120" height="25" rx="5" fill="white" stroke="#666" stroke-width="1"/>
+                        <text x="80" y="40" font-size="9" fill="#666" text-anchor="middle">TensorFlow Lite</text>
+                        
+                        <rect x="20" y="55" width="120" height="25" rx="5" fill="white" stroke="#666" stroke-width="1"/>
+                        <text x="80" y="70" font-size="9" fill="#666" text-anchor="middle">Core ML (iOS)</text>
+                        
+                        <text x="80" y="87" font-size="8" fill="#28a745" text-anchor="middle">ARM CPU/GPU</text>
+                    </g>
+                    
+                    <!-- Edge Server -->
+                    <g transform="translate(175, 15)">
+                        <rect x="0" y="0" width="160" height="90" rx="8" fill="#f0fff0" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="80" y="18" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">Edge Servers</text>
+                        
+                        <rect x="20" y="25" width="120" height="25" rx="5" fill="white" stroke="#666" stroke-width="1"/>
+                        <text x="80" y="40" font-size="9" fill="#666" text-anchor="middle">ONNX Runtime</text>
+                        
+                        <rect x="20" y="55" width="120" height="25" rx="5" fill="white" stroke="#666" stroke-width="1"/>
+                        <text x="80" y="70" font-size="9" fill="#666" text-anchor="middle">TensorRT</text>
+                        
+                        <text x="80" y="87" font-size="8" fill="#28a745" text-anchor="middle">NVIDIA Jetson</text>
+                    </g>
+                    
+                    <!-- Embedded -->
+                    <g transform="translate(350, 15)">
+                        <rect x="0" y="0" width="160" height="90" rx="8" fill="#f0f0ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="80" y="18" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">Embedded Systems</text>
+                        
+                        <rect x="20" y="25" width="120" height="25" rx="5" fill="white" stroke="#666" stroke-width="1"/>
+                        <text x="80" y="40" font-size="9" fill="#666" text-anchor="middle">TF Lite Micro</text>
+                        
+                        <rect x="20" y="55" width="120" height="25" rx="5" fill="white" stroke="#666" stroke-width="1"/>
+                        <text x="80" y="70" font-size="9" fill="#666" text-anchor="middle">OpenVINO</text>
+                        
+                        <text x="80" y="87" font-size="8" fill="#28a745" text-anchor="middle">TPU/NPU/VPU</text>
+                    </g>
+                    
+                    <!-- Browser -->
+                    <g transform="translate(525, 15)">
+                        <rect x="0" y="0" width="160" height="90" rx="8" fill="#fffaf0" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="80" y="18" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">Browser-based</text>
+                        
+                        <rect x="20" y="25" width="120" height="25" rx="5" fill="white" stroke="#666" stroke-width="1"/>
+                        <text x="80" y="40" font-size="9" fill="#666" text-anchor="middle">TensorFlow.js</text>
+                        
+                        <rect x="20" y="55" width="120" height="25" rx="5" fill="white" stroke="#666" stroke-width="1"/>
+                        <text x="80" y="70" font-size="9" fill="#666" text-anchor="middle">ONNX.js</text>
+                        
+                        <text x="80" y="87" font-size="8" fill="#28a745" text-anchor="middle">WebGL/WebAssembly</text>
+                    </g>
+                </g>
+                
+                <!-- Performance Comparison -->
+                <g transform="translate(750, 30)">
+                    <rect x="0" y="0" width="120" height="100" rx="8" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1.5"/>
+                    <text x="60" y="18" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">Metrics</text>
+                    
+                    <text x="10" y="35" font-size="8" fill="#666">Model size:</text>
+                    <text x="110" y="35" font-size="8" fill="#28a745" font-weight="600" text-anchor="end">53× ↓</text>
+                    
+                    <text x="10" y="50" font-size="8" fill="#666">Inference:</text>
+                    <text x="110" y="50" font-size="8" fill="#28a745" font-weight="600" text-anchor="end">12× ↑</text>
+                    
+                    <text x="10" y="65" font-size="8" fill="#666">Power:</text>
+                    <text x="110" y="65" font-size="8" fill="#28a745" font-weight="600" text-anchor="end">10× ↓</text>
+                    
+                    <text x="10" y="80" font-size="8" fill="#666">Accuracy:</text>
+                    <text x="110" y="80" font-size="8" fill="#ffc107" font-weight="600" text-anchor="end">-2%</text>
+                </g>
+                
+                <!-- Arrows -->
+                <path d="M 170 80 L 200 80" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+                <path d="M 560 80 L 600 80" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+                
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+        
         <div class="concept-grid">
-
             <div class="concept-card">
                 <div class="concept-name">Model Compression</div>
                 <div class="concept-desc">Reduce model size and latency. Essential for edge devices and real-time applications</div>

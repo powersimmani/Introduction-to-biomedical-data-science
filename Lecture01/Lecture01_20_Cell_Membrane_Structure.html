@@ -35,28 +35,45 @@
             text-align: center;
         }
         
-        .content-grid {
+        .main-layout {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1.2fr 0.8fr;
             gap: 20px;
+            height: calc(100% - 60px);
+        }
+        
+        .membrane-diagram {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border: 2px solid #4CAF50;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
         }
         
         .info-box {
             background: #f8f9fb;
             border-left: 4px solid #1E64C8;
-            padding: 16px 18px;
+            padding: 12px 14px;
             border-radius: 6px;
         }
         
         .info-title {
-            font-size: 17px;
+            font-size: 15px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
         
         .info-content {
-            font-size: 15px;
+            font-size: 13px;
             color: #333;
             line-height: 1.5;
         }
@@ -64,15 +81,15 @@
         .bullet {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         
         .bullet::before {
             content: "•";
             color: #1E64C8;
             font-weight: bold;
-            margin-right: 8px;
-            font-size: 16px;
+            margin-right: 6px;
+            font-size: 13px;
         }
     </style>
 </head>
@@ -80,47 +97,253 @@
     <div class="container">
         <div class="title">Cell Membrane Structure</div>
         
-        <div class="content-grid">
-            <div class="info-box">
-                <div class="info-title">Lipid Bilayer</div>
-                <div class="info-content">
-                    <div class="bullet">Phospholipids: hydrophobic core</div>
-                    <div class="bullet">Cholesterol: membrane fluidity</div>
-                    <div class="bullet">Glycolipids: cell recognition</div>
-                    <div class="bullet">Asymmetric distribution</div>
-                </div>
+        <div class="main-layout">
+            <div class="membrane-diagram">
+                <svg width="880" height="220" viewBox="0 0 880 220">
+                    <defs>
+                        <!-- Gradients for membrane components -->
+                        <linearGradient id="lipidGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#FFB74D;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#FFA726;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#FFB74D;stop-opacity:1" />
+                        </linearGradient>
+                        
+                        <linearGradient id="proteinGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#9C27B0;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#BA68C8;stop-opacity:1" />
+                        </linearGradient>
+                        
+                        <linearGradient id="cholesterolGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#F44336;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#EF5350;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <text x="440" y="20" text-anchor="middle" font-size="14" fill="#2E7D32" font-weight="bold">Fluid Mosaic Model</text>
+                    
+                    <!-- Extracellular space label -->
+                    <text x="50" y="45" font-size="11" fill="#666" font-weight="bold">Extracellular</text>
+                    
+                    <!-- Cytoplasm label -->
+                    <text x="50" y="195" font-size="11" fill="#666" font-weight="bold">Cytoplasm</text>
+                    
+                    <!-- Lipid bilayer -->
+                    <!-- Upper leaflet -->
+                    <g id="phospholipid-upper">
+                        <!-- Phospholipid template -->
+                        <circle cx="0" cy="0" r="8" fill="#FFB74D"/>
+                        <line x1="0" y1="8" x2="0" y2="35" stroke="#FF9800" stroke-width="3"/>
+                        <line x1="0" y1="35" x2="-4" y2="45" stroke="#FF9800" stroke-width="2"/>
+                        <line x1="0" y1="35" x2="4" y2="45" stroke="#FF9800" stroke-width="2"/>
+                    </g>
+                    
+                    <!-- Lower leaflet -->
+                    <g id="phospholipid-lower">
+                        <circle cx="0" cy="0" r="8" fill="#FFB74D"/>
+                        <line x1="0" y1="-8" x2="0" y2="-35" stroke="#FF9800" stroke-width="3"/>
+                        <line x1="0" y1="-35" x2="-4" y2="-45" stroke="#FF9800" stroke-width="2"/>
+                        <line x1="0" y1="-35" x2="4" y2="-45" stroke="#FF9800" stroke-width="2"/>
+                    </g>
+                    
+                    <!-- Place phospholipids in bilayer -->
+                    <!-- Upper leaflet phospholipids -->
+                    <use href="#phospholipid-upper" transform="translate(150, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(170, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(190, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(210, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(230, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(250, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(290, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(310, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(330, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(350, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(390, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(410, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(430, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(450, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(490, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(510, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(530, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(550, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(590, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(610, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(630, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(650, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(690, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(710, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(730, 70)"/>
+                    <use href="#phospholipid-upper" transform="translate(750, 70)"/>
+                    
+                    <!-- Lower leaflet phospholipids -->
+                    <use href="#phospholipid-lower" transform="translate(160, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(180, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(200, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(220, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(240, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(280, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(300, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(320, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(340, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(380, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(400, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(420, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(440, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(480, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(500, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(520, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(540, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(580, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(600, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(620, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(640, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(680, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(700, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(720, 150)"/>
+                    <use href="#phospholipid-lower" transform="translate(740, 150)"/>
+                    
+                    <!-- Cholesterol molecules -->
+                    <g transform="translate(270, 110)">
+                        <ellipse cx="0" cy="0" rx="6" ry="20" fill="url(#cholesterolGrad)" transform="rotate(15)"/>
+                        <text x="15" y="5" font-size="8" fill="#D32F2F" font-weight="bold">Chol</text>
+                    </g>
+                    
+                    <g transform="translate(370, 110)">
+                        <ellipse cx="0" cy="0" rx="6" ry="20" fill="url(#cholesterolGrad)" transform="rotate(-10)"/>
+                    </g>
+                    
+                    <g transform="translate(470, 110)">
+                        <ellipse cx="0" cy="0" rx="6" ry="20" fill="url(#cholesterolGrad)" transform="rotate(20)"/>
+                    </g>
+                    
+                    <g transform="translate(570, 110)">
+                        <ellipse cx="0" cy="0" rx="6" ry="20" fill="url(#cholesterolGrad)" transform="rotate(-15)"/>
+                    </g>
+                    
+                    <g transform="translate(670, 110)">
+                        <ellipse cx="0" cy="0" rx="6" ry="20" fill="url(#cholesterolGrad)" transform="rotate(10)"/>
+                    </g>
+                    
+                    <!-- Integral membrane proteins -->
+                    <!-- Ion channel -->
+                    <g transform="translate(360, 110)">
+                        <rect x="-20" y="-45" width="40" height="90" fill="url(#proteinGrad)" rx="8" opacity="0.9"/>
+                        <rect x="-5" y="-45" width="10" height="90" fill="white" rx="2" opacity="0.7"/>
+                        <text x="0" y="-50" text-anchor="middle" font-size="9" fill="#6A1B9A" font-weight="bold">Channel</text>
+                        <circle cx="0" cy="0" r="3" fill="#4A148C"/>
+                    </g>
+                    
+                    <!-- GPCR -->
+                    <g transform="translate(460, 110)">
+                        <rect x="-25" y="-45" width="50" height="90" fill="#E91E63" rx="10" opacity="0.9"/>
+                        <!-- 7 transmembrane helices -->
+                        <line x1="-20" y1="-40" x2="-20" y2="40" stroke="white" stroke-width="2" opacity="0.7"/>
+                        <line x1="-12" y1="-40" x2="-12" y2="40" stroke="white" stroke-width="2" opacity="0.7"/>
+                        <line x1="-4" y1="-40" x2="-4" y2="40" stroke="white" stroke-width="2" opacity="0.7"/>
+                        <line x1="4" y1="-40" x2="4" y2="40" stroke="white" stroke-width="2" opacity="0.7"/>
+                        <line x1="12" y1="-40" x2="12" y2="40" stroke="white" stroke-width="2" opacity="0.7"/>
+                        <line x1="20" y1="-40" x2="20" y2="40" stroke="white" stroke-width="2" opacity="0.7"/>
+                        <text x="0" y="-50" text-anchor="middle" font-size="9" fill="#AD1457" font-weight="bold">GPCR</text>
+                    </g>
+                    
+                    <!-- Transporter -->
+                    <g transform="translate(560, 110)">
+                        <ellipse cx="0" cy="0" rx="22" ry="45" fill="#2196F3" opacity="0.9"/>
+                        <path d="M -10 -20 Q 0 -15 10 -20" stroke="white" stroke-width="2" fill="none"/>
+                        <path d="M -10 0 Q 0 5 10 0" stroke="white" stroke-width="2" fill="none"/>
+                        <path d="M -10 20 Q 0 25 10 20" stroke="white" stroke-width="2" fill="none"/>
+                        <text x="0" y="-50" text-anchor="middle" font-size="9" fill="#1565C0" font-weight="bold">Transporter</text>
+                    </g>
+                    
+                    <!-- Receptor -->
+                    <g transform="translate(660, 110)">
+                        <rect x="-18" y="-45" width="36" height="90" fill="#4CAF50" rx="8" opacity="0.9"/>
+                        <circle cx="0" cy="-35" r="8" fill="#81C784"/>
+                        <text x="0" y="-50" text-anchor="middle" font-size="9" fill="#2E7D32" font-weight="bold">Receptor</text>
+                    </g>
+                    
+                    <!-- Peripheral proteins -->
+                    <!-- Extracellular peripheral -->
+                    <ellipse cx="260" cy="55" rx="15" ry="10" fill="#FF5722" opacity="0.8"/>
+                    <text x="260" y="58" text-anchor="middle" font-size="8" fill="white" font-weight="bold">Periph</text>
+                    
+                    <!-- Cytoplasmic peripheral -->
+                    <ellipse cx="760" cy="165" rx="15" ry="10" fill="#FF5722" opacity="0.8"/>
+                    <text x="760" y="168" text-anchor="middle" font-size="8" fill="white" font-weight="bold">Periph</text>
+                    
+                    <!-- Glycolipids and glycoproteins -->
+                    <!-- Glycolipid -->
+                    <g transform="translate(210, 60)">
+                        <line x1="0" y1="10" x2="0" y2="-10" stroke="#4CAF50" stroke-width="2"/>
+                        <circle cx="0" cy="-12" r="4" fill="#4CAF50"/>
+                        <circle cx="-5" cy="-18" r="3" fill="#66BB6A"/>
+                        <circle cx="5" cy="-18" r="3" fill="#66BB6A"/>
+                        <text x="15" y="-15" font-size="8" fill="#2E7D32">Glycolipid</text>
+                    </g>
+                    
+                    <!-- Glycoprotein -->
+                    <g transform="translate(710, 60)">
+                        <line x1="0" y1="10" x2="0" y2="-15" stroke="#9C27B0" stroke-width="2"/>
+                        <rect x="-3" y="-18" width="6" height="6" fill="#9C27B0"/>
+                        <circle cx="-5" cy="-23" r="3" fill="#BA68C8"/>
+                        <circle cx="5" cy="-23" r="3" fill="#BA68C8"/>
+                        <circle cx="0" cy="-30" r="3" fill="#BA68C8"/>
+                        <text x="15" y="-20" font-size="8" fill="#6A1B9A">Glycoprotein</text>
+                    </g>
+                    
+                    <!-- Labels and arrows -->
+                    <!-- Hydrophobic core -->
+                    <rect x="150" y="105" width="600" height="10" fill="#FFE0B2" opacity="0.3"/>
+                    <text x="440" y="112" text-anchor="middle" font-size="9" fill="#E65100" font-weight="bold">Hydrophobic Core</text>
+                    
+                    <!-- Lateral diffusion arrow -->
+                    <path d="M 780 110 Q 800 110 820 110" stroke="#666" stroke-width="2" fill="none" stroke-dasharray="3,2"/>
+                    <polygon points="820,107 826,110 820,113" fill="#666"/>
+                    <text x="803" y="100" font-size="8" fill="#666">Lateral</text>
+                    <text x="803" y="130" font-size="8" fill="#666">diffusion</text>
+                </svg>
             </div>
             
-            <div class="info-box">
-                <div class="info-title">Membrane Proteins</div>
-                <div class="info-content">
-                    <div class="bullet">Integral: span membrane</div>
-                    <div class="bullet">Peripheral: surface attachment</div>
-                    <div class="bullet">Channels and transporters</div>
-                    <div class="bullet">Receptors and enzymes</div>
+            <div class="info-grid">
+                <div class="info-box">
+                    <div class="info-title">Lipid Bilayer</div>
+                    <div class="info-content">
+                        <div class="bullet">Phospholipids: hydrophobic core</div>
+                        <div class="bullet">Cholesterol: membrane fluidity</div>
+                        <div class="bullet">Glycolipids: cell recognition</div>
+                        <div class="bullet">Asymmetric distribution</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">Membrane Proteins</div>
+                    <div class="info-content">
+                        <div class="bullet">Integral: span membrane</div>
+                        <div class="bullet">Peripheral: surface attachment</div>
+                        <div class="bullet">Channels and transporters</div>
+                        <div class="bullet">Receptors and enzymes</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">Fluid Mosaic Model</div>
+                    <div class="info-content">
+                        <div class="bullet">Dynamic structure</div>
+                        <div class="bullet">Lateral diffusion of components</div>
+                        <div class="bullet">Restricted rotation</div>
+                        <div class="bullet">Temperature-dependent fluidity</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">Transport Mechanisms</div>
+                    <div class="info-content">
+                        <div class="bullet">Passive: down concentration gradient</div>
+                        <div class="bullet">Active: against gradient (ATP)</div>
+                        <div class="bullet">Facilitated diffusion</div>
+                        <div class="bullet">Endocytosis and exocytosis</div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="info-box">
-                <div class="info-title">Fluid Mosaic Model</div>
-                <div class="info-content">
-                    <div class="bullet">Dynamic structure</div>
-                    <div class="bullet">Lateral diffusion of components</div>
-                    <div class="bullet">Restricted rotation</div>
-                    <div class="bullet">Temperature-dependent fluidity</div>
-                </div>
-            </div>
-            
-            <div class="info-box">
-                <div class="info-title">Transport Mechanisms</div>
-                <div class="info-content">
-                    <div class="bullet">Passive: down concentration gradient</div>
-                    <div class="bullet">Active: against gradient (ATP)</div>
-                    <div class="bullet">Facilitated diffusion</div>
-                    <div class="bullet">Endocytosis and exocytosis</div>
-                </div>
-            </div>
-            
         </div>
     </div>
 </body>

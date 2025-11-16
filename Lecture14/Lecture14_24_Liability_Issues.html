@@ -31,46 +31,118 @@
             font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 25px;
             text-align: center;
             padding-bottom: 20px;
             border-bottom: 3px solid #1E64C8;
         }
         
-        .content-section {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
+        .liability-matrix {
+            display: grid;
+            grid-template-columns: 150px repeat(4, 1fr);
+            grid-template-rows: auto repeat(5, 1fr);
+            gap: 8px;
+            height: 340px;
         }
         
-        .bullet-item {
+        .matrix-header {
+            background: linear-gradient(135deg, #1E64C8 0%, #2874d8 100%);
+            color: white;
+            padding: 10px;
+            border-radius: 8px;
             display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 16px 20px;
+            align-items: center;
+            justify-content: center;
+            font-size: 13px;
+            font-weight: 700;
+            text-align: center;
+        }
+        
+        .row-header {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 8px;
-            transition: all 0.3s ease;
-        }
-        
-        .bullet-item:hover {
-            background: #e8f2ff;
-            transform: translateX(8px);
-        }
-        
-        .bullet {
-            color: #1E64C8;
-            font-size: 24px;
-            font-weight: bold;
-            line-height: 1;
-        }
-        
-        .bullet-item span:last-child {
-            font-size: 20px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 13px;
+            font-weight: 600;
             color: #333;
-            font-weight: 500;
-            line-height: 1.4;
+        }
+        
+        .row-icon {
+            width: 30px;
+            height: 30px;
+            flex-shrink: 0;
+        }
+        
+        .matrix-cell {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+        }
+        
+        .matrix-cell:hover {
+            transform: scale(1.05);
+            z-index: 10;
+            box-shadow: 0 6px 16px rgba(30, 100, 200, 0.2);
+        }
+        
+        .responsibility-level {
+            width: 100%;
+            height: 100%;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .primary {
+            background: linear-gradient(135deg, #ff6b6b 0%, #ee5a6f 100%);
+            color: white;
+            font-weight: 700;
+            font-size: 12px;
+        }
+        
+        .secondary {
+            background: linear-gradient(135deg, #ffc107 0%, #ffb300 100%);
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        
+        .shared {
+            background: linear-gradient(135deg, #1E64C8 0%, #2874d8 100%);
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        
+        .minimal {
+            background: #e8f2ff;
+            color: #666;
+            font-size: 12px;
+        }
+        
+        .corner-cell {
+            background: transparent;
+        }
+        
+        .stakeholder-icon {
+            width: 35px;
+            height: 35px;
+            margin-bottom: 4px;
+        }
+        
+        .stakeholder-text {
+            font-size: 11px;
+            line-height: 1.2;
         }
     </style>
 </head>
@@ -78,27 +150,124 @@
     <div class="container">
         <div class="title">Liability Issues</div>
         
-        <div class="content-section">
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Malpractice considerations</span>
+        <div class="liability-matrix">
+            <!-- Headers -->
+            <div class="corner-cell"></div>
+            
+            <div class="matrix-header">
+                <div>
+                    <svg class="stakeholder-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="20" y="20" width="60" height="60" rx="8" fill="white" opacity="0.3"/>
+                        <circle cx="50" cy="40" r="12" fill="white"/>
+                        <path d="M 35 60 L 50 50 L 65 60 L 65 75 L 35 75 Z" fill="white"/>
+                    </svg>
+                    <div class="stakeholder-text">Developer</div>
+                </div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Product liability</span>
+            
+            <div class="matrix-header">
+                <div>
+                    <svg class="stakeholder-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 30 30 L 70 30 L 70 70 L 30 70 Z" fill="none" stroke="white" stroke-width="4"/>
+                        <rect x="40" y="40" width="20" height="20" fill="white" opacity="0.5"/>
+                        <path d="M 45 20 L 45 30 M 55 20 L 55 30" stroke="white" stroke-width="3"/>
+                    </svg>
+                    <div class="stakeholder-text">Healthcare<br>Provider</div>
+                </div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Insurance coverage</span>
+            
+            <div class="matrix-header">
+                <div>
+                    <svg class="stakeholder-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="35" r="15" fill="white" opacity="0.5"/>
+                        <path d="M 35 50 L 50 40 L 65 50" fill="white"/>
+                        <rect x="42" y="50" width="16" height="25" fill="white"/>
+                        <path d="M 30 75 L 70 75" stroke="white" stroke-width="3"/>
+                    </svg>
+                    <div class="stakeholder-text">Clinician</div>
+                </div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
+            
+            <div class="matrix-header">
+                <div>
+                    <svg class="stakeholder-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 20 40 L 50 25 L 80 40 L 80 70 L 50 80 L 20 70 Z" fill="none" stroke="white" stroke-width="4"/>
+                        <circle cx="50" cy="50" r="8" fill="white"/>
+                        <path d="M 45 50 L 48 53 L 55 46" fill="none" stroke="#1E64C8" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <div class="stakeholder-text">Insurer</div>
+                </div>
+            </div>
+            
+            <!-- Row 1: Malpractice -->
+            <div class="row-header">
+                <svg class="row-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="50" cy="50" r="30" fill="none" stroke="#ff6b6b" stroke-width="4"/>
+                    <path d="M 40 40 L 50 50 L 60 40" fill="none" stroke="#ff6b6b" stroke-width="4"/>
+                    <circle cx="50" cy="65" r="3" fill="#ff6b6b"/>
+                </svg>
+                <span>Malpractice</span>
+            </div>
+            <div class="matrix-cell"><div class="responsibility-level minimal">Low</div></div>
+            <div class="matrix-cell"><div class="responsibility-level secondary">Medium</div></div>
+            <div class="matrix-cell"><div class="responsibility-level primary">High</div></div>
+            <div class="matrix-cell"><div class="responsibility-level shared">Shared</div></div>
+            
+            <!-- Row 2: Product Liability -->
+            <div class="row-header">
+                <svg class="row-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="25" y="30" width="50" height="40" rx="5" fill="none" stroke="#1E64C8" stroke-width="4"/>
+                    <circle cx="50" cy="50" r="10" fill="#1E64C8" opacity="0.3"/>
+                    <text x="50" y="56" text-anchor="middle" font-size="18" font-weight="bold" fill="#1E64C8">!</text>
+                </svg>
+                <span>Product<br>Liability</span>
+            </div>
+            <div class="matrix-cell"><div class="responsibility-level primary">High</div></div>
+            <div class="matrix-cell"><div class="responsibility-level shared">Shared</div></div>
+            <div class="matrix-cell"><div class="responsibility-level minimal">Low</div></div>
+            <div class="matrix-cell"><div class="responsibility-level minimal">Low</div></div>
+            
+            <!-- Row 3: Insurance Coverage -->
+            <div class="row-header">
+                <svg class="row-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <path d="M 50 20 L 80 35 L 80 60 L 50 80 L 20 60 L 20 35 Z" fill="none" stroke="#28a745" stroke-width="4"/>
+                    <path d="M 35 45 L 45 55 L 65 35" fill="none" stroke="#28a745" stroke-width="4" stroke-linecap="round"/>
+                </svg>
+                <span>Insurance<br>Coverage</span>
+            </div>
+            <div class="matrix-cell"><div class="responsibility-level secondary">Required</div></div>
+            <div class="matrix-cell"><div class="responsibility-level primary">Required</div></div>
+            <div class="matrix-cell"><div class="responsibility-level primary">Required</div></div>
+            <div class="matrix-cell"><div class="responsibility-level shared">Variable</div></div>
+            
+            <!-- Row 4: Indemnification -->
+            <div class="row-header">
+                <svg class="row-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="20" y="35" width="60" height="30" rx="3" fill="none" stroke="#ffc107" stroke-width="4"/>
+                    <path d="M 35 50 L 50 45 L 65 50" fill="#ffc107" opacity="0.5"/>
+                    <circle cx="35" cy="50" r="5" fill="#ffc107"/>
+                    <circle cx="65" cy="50" r="5" fill="#ffc107"/>
+                </svg>
                 <span>Indemnification</span>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Risk allocation</span>
+            <div class="matrix-cell"><div class="responsibility-level shared">Negotiated</div></div>
+            <div class="matrix-cell"><div class="responsibility-level shared">Negotiated</div></div>
+            <div class="matrix-cell"><div class="responsibility-level secondary">Partial</div></div>
+            <div class="matrix-cell"><div class="responsibility-level minimal">Limited</div></div>
+            
+            <!-- Row 5: Risk Allocation -->
+            <div class="row-header">
+                <svg class="row-icon" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                    <circle cx="35" cy="50" r="18" fill="#1E64C8" opacity="0.3"/>
+                    <circle cx="50" cy="50" r="18" fill="#1E64C8" opacity="0.5"/>
+                    <circle cx="65" cy="50" r="18" fill="#1E64C8" opacity="0.7"/>
+                </svg>
+                <span>Risk<br>Allocation</span>
             </div>
+            <div class="matrix-cell"><div class="responsibility-level shared">Distributed</div></div>
+            <div class="matrix-cell"><div class="responsibility-level shared">Distributed</div></div>
+            <div class="matrix-cell"><div class="responsibility-level shared">Distributed</div></div>
+            <div class="matrix-cell"><div class="responsibility-level secondary">Transfer</div></div>
         </div>
     </div>
 </body>

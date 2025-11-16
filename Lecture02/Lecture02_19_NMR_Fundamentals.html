@@ -14,28 +14,168 @@
 <body>
     <div class="container">
         <div class="title">NMR Fundamentals</div>
+        
         <div style="background: linear-gradient(135deg, #1E64C8 0%, #2874d8 100%); border-radius: 10px; padding: 16px; margin-bottom: 16px; text-align: center; color: white;">
-        <div style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Nuclear Spin in Magnetic Field</div>
-        <div style="font-size: 15px; opacity: 0.95;">¹H, ¹³C, ¹⁵N, ³¹P nuclei have spin ½</div>
-    </div>
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px;">
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Chemical Shift (δ)</div>
-            <div style="font-size: 14px; color: #333;">Electronic environment. ppm scale. TMS reference.</div>
+            <div style="font-size: 20px; font-weight: 700; margin-bottom: 8px;">Nuclear Spin in Magnetic Field</div>
+            <svg width="100%" height="60" viewBox="0 0 600 60">
+                <!-- Magnetic field B0 -->
+                <line x1="50" y1="30" x2="150" y2="30" stroke="white" stroke-width="3" marker-end="url(#arrowWhite)"/>
+                <text x="100" y="20" text-anchor="middle" font-size="14" fill="white" font-weight="bold">B₀</text>
+                
+                <!-- Nuclear spins -->
+                <g transform="translate(250, 30)">
+                    <!-- Spin up -->
+                    <circle cx="0" cy="-10" r="8" fill="none" stroke="white" stroke-width="2"/>
+                    <line x1="0" y1="-10" x2="0" y2="-20" stroke="white" stroke-width="2" marker-end="url(#arrowWhite)"/>
+                    <text x="0" y="-25" text-anchor="middle" font-size="10" fill="white">α (↑)</text>
+                    
+                    <!-- Spin down -->
+                    <circle cx="40" cy="10" r="8" fill="none" stroke="white" stroke-width="2" opacity="0.7"/>
+                    <line x1="40" y1="10" x2="40" y2="20" stroke="white" stroke-width="2" marker-end="url(#arrowWhiteDown)" opacity="0.7"/>
+                    <text x="40" y="35" text-anchor="middle" font-size="10" fill="white" opacity="0.7">β (↓)</text>
+                    
+                    <!-- Energy difference -->
+                    <line x1="60" y1="-15" x2="60" y2="15" stroke="white" stroke-width="1" stroke-dasharray="2,2"/>
+                    <text x="80" y="5" font-size="12" fill="white">ΔE = hν</text>
+                </g>
+                
+                <!-- RF pulse -->
+                <g transform="translate(450, 30)">
+                    <path d="M 0 0 Q 10 -10, 20 0 T 40 0" stroke="#FFD700" stroke-width="2" fill="none"/>
+                    <text x="20" y="-15" text-anchor="middle" font-size="11" fill="#FFD700">RF pulse</text>
+                </g>
+                
+                <defs>
+                    <marker id="arrowWhite" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                        <polygon points="0 0, 8 3, 0 6" fill="white"/>
+                    </marker>
+                    <marker id="arrowWhiteDown" markerWidth="8" markerHeight="6" refX="7" refY="3" orient="auto">
+                        <polygon points="8 0, 0 3, 8 6" fill="white"/>
+                    </marker>
+                </defs>
+            </svg>
+            <div style="font-size: 15px; opacity: 0.95; margin-top: 5px;">¹H, ¹³C, ¹⁵N, ³¹P nuclei have spin ½</div>
         </div>
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">J-coupling</div>
-            <div style="font-size: 14px; color: #333;">Spin-spin splitting. Connectivity information.</div>
+        
+        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px;">
+            <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
+                <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Chemical Shift (δ)</div>
+                <svg width="100%" height="60" viewBox="0 0 280 60">
+                    <!-- Chemical shift scale -->
+                    <line x1="20" y1="30" x2="260" y2="30" stroke="#666" stroke-width="2"/>
+                    
+                    <!-- TMS reference -->
+                    <line x1="240" y1="20" x2="240" y2="40" stroke="#E74C3C" stroke-width="3"/>
+                    <text x="240" y="15" text-anchor="middle" font-size="9" fill="#E74C3C" font-weight="bold">TMS</text>
+                    <text x="240" y="52" text-anchor="middle" font-size="9" fill="#666">0 ppm</text>
+                    
+                    <!-- Common chemical shifts -->
+                    <line x1="200" y1="25" x2="200" y2="35" stroke="#3498db" stroke-width="2"/>
+                    <text x="200" y="20" text-anchor="middle" font-size="8" fill="#3498db">Alkyl</text>
+                    <text x="200" y="50" text-anchor="middle" font-size="8" fill="#666">1-2</text>
+                    
+                    <line x1="140" y1="25" x2="140" y2="35" stroke="#27ae60" stroke-width="2"/>
+                    <text x="140" y="20" text-anchor="middle" font-size="8" fill="#27ae60">C-O</text>
+                    <text x="140" y="50" text-anchor="middle" font-size="8" fill="#666">3-4</text>
+                    
+                    <line x1="80" y1="25" x2="80" y2="35" stroke="#9b59b6" stroke-width="2"/>
+                    <text x="80" y="20" text-anchor="middle" font-size="8" fill="#9b59b6">Aromatic</text>
+                    <text x="80" y="50" text-anchor="middle" font-size="8" fill="#666">7-8</text>
+                    
+                    <line x1="30" y1="25" x2="30" y2="35" stroke="#f39c12" stroke-width="2"/>
+                    <text x="30" y="20" text-anchor="middle" font-size="8" fill="#f39c12">Aldehyde</text>
+                    <text x="30" y="50" text-anchor="middle" font-size="8" fill="#666">9-10</text>
+                </svg>
+                <div style="font-size: 14px; color: #333; margin-top: 5px;">Electronic environment. ppm scale.</div>
+            </div>
+            
+            <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
+                <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">J-coupling</div>
+                <svg width="100%" height="60" viewBox="0 0 280 60">
+                    <!-- Splitting pattern -->
+                    <g transform="translate(60, 35)">
+                        <!-- Doublet -->
+                        <line x1="0" y1="0" x2="0" y2="-20" stroke="#1E64C8" stroke-width="2"/>
+                        <line x1="10" y1="0" x2="10" y2="-20" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="5" y="12" text-anchor="middle" font-size="9" fill="#666">Doublet</text>
+                        <text x="5" y="-25" text-anchor="middle" font-size="8" fill="#1E64C8">1H</text>
+                    </g>
+                    
+                    <g transform="translate(140, 35)">
+                        <!-- Triplet -->
+                        <line x1="0" y1="0" x2="0" y2="-10" stroke="#27ae60" stroke-width="2"/>
+                        <line x1="10" y1="0" x2="10" y2="-20" stroke="#27ae60" stroke-width="2"/>
+                        <line x1="20" y1="0" x2="20" y2="-10" stroke="#27ae60" stroke-width="2"/>
+                        <text x="10" y="12" text-anchor="middle" font-size="9" fill="#666">Triplet</text>
+                        <text x="10" y="-25" text-anchor="middle" font-size="8" fill="#27ae60">2H</text>
+                    </g>
+                    
+                    <g transform="translate(210, 35)">
+                        <!-- Quartet -->
+                        <line x1="0" y1="0" x2="0" y2="-8" stroke="#E74C3C" stroke-width="2"/>
+                        <line x1="10" y1="0" x2="10" y2="-15" stroke="#E74C3C" stroke-width="2"/>
+                        <line x1="20" y1="0" x2="20" y2="-15" stroke="#E74C3C" stroke-width="2"/>
+                        <line x1="30" y1="0" x2="30" y2="-8" stroke="#E74C3C" stroke-width="2"/>
+                        <text x="15" y="12" text-anchor="middle" font-size="9" fill="#666">Quartet</text>
+                        <text x="15" y="-20" text-anchor="middle" font-size="8" fill="#E74C3C">3H</text>
+                    </g>
+                    
+                    <!-- n+1 rule -->
+                    <text x="250" y="20" font-size="9" fill="#1E64C8" font-weight="bold">n+1 rule</text>
+                </svg>
+                <div style="font-size: 14px; color: #333; margin-top: 5px;">Spin-spin splitting. Connectivity information.</div>
+            </div>
+            
+            <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
+                <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">2D NMR</div>
+                <svg width="100%" height="60" viewBox="0 0 280 60">
+                    <!-- 2D spectrum representation -->
+                    <rect x="20" y="10" width="40" height="40" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
+                    <line x1="30" y1="30" x2="50" y2="30" stroke="#E74C3C" stroke-width="1"/>
+                    <line x1="40" y1="20" x2="40" y2="40" stroke="#E74C3C" stroke-width="1"/>
+                    <circle cx="40" cy="30" r="3" fill="#E74C3C"/>
+                    <text x="40" y="58" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="bold">COSY</text>
+                    
+                    <rect x="80" y="10" width="40" height="40" fill="#FFF0E5" stroke="#FFA500" stroke-width="2"/>
+                    <circle cx="95" cy="25" r="2" fill="#FFA500"/>
+                    <circle cx="105" cy="35" r="2" fill="#FFA500"/>
+                    <line x1="95" y1="25" x2="105" y2="35" stroke="#FFA500" stroke-width="1" stroke-dasharray="2,1"/>
+                    <text x="100" y="58" text-anchor="middle" font-size="9" fill="#FFA500" font-weight="bold">NOESY</text>
+                    
+                    <rect x="140" y="10" width="40" height="40" fill="#E5FFF0" stroke="#27ae60" stroke-width="2"/>
+                    <circle cx="155" cy="20" r="2" fill="#27ae60"/>
+                    <circle cx="165" cy="40" r="2" fill="#27ae60"/>
+                    <circle cx="160" cy="30" r="2" fill="#27ae60"/>
+                    <text x="160" y="58" text-anchor="middle" font-size="9" fill="#27ae60" font-weight="bold">HSQC</text>
+                    
+                    <text x="220" y="30" font-size="10" fill="#666">→ Structure</text>
+                    <text x="220" y="42" font-size="10" fill="#666">determination</text>
+                </svg>
+            </div>
+            
+            <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
+                <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Biomolecular NMR</div>
+                <svg width="100%" height="60" viewBox="0 0 280 60">
+                    <!-- Protein structure representation -->
+                    <g transform="translate(80, 30)">
+                        <!-- Alpha helix -->
+                        <path d="M 0 0 Q 5 -5, 10 0 T 20 0 T 30 0" stroke="#E74C3C" stroke-width="3" fill="none"/>
+                        <text x="15" y="-10" text-anchor="middle" font-size="8" fill="#E74C3C">α-helix</text>
+                    </g>
+                    
+                    <g transform="translate(140, 30)">
+                        <!-- Beta sheet -->
+                        <line x1="0" y1="-5" x2="20" y2="-5" stroke="#3498db" stroke-width="2"/>
+                        <line x1="0" y1="0" x2="20" y2="0" stroke="#3498db" stroke-width="2"/>
+                        <line x1="0" y1="5" x2="20" y2="5" stroke="#3498db" stroke-width="2"/>
+                        <text x="10" y="-12" text-anchor="middle" font-size="8" fill="#3498db">β-sheet</text>
+                    </g>
+                    
+                    <text x="200" y="25" font-size="9" fill="#666">Solution state</text>
+                    <text x="200" y="37" font-size="9" fill="#666">Dynamics info</text>
+                </svg>
+            </div>
         </div>
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">2D NMR</div>
-            <div style="font-size: 14px; color: #333;">COSY, NOESY, HSQC for structure determination</div>
-        </div>
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Biomolecular NMR</div>
-            <div style="font-size: 14px; color: #333;">Protein structure in solution. Dynamics information.</div>
-        </div>
-    </div>
     </div>
 </body>
 </html>

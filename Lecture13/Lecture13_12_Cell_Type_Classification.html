@@ -31,50 +31,290 @@
             font-size: 32px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
         }
         
-        .content-list {
+        .content-wrapper {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            gap: 25px;
+            height: 385px;
         }
         
-        .content-item {
+        .classification-flow {
+            flex: 1.4;
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 18px 24px;
+            justify-content: center;
+        }
+        
+        .methods-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        
+        .method-card {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 6px;
+            padding: 13px 18px;
             transition: all 0.3s ease;
-            font-size: 19px;
-            color: #333;
         }
         
-        .content-item:hover {
+        .method-card:hover {
             background: #e8f2ff;
             transform: translateX(8px);
         }
         
-        .bullet {
-            width: 10px;
-            height: 10px;
-            background: #1E64C8;
-            border-radius: 50%;
-            flex-shrink: 0;
+        .method-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 3px;
+        }
+        
+        .method-desc {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .cell-pulse {
+            animation: cellPulse 2s ease-in-out infinite;
+        }
+        
+        @keyframes cellPulse {
+            0%, 100% { r: 8; opacity: 0.8; }
+            50% { r: 10; opacity: 1; }
+        }
+        
+        .data-flow {
+            animation: dataFlow 3s linear infinite;
+        }
+        
+        @keyframes dataFlow {
+            0% { stroke-dashoffset: 50; }
+            100% { stroke-dashoffset: 0; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Cell Type Classification</div>
-        <div class="content-list">
-            <div class="content-item"><div class="bullet"></div><div>Single-cell models</div></div><div class="content-item"><div class="bullet"></div><div>Reference mapping</div></div><div class="content-item"><div class="bullet"></div><div>Zero-shot learning</div></div><div class="content-item"><div class="bullet"></div><div>Batch correction</div></div><div class="content-item"><div class="bullet"></div><div>Uncertainty estimation</div></div>
+        <div class="content-wrapper">
+            <div class="classification-flow">
+                <svg width="520" height="385" viewBox="0 0 520 385">
+                    <text x="260" y="20" font-size="15" fill="#333" text-anchor="middle" font-weight="600">Single-Cell Analysis Pipeline</text>
+                    
+                    <!-- Input: Single Cells -->
+                    <g transform="translate(30, 50)">
+                        <text x="0" y="0" font-size="12" fill="#666" font-weight="600">Single Cells:</text>
+                        
+                        <!-- Cell visualization -->
+                        <g transform="translate(0, 15)">
+                            <circle cx="15" cy="15" r="8" fill="#ffcccc" stroke="#cc0000" stroke-width="1.5" class="cell-pulse"/>
+                            <circle cx="35" cy="20" r="8" fill="#ccffcc" stroke="#00cc00" stroke-width="1.5" class="cell-pulse" style="animation-delay: 0.3s"/>
+                            <circle cx="55" cy="12" r="8" fill="#ccccff" stroke="#0000cc" stroke-width="1.5" class="cell-pulse" style="animation-delay: 0.6s"/>
+                            <circle cx="25" cy="35" r="8" fill="#ffffcc" stroke="#cccc00" stroke-width="1.5" class="cell-pulse" style="animation-delay: 0.9s"/>
+                            <circle cx="45" cy="38" r="8" fill="#ffccff" stroke="#cc00cc" stroke-width="1.5" class="cell-pulse" style="animation-delay: 1.2s"/>
+                        </g>
+                        
+                        <text x="35" y="65" font-size="10" fill="#666" text-anchor="middle">Unknown types</text>
+                    </g>
+                    
+                    <!-- Arrow -->
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                    
+                    <path d="M 110,80 L 150,80" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)" stroke-dasharray="5,5" class="data-flow"/>
+                    
+                    <!-- scRNA-seq Data -->
+                    <g transform="translate(160, 50)">
+                        <rect x="0" y="0" width="120" height="60" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="60" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">scRNA-seq</text>
+                        
+                        <!-- Gene expression matrix visualization -->
+                        <g transform="translate(15, 28)">
+                            <rect x="0" y="0" width="90" height="25" fill="#e8f2ff"/>
+                            <g opacity="0.6">
+                                <rect x="5" y="3" width="8" height="3" fill="#1E64C8"/>
+                                <rect x="15" y="3" width="8" height="3" fill="#2874d8"/>
+                                <rect x="25" y="3" width="8" height="3" fill="#1E64C8"/>
+                                <rect x="35" y="3" width="8" height="3" fill="#5fa3e8"/>
+                                <rect x="45" y="3" width="8" height="3" fill="#2874d8"/>
+                                <rect x="55" y="3" width="8" height="3" fill="#1E64C8"/>
+                                <rect x="65" y="3" width="8" height="3" fill="#5fa3e8"/>
+                                <rect x="75" y="3" width="8" height="3" fill="#2874d8"/>
+                                
+                                <rect x="5" y="8" width="8" height="3" fill="#2874d8"/>
+                                <rect x="15" y="8" width="8" height="3" fill="#1E64C8"/>
+                                <rect x="25" y="8" width="8" height="3" fill="#5fa3e8"/>
+                                <rect x="35" y="8" width="8" height="3" fill="#1E64C8"/>
+                                <rect x="45" y="8" width="8" height="3" fill="#2874d8"/>
+                                <rect x="55" y="8" width="8" height="3" fill="#5fa3e8"/>
+                                <rect x="65" y="8" width="8" height="3" fill="#1E64C8"/>
+                                <rect x="75" y="8" width="8" height="3" fill="#2874d8"/>
+                                
+                                <rect x="5" y="13" width="8" height="3" fill="#5fa3e8"/>
+                                <rect x="15" y="13" width="8" height="3" fill="#2874d8"/>
+                                <rect x="25" y="13" width="8" height="3" fill="#1E64C8"/>
+                                <rect x="35" y="13" width="8" height="3" fill="#2874d8"/>
+                                <rect x="45" y="13" width="8" height="3" fill="#5fa3e8"/>
+                                <rect x="55" y="13" width="8" height="3" fill="#1E64C8"/>
+                                <rect x="65" y="13" width="8" height="3" fill="#2874d8"/>
+                                <rect x="75" y="13" width="8" height="3" fill="#5fa3e8"/>
+                                
+                                <rect x="5" y="18" width="8" height="3" fill="#1E64C8"/>
+                                <rect x="15" y="18" width="8" height="3" fill="#5fa3e8"/>
+                                <rect x="25" y="18" width="8" height="3" fill="#2874d8"/>
+                                <rect x="35" y="18" width="8" height="3" fill="#5fa3e8"/>
+                                <rect x="45" y="18" width="8" height="3" fill="#1E64C8"/>
+                                <rect x="55" y="18" width="8" height="3" fill="#2874d8"/>
+                                <rect x="65" y="18" width="8" height="3" fill="#5fa3e8"/>
+                                <rect x="75" y="18" width="8" height="3" fill="#1E64C8"/>
+                            </g>
+                        </g>
+                    </g>
+                    
+                    <path d="M 285,80 L 325,80" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- AI Model -->
+                    <g transform="translate(330, 45)">
+                        <rect x="0" y="0" width="140" height="70" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                        <text x="70" y="18" font-size="12" fill="#e0a800" text-anchor="middle" font-weight="700">Deep Learning</text>
+                        
+                        <!-- Neural network visualization -->
+                        <g transform="translate(20, 25)">
+                            <!-- Input layer -->
+                            <circle cx="10" cy="10" r="3" fill="#e0a800" opacity="0.8"/>
+                            <circle cx="10" cy="20" r="3" fill="#e0a800" opacity="0.8"/>
+                            <circle cx="10" cy="30" r="3" fill="#e0a800" opacity="0.8"/>
+                            
+                            <!-- Hidden layers -->
+                            <circle cx="35" cy="8" r="3" fill="#e0a800"/>
+                            <circle cx="35" cy="16" r="3" fill="#e0a800"/>
+                            <circle cx="35" cy="24" r="3" fill="#e0a800"/>
+                            <circle cx="35" cy="32" r="3" fill="#e0a800"/>
+                            
+                            <circle cx="60" cy="8" r="3" fill="#e0a800"/>
+                            <circle cx="60" cy="16" r="3" fill="#e0a800"/>
+                            <circle cx="60" cy="24" r="3" fill="#e0a800"/>
+                            <circle cx="60" cy="32" r="3" fill="#e0a800"/>
+                            
+                            <circle cx="85" cy="10" r="3" fill="#e0a800" opacity="0.8"/>
+                            <circle cx="85" cy="20" r="3" fill="#e0a800" opacity="0.8"/>
+                            <circle cx="85" cy="30" r="3" fill="#e0a800" opacity="0.8"/>
+                            
+                            <!-- Output layer -->
+                            <circle cx="100" cy="15" r="3" fill="#e0a800"/>
+                            <circle cx="100" cy="25" r="3" fill="#e0a800"/>
+                            
+                            <!-- Connections (simplified) -->
+                            <line x1="10" y1="10" x2="35" y2="8" stroke="#e0a800" stroke-width="0.5" opacity="0.3"/>
+                            <line x1="10" y1="20" x2="35" y2="16" stroke="#e0a800" stroke-width="0.5" opacity="0.3"/>
+                            <line x1="10" y1="30" x2="35" y2="32" stroke="#e0a800" stroke-width="0.5" opacity="0.3"/>
+                            <line x1="35" y1="16" x2="60" y2="16" stroke="#e0a800" stroke-width="0.5" opacity="0.3"/>
+                            <line x1="60" y1="16" x2="85" y2="20" stroke="#e0a800" stroke-width="0.5" opacity="0.3"/>
+                            <line x1="85" y1="20" x2="100" y2="20" stroke="#e0a800" stroke-width="0.5" opacity="0.3"/>
+                        </g>
+                    </g>
+                    
+                    <!-- Classification Results -->
+                    <g transform="translate(160, 140)">
+                        <rect x="0" y="0" width="280" height="170" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="140" y="20" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="700">Cell Type Identification</text>
+                        
+                        <!-- T-cells cluster -->
+                        <g transform="translate(30, 40)">
+                            <text x="0" y="0" font-size="11" fill="#333" font-weight="600">T-cells</text>
+                            <circle cx="5" cy="10" r="5" fill="#ffcccc" stroke="#cc0000" stroke-width="1.5"/>
+                            <circle cx="15" cy="15" r="5" fill="#ffcccc" stroke="#cc0000" stroke-width="1.5"/>
+                            <circle cx="10" cy="22" r="5" fill="#ffcccc" stroke="#cc0000" stroke-width="1.5"/>
+                            <text x="10" y="40" font-size="9" fill="#666" text-anchor="middle">CD3+</text>
+                        </g>
+                        
+                        <!-- B-cells cluster -->
+                        <g transform="translate(100, 40)">
+                            <text x="0" y="0" font-size="11" fill="#333" font-weight="600">B-cells</text>
+                            <circle cx="5" cy="10" r="5" fill="#ccccff" stroke="#0000cc" stroke-width="1.5"/>
+                            <circle cx="15" cy="15" r="5" fill="#ccccff" stroke="#0000cc" stroke-width="1.5"/>
+                            <circle cx="10" cy="22" r="5" fill="#ccccff" stroke="#0000cc" stroke-width="1.5"/>
+                            <text x="10" y="40" font-size="9" fill="#666" text-anchor="middle">CD19+</text>
+                        </g>
+                        
+                        <!-- NK cells cluster -->
+                        <g transform="translate(170, 40)">
+                            <text x="0" y="0" font-size="11" fill="#333" font-weight="600">NK cells</text>
+                            <circle cx="5" cy="10" r="5" fill="#ccffcc" stroke="#00cc00" stroke-width="1.5"/>
+                            <circle cx="15" cy="15" r="5" fill="#ccffcc" stroke="#00cc00" stroke-width="1.5"/>
+                            <circle cx="10" cy="22" r="5" fill="#ccffcc" stroke="#00cc00" stroke-width="1.5"/>
+                            <text x="10" y="40" font-size="9" fill="#666" text-anchor="middle">CD56+</text>
+                        </g>
+                        
+                        <!-- Monocytes cluster -->
+                        <g transform="translate(30, 95)">
+                            <text x="0" y="0" font-size="11" fill="#333" font-weight="600">Monocytes</text>
+                            <circle cx="5" cy="10" r="5" fill="#ffffcc" stroke="#cccc00" stroke-width="1.5"/>
+                            <circle cx="15" cy="15" r="5" fill="#ffffcc" stroke="#cccc00" stroke-width="1.5"/>
+                            <circle cx="10" cy="22" r="5" fill="#ffffcc" stroke="#cccc00" stroke-width="1.5"/>
+                            <text x="10" y="40" font-size="9" fill="#666" text-anchor="middle">CD14+</text>
+                        </g>
+                        
+                        <!-- Dendritic cells cluster -->
+                        <g transform="translate(100, 95)">
+                            <text x="0" y="0" font-size="11" fill="#333" font-weight="600">DC cells</text>
+                            <circle cx="5" cy="10" r="5" fill="#ffccff" stroke="#cc00cc" stroke-width="1.5"/>
+                            <circle cx="15" cy="15" r="5" fill="#ffccff" stroke="#cc00cc" stroke-width="1.5"/>
+                            <circle cx="10" cy="22" r="5" fill="#ffccff" stroke="#cc00cc" stroke-width="1.5"/>
+                            <text x="10" y="40" font-size="9" fill="#666" text-anchor="middle">CD11c+</text>
+                        </g>
+                        
+                        <!-- Confidence score bar -->
+                        <g transform="translate(180, 95)">
+                            <text x="0" y="0" font-size="11" fill="#333" font-weight="600">Confidence</text>
+                            <rect x="0" y="10" width="80" height="12" rx="2" fill="#e0e0e0"/>
+                            <rect x="0" y="10" width="68" height="12" rx="2" fill="#1E64C8" opacity="0.7"/>
+                            <text x="40" y="35" font-size="9" fill="#666" text-anchor="middle">85% accuracy</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Zero-shot learning note -->
+                    <g transform="translate(30, 330)">
+                        <rect x="0" y="0" width="460" height="45" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="230" y="18" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">Zero-shot Learning: Can identify novel cell types without prior training</text>
+                        <text x="230" y="32" font-size="10" fill="#666" text-anchor="middle">Reference mapping → Batch correction → Uncertainty estimation</text>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="methods-panel">
+                <div class="method-card">
+                    <div class="method-title">Single-cell models</div>
+                    <div class="method-desc">scBERT, Geneformer architectures</div>
+                </div>
+                <div class="method-card">
+                    <div class="method-title">Reference mapping</div>
+                    <div class="method-desc">Atlas-based annotation</div>
+                </div>
+                <div class="method-card">
+                    <div class="method-title">Zero-shot learning</div>
+                    <div class="method-desc">Novel cell type discovery</div>
+                </div>
+                <div class="method-card">
+                    <div class="method-title">Batch correction</div>
+                    <div class="method-desc">Remove technical variation</div>
+                </div>
+                <div class="method-card">
+                    <div class="method-title">Uncertainty estimation</div>
+                    <div class="method-desc">Confidence scoring</div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

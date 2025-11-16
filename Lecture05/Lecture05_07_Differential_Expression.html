@@ -24,20 +24,25 @@
             font-size: 28px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             text-align: center;
         }
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 20px;
+        .main-content {
+            display: flex;
+            gap: 25px;
+            height: 420px;
+        }
+        .left-panel {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
         }
         .content-card {
             background: white;
             border: 2.5px solid #1E64C8;
             border-radius: 10px;
-            padding: 16px;
+            padding: 12px;
             transition: all 0.3s;
         }
         .content-card:hover {
@@ -46,15 +51,22 @@
             background: #f8fbff;
         }
         .card-title {
-            font-size: 18px;
+            font-size: 16px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .card-desc {
-            font-size: 15px;
+            font-size: 13px;
             color: #333;
             line-height: 1.4;
+        }
+        .right-panel {
+            flex: 1.3;
+            background: #f8fbff;
+            border-radius: 10px;
+            padding: 20px;
+            border: 2px solid #1E64C8;
         }
         .note-box {
             background: #f0f5fc;
@@ -68,37 +80,142 @@
             color: #333;
             font-weight: 600;
         }
-        .highlight {
-            color: #1E64C8;
-            font-weight: 700;
-        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Differential Expression</div>
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="card-title">Statistical Models</div>
-                <div class="card-desc">Account for biological and technical variability</div>
+        <div class="main-content">
+            <div class="left-panel">
+                <div class="content-card">
+                    <div class="card-title">Statistical Models</div>
+                    <div class="card-desc">Account for biological and technical variability</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">Negative Binomial</div>
+                    <div class="card-desc">Models count data with overdispersion</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">Fold Change Thresholds</div>
+                    <div class="card-desc">Typically |log2FC| > 1 for biological significance</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">FDR Control</div>
+                    <div class="card-desc">False Discovery Rate < 0.05 for multiple testing</div>
+                </div>
+                <div class="content-card">
+                    <div class="card-title">Volcano Plots</div>
+                    <div class="card-desc">Visualize FC vs statistical significance</div>
+                </div>
             </div>
-            <div class="content-card">
-                <div class="card-title">Negative Binomial</div>
-                <div class="card-desc">Models count data with overdispersion</div>
+            
+            <div class="right-panel">
+                <svg width="100%" height="100%" viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Title -->
+                    <text x="250" y="20" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#1E64C8" text-anchor="middle">DE Analysis Pipeline</text>
+                    
+                    <!-- Step 1: Input Data -->
+                    <g id="input">
+                        <rect x="20" y="40" width="120" height="50" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                        <text x="80" y="60" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#0D47A1" text-anchor="middle">Count Matrix</text>
+                        <text x="80" y="75" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">Genes × Samples</text>
+                    </g>
+                    
+                    <path d="M 145 65 L 175 65" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                    
+                    <!-- Step 2: Model -->
+                    <g id="model">
+                        <rect x="180" y="40" width="140" height="50" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+                        <text x="250" y="60" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#E65100" text-anchor="middle">Negative Binomial</text>
+                        <text x="250" y="75" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">Y ~ NB(μ, α)</text>
+                    </g>
+                    
+                    <path d="M 325 65 L 355 65" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                    
+                    <!-- Step 3: Test -->
+                    <g id="test">
+                        <rect x="360" y="40" width="120" height="50" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+                        <text x="420" y="60" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#1B5E20" text-anchor="middle">Statistical Test</text>
+                        <text x="420" y="75" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">Wald / LRT</text>
+                    </g>
+                    
+                    <!-- Arrow down -->
+                    <path d="M 420 95 L 420 125" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                    
+                    <!-- Volcano Plot -->
+                    <g id="volcano">
+                        <rect x="20" y="130" width="460" height="230" rx="8" fill="#f5f5f5" stroke="#666" stroke-width="1"/>
+                        <text x="250" y="150" font-family="Aptos, sans-serif" font-size="14" font-weight="600" fill="#1E64C8" text-anchor="middle">Volcano Plot</text>
+                        
+                        <!-- Axes -->
+                        <line x1="250" y1="340" x2="250" y2="170" stroke="#999" stroke-width="2"/>
+                        <line x1="60" y1="340" x2="440" y2="340" stroke="#999" stroke-width="2"/>
+                        
+                        <!-- Axis labels -->
+                        <text x="250" y="355" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">log2 Fold Change</text>
+                        <text x="35" y="255" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle" transform="rotate(-90 35 255)">-log10(p-value)</text>
+                        
+                        <!-- Threshold lines -->
+                        <line x1="180" y1="170" x2="180" y2="340" stroke="#FF5722" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+                        <line x1="320" y1="170" x2="320" y2="340" stroke="#FF5722" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+                        <line x1="60" y1="280" x2="440" y2="280" stroke="#FF5722" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+                        
+                        <!-- Threshold labels -->
+                        <text x="180" y="165" font-family="Aptos, sans-serif" font-size="9" fill="#FF5722" text-anchor="middle">-1</text>
+                        <text x="320" y="165" font-family="Aptos, sans-serif" font-size="9" fill="#FF5722" text-anchor="middle">+1</text>
+                        <text x="50" y="277" font-family="Aptos, sans-serif" font-size="9" fill="#FF5722" text-anchor="end">0.05</text>
+                        
+                        <!-- Data points -->
+                        <!-- Non-significant (grey) -->
+                        <circle cx="230" cy="310" r="3" fill="#BDBDBD" opacity="0.6"/>
+                        <circle cx="270" cy="320" r="3" fill="#BDBDBD" opacity="0.6"/>
+                        <circle cx="210" cy="315" r="3" fill="#BDBDBD" opacity="0.6"/>
+                        <circle cx="290" cy="325" r="3" fill="#BDBDBD" opacity="0.6"/>
+                        <circle cx="250" cy="305" r="3" fill="#BDBDBD" opacity="0.6"/>
+                        <circle cx="260" cy="330" r="3" fill="#BDBDBD" opacity="0.6"/>
+                        <circle cx="240" cy="318" r="3" fill="#BDBDBD" opacity="0.6"/>
+                        <circle cx="280" cy="312" r="3" fill="#BDBDBD" opacity="0.6"/>
+                        <circle cx="220" cy="322" r="3" fill="#BDBDBD" opacity="0.6"/>
+                        
+                        <!-- Down-regulated (blue) -->
+                        <circle cx="120" cy="220" r="4" fill="#2196F3" opacity="0.8"/>
+                        <circle cx="140" cy="230" r="4" fill="#2196F3" opacity="0.8"/>
+                        <circle cx="100" cy="210" r="4" fill="#2196F3" opacity="0.8"/>
+                        <circle cx="130" cy="200" r="4" fill="#2196F3" opacity="0.8"/>
+                        <circle cx="150" cy="240" r="4" fill="#2196F3" opacity="0.8"/>
+                        <circle cx="110" cy="190" r="4" fill="#2196F3" opacity="0.8"/>
+                        
+                        <!-- Up-regulated (red) -->
+                        <circle cx="380" cy="220" r="4" fill="#F44336" opacity="0.8"/>
+                        <circle cx="360" cy="230" r="4" fill="#F44336" opacity="0.8"/>
+                        <circle cx="400" cy="210" r="4" fill="#F44336" opacity="0.8"/>
+                        <circle cx="370" cy="200" r="4" fill="#F44336" opacity="0.8"/>
+                        <circle cx="350" cy="240" r="4" fill="#F44336" opacity="0.8"/>
+                        <circle cx="390" cy="190" r="4" fill="#F44336" opacity="0.8"/>
+                        
+                        <!-- Legend -->
+                        <rect x="330" y="180" width="140" height="80" rx="5" fill="white" stroke="#999" stroke-width="1"/>
+                        <circle cx="340" cy="195" r="3" fill="#F44336"/>
+                        <text x="350" y="198" font-family="Aptos, sans-serif" font-size="10" fill="#333">Up-regulated</text>
+                        
+                        <circle cx="340" cy="210" r="3" fill="#2196F3"/>
+                        <text x="350" y="213" font-family="Aptos, sans-serif" font-size="10" fill="#333">Down-regulated</text>
+                        
+                        <circle cx="340" cy="225" r="3" fill="#BDBDBD"/>
+                        <text x="350" y="228" font-family="Aptos, sans-serif" font-size="10" fill="#333">Not significant</text>
+                        
+                        <text x="400" y="245" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">|log2FC| > 1</text>
+                        <text x="400" y="255" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">FDR < 0.05</text>
+                    </g>
+                    
+                    <!-- Arrow marker -->
+                    <defs>
+                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                </svg>
             </div>
-            <div class="content-card">
-                <div class="card-title">Fold Change Thresholds</div>
-                <div class="card-desc">Typically |log2FC| > 1 for biological significance</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">FDR Control</div>
-                <div class="card-desc">False Discovery Rate < 0.05 for multiple testing</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Volcano Plots</div>
-                <div class="card-desc">Visualize FC vs statistical significance</div>
-            </div>
-
         </div>
         <div class="note-box">
             <div class="note-text">💡 Balance statistical significance with biological relevance</div>

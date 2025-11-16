@@ -31,50 +31,233 @@
             font-size: 32px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
         }
         
-        .content-list {
+        .content-wrapper {
             display: flex;
-            flex-direction: column;
-            gap: 20px;
+            gap: 25px;
+            height: 385px;
         }
         
-        .content-item {
+        .binding-visual {
+            flex: 1.5;
             display: flex;
             align-items: center;
-            gap: 20px;
-            padding: 18px 24px;
+            justify-content: center;
+        }
+        
+        .prediction-list {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+        
+        .pred-item {
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 6px;
+            padding: 13px 18px;
             transition: all 0.3s ease;
-            font-size: 19px;
-            color: #333;
         }
         
-        .content-item:hover {
+        .pred-item:hover {
             background: #e8f2ff;
             transform: translateX(8px);
         }
         
-        .bullet {
-            width: 10px;
-            height: 10px;
-            background: #1E64C8;
-            border-radius: 50%;
-            flex-shrink: 0;
+        .pred-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 3px;
+        }
+        
+        .pred-detail {
+            font-size: 12px;
+            color: #666;
+        }
+        
+        .binding-animation {
+            animation: bindingMove 3s ease-in-out infinite;
+        }
+        
+        @keyframes bindingMove {
+            0%, 100% { transform: translateX(0); }
+            50% { transform: translateX(-10px); }
+        }
+        
+        .affinity-glow {
+            animation: affinityGlow 2s ease-in-out infinite;
+        }
+        
+        @keyframes affinityGlow {
+            0%, 100% { opacity: 0.3; }
+            50% { opacity: 1; }
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Drug-Target Affinity</div>
-        <div class="content-list">
-            <div class="content-item"><div class="bullet"></div><div>Binding prediction</div></div><div class="content-item"><div class="bullet"></div><div>Kinase selectivity</div></div><div class="content-item"><div class="bullet"></div><div>Allosteric sites</div></div><div class="content-item"><div class="bullet"></div><div>Cryptic pockets</div></div><div class="content-item"><div class="bullet"></div><div>Residence time</div></div>
+        <div class="content-wrapper">
+            <div class="binding-visual">
+                <svg width="560" height="385" viewBox="0 0 560 385">
+                    <text x="280" y="20" font-size="15" fill="#333" text-anchor="middle" font-weight="600">Drug-Target Binding Prediction</text>
+                    
+                    <!-- Drug Molecule -->
+                    <g transform="translate(80, 120)" class="binding-animation">
+                        <text x="0" y="-10" font-size="12" fill="#666" font-weight="600">Drug Molecule</text>
+                        
+                        <!-- Simplified drug structure -->
+                        <g transform="translate(0, 0)">
+                            <circle cx="0" cy="0" r="8" fill="#ffcccc" stroke="#cc0000" stroke-width="2"/>
+                            <text x="0" y="3" font-size="8" fill="#333" text-anchor="middle" font-weight="600">C</text>
+                            
+                            <line x1="7" y1="0" x2="23" y2="0" stroke="#333" stroke-width="2"/>
+                            
+                            <circle cx="30" cy="0" r="8" fill="#ccffcc" stroke="#00cc00" stroke-width="2"/>
+                            <text x="30" y="3" font-size="8" fill="#333" text-anchor="middle" font-weight="600">N</text>
+                            
+                            <line x1="30" y1="7" x2="30" y2="23" stroke="#333" stroke-width="2"/>
+                            
+                            <circle cx="30" cy="30" r="8" fill="#ccccff" stroke="#0000cc" stroke-width="2"/>
+                            <text x="30" y="33" font-size="8" fill="#333" text-anchor="middle" font-weight="600">O</text>
+                            
+                            <line x1="37" y1="0" x2="53" y2="0" stroke="#333" stroke-width="2"/>
+                            
+                            <circle cx="60" cy="0" r="8" fill="#ffffcc" stroke="#cccc00" stroke-width="2"/>
+                            <text x="60" y="3" font-size="8" fill="#333" text-anchor="middle" font-weight="600">S</text>
+                            
+                            <line x1="60" y1="-7" x2="60" y2="-23" stroke="#333" stroke-width="2"/>
+                            
+                            <circle cx="60" cy="-30" r="8" fill="#ffccff" stroke="#cc00cc" stroke-width="2"/>
+                            <text x="60" y="-27" font-size="8" fill="#333" text-anchor="middle" font-weight="600">F</text>
+                        </g>
+                        
+                        <text x="30" y="55" font-size="10" fill="#666" text-anchor="middle">MW: 350.4</text>
+                    </g>
+                    
+                    <!-- Binding arrow -->
+                    <defs>
+                        <marker id="bindArrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                    
+                    <path d="M 170,120 L 220,120" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#bindArrow)" stroke-dasharray="5,5" class="affinity-glow"/>
+                    
+                    <!-- Target Protein Pocket -->
+                    <g transform="translate(240, 70)">
+                        <text x="100" y="-10" font-size="12" fill="#666" font-weight="600" text-anchor="middle">Target Protein</text>
+                        
+                        <!-- Protein surface with binding pocket -->
+                        <path d="M 0,0 C 20,0 30,10 30,30 L 30,70 C 30,90 40,100 60,100 L 140,100 C 160,100 170,90 170,70 L 170,30 C 170,10 180,0 200,0" 
+                              fill="#f8f9fa" stroke="#1E64C8" stroke-width="2.5"/>
+                        
+                        <!-- Binding pocket -->
+                        <ellipse cx="100" cy="50" rx="45" ry="35" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="100" y="53" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">Binding Site</text>
+                        
+                        <!-- Active site residues -->
+                        <circle cx="85" cy="40" r="4" fill="#2874d8" opacity="0.7"/>
+                        <text x="85" y="35" font-size="8" fill="#333" text-anchor="middle">His</text>
+                        
+                        <circle cx="115" cy="40" r="4" fill="#2874d8" opacity="0.7"/>
+                        <text x="115" y="35" font-size="8" fill="#333" text-anchor="middle">Ser</text>
+                        
+                        <circle cx="100" cy="60" r="4" fill="#2874d8" opacity="0.7"/>
+                        <text x="100" y="65" font-size="8" fill="#333" text-anchor="middle">Asp</text>
+                        
+                        <!-- Kinase label -->
+                        <text x="100" y="120" font-size="10" fill="#666" text-anchor="middle">Kinase domain</text>
+                    </g>
+                    
+                    <!-- Affinity Prediction -->
+                    <g transform="translate(180, 200)">
+                        <rect x="0" y="0" width="200" height="90" rx="8" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                        <text x="100" y="20" font-size="12" fill="#e0a800" text-anchor="middle" font-weight="700">AI Prediction</text>
+                        
+                        <g transform="translate(20, 30)">
+                            <text x="0" y="10" font-size="11" fill="#333">Binding Affinity (Kd):</text>
+                            <text x="120" y="10" font-size="11" fill="#e0a800" font-weight="600">2.3 nM</text>
+                            
+                            <text x="0" y="28" font-size="11" fill="#333">IC50:</text>
+                            <text x="120" y="28" font-size="11" fill="#e0a800" font-weight="600">15.7 nM</text>
+                            
+                            <text x="0" y="46" font-size="11" fill="#333">Selectivity Score:</text>
+                            <text x="120" y="46" font-size="11" fill="#e0a800" font-weight="600">0.92</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Additional Features -->
+                    <g transform="translate(60, 305)">
+                        <rect x="0" y="0" width="440" height="70" rx="6" fill="#f8f9fa" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="220" y="18" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="700">Advanced Predictions</text>
+                        
+                        <g transform="translate(20, 28)">
+                            <!-- Allosteric sites -->
+                            <g transform="translate(0, 0)">
+                                <circle cx="5" cy="5" r="4" fill="#1E64C8" opacity="0.7"/>
+                                <text x="15" y="9" font-size="10" fill="#333">Allosteric sites</text>
+                            </g>
+                            
+                            <!-- Cryptic pockets -->
+                            <g transform="translate(110, 0)">
+                                <circle cx="5" cy="5" r="4" fill="#2874d8" opacity="0.7"/>
+                                <text x="15" y="9" font-size="10" fill="#333">Cryptic pockets</text>
+                            </g>
+                            
+                            <!-- Residence time -->
+                            <g transform="translate(220, 0)">
+                                <circle cx="5" cy="5" r="4" fill="#5fa3e8" opacity="0.7"/>
+                                <text x="15" y="9" font-size="10" fill="#333">Residence time</text>
+                            </g>
+                            
+                            <!-- Off-targets -->
+                            <g transform="translate(330, 0)">
+                                <circle cx="5" cy="5" r="4" fill="#e0a800" opacity="0.7"/>
+                                <text x="15" y="9" font-size="10" fill="#333">Off-targets</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Progress bar for confidence -->
+                        <g transform="translate(20, 50)">
+                            <text x="0" y="0" font-size="10" fill="#666">Model Confidence:</text>
+                            <rect x="90" y="-8" width="310" height="10" rx="2" fill="#e0e0e0"/>
+                            <rect x="90" y="-8" width="260" height="10" rx="2" fill="#1E64C8" opacity="0.7"/>
+                            <text x="360" y="0" font-size="10" fill="#1E64C8" font-weight="600">84%</text>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="prediction-list">
+                <div class="pred-item">
+                    <div class="pred-title">Binding prediction</div>
+                    <div class="pred-detail">Kd, Ki, IC50 values</div>
+                </div>
+                <div class="pred-item">
+                    <div class="pred-title">Kinase selectivity</div>
+                    <div class="pred-detail">Off-target profiling</div>
+                </div>
+                <div class="pred-item">
+                    <div class="pred-title">Allosteric sites</div>
+                    <div class="pred-detail">Non-competitive binding</div>
+                </div>
+                <div class="pred-item">
+                    <div class="pred-title">Cryptic pockets</div>
+                    <div class="pred-detail">Hidden binding sites</div>
+                </div>
+                <div class="pred-item">
+                    <div class="pred-title">Residence time</div>
+                    <div class="pred-detail">Drug-target kinetics</div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

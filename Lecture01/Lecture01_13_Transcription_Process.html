@@ -35,28 +35,45 @@
             text-align: center;
         }
         
-        .content-grid {
+        .main-layout {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-rows: 1fr auto;
             gap: 20px;
+            height: calc(100% - 60px);
+        }
+        
+        .process-diagram {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 2px solid #2196F3;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .info-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
         }
         
         .info-box {
             background: #f8f9fb;
             border-left: 4px solid #1E64C8;
-            padding: 16px 18px;
+            padding: 12px 14px;
             border-radius: 6px;
         }
         
         .info-title {
-            font-size: 17px;
+            font-size: 15px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 10px;
+            margin-bottom: 6px;
         }
         
         .info-content {
-            font-size: 15px;
+            font-size: 13px;
             color: #333;
             line-height: 1.5;
         }
@@ -64,15 +81,15 @@
         .bullet {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 6px;
+            margin-bottom: 4px;
         }
         
         .bullet::before {
             content: "•";
             color: #1E64C8;
             font-weight: bold;
-            margin-right: 8px;
-            font-size: 16px;
+            margin-right: 6px;
+            font-size: 13px;
         }
     </style>
 </head>
@@ -80,47 +97,211 @@
     <div class="container">
         <div class="title">Transcription Process</div>
         
-        <div class="content-grid">
-            <div class="info-box">
-                <div class="info-title">Initiation</div>
-                <div class="info-content">
-                    <div class="bullet">RNA polymerase binds promoter</div>
-                    <div class="bullet">TATA box recognition</div>
-                    <div class="bullet">Transcription factors assist</div>
-                    <div class="bullet">DNA unwinds at start site</div>
-                </div>
+        <div class="main-layout">
+            <div class="process-diagram">
+                <svg width="850" height="280" viewBox="0 0 850 280">
+                    <defs>
+                        <!-- Gradients -->
+                        <linearGradient id="dnaGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#1565C0;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#2196F3;stop-opacity:1" />
+                        </linearGradient>
+                        
+                        <linearGradient id="rnaGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#E91E63;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#F48FB1;stop-opacity:1" />
+                        </linearGradient>
+                        
+                        <!-- Arrow markers -->
+                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+                        </marker>
+                    </defs>
+                    
+                    <!-- Title for stages -->
+                    <text x="425" y="20" text-anchor="middle" font-size="14" fill="#1565C0" font-weight="bold">Three Stages of Transcription</text>
+                    
+                    <!-- Stage 1: Initiation -->
+                    <g transform="translate(50, 40)">
+                        <rect x="0" y="0" width="220" height="200" fill="#E3F2FD" stroke="#2196F3" stroke-width="2" rx="8" opacity="0.3"/>
+                        <text x="110" y="20" text-anchor="middle" font-size="13" fill="#1565C0" font-weight="bold">1. INITIATION</text>
+                        
+                        <!-- Promoter region -->
+                        <rect x="30" y="40" width="160" height="25" fill="#FFE082" stroke="#F57C00" stroke-width="2" rx="3"/>
+                        <text x="110" y="57" text-anchor="middle" font-size="11" fill="#E65100" font-weight="bold">Promoter</text>
+                        
+                        <!-- TATA box -->
+                        <rect x="70" y="43" width="40" height="19" fill="#FFB74D" stroke="#E65100" stroke-width="1" rx="2"/>
+                        <text x="90" y="56" text-anchor="middle" font-size="9" fill="white" font-weight="bold">TATA</text>
+                        
+                        <!-- DNA strands -->
+                        <line x1="30" y1="80" x2="190" y2="80" stroke="url(#dnaGradient)" stroke-width="4"/>
+                        <line x1="30" y1="90" x2="190" y2="90" stroke="url(#dnaGradient)" stroke-width="4"/>
+                        
+                        <!-- RNA Polymerase II -->
+                        <ellipse cx="110" cy="115" rx="35" ry="25" fill="#4CAF50" opacity="0.8"/>
+                        <text x="110" y="119" text-anchor="middle" font-size="10" fill="white" font-weight="bold">RNA Pol II</text>
+                        
+                        <!-- Transcription factors -->
+                        <circle cx="75" cy="115" r="12" fill="#9C27B0" opacity="0.7"/>
+                        <text x="75" y="118" text-anchor="middle" font-size="8" fill="white" font-weight="bold">TF</text>
+                        
+                        <circle cx="145" cy="115" r="12" fill="#9C27B0" opacity="0.7"/>
+                        <text x="145" y="118" text-anchor="middle" font-size="8" fill="white" font-weight="bold">TF</text>
+                        
+                        <!-- Labels -->
+                        <text x="10" y="85" font-size="9" fill="#333">3'</text>
+                        <text x="10" y="95" font-size="9" fill="#333">5'</text>
+                        <text x="200" y="85" font-size="9" fill="#333">5'</text>
+                        <text x="200" y="95" font-size="9" fill="#333">3'</text>
+                        
+                        <!-- Description -->
+                        <text x="110" y="160" text-anchor="middle" font-size="10" fill="#666">RNA Pol II binds</text>
+                        <text x="110" y="173" text-anchor="middle" font-size="10" fill="#666">to promoter</text>
+                        <text x="110" y="186" text-anchor="middle" font-size="10" fill="#666">DNA unwinds</text>
+                    </g>
+                    
+                    <!-- Arrow between stages -->
+                    <line x1="280" y1="140" x2="310" y2="140" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    
+                    <!-- Stage 2: Elongation -->
+                    <g transform="translate(320, 40)">
+                        <rect x="0" y="0" width="220" height="200" fill="#FCE4EC" stroke="#E91E63" stroke-width="2" rx="8" opacity="0.3"/>
+                        <text x="110" y="20" text-anchor="middle" font-size="13" fill="#C2185B" font-weight="bold">2. ELONGATION</text>
+                        
+                        <!-- DNA strands opening -->
+                        <path d="M 30 60 L 80 60" stroke="url(#dnaGradient)" stroke-width="4"/>
+                        <path d="M 30 70 L 80 70" stroke="url(#dnaGradient)" stroke-width="4"/>
+                        
+                        <!-- Transcription bubble -->
+                        <path d="M 80 60 Q 110 50 140 60" stroke="url(#dnaGradient)" stroke-width="4" fill="none"/>
+                        <path d="M 80 70 Q 110 80 140 70" stroke="url(#dnaGradient)" stroke-width="4" fill="none"/>
+                        
+                        <!-- DNA strands closing -->
+                        <path d="M 140 60 L 190 60" stroke="url(#dnaGradient)" stroke-width="4"/>
+                        <path d="M 140 70 L 190 70" stroke="url(#dnaGradient)" stroke-width="4"/>
+                        
+                        <!-- RNA Polymerase moving -->
+                        <ellipse cx="110" cy="65" rx="30" ry="22" fill="#4CAF50" opacity="0.8"/>
+                        <text x="110" y="69" text-anchor="middle" font-size="9" fill="white" font-weight="bold">RNA Pol II</text>
+                        
+                        <!-- Growing RNA strand -->
+                        <path d="M 80 75 Q 95 85 110 75" stroke="url(#rnaGradient)" stroke-width="3" fill="none"/>
+                        <circle cx="85" cy="77" r="2" fill="#E91E63"/>
+                        <circle cx="92" cy="80" r="2" fill="#E91E63"/>
+                        <circle cx="99" cy="80" r="2" fill="#E91E63"/>
+                        <circle cx="106" cy="77" r="2" fill="#E91E63"/>
+                        
+                        <!-- Direction arrow -->
+                        <line x1="110" y1="95" x2="150" y2="95" stroke="#4CAF50" stroke-width="2" marker-end="url(#arrow)"/>
+                        <text x="130" y="110" text-anchor="middle" font-size="9" fill="#4CAF50">5' → 3'</text>
+                        
+                        <!-- Template strand label -->
+                        <text x="110" y="130" text-anchor="middle" font-size="10" fill="#666">Template strand</text>
+                        <text x="110" y="143" text-anchor="middle" font-size="10" fill="#666">read 3' → 5'</text>
+                        
+                        <!-- RNA label -->
+                        <text x="70" y="95" font-size="10" fill="#E91E63" font-weight="bold">RNA</text>
+                        
+                        <!-- Nucleotides being added -->
+                        <circle cx="125" cy="50" r="4" fill="#FF5722"/>
+                        <circle cx="135" cy="48" r="4" fill="#FF5722"/>
+                        <circle cx="145" cy="50" r="4" fill="#FF5722"/>
+                        <text x="135" y="38" text-anchor="middle" font-size="8" fill="#FF5722">NTPs</text>
+                        
+                        <!-- Description -->
+                        <text x="110" y="160" text-anchor="middle" font-size="10" fill="#666">RNA synthesized</text>
+                        <text x="110" y="173" text-anchor="middle" font-size="10" fill="#666">complementary to</text>
+                        <text x="110" y="186" text-anchor="middle" font-size="10" fill="#666">template strand</text>
+                    </g>
+                    
+                    <!-- Arrow between stages -->
+                    <line x1="550" y1="140" x2="580" y2="140" stroke="#333" stroke-width="2" marker-end="url(#arrow)"/>
+                    
+                    <!-- Stage 3: Termination -->
+                    <g transform="translate(590, 40)">
+                        <rect x="0" y="0" width="220" height="200" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2" rx="8" opacity="0.3"/>
+                        <text x="110" y="20" text-anchor="middle" font-size="13" fill="#2E7D32" font-weight="bold">3. TERMINATION</text>
+                        
+                        <!-- DNA strands -->
+                        <line x1="30" y1="60" x2="190" y2="60" stroke="url(#dnaGradient)" stroke-width="4"/>
+                        <line x1="30" y1="70" x2="190" y2="70" stroke="url(#dnaGradient)" stroke-width="4"/>
+                        
+                        <!-- Terminator sequence -->
+                        <rect x="130" y="55" width="50" height="20" fill="#FFCDD2" stroke="#D32F2F" stroke-width="2" rx="3"/>
+                        <text x="155" y="68" text-anchor="middle" font-size="9" fill="#B71C1C" font-weight="bold">STOP</text>
+                        
+                        <!-- RNA Polymerase dissociating -->
+                        <ellipse cx="110" cy="100" rx="30" ry="22" fill="#4CAF50" opacity="0.5" stroke-dasharray="3,3"/>
+                        <text x="110" y="104" text-anchor="middle" font-size="9" fill="white" font-weight="bold">RNA Pol II</text>
+                        
+                        <!-- Completed RNA transcript -->
+                        <path d="M 50 130 L 170 130" stroke="url(#rnaGradient)" stroke-width="4"/>
+                        <text x="30" y="134" font-size="9" fill="#E91E63">5'</text>
+                        <text x="180" y="134" font-size="9" fill="#E91E63">3'</text>
+                        
+                        <!-- RNA hairpin structure (termination signal) -->
+                        <path d="M 140 130 Q 150 115 160 130" stroke="#E91E63" stroke-width="3" fill="none"/>
+                        <circle cx="145" cy="125" r="2" fill="#E91E63"/>
+                        <circle cx="150" cy="120" r="2" fill="#E91E63"/>
+                        <circle cx="155" cy="125" r="2" fill="#E91E63"/>
+                        
+                        <!-- Pre-mRNA label -->
+                        <text x="110" y="150" text-anchor="middle" font-size="11" fill="#E91E63" font-weight="bold">Pre-mRNA</text>
+                        
+                        <!-- Description -->
+                        <text x="110" y="170" text-anchor="middle" font-size="10" fill="#666">RNA Pol II</text>
+                        <text x="110" y="183" text-anchor="middle" font-size="10" fill="#666">dissociates</text>
+                        <text x="110" y="196" text-anchor="middle" font-size="10" fill="#666">Pre-mRNA released</text>
+                    </g>
+                    
+                    <!-- Overall process arrow at bottom -->
+                    <line x1="150" y1="260" x2="700" y2="260" stroke="#666" stroke-width="2" marker-end="url(#arrow)"/>
+                    <text x="425" y="275" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Direction of transcription</text>
+                </svg>
             </div>
             
-            <div class="info-box">
-                <div class="info-title">Elongation</div>
-                <div class="info-content">
-                    <div class="bullet">RNA synthesized 5' → 3'</div>
-                    <div class="bullet">Template strand read 3' → 5'</div>
-                    <div class="bullet">Ribonucleotides added</div>
-                    <div class="bullet">Transcription bubble moves</div>
+            <div class="info-grid">
+                <div class="info-box">
+                    <div class="info-title">Initiation</div>
+                    <div class="info-content">
+                        <div class="bullet">RNA polymerase binds promoter</div>
+                        <div class="bullet">TATA box recognition</div>
+                        <div class="bullet">Transcription factors assist</div>
+                        <div class="bullet">DNA unwinds at start site</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">Elongation</div>
+                    <div class="info-content">
+                        <div class="bullet">RNA synthesized 5' → 3'</div>
+                        <div class="bullet">Template strand read 3' → 5'</div>
+                        <div class="bullet">Ribonucleotides added</div>
+                        <div class="bullet">Transcription bubble moves</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">Termination</div>
+                    <div class="info-content">
+                        <div class="bullet">Rho-dependent or independent</div>
+                        <div class="bullet">Hairpin structure formation</div>
+                        <div class="bullet">RNA polymerase dissociates</div>
+                        <div class="bullet">Pre-mRNA released</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">RNA Processing</div>
+                    <div class="info-content">
+                        <div class="bullet">5' cap (7-methylguanosine)</div>
+                        <div class="bullet">3' poly(A) tail</div>
+                        <div class="bullet">Splicing removes introns</div>
+                        <div class="bullet">Mature mRNA produced</div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="info-box">
-                <div class="info-title">Termination</div>
-                <div class="info-content">
-                    <div class="bullet">Rho-dependent or independent</div>
-                    <div class="bullet">Hairpin structure formation</div>
-                    <div class="bullet">RNA polymerase dissociates</div>
-                    <div class="bullet">Pre-mRNA released</div>
-                </div>
-            </div>
-            
-            <div class="info-box">
-                <div class="info-title">RNA Processing</div>
-                <div class="info-content">
-                    <div class="bullet">5' cap (7-methylguanosine)</div>
-                    <div class="bullet">3' poly(A) tail</div>
-                    <div class="bullet">Splicing removes introns</div>
-                    <div class="bullet">Mature mRNA produced</div>
-                </div>
-            </div>
-            
         </div>
     </div>
 </body>

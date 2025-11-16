@@ -1,40 +1,222 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>SHAP Values</title>
-<style>* {margin:0;padding:0;box-sizing:border-box;}body {font-family:Aptos,'Segoe UI',sans-serif;background:white;display:flex;justify-content:center;align-items:center;min-height:100vh;}
-.container {width:960px;height:540px;padding:35px 50px;background:white;}.title {font-size:36px;font-weight:700;color:#1E64C8;margin-bottom:25px;text-align:center;}</style>
-</head><body><div class="container">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SHAP Values</title>
+    <style>
+        * {margin:0;padding:0;box-sizing:border-box;}
+        body {font-family:Aptos,'Segoe UI',sans-serif;background:white;display:flex;justify-content:center;align-items:center;min-height:100vh;}
+        .container {width:960px;height:540px;padding:30px 45px;background:white;}
+        .title {font-size:36px;font-weight:700;color:#1E64C8;margin-bottom:18px;text-align:center;}
+        .subtitle {font-size:16px;text-align:center;margin-bottom:18px;color:#666;}
+        .main-content {display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+        .theory-card {background:#f8fbff;border:3px solid #1E64C8;border-radius:10px;padding:16px 18px;}
+        .card-title {font-size:18px;font-weight:700;color:#1E64C8;margin-bottom:10px;}
+        .card-content {font-size:14px;color:#333;line-height:1.5;}
+        .viz-section {background:#f8f9fa;border:2.5px solid #1E64C8;border-radius:10px;padding:14px;}
+        .viz-title {font-size:16px;font-weight:700;color:#1E64C8;margin-bottom:10px;text-align:center;}
+    </style>
+</head>
+<body>
+    <div class="container">
         <div class="title">SHAP Values for Model Interpretation</div>
-        <div style="font-size:17px;text-align:center;margin-bottom:20px;color:#666;">
-            SHapley Additive exPlanations - unified framework for interpretability
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-bottom:18px;">
-            <div style="background:#f8fbff;border:3px solid #1E64C8;border-radius:10px;padding:18px 20px;">
-                <div style="font-size:19px;font-weight:700;color:#1E64C8;margin-bottom:10px;">Shapley Theory</div>
-                <div style="font-size:15px;color:#333;line-height:1.5;">
-                    • From game theory (Nobel Prize)<br>
-                    • Fair contribution of each feature<br>
-                    • Considers all feature combinations<br>
-                    • Unique solution with nice properties
-                </div>
+        <div class="subtitle">SHapley Additive exPlanations - unified framework for interpretability</div>
+        
+        <div class="main-content">
+            <div class="theory-card">
+                <div class="card-title">How SHAP Works</div>
+                <svg width="100%" height="200" viewBox="0 0 420 200">
+                    <!-- Base value to prediction flow -->
+                    <g transform="translate(20,30)">
+                        <!-- Base value -->
+                        <rect x="0" y="40" width="60" height="30" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="4"/>
+                        <text x="30" y="58" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600">Base</text>
+                        <text x="30" y="85" text-anchor="middle" font-size="10" fill="#666">E[f(X)]</text>
+                        
+                        <!-- Feature contributions -->
+                        <g transform="translate(80,0)">
+                            <!-- Feature 1 positive -->
+                            <rect x="0" y="20" width="50" height="25" fill="#28a745" opacity="0.3" stroke="#28a745" stroke-width="1.5"/>
+                            <text x="25" y="36" text-anchor="middle" font-size="10" fill="#28a745" font-weight="600">Age</text>
+                            <text x="25" y="12" text-anchor="middle" font-size="9" fill="#28a745">+0.15</text>
+                            
+                            <!-- Feature 2 negative -->
+                            <rect x="55" y="55" width="50" height="25" fill="#dc3545" opacity="0.3" stroke="#dc3545" stroke-width="1.5"/>
+                            <text x="80" y="71" text-anchor="middle" font-size="10" fill="#dc3545" font-weight="600">BMI</text>
+                            <text x="80" y="93" text-anchor="middle" font-size="9" fill="#dc3545">-0.08</text>
+                            
+                            <!-- Feature 3 positive -->
+                            <rect x="110" y="25" width="55" height="25" fill="#28a745" opacity="0.3" stroke="#28a745" stroke-width="1.5"/>
+                            <text x="137" y="41" text-anchor="middle" font-size="10" fill="#28a745" font-weight="600">Glucose</text>
+                            <text x="137" y="17" text-anchor="middle" font-size="9" fill="#28a745">+0.22</text>
+                            
+                            <!-- Feature 4 negative -->
+                            <rect x="170" y="60" width="50" height="20" fill="#dc3545" opacity="0.3" stroke="#dc3545" stroke-width="1.5"/>
+                            <text x="195" y="74" text-anchor="middle" font-size="10" fill="#dc3545" font-weight="600">Exercise</text>
+                            <text x="195" y="93" text-anchor="middle" font-size="9" fill="#dc3545">-0.05</text>
+                        </g>
+                        
+                        <!-- Final prediction -->
+                        <rect x="320" y="40" width="60" height="30" fill="#1E64C8" opacity="0.8" stroke="#1E64C8" stroke-width="2" rx="4"/>
+                        <text x="350" y="58" text-anchor="middle" font-size="11" fill="white" font-weight="600">f(x)</text>
+                        <text x="350" y="85" text-anchor="middle" font-size="10" fill="#666">Prediction</text>
+                        
+                        <!-- Arrows showing flow -->
+                        <path d="M 65,55 L 75,55" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowShap)"/>
+                        <path d="M 305,55 L 315,55" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowShap)"/>
+                        
+                        <!-- Additive equation -->
+                        <text x="190" y="115" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600">
+                            f(x) = φ₀ + φ₁ + φ₂ + ... + φₙ
+                        </text>
+                        <text x="190" y="130" text-anchor="middle" font-size="9" fill="#666">
+                            Additive feature attribution
+                        </text>
+                    </g>
+                    
+                    <!-- Shapley value calculation illustration -->
+                    <g transform="translate(20,160)">
+                        <text x="0" y="0" font-size="10" fill="#1E64C8" font-weight="600">Shapley Value:</text>
+                        <text x="70" y="0" font-size="9" fill="#666">Fair contribution from coalitional game theory</text>
+                        <text x="0" y="20" font-size="9" fill="#333">• Considers all possible feature combinations</text>
+                        <text x="0" y="35" font-size="9" fill="#333">• Satisfies consistency & local accuracy</text>
+                    </g>
+                    
+                    <defs>
+                        <marker id="arrowShap" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                            <path d="M0,0 L0,6 L6,3 z" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                </svg>
             </div>
-            <div style="background:#f8fbff;border:3px solid #1E64C8;border-radius:10px;padding:18px 20px;">
-                <div style="font-size:19px;font-weight:700;color:#1E64C8;margin-bottom:10px;">SHAP Algorithms</div>
-                <div style="font-size:15px;color:#333;line-height:1.5;">
-                    • TreeSHAP (fast for trees)<br>
-                    • DeepSHAP (for neural nets)<br>
-                    • KernelSHAP (model-agnostic)<br>
-                    • LinearSHAP (for linear models)
-                </div>
+            
+            <div class="theory-card">
+                <div class="card-title">SHAP Algorithms</div>
+                <svg width="100%" height="200" viewBox="0 0 420 200">
+                    <!-- Algorithm tree -->
+                    <g transform="translate(210,20)">
+                        <!-- Root -->
+                        <rect x="-40" y="0" width="80" height="25" fill="#1E64C8" stroke="#1E64C8" stroke-width="2" rx="4"/>
+                        <text x="0" y="16" text-anchor="middle" font-size="11" fill="white" font-weight="600">SHAP</text>
+                        
+                        <!-- Branches -->
+                        <line x1="0" y1="25" x2="-80" y2="60" stroke="#1E64C8" stroke-width="2"/>
+                        <line x1="0" y1="25" x2="-27" y2="60" stroke="#1E64C8" stroke-width="2"/>
+                        <line x1="0" y1="25" x2="27" y2="60" stroke="#1E64C8" stroke-width="2"/>
+                        <line x1="0" y1="25" x2="80" y2="60" stroke="#1E64C8" stroke-width="2"/>
+                        
+                        <!-- TreeSHAP -->
+                        <rect x="-110" y="60" width="60" height="30" fill="#28a745" opacity="0.8" stroke="#28a745" stroke-width="1.5" rx="3"/>
+                        <text x="-80" y="78" text-anchor="middle" font-size="10" fill="white" font-weight="600">TreeSHAP</text>
+                        <text x="-80" y="105" text-anchor="middle" font-size="8" fill="#28a745">Fast for trees</text>
+                        <text x="-80" y="115" text-anchor="middle" font-size="8" fill="#666">O(TLD²)</text>
+                        
+                        <!-- DeepSHAP -->
+                        <rect x="-55" y="60" width="55" height="30" fill="#ff8c00" opacity="0.8" stroke="#ff8c00" stroke-width="1.5" rx="3"/>
+                        <text x="-27" y="78" text-anchor="middle" font-size="10" fill="white" font-weight="600">DeepSHAP</text>
+                        <text x="-27" y="105" text-anchor="middle" font-size="8" fill="#ff8c00">Neural nets</text>
+                        <text x="-27" y="115" text-anchor="middle" font-size="8" fill="#666">DeepLIFT</text>
+                        
+                        <!-- KernelSHAP -->
+                        <rect x="2" y="60" width="50" height="30" fill="#e74c3c" opacity="0.8" stroke="#e74c3c" stroke-width="1.5" rx="3"/>
+                        <text x="27" y="78" text-anchor="middle" font-size="10" fill="white" font-weight="600">Kernel</text>
+                        <text x="27" y="105" text-anchor="middle" font-size="8" fill="#e74c3c">Model-agnostic</text>
+                        <text x="27" y="115" text-anchor="middle" font-size="8" fill="#666">Slower</text>
+                        
+                        <!-- LinearSHAP -->
+                        <rect x="55" y="60" width="50" height="30" fill="#3498db" opacity="0.8" stroke="#3498db" stroke-width="1.5" rx="3"/>
+                        <text x="80" y="78" text-anchor="middle" font-size="10" fill="white" font-weight="600">Linear</text>
+                        <text x="80" y="105" text-anchor="middle" font-size="8" fill="#3498db">Linear models</text>
+                        <text x="80" y="115" text-anchor="middle" font-size="8" fill="#666">Exact</text>
+                    </g>
+                    
+                    <!-- Properties -->
+                    <g transform="translate(20,140)">
+                        <rect x="0" y="0" width="380" height="45" fill="#e8f5e9" stroke="#28a745" stroke-width="2" rx="5"/>
+                        <text x="10" y="18" font-size="11" fill="#28a745" font-weight="700">Key Properties:</text>
+                        <text x="110" y="18" font-size="10" fill="#333">✓ Local accuracy</text>
+                        <text x="210" y="18" font-size="10" fill="#333">✓ Missingness</text>
+                        <text x="290" y="18" font-size="10" fill="#333">✓ Consistency</text>
+                        <text x="10" y="35" font-size="9" fill="#666">The only method satisfying all desired properties (Lundberg & Lee, 2017)</text>
+                    </g>
+                </svg>
             </div>
         </div>
-        <div style="background:#f8f9fa;border:2.5px solid #1E64C8;border-radius:10px;padding:18px 22px;">
-            <div style="font-size:19px;font-weight:700;color:#1E64C8;margin-bottom:12px;text-align:center;">Visualization Types</div>
-            <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:12px;">
-                <div style="background:white;border:2px solid #1E64C8;border-radius:6px;padding:10px;text-align:center;font-size:14px;font-weight:600;">Waterfall Plots<br><span style="font-size:12px;color:#666;font-weight:400;">Single prediction</span></div>
-                <div style="background:white;border:2px solid #1E64C8;border-radius:6px;padding:10px;text-align:center;font-size:14px;font-weight:600;">Summary Plots<br><span style="font-size:12px;color:#666;font-weight:400;">Global importance</span></div>
-                <div style="background:white;border:2px solid #1E64C8;border-radius:6px;padding:10px;text-align:center;font-size:14px;font-weight:600;">Dependence Plots<br><span style="font-size:12px;color:#666;font-weight:400;">Feature effects</span></div>
-                <div style="background:white;border:2px solid #1E64C8;border-radius:6px;padding:10px;text-align:center;font-size:14px;font-weight:600;">Interaction Plots<br><span style="font-size:12px;color:#666;font-weight:400;">Feature interactions</span></div>
-            </div>
+        
+        <div class="viz-section">
+            <div class="viz-title">Visualization Types</div>
+            <svg width="100%" height="100" viewBox="0 0 900 100">
+                <!-- Waterfall Plot -->
+                <g transform="translate(20,20)">
+                    <rect x="0" y="0" width="200" height="60" fill="white" stroke="#1E64C8" stroke-width="1.5" rx="4"/>
+                    <text x="100" y="15" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Waterfall Plot</text>
+                    <!-- Mini waterfall viz -->
+                    <line x1="20" y1="40" x2="180" y2="40" stroke="#666" stroke-width="1"/>
+                    <rect x="30" y="35" width="25" height="10" fill="#28a745" opacity="0.6"/>
+                    <rect x="60" y="38" width="20" height="7" fill="#28a745" opacity="0.6"/>
+                    <rect x="85" y="42" width="15" height="5" fill="#dc3545" opacity="0.6"/>
+                    <rect x="105" y="38" width="25" height="8" fill="#28a745" opacity="0.6"/>
+                    <rect x="135" y="41" width="20" height="6" fill="#dc3545" opacity="0.6"/>
+                    <text x="100" y="55" text-anchor="middle" font-size="8" fill="#666">Single prediction</text>
+                </g>
+                
+                <!-- Summary Plot -->
+                <g transform="translate(240,20)">
+                    <rect x="0" y="0" width="200" height="60" fill="white" stroke="#1E64C8" stroke-width="1.5" rx="4"/>
+                    <text x="100" y="15" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Summary Plot</text>
+                    <!-- Mini summary viz -->
+                    <circle cx="30" cy="30" r="2" fill="#dc3545" opacity="0.6"/>
+                    <circle cx="35" cy="32" r="2" fill="#ff8c00" opacity="0.6"/>
+                    <circle cx="40" cy="28" r="2" fill="#28a745" opacity="0.6"/>
+                    <circle cx="45" cy="35" r="2" fill="#dc3545" opacity="0.6"/>
+                    <circle cx="50" cy="30" r="2" fill="#ffc107" opacity="0.6"/>
+                    <text x="20" y="45" font-size="7" fill="#666">F1</text>
+                    
+                    <circle cx="80" cy="31" r="2" fill="#28a745" opacity="0.6"/>
+                    <circle cx="85" cy="29" r="2" fill="#28a745" opacity="0.6"/>
+                    <circle cx="90" cy="33" r="2" fill="#ffc107" opacity="0.6"/>
+                    <circle cx="95" cy="30" r="2" fill="#dc3545" opacity="0.6"/>
+                    <text x="70" y="45" font-size="7" fill="#666">F2</text>
+                    
+                    <circle cx="130" cy="30" r="2" fill="#ffc107" opacity="0.6"/>
+                    <circle cx="135" cy="31" r="2" fill="#ff8c00" opacity="0.6"/>
+                    <circle cx="140" cy="29" r="2" fill="#28a745" opacity="0.6"/>
+                    <text x="120" y="45" font-size="7" fill="#666">F3</text>
+                    
+                    <text x="100" y="55" text-anchor="middle" font-size="8" fill="#666">Global importance</text>
+                </g>
+                
+                <!-- Dependence Plot -->
+                <g transform="translate(460,20)">
+                    <rect x="0" y="0" width="200" height="60" fill="white" stroke="#1E64C8" stroke-width="1.5" rx="4"/>
+                    <text x="100" y="15" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Dependence Plot</text>
+                    <!-- Mini scatter plot -->
+                    <line x1="30" y1="45" x2="170" y2="45" stroke="#999" stroke-width="0.5"/>
+                    <line x1="30" y1="25" x2="30" y2="45" stroke="#999" stroke-width="0.5"/>
+                    <circle cx="40" cy="40" r="2" fill="#3498db" opacity="0.7"/>
+                    <circle cx="55" cy="35" r="2" fill="#3498db" opacity="0.7"/>
+                    <circle cx="70" cy="33" r="2" fill="#3498db" opacity="0.7"/>
+                    <circle cx="85" cy="30" r="2" fill="#3498db" opacity="0.7"/>
+                    <circle cx="100" cy="28" r="2" fill="#3498db" opacity="0.7"/>
+                    <circle cx="115" cy="27" r="2" fill="#3498db" opacity="0.7"/>
+                    <circle cx="130" cy="26" r="2" fill="#3498db" opacity="0.7"/>
+                    <text x="100" y="55" text-anchor="middle" font-size="8" fill="#666">Feature effects</text>
+                </g>
+                
+                <!-- Force Plot -->
+                <g transform="translate(680,20)">
+                    <rect x="0" y="0" width="200" height="60" fill="white" stroke="#1E64C8" stroke-width="1.5" rx="4"/>
+                    <text x="100" y="15" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Force Plot</text>
+                    <!-- Mini force viz -->
+                    <line x1="30" y1="35" x2="170" y2="35" stroke="#666" stroke-width="2"/>
+                    <path d="M 80,35 L 85,30 L 120,30 L 125,35" fill="#28a745" opacity="0.6"/>
+                    <path d="M 125,35 L 130,40 L 145,40 L 150,35" fill="#dc3545" opacity="0.6"/>
+                    <circle cx="100" cy="35" r="3" fill="#1E64C8"/>
+                    <text x="100" y="55" text-anchor="middle" font-size="8" fill="#666">Interactive push/pull</text>
+                </g>
+            </svg>
         </div>
-    </div></body></html>
+    </div>
+</body>
+</html>

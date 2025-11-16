@@ -1,39 +1,205 @@
 <!DOCTYPE html>
 <html lang="ko">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Risk Scores</title>
-<style>* {margin:0;padding:0;box-sizing:border-box;}body {font-family:Aptos,'Segoe UI',sans-serif;background:white;display:flex;justify-content:center;align-items:center;min-height:100vh;}
-.container {width:960px;height:540px;padding:35px 50px;background:white;}.title {font-size:36px;font-weight:700;color:#1E64C8;margin-bottom:25px;text-align:center;}</style>
-</head><body><div class="container">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Risk Scores</title>
+    <style>
+        * {margin:0;padding:0;box-sizing:border-box;}
+        body {font-family:Aptos,'Segoe UI',sans-serif;background:white;display:flex;justify-content:center;align-items:center;min-height:100vh;}
+        .container {width:960px;height:540px;padding:30px 45px;background:white;}
+        .title {font-size:36px;font-weight:700;color:#1E64C8;margin-bottom:16px;text-align:center;}
+        .subtitle {font-size:16px;text-align:center;margin-bottom:18px;color:#666;font-style:italic;}
+        .main-section {display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-bottom:16px;}
+        .process-card {background:#f8fbff;border:3px solid #1E64C8;border-radius:10px;padding:16px 18px;}
+        .card-title {font-size:18px;font-weight:700;color:#1E64C8;margin-bottom:10px;text-align:center;}
+        .nomogram-section {background:#f8fbff;border:3px solid #1E64C8;border-radius:10px;padding:14px;margin-bottom:16px;}
+        .examples-box {background:#e8f5e9;border-left:5px solid #28a745;border-radius:8px;padding:14px 20px;}
+        .examples-title {font-size:17px;font-weight:700;color:#28a745;margin-bottom:8px;}
+        .example-items {font-size:14px;color:#333;}
+    </style>
+</head>
+<body>
+    <div class="container">
         <div class="title">Clinical Risk Scores</div>
-        <div style="font-size:17px;text-align:center;margin-bottom:22px;color:#666;font-style:italic;">
-            Translate complex models into simple, actionable scoring systems
-        </div>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:18px;">
-            <div style="background:#f8fbff;border:3px solid #1E64C8;border-radius:10px;padding:18px 20px;">
-                <div style="font-size:19px;font-weight:700;color:#1E64C8;margin-bottom:12px;text-align:center;">Development Steps</div>
-                <div style="font-size:15px;color:#333;line-height:1.7;">
-                    1. Select predictors (clinical + statistical)<br>
-                    2. Fit regression model<br>
-                    3. Convert coefficients to points<br>
-                    4. Create nomogram or web calculator<br>
-                    5. Validate externally
-                </div>
+        <div class="subtitle">Translate complex models into simple, actionable scoring systems</div>
+        
+        <div class="main-section">
+            <!-- Development Process -->
+            <div class="process-card">
+                <div class="card-title">Development Pipeline</div>
+                <svg width="100%" height="180" viewBox="0 0 380 180">
+                    <!-- Step-by-step process -->
+                    <g transform="translate(20,20)">
+                        <!-- Step 1: Data -->
+                        <rect x="0" y="0" width="340" height="25" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5" rx="4"/>
+                        <circle cx="20" cy="12" r="10" fill="#1E64C8"/>
+                        <text x="20" y="17" text-anchor="middle" font-size="10" fill="white" font-weight="600">1</text>
+                        <text x="40" y="17" font-size="11" fill="#1E64C8" font-weight="600">Select Predictors</text>
+                        <text x="200" y="17" font-size="10" fill="#666">Clinical relevance + Statistics</text>
+                        
+                        <!-- Step 2: Model -->
+                        <rect x="0" y="35" width="340" height="25" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5" rx="4"/>
+                        <circle cx="20" cy="47" r="10" fill="#1E64C8"/>
+                        <text x="20" y="52" text-anchor="middle" font-size="10" fill="white" font-weight="600">2</text>
+                        <text x="40" y="52" font-size="11" fill="#1E64C8" font-weight="600">Fit Regression</text>
+                        <text x="200" y="52" font-size="10" fill="#666">Logistic/Cox regression</text>
+                        
+                        <!-- Step 3: Points -->
+                        <rect x="0" y="70" width="340" height="25" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5" rx="4"/>
+                        <circle cx="20" cy="82" r="10" fill="#1E64C8"/>
+                        <text x="20" y="87" text-anchor="middle" font-size="10" fill="white" font-weight="600">3</text>
+                        <text x="40" y="87" font-size="11" fill="#1E64C8" font-weight="600">Convert to Points</text>
+                        <text x="200" y="87" font-size="10" fill="#666">β → Integer scores</text>
+                        
+                        <!-- Step 4: Tool -->
+                        <rect x="0" y="105" width="340" height="25" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5" rx="4"/>
+                        <circle cx="20" cy="117" r="10" fill="#1E64C8"/>
+                        <text x="20" y="122" text-anchor="middle" font-size="10" fill="white" font-weight="600">4</text>
+                        <text x="40" y="122" font-size="11" fill="#1E64C8" font-weight="600">Create Tool</text>
+                        <text x="200" y="122" font-size="10" fill="#666">Nomogram/Calculator</text>
+                        
+                        <!-- Step 5: Validate -->
+                        <rect x="0" y="140" width="340" height="25" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5" rx="4"/>
+                        <circle cx="20" cy="152" r="10" fill="#28a745"/>
+                        <text x="20" y="157" text-anchor="middle" font-size="10" fill="white" font-weight="600">5</text>
+                        <text x="40" y="157" font-size="11" fill="#28a745" font-weight="600">Validate Externally</text>
+                        <text x="200" y="157" font-size="10" fill="#666">Different population</text>
+                    </g>
+                </svg>
             </div>
-            <div style="background:#f8fbff;border:3px solid #1E64C8;border-radius:10px;padding:18px 20px;">
-                <div style="font-size:19px;font-weight:700;color:#1E64C8;margin-bottom:12px;text-align:center;">Validation Requirements</div>
-                <div style="font-size:15px;color:#333;line-height:1.7;">
-                    • Calibration plots (predicted vs observed)<br>
-                    • Decision curve analysis<br>
-                    • External validation cohort<br>
-                    • Sensitivity/Specificity at cutoffs<br>
-                    • Net benefit assessment
-                </div>
+            
+            <!-- Validation Requirements -->
+            <div class="process-card">
+                <div class="card-title">Validation Metrics</div>
+                <svg width="100%" height="180" viewBox="0 0 380 180">
+                    <!-- Calibration plot -->
+                    <g transform="translate(20,20)">
+                        <text x="85" y="0" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Calibration Plot</text>
+                        <line x1="20" y1="60" x2="150" y2="60" stroke="#333" stroke-width="1.5"/>
+                        <line x1="20" y1="10" x2="20" y2="60" stroke="#333" stroke-width="1.5"/>
+                        <text x="85" y="75" text-anchor="middle" font-size="9" fill="#666">Predicted</text>
+                        <text x="5" y="35" text-anchor="middle" font-size="9" fill="#666" transform="rotate(-90 5 35)">Observed</text>
+                        
+                        <!-- Perfect calibration line -->
+                        <line x1="20" y1="60" x2="150" y2="10" stroke="#999" stroke-width="1" stroke-dasharray="3,2"/>
+                        
+                        <!-- Actual calibration -->
+                        <path d="M 20,60 Q 50,50 85,35 T 150,10" stroke="#28a745" stroke-width="2" fill="none"/>
+                        <circle cx="40" cy="52" r="3" fill="#28a745"/>
+                        <circle cx="70" cy="40" r="3" fill="#28a745"/>
+                        <circle cx="100" cy="28" r="3" fill="#28a745"/>
+                        <circle cx="130" cy="18" r="3" fill="#28a745"/>
+                    </g>
+                    
+                    <!-- Decision curve -->
+                    <g transform="translate(200,20)">
+                        <text x="75" y="0" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Decision Curve</text>
+                        <line x1="20" y1="60" x2="150" y2="60" stroke="#333" stroke-width="1.5"/>
+                        <line x1="20" y1="10" x2="20" y2="60" stroke="#333" stroke-width="1.5"/>
+                        <text x="85" y="75" text-anchor="middle" font-size="9" fill="#666">Threshold</text>
+                        <text x="5" y="35" text-anchor="middle" font-size="9" fill="#666" transform="rotate(-90 5 35)">Net Benefit</text>
+                        
+                        <!-- Model benefit -->
+                        <path d="M 20,20 Q 50,25 85,30 T 130,50 L 150,60" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                        <text x="100" y="40" font-size="8" fill="#1E64C8" font-weight="600">Model</text>
+                        
+                        <!-- Treat all -->
+                        <line x1="20" y1="35" x2="150" y2="60" stroke="#ff8c00" stroke-width="1.5" stroke-dasharray="3,2"/>
+                        <text x="60" y="50" font-size="8" fill="#ff8c00">Treat All</text>
+                        
+                        <!-- Treat none -->
+                        <line x1="20" y1="60" x2="150" y2="60" stroke="#dc3545" stroke-width="1.5"/>
+                        <text x="85" y="70" font-size="8" fill="#dc3545">Treat None</text>
+                    </g>
+                    
+                    <!-- Performance metrics -->
+                    <g transform="translate(20,100)">
+                        <rect x="0" y="0" width="340" height="60" fill="#fff4e6" stroke="#ffc107" stroke-width="2" rx="5"/>
+                        <text x="10" y="18" font-size="11" fill="#856404" font-weight="600">Performance Requirements:</text>
+                        
+                        <g transform="translate(10,30)">
+                            <rect x="0" y="0" width="75" height="20" fill="white" stroke="#ffc107" stroke-width="1" rx="3"/>
+                            <text x="37" y="14" text-anchor="middle" font-size="9" fill="#333">C-index > 0.7</text>
+                            
+                            <rect x="85" y="0" width="75" height="20" fill="white" stroke="#ffc107" stroke-width="1" rx="3"/>
+                            <text x="122" y="14" text-anchor="middle" font-size="9" fill="#333">Good calibration</text>
+                            
+                            <rect x="170" y="0" width="75" height="20" fill="white" stroke="#ffc107" stroke-width="1" rx="3"/>
+                            <text x="207" y="14" text-anchor="middle" font-size="9" fill="#333">Net benefit +</text>
+                            
+                            <rect x="255" y="0" width="65" height="20" fill="white" stroke="#ffc107" stroke-width="1" rx="3"/>
+                            <text x="287" y="14" text-anchor="middle" font-size="9" fill="#333">External val</text>
+                        </g>
+                    </g>
+                </svg>
             </div>
         </div>
-        <div style="background:#e8f5e9;border-left:5px solid #28a745;border-radius:8px;padding:16px 22px;margin-top:18px;">
-            <div style="font-size:18px;font-weight:700;color:#28a745;margin-bottom:8px;">✓ Clinical Examples</div>
-            <div style="font-size:15px;color:#333;">
-                APACHE II (ICU mortality) • Framingham Risk Score (CVD) • MELD Score (liver transplant) • GRACE Score (ACS)
+        
+        <!-- Nomogram Example -->
+        <div class="nomogram-section">
+            <svg width="100%" height="120" viewBox="0 0 900 120">
+                <text x="450" y="15" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">Example Nomogram: Cardiovascular Risk</text>
+                
+                <!-- Points scale -->
+                <g transform="translate(50,30)">
+                    <text x="0" y="0" font-size="10" fill="#666" font-weight="600">Points:</text>
+                    <line x1="50" y1="-3" x2="350" y2="-3" stroke="#333" stroke-width="2"/>
+                    <text x="50" y="10" font-size="9" fill="#666">0</text>
+                    <text x="150" y="10" font-size="9" fill="#666">50</text>
+                    <text x="250" y="10" font-size="9" fill="#666">100</text>
+                    <text x="350" y="10" font-size="9" fill="#666">150</text>
+                </g>
+                
+                <!-- Age -->
+                <g transform="translate(50,55)">
+                    <text x="0" y="0" font-size="10" fill="#1E64C8" font-weight="600">Age:</text>
+                    <line x1="50" y1="-3" x2="350" y2="-3" stroke="#1E64C8" stroke-width="1.5"/>
+                    <circle cx="100" cy="-3" r="3" fill="#28a745"/>
+                    <text x="50" y="10" font-size="9" fill="#666">40</text>
+                    <text x="150" y="10" font-size="9" fill="#666">60</text>
+                    <text x="250" y="10" font-size="9" fill="#666">80</text>
+                </g>
+                
+                <!-- Cholesterol -->
+                <g transform="translate(50,80)">
+                    <text x="0" y="0" font-size="10" fill="#1E64C8" font-weight="600">Chol:</text>
+                    <line x1="50" y1="-3" x2="350" y2="-3" stroke="#1E64C8" stroke-width="1.5"/>
+                    <circle cx="180" cy="-3" r="3" fill="#ff8c00"/>
+                    <text x="50" y="10" font-size="9" fill="#666">160</text>
+                    <text x="150" y="10" font-size="9" fill="#666">240</text>
+                    <text x="250" y="10" font-size="9" fill="#666">320</text>
+                </g>
+                
+                <!-- Total score to risk -->
+                <g transform="translate(450,55)">
+                    <rect x="0" y="-15" width="120" height="35" fill="#e8f5e9" stroke="#28a745" stroke-width="2" rx="5"/>
+                    <text x="60" y="0" text-anchor="middle" font-size="10" fill="#28a745" font-weight="600">Total: 75 points</text>
+                    <text x="60" y="15" text-anchor="middle" font-size="9" fill="#666">→ 15% 10-year risk</text>
+                </g>
+                
+                <!-- Risk categories -->
+                <g transform="translate(600,40)">
+                    <rect x="0" y="0" width="50" height="20" fill="#28a745" opacity="0.3" stroke="#28a745" stroke-width="1"/>
+                    <text x="25" y="14" text-anchor="middle" font-size="9" fill="#28a745" font-weight="600">Low</text>
+                    
+                    <rect x="60" y="0" width="50" height="20" fill="#ffc107" opacity="0.3" stroke="#ffc107" stroke-width="1"/>
+                    <text x="85" y="14" text-anchor="middle" font-size="9" fill="#856404" font-weight="600">Med</text>
+                    
+                    <rect x="120" y="0" width="50" height="20" fill="#dc3545" opacity="0.3" stroke="#dc3545" stroke-width="1"/>
+                    <text x="145" y="14" text-anchor="middle" font-size="9" fill="#dc3545" font-weight="600">High</text>
+                    
+                    <text x="85" y="35" text-anchor="middle" font-size="9" fill="#666">Risk Categories</text>
+                </g>
+            </svg>
+        </div>
+        
+        <div class="examples-box">
+            <div class="examples-title">✓ Clinical Examples</div>
+            <div class="example-items">
+                APACHE II (ICU mortality) • Framingham Risk Score (CVD) • MELD Score (liver transplant) • GRACE Score (ACS) • CHA₂DS₂-VASc (stroke risk)
             </div>
         </div>
-    </div></body></html>
+    </div>
+</body>
+</html>
