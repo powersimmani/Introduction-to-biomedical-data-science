@@ -1,37 +1,504 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Fluorescent Proteins and Tags</title>
+    <title>Fluorescent Proteins and Tags - Enhanced</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Aptos, 'Segoe UI', sans-serif; background: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { width: 960px; height: 540px; padding: 30px 40px; background: white; }
-        .title { font-size: 28px; font-weight: 600; color: #1E64C8; margin-bottom: 22px; text-align: center; }
+        body { 
+            font-family: Aptos, 'Segoe UI', sans-serif; 
+            background: #f8f9fa; 
+            padding: 20px;
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .title { 
+            font-size: 36px; 
+            font-weight: 700; 
+            color: #1E64C8; 
+            margin-bottom: 30px; 
+            text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 15px;
+        }
+        .summary-grid {
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 15px;
+            margin-bottom: 40px;
+        }
+        .summary-card {
+            background: #f0f5fc; 
+            border: 2px solid #1E64C8; 
+            border-radius: 8px; 
+            padding: 16px;
+            transition: transform 0.2s;
+        }
+        .summary-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(30,100,200,0.2);
+        }
+        .summary-title {
+            font-size: 18px; 
+            font-weight: 700; 
+            color: #1E64C8; 
+            margin-bottom: 8px;
+        }
+        .summary-text {
+            font-size: 14px; 
+            color: #333;
+            line-height: 1.5;
+        }
+        .detailed-section {
+            margin-bottom: 50px;
+            padding: 25px;
+            border-left: 4px solid #1E64C8;
+            background: #fafbfc;
+            border-radius: 8px;
+        }
+        .section-header {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .section-number {
+            background: #1E64C8;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        .visual-representation {
+            background: white;
+            border: 2px solid #e1e8ed;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            min-height: 200px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+        }
+        .protein-display {
+            display: flex;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        .protein-item {
+            text-align: center;
+            padding: 15px;
+        }
+        .protein-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+        .description-text {
+            font-size: 16px;
+            color: #444;
+            line-height: 1.8;
+            margin: 15px 0;
+        }
+        .key-points {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .key-points-title {
+            font-weight: 700;
+            color: #f57c00;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .key-points ul {
+            margin-left: 20px;
+        }
+        .key-points li {
+            margin: 8px 0;
+            color: #555;
+            line-height: 1.6;
+        }
+        .wavelength-chart {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 15px 0;
+        }
+        .wavelength-bar {
+            height: 40px;
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 13px;
+            flex: 1;
+        }
+        .application-box {
+            background: #e8f4f8;
+            border: 2px solid #0288d1;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .application-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #0277bd;
+            margin-bottom: 12px;
+        }
+        .technique-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .technique-card {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            border: 1px solid #b3d9f2;
+        }
+        .technique-name {
+            font-weight: 700;
+            color: #0277bd;
+            margin-bottom: 5px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Fluorescent Proteins and Tags</div>
-        <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 13px;">
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">GFP Family</div>
-            <div style="font-size: 14px; color: #333;">GFP, YFP, CFP, RFP. Ex/Em: 395/509nm (GFP). Nobel Prize 2008.</div>
+        
+        <!-- Summary Grid (Original Content) -->
+        <div class="summary-grid">
+            <div class="summary-card">
+                <div class="summary-title">GFP Family</div>
+                <div class="summary-text">GFP, YFP, CFP, RFP. Ex/Em: 395/509nm (GFP). Nobel Prize 2008.</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-title">Genetic Encoding</div>
+                <div class="summary-text">Fusion proteins. Minimal perturbation. Live cell compatible.</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-title">Multicolor Imaging</div>
+                <div class="summary-text">Simultaneous tracking. mCherry, mTurquoise, mVenus.</div>
+            </div>
+            <div class="summary-card">
+                <div class="summary-title">Photoswitchable</div>
+                <div class="summary-text">PALM, STORM superresolution. Dronpa, mEos.</div>
+            </div>
         </div>
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Genetic Encoding</div>
-            <div style="font-size: 14px; color: #333;">Fusion proteins. Minimal perturbation. Live cell compatible.</div>
+
+        <!-- Detailed Section 1: GFP Family -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                GFP Family - The Foundation of Fluorescent Imaging
+            </div>
+            
+            <div class="visual-representation">
+                <h3 style="color: #1E64C8; margin-bottom: 20px;">GFP Family Spectrum</h3>
+                <div class="protein-display">
+                    <div class="protein-item">
+                        <div class="protein-circle" style="background: linear-gradient(135deg, #4a90e2, #357abd);">CFP</div>
+                        <div style="font-size: 13px; color: #555;">Cyan<br>~475nm</div>
+                    </div>
+                    <div class="protein-item">
+                        <div class="protein-circle" style="background: linear-gradient(135deg, #10b981, #059669);">GFP</div>
+                        <div style="font-size: 13px; color: #555;">Green<br>~509nm</div>
+                    </div>
+                    <div class="protein-item">
+                        <div class="protein-circle" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">YFP</div>
+                        <div style="font-size: 13px; color: #555;">Yellow<br>~527nm</div>
+                    </div>
+                    <div class="protein-item">
+                        <div class="protein-circle" style="background: linear-gradient(135deg, #ef4444, #dc2626);">RFP</div>
+                        <div style="font-size: 13px; color: #555;">Red<br>~583nm</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="description-text">
+                The Green Fluorescent Protein (GFP) family originated from the jellyfish <i>Aequorea victoria</i> and revolutionized cell biology. These proteins spontaneously form a chromophore from their own amino acid residues, eliminating the need for external cofactors. The family has been engineered to span the visible spectrum, providing researchers with a palette of colors for cellular imaging.
+            </div>
+
+            <div class="key-points">
+                <div class="key-points-title">Key Features:</div>
+                <ul>
+                    <li><strong>Nobel Prize 2008:</strong> Awarded to Osamu Shimomura, Martin Chalfie, and Roger Tsien for the discovery and development of GFP</li>
+                    <li><strong>Autocatalytic:</strong> Forms fluorescent chromophore without external enzymes or cofactors</li>
+                    <li><strong>Excitation/Emission:</strong> Original GFP - 395nm (UV) & 475nm (blue) / 509nm (green)</li>
+                    <li><strong>Variants:</strong> Enhanced GFP (EGFP), superfolder GFP (sfGFP) for improved stability and brightness</li>
+                    <li><strong>Beta-barrel structure:</strong> 11-stranded β-barrel protects the chromophore from the environment</li>
+                </ul>
+            </div>
+
+            <div class="wavelength-chart">
+                <div style="font-weight: 600; color: #555; min-width: 80px;">Excitation:</div>
+                <div class="wavelength-bar" style="background: linear-gradient(90deg, #8b5cf6, #6366f1);">UV-Blue (395-488nm)</div>
+            </div>
+            <div class="wavelength-chart">
+                <div style="font-weight: 600; color: #555; min-width: 80px;">Emission:</div>
+                <div class="wavelength-bar" style="background: linear-gradient(90deg, #4a90e2, #10b981, #fbbf24, #ef4444);">Cyan to Red (475-630nm)</div>
+            </div>
         </div>
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Multicolor Imaging</div>
-            <div style="font-size: 14px; color: #333;">Simultaneous tracking. mCherry, mTurquoise, mVenus.</div>
+
+        <!-- Detailed Section 2: Genetic Encoding -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                Genetic Encoding - Molecular Tagging Strategy
+            </div>
+
+            <div class="visual-representation">
+                <h3 style="color: #1E64C8; margin-bottom: 20px;">Fusion Protein Architecture</h3>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 20px; flex-wrap: wrap;">
+                    <div style="text-align: center;">
+                        <div style="background: #10b981; color: white; padding: 20px 30px; border-radius: 8px; font-weight: 700;">
+                            Target<br>Protein
+                        </div>
+                        <div style="font-size: 12px; margin-top: 5px; color: #666;">Protein of Interest</div>
+                    </div>
+                    <div style="font-size: 24px; color: #1E64C8; font-weight: 700;">→</div>
+                    <div style="text-align: center;">
+                        <div style="display: flex; border: 3px solid #1E64C8; border-radius: 8px; overflow: hidden;">
+                            <div style="background: #10b981; color: white; padding: 20px 25px; font-weight: 700; font-size: 14px;">
+                                Target<br>Protein
+                            </div>
+                            <div style="background: #f59e0b; color: white; padding: 20px 25px; font-weight: 700; font-size: 14px;">
+                                FP<br>Tag
+                            </div>
+                        </div>
+                        <div style="font-size: 12px; margin-top: 5px; color: #666;">Fusion Protein</div>
+                    </div>
+                </div>
+                <div style="margin-top: 25px; text-align: center; font-size: 14px; color: #555; max-width: 600px;">
+                    <strong>N-terminal or C-terminal fusion</strong><br>
+                    Fluorescent protein is genetically fused to target protein via peptide linker
+                </div>
+            </div>
+
+            <div class="description-text">
+                Genetic encoding allows fluorescent proteins to be fused directly to proteins of interest through molecular cloning. The DNA sequence encoding the fluorescent protein is inserted into the gene of the target protein, resulting in a single polypeptide chain that carries both functionalities. This approach enables real-time tracking of protein localization, dynamics, and interactions in living cells.
+            </div>
+
+            <div class="key-points">
+                <div class="key-points-title">Advantages & Considerations:</div>
+                <ul>
+                    <li><strong>No external addition required:</strong> Once transfected, cells produce tagged proteins autonomously</li>
+                    <li><strong>Minimal perturbation:</strong> Small size (27 kDa for GFP) and careful linker design reduce functional disruption</li>
+                    <li><strong>Live cell compatible:</strong> Non-toxic, stable expression enables long-term imaging</li>
+                    <li><strong>Spatial precision:</strong> Tags can be placed at N-terminus, C-terminus, or internal positions</li>
+                    <li><strong>Validation needed:</strong> Must confirm that tagged protein retains normal function and localization</li>
+                    <li><strong>Linker design:</strong> Flexible peptide linkers (e.g., GGGS repeats) prevent steric hindrance</li>
+                </ul>
+            </div>
+
+            <div class="application-box">
+                <div class="application-title">Common Applications:</div>
+                <div style="color: #555; line-height: 1.8;">
+                    • Protein localization and trafficking studies<br>
+                    • Real-time monitoring of protein expression levels<br>
+                    • FRET-based biosensors for detecting protein-protein interactions<br>
+                    • Cell cycle and developmental biology visualization<br>
+                    • Organelle-specific markers (mitochondria, nucleus, ER, etc.)
+                </div>
+            </div>
         </div>
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 17px; font-weight: 700; color: #1E64C8; margin-bottom: 7px;">Photoswitchable</div>
-            <div style="font-size: 14px; color: #333;">PALM, STORM superresolution. Dronpa, mEos.</div>
+
+        <!-- Detailed Section 3: Multicolor Imaging -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                Multicolor Imaging - Simultaneous Multi-target Tracking
+            </div>
+
+            <div class="visual-representation">
+                <h3 style="color: #1E64C8; margin-bottom: 20px;">Spectral Separation Strategy</h3>
+                <div class="protein-display">
+                    <div class="protein-item">
+                        <div class="protein-circle" style="background: linear-gradient(135deg, #06b6d4, #0891b2);">mTurquoise</div>
+                        <div style="font-size: 13px; color: #555; margin-top: 8px;">Ex: 434nm<br>Em: 474nm</div>
+                    </div>
+                    <div class="protein-item">
+                        <div class="protein-circle" style="background: linear-gradient(135deg, #fbbf24, #f59e0b);">mVenus</div>
+                        <div style="font-size: 13px; color: #555; margin-top: 8px;">Ex: 515nm<br>Em: 528nm</div>
+                    </div>
+                    <div class="protein-item">
+                        <div class="protein-circle" style="background: linear-gradient(135deg, #f43f5e, #e11d48);">mCherry</div>
+                        <div style="font-size: 13px; color: #555; margin-top: 8px;">Ex: 587nm<br>Em: 610nm</div>
+                    </div>
+                </div>
+                <div style="margin-top: 20px; padding: 15px; background: #f0f9ff; border-radius: 6px; text-align: center;">
+                    <strong style="color: #0369a1;">Minimal Spectral Overlap = Clear Signal Separation</strong>
+                </div>
+            </div>
+
+            <div class="description-text">
+                Multicolor imaging leverages the spectral diversity of fluorescent proteins to simultaneously visualize multiple cellular components in the same sample. By carefully selecting fluorescent proteins with distinct excitation and emission spectra, researchers can track multiple proteins, organelles, or cellular events in real-time without cross-contamination of signals. This powerful technique has become essential for understanding complex cellular processes involving multiple interacting components.
+            </div>
+
+            <div class="key-points">
+                <div class="key-points-title">Technical Requirements & Benefits:</div>
+                <ul>
+                    <li><strong>Spectral separation:</strong> Proteins must have minimal overlap in emission spectra (typically >30nm apart)</li>
+                    <li><strong>Modern variants:</strong> Optimized proteins like mTurquoise2, mVenus, and mCherry offer superior brightness and photostability</li>
+                    <li><strong>Simultaneous acquisition:</strong> Multiple fluorescence channels can be imaged concurrently or sequentially</li>
+                    <li><strong>Co-localization studies:</strong> Determine if proteins occupy the same cellular location</li>
+                    <li><strong>Dynamic interactions:</strong> Track how different proteins move and interact over time</li>
+                    <li><strong>3-4 color maximum:</strong> Practical limit due to spectral overlap and detector limitations</li>
+                </ul>
+            </div>
+
+            <div class="application-box">
+                <div class="application-title">Experimental Examples:</div>
+                <div class="technique-grid">
+                    <div class="technique-card">
+                        <div class="technique-name">Organelle Interactions</div>
+                        <div style="font-size: 13px; color: #555;">Visualize mitochondria-ER contact sites using different colored markers for each organelle</div>
+                    </div>
+                    <div class="technique-card">
+                        <div class="technique-name">Signal Transduction</div>
+                        <div style="font-size: 13px; color: #555;">Track receptor activation and downstream effector translocation simultaneously</div>
+                    </div>
+                    <div class="technique-card">
+                        <div class="technique-name">Cell Cycle Markers</div>
+                        <div style="font-size: 13px; color: #555;">Monitor multiple cell cycle regulators in different colors throughout division</div>
+                    </div>
+                    <div class="technique-card">
+                        <div class="technique-name">Multi-pathogen Studies</div>
+                        <div style="font-size: 13px; color: #555;">Distinguish different bacterial or viral strains within the same host cell</div>
+                    </div>
+                </div>
+            </div>
         </div>
-    </div>
+
+        <!-- Detailed Section 4: Photoswitchable Proteins -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                Photoswitchable Proteins - Superresolution Microscopy
+            </div>
+
+            <div class="visual-representation">
+                <h3 style="color: #1E64C8; margin-bottom: 20px;">Photoswitching Mechanism</h3>
+                <div style="display: flex; align-items: center; justify-content: center; gap: 30px; flex-wrap: wrap; margin: 20px 0;">
+                    <div style="text-align: center;">
+                        <div style="width: 100px; height: 100px; border-radius: 50%; background: #374151; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                            <span style="color: white; font-weight: 700; font-size: 16px;">OFF</span>
+                        </div>
+                        <div style="margin-top: 10px; color: #666; font-size: 13px;">Dark State</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 28px; color: #1E64C8;">
+                            ⚡<br>
+                            <span style="font-size: 12px;">Activation Light</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 100px; height: 100px; border-radius: 50%; background: radial-gradient(circle, #10b981, #059669); display: flex; align-items: center; justify-content: center; margin: 0 auto; box-shadow: 0 0 30px rgba(16, 185, 129, 0.6);">
+                            <span style="color: white; font-weight: 700; font-size: 16px;">ON</span>
+                        </div>
+                        <div style="margin-top: 10px; color: #666; font-size: 13px;">Fluorescent State</div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="font-size: 28px; color: #1E64C8;">
+                            ⚡<br>
+                            <span style="font-size: 12px;">Bleaching/Switch</span>
+                        </div>
+                    </div>
+                    <div style="text-align: center;">
+                        <div style="width: 100px; height: 100px; border-radius: 50%; background: #374151; display: flex; align-items: center; justify-content: center; margin: 0 auto;">
+                            <span style="color: white; font-weight: 700; font-size: 16px;">OFF</span>
+                        </div>
+                        <div style="margin-top: 10px; color: #666; font-size: 13px;">Return to Dark</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="description-text">
+                Photoswitchable fluorescent proteins can be toggled between fluorescent and non-fluorescent states using specific wavelengths of light. This unique property forms the basis of superresolution microscopy techniques like PALM (Photoactivated Localization Microscopy) and STORM (Stochastic Optical Reconstruction Microscopy), which overcome the diffraction limit of conventional light microscopy (~200nm) to achieve resolutions of 20-50nm.
+            </div>
+
+            <div class="key-points">
+                <div class="key-points-title">Key Photoswitchable Proteins & Mechanisms:</div>
+                <ul>
+                    <li><strong>Dronpa:</strong> Reversibly photoswitchable between fluorescent (488nm) and dark states (405nm activation)</li>
+                    <li><strong>mEos family:</strong> Photoconvertible from green (516nm) to red (581nm) with 405nm light - irreversible switch</li>
+                    <li><strong>PA-GFP:</strong> Photoactivatable - increases fluorescence 100-fold upon 405nm irradiation</li>
+                    <li><strong>Dendra2:</strong> Green-to-red photoconversion with improved photostability and brightness</li>
+                    <li><strong>Single-molecule detection:</strong> Sparse activation enables precise localization of individual molecules</li>
+                    <li><strong>Resolution breakthrough:</strong> Achieves 10-20× better resolution than conventional microscopy</li>
+                </ul>
+            </div>
+
+            <div class="application-box">
+                <div class="application-title">Superresolution Techniques:</div>
+                <div class="technique-grid">
+                    <div class="technique-card">
+                        <div class="technique-name">PALM (Photoactivated Localization Microscopy)</div>
+                        <div style="font-size: 13px; color: #555;">Uses photoactivatable proteins to sequentially activate, localize, and bleach individual molecules</div>
+                    </div>
+                    <div class="technique-card">
+                        <div class="technique-name">STORM (Stochastic Optical Reconstruction)</div>
+                        <div style="font-size: 13px; color: #555;">Employs photoswitchable probes to create stochastic blinking for superresolution imaging</div>
+                    </div>
+                    <div class="technique-card">
+                        <div class="technique-name">Pulse-Chase Experiments</div>
+                        <div style="font-size: 13px; color: #555;">Photoconvert specific protein pools to track their fate separately from newly synthesized proteins</div>
+                    </div>
+                    <div class="technique-card">
+                        <div class="technique-name">Subcellular ROI Marking</div>
+                        <div style="font-size: 13px; color: #555;">Selectively photoactivate proteins in specific cellular regions to study local dynamics</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #f0fdf4; border: 2px solid #22c55e; border-radius: 8px; padding: 20px; margin-top: 20px;">
+                <div style="font-weight: 700; color: #15803d; margin-bottom: 10px; font-size: 16px;">🔬 Impact on Cell Biology:</div>
+                <div style="color: #555; line-height: 1.8; font-size: 14px;">
+                    Photoswitchable proteins have revolutionized our ability to visualize cellular structures at the nanoscale level. They enable researchers to resolve previously invisible details such as synaptic vesicle organization, nuclear pore complex architecture, cytoskeletal ultrastructure, and the precise spatial organization of signaling complexes. The 2014 Nobel Prize in Chemistry was awarded to developers of superresolution microscopy techniques that rely on these remarkable proteins.
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Footer -->
+        <div style="background: linear-gradient(135deg, #1E64C8, #2563eb); color: white; padding: 25px; border-radius: 8px; margin-top: 30px; text-align: center;">
+            <div style="font-size: 20px; font-weight: 700; margin-bottom: 10px;">Fluorescent Proteins: Illuminating Life at the Molecular Level</div>
+            <div style="font-size: 14px; opacity: 0.95; line-height: 1.6;">
+                From the discovery of GFP in jellyfish to the development of sophisticated photoswitchable variants, fluorescent proteins have transformed our ability to observe living cells. These genetically encoded tools continue to drive innovations in cell biology, neuroscience, developmental biology, and beyond.
+            </div>
+        </div>
     </div>
 </body>
 </html>

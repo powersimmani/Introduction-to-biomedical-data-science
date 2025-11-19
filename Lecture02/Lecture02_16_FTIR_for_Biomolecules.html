@@ -6,32 +6,477 @@
     <title>FTIR for Biomolecules</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Aptos, 'Segoe UI', sans-serif; background: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { width: 960px; height: 540px; padding: 30px 40px; background: white; }
-        .title { font-size: 28px; font-weight: 600; color: #1E64C8; margin-bottom: 22px; text-align: center; }
+        body { 
+            font-family: Aptos, 'Segoe UI', sans-serif; 
+            background: #f5f5f5; 
+            padding: 20px;
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .title { 
+            font-size: 32px; 
+            font-weight: 600; 
+            color: #1E64C8; 
+            margin-bottom: 30px; 
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #1E64C8;
+        }
+        .section {
+            background: #f8f9fa; 
+            border-left: 4px solid #1E64C8; 
+            padding: 20px; 
+            border-radius: 6px; 
+            margin-bottom: 25px;
+        }
+        .section-title {
+            font-size: 20px; 
+            font-weight: 700; 
+            color: #1E64C8; 
+            margin-bottom: 12px;
+        }
+        .section-content {
+            font-size: 15px; 
+            color: #333; 
+            line-height: 1.8;
+        }
+        .grid-2 {
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        .card {
+            background: #f0f5fc; 
+            border: 2px solid #1E64C8; 
+            border-radius: 8px; 
+            padding: 18px;
+        }
+        .card-title {
+            font-size: 17px; 
+            font-weight: 700; 
+            color: #1E64C8; 
+            margin-bottom: 8px;
+        }
+        .card-content {
+            font-size: 14px; 
+            color: #333;
+            line-height: 1.6;
+        }
+        .spectrum-container {
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+        }
+        .spectrum-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .spectrum-visual {
+            position: relative;
+            height: 200px;
+            background: linear-gradient(to bottom, #f8f9fa 0%, white 100%);
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            margin-bottom: 10px;
+        }
+        .peak {
+            position: absolute;
+            bottom: 0;
+            width: 40px;
+            background: linear-gradient(to top, #1E64C8, rgba(30, 100, 200, 0.3));
+            border-radius: 4px 4px 0 0;
+        }
+        .peak-label {
+            position: absolute;
+            bottom: 100%;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
+            color: #1E64C8;
+            font-weight: 600;
+            white-space: nowrap;
+            margin-bottom: 3px;
+        }
+        .x-axis {
+            display: flex;
+            justify-content: space-between;
+            font-size: 12px;
+            color: #666;
+            padding: 0 10px;
+            margin-top: 5px;
+        }
+        .detail-box {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 15px 0;
+        }
+        .detail-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #f57c00;
+            margin-bottom: 8px;
+        }
+        .detail-content {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.7;
+        }
+        .structure-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+            background: #f0f5fc;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        .structure-item {
+            text-align: center;
+            flex: 1;
+        }
+        .structure-visual {
+            width: 120px;
+            height: 80px;
+            margin: 0 auto 10px;
+            border: 2px solid #1E64C8;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            position: relative;
+        }
+        .helix-pattern {
+            width: 60px;
+            height: 60px;
+            border: 3px solid #1E64C8;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            transform: rotate(45deg);
+        }
+        .sheet-pattern {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .sheet-line {
+            width: 60px;
+            height: 4px;
+            background: #1E64C8;
+        }
+        .random-pattern {
+            width: 70px;
+            height: 3px;
+            background: #1E64C8;
+            position: relative;
+            border-radius: 2px;
+        }
+        .random-pattern::before,
+        .random-pattern::after {
+            content: '';
+            position: absolute;
+            width: 40px;
+            height: 3px;
+            background: #1E64C8;
+            border-radius: 2px;
+        }
+        .random-pattern::before {
+            top: -12px;
+            left: 10px;
+            transform: rotate(20deg);
+        }
+        .random-pattern::after {
+            bottom: -12px;
+            right: 10px;
+            transform: rotate(-20deg);
+        }
+        .structure-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 4px;
+        }
+        .structure-range {
+            font-size: 12px;
+            color: #666;
+        }
+        .lipid-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            height: 150px;
+            background: linear-gradient(to bottom, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 8px;
+            margin: 15px 0;
+            position: relative;
+        }
+        .membrane {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+        .membrane-layer {
+            display: flex;
+            gap: 5px;
+        }
+        .lipid-molecule {
+            width: 8px;
+            height: 50px;
+            background: linear-gradient(to bottom, #1E64C8 0%, #1E64C8 20%, #ffc107 20%, #ffc107 100%);
+            border-radius: 4px 4px 0 0;
+        }
+        .application-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin-top: 20px;
+        }
+        .application-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+        .application-card-title {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        .application-card-content {
+            font-size: 13px;
+            line-height: 1.6;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">FTIR for Biomolecules</div>
-        <div style="background: #f8f9fa; border-left: 4px solid #1E64C8; padding: 15px; border-radius: 6px; margin-bottom: 15px;">
-        <div style="font-size: 18px; font-weight: 700; color: #1E64C8; margin-bottom: 10px;">Amide Bands</div>
-        <div style="font-size: 15px; color: #333; line-height: 1.6;">
-            • Amide I (1600-1700 cm⁻¹): C=O stretch, secondary structure sensitive<br>
-            • Amide II (1510-1580 cm⁻¹): N-H bend, C-N stretch<br>
-            • α-helix: 1650-1658 | β-sheet: 1620-1640, 1680-1690 | Random: 1640-1650
+        
+        <!-- Original Amide Bands Section -->
+        <div class="section">
+            <div class="section-title">Amide Bands</div>
+            <div class="section-content">
+                • Amide I (1600-1700 cm⁻¹): C=O stretch, secondary structure sensitive<br>
+                • Amide II (1510-1580 cm⁻¹): N-H bend, C-N stretch<br>
+                • α-helix: 1650-1658 | β-sheet: 1620-1640, 1680-1690 | Random: 1640-1650
+            </div>
         </div>
-    </div>
-    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 12px;">
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 16px; font-weight: 700; color: #1E64C8; margin-bottom: 6px;">Lipid Analysis</div>
-            <div style="font-size: 14px; color: #333;">C-H stretch 2800-3000 cm⁻¹. Membrane fluidity studies.</div>
+
+        <!-- Spectrum Visualization -->
+        <div class="spectrum-container">
+            <div class="spectrum-title">Representative Protein FTIR Spectrum</div>
+            <div class="spectrum-visual">
+                <div class="peak" style="left: 10%; height: 85%;">
+                    <div class="peak-label">1655 cm⁻¹<br>α-helix</div>
+                </div>
+                <div class="peak" style="left: 25%; height: 70%;">
+                    <div class="peak-label">1630 cm⁻¹<br>β-sheet</div>
+                </div>
+                <div class="peak" style="left: 40%; height: 75%;">
+                    <div class="peak-label">1645 cm⁻¹<br>Random</div>
+                </div>
+                <div class="peak" style="left: 55%; height: 65%;">
+                    <div class="peak-label">1685 cm⁻¹<br>β-sheet</div>
+                </div>
+                <div class="peak" style="left: 75%; height: 90%;">
+                    <div class="peak-label">1545 cm⁻¹<br>Amide II</div>
+                </div>
+            </div>
+            <div class="x-axis">
+                <span>1700</span>
+                <span>1650</span>
+                <span>1600</span>
+                <span>1550</span>
+                <span>1500 cm⁻¹</span>
+            </div>
         </div>
-        <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 14px;">
-            <div style="font-size: 16px; font-weight: 700; color: #1E64C8; margin-bottom: 6px;">Spectral Deconvolution</div>
-            <div style="font-size: 14px; color: #333;">Fourier self-deconvolution resolves overlapping bands.</div>
+
+        <!-- Secondary Structure Diagrams -->
+        <div class="detail-box">
+            <div class="detail-title">Secondary Structure Characteristics</div>
+            <div class="structure-diagram">
+                <div class="structure-item">
+                    <div class="structure-visual">
+                        <div class="helix-pattern"></div>
+                    </div>
+                    <div class="structure-label">α-helix</div>
+                    <div class="structure-range">1650-1658 cm⁻¹</div>
+                </div>
+                <div class="structure-item">
+                    <div class="structure-visual">
+                        <div class="sheet-pattern">
+                            <div class="sheet-line"></div>
+                            <div class="sheet-line"></div>
+                            <div class="sheet-line"></div>
+                        </div>
+                    </div>
+                    <div class="structure-label">β-sheet</div>
+                    <div class="structure-range">1620-1640, 1680-1690 cm⁻¹</div>
+                </div>
+                <div class="structure-item">
+                    <div class="structure-visual">
+                        <div class="random-pattern"></div>
+                    </div>
+                    <div class="structure-label">Random coil</div>
+                    <div class="structure-range">1640-1650 cm⁻¹</div>
+                </div>
+            </div>
+            <div class="detail-content">
+                <strong>α-helix:</strong> Forms regular hydrogen bonding patterns due to helical structure, showing strong absorption at 1650-1658 cm⁻¹ from C=O stretching vibration.<br><br>
+                <strong>β-sheet:</strong> Shows two characteristic peaks depending on parallel or antiparallel structure. Absorbed at 1620-1640 cm⁻¹ (strong peak) and 1680-1690 cm⁻¹ (weak peak).<br><br>
+                <strong>Random coil:</strong> Exhibits broad absorption band at 1640-1650 cm⁻¹ due to irregular structure.
+            </div>
         </div>
-    </div>
+
+        <!-- Original Grid -->
+        <div class="grid-2">
+            <div class="card">
+                <div class="card-title">Lipid Analysis</div>
+                <div class="card-content">C-H stretch 2800-3000 cm⁻¹. Membrane fluidity studies.</div>
+            </div>
+            <div class="card">
+                <div class="card-title">Spectral Deconvolution</div>
+                <div class="card-content">Fourier self-deconvolution resolves overlapping bands.</div>
+            </div>
+        </div>
+
+        <!-- Lipid Membrane Visualization -->
+        <div class="detail-box">
+            <div class="detail-title">Lipid Analysis</div>
+            <div class="lipid-visual">
+                <div class="membrane">
+                    <div class="membrane-layer">
+                        <div class="lipid-molecule"></div>
+                        <div class="lipid-molecule"></div>
+                        <div class="lipid-molecule"></div>
+                        <div class="lipid-molecule"></div>
+                        <div class="lipid-molecule"></div>
+                        <div class="lipid-molecule"></div>
+                        <div class="lipid-molecule"></div>
+                        <div class="lipid-molecule"></div>
+                    </div>
+                    <div class="membrane-layer" style="transform: rotate(180deg);">
+                        <div class="lipid-molecule"></div>
+                        <div class="lipid-molecule"></div>
+                        <div class="lipid-molecule"></div>
+                        <div class="lipid-molecule"></div>
+                        <div class="lipid-molecule"></div>
+                        <div class="lipid-molecule"></div>
+                        <div class="lipid-molecule"></div>
+                        <div class="lipid-molecule"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="detail-content">
+                <strong>C-H Stretching Vibration (2800-3000 cm⁻¹):</strong><br>
+                • 2920 cm⁻¹: Asymmetric CH₂ stretch<br>
+                • 2850 cm⁻¹: Symmetric CH₂ stretch<br>
+                • Changes in position and intensity of these peaks can be used to analyze fluidity and phase transitions of lipid bilayers.<br>
+                • Peak shift to higher wavenumbers with increasing temperature indicates increased membrane fluidity.<br>
+                • Applied in biological membrane studies, drug-membrane interactions, and lipid oxidation research.
+            </div>
+        </div>
+
+        <!-- Spectral Deconvolution -->
+        <div class="detail-box">
+            <div class="detail-title">Spectral Deconvolution</div>
+            <div class="spectrum-container" style="border-color: #ffc107;">
+                <div class="spectrum-title">Separation of Overlapped Peaks</div>
+                <div class="spectrum-visual">
+                    <!-- Overlapped peaks -->
+                    <div class="peak" style="left: 30%; height: 80%; background: linear-gradient(to top, rgba(30, 100, 200, 0.5), rgba(30, 100, 200, 0.1));"></div>
+                    <div class="peak" style="left: 35%; height: 85%; background: linear-gradient(to top, rgba(30, 100, 200, 0.5), rgba(30, 100, 200, 0.1));"></div>
+                    <div class="peak" style="left: 40%; height: 75%; background: linear-gradient(to top, rgba(30, 100, 200, 0.5), rgba(30, 100, 200, 0.1));"></div>
+                    <!-- Deconvoluted peaks -->
+                    <div class="peak" style="left: 60%; height: 70%; width: 25px;">
+                        <div class="peak-label">Peak 1</div>
+                    </div>
+                    <div class="peak" style="left: 68%; height: 75%; width: 25px;">
+                        <div class="peak-label">Peak 2</div>
+                    </div>
+                    <div class="peak" style="left: 76%; height: 65%; width: 25px;">
+                        <div class="peak-label">Peak 3</div>
+                    </div>
+                </div>
+                <div class="x-axis">
+                    <span style="flex: 1; text-align: center;">Overlapped Spectrum</span>
+                    <span style="flex: 1; text-align: center;">After Deconvolution</span>
+                </div>
+            </div>
+            <div class="detail-content">
+                <strong>Fourier Self-Deconvolution:</strong><br>
+                • Separates overlapped peaks into individual components using mathematical algorithms.<br>
+                • Enables quantification of various secondary structure components in the complex Amide I region spectrum.<br>
+                • Used in conjunction with second derivative to enhance resolution.<br>
+                • Essential technique for protein aggregation, structural changes, and ligand binding studies.<br>
+                • Caution: Excessive deconvolution can generate artificial peaks, so appropriate parameter selection is important.
+            </div>
+        </div>
+
+        <!-- Applications -->
+        <div class="detail-box">
+            <div class="detail-title">Major Applications of Biomolecular FTIR</div>
+            <div class="application-grid">
+                <div class="application-card">
+                    <div class="application-card-title">🧬 Protein Structure Analysis</div>
+                    <div class="application-card-content">
+                        Monitoring protein folding, denaturation, and aggregation states. Studying protein-ligand interactions in drug development.
+                    </div>
+                </div>
+                <div class="application-card" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">
+                    <div class="application-card-title">💊 Pharmaceutical Research</div>
+                    <div class="application-card-content">
+                        Drug crystalline forms, polymer formulations, stability assessment and quality control of protein therapeutics.
+                    </div>
+                </div>
+                <div class="application-card" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">
+                    <div class="application-card-title">🧫 Cell Membrane Research</div>
+                    <div class="application-card-content">
+                        Phase transitions of lipid bilayers, membrane fluidity, and drug-membrane interaction analysis.
+                    </div>
+                </div>
+                <div class="application-card" style="background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);">
+                    <div class="application-card-title">🔬 Biosensors</div>
+                    <div class="application-card-content">
+                        Label-free sensing for biomolecular recognition, immunoassays, and disease marker detection.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Technical Notes -->
+        <div class="section" style="background: #e8f5e9; border-left-color: #4caf50;">
+            <div class="section-title" style="color: #2e7d32;">Experimental Tips & Precautions</div>
+            <div class="section-content">
+                <strong>Sample Preparation:</strong><br>
+                • Use D₂O solution or measure in dry film form to minimize water interference<br>
+                • Appropriate concentration: Protein 10-50 mg/mL, Lipid 5-20 mg/mL<br><br>
+                
+                <strong>Spectrum Acquisition:</strong><br>
+                • Resolution: 2-4 cm⁻¹ (general), 1 cm⁻¹ (high-resolution analysis)<br>
+                • Number of scans: Minimum 64 or more (improves signal-to-noise ratio)<br>
+                • Acquire fresh background spectrum before each measurement<br><br>
+                
+                <strong>Data Processing:</strong><br>
+                • Baseline correction<br>
+                • Atmospheric water vapor/CO₂ correction<br>
+                • Appropriate smoothing (Savitzky-Golay filter recommended)
+            </div>
+        </div>
     </div>
 </body>
 </html>

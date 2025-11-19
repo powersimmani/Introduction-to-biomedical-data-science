@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Digital Image Basics</title>
+    <title>Digital Image Basics - Extended</title>
     <style>
         * {
             margin: 0;
@@ -13,20 +13,29 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
+            background: #f5f5f5;
             display: flex;
             justify-content: center;
-            align-items: center;
+            align-items: flex-start;
             min-height: 100vh;
+            padding: 60px 20px;
         }
         
-        .container {
+        .slides-container {
+            width: 100%;
+            max-width: 960px;
+        }
+        
+        .slide {
             width: 960px;
             height: 540px;
             padding: 40px 60px;
             background: white;
+            margin-bottom: 80px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
             display: flex;
             flex-direction: column;
+            page-break-after: always;
         }
         
         .title {
@@ -36,6 +45,16 @@
             margin-bottom: 30px;
             text-align: center;
             padding-bottom: 15px;
+            border-bottom: 3px solid #1E64C8;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            text-align: center;
+            padding-bottom: 12px;
             border-bottom: 3px solid #1E64C8;
         }
         
@@ -84,270 +103,1047 @@
             align-items: center;
             justify-content: center;
         }
+
+        /* Detail slide styles */
+        .detail-content {
+            display: flex;
+            gap: 30px;
+            flex: 1;
+        }
+
+        .left-panel {
+            flex: 1.2;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .right-panel {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .description-box {
+            background: #f8fbff;
+            border-left: 5px solid #1E64C8;
+            border-radius: 8px;
+            padding: 15px 20px;
+        }
+
+        .description-box h3 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 8px;
+        }
+
+        .description-box p {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+
+        .description-box ul {
+            margin-left: 20px;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.7;
+        }
+
+        .highlight-box {
+            background: #fff8e1;
+            border-left: 5px solid #FFA500;
+            border-radius: 8px;
+            padding: 12px 20px;
+            margin-top: 10px;
+        }
+
+        .highlight-box strong {
+            color: #E65100;
+            font-size: 14px;
+        }
+
+        @media print {
+            body {
+                padding: 0;
+                background: white;
+            }
+            .slide {
+                margin: 0;
+                margin-bottom: 20px;
+                box-shadow: none;
+                page-break-after: always;
+            }
+            .slide:last-child {
+                margin-bottom: 0;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">Digital Image Basics</div>
-        
-        <div class="main-content">
-            <div class="content-grid">
-                <div class="content-card">
-                    <div class="card-label">Pixel and voxel concepts</div>
-                    <div class="card-desc">2D picture elements, 3D volume elements</div>
-                </div>
-                <div class="content-card">
-                    <div class="card-label">Bit depth</div>
-                    <div class="card-desc">8-bit (256 levels), 16-bit (65,536 levels)</div>
-                </div>
-                <div class="content-card">
-                    <div class="card-label">File formats</div>
-                    <div class="card-desc">TIFF, PNG (lossless), JPEG (lossy)</div>
-                </div>
-                <div class="content-card">
-                    <div class="card-label">Compression methods</div>
-                    <div class="card-desc">Lossless vs lossy tradeoffs</div>
-                </div>
-                <div class="content-card">
-                    <div class="card-label">Metadata standards</div>
-                    <div class="card-desc">EXIF, OME-TIFF for scientific imaging</div>
-                </div>
-            </div>
+    <div class="slides-container">
+        <!-- Slide 1: Overview -->
+        <div class="slide">
+            <div class="title">Digital Image Basics</div>
             
-            <div class="diagram-container">
-                <svg width="420" height="400" viewBox="0 0 420 400">
-                    <!-- Pixel Grid Demonstration -->
-                    <g id="pixel-demo">
-                        <text x="100" y="15" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Pixel (2D)</text>
-                        
-                        <!-- Magnified pixel grid -->
-                        <g transform="translate(20, 25)">
-                            <!-- Grid lines -->
-                            <line x1="0" y1="0" x2="160" y2="0" stroke="#ccc" stroke-width="1"/>
-                            <line x1="0" y1="20" x2="160" y2="20" stroke="#ccc" stroke-width="1"/>
-                            <line x1="0" y1="40" x2="160" y2="40" stroke="#ccc" stroke-width="1"/>
-                            <line x1="0" y1="60" x2="160" y2="60" stroke="#ccc" stroke-width="1"/>
-                            <line x1="0" y1="80" x2="160" y2="80" stroke="#ccc" stroke-width="1"/>
+            <div class="main-content">
+                <div class="content-grid">
+                    <div class="content-card">
+                        <div class="card-label">Pixel and voxel concepts</div>
+                        <div class="card-desc">2D picture elements, 3D volume elements</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-label">Bit depth</div>
+                        <div class="card-desc">8-bit (256 levels), 16-bit (65,536 levels)</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-label">File formats</div>
+                        <div class="card-desc">TIFF, PNG (lossless), JPEG (lossy)</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-label">Compression methods</div>
+                        <div class="card-desc">Lossless vs lossy tradeoffs</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-label">Metadata standards</div>
+                        <div class="card-desc">EXIF, OME-TIFF for scientific imaging</div>
+                    </div>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg width="420" height="400" viewBox="0 0 420 400">
+                        <!-- Pixel Grid Demonstration -->
+                        <g id="pixel-demo">
+                            <text x="100" y="15" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Pixel (2D)</text>
                             
-                            <line x1="0" y1="0" x2="0" y2="80" stroke="#ccc" stroke-width="1"/>
-                            <line x1="20" y1="0" x2="20" y2="80" stroke="#ccc" stroke-width="1"/>
-                            <line x1="40" y1="0" x2="40" y2="80" stroke="#ccc" stroke-width="1"/>
-                            <line x1="60" y1="0" x2="60" y2="80" stroke="#ccc" stroke-width="1"/>
-                            <line x1="80" y1="0" x2="80" y2="80" stroke="#ccc" stroke-width="1"/>
-                            <line x1="100" y1="0" x2="100" y2="80" stroke="#ccc" stroke-width="1"/>
-                            <line x1="120" y1="0" x2="120" y2="80" stroke="#ccc" stroke-width="1"/>
-                            <line x1="140" y1="0" x2="140" y2="80" stroke="#ccc" stroke-width="1"/>
-                            <line x1="160" y1="0" x2="160" y2="80" stroke="#ccc" stroke-width="1"/>
-                            
-                            <!-- Pixels with different intensities -->
-                            <rect x="0" y="0" width="20" height="20" fill="#333333"/>
-                            <rect x="20" y="0" width="20" height="20" fill="#666666"/>
-                            <rect x="40" y="0" width="20" height="20" fill="#999999"/>
-                            <rect x="60" y="0" width="20" height="20" fill="#CCCCCC"/>
-                            <rect x="80" y="0" width="20" height="20" fill="#FFFFFF" stroke="#ccc"/>
-                            <rect x="100" y="0" width="20" height="20" fill="#E0E0E0"/>
-                            <rect x="120" y="0" width="20" height="20" fill="#B0B0B0"/>
-                            <rect x="140" y="0" width="20" height="20" fill="#808080"/>
-                            
-                            <rect x="0" y="20" width="20" height="20" fill="#555555"/>
-                            <rect x="20" y="20" width="20" height="20" fill="#888888"/>
-                            <rect x="40" y="20" width="20" height="20" fill="#BBBBBB"/>
-                            <rect x="60" y="20" width="20" height="20" fill="#FF6B6B"/>
-                            <rect x="80" y="20" width="20" height="20" fill="#FF8C8C"/>
-                            <rect x="100" y="20" width="20" height="20" fill="#DDDDDD"/>
-                            <rect x="120" y="20" width="20" height="20" fill="#AAAAAA"/>
-                            <rect x="140" y="20" width="20" height="20" fill="#777777"/>
+                            <!-- Magnified pixel grid -->
+                            <g transform="translate(20, 25)">
+                                <!-- Grid lines -->
+                                <line x1="0" y1="0" x2="160" y2="0" stroke="#ccc" stroke-width="1"/>
+                                <line x1="0" y1="20" x2="160" y2="20" stroke="#ccc" stroke-width="1"/>
+                                <line x1="0" y1="40" x2="160" y2="40" stroke="#ccc" stroke-width="1"/>
+                                <line x1="0" y1="60" x2="160" y2="60" stroke="#ccc" stroke-width="1"/>
+                                <line x1="0" y1="80" x2="160" y2="80" stroke="#ccc" stroke-width="1"/>
+                                
+                                <line x1="0" y1="0" x2="0" y2="80" stroke="#ccc" stroke-width="1"/>
+                                <line x1="20" y1="0" x2="20" y2="80" stroke="#ccc" stroke-width="1"/>
+                                <line x1="40" y1="0" x2="40" y2="80" stroke="#ccc" stroke-width="1"/>
+                                <line x1="60" y1="0" x2="60" y2="80" stroke="#ccc" stroke-width="1"/>
+                                <line x1="80" y1="0" x2="80" y2="80" stroke="#ccc" stroke-width="1"/>
+                                <line x1="100" y1="0" x2="100" y2="80" stroke="#ccc" stroke-width="1"/>
+                                <line x1="120" y1="0" x2="120" y2="80" stroke="#ccc" stroke-width="1"/>
+                                <line x1="140" y1="0" x2="140" y2="80" stroke="#ccc" stroke-width="1"/>
+                                <line x1="160" y1="0" x2="160" y2="80" stroke="#ccc" stroke-width="1"/>
+                                
+                                <!-- Pixels with different intensities -->
+                                <rect x="0" y="0" width="20" height="20" fill="#333333"/>
+                                <rect x="20" y="0" width="20" height="20" fill="#666666"/>
+                                <rect x="40" y="0" width="20" height="20" fill="#999999"/>
+                                <rect x="60" y="0" width="20" height="20" fill="#BBBBBB"/>
+                                <rect x="80" y="0" width="20" height="20" fill="#DDDDDD"/>
+                                <rect x="100" y="0" width="20" height="20" fill="#EEEEEE"/>
+                                <rect x="120" y="0" width="20" height="20" fill="#FFFFFF"/>
+                                <rect x="140" y="0" width="20" height="20" fill="#E0E0E0"/>
+                                
+                                <rect x="0" y="20" width="20" height="20" fill="#666666"/>
+                                <rect x="20" y="20" width="20" height="20" fill="#999999"/>
+                                <rect x="40" y="20" width="20" height="20" fill="#AAAAAA"/>
+                                <rect x="60" y="20" width="20" height="20" fill="#CCCCCC"/>
+                                <rect x="80" y="20" width="20" height="20" fill="#EEEEEE"/>
+                                <rect x="100" y="20" width="20" height="20" fill="#FFFFFF"/>
+                                <rect x="120" y="20" width="20" height="20" fill="#F5F5F5"/>
+                                <rect x="140" y="20" width="20" height="20" fill="#DDDDDD"/>
+                                
+                                <rect x="0" y="40" width="20" height="20" fill="#888888"/>
+                                <rect x="20" y="40" width="20" height="20" fill="#AAAAAA"/>
+                                <rect x="40" y="40" width="20" height="20" fill="#BBBBBB"/>
+                                <rect x="60" y="40" width="20" height="20" fill="#DDDDDD"/>
+                                <rect x="80" y="40" width="20" height="20" fill="#FFFFFF"/>
+                                <rect x="100" y="40" width="20" height="20" fill="#F8F8F8"/>
+                                <rect x="120" y="40" width="20" height="20" fill="#E8E8E8"/>
+                                <rect x="140" y="40" width="20" height="20" fill="#CCCCCC"/>
+                                
+                                <rect x="0" y="60" width="20" height="20" fill="#AAAAAA"/>
+                                <rect x="20" y="60" width="20" height="20" fill="#BBBBBB"/>
+                                <rect x="40" y="60" width="20" height="20" fill="#CCCCCC"/>
+                                <rect x="60" y="60" width="20" height="20" fill="#EEEEEE"/>
+                                <rect x="80" y="60" width="20" height="20" fill="#F8F8F8"/>
+                                <rect x="100" y="60" width="20" height="20" fill="#E8E8E8"/>
+                                <rect x="120" y="60" width="20" height="20" fill="#D8D8D8"/>
+                                <rect x="140" y="60" width="20" height="20" fill="#BBBBBB"/>
+                            </g>
                             
                             <!-- Highlight one pixel -->
-                            <rect x="60" y="20" width="20" height="20" fill="none" stroke="#FF0000" stroke-width="2.5"/>
+                            <rect x="60" y="45" width="20" height="20" fill="none" stroke="#FF0000" stroke-width="2"/>
+                            
+                            <!-- Arrow pointing to pixel -->
+                            <line x1="100" y1="100" x2="70" y2="70" stroke="#FF0000" stroke-width="2" marker-end="url(#redArrow)"/>
+                            <text x="110" y="105" font-size="9" fill="#FF0000" font-weight="600">1 Pixel</text>
+                            <text x="110" y="117" font-size="8" fill="#666">[x, y, value]</text>
+                            
+                            <defs>
+                                <marker id="redArrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                                    <polygon points="0 0, 8 3, 0 6" fill="#FF0000"/>
+                                </marker>
+                            </defs>
                         </g>
                         
-                        <!-- Arrow pointing to single pixel -->
-                        <line x1="85" y1="120" x2="85" y2="100" stroke="#FF0000" stroke-width="2" marker-end="url(#redArrow)"/>
-                        <text x="85" y="135" text-anchor="middle" font-size="9" fill="#FF0000" font-weight="600">1 Pixel</text>
-                        <text x="85" y="147" text-anchor="middle" font-size="8" fill="#666">[row, col, value]</text>
-                        
-                        <defs>
-                            <marker id="redArrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
-                                <polygon points="0 0, 8 3, 0 6" fill="#FF0000"/>
-                            </marker>
-                        </defs>
-                    </g>
-                    
-                    <!-- Voxel Demonstration -->
-                    <g id="voxel-demo">
-                        <text x="310" y="15" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Voxel (3D)</text>
-                        
-                        <!-- 3D voxel grid -->
-                        <g transform="translate(250, 25)">
-                            <!-- Back layer -->
-                            <g transform="translate(10, 10)" opacity="0.5">
-                                <rect x="0" y="0" width="20" height="20" fill="#AAAAAA" stroke="#666" stroke-width="1"/>
-                                <rect x="20" y="0" width="20" height="20" fill="#999999" stroke="#666" stroke-width="1"/>
-                                <rect x="40" y="0" width="20" height="20" fill="#BBBBBB" stroke="#666" stroke-width="1"/>
-                                <rect x="0" y="20" width="20" height="20" fill="#888888" stroke="#666" stroke-width="1"/>
-                                <rect x="20" y="20" width="20" height="20" fill="#AAAAAA" stroke="#666" stroke-width="1"/>
-                                <rect x="40" y="20" width="20" height="20" fill="#999999" stroke="#666" stroke-width="1"/>
+                        <!-- Voxel Visualization -->
+                        <g id="voxel-demo">
+                            <text x="300" y="15" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Voxel (3D)</text>
+                            
+                            <!-- 3D cube stack representation -->
+                            <g transform="translate(230, 30)">
+                                <!-- Back layer (lighter) -->
+                                <g opacity="0.4">
+                                    <rect x="40" y="0" width="20" height="20" fill="#CCCCCC" stroke="#999" stroke-width="0.5"/>
+                                    <rect x="60" y="0" width="20" height="20" fill="#DDDDDD" stroke="#999" stroke-width="0.5"/>
+                                    <rect x="80" y="0" width="20" height="20" fill="#EEEEEE" stroke="#999" stroke-width="0.5"/>
+                                    <rect x="40" y="20" width="20" height="20" fill="#BBBBBB" stroke="#999" stroke-width="0.5"/>
+                                    <rect x="60" y="20" width="20" height="20" fill="#CCCCCC" stroke="#999" stroke-width="0.5"/>
+                                    <rect x="80" y="20" width="20" height="20" fill="#DDDDDD" stroke="#999" stroke-width="0.5"/>
+                                </g>
+                                
+                                <!-- Middle layer (medium) -->
+                                <g opacity="0.7" transform="translate(10, 10)">
+                                    <rect x="20" y="0" width="20" height="20" fill="#999999" stroke="#666" stroke-width="0.5"/>
+                                    <rect x="40" y="0" width="20" height="20" fill="#AAAAAA" stroke="#666" stroke-width="0.5"/>
+                                    <rect x="60" y="0" width="20" height="20" fill="#CCCCCC" stroke="#666" stroke-width="0.5"/>
+                                    <rect x="20" y="20" width="20" height="20" fill="#888888" stroke="#666" stroke-width="0.5"/>
+                                    <rect x="40" y="20" width="20" height="20" fill="#999999" stroke="#666" stroke-width="0.5"/>
+                                    <rect x="60" y="20" width="20" height="20" fill="#BBBBBB" stroke="#666" stroke-width="0.5"/>
+                                </g>
+                                
+                                <!-- Front layer (full opacity) -->
+                                <g transform="translate(20, 20)">
+                                    <rect x="0" y="0" width="20" height="20" fill="#666666" stroke="#333" stroke-width="1"/>
+                                    <rect x="20" y="0" width="20" height="20" fill="#888888" stroke="#333" stroke-width="1"/>
+                                    <rect x="40" y="0" width="20" height="20" fill="#AAAAAA" stroke="#333" stroke-width="1"/>
+                                    <rect x="0" y="20" width="20" height="20" fill="#555555" stroke="#333" stroke-width="1"/>
+                                    <rect x="20" y="20" width="20" height="20" fill="#777777" stroke="#333" stroke-width="1"/>
+                                    <rect x="40" y="20" width="20" height="20" fill="#999999" stroke="#333" stroke-width="1"/>
+                                </g>
+                                
+                                <!-- Highlight one voxel -->
+                                <g transform="translate(25, 25)">
+                                    <!-- 3D voxel edges -->
+                                    <path d="M 0 0 L 10 -10 L 30 -10 L 20 0 Z" fill="none" stroke="#FF0000" stroke-width="2"/>
+                                    <path d="M 0 0 L 0 20 L 10 10 L 10 -10" fill="none" stroke="#FF0000" stroke-width="2"/>
+                                    <path d="M 20 0 L 20 20 L 30 10 L 30 -10" fill="none" stroke="#FF0000" stroke-width="2"/>
+                                    <path d="M 0 20 L 10 10 L 30 10 L 20 20 Z" fill="none" stroke="#FF0000" stroke-width="2"/>
+                                </g>
                             </g>
                             
-                            <!-- Middle layer -->
-                            <g transform="translate(5, 5)" opacity="0.7">
-                                <rect x="0" y="0" width="20" height="20" fill="#777777" stroke="#666" stroke-width="1"/>
-                                <rect x="20" y="0" width="20" height="20" fill="#666666" stroke="#666" stroke-width="1"/>
-                                <rect x="40" y="0" width="20" height="20" fill="#888888" stroke="#666" stroke-width="1"/>
-                                <rect x="0" y="20" width="20" height="20" fill="#555555" stroke="#666" stroke-width="1"/>
-                                <rect x="20" y="20" width="20" height="20" fill="#FF6B6B" stroke="#666" stroke-width="1"/>
-                                <rect x="40" y="20" width="20" height="20" fill="#666666" stroke="#666" stroke-width="1"/>
+                            <!-- Arrow pointing to voxel -->
+                            <line x1="290" y1="120" x2="290" y2="90" stroke="#FF0000" stroke-width="2" marker-end="url(#redArrow)"/>
+                            <text x="290" y="135" text-anchor="middle" font-size="9" fill="#FF0000" font-weight="600">1 Voxel</text>
+                            <text x="290" y="147" text-anchor="middle" font-size="8" fill="#666">[x, y, z, value]</text>
+                        </g>
+                        
+                        <!-- Bit Depth Visualization -->
+                        <g id="bit-depth">
+                            <rect x="15" y="170" width="180" height="100" fill="#f0f8ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="105" y="190" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Bit Depth</text>
+                            
+                            <!-- 8-bit gradient -->
+                            <rect x="25" y="200" width="160" height="20" fill="url(#gradient8bit)"/>
+                            <defs>
+                                <linearGradient id="gradient8bit" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <text x="25" y="232" font-size="9" fill="#333">8-bit: 0</text>
+                            <text x="185" y="232" text-anchor="end" font-size="9" fill="#333">255</text>
+                            <text x="105" y="232" text-anchor="middle" font-size="9" fill="#666">256 levels</text>
+                            
+                            <!-- 16-bit gradient -->
+                            <rect x="25" y="238" width="160" height="20" fill="url(#gradient16bit)"/>
+                            <defs>
+                                <linearGradient id="gradient16bit" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
+                                    <stop offset="25%" style="stop-color:#404040;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#808080;stop-opacity:1" />
+                                    <stop offset="75%" style="stop-color:#C0C0C0;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <text x="25" y="270" font-size="9" fill="#333">16-bit: 0</text>
+                            <text x="185" y="270" text-anchor="end" font-size="9" fill="#333">65,535</text>
+                            <text x="105" y="270" text-anchor="middle" font-size="9" fill="#666">65,536 levels</text>
+                        </g>
+                        
+                        <!-- File Format Comparison -->
+                        <g id="formats">
+                            <rect x="210" y="170" width="195" height="100" fill="#fff8f0" stroke="#FFA500" stroke-width="2" rx="5"/>
+                            <text x="307" y="190" text-anchor="middle" font-size="11" fill="#FFA500" font-weight="700">File Format Comparison</text>
+                            
+                            <!-- Format table -->
+                            <text x="220" y="208" font-size="9" fill="#333" font-weight="600">Format</text>
+                            <text x="280" y="208" font-size="9" fill="#333" font-weight="600">Compression</text>
+                            <text x="350" y="208" font-size="9" fill="#333" font-weight="600">Use Case</text>
+                            
+                            <line x1="215" y1="211" x2="400" y2="211" stroke="#ccc" stroke-width="1"/>
+                            
+                            <!-- TIFF -->
+                            <text x="220" y="225" font-size="9" fill="#4A90E2">TIFF</text>
+                            <text x="280" y="225" font-size="9" fill="#333">Lossless</text>
+                            <text x="350" y="225" font-size="8" fill="#666">Scientific</text>
+                            
+                            <!-- PNG -->
+                            <text x="220" y="240" font-size="9" fill="#4A90E2">PNG</text>
+                            <text x="280" y="240" font-size="9" fill="#333">Lossless</text>
+                            <text x="350" y="240" font-size="8" fill="#666">Web/Analysis</text>
+                            
+                            <!-- JPEG -->
+                            <text x="220" y="255" font-size="9" fill="#4A90E2">JPEG</text>
+                            <text x="280" y="255" font-size="9" fill="#FF6B6B">Lossy</text>
+                            <text x="350" y="255" font-size="8" fill="#666">Web/Display</text>
+                            
+                            <!-- DICOM -->
+                            <text x="220" y="270" font-size="9" fill="#4A90E2">DICOM</text>
+                            <text x="280" y="270" font-size="9" fill="#333">Both</text>
+                            <text x="350" y="270" font-size="8" fill="#666">Medical</text>
+                        </g>
+                        
+                        <!-- Compression illustration -->
+                        <g id="compression">
+                            <rect x="15" y="285" width="390" height="105" fill="#f0fff0" stroke="#28a745" stroke-width="2" rx="5"/>
+                            <text x="210" y="305" text-anchor="middle" font-size="11" fill="#28a745" font-weight="700">Compression Methods</text>
+                            
+                            <!-- Original -->
+                            <g transform="translate(30, 315)">
+                                <rect x="0" y="0" width="80" height="40" fill="#E8E8E8" stroke="#666" stroke-width="1.5"/>
+                                <text x="40" y="25" text-anchor="middle" font-size="9" fill="#333">Original</text>
+                                <text x="40" y="52" text-anchor="middle" font-size="8" fill="#666">100 MB</text>
                             </g>
                             
-                            <!-- Front layer -->
-                            <g transform="translate(0, 0)">
-                                <rect x="0" y="0" width="20" height="20" fill="#444444" stroke="#333" stroke-width="1.5"/>
-                                <rect x="20" y="0" width="20" height="20" fill="#333333" stroke="#333" stroke-width="1.5"/>
-                                <rect x="40" y="0" width="20" height="20" fill="#555555" stroke="#333" stroke-width="1.5"/>
-                                <rect x="0" y="20" width="20" height="20" fill="#222222" stroke="#333" stroke-width="1.5"/>
-                                <rect x="20" y="20" width="20" height="20" fill="#4A90E2" stroke="#333" stroke-width="1.5"/>
-                                <rect x="40" y="20" width="20" height="20" fill="#333333" stroke="#333" stroke-width="1.5"/>
+                            <!-- Lossless arrow -->
+                            <line x1="115" y1="335" x2="155" y2="325" stroke="#4A90E2" stroke-width="2" marker-end="url(#blueArrow)"/>
+                            <text x="135" y="320" text-anchor="middle" font-size="8" fill="#4A90E2">Lossless</text>
+                            <defs>
+                                <marker id="blueArrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                                    <polygon points="0 0, 8 3, 0 6" fill="#4A90E2"/>
+                                </marker>
+                            </defs>
+                            
+                            <!-- Lossless result -->
+                            <g transform="translate(160, 305)">
+                                <rect x="0" y="0" width="60" height="30" fill="#B8D4F1" stroke="#4A90E2" stroke-width="1.5"/>
+                                <text x="30" y="20" text-anchor="middle" font-size="9" fill="#333">ZIP/LZW</text>
+                                <text x="30" y="42" text-anchor="middle" font-size="8" fill="#666">40 MB</text>
+                                <text x="30" y="52" text-anchor="middle" font-size="7" fill="#28a745">✓ Perfect</text>
                             </g>
                             
-                            <!-- Highlight one voxel -->
-                            <g transform="translate(25, 25)">
-                                <!-- 3D voxel edges -->
-                                <path d="M 0 0 L 10 -10 L 30 -10 L 20 0 Z" fill="none" stroke="#FF0000" stroke-width="2"/>
-                                <path d="M 0 0 L 0 20 L 10 10 L 10 -10" fill="none" stroke="#FF0000" stroke-width="2"/>
-                                <path d="M 20 0 L 20 20 L 30 10 L 30 -10" fill="none" stroke="#FF0000" stroke-width="2"/>
-                                <path d="M 0 20 L 10 10 L 30 10 L 20 20 Z" fill="none" stroke="#FF0000" stroke-width="2"/>
+                            <!-- Lossy arrow -->
+                            <line x1="115" y1="345" x2="155" y2="355" stroke="#FF6B6B" stroke-width="2" marker-end="url(#redArrow2)"/>
+                            <text x="135" y="365" text-anchor="middle" font-size="8" fill="#FF6B6B">Lossy</text>
+                            <defs>
+                                <marker id="redArrow2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                                    <polygon points="0 0, 8 3, 0 6" fill="#FF6B6B"/>
+                                </marker>
+                            </defs>
+                            
+                            <!-- Lossy result -->
+                            <g transform="translate(160, 345)">
+                                <rect x="0" y="0" width="60" height="30" fill="#FFE5E5" stroke="#FF6B6B" stroke-width="1.5"/>
+                                <text x="30" y="20" text-anchor="middle" font-size="9" fill="#333">JPEG</text>
+                                <text x="30" y="42" text-anchor="middle" font-size="8" fill="#666">5 MB</text>
+                                <text x="30" y="52" text-anchor="middle" font-size="7" fill="#FF6B6B">⚠ Quality loss</text>
+                            </g>
+                            
+                            <!-- Metadata box -->
+                            <g transform="translate(250, 315)">
+                                <rect x="0" y="0" width="140" height="60" fill="#f8f8ff" stroke="#9C27B0" stroke-width="2" rx="3"/>
+                                <text x="70" y="15" text-anchor="middle" font-size="10" fill="#9C27B0" font-weight="600">Metadata Standards</text>
+                                <text x="5" y="30" font-size="8" fill="#333">• EXIF: Camera settings</text>
+                                <text x="5" y="42" font-size="8" fill="#333">• OME-TIFF: Microscopy</text>
+                                <text x="5" y="54" font-size="8" fill="#333">• DICOM: Patient info</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Pixel and Voxel Concepts -->
+        <div class="slide">
+            <div class="section-title">1. Pixel and Voxel Concepts</div>
+            
+            <div class="detail-content">
+                <div class="left-panel">
+                    <div class="description-box">
+                        <h3>Pixels: The Building Blocks of 2D Images</h3>
+                        <p>A pixel (picture element) is the smallest addressable element in a digital image. Each pixel contains intensity information that represents color or brightness at a specific location.</p>
+                        <ul>
+                            <li><strong>Coordinates:</strong> [x, y] position in the image grid</li>
+                            <li><strong>Value:</strong> Intensity level (e.g., 0-255 for 8-bit)</li>
+                            <li><strong>Color:</strong> May contain RGB channels (Red, Green, Blue)</li>
+                            <li><strong>Size:</strong> Determined by image resolution (e.g., 1920×1080)</li>
+                        </ul>
+                    </div>
+
+                    <div class="description-box">
+                        <h3>Voxels: 3D Extension of Pixels</h3>
+                        <p>A voxel (volume element) represents a value in 3D space, commonly used in medical imaging (CT, MRI) and microscopy.</p>
+                        <ul>
+                            <li><strong>Coordinates:</strong> [x, y, z] position in 3D space</li>
+                            <li><strong>Applications:</strong> Medical imaging, 3D microscopy, scientific visualization</li>
+                            <li><strong>Volume:</strong> Defined by spacing in x, y, z dimensions</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>Key Difference:</strong> Pixels are 2D (flat images), while voxels add depth information for 3D visualization and analysis.
+                    </div>
+                </div>
+
+                <div class="right-panel">
+                    <svg width="380" height="440" viewBox="0 0 380 440">
+                        <!-- Pixel Detailed View -->
+                        <g id="pixel-detail">
+                            <rect x="10" y="10" width="360" height="200" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                            <text x="190" y="35" text-anchor="middle" font-size="16" fill="#1E64C8" font-weight="700">2D Pixel Structure</text>
+                            
+                            <!-- Large pixel grid -->
+                            <g transform="translate(30, 50)">
+                                <!-- 8x8 grid -->
+                                <rect x="0" y="0" width="30" height="30" fill="#222222" stroke="#fff" stroke-width="1"/>
+                                <rect x="30" y="0" width="30" height="30" fill="#444444" stroke="#fff" stroke-width="1"/>
+                                <rect x="60" y="0" width="30" height="30" fill="#666666" stroke="#fff" stroke-width="1"/>
+                                <rect x="90" y="0" width="30" height="30" fill="#888888" stroke="#fff" stroke-width="1"/>
+                                <rect x="120" y="0" width="30" height="30" fill="#AAAAAA" stroke="#fff" stroke-width="1"/>
+                                
+                                <rect x="0" y="30" width="30" height="30" fill="#333333" stroke="#fff" stroke-width="1"/>
+                                <rect x="30" y="30" width="30" height="30" fill="#555555" stroke="#fff" stroke-width="1"/>
+                                <rect x="60" y="30" width="30" height="30" fill="#777777" stroke="#fff" stroke-width="1"/>
+                                <rect x="90" y="30" width="30" height="30" fill="#999999" stroke="#fff" stroke-width="1"/>
+                                <rect x="120" y="30" width="30" height="30" fill="#BBBBBB" stroke="#fff" stroke-width="1"/>
+                                
+                                <rect x="0" y="60" width="30" height="30" fill="#444444" stroke="#fff" stroke-width="1"/>
+                                <rect x="30" y="60" width="30" height="30" fill="#666666" stroke="#fff" stroke-width="1"/>
+                                <rect x="60" y="60" width="30" height="30" fill="#888888" stroke="#fff" stroke-width="1"/>
+                                <rect x="90" y="60" width="30" height="30" fill="#AAAAAA" stroke="#fff" stroke-width="1"/>
+                                <rect x="120" y="60" width="30" height="30" fill="#CCCCCC" stroke="#fff" stroke-width="1"/>
+                                
+                                <!-- Highlighted pixel -->
+                                <rect x="60" y="30" width="30" height="30" fill="none" stroke="#FF0000" stroke-width="3"/>
+                            </g>
+                            
+                            <!-- Pixel info box -->
+                            <g transform="translate(180, 60)">
+                                <rect x="0" y="0" width="170" height="130" fill="#fff" stroke="#1E64C8" stroke-width="1.5" rx="5"/>
+                                <text x="85" y="20" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">Selected Pixel Info</text>
+                                
+                                <text x="15" y="45" font-size="11" fill="#333">Position: [3, 2]</text>
+                                <text x="15" y="65" font-size="11" fill="#333">Intensity: 119</text>
+                                <text x="15" y="85" font-size="11" fill="#333">8-bit value</text>
+                                
+                                <rect x="15" y="95" width="140" height="20" fill="#777777" stroke="#333" stroke-width="1"/>
+                                <text x="85" y="110" text-anchor="middle" font-size="9" fill="#fff">Grayscale Display</text>
                             </g>
                         </g>
                         
-                        <!-- Arrow pointing to voxel -->
-                        <line x1="290" y1="120" x2="290" y2="90" stroke="#FF0000" stroke-width="2" marker-end="url(#redArrow)"/>
-                        <text x="290" y="135" text-anchor="middle" font-size="9" fill="#FF0000" font-weight="600">1 Voxel</text>
-                        <text x="290" y="147" text-anchor="middle" font-size="8" fill="#666">[x, y, z, value]</text>
-                    </g>
-                    
-                    <!-- Bit Depth Visualization -->
-                    <g id="bit-depth">
-                        <rect x="15" y="170" width="180" height="100" fill="#f0f8ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
-                        <text x="105" y="190" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Bit Depth</text>
+                        <!-- Voxel Detailed View -->
+                        <g id="voxel-detail">
+                            <rect x="10" y="230" width="360" height="200" fill="#f0f8ff" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                            <text x="190" y="255" text-anchor="middle" font-size="16" fill="#1E64C8" font-weight="700">3D Voxel Structure</text>
+                            
+                            <!-- 3D stack visualization -->
+                            <g transform="translate(40, 270)">
+                                <!-- Multiple layers showing depth -->
+                                <g opacity="0.3">
+                                    <rect x="60" y="0" width="25" height="25" fill="#AAAAAA" stroke="#666" stroke-width="0.5"/>
+                                    <rect x="85" y="0" width="25" height="25" fill="#BBBBBB" stroke="#666" stroke-width="0.5"/>
+                                    <rect x="110" y="0" width="25" height="25" fill="#CCCCCC" stroke="#666" stroke-width="0.5"/>
+                                    <rect x="60" y="25" width="25" height="25" fill="#999999" stroke="#666" stroke-width="0.5"/>
+                                    <rect x="85" y="25" width="25" height="25" fill="#AAAAAA" stroke="#666" stroke-width="0.5"/>
+                                    <rect x="110" y="25" width="25" height="25" fill="#BBBBBB" stroke="#666" stroke-width="0.5"/>
+                                </g>
+                                
+                                <g opacity="0.6" transform="translate(15, 15)">
+                                    <rect x="30" y="0" width="25" height="25" fill="#888888" stroke="#555" stroke-width="0.5"/>
+                                    <rect x="55" y="0" width="25" height="25" fill="#999999" stroke="#555" stroke-width="0.5"/>
+                                    <rect x="80" y="0" width="25" height="25" fill="#AAAAAA" stroke="#555" stroke-width="0.5"/>
+                                    <rect x="30" y="25" width="25" height="25" fill="#777777" stroke="#555" stroke-width="0.5"/>
+                                    <rect x="55" y="25" width="25" height="25" fill="#888888" stroke="#555" stroke-width="0.5"/>
+                                    <rect x="80" y="25" width="25" height="25" fill="#999999" stroke="#555" stroke-width="0.5"/>
+                                </g>
+                                
+                                <g transform="translate(30, 30)">
+                                    <rect x="0" y="0" width="25" height="25" fill="#666666" stroke="#333" stroke-width="1"/>
+                                    <rect x="25" y="0" width="25" height="25" fill="#777777" stroke="#333" stroke-width="1"/>
+                                    <rect x="50" y="0" width="25" height="25" fill="#888888" stroke="#333" stroke-width="1"/>
+                                    <rect x="0" y="25" width="25" height="25" fill="#555555" stroke="#333" stroke-width="1"/>
+                                    <rect x="25" y="25" width="25" height="25" fill="#666666" stroke="#333" stroke-width="1"/>
+                                    <rect x="50" y="25" width="25" height="25" fill="#777777" stroke="#333" stroke-width="1"/>
+                                    
+                                    <!-- Highlight one voxel -->
+                                    <rect x="25" y="0" width="25" height="25" fill="none" stroke="#FF0000" stroke-width="3"/>
+                                </g>
+                            </g>
+                            
+                            <!-- Voxel info -->
+                            <g transform="translate(180, 280)">
+                                <rect x="0" y="0" width="170" height="120" fill="#fff" stroke="#1E64C8" stroke-width="1.5" rx="5"/>
+                                <text x="85" y="20" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">Selected Voxel Info</text>
+                                
+                                <text x="15" y="45" font-size="11" fill="#333">Position: [2, 1, 2]</text>
+                                <text x="15" y="65" font-size="11" fill="#333">Intensity: 119</text>
+                                <text x="15" y="85" font-size="11" fill="#333">Slice: Z=2</text>
+                                
+                                <text x="15" y="107" font-size="9" fill="#666">Common in: MRI, CT, μ-CT</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Bit Depth -->
+        <div class="slide">
+            <div class="section-title">2. Bit Depth</div>
+            
+            <div class="detail-content">
+                <div class="left-panel">
+                    <div class="description-box">
+                        <h3>Understanding Bit Depth</h3>
+                        <p>Bit depth determines the number of possible intensity values per pixel. Higher bit depth allows for more subtle differences in brightness and color.</p>
+                        <ul>
+                            <li><strong>8-bit:</strong> 2⁸ = 256 levels (0-255)</li>
+                            <li><strong>16-bit:</strong> 2¹⁶ = 65,536 levels (0-65,535)</li>
+                            <li><strong>32-bit:</strong> Used for HDR and scientific data</li>
+                        </ul>
+                    </div>
+
+                    <div class="description-box">
+                        <h3>Practical Applications</h3>
+                        <p><strong>8-bit Images:</strong> Sufficient for most display purposes, web graphics, and standard photography. File sizes are smaller and processing is faster.</p>
                         
-                        <!-- 8-bit gradient -->
-                        <rect x="25" y="200" width="160" height="20" fill="url(#gradient8bit)"/>
-                        <defs>
-                            <linearGradient id="gradient8bit" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:1" />
-                            </linearGradient>
-                        </defs>
-                        <text x="25" y="232" font-size="9" fill="#333">8-bit: 0</text>
-                        <text x="185" y="232" text-anchor="end" font-size="9" fill="#333">255</text>
-                        <text x="105" y="232" text-anchor="middle" font-size="9" fill="#666">256 levels</text>
-                        
-                        <!-- 16-bit gradient -->
-                        <rect x="25" y="238" width="160" height="20" fill="url(#gradient16bit)"/>
-                        <defs>
-                            <linearGradient id="gradient16bit" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
-                                <stop offset="25%" style="stop-color:#404040;stop-opacity:1" />
-                                <stop offset="50%" style="stop-color:#808080;stop-opacity:1" />
-                                <stop offset="75%" style="stop-color:#C0C0C0;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:1" />
-                            </linearGradient>
-                        </defs>
-                        <text x="25" y="270" font-size="9" fill="#333">16-bit: 0</text>
-                        <text x="185" y="270" text-anchor="end" font-size="9" fill="#333">65,535</text>
-                        <text x="105" y="270" text-anchor="middle" font-size="9" fill="#666">65,536 levels</text>
-                    </g>
-                    
-                    <!-- File Format Comparison -->
-                    <g id="formats">
-                        <rect x="210" y="170" width="195" height="100" fill="#fff8f0" stroke="#FFA500" stroke-width="2" rx="5"/>
-                        <text x="307" y="190" text-anchor="middle" font-size="11" fill="#FFA500" font-weight="700">File Format Comparison</text>
-                        
-                        <!-- Format table -->
-                        <text x="220" y="208" font-size="9" fill="#333" font-weight="600">Format</text>
-                        <text x="280" y="208" font-size="9" fill="#333" font-weight="600">Compression</text>
-                        <text x="350" y="208" font-size="9" fill="#333" font-weight="600">Use Case</text>
-                        
-                        <line x1="215" y1="211" x2="400" y2="211" stroke="#ccc" stroke-width="1"/>
-                        
-                        <!-- TIFF -->
-                        <text x="220" y="225" font-size="9" fill="#4A90E2">TIFF</text>
-                        <text x="280" y="225" font-size="9" fill="#333">Lossless</text>
-                        <text x="350" y="225" font-size="8" fill="#666">Scientific</text>
-                        
-                        <!-- PNG -->
-                        <text x="220" y="240" font-size="9" fill="#4A90E2">PNG</text>
-                        <text x="280" y="240" font-size="9" fill="#333">Lossless</text>
-                        <text x="350" y="240" font-size="8" fill="#666">Web/Analysis</text>
-                        
-                        <!-- JPEG -->
-                        <text x="220" y="255" font-size="9" fill="#4A90E2">JPEG</text>
-                        <text x="280" y="255" font-size="9" fill="#FF6B6B">Lossy</text>
-                        <text x="350" y="255" font-size="8" fill="#666">Web/Display</text>
-                        
-                        <!-- DICOM -->
-                        <text x="220" y="270" font-size="9" fill="#4A90E2">DICOM</text>
-                        <text x="280" y="270" font-size="9" fill="#333">Both</text>
-                        <text x="350" y="270" font-size="8" fill="#666">Medical</text>
-                    </g>
-                    
-                    <!-- Compression illustration -->
-                    <g id="compression">
-                        <rect x="15" y="285" width="390" height="105" fill="#f0fff0" stroke="#28a745" stroke-width="2" rx="5"/>
-                        <text x="210" y="305" text-anchor="middle" font-size="11" fill="#28a745" font-weight="700">Compression Methods</text>
-                        
-                        <!-- Original -->
-                        <g transform="translate(30, 315)">
-                            <rect x="0" y="0" width="80" height="40" fill="#E8E8E8" stroke="#666" stroke-width="1.5"/>
-                            <text x="40" y="25" text-anchor="middle" font-size="9" fill="#333">Original</text>
-                            <text x="40" y="52" text-anchor="middle" font-size="8" fill="#666">100 MB</text>
+                        <p><strong>16-bit Images:</strong> Essential for scientific imaging, astronomy, microscopy, and professional photography where subtle intensity differences matter.</p>
+                    </div>
+
+                    <div class="description-box">
+                        <h3>Dynamic Range Impact</h3>
+                        <ul>
+                            <li><strong>Banding:</strong> 8-bit may show visible steps in smooth gradients</li>
+                            <li><strong>Detail:</strong> 16-bit captures fine intensity variations</li>
+                            <li><strong>Post-processing:</strong> Higher bit depth preserves quality during editing</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>Trade-off:</strong> Higher bit depth = Better quality but larger file sizes and slower processing
+                    </div>
+                </div>
+
+                <div class="right-panel">
+                    <svg width="380" height="440" viewBox="0 0 380 440">
+                        <!-- 8-bit demonstration -->
+                        <g id="8bit-demo">
+                            <rect x="20" y="20" width="340" height="120" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                            <text x="190" y="45" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">8-bit (256 levels)</text>
+                            
+                            <!-- Gradient bar -->
+                            <defs>
+                                <linearGradient id="grad8" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
+                                    <stop offset="25%" style="stop-color:#404040;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#808080;stop-opacity:1" />
+                                    <stop offset="75%" style="stop-color:#C0C0C0;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="40" y="60" width="300" height="35" fill="url(#grad8)" stroke="#333" stroke-width="1"/>
+                            
+                            <text x="40" y="110" font-size="11" fill="#333">Value: 0</text>
+                            <text x="170" y="110" text-anchor="middle" font-size="11" fill="#333">128</text>
+                            <text x="340" y="110" text-anchor="end" font-size="11" fill="#333">255</text>
+                            
+                            <text x="190" y="130" text-anchor="middle" font-size="10" fill="#666">Standard for web images and displays</text>
                         </g>
                         
-                        <!-- Lossless arrow -->
-                        <line x1="115" y1="335" x2="155" y2="325" stroke="#4A90E2" stroke-width="2" marker-end="url(#blueArrow)"/>
-                        <text x="135" y="320" text-anchor="middle" font-size="8" fill="#4A90E2">Lossless</text>
+                        <!-- 16-bit demonstration -->
+                        <g id="16bit-demo">
+                            <rect x="20" y="160" width="340" height="120" fill="#f0f8ff" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                            <text x="190" y="185" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">16-bit (65,536 levels)</text>
+                            
+                            <!-- Smoother gradient -->
+                            <defs>
+                                <linearGradient id="grad16" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#000000;stop-opacity:1" />
+                                    <stop offset="12.5%" style="stop-color:#202020;stop-opacity:1" />
+                                    <stop offset="25%" style="stop-color:#404040;stop-opacity:1" />
+                                    <stop offset="37.5%" style="stop-color:#606060;stop-opacity:1" />
+                                    <stop offset="50%" style="stop-color:#808080;stop-opacity:1" />
+                                    <stop offset="62.5%" style="stop-color:#A0A0A0;stop-opacity:1" />
+                                    <stop offset="75%" style="stop-color:#C0C0C0;stop-opacity:1" />
+                                    <stop offset="87.5%" style="stop-color:#E0E0E0;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#FFFFFF;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            <rect x="40" y="200" width="300" height="35" fill="url(#grad16)" stroke="#333" stroke-width="1"/>
+                            
+                            <text x="40" y="250" font-size="11" fill="#333">Value: 0</text>
+                            <text x="170" y="250" text-anchor="middle" font-size="11" fill="#333">32,768</text>
+                            <text x="340" y="250" text-anchor="end" font-size="11" fill="#333">65,535</text>
+                            
+                            <text x="190" y="270" text-anchor="middle" font-size="10" fill="#666">Scientific imaging and professional photography</text>
+                        </g>
+                        
+                        <!-- Comparison illustration -->
+                        <g id="bit-comparison">
+                            <rect x="20" y="300" width="340" height="120" fill="#fff8f0" stroke="#FFA500" stroke-width="2" rx="8"/>
+                            <text x="190" y="325" text-anchor="middle" font-size="14" fill="#FFA500" font-weight="700">Visual Comparison</text>
+                            
+                            <!-- 8-bit circle with visible banding -->
+                            <g transform="translate(70, 340)">
+                                <text x="0" y="-5" font-size="10" fill="#333">8-bit</text>
+                                <circle cx="0" cy="20" r="30" fill="url(#radial8)"/>
+                                <defs>
+                                    <radialGradient id="radial8">
+                                        <stop offset="0%" style="stop-color:#FFFFFF"/>
+                                        <stop offset="33%" style="stop-color:#AAAAAA"/>
+                                        <stop offset="66%" style="stop-color:#555555"/>
+                                        <stop offset="100%" style="stop-color:#000000"/>
+                                    </radialGradient>
+                                </defs>
+                                <text x="0" y="65" text-anchor="middle" font-size="8" fill="#666">Visible steps</text>
+                            </g>
+                            
+                            <!-- 16-bit circle with smooth gradient -->
+                            <g transform="translate(200, 340)">
+                                <text x="0" y="-5" font-size="10" fill="#333">16-bit</text>
+                                <circle cx="0" cy="20" r="30" fill="url(#radial16)"/>
+                                <defs>
+                                    <radialGradient id="radial16">
+                                        <stop offset="0%" style="stop-color:#FFFFFF"/>
+                                        <stop offset="20%" style="stop-color:#CCCCCC"/>
+                                        <stop offset="40%" style="stop-color:#999999"/>
+                                        <stop offset="60%" style="stop-color:#666666"/>
+                                        <stop offset="80%" style="stop-color:#333333"/>
+                                        <stop offset="100%" style="stop-color:#000000"/>
+                                    </radialGradient>
+                                </defs>
+                                <text x="0" y="65" text-anchor="middle" font-size="8" fill="#666">Smooth gradient</text>
+                            </g>
+                            
+                            <!-- Memory info -->
+                            <g transform="translate(280, 350)">
+                                <rect x="0" y="0" width="65" height="50" fill="#f0f0f0" stroke="#666" stroke-width="1" rx="3"/>
+                                <text x="32" y="15" text-anchor="middle" font-size="9" fill="#333" font-weight="600">Memory</text>
+                                <text x="32" y="28" text-anchor="middle" font-size="8" fill="#333">8-bit: 1 MB</text>
+                                <text x="32" y="40" text-anchor="middle" font-size="8" fill="#333">16-bit: 2 MB</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: File Formats -->
+        <div class="slide">
+            <div class="section-title">3. File Formats</div>
+            
+            <div class="detail-content">
+                <div class="left-panel">
+                    <div class="description-box">
+                        <h3>Lossless Formats</h3>
+                        <p><strong>TIFF (Tagged Image File Format):</strong></p>
+                        <ul>
+                            <li>Supports 8-bit to 32-bit images</li>
+                            <li>Can store multiple pages/layers</li>
+                            <li>Ideal for archival and scientific data</li>
+                            <li>Large file sizes but perfect quality</li>
+                        </ul>
+                        
+                        <p><strong>PNG (Portable Network Graphics):</strong></p>
+                        <ul>
+                            <li>Supports transparency (alpha channel)</li>
+                            <li>Efficient compression without quality loss</li>
+                            <li>Web-friendly, widely supported</li>
+                            <li>Good for graphics with sharp edges</li>
+                        </ul>
+                    </div>
+
+                    <div class="description-box">
+                        <h3>Lossy Format</h3>
+                        <p><strong>JPEG (Joint Photographic Experts Group):</strong></p>
+                        <ul>
+                            <li>Aggressive compression for small file sizes</li>
+                            <li>Quality degrades with each save</li>
+                            <li>Best for photographs and natural images</li>
+                            <li>Adjustable quality/compression ratio</li>
+                            <li>No transparency support</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>Choosing the Right Format:</strong> Use TIFF for scientific work, PNG for web graphics with transparency, JPEG for photographs where some quality loss is acceptable.
+                    </div>
+                </div>
+
+                <div class="right-panel">
+                    <svg width="380" height="440" viewBox="0 0 380 440">
+                        <!-- TIFF Section -->
+                        <g id="tiff-format">
+                            <rect x="20" y="20" width="340" height="95" fill="#e3f2fd" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                            <text x="40" y="45" font-size="16" fill="#1E64C8" font-weight="700">TIFF</text>
+                            
+                            <text x="40" y="65" font-size="11" fill="#333">Compression: Lossless (LZW, ZIP) or None</text>
+                            <text x="40" y="82" font-size="11" fill="#333">Bit Depth: 8, 16, 32-bit support</text>
+                            <text x="40" y="99" font-size="11" fill="#333">Use Case: Scientific imaging, archival</text>
+                            
+                            <!-- File size indicator -->
+                            <rect x="250" y="40" width="100" height="60" fill="#fff" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                            <text x="300" y="58" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">File Size</text>
+                            <text x="300" y="75" text-anchor="middle" font-size="18" fill="#333" font-weight="700">Large</text>
+                            <text x="300" y="92" text-anchor="middle" font-size="9" fill="#666">~5-50 MB</text>
+                        </g>
+                        
+                        <!-- PNG Section -->
+                        <g id="png-format">
+                            <rect x="20" y="130" width="340" height="95" fill="#f3e5f5" stroke="#9C27B0" stroke-width="2" rx="8"/>
+                            <text x="40" y="155" font-size="16" fill="#9C27B0" font-weight="700">PNG</text>
+                            
+                            <text x="40" y="175" font-size="11" fill="#333">Compression: Lossless (DEFLATE)</text>
+                            <text x="40" y="192" font-size="11" fill="#333">Bit Depth: 8, 16-bit, alpha channel</text>
+                            <text x="40" y="209" font-size="11" fill="#333">Use Case: Web graphics, screenshots</text>
+                            
+                            <!-- Transparency demo -->
+                            <g transform="translate(260, 145)">
+                                <rect x="0" y="0" width="80" height="60" fill="#fff" stroke="#9C27B0" stroke-width="1" rx="4"/>
+                                <text x="40" y="15" text-anchor="middle" font-size="10" fill="#9C27B0" font-weight="600">Transparency</text>
+                                <!-- Checkerboard pattern -->
+                                <rect x="15" y="22" width="10" height="10" fill="#E0E0E0"/>
+                                <rect x="25" y="22" width="10" height="10" fill="#F5F5F5"/>
+                                <rect x="35" y="22" width="10" height="10" fill="#E0E0E0"/>
+                                <rect x="45" y="22" width="10" height="10" fill="#F5F5F5"/>
+                                <rect x="55" y="22" width="10" height="10" fill="#E0E0E0"/>
+                                <rect x="15" y="32" width="10" height="10" fill="#F5F5F5"/>
+                                <rect x="25" y="32" width="10" height="10" fill="#E0E0E0"/>
+                                <rect x="35" y="32" width="10" height="10" fill="#F5F5F5"/>
+                                <rect x="45" y="32" width="10" height="10" fill="#E0E0E0"/>
+                                <rect x="55" y="32" width="10" height="10" fill="#F5F5F5"/>
+                                <!-- Semi-transparent overlay -->
+                                <circle cx="40" cy="37" r="15" fill="#9C27B0" opacity="0.6"/>
+                                <text x="40" y="55" text-anchor="middle" font-size="8" fill="#666">Alpha support</text>
+                            </g>
+                        </g>
+                        
+                        <!-- JPEG Section -->
+                        <g id="jpeg-format">
+                            <rect x="20" y="240" width="340" height="95" fill="#ffebee" stroke="#F44336" stroke-width="2" rx="8"/>
+                            <text x="40" y="265" font-size="16" fill="#F44336" font-weight="700">JPEG</text>
+                            
+                            <text x="40" y="285" font-size="11" fill="#333">Compression: Lossy (DCT-based)</text>
+                            <text x="40" y="302" font-size="11" fill="#333">Bit Depth: 8-bit only</text>
+                            <text x="40" y="319" font-size="11" fill="#333">Use Case: Photography, web display</text>
+                            
+                            <!-- Quality slider -->
+                            <g transform="translate(250, 250)">
+                                <rect x="0" y="0" width="100" height="70" fill="#fff" stroke="#F44336" stroke-width="1" rx="4"/>
+                                <text x="50" y="15" text-anchor="middle" font-size="10" fill="#F44336" font-weight="600">Quality vs Size</text>
+                                
+                                <!-- Quality bar -->
+                                <rect x="10" y="25" width="80" height="8" fill="#FFE5E5" stroke="#F44336" stroke-width="1" rx="2"/>
+                                <rect x="10" y="25" width="40" height="8" fill="#F44336" rx="2"/>
+                                <circle cx="50" cy="29" r="5" fill="#C62828"/>
+                                
+                                <text x="10" y="45" font-size="8" fill="#333">High Q</text>
+                                <text x="90" y="45" text-anchor="end" font-size="8" fill="#333">Low Q</text>
+                                <text x="50" y="60" text-anchor="middle" font-size="8" fill="#666">Adjustable</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Comparison Chart -->
+                        <g id="format-comparison">
+                            <rect x="20" y="350" width="340" height="75" fill="#f5f5f5" stroke="#666" stroke-width="2" rx="8"/>
+                            <text x="190" y="372" text-anchor="middle" font-size="13" fill="#333" font-weight="700">Format Selection Guide</text>
+                            
+                            <line x1="30" y1="380" x2="350" y2="380" stroke="#999" stroke-width="1"/>
+                            
+                            <text x="30" y="395" font-size="10" fill="#1E64C8" font-weight="600">✓ Scientific Data</text>
+                            <text x="150" y="395" font-size="10" fill="#333">→ TIFF, HDF5</text>
+                            
+                            <text x="30" y="410" font-size="10" fill="#9C27B0" font-weight="600">✓ Web Graphics</text>
+                            <text x="150" y="410" font-size="10" fill="#333">→ PNG, WebP</text>
+                            
+                            <text x="30" y="425" font-size="10" fill="#F44336" font-weight="600">✓ Photography</text>
+                            <text x="150" y="425" font-size="10" fill="#333">→ JPEG, HEIF</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Compression Methods -->
+        <div class="slide">
+            <div class="section-title">4. Compression Methods</div>
+            
+            <div class="detail-content">
+                <div class="left-panel">
+                    <div class="description-box">
+                        <h3>Lossless Compression</h3>
+                        <p>Preserves all original data - perfect reconstruction is possible.</p>
+                        <ul>
+                            <li><strong>ZIP/DEFLATE:</strong> Used in PNG, general-purpose compression</li>
+                            <li><strong>LZW:</strong> Used in TIFF and GIF files</li>
+                            <li><strong>Run-Length Encoding (RLE):</strong> Efficient for images with large uniform areas</li>
+                            <li><strong>Huffman Coding:</strong> Variable-length encoding based on frequency</li>
+                        </ul>
+                        <p><strong>Compression ratio:</strong> Typically 2:1 to 4:1, depending on image content</p>
+                    </div>
+
+                    <div class="description-box">
+                        <h3>Lossy Compression</h3>
+                        <p>Discards some data to achieve higher compression ratios.</p>
+                        <ul>
+                            <li><strong>JPEG (DCT):</strong> Discrete Cosine Transform, exploits human vision limitations</li>
+                            <li><strong>JPEG 2000:</strong> Wavelet-based, better quality at high compression</li>
+                            <li><strong>WebP:</strong> Modern format combining best of both approaches</li>
+                        </ul>
+                        <p><strong>Compression ratio:</strong> 10:1 to 50:1 or higher, with visible quality degradation</p>
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>Key Consideration:</strong> Lossy compression is irreversible - save originals before compressing for distribution.
+                    </div>
+                </div>
+
+                <div class="right-panel">
+                    <svg width="380" height="440" viewBox="0 0 380 440">
+                        <!-- Original Image -->
+                        <g id="original">
+                            <rect x="130" y="20" width="120" height="80" fill="#f0f0f0" stroke="#333" stroke-width="2" rx="5"/>
+                            <text x="190" y="45" text-anchor="middle" font-size="13" fill="#333" font-weight="700">Original Image</text>
+                            
+                            <!-- Simulated image content -->
+                            <rect x="145" y="55" width="90" height="35" fill="url(#imageGrad)" stroke="#666" stroke-width="1"/>
+                            <defs>
+                                <linearGradient id="imageGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#4A90E2"/>
+                                    <stop offset="50%" style="stop-color:#50C878"/>
+                                    <stop offset="100%" style="stop-color:#FFD700"/>
+                                </linearGradient>
+                            </defs>
+                            <text x="190" y="105" text-anchor="middle" font-size="11" fill="#666">Size: 10 MB</text>
+                        </g>
+                        
+                        <!-- Arrows -->
+                        <line x1="100" y1="130" x2="60" y2="170" stroke="#4A90E2" stroke-width="3" marker-end="url(#arrowBlue)"/>
+                        <line x1="280" y1="130" x2="320" y2="170" stroke="#F44336" stroke-width="3" marker-end="url(#arrowRed)"/>
                         <defs>
-                            <marker id="blueArrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
-                                <polygon points="0 0, 8 3, 0 6" fill="#4A90E2"/>
+                            <marker id="arrowBlue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#4A90E2"/>
+                            </marker>
+                            <marker id="arrowRed" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#F44336"/>
                             </marker>
                         </defs>
                         
-                        <!-- Lossless result -->
-                        <g transform="translate(160, 305)">
-                            <rect x="0" y="0" width="60" height="30" fill="#B8D4F1" stroke="#4A90E2" stroke-width="1.5"/>
-                            <text x="30" y="20" text-anchor="middle" font-size="9" fill="#333">ZIP/LZW</text>
-                            <text x="30" y="42" text-anchor="middle" font-size="8" fill="#666">40 MB</text>
-                            <text x="30" y="52" text-anchor="middle" font-size="7" fill="#28a745">✓ Perfect</text>
+                        <text x="80" y="145" font-size="11" fill="#4A90E2" font-weight="600">Lossless</text>
+                        <text x="240" y="145" font-size="11" fill="#F44336" font-weight="600">Lossy</text>
+                        
+                        <!-- Lossless Result -->
+                        <g id="lossless-result">
+                            <rect x="10" y="180" width="160" height="110" fill="#e3f2fd" stroke="#4A90E2" stroke-width="2" rx="8"/>
+                            <text x="90" y="202" text-anchor="middle" font-size="13" fill="#4A90E2" font-weight="700">Lossless Compression</text>
+                            
+                            <rect x="25" y="212" width="130" height="45" fill="url(#imageGrad)" stroke="#666" stroke-width="1"/>
+                            
+                            <text x="90" y="270" text-anchor="middle" font-size="11" fill="#333" font-weight="600">Size: 4 MB</text>
+                            <text x="90" y="285" text-anchor="middle" font-size="10" fill="#28a745">✓ Perfect Quality</text>
+                            
+                            <!-- Quality indicator -->
+                            <rect x="30" y="215" width="4" height="4" fill="#4A90E2"/>
+                            <rect x="35" y="215" width="4" height="4" fill="#50C878"/>
+                            <rect x="40" y="215" width="4" height="4" fill="#FFD700"/>
+                            <text x="50" y="220" font-size="7" fill="#666">All data preserved</text>
                         </g>
                         
-                        <!-- Lossy arrow -->
-                        <line x1="115" y1="345" x2="155" y2="355" stroke="#FF6B6B" stroke-width="2" marker-end="url(#redArrow2)"/>
-                        <text x="135" y="365" text-anchor="middle" font-size="8" fill="#FF6B6B">Lossy</text>
-                        <defs>
-                            <marker id="redArrow2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
-                                <polygon points="0 0, 8 3, 0 6" fill="#FF6B6B"/>
-                            </marker>
-                        </defs>
-                        
-                        <!-- Lossy result -->
-                        <g transform="translate(160, 345)">
-                            <rect x="0" y="0" width="60" height="30" fill="#FFE5E5" stroke="#FF6B6B" stroke-width="1.5"/>
-                            <text x="30" y="20" text-anchor="middle" font-size="9" fill="#333">JPEG</text>
-                            <text x="30" y="42" text-anchor="middle" font-size="8" fill="#666">5 MB</text>
-                            <text x="30" y="52" text-anchor="middle" font-size="7" fill="#FF6B6B">⚠ Quality loss</text>
+                        <!-- Lossy Result -->
+                        <g id="lossy-result">
+                            <rect x="210" y="180" width="160" height="110" fill="#ffebee" stroke="#F44336" stroke-width="2" rx="8"/>
+                            <text x="290" y="202" text-anchor="middle" font-size="13" fill="#F44336" font-weight="700">Lossy Compression</text>
+                            
+                            <!-- Degraded image simulation -->
+                            <g opacity="0.85">
+                                <rect x="225" y="212" width="130" height="45" fill="url(#imageGrad)" stroke="#666" stroke-width="1"/>
+                            </g>
+                            
+                            <text x="290" y="270" text-anchor="middle" font-size="11" fill="#333" font-weight="600">Size: 0.8 MB</text>
+                            <text x="290" y="285" text-anchor="middle" font-size="10" fill="#F44336">⚠ Quality Loss</text>
+                            
+                            <!-- Artifacts indicator -->
+                            <rect x="230" y="218" width="12" height="8" fill="#4A90E2" opacity="0.6"/>
+                            <rect x="244" y="218" width="12" height="8" fill="#4A90E2" opacity="0.7"/>
+                            <text x="262" y="224" font-size="7" fill="#666">Compression artifacts</text>
                         </g>
                         
-                        <!-- Metadata box -->
-                        <g transform="translate(250, 315)">
-                            <rect x="0" y="0" width="140" height="60" fill="#f8f8ff" stroke="#9C27B0" stroke-width="2" rx="3"/>
-                            <text x="70" y="15" text-anchor="middle" font-size="10" fill="#9C27B0" font-weight="600">Metadata Standards</text>
-                            <text x="5" y="30" font-size="8" fill="#333">• EXIF: Camera settings</text>
-                            <text x="5" y="42" font-size="8" fill="#333">• OME-TIFF: Microscopy</text>
-                            <text x="5" y="54" font-size="8" fill="#333">• DICOM: Patient info</text>
+                        <!-- Compression Comparison Chart -->
+                        <g id="compression-chart">
+                            <rect x="10" y="310" width="360" height="115" fill="#f5f5f5" stroke="#666" stroke-width="2" rx="8"/>
+                            <text x="190" y="332" text-anchor="middle" font-size="13" fill="#333" font-weight="700">Compression Trade-offs</text>
+                            
+                            <!-- Chart axes -->
+                            <line x1="30" y1="400" x2="350" y2="400" stroke="#333" stroke-width="2"/>
+                            <line x1="30" y1="350" x2="30" y2="400" stroke="#333" stroke-width="2"/>
+                            
+                            <text x="30" y="345" font-size="9" fill="#333">Quality</text>
+                            <text x="190" y="418" text-anchor="middle" font-size="9" fill="#333">Compression Ratio</text>
+                            
+                            <!-- Data points -->
+                            <!-- No compression -->
+                            <circle cx="50" cy="355" r="6" fill="#666"/>
+                            <text x="50" y="345" text-anchor="middle" font-size="8" fill="#666">None</text>
+                            
+                            <!-- Lossless -->
+                            <circle cx="120" cy="360" r="6" fill="#4A90E2"/>
+                            <text x="120" y="345" text-anchor="middle" font-size="8" fill="#4A90E2">Lossless</text>
+                            
+                            <!-- Lossy low -->
+                            <circle cx="220" cy="370" r="6" fill="#FFA500"/>
+                            <text x="220" y="345" text-anchor="middle" font-size="8" fill="#FFA500">JPEG-Low</text>
+                            
+                            <!-- Lossy high -->
+                            <circle cx="320" cy="390" r="6" fill="#F44336"/>
+                            <text x="320" y="345" text-anchor="middle" font-size="8" fill="#F44336">JPEG-High</text>
+                            
+                            <!-- Trend line -->
+                            <path d="M 50 355 Q 150 365, 320 390" fill="none" stroke="#999" stroke-width="2" stroke-dasharray="4,4"/>
                         </g>
-                    </g>
-                </svg>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Metadata Standards -->
+        <div class="slide">
+            <div class="section-title">5. Metadata Standards</div>
+            
+            <div class="detail-content">
+                <div class="left-panel">
+                    <div class="description-box">
+                        <h3>EXIF (Exchangeable Image File Format)</h3>
+                        <p>Standard metadata format embedded in JPEG, TIFF, and other image files.</p>
+                        <ul>
+                            <li><strong>Camera Settings:</strong> ISO, aperture, shutter speed, focal length</li>
+                            <li><strong>Date & Time:</strong> When the image was captured</li>
+                            <li><strong>Location:</strong> GPS coordinates (if available)</li>
+                            <li><strong>Device Info:</strong> Camera model, lens information</li>
+                            <li><strong>Image Properties:</strong> Resolution, orientation, color space</li>
+                        </ul>
+                    </div>
+
+                    <div class="description-box">
+                        <h3>OME-TIFF (Open Microscopy Environment)</h3>
+                        <p>Specialized format for microscopy and scientific imaging.</p>
+                        <ul>
+                            <li><strong>Multi-dimensional data:</strong> X, Y, Z, time, channels</li>
+                            <li><strong>Acquisition details:</strong> Microscope settings, objectives</li>
+                            <li><strong>Physical dimensions:</strong> Pixel size in micrometers</li>
+                            <li><strong>Channel information:</strong> Fluorophore names, wavelengths</li>
+                            <li><strong>Experimental metadata:</strong> Sample info, protocols</li>
+                        </ul>
+                    </div>
+
+                    <div class="description-box">
+                        <h3>DICOM (Medical Imaging)</h3>
+                        <ul>
+                            <li>Patient information and medical history</li>
+                            <li>Scan parameters and protocols</li>
+                            <li>Institutional data for regulatory compliance</li>
+                        </ul>
+                    </div>
+
+                    <div class="highlight-box">
+                        <strong>Importance:</strong> Metadata ensures reproducibility, enables batch analysis, and preserves essential information about image acquisition.
+                    </div>
+                </div>
+
+                <div class="right-panel">
+                    <svg width="380" height="440" viewBox="0 0 380 440">
+                        <!-- EXIF Section -->
+                        <g id="exif-section">
+                            <rect x="10" y="10" width="360" height="130" fill="#fff3e0" stroke="#FF9800" stroke-width="2" rx="8"/>
+                            <text x="190" y="32" text-anchor="middle" font-size="15" fill="#FF9800" font-weight="700">EXIF Metadata</text>
+                            
+                            <!-- Camera icon -->
+                            <g transform="translate(25, 45)">
+                                <rect x="0" y="8" width="35" height="25" fill="#FF9800" rx="3"/>
+                                <rect x="5" y="3" width="25" height="8" fill="#F57C00" rx="2"/>
+                                <circle cx="17.5" cy="20.5" r="6" fill="#FFF" stroke="#333" stroke-width="1"/>
+                                <circle cx="17.5" cy="20.5" r="4" fill="#333"/>
+                                <rect x="28" y="12" width="4" height="4" fill="#FFF" rx="1"/>
+                            </g>
+                            
+                            <!-- EXIF data fields -->
+                            <g transform="translate(70, 50)">
+                                <text x="0" y="0" font-size="10" fill="#333" font-weight="600">Camera Information:</text>
+                                <text x="0" y="15" font-size="9" fill="#666">• Make: Canon EOS R5</text>
+                                <text x="0" y="28" font-size="9" fill="#666">• Lens: RF 24-105mm f/4</text>
+                                <text x="0" y="41" font-size="9" fill="#666">• ISO: 400</text>
+                                <text x="0" y="54" font-size="9" fill="#666">• Exposure: 1/250s at f/5.6</text>
+                                <text x="0" y="67" font-size="9" fill="#666">• Date: 2025-11-19 14:30:22</text>
+                                <text x="0" y="80" font-size="9" fill="#666">• GPS: 37.5665°N, 126.9780°E</text>
+                            </g>
+                        </g>
+                        
+                        <!-- OME-TIFF Section -->
+                        <g id="ome-section">
+                            <rect x="10" y="155" width="360" height="130" fill="#e8f5e9" stroke="#4CAF50" stroke-width="2" rx="8"/>
+                            <text x="190" y="177" text-anchor="middle" font-size="15" fill="#4CAF50" font-weight="700">OME-TIFF Metadata</text>
+                            
+                            <!-- Microscope icon -->
+                            <g transform="translate(25, 190)">
+                                <rect x="10" y="0" width="3" height="40" fill="#4CAF50"/>
+                                <rect x="7" y="38" width="9" height="4" fill="#388E3C"/>
+                                <circle cx="11.5" cy="8" r="7" fill="none" stroke="#4CAF50" stroke-width="2"/>
+                                <circle cx="11.5" cy="8" r="3" fill="#4CAF50"/>
+                                <path d="M 11.5 15 L 11.5 25" stroke="#388E3C" stroke-width="2"/>
+                                <rect x="0" y="42" width="23" height="3" fill="#2E7D32"/>
+                            </g>
+                            
+                            <!-- OME data fields -->
+                            <g transform="translate(70, 195)">
+                                <text x="0" y="0" font-size="10" fill="#333" font-weight="600">Microscopy Metadata:</text>
+                                <text x="0" y="15" font-size="9" fill="#666">• Dimensions: 512×512×50 (X×Y×Z)</text>
+                                <text x="0" y="28" font-size="9" fill="#666">• Pixel Size: 0.65 μm/pixel</text>
+                                <text x="0" y="41" font-size="9" fill="#666">• Channels: DAPI, GFP, mCherry</text>
+                                <text x="0" y="54" font-size="9" fill="#666">• Objective: 40× NA 1.3</text>
+                                <text x="0" y="67" font-size="9" fill="#666">• Time Points: 100 frames</text>
+                                <text x="0" y="80" font-size="9" fill="#666">• Exposure: 100ms per channel</text>
+                            </g>
+                        </g>
+                        
+                        <!-- DICOM Section -->
+                        <g id="dicom-section">
+                            <rect x="10" y="300" width="360" height="125" fill="#e1f5fe" stroke="#03A9F4" stroke-width="2" rx="8"/>
+                            <text x="190" y="322" text-anchor="middle" font-size="15" fill="#03A9F4" font-weight="700">DICOM Metadata</text>
+                            
+                            <!-- Medical icon -->
+                            <g transform="translate(30, 335)">
+                                <rect x="0" y="8" width="5" height="20" fill="#03A9F4" rx="1"/>
+                                <rect x="-7.5" y="13" width="20" height="5" fill="#03A9F4" rx="1"/>
+                            </g>
+                            
+                            <!-- DICOM data fields -->
+                            <g transform="translate(70, 340)">
+                                <text x="0" y="0" font-size="10" fill="#333" font-weight="600">Medical Imaging Metadata:</text>
+                                <text x="0" y="15" font-size="9" fill="#666">• Patient ID: [Protected]</text>
+                                <text x="0" y="28" font-size="9" fill="#666">• Study Date: 2025-11-15</text>
+                                <text x="0" y="41" font-size="9" fill="#666">• Modality: MRI / CT / X-Ray</text>
+                                <text x="0" y="54" font-size="9" fill="#666">• Body Part: Brain / Chest / Abdomen</text>
+                                <text x="0" y="67" font-size="9" fill="#666">• Institution: Medical Center XYZ</text>
+                                <text x="0" y="80" font-size="9" fill="#666">• Slice Thickness: 1.0 mm</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
             </div>
         </div>
     </div>

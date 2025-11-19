@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Segmentation Methods</title>
+    <title>Segmentation Methods - Enhanced</title>
     <style>
         * {
             margin: 0;
@@ -18,11 +18,18 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .main-container {
+            max-width: 1400px;
+            width: 100%;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto;
             padding: 40px 60px;
             background: white;
             display: flex;
@@ -84,188 +91,1203 @@
             align-items: center;
             justify-content: center;
         }
+        
+        /* Detailed sections styling */
+        .detailed-sections {
+            margin-top: 60px;
+            width: 100%;
+        }
+        
+        .detailed-section {
+            margin: 50px 0;
+            padding: 40px;
+            background: #f9f9f9;
+            border-radius: 12px;
+            border-left: 8px solid #1E64C8;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        
+        .section-number {
+            background: #1E64C8;
+            color: white;
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E64C8;
+        }
+        
+        .section-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        
+        .text-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .subsection {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        
+        .subsection-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .subsection-title::before {
+            content: "▶";
+            color: #1E64C8;
+            font-size: 14px;
+        }
+        
+        .subsection-text {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.7;
+        }
+        
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .bullet-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 15px;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .bullet-list li::before {
+            content: "•";
+            color: #1E64C8;
+            font-weight: bold;
+            position: absolute;
+            left: 5px;
+            font-size: 20px;
+        }
+        
+        .visual-content {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+        }
+        
+        .pros, .cons {
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .pros {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+        }
+        
+        .cons {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+        
+        .pros-title, .cons-title {
+            font-weight: 700;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        
+        .pros-title {
+            color: #2e7d32;
+        }
+        
+        .cons-title {
+            color: #c62828;
+        }
+        
+        .formula {
+            background: #f5f5f5;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 15px 0;
+            border-left: 3px solid #1E64C8;
+        }
+        
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+        
+        .highlight-box strong {
+            color: #856404;
+        }
+        
+        /* Color variants for different sections */
+        .detailed-section:nth-child(1) { border-left-color: #1E64C8; }
+        .detailed-section:nth-child(1) .section-title { color: #1E64C8; }
+        .detailed-section:nth-child(1) .section-number { background: #1E64C8; }
+        
+        .detailed-section:nth-child(2) { border-left-color: #28a745; }
+        .detailed-section:nth-child(2) .section-title { color: #28a745; }
+        .detailed-section:nth-child(2) .section-number { background: #28a745; }
+        .detailed-section:nth-child(2) .subsection-title::before { color: #28a745; }
+        .detailed-section:nth-child(2) .bullet-list li::before { color: #28a745; }
+        .detailed-section:nth-child(2) .formula { border-left-color: #28a745; }
+        
+        .detailed-section:nth-child(3) { border-left-color: #9C27B0; }
+        .detailed-section:nth-child(3) .section-title { color: #9C27B0; }
+        .detailed-section:nth-child(3) .section-number { background: #9C27B0; }
+        .detailed-section:nth-child(3) .subsection-title::before { color: #9C27B0; }
+        .detailed-section:nth-child(3) .bullet-list li::before { color: #9C27B0; }
+        .detailed-section:nth-child(3) .formula { border-left-color: #9C27B0; }
+        
+        .detailed-section:nth-child(4) { border-left-color: #FF6B6B; }
+        .detailed-section:nth-child(4) .section-title { color: #FF6B6B; }
+        .detailed-section:nth-child(4) .section-number { background: #FF6B6B; }
+        .detailed-section:nth-child(4) .subsection-title::before { color: #FF6B6B; }
+        .detailed-section:nth-child(4) .bullet-list li::before { color: #FF6B6B; }
+        .detailed-section:nth-child(4) .formula { border-left-color: #FF6B6B; }
+        
+        .detailed-section:nth-child(5) { border-left-color: #FF9800; }
+        .detailed-section:nth-child(5) .section-title { color: #FF9800; }
+        .detailed-section:nth-child(5) .section-number { background: #FF9800; }
+        .detailed-section:nth-child(5) .subsection-title::before { color: #FF9800; }
+        .detailed-section:nth-child(5) .bullet-list li::before { color: #FF9800; }
+        .detailed-section:nth-child(5) .formula { border-left-color: #FF9800; }
+        
+        .selection-guide {
+            margin: 60px 0;
+            padding: 40px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 12px;
+            color: white;
+        }
+        
+        .selection-title {
+            text-align: center;
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 30px;
+        }
+        
+        .guide-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        
+        .guide-card {
+            background: rgba(255,255,255,0.15);
+            padding: 25px;
+            border-radius: 10px;
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s;
+        }
+        
+        .guide-card:hover {
+            transform: translateY(-5px);
+            background: rgba(255,255,255,0.2);
+        }
+        
+        .guide-card h3 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .guide-card p {
+            margin: 8px 0;
+        }
+        
+        .guide-card .method-name {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .guide-card .method-desc {
+            font-size: 14px;
+            opacity: 0.95;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">Segmentation Methods</div>
-        
-        <div class="main-content">
-            <div class="content-grid">
-                <div class="content-card">
-                    <div class="card-label">Thresholding techniques</div>
-                    <div class="card-desc">Global, adaptive, Otsu's method</div>
-                </div>
-                <div class="content-card">
-                    <div class="card-label">Region growing</div>
-                    <div class="card-desc">Seed-based similar pixel grouping</div>
-                </div>
-                <div class="content-card">
-                    <div class="card-label">Watershed algorithm</div>
-                    <div class="card-desc">Treating image as topographic surface</div>
-                </div>
-                <div class="content-card">
-                    <div class="card-label">Active contours</div>
-                    <div class="card-desc">Energy-minimizing snakes</div>
-                </div>
-                <div class="content-card">
-                    <div class="card-label">Machine learning methods</div>
-                    <div class="card-desc">U-Net, Mask R-CNN for segmentation</div>
-                </div>
-            </div>
+    <div class="main-container">
+        <!-- Original Overview Section -->
+        <div class="container">
+            <div class="title">Segmentation Methods</div>
             
-            <div class="diagram-container">
-                <svg width="420" height="400" viewBox="0 0 420 400">
-                    <!-- Original Image -->
-                    <g id="original">
-                        <text x="60" y="15" text-anchor="middle" font-size="11" fill="#333" font-weight="700">Original Image</text>
-                        <rect x="10" y="25" width="100" height="75" fill="#E8E8E8" stroke="#666" stroke-width="2"/>
-                        <!-- Simulate cell structures -->
-                        <circle cx="40" cy="50" r="15" fill="#B0B0B0" stroke="#808080" stroke-width="1.5"/>
-                        <circle cx="75" cy="70" r="12" fill="#B0B0B0" stroke="#808080" stroke-width="1.5"/>
-                        <ellipse cx="60" cy="80" rx="10" ry="8" fill="#B0B0B0" stroke="#808080" stroke-width="1.5"/>
-                    </g>
-                    
-                    <!-- Thresholding -->
-                    <g id="threshold">
-                        <text x="170" y="15" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Thresholding</text>
-                        <rect x="120" y="25" width="100" height="75" fill="white" stroke="#1E64C8" stroke-width="2"/>
-                        <!-- Binary result -->
-                        <circle cx="150" cy="50" r="15" fill="#1E64C8"/>
-                        <circle cx="185" cy="70" r="12" fill="#1E64C8"/>
-                        <ellipse cx="170" cy="80" rx="10" ry="8" fill="#1E64C8"/>
-                        <text x="170" y="115" text-anchor="middle" font-size="9" fill="#666">I &gt; threshold</text>
-                    </g>
-                    
-                    <!-- Region Growing -->
-                    <g id="region">
-                        <text x="280" y="15" text-anchor="middle" font-size="11" fill="#28a745" font-weight="700">Region Growing</text>
-                        <rect x="230" y="25" width="100" height="75" fill="white" stroke="#28a745" stroke-width="2"/>
-                        <!-- Seed point and growth -->
-                        <circle cx="260" cy="50" r="3" fill="#FF6B6B"/>
-                        <text x="260" y="46" text-anchor="middle" font-size="8" fill="#FF6B6B" font-weight="700">✱</text>
-                        <circle cx="260" cy="50" r="15" fill="#28a745" opacity="0.7"/>
-                        <circle cx="295" cy="70" r="12" fill="#28a745" opacity="0.7"/>
-                        <text x="280" y="115" text-anchor="middle" font-size="9" fill="#666">Seed → Grow</text>
-                    </g>
-                    
-                    <!-- Watershed -->
-                    <g id="watershed">
-                        <text x="380" y="15" text-anchor="middle" font-size="11" fill="#9C27B0" font-weight="700">Watershed</text>
-                        <rect x="340" y="25" width="70" height="75" fill="white" stroke="#9C27B0" stroke-width="2"/>
+            <div class="main-content">
+                <div class="content-grid">
+                    <div class="content-card">
+                        <div class="card-label">Thresholding techniques</div>
+                        <div class="card-desc">Global, adaptive, Otsu's method</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-label">Region growing</div>
+                        <div class="card-desc">Seed-based similar pixel grouping</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-label">Watershed algorithm</div>
+                        <div class="card-desc">Treating image as topographic surface</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-label">Active contours</div>
+                        <div class="card-desc">Energy-minimizing snakes</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-label">Machine learning methods</div>
+                        <div class="card-desc">U-Net, Mask R-CNN for segmentation</div>
+                    </div>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg width="420" height="400" viewBox="0 0 420 400">
+                        <!-- Original Image -->
+                        <g id="original">
+                            <text x="60" y="15" text-anchor="middle" font-size="11" fill="#333" font-weight="700">Original Image</text>
+                            <rect x="10" y="25" width="100" height="75" fill="#E8E8E8" stroke="#666" stroke-width="2"/>
+                            <circle cx="40" cy="50" r="15" fill="#B0B0B0" stroke="#808080" stroke-width="1.5"/>
+                            <circle cx="75" cy="70" r="12" fill="#B0B0B0" stroke="#808080" stroke-width="1.5"/>
+                            <ellipse cx="60" cy="80" rx="10" ry="8" fill="#B0B0B0" stroke="#808080" stroke-width="1.5"/>
+                        </g>
                         
-                        <!-- Watershed basins -->
-                        <path d="M 350 80 Q 360 65, 370 80" fill="#E1BEE7" stroke="#9C27B0" stroke-width="1.5"/>
-                        <path d="M 375 75 Q 385 60, 395 75" fill="#E1BEE7" stroke="#9C27B0" stroke-width="1.5"/>
-                        <line x1="372" y1="40" x2="372" y2="95" stroke="#9C27B0" stroke-width="2"/>
-                        <text x="375" y="115" text-anchor="middle" font-size="9" fill="#666">Basins</text>
-                    </g>
-                    
-                    <!-- Active Contours (Snakes) -->
-                    <g id="snakes">
-                        <text x="60" y="155" text-anchor="middle" font-size="11" fill="#FF6B6B" font-weight="700">Active Contours</text>
-                        <rect x="10" y="165" width="100" height="75" fill="white" stroke="#FF6B6B" stroke-width="2"/>
+                        <!-- Thresholding -->
+                        <g id="threshold">
+                            <text x="170" y="15" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Thresholding</text>
+                            <rect x="120" y="25" width="100" height="75" fill="white" stroke="#1E64C8" stroke-width="2"/>
+                            <circle cx="150" cy="50" r="15" fill="#1E64C8"/>
+                            <circle cx="185" cy="70" r="12" fill="#1E64C8"/>
+                            <ellipse cx="170" cy="80" rx="10" ry="8" fill="#1E64C8"/>
+                            <text x="170" y="115" text-anchor="middle" font-size="9" fill="#666">I &gt; threshold</text>
+                        </g>
                         
-                        <!-- Initial contour -->
-                        <circle cx="60" cy="202" r="20" fill="none" stroke="#FFA500" stroke-width="1.5" stroke-dasharray="3,3"/>
-                        <text x="60" y="188" text-anchor="middle" font-size="8" fill="#FFA500">Initial</text>
-                        
-                        <!-- Final contour fitting object -->
-                        <ellipse cx="55" cy="205" rx="15" ry="18" fill="none" stroke="#FF6B6B" stroke-width="2.5"/>
-                        <circle cx="55" cy="205" r="12" fill="#B0B0B0" opacity="0.5"/>
-                        <text x="60" y="255" text-anchor="middle" font-size="9" fill="#666">Energy min</text>
-                    </g>
-                    
-                    <!-- U-Net Architecture -->
-                    <g id="unet">
-                        <text x="170" y="155" text-anchor="middle" font-size="11" fill="#FF9800" font-weight="700">U-Net / Deep Learning</text>
-                        <rect x="120" y="165" width="100" height="75" fill="white" stroke="#FF9800" stroke-width="2"/>
-                        
-                        <!-- Simplified U-Net structure -->
-                        <!-- Encoder -->
-                        <rect x="130" y="175" width="15" height="15" fill="#FF9800" opacity="0.8"/>
-                        <rect x="148" y="183" width="12" height="12" fill="#FF9800" opacity="0.6"/>
-                        <rect x="163" y="189" width="9" height="9" fill="#FF9800" opacity="0.4"/>
-                        
-                        <!-- Decoder -->
-                        <rect x="175" y="189" width="9" height="9" fill="#4CAF50" opacity="0.4"/>
-                        <rect x="187" y="183" width="12" height="12" fill="#4CAF50" opacity="0.6"/>
-                        <rect x="202" y="175" width="15" height="15" fill="#4CAF50" opacity="0.8"/>
-                        
-                        <!-- Skip connections -->
-                        <line x1="145" y1="180" x2="207" y2="180" stroke="#1E64C8" stroke-width="1" stroke-dasharray="2,2"/>
-                        <line x1="154" y1="188" x2="193" y2="188" stroke="#1E64C8" stroke-width="1" stroke-dasharray="2,2"/>
-                        
-                        <!-- Output mask -->
-                        <circle cx="170" cy="220" r="12" fill="#4CAF50" opacity="0.7"/>
-                        <text x="170" y="255" text-anchor="middle" font-size="9" fill="#666">Pixel-wise</text>
-                    </g>
-                    
-                    <!-- Comparison table -->
-                    <g id="comparison">
-                        <rect x="240" y="165" width="170" height="220" fill="#f8f8f8" stroke="#666" stroke-width="2" rx="5"/>
-                        <text x="325" y="185" text-anchor="middle" font-size="11" fill="#333" font-weight="700">Method Comparison</text>
-                        
-                        <!-- Headers -->
-                        <text x="255" y="205" font-size="9" fill="#333" font-weight="600">Method</text>
-                        <text x="340" y="205" font-size="9" fill="#333" font-weight="600">Speed</text>
-                        <text x="385" y="205" font-size="9" fill="#333" font-weight="600">Accuracy</text>
-                        
-                        <line x1="250" y1="208" x2="400" y2="208" stroke="#ccc" stroke-width="1"/>
-                        
-                        <!-- Threshold -->
-                        <text x="255" y="225" font-size="9" fill="#1E64C8">Threshold</text>
-                        <rect x="340" y="217" width="30" height="8" fill="#4CAF50" opacity="0.8"/>
-                        <text x="343" y="224" font-size="8" fill="white">Fast</text>
-                        <rect x="380" y="217" width="20" height="8" fill="#FFC107" opacity="0.7"/>
-                        
-                        <!-- Region -->
-                        <text x="255" y="245" font-size="9" fill="#28a745">Region</text>
-                        <rect x="340" y="237" width="25" height="8" fill="#8BC34A" opacity="0.8"/>
-                        <rect x="380" y="237" width="25" height="8" fill="#8BC34A" opacity="0.7"/>
+                        <!-- Region Growing -->
+                        <g id="region">
+                            <text x="280" y="15" text-anchor="middle" font-size="11" fill="#28a745" font-weight="700">Region Growing</text>
+                            <rect x="230" y="25" width="100" height="75" fill="white" stroke="#28a745" stroke-width="2"/>
+                            <circle cx="260" cy="50" r="3" fill="#FF6B6B"/>
+                            <text x="260" y="46" text-anchor="middle" font-size="8" fill="#FF6B6B" font-weight="700">✱</text>
+                            <circle cx="260" cy="50" r="15" fill="#28a745" opacity="0.7"/>
+                            <circle cx="295" cy="70" r="12" fill="#28a745" opacity="0.7"/>
+                            <text x="280" y="115" text-anchor="middle" font-size="9" fill="#666">Seed → Grow</text>
+                        </g>
                         
                         <!-- Watershed -->
-                        <text x="255" y="265" font-size="9" fill="#9C27B0">Watershed</text>
-                        <rect x="340" y="257" width="25" height="8" fill="#8BC34A" opacity="0.8"/>
-                        <rect x="380" y="257" width="28" height="8" fill="#4CAF50" opacity="0.8"/>
+                        <g id="watershed">
+                            <text x="380" y="15" text-anchor="middle" font-size="11" fill="#9C27B0" font-weight="700">Watershed</text>
+                            <rect x="340" y="25" width="70" height="75" fill="white" stroke="#9C27B0" stroke-width="2"/>
+                            <path d="M 350 80 Q 360 65, 370 80" fill="#E1BEE7" stroke="#9C27B0" stroke-width="1.5"/>
+                            <path d="M 375 75 Q 385 60, 395 75" fill="#E1BEE7" stroke="#9C27B0" stroke-width="1.5"/>
+                            <line x1="372" y1="40" x2="372" y2="95" stroke="#9C27B0" stroke-width="2"/>
+                            <text x="375" y="115" text-anchor="middle" font-size="9" fill="#666">Basins</text>
+                        </g>
                         
-                        <!-- Snakes -->
-                        <text x="255" y="285" font-size="9" fill="#FF6B6B">Snakes</text>
-                        <rect x="340" y="277" width="20" height="8" fill="#FFC107" opacity="0.7"/>
-                        <rect x="380" y="277" width="28" height="8" fill="#4CAF50" opacity="0.8"/>
+                        <!-- Active Contours (Snakes) -->
+                        <g id="snakes">
+                            <text x="60" y="155" text-anchor="middle" font-size="11" fill="#FF6B6B" font-weight="700">Active Contours</text>
+                            <rect x="10" y="165" width="100" height="75" fill="white" stroke="#FF6B6B" stroke-width="2"/>
+                            <circle cx="60" cy="202" r="20" fill="none" stroke="#FFA500" stroke-width="1.5" stroke-dasharray="3,3"/>
+                            <text x="60" y="188" text-anchor="middle" font-size="8" fill="#FFA500">Initial</text>
+                            <ellipse cx="55" cy="205" rx="15" ry="18" fill="none" stroke="#FF6B6B" stroke-width="2.5"/>
+                            <circle cx="55" cy="205" r="12" fill="#B0B0B0" opacity="0.5"/>
+                            <text x="60" y="255" text-anchor="middle" font-size="9" fill="#666">Energy min</text>
+                        </g>
                         
-                        <!-- Deep Learning -->
-                        <text x="255" y="305" font-size="9" fill="#FF9800">Deep Learn</text>
-                        <rect x="340" y="297" width="18" height="8" fill="#FF9800" opacity="0.7"/>
-                        <text x="343" y="304" font-size="8" fill="white">Slow</text>
-                        <rect x="380" y="297" width="30" height="8" fill="#4CAF50" opacity="0.9"/>
-                        <text x="383" y="304" font-size="8" fill="white">High</text>
+                        <!-- U-Net Architecture -->
+                        <g id="unet">
+                            <text x="170" y="155" text-anchor="middle" font-size="11" fill="#FF9800" font-weight="700">U-Net / Deep Learning</text>
+                            <rect x="120" y="165" width="100" height="75" fill="white" stroke="#FF9800" stroke-width="2"/>
+                            <rect x="130" y="175" width="15" height="15" fill="#FF9800" opacity="0.8"/>
+                            <rect x="148" y="183" width="12" height="12" fill="#FF9800" opacity="0.6"/>
+                            <rect x="163" y="189" width="9" height="9" fill="#FF9800" opacity="0.4"/>
+                            <rect x="175" y="189" width="9" height="9" fill="#4CAF50" opacity="0.4"/>
+                            <rect x="187" y="183" width="12" height="12" fill="#4CAF50" opacity="0.6"/>
+                            <rect x="202" y="175" width="15" height="15" fill="#4CAF50" opacity="0.8"/>
+                            <line x1="145" y1="180" x2="207" y2="180" stroke="#1E64C8" stroke-width="1" stroke-dasharray="2,2"/>
+                            <line x1="154" y1="188" x2="193" y2="188" stroke="#1E64C8" stroke-width="1" stroke-dasharray="2,2"/>
+                            <circle cx="170" cy="220" r="12" fill="#4CAF50" opacity="0.7"/>
+                            <text x="170" y="255" text-anchor="middle" font-size="9" fill="#666">Pixel-wise</text>
+                        </g>
                         
-                        <!-- Legend -->
-                        <text x="325" y="330" text-anchor="middle" font-size="10" fill="#666" font-weight="600">Key Considerations:</text>
-                        <text x="255" y="348" font-size="8" fill="#666">• Threshold: Simple, fast, manual tuning</text>
-                        <text x="255" y="360" font-size="8" fill="#666">• Region: Good for homogeneous areas</text>
-                        <text x="255" y="372" font-size="8" fill="#666">• Watershed: Handles touching objects</text>
-                        <text x="255" y="384" font-size="8" fill="#666">• DL: Best accuracy, needs training data</text>
-                    </g>
+                        <!-- Comparison table -->
+                        <g id="comparison">
+                            <rect x="240" y="165" width="170" height="220" fill="#f8f8f8" stroke="#666" stroke-width="2" rx="5"/>
+                            <text x="325" y="185" text-anchor="middle" font-size="11" fill="#333" font-weight="700">Method Comparison</text>
+                            <text x="255" y="205" font-size="9" fill="#333" font-weight="600">Method</text>
+                            <text x="340" y="205" font-size="9" fill="#333" font-weight="600">Speed</text>
+                            <text x="385" y="205" font-size="9" fill="#333" font-weight="600">Accuracy</text>
+                            <line x1="250" y1="208" x2="400" y2="208" stroke="#ccc" stroke-width="1"/>
+                            
+                            <text x="255" y="225" font-size="9" fill="#1E64C8">Threshold</text>
+                            <rect x="340" y="217" width="30" height="8" fill="#4CAF50" opacity="0.8"/>
+                            <text x="343" y="224" font-size="8" fill="white">Fast</text>
+                            <rect x="380" y="217" width="20" height="8" fill="#FFC107" opacity="0.7"/>
+                            
+                            <text x="255" y="245" font-size="9" fill="#28a745">Region</text>
+                            <rect x="340" y="237" width="25" height="8" fill="#8BC34A" opacity="0.8"/>
+                            <rect x="380" y="237" width="25" height="8" fill="#8BC34A" opacity="0.7"/>
+                            
+                            <text x="255" y="265" font-size="9" fill="#9C27B0">Watershed</text>
+                            <rect x="340" y="257" width="25" height="8" fill="#8BC34A" opacity="0.8"/>
+                            <rect x="380" y="257" width="28" height="8" fill="#4CAF50" opacity="0.8"/>
+                            
+                            <text x="255" y="285" font-size="9" fill="#FF6B6B">Snakes</text>
+                            <rect x="340" y="277" width="20" height="8" fill="#FFC107" opacity="0.7"/>
+                            <rect x="380" y="277" width="28" height="8" fill="#4CAF50" opacity="0.8"/>
+                            
+                            <text x="255" y="305" font-size="9" fill="#FF9800">Deep Learn</text>
+                            <rect x="340" y="297" width="18" height="8" fill="#FF9800" opacity="0.7"/>
+                            <text x="343" y="304" font-size="8" fill="white">Slow</text>
+                            <rect x="380" y="297" width="30" height="8" fill="#4CAF50" opacity="0.9"/>
+                            <text x="383" y="304" font-size="8" fill="white">High</text>
+                            
+                            <text x="325" y="330" text-anchor="middle" font-size="10" fill="#666" font-weight="600">Key Considerations:</text>
+                            <text x="255" y="348" font-size="8" fill="#666">• Threshold: Simple, fast, manual tuning</text>
+                            <text x="255" y="360" font-size="8" fill="#666">• Region: Good for homogeneous areas</text>
+                            <text x="255" y="372" font-size="8" fill="#666">• Watershed: Handles touching objects</text>
+                            <text x="255" y="384" font-size="8" fill="#666">• DL: Best accuracy, needs training data</text>
+                        </g>
+                        
+                        <!-- Application note -->
+                        <g id="app-note">
+                            <rect x="10" y="260" width="210" height="60" fill="#E3F2FD" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="115" y="278" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="700">Clinical Applications</text>
+                            <text x="115" y="295" text-anchor="middle" font-size="9" fill="#333">Tumor delineation • Cell counting</text>
+                            <text x="115" y="310" text-anchor="middle" font-size="9" fill="#333">Organ segmentation • Lesion detection</text>
+                        </g>
+                        
+                        <defs>
+                            <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                                <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+                            </marker>
+                        </defs>
+                        <line x1="60" y1="105" x2="60" y2="150" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="3,3"/>
+                        <line x1="170" y1="105" x2="170" y2="150" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="3,3"/>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Sections Below -->
+        <div class="detailed-sections">
+
+            <!-- Section 1: Thresholding -->
+            <div class="detailed-section">
+                <div class="section-header">
+                    <span class="section-number">1</span>
+                    <h2 class="section-title">Thresholding Techniques</h2>
+                </div>
+                
+                <div class="section-content">
+                    <div class="text-content">
+                        <div class="subsection">
+                            <div class="subsection-title">Overview</div>
+                            <div class="subsection-text">
+                                Thresholding is the simplest segmentation method that converts grayscale images into binary images by comparing pixel intensities against a threshold value. This technique is particularly effective for images with clear contrast between objects and background.
+                            </div>
+                        </div>
+                        
+                        <div class="subsection">
+                            <div class="subsection-title">Types of Thresholding</div>
+                            <ul class="bullet-list">
+                                <li><strong>Global Thresholding:</strong> Single threshold value applied to entire image (T = constant)</li>
+                                <li><strong>Adaptive Thresholding:</strong> Threshold varies across image regions based on local statistics</li>
+                                <li><strong>Otsu's Method:</strong> Automatically determines optimal threshold by minimizing intra-class variance</li>
+                                <li><strong>Multi-level Thresholding:</strong> Multiple thresholds for segmenting into more than two classes</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="formula">
+                            <strong>Binary Thresholding Formula:</strong><br>
+                            g(x,y) = 1 if f(x,y) > T<br>
+                            g(x,y) = 0 if f(x,y) ≤ T<br><br>
+                            Where: f(x,y) = input intensity, T = threshold, g(x,y) = output
+                        </div>
+                        
+                        <div class="subsection">
+                            <div class="subsection-title">Clinical Applications</div>
+                            <ul class="bullet-list">
+                                <li>Bone segmentation in X-ray images</li>
+                                <li>Cell nuclei detection in microscopy</li>
+                                <li>Lung nodule detection in CT scans</li>
+                                <li>Blood vessel segmentation in angiography</li>
+                            </ul>
+                        </div>
+                    </div>
                     
-                    <!-- Application note -->
-                    <g id="app-note">
-                        <rect x="10" y="260" width="210" height="60" fill="#E3F2FD" stroke="#1E64C8" stroke-width="2" rx="5"/>
-                        <text x="115" y="278" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="700">Clinical Applications</text>
-                        <text x="115" y="295" text-anchor="middle" font-size="9" fill="#333">Tumor delineation • Cell counting</text>
-                        <text x="115" y="310" text-anchor="middle" font-size="9" fill="#333">Organ segmentation • Lesion detection</text>
-                    </g>
+                    <div class="visual-content">
+                        <svg width="100%" height="300" viewBox="0 0 400 300">
+                            <text x="200" y="25" text-anchor="middle" font-size="14" font-weight="700" fill="#1E64C8">Thresholding Process</text>
+                            
+                            <!-- Original grayscale -->
+                            <text x="80" y="55" text-anchor="middle" font-size="11" font-weight="600">Original</text>
+                            <rect x="30" y="65" width="100" height="80" fill="#E0E0E0" stroke="#333" stroke-width="2"/>
+                            <circle cx="60" cy="90" r="15" fill="#808080"/>
+                            <circle cx="95" cy="115" r="18" fill="#707070"/>
+                            
+                            <!-- Histogram -->
+                            <text x="200" y="55" text-anchor="middle" font-size="11" font-weight="600">Histogram</text>
+                            <rect x="150" y="65" width="100" height="80" fill="white" stroke="#333" stroke-width="2"/>
+                            <!-- Histogram bars -->
+                            <rect x="160" y="115" width="8" height="20" fill="#1E64C8" opacity="0.7"/>
+                            <rect x="172" y="105" width="8" height="30" fill="#1E64C8" opacity="0.7"/>
+                            <rect x="184" y="95" width="8" height="40" fill="#1E64C8" opacity="0.7"/>
+                            <rect x="196" y="105" width="8" height="30" fill="#1E64C8" opacity="0.7"/>
+                            <rect x="208" y="120" width="8" height="15" fill="#1E64C8" opacity="0.7"/>
+                            <rect x="220" y="110" width="8" height="25" fill="#1E64C8" opacity="0.7"/>
+                            <rect x="232" y="115" width="8" height="20" fill="#1E64C8" opacity="0.7"/>
+                            <!-- Threshold line -->
+                            <line x1="195" y1="65" x2="195" y2="145" stroke="#FF0000" stroke-width="2" stroke-dasharray="4,4"/>
+                            <text x="197" y="75" font-size="9" fill="#FF0000" font-weight="700">T</text>
+                            
+                            <!-- Binary output -->
+                            <text x="320" y="55" text-anchor="middle" font-size="11" font-weight="600">Binary Output</text>
+                            <rect x="270" y="65" width="100" height="80" fill="white" stroke="#1E64C8" stroke-width="2"/>
+                            <circle cx="300" cy="90" r="15" fill="#000000"/>
+                            <circle cx="335" cy="115" r="18" fill="#000000"/>
+                            
+                            <!-- Otsu's Method -->
+                            <text x="200" y="180" text-anchor="middle" font-size="12" font-weight="600" fill="#9C27B0">Otsu's Automatic Threshold Selection</text>
+                            <rect x="50" y="195" width="300" height="90" fill="#F3E5F5" stroke="#9C27B0" stroke-width="2" rx="5"/>
+                            
+                            <text x="70" y="220" font-size="10" fill="#666">Bimodal Histogram:</text>
+                            <!-- Background peak -->
+                            <path d="M 70 265 Q 90 235, 110 265" fill="#4CAF50" opacity="0.5" stroke="#4CAF50" stroke-width="1.5"/>
+                            <text x="90" y="275" text-anchor="middle" font-size="8" fill="#4CAF50">Background</text>
+                            
+                            <!-- Optimal threshold line -->
+                            <line x1="125" y1="215" x2="125" y2="265" stroke="#9C27B0" stroke-width="2.5"/>
+                            <text x="130" y="225" font-size="9" fill="#9C27B0" font-weight="700">Optimal T</text>
+                            
+                            <!-- Object peak -->
+                            <path d="M 135 265 Q 155 230, 175 265" fill="#FF9800" opacity="0.5" stroke="#FF9800" stroke-width="1.5"/>
+                            <text x="155" y="275" text-anchor="middle" font-size="8" fill="#FF9800">Object</text>
+                            
+                            <!-- Formula box -->
+                            <rect x="200" y="210" width="140" height="65" fill="white" stroke="#9C27B0" stroke-width="1" rx="3"/>
+                            <text x="270" y="228" text-anchor="middle" font-size="10" font-weight="700" fill="#9C27B0">Minimizes:</text>
+                            <text x="270" y="243" text-anchor="middle" font-size="9" fill="#333">σ²(within) = w₀σ₀² + w₁σ₁²</text>
+                            <text x="210" y="258" font-size="8" fill="#666">w₀, w₁ = class weights</text>
+                            <text x="210" y="269" font-size="8" fill="#666">σ₀², σ₁² = class variances</text>
+                        </svg>
+                        
+                        <div class="pros-cons">
+                            <div class="pros">
+                                <div class="pros-title">✓ Advantages</div>
+                                <ul class="bullet-list" style="font-size: 13px;">
+                                    <li>Extremely fast computation</li>
+                                    <li>Simple implementation</li>
+                                    <li>Low memory requirements</li>
+                                    <li>Works well with high contrast</li>
+                                </ul>
+                            </div>
+                            <div class="cons">
+                                <div class="cons-title">✗ Limitations</div>
+                                <ul class="bullet-list" style="font-size: 13px;">
+                                    <li>Sensitive to noise and lighting</li>
+                                    <li>Fails with overlapping histograms</li>
+                                    <li>Manual threshold selection needed</li>
+                                    <li>No spatial information used</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 2: Region Growing -->
+            <div class="detailed-section">
+                <div class="section-header">
+                    <span class="section-number">2</span>
+                    <h2 class="section-title">Region Growing</h2>
+                </div>
+                
+                <div class="section-content">
+                    <div class="text-content">
+                        <div class="subsection">
+                            <div class="subsection-title">Overview</div>
+                            <div class="subsection-text">
+                                Region growing is a pixel-based segmentation method that starts from seed points and iteratively adds neighboring pixels with similar properties. The algorithm groups connected pixels that satisfy a homogeneity criterion, making it ideal for segmenting objects with uniform intensity or texture.
+                            </div>
+                        </div>
+                        
+                        <div class="subsection">
+                            <div class="subsection-title">Algorithm Steps</div>
+                            <ul class="bullet-list">
+                                <li><strong>Step 1:</strong> Select initial seed points (manually or automatically)</li>
+                                <li><strong>Step 2:</strong> Define similarity criterion (intensity, color, texture)</li>
+                                <li><strong>Step 3:</strong> Examine neighboring pixels (4-connected or 8-connected)</li>
+                                <li><strong>Step 4:</strong> Add similar neighbors to region and update region statistics</li>
+                                <li><strong>Step 5:</strong> Repeat until no more pixels can be added</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="formula">
+                            <strong>Homogeneity Criterion:</strong><br>
+                            |I(x,y) - μ_region| < T<br><br>
+                            Where:<br>
+                            I(x,y) = pixel intensity<br>
+                            μ_region = mean intensity of current region<br>
+                            T = similarity threshold
+                        </div>
+                        
+                        <div class="highlight-box">
+                            <strong>Key Parameter:</strong> The similarity threshold T critically affects results. Too low = under-segmentation, too high = over-segmentation.
+                        </div>
+                    </div>
                     
-                    <!-- Arrows showing workflow -->
-                    <defs>
-                        <marker id="arrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
-                            <polygon points="0 0, 8 3, 0 6" fill="#666"/>
-                        </marker>
-                    </defs>
-                    <line x1="60" y1="105" x2="60" y2="150" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="3,3"/>
-                    <line x1="170" y1="105" x2="170" y2="150" stroke="#666" stroke-width="1.5" marker-end="url(#arrow)" stroke-dasharray="3,3"/>
-                </svg>
+                    <div class="visual-content">
+                        <svg width="100%" height="350" viewBox="0 0 400 350">
+                            <text x="200" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="#28a745">Region Growing Process</text>
+                            
+                            <!-- Step 1: Original with seed -->
+                            <g>
+                                <text x="70" y="45" text-anchor="middle" font-size="10" font-weight="600">Step 1: Place Seed</text>
+                                <rect x="20" y="55" width="100" height="80" fill="#E8E8E8" stroke="#28a745" stroke-width="2"/>
+                                <circle cx="70" cy="95" r="28" fill="#909090"/>
+                                <!-- Seed point -->
+                                <circle cx="70" cy="95" r="4" fill="#FF0000"/>
+                                <circle cx="70" cy="95" r="8" fill="none" stroke="#FF0000" stroke-width="2"/>
+                                <text x="70" y="85" text-anchor="middle" font-size="8" fill="#FF0000" font-weight="700">Seed</text>
+                            </g>
+                            
+                            <!-- Step 2: First growth -->
+                            <g>
+                                <text x="190" y="45" text-anchor="middle" font-size="10" font-weight="600">Step 2: Grow (Iter 1)</text>
+                                <rect x="140" y="55" width="100" height="80" fill="#E8E8E8" stroke="#28a745" stroke-width="2"/>
+                                <circle cx="190" cy="95" r="28" fill="#909090"/>
+                                <circle cx="190" cy="95" r="10" fill="#28a745" opacity="0.7"/>
+                                <text x="190" y="145" text-anchor="middle" font-size="8" fill="#28a745">+8 neighbors</text>
+                            </g>
+                            
+                            <!-- Step 3: More growth -->
+                            <g>
+                                <text x="310" y="45" text-anchor="middle" font-size="10" font-weight="600">Step 3: Growing...</text>
+                                <rect x="260" y="55" width="100" height="80" fill="#E8E8E8" stroke="#28a745" stroke-width="2"/>
+                                <circle cx="310" cy="95" r="28" fill="#909090"/>
+                                <circle cx="310" cy="95" r="16" fill="#28a745" opacity="0.7"/>
+                                <text x="310" y="145" text-anchor="middle" font-size="8" fill="#28a745">+16 neighbors</text>
+                            </g>
+                            
+                            <!-- Step 4: Final -->
+                            <g>
+                                <text x="130" y="175" text-anchor="middle" font-size="10" font-weight="600">Step 4: Complete!</text>
+                                <rect x="80" y="185" width="100" height="80" fill="#E8E8E8" stroke="#28a745" stroke-width="3"/>
+                                <circle cx="130" cy="225" r="28" fill="#909090"/>
+                                <circle cx="130" cy="225" r="28" fill="#28a745" opacity="0.7"/>
+                                <text x="130" cy="275" text-anchor="middle" font-size="9" fill="#28a745" font-weight="700">Region Complete</text>
+                            </g>
+                            
+                            <!-- Connectivity -->
+                            <g>
+                                <text x="270" y="175" text-anchor="middle" font-size="10" font-weight="600">Connectivity</text>
+                                
+                                <!-- 4-connected -->
+                                <text x="235" y="195" font-size="9">4-connected:</text>
+                                <rect x="220" y="202" width="50" height="50" fill="white" stroke="#333" stroke-width="1"/>
+                                <rect x="240" y="222" width="10" height="10" fill="#28a745"/>
+                                <rect x="240" y="210" width="10" height="10" fill="#B0B0B0"/>
+                                <rect x="240" y="234" width="10" height="10" fill="#B0B0B0"/>
+                                <rect x="228" y="222" width="10" height="10" fill="#B0B0B0"/>
+                                <rect x="252" y="222" width="10" height="10" fill="#B0B0B0"/>
+                                
+                                <!-- 8-connected -->
+                                <text x="295" y="195" font-size="9">8-connected:</text>
+                                <rect x="285" y="202" width="50" height="50" fill="white" stroke="#333" stroke-width="1"/>
+                                <rect x="305" y="222" width="10" height="10" fill="#28a745"/>
+                                <rect x="293" y="210" width="10" height="10" fill="#B0B0B0"/>
+                                <rect x="305" y="210" width="10" height="10" fill="#B0B0B0"/>
+                                <rect x="317" y="210" width="10" height="10" fill="#B0B0B0"/>
+                                <rect x="293" y="222" width="10" height="10" fill="#B0B0B0"/>
+                                <rect x="317" y="222" width="10" height="10" fill="#B0B0B0"/>
+                                <rect x="293" y="234" width="10" height="10" fill="#B0B0B0"/>
+                                <rect x="305" y="234" width="10" height="10" fill="#B0B0B0"/>
+                                <rect x="317" y="234" width="10" height="10" fill="#B0B0B0"/>
+                            </g>
+                            
+                            <!-- Decision flow -->
+                            <g>
+                                <text x="200" y="300" text-anchor="middle" font-size="10" font-weight="600" fill="#28a745">Decision: |I - μ| < T ?</text>
+                                <text x="120" y="320" text-anchor="middle" font-size="9" fill="#4CAF50" font-weight="700">YES → Add to region</text>
+                                <text x="280" y="320" text-anchor="middle" font-size="9" fill="#F44336" font-weight="700">NO → Skip pixel</text>
+                            </g>
+                        </svg>
+                        
+                        <div class="pros-cons">
+                            <div class="pros">
+                                <div class="pros-title">✓ Advantages</div>
+                                <ul class="bullet-list" style="font-size: 13px;">
+                                    <li>Produces connected regions</li>
+                                    <li>Works with complex shapes</li>
+                                    <li>Incorporates spatial information</li>
+                                    <li>Can handle multiple seeds</li>
+                                </ul>
+                            </div>
+                            <div class="cons">
+                                <div class="cons-title">✗ Limitations</div>
+                                <ul class="bullet-list" style="font-size: 13px;">
+                                    <li>Sensitive to seed placement</li>
+                                    <li>Requires user interaction</li>
+                                    <li>Sensitive to noise</li>
+                                    <li>Can leak into adjacent regions</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Watershed -->
+            <div class="detailed-section">
+                <div class="section-header">
+                    <span class="section-number">3</span>
+                    <h2 class="section-title">Watershed Algorithm</h2>
+                </div>
+                
+                <div class="section-content">
+                    <div class="text-content">
+                        <div class="subsection">
+                            <div class="subsection-title">Overview</div>
+                            <div class="subsection-text">
+                                The watershed algorithm treats the image as a topographic surface where pixel intensities represent elevation. Water "floods" from regional minima, and watershed lines form where different regions meet. This method excels at separating touching or overlapping objects, making it invaluable for cell counting and particle analysis.
+                            </div>
+                        </div>
+                        
+                        <div class="subsection">
+                            <div class="subsection-title">Key Concepts</div>
+                            <ul class="bullet-list">
+                                <li><strong>Topographic Interpretation:</strong> Image treated as 3D landscape (x, y, intensity)</li>
+                                <li><strong>Catchment Basins:</strong> Regions where water flows to same minimum</li>
+                                <li><strong>Watershed Lines:</strong> Boundaries between adjacent basins (ridges)</li>
+                                <li><strong>Flooding Process:</strong> Gradual immersion from minima upward</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="subsection">
+                            <div class="subsection-title">Implementation Steps</div>
+                            <ul class="bullet-list">
+                                <li><strong>Preprocessing:</strong> Compute gradient magnitude of image</li>
+                                <li><strong>Marker Extraction:</strong> Identify regional minima or place markers</li>
+                                <li><strong>Flooding:</strong> Simulate water rising from each minimum</li>
+                                <li><strong>Dam Building:</strong> Create barriers where waters from different basins meet</li>
+                                <li><strong>Segmentation:</strong> Each basin becomes a segmented region</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="highlight-box">
+                            <strong>Over-segmentation Problem:</strong> Classic watershed often produces too many regions due to noise and local minima. Solution: Marker-controlled watershed with preprocessing.
+                        </div>
+                    </div>
+                    
+                    <div class="visual-content">
+                        <svg width="100%" height="400" viewBox="0 0 400 400">
+                            <text x="200" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="#9C27B0">Watershed Segmentation</text>
+                            
+                            <!-- Original image -->
+                            <g>
+                                <text x="80" y="45" text-anchor="middle" font-size="10" font-weight="600">Original Image</text>
+                                <rect x="30" y="55" width="100" height="80" fill="white" stroke="#333" stroke-width="2"/>
+                                <!-- Two touching circles -->
+                                <circle cx="60" cy="85" r="20" fill="#707070" stroke="#333" stroke-width="1"/>
+                                <circle cx="95" cy="95" r="22" fill="#707070" stroke="#333" stroke-width="1"/>
+                                <text x="80" y="145" text-anchor="middle" font-size="8" fill="#666">Touching objects</text>
+                            </g>
+                            
+                            <!-- Gradient image -->
+                            <g>
+                                <text x="200" y="45" text-anchor="middle" font-size="10" font-weight="600">Gradient</text>
+                                <rect x="150" y="55" width="100" height="80" fill="white" stroke="#333" stroke-width="2"/>
+                                <!-- Gradient edges -->
+                                <circle cx="180" cy="85" r="20" fill="none" stroke="#9C27B0" stroke-width="3"/>
+                                <circle cx="215" cy="95" r="22" fill="none" stroke="#9C27B0" stroke-width="3"/>
+                                <text x="200" y="145" text-anchor="middle" font-size="8" fill="#666">Edge enhancement</text>
+                            </g>
+                            
+                            <!-- Topographic view -->
+                            <g>
+                                <text x="320" y="45" text-anchor="middle" font-size="10" font-weight="600">Topographic View</text>
+                                <rect x="270" y="55" width="100" height="80" fill="#F5F5F5" stroke="#9C27B0" stroke-width="2"/>
+                                
+                                <!-- Basin 1 -->
+                                <ellipse cx="300" cy="120" rx="25" ry="10" fill="#B3E5FC" opacity="0.7"/>
+                                <path d="M 275 120 Q 275 90, 300 75 Q 325 90, 325 120" fill="none" stroke="#9C27B0" stroke-width="1.5"/>
+                                <text x="300" y="133" text-anchor="middle" font-size="7" fill="#0277BD" font-weight="700">Basin 1</text>
+                                
+                                <!-- Watershed line -->
+                                <line x1="330" y1="75" x2="330" y2="125" stroke="#FF0000" stroke-width="2"/>
+                                <text x="333" y="70" font-size="7" fill="#FF0000" font-weight="700">Ridge</text>
+                                
+                                <!-- Basin 2 -->
+                                <ellipse cx="355" cy="120" rx="22" ry="10" fill="#C8E6C9" opacity="0.7"/>
+                                <path d="M 335 120 Q 335 92, 355 78 Q 375 92, 375 120" fill="none" stroke="#9C27B0" stroke-width="1.5"/>
+                                <text x="355" y="133" text-anchor="middle" font-size="7" fill="#2E7D32" font-weight="700">Basin 2</text>
+                            </g>
+                            
+                            <!-- Flooding process -->
+                            <text x="200" y="175" text-anchor="middle" font-size="12" font-weight="700" fill="#9C27B0">Flooding Process</text>
+                            
+                            <g>
+                                <!-- Stage 1 -->
+                                <text x="65" y="200" text-anchor="middle" font-size="9">Stage 1: Initial</text>
+                                <rect x="20" y="208" width="90" height="70" fill="white" stroke="#9C27B0" stroke-width="1.5"/>
+                                <circle cx="45" cy="253" r="10" fill="#2196F3" opacity="0.4"/>
+                                <circle cx="85" cy="253" r="10" fill="#4CAF50" opacity="0.4"/>
+                                <text x="65" y="287" text-anchor="middle" font-size="7" fill="#666">Minima flooded</text>
+                                
+                                <!-- Stage 2 -->
+                                <text x="160" y="200" text-anchor="middle" font-size="9">Stage 2: Rising</text>
+                                <rect x="115" y="208" width="90" height="70" fill="white" stroke="#9C27B0" stroke-width="1.5"/>
+                                <circle cx="140" cy="243" r="16" fill="#2196F3" opacity="0.5"/>
+                                <circle cx="180" cy="243" r="16" fill="#4CAF50" opacity="0.5"/>
+                                <line x1="160" y1="228" x2="160" y2="258" stroke="#FF0000" stroke-width="2" opacity="0.5"/>
+                                <text x="160" y="287" text-anchor="middle" font-size="7" fill="#666">Waters approaching</text>
+                                
+                                <!-- Stage 3 -->
+                                <text x="255" y="200" text-anchor="middle" font-size="9">Stage 3: Dam</text>
+                                <rect x="210" y="208" width="90" height="70" fill="white" stroke="#9C27B0" stroke-width="1.5"/>
+                                <circle cx="235" cy="243" r="20" fill="#2196F3" opacity="0.6"/>
+                                <circle cx="275" cy="243" r="20" fill="#4CAF50" opacity="0.6"/>
+                                <line x1="255" y1="223" x2="255" y2="263" stroke="#FF0000" stroke-width="3"/>
+                                <text x="255" y="287" text-anchor="middle" font-size="7" fill="#666">Watershed formed</text>
+                                
+                                <!-- Final -->
+                                <text x="350" y="200" text-anchor="middle" font-size="9">Final Result</text>
+                                <rect x="305" y="208" width="90" height="70" fill="white" stroke="#9C27B0" stroke-width="2"/>
+                                <circle cx="330" cy="243" r="22" fill="#2196F3" opacity="0.7" stroke="#2196F3" stroke-width="2"/>
+                                <circle cx="370" cy="243" r="22" fill="#4CAF50" opacity="0.7" stroke="#4CAF50" stroke-width="2"/>
+                                <line x1="350" y1="221" x2="350" y2="265" stroke="#FF0000" stroke-width="3"/>
+                                <text x="350" y="287" text-anchor="middle" font-size="8" fill="#FF0000" font-weight="700">Separated! ✓</text>
+                            </g>
+                            
+                            <!-- Marker-controlled watershed -->
+                            <text x="200" y="320" text-anchor="middle" font-size="11" font-weight="700" fill="#9C27B0">Marker-Controlled Watershed</text>
+                            <rect x="50" y="330" width="300" height="55" fill="#F3E5F5" stroke="#9C27B0" stroke-width="2" rx="5"/>
+                            
+                            <!-- Without markers -->
+                            <text x="120" y="350" text-anchor="middle" font-size="9" fill="#666">Without Markers:</text>
+                            <rect x="70" y="355" width="100" height="22" fill="white" stroke="#666" stroke-width="1"/>
+                            <!-- Many small regions -->
+                            <rect x="73" y="358" width="11" height="8" fill="#FF9800" opacity="0.5"/>
+                            <rect x="86" y="358" width="9" height="8" fill="#4CAF50" opacity="0.5"/>
+                            <rect x="97" y="358" width="12" height="8" fill="#2196F3" opacity="0.5"/>
+                            <rect x="111" y="358" width="10" height="8" fill="#9C27B0" opacity="0.5"/>
+                            <rect x="123" y="358" width="11" height="8" fill="#F44336" opacity="0.5"/>
+                            <rect x="136" y="358" width="10" height="8" fill="#FFEB3B" opacity="0.5"/>
+                            <rect x="148" y="358" width="14" height="8" fill="#00BCD4" opacity="0.5"/>
+                            <rect x="73" y="368" width="13" height="7" fill="#FF5722" opacity="0.5"/>
+                            <rect x="88" y="368" width="11" height="7" fill="#8BC34A" opacity="0.5"/>
+                            <rect x="101" y="368" width="15" height="7" fill="#E91E63" opacity="0.5"/>
+                            <rect x="118" y="368" width="12" height="7" fill="#673AB7" opacity="0.5"/>
+                            <rect x="132" y="368" width="14" height="7" fill="#3F51B5" opacity="0.5"/>
+                            <rect x="148" y="368" width="14" height="7" fill="#009688" opacity="0.5"/>
+                            <text x="120" y="392" text-anchor="middle" font-size="7" fill="#F44336">Over-segmented ✗</text>
+                            
+                            <!-- With markers -->
+                            <text x="280" y="350" text-anchor="middle" font-size="9" fill="#666">With Markers:</text>
+                            <rect x="230" y="355" width="100" height="22" fill="white" stroke="#666" stroke-width="1"/>
+                            <!-- Few controlled regions -->
+                            <rect x="233" y="358" width="45" height="17" fill="#2196F3" opacity="0.6"/>
+                            <circle cx="255" cy="366" r="2" fill="#FF0000"/>
+                            <rect x="282" y="358" width="45" height="17" fill="#4CAF50" opacity="0.6"/>
+                            <circle cx="305" cy="366" r="2" fill="#FF0000"/>
+                            <text x="280" y="392" text-anchor="middle" font-size="7" fill="#4CAF50" font-weight="700">Well-segmented ✓</text>
+                        </svg>
+                        
+                        <div class="pros-cons">
+                            <div class="pros">
+                                <div class="pros-title">✓ Advantages</div>
+                                <ul class="bullet-list" style="font-size: 13px;">
+                                    <li>Separates touching objects</li>
+                                    <li>Produces closed contours</li>
+                                    <li>Good for particle analysis</li>
+                                    <li>Handles complex topologies</li>
+                                </ul>
+                            </div>
+                            <div class="cons">
+                                <div class="cons-title">✗ Limitations</div>
+                                <ul class="bullet-list" style="font-size: 13px;">
+                                    <li>Prone to over-segmentation</li>
+                                    <li>Sensitive to noise</li>
+                                    <li>Requires preprocessing</li>
+                                    <li>Parameter tuning needed</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Active Contours -->
+            <div class="detailed-section">
+                <div class="section-header">
+                    <span class="section-number">4</span>
+                    <h2 class="section-title">Active Contours (Snakes)</h2>
+                </div>
+                
+                <div class="section-content">
+                    <div class="text-content">
+                        <div class="subsection">
+                            <div class="subsection-title">Overview</div>
+                            <div class="subsection-text">
+                                Active contours, or "snakes," are deformable curves that move and adapt their shape to fit object boundaries by minimizing an energy functional. The contour evolves iteratively, balancing internal forces (smoothness) and external forces (image features like edges).
+                            </div>
+                        </div>
+                        
+                        <div class="subsection">
+                            <div class="subsection-title">Energy Functional</div>
+                            <div class="subsection-text">
+                                The snake minimizes total energy E = E_internal + E_external
+                            </div>
+                        </div>
+                        
+                        <div class="formula">
+                            <strong>Energy Components:</strong><br><br>
+                            E_total = E_internal + E_external<br><br>
+                            E_internal = α·E_continuity + β·E_curvature<br>
+                            • Continuity: keeps contour smooth<br>
+                            • Curvature: controls bending<br><br>
+                            E_external = E_image + E_constraint<br>
+                            • Image: attracts to edges/features<br>
+                            • Constraint: user-defined forces
+                        </div>
+                        
+                        <div class="subsection">
+                            <div class="subsection-title">Types of Active Contours</div>
+                            <ul class="bullet-list">
+                                <li><strong>Parametric Snakes:</strong> Explicit contour representation (Kass et al., 1988)</li>
+                                <li><strong>Geometric Active Contours:</strong> Level set methods, implicit representation</li>
+                                <li><strong>Gradient Vector Flow (GVF):</strong> Extended capture range for initialization</li>
+                                <li><strong>Chan-Vese Model:</strong> Region-based, works without edges</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="highlight-box">
+                            <strong>Key Advantage:</strong> Unlike edge-based methods, active contours produce smooth, closed boundaries and can incorporate prior shape knowledge.
+                        </div>
+                    </div>
+                    
+                    <div class="visual-content">
+                        <svg width="100%" height="400" viewBox="0 0 400 400">
+                            <text x="200" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="#FF6B6B">Active Contour Evolution</text>
+                            
+                            <!-- Evolution sequence -->
+                            <g>
+                                <!-- Initial -->
+                                <text x="70" y="45" text-anchor="middle" font-size="10" font-weight="600">Initialization</text>
+                                <rect x="20" y="55" width="100" height="90" fill="white" stroke="#333" stroke-width="2"/>
+                                <ellipse cx="70" cy="100" rx="25" ry="35" fill="#B0B0B0" opacity="0.6"/>
+                                <circle cx="70" cy="100" r="40" fill="none" stroke="#FFA500" stroke-width="2.5" stroke-dasharray="5,5"/>
+                                <text x="70" y="155" text-anchor="middle" font-size="8" fill="#FFA500" font-weight="700">Initial Snake (t=0)</text>
+                                
+                                <!-- Iteration 5 -->
+                                <text x="190" y="45" text-anchor="middle" font-size="10" font-weight="600">Iteration 5</text>
+                                <rect x="140" y="55" width="100" height="90" fill="white" stroke="#333" stroke-width="2"/>
+                                <ellipse cx="190" cy="100" rx="25" ry="35" fill="#B0B0B0" opacity="0.6"/>
+                                <circle cx="190" cy="100" r="40" fill="none" stroke="#FFA500" stroke-width="1.5" stroke-dasharray="5,5" opacity="0.3"/>
+                                <ellipse cx="190" cy="100" rx="30" ry="37" fill="none" stroke="#FF9800" stroke-width="2" stroke-dasharray="4,4"/>
+                                <text x="190" y="155" text-anchor="middle" font-size="8" fill="#FF9800">Moving inward</text>
+                                
+                                <!-- Iteration 15 -->
+                                <text x="310" y="45" text-anchor="middle" font-size="10" font-weight="600">Iteration 15</text>
+                                <rect x="260" y="55" width="100" height="90" fill="white" stroke="#333" stroke-width="2"/>
+                                <ellipse cx="310" cy="100" rx="25" ry="35" fill="#B0B0B0" opacity="0.6"/>
+                                <ellipse cx="310" cy="100" rx="27" ry="36" fill="none" stroke="#FF6B6B" stroke-width="2.5"/>
+                                <text x="310" y="155" text-anchor="middle" font-size="8" fill="#FF6B6B">Approaching boundary</text>
+                                
+                                <!-- Final -->
+                                <text x="200" y="185" text-anchor="middle" font-size="10" font-weight="600">Final (Converged)</text>
+                                <rect x="150" y="195" width="100" height="90" fill="white" stroke="#FF6B6B" stroke-width="3"/>
+                                <ellipse cx="200" cy="240" rx="25" ry="35" fill="#B0B0B0" opacity="0.6"/>
+                                <ellipse cx="200" cy="240" rx="25" ry="35" fill="none" stroke="#FF0000" stroke-width="3"/>
+                                <text x="200" y="295" text-anchor="middle" font-size="9" fill="#FF0000" font-weight="700">Energy Minimized ✓</text>
+                            </g>
+                            
+                            <!-- Energy forces diagram -->
+                            <text x="200" y="330" text-anchor="middle" font-size="11" font-weight="700" fill="#FF6B6B">Energy Forces</text>
+                            <rect x="50" y="340" width="300" height="50" fill="#FFF3E0" stroke="#FF6B6B" stroke-width="2" rx="5"/>
+                            
+                            <!-- Internal forces -->
+                            <g>
+                                <text x="120" y="358" text-anchor="middle" font-size="10" font-weight="600" fill="#2196F3">Internal Forces</text>
+                                <text x="70" y="373" font-size="8" fill="#666">Continuity (α):</text>
+                                <path d="M 70 377 Q 90 373, 110 377" fill="none" stroke="#4CAF50" stroke-width="2"/>
+                                <text x="70" y="385" font-size="8" fill="#666">Curvature (β):</text>
+                                <path d="M 70 386 Q 90 383, 110 386" fill="none" stroke="#FF9800" stroke-width="2"/>
+                            </g>
+                            
+                            <!-- External forces -->
+                            <g>
+                                <text x="260" y="358" text-anchor="middle" font-size="10" font-weight="600" fill="#F44336">External Forces</text>
+                                <text x="200" y="373" font-size="8" fill="#666">Edge Attraction:</text>
+                                <circle cx="260" cy="373" r="10" fill="#B0B0B0" opacity="0.4"/>
+                                <circle cx="260" cy="373" r="7" fill="none" stroke="#FF6B6B" stroke-width="2"/>
+                                <!-- Arrows pointing inward -->
+                                <line x1="250" y1="373" x2="254" y2="373" stroke="#F44336" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+                                <line x1="270" y1="373" x2="266" y2="373" stroke="#F44336" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+                                <line x1="260" y1="363" x2="260" y2="367" stroke="#F44336" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+                                <line x1="260" y1="383" x2="260" y2="379" stroke="#F44336" stroke-width="1.5" marker-end="url(#arrowRed)"/>
+                                
+                                <defs>
+                                    <marker id="arrowRed" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
+                                        <polygon points="0 0, 6 3, 0 6" fill="#F44336"/>
+                                    </marker>
+                                </defs>
+                            </g>
+                        </svg>
+                        
+                        <div class="pros-cons">
+                            <div class="pros">
+                                <div class="pros-title">✓ Advantages</div>
+                                <ul class="bullet-list" style="font-size: 13px;">
+                                    <li>Smooth, closed boundaries</li>
+                                    <li>Can incorporate prior knowledge</li>
+                                    <li>Subpixel accuracy</li>
+                                    <li>Handles topology changes</li>
+                                </ul>
+                            </div>
+                            <div class="cons">
+                                <div class="cons-title">✗ Limitations</div>
+                                <ul class="bullet-list" style="font-size: 13px;">
+                                    <li>Requires good initialization</li>
+                                    <li>Computationally intensive</li>
+                                    <li>Sensitive to parameters α, β</li>
+                                    <li>Can get stuck in local minima</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Machine Learning -->
+            <div class="detailed-section">
+                <div class="section-header">
+                    <span class="section-number">5</span>
+                    <h2 class="section-title">Machine Learning & Deep Learning Methods</h2>
+                </div>
+                
+                <div class="section-content">
+                    <div class="text-content">
+                        <div class="subsection">
+                            <div class="subsection-title">Overview</div>
+                            <div class="subsection-text">
+                                Modern segmentation leverages deep learning, particularly convolutional neural networks (CNNs), to learn complex feature representations directly from data. These methods have revolutionized medical image analysis, achieving state-of-the-art performance on challenging segmentation tasks without manual feature engineering.
+                            </div>
+                        </div>
+                        
+                        <div class="subsection">
+                            <div class="subsection-title">Key Architectures</div>
+                            <ul class="bullet-list">
+                                <li><strong>U-Net:</strong> Encoder-decoder with skip connections for biomedical segmentation</li>
+                                <li><strong>Mask R-CNN:</strong> Extends Faster R-CNN for instance segmentation</li>
+                                <li><strong>FCN:</strong> Fully Convolutional Network for end-to-end pixel-wise classification</li>
+                                <li><strong>DeepLab:</strong> Uses atrous convolution and CRF for semantic segmentation</li>
+                                <li><strong>Transformers:</strong> Vision transformers (ViT), Swin-Unet for long-range dependencies</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="highlight-box">
+                            <strong>U-Net Revolution:</strong> Introduced in 2015 for biomedical segmentation, U-Net remains the gold standard due to its ability to work with small training datasets and produce precise localization.
+                        </div>
+                        
+                        <div class="subsection">
+                            <div class="subsection-title">Training Requirements</div>
+                            <ul class="bullet-list">
+                                <li><strong>Annotated Data:</strong> Pixel-level labels required (time-consuming)</li>
+                                <li><strong>Data Augmentation:</strong> Rotation, flipping, elastic deformation</li>
+                                <li><strong>Loss Functions:</strong> Cross-entropy, Dice loss, focal loss</li>
+                                <li><strong>Hardware:</strong> GPU acceleration essential for training</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="visual-content">
+                        <svg width="100%" height="450" viewBox="0 0 400 450">
+                            <text x="200" y="20" text-anchor="middle" font-size="14" font-weight="700" fill="#FF9800">Deep Learning Segmentation</text>
+                            
+                            <!-- U-Net Architecture -->
+                            <text x="200" y="45" text-anchor="middle" font-size="12" font-weight="700" fill="#FF9800">U-Net Architecture</text>
+                            <rect x="25" y="55" width="350" height="140" fill="#FFF8E1" stroke="#FF9800" stroke-width="2" rx="5"/>
+                            
+                            <!-- Input -->
+                            <rect x="40" y="105" width="30" height="30" fill="#2196F3" opacity="0.8" stroke="#1976D2" stroke-width="1.5"/>
+                            <text x="55" y="145" text-anchor="middle" font-size="8" fill="#333">Input</text>
+                            
+                            <!-- Encoder -->
+                            <text x="120" y="75" text-anchor="middle" font-size="9" fill="#FF9800" font-weight="600">Encoder</text>
+                            <rect x="85" y="100" width="25" height="25" fill="#FF9800" opacity="0.9"/>
+                            <rect x="120" y="107" width="20" height="20" fill="#FF9800" opacity="0.7"/>
+                            <rect x="150" y="112" width="15" height="15" fill="#FF9800" opacity="0.5"/>
+                            
+                            <!-- Bottleneck -->
+                            <rect x="175" y="110" width="18" height="18" fill="#FF5722" opacity="0.9" stroke="#D84315" stroke-width="2"/>
+                            <text x="184" y="103" text-anchor="middle" font-size="8" fill="#FF5722" font-weight="700">Bottleneck</text>
+                            
+                            <!-- Decoder -->
+                            <text x="280" y="75" text-anchor="middle" font-size="9" fill="#4CAF50" font-weight="600">Decoder</text>
+                            <rect x="203" y="112" width="15" height="15" fill="#4CAF50" opacity="0.5"/>
+                            <rect x="228" y="107" width="20" height="20" fill="#4CAF50" opacity="0.7"/>
+                            <rect x="258" y="100" width="25" height="25" fill="#4CAF50" opacity="0.9"/>
+                            
+                            <!-- Output -->
+                            <rect x="298" y="105" width="30" height="30" fill="#8BC34A" opacity="0.9" stroke="#689F38" stroke-width="2"/>
+                            <text x="313" y="145" text-anchor="middle" font-size="8" fill="#333">Output</text>
+                            
+                            <!-- Skip connections -->
+                            <path d="M 105 100 Q 105 85, 270 85 Q 270 100, 270 100" fill="none" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="3,3"/>
+                            <path d="M 130 107 Q 130 95, 240 95 Q 240 107, 240 107" fill="none" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="3,3"/>
+                            <text x="200" y="83" text-anchor="middle" font-size="7" fill="#1E64C8" font-weight="600">Skip Connections</text>
+                            
+                            <!-- Legend -->
+                            <rect x="35" y="160" width="10" height="10" fill="#FF9800" opacity="0.8"/>
+                            <text x="50" y="168" font-size="7" fill="#666">Conv+ReLU</text>
+                            
+                            <rect x="110" y="160" width="10" height="10" fill="#F44336" opacity="0.6"/>
+                            <text x="125" y="168" font-size="7" fill="#666">Max Pool</text>
+                            
+                            <rect x="185" y="160" width="10" height="10" fill="#4CAF50" opacity="0.8"/>
+                            <text x="200" y="168" font-size="7" fill="#666">Up-conv</text>
+                            
+                            <line x1="260" y1="165" x2="280" y2="165" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="3,3"/>
+                            <text x="285" y="168" font-size="7" fill="#666">Skip Connection</text>
+                            
+                            <text x="200" y="185" text-anchor="middle" font-size="8" fill="#FF9800" font-weight="700">
+                                Key: Symmetric encoder-decoder + skip connections preserve spatial info
+                            </text>
+                        </svg>
+                        
+                        <div style="background: #E8F5E9; padding: 15px; border-radius: 8px; margin-top: 15px;">
+                            <h4 style="color: #2E7D32; font-size: 14px; margin-bottom: 10px;">Performance Metrics</h4>
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; font-size: 12px;">
+                                <div>
+                                    <strong style="color: #333;">Dice Coefficient:</strong>
+                                    <p style="font-family: monospace; margin: 3px 0; color: #555;">2|A∩B| / (|A|+|B|)</p>
+                                    <p style="color: #666;">Typical: 0.85-0.95</p>
+                                </div>
+                                <div>
+                                    <strong style="color: #333;">IoU (Jaccard):</strong>
+                                    <p style="font-family: monospace; margin: 3px 0; color: #555;">|A∩B| / |A∪B|</p>
+                                    <p style="color: #666;">Typical: 0.75-0.90</p>
+                                </div>
+                                <div>
+                                    <strong style="color: #333;">Pixel Accuracy:</strong>
+                                    <p style="font-family: monospace; margin: 3px 0; color: #555;">Correct / Total</p>
+                                    <p style="color: #666;">Typical: >95%</p>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div class="pros-cons">
+                            <div class="pros">
+                                <div class="pros-title">✓ Advantages</div>
+                                <ul class="bullet-list" style="font-size: 13px;">
+                                    <li>State-of-the-art accuracy</li>
+                                    <li>Learns complex features</li>
+                                    <li>Handles diverse images</li>
+                                    <li>End-to-end training</li>
+                                    <li>Transfer learning possible</li>
+                                </ul>
+                            </div>
+                            <div class="cons">
+                                <div class="cons-title">✗ Limitations</div>
+                                <ul class="bullet-list" style="font-size: 13px;">
+                                    <li>Requires large labeled datasets</li>
+                                    <li>Computationally expensive</li>
+                                    <li>Black box interpretation</li>
+                                    <li>Needs GPU hardware</li>
+                                    <li>Long training time</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Method Selection Guide -->
+            <div class="selection-guide">
+                <h2 class="selection-title">Method Selection Guide</h2>
+                
+                <div class="guide-grid">
+                    <div class="guide-card">
+                        <h3>🚀 Need Speed?</h3>
+                        <p class="method-name">→ Thresholding</p>
+                        <p class="method-desc">Real-time processing, simple images with clear contrast</p>
+                    </div>
+                    
+                    <div class="guide-card">
+                        <h3>🎯 Maximum Accuracy?</h3>
+                        <p class="method-name">→ Deep Learning</p>
+                        <p class="method-desc">When you have labeled training data and GPU resources</p>
+                    </div>
+                    
+                    <div class="guide-card">
+                        <h3>👥 Touching Objects?</h3>
+                        <p class="method-name">→ Watershed</p>
+                        <p class="method-desc">Ideal for cell counting, particle analysis, overlapping objects</p>
+                    </div>
+                    
+                    <div class="guide-card">
+                        <h3>📐 Smooth Boundaries?</h3>
+                        <p class="method-name">→ Active Contours</p>
+                        <p class="method-desc">Perfect for organ segmentation, tracking applications</p>
+                    </div>
+                    
+                    <div class="guide-card">
+                        <h3>🎨 Homogeneous Regions?</h3>
+                        <p class="method-name">→ Region Growing</p>
+                        <p class="method-desc">When user interaction is acceptable and objects are uniform</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.1); border-radius: 8px; text-align: center;">
+                    <p style="font-size: 16px; font-weight: 600; margin-bottom: 10px;">💡 Hybrid Approach Often Best!</p>
+                    <p style="font-size: 14px; opacity: 0.95;">
+                        Combine multiple methods for optimal results. Example: Preprocessing with thresholding → 
+                        Watershed refinement → Deep learning validation
+                    </p>
+                </div>
             </div>
         </div>
     </div>

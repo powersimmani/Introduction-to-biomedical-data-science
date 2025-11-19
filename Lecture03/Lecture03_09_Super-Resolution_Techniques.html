@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Super-Resolution Techniques</title>
+    <title>Super-Resolution Techniques - Detailed Guide</title>
     <style>
         * {
             margin: 0;
@@ -13,37 +13,45 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 40px 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 40px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 40px 60px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         .title {
-            font-size: 36px;
+            font-size: 42px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
         }
         
-        .content-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 40px;
         }
         
-        .content-card {
+        .overview-section {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 18px;
+            margin-bottom: 50px;
+        }
+        
+        .overview-card {
+            flex: 1;
+            min-width: 200px;
             background: #f8fbff;
             border-left: 5px solid #1E64C8;
             border-radius: 8px;
@@ -51,52 +59,621 @@
             transition: all 0.3s;
         }
         
-        .content-card:hover {
+        .overview-card:hover {
             background: #e8f2ff;
-            transform: translateX(5px);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(30, 100, 200, 0.15);
         }
         
         .card-label {
-            font-size: 19px;
+            font-size: 18px;
             font-weight: 700;
             color: #1E64C8;
             margin-bottom: 5px;
         }
         
         .card-desc {
-            font-size: 17px;
+            font-size: 15px;
             color: #333;
             line-height: 1.4;
+        }
+        
+        .detail-section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: #fafafa;
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .detail-header {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .detail-resolution {
+            font-size: 18px;
+            color: #fff;
+            background: #1E64C8;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+        }
+        
+        .detail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 25px;
+        }
+        
+        .detail-text {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .detail-subsection {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #1E64C8;
+        }
+        
+        .subsection-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 10px;
+        }
+        
+        .subsection-content {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .subsection-content ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .subsection-content li {
+            margin-bottom: 8px;
+        }
+        
+        .visual-container {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .diagram {
+            width: 100%;
+            height: 280px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .diagram-storm {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+        
+        .diagram-sted {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+        
+        .diagram-sim {
+            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+        }
+        
+        .diagram-comparison {
+            background: linear-gradient(135deg, #fa709a 0%, #fee140 100%);
+        }
+        
+        .diagram-sample {
+            background: linear-gradient(135deg, #30cfd0 0%, #330867 100%);
+        }
+        
+        .diagram-content {
+            text-align: center;
+            color: white;
+            z-index: 1;
+        }
+        
+        .diagram-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .diagram-illustration {
+            font-size: 60px;
+            margin-bottom: 10px;
+            filter: drop-shadow(2px 2px 4px rgba(0,0,0,0.3));
+        }
+        
+        .diagram-label {
+            font-size: 16px;
+            font-weight: 600;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 15px;
+            border-radius: 20px;
+            display: inline-block;
+            backdrop-filter: blur(10px);
+        }
+        
+        .visual-points {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .visual-points strong {
+            color: #1E64C8;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            background: white;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+        
+        .comparison-table table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        .comparison-table th {
+            background: #1E64C8;
+            color: white;
+            padding: 12px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 10px 12px;
+            font-size: 13px;
+            border-bottom: 1px solid #e0e0e0;
+            text-align: center;
+        }
+        
+        .comparison-table tr:hover {
+            background: #f8fbff;
+        }
+        
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .highlight-box strong {
+            color: #856404;
+        }
+        
+        @media (max-width: 968px) {
+            .detail-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .container {
+                padding: 30px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Super-Resolution Techniques</div>
+        <div class="title">Super-Resolution Microscopy Techniques</div>
+        <div class="subtitle">Breaking the Diffraction Barrier: Advanced Fluorescence Imaging Methods</div>
         
-        <div class="content-grid">
-            <div class="content-card">
+        <!-- Overview Section -->
+        <div class="overview-section">
+            <div class="overview-card">
                 <div class="card-label">STORM/PALM principles</div>
                 <div class="card-desc">Single molecule localization (20-30 nm)</div>
             </div>
-            <div class="content-card">
+            <div class="overview-card">
                 <div class="card-label">STED microscopy</div>
                 <div class="card-desc">Stimulated emission depletion (~50 nm)</div>
             </div>
-            <div class="content-card">
+            <div class="overview-card">
                 <div class="card-label">SIM principles</div>
                 <div class="card-desc">Structured illumination (~100 nm)</div>
             </div>
-            <div class="content-card">
+            <div class="overview-card">
                 <div class="card-label">Resolution comparisons</div>
                 <div class="card-desc">10× improvement over diffraction limit</div>
             </div>
-            <div class="content-card">
+            <div class="overview-card">
                 <div class="card-label">Sample requirements</div>
                 <div class="card-desc">Special fluorophores and preparation</div>
             </div>
-
         </div>
+
+        <!-- Detail Section 1: STORM/PALM -->
+        <div class="detail-section">
+            <div class="detail-header">
+                <span>1. STORM/PALM Principles</span>
+                <span class="detail-resolution">20-30 nm</span>
+            </div>
+            
+            <div class="detail-content">
+                <div class="detail-text">
+                    <div class="detail-subsection">
+                        <div class="subsection-title">Principle</div>
+                        <div class="subsection-content">
+                            STORM (Stochastic Optical Reconstruction Microscopy) and PALM (Photo-Activated Localization Microscopy) utilize single-molecule localization to achieve super-resolution. These techniques rely on the stochastic activation and precise localization of individual fluorescent molecules.
+                        </div>
+                    </div>
+                    
+                    <div class="detail-subsection">
+                        <div class="subsection-title">How It Works</div>
+                        <div class="subsection-content">
+                            <ul>
+                                <li><strong>Photoswitchable fluorophores:</strong> Molecules can be switched between fluorescent and dark states</li>
+                                <li><strong>Sparse activation:</strong> Only a few molecules fluoresce at any given time</li>
+                                <li><strong>Precise localization:</strong> Center of each molecule's PSF is determined with nanometer precision</li>
+                                <li><strong>Iterative imaging:</strong> Thousands of frames are acquired and combined</li>
+                                <li><strong>Reconstruction:</strong> Super-resolution image built from accumulated localizations</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-subsection">
+                        <div class="subsection-title">Key Advantages</div>
+                        <div class="subsection-content">
+                            <ul>
+                                <li>Highest resolution among fluorescence techniques (20-30 nm)</li>
+                                <li>Can image deep into samples</li>
+                                <li>Molecular counting capability</li>
+                                <li>3D imaging possible with specialized optics</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visual-container">
+                    <div class="diagram diagram-storm">
+                        <div class="diagram-content">
+                            <div class="diagram-illustration">💡➡️🔬</div>
+                            <div class="diagram-title">Single Molecule Localization</div>
+                            <div class="diagram-label">Stochastic Activation</div>
+                        </div>
+                    </div>
+                    <div class="visual-points">
+                        <strong>Visualization Key:</strong><br>
+                        • Individual molecules are activated randomly<br>
+                        • Each molecule appears as a diffraction-limited spot<br>
+                        • Centroid localized with ~10-20 nm precision<br>
+                        • Thousands of frames → Single super-resolution image
+                    </div>
+                    <div class="highlight-box">
+                        <strong>Time Investment:</strong> Acquisition typically takes 5-30 minutes for a single image due to the need for thousands of frames.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detail Section 2: STED -->
+        <div class="detail-section">
+            <div class="detail-header">
+                <span>2. STED Microscopy</span>
+                <span class="detail-resolution">~50 nm</span>
+            </div>
+            
+            <div class="detail-content">
+                <div class="detail-text">
+                    <div class="detail-subsection">
+                        <div class="subsection-title">Principle</div>
+                        <div class="subsection-content">
+                            STED (Stimulated Emission Depletion) microscopy uses a depletion laser beam with a donut-shaped intensity profile to confine fluorescence emission to a nanoscale region, effectively reducing the size of the point spread function.
+                        </div>
+                    </div>
+                    
+                    <div class="detail-subsection">
+                        <div class="subsection-title">How It Works</div>
+                        <div class="subsection-content">
+                            <ul>
+                                <li><strong>Excitation laser:</strong> Excites fluorophores in a diffraction-limited spot</li>
+                                <li><strong>STED laser:</strong> Donut-shaped beam de-excites molecules at the periphery</li>
+                                <li><strong>Confined emission:</strong> Only molecules at the center fluoresce</li>
+                                <li><strong>Scanning:</strong> Beam scanned across sample point-by-point</li>
+                                <li><strong>Resolution scaling:</strong> Higher STED power = better resolution</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-subsection">
+                        <div class="subsection-title">Key Advantages</div>
+                        <div class="subsection-content">
+                            <ul>
+                                <li>Live-cell compatible with fast imaging speeds</li>
+                                <li>No computational reconstruction needed</li>
+                                <li>Direct super-resolution image acquisition</li>
+                                <li>Multi-color imaging readily achievable</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visual-container">
+                    <div class="diagram diagram-sted">
+                        <div class="diagram-content">
+                            <div class="diagram-illustration">🎯🔴</div>
+                            <div class="diagram-title">Donut-Shaped Depletion</div>
+                            <div class="diagram-label">Stimulated Emission</div>
+                        </div>
+                    </div>
+                    <div class="visual-points">
+                        <strong>Visualization Key:</strong><br>
+                        • Green: Excitation laser (Gaussian profile)<br>
+                        • Red: STED laser (Donut profile)<br>
+                        • Center region: Molecules can fluoresce<br>
+                        • Outer region: Fluorescence depleted by STED beam<br>
+                        • Result: Effective PSF much smaller than diffraction limit
+                    </div>
+                    <div class="highlight-box">
+                        <strong>Nobel Prize:</strong> Stefan Hell received the 2014 Nobel Prize in Chemistry for developing STED microscopy.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detail Section 3: SIM -->
+        <div class="detail-section">
+            <div class="detail-header">
+                <span>3. SIM Principles</span>
+                <span class="detail-resolution">~100 nm</span>
+            </div>
+            
+            <div class="detail-content">
+                <div class="detail-text">
+                    <div class="detail-subsection">
+                        <div class="subsection-title">Principle</div>
+                        <div class="subsection-content">
+                            SIM (Structured Illumination Microscopy) uses patterned illumination to encode high-resolution information into lower spatial frequencies that can pass through the microscope's optical system. Mathematical reconstruction then recovers the super-resolution image.
+                        </div>
+                    </div>
+                    
+                    <div class="detail-subsection">
+                        <div class="subsection-title">How It Works</div>
+                        <div class="subsection-content">
+                            <ul>
+                                <li><strong>Patterned illumination:</strong> Sinusoidal grating projected onto sample</li>
+                                <li><strong>Multiple acquisitions:</strong> Pattern shifted and rotated (typically 9-15 images)</li>
+                                <li><strong>Moiré fringes:</strong> Interaction between pattern and sample structure</li>
+                                <li><strong>Frequency mixing:</strong> High frequencies down-modulated to observable range</li>
+                                <li><strong>Computational reconstruction:</strong> Fourier-space processing recovers super-resolution</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-subsection">
+                        <div class="subsection-title">Key Advantages</div>
+                        <div class="subsection-content">
+                            <ul>
+                                <li>2× resolution improvement (to ~100 nm laterally)</li>
+                                <li>Compatible with conventional fluorophores</li>
+                                <li>Fast imaging speeds (live-cell capable)</li>
+                                <li>3D-SIM provides isotropic resolution enhancement</li>
+                                <li>Relatively gentle on samples (low phototoxicity)</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visual-container">
+                    <div class="diagram diagram-sim">
+                        <div class="diagram-content">
+                            <div class="diagram-illustration">▓▓▓▓</div>
+                            <div class="diagram-title">Structured Illumination</div>
+                            <div class="diagram-label">Pattern Projection</div>
+                        </div>
+                    </div>
+                    <div class="visual-points">
+                        <strong>Visualization Key:</strong><br>
+                        • Sinusoidal pattern projected at multiple angles<br>
+                        • Sample structure interacts with illumination pattern<br>
+                        • Creates moiré fringes containing hidden information<br>
+                        • 9-15 raw images combined computationally<br>
+                        • Fourier reconstruction reveals super-resolution details
+                    </div>
+                    <div class="highlight-box">
+                        <strong>Best For:</strong> SIM is ideal for live-cell imaging when moderate resolution enhancement is sufficient and speed is important.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detail Section 4: Resolution Comparisons -->
+        <div class="detail-section">
+            <div class="detail-header">
+                <span>4. Resolution Comparisons</span>
+                <span class="detail-resolution">10× Improvement</span>
+            </div>
+            
+            <div class="detail-content">
+                <div class="detail-text">
+                    <div class="detail-subsection">
+                        <div class="subsection-title">The Diffraction Limit</div>
+                        <div class="subsection-content">
+                            Classical light microscopy is limited by Abbe's diffraction limit: d = λ/(2NA), where λ is wavelength and NA is numerical aperture. For visible light (~500 nm) and high NA objectives (1.4), this yields ~180-200 nm lateral resolution. Super-resolution techniques break this fundamental barrier.
+                        </div>
+                    </div>
+                    
+                    <div class="detail-subsection">
+                        <div class="subsection-title">Comparative Performance</div>
+                        <div class="subsection-content">
+                            <strong>Lateral Resolution:</strong>
+                            <ul>
+                                <li>Conventional microscopy: ~200-250 nm</li>
+                                <li>SIM: ~100-120 nm (2× improvement)</li>
+                                <li>STED: ~30-80 nm (depends on laser power)</li>
+                                <li>STORM/PALM: ~20-30 nm (best resolution)</li>
+                            </ul>
+                            <strong>Axial Resolution:</strong>
+                            <ul>
+                                <li>Conventional: ~500-700 nm</li>
+                                <li>3D-SIM: ~250-300 nm</li>
+                                <li>3D-STED: ~100-150 nm</li>
+                                <li>3D-STORM: ~50-75 nm</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-subsection">
+                        <div class="subsection-title">Practical Considerations</div>
+                        <div class="subsection-content">
+                            Resolution must be balanced against acquisition speed, photodamage, sample requirements, and complexity. The "best" technique depends on the specific biological question and experimental constraints.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visual-container">
+                    <div class="diagram diagram-comparison">
+                        <div class="diagram-content">
+                            <div class="diagram-illustration">📊📈</div>
+                            <div class="diagram-title">Performance Metrics</div>
+                            <div class="diagram-label">Resolution vs Speed Trade-offs</div>
+                        </div>
+                    </div>
+                    
+                    <div class="comparison-table">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Technique</th>
+                                    <th>Resolution</th>
+                                    <th>Speed</th>
+                                    <th>Live-cell</th>
+                                    <th>Depth</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><strong>Confocal</strong></td>
+                                    <td>200 nm</td>
+                                    <td>Fast</td>
+                                    <td>✓</td>
+                                    <td>Good</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>SIM</strong></td>
+                                    <td>100 nm</td>
+                                    <td>Fast</td>
+                                    <td>✓</td>
+                                    <td>Moderate</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>STED</strong></td>
+                                    <td>50 nm</td>
+                                    <td>Moderate</td>
+                                    <td>✓</td>
+                                    <td>Moderate</td>
+                                </tr>
+                                <tr>
+                                    <td><strong>STORM/PALM</strong></td>
+                                    <td>20 nm</td>
+                                    <td>Slow</td>
+                                    <td>Limited</td>
+                                    <td>Excellent</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>Key Insight:</strong> There is typically an inverse relationship between resolution and imaging speed. Choose the technique that provides sufficient resolution for your biological question while maintaining acceptable acquisition times.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detail Section 5: Sample Requirements -->
+        <div class="detail-section">
+            <div class="detail-header">
+                <span>5. Sample Requirements</span>
+                <span class="detail-resolution">Critical Success Factors</span>
+            </div>
+            
+            <div class="detail-content">
+                <div class="detail-text">
+                    <div class="detail-subsection">
+                        <div class="subsection-title">Fluorophore Selection</div>
+                        <div class="subsection-content">
+                            <strong>STORM/PALM:</strong> Requires photoswitchable fluorophores (e.g., Alexa Fluor 647, Cy5, photo-activatable FPs like PA-GFP, mEos). Must have excellent on/off contrast ratio.
+                            <br><br>
+                            <strong>STED:</strong> Needs fluorophores with good photostability and appropriate emission spectrum. Depletion efficiency depends on Stokes shift and fluorescence lifetime.
+                            <br><br>
+                            <strong>SIM:</strong> Most flexible - works with conventional fluorophores (GFP, RFP, Alexa Fluors, etc.). No special photophysical properties required.
+                        </div>
+                    </div>
+                    
+                    <div class="detail-subsection">
+                        <div class="subsection-title">Sample Preparation</div>
+                        <div class="subsection-content">
+                            <ul>
+                                <li><strong>Mounting media:</strong> Refractive index matching critical for optimal resolution</li>
+                                <li><strong>Coverslip thickness:</strong> #1.5 (170 µm) typically required for high NA objectives</li>
+                                <li><strong>Fixation:</strong> Must preserve ultrastructure without causing artifacts</li>
+                                <li><strong>Labeling density:</strong> Sufficient but not excessive - varies by technique</li>
+                                <li><strong>Sample thickness:</strong> Thinner samples generally yield better results</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="detail-subsection">
+                        <div class="subsection-title">Environmental Control</div>
+                        <div class="subsection-content">
+                            Super-resolution imaging is sensitive to mechanical vibrations, temperature fluctuations, and sample drift. Anti-vibration tables, temperature control, and drift correction algorithms are essential for optimal results. Live-cell imaging requires sophisticated environmental chambers maintaining precise temperature, CO₂, and humidity.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visual-container">
+                    <div class="diagram diagram-sample">
+                        <div class="diagram-content">
+                            <div class="diagram-illustration">🧪🔬</div>
+                            <div class="diagram-title">Sample Preparation Workflow</div>
+                            <div class="diagram-label">Optimization Required</div>
+                        </div>
+                    </div>
+                    <div class="visual-points">
+                        <strong>Critical Factors:</strong><br>
+                        • <strong>Fluorophore brightness:</strong> More photons = better localization<br>
+                        • <strong>Photostability:</strong> Must survive thousands of excitation cycles<br>
+                        • <strong>Labeling specificity:</strong> High signal-to-noise ratio essential<br>
+                        • <strong>Sample drift:</strong> Must be minimized (< 10 nm during acquisition)<br>
+                        • <strong>Background fluorescence:</strong> Should be extremely low
+                    </div>
+                    <div class="highlight-box">
+                        <strong>Common Pitfall:</strong> Under-optimized sample preparation is the most frequent cause of poor super-resolution results. Invest time in optimization before extensive imaging.
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

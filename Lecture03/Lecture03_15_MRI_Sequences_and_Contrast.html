@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MRI Sequences and Contrast</title>
+    <title>MRI Sequences and Contrast - Detailed Guide</title>
     <style>
         * {
             margin: 0;
@@ -12,91 +12,742 @@
         }
         
         body {
-            font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f5f5;
+            padding: 40px 20px;
+            line-height: 1.6;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 40px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 10px;
         }
         
-        .title {
-            font-size: 36px;
+        .main-title {
+            font-size: 42px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-align: center;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 20px;
+            border-bottom: 4px solid #1E64C8;
         }
         
-        .content-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 18px;
+            margin-bottom: 50px;
         }
         
-        .content-card {
-            background: #f8fbff;
-            border-left: 5px solid #1E64C8;
-            border-radius: 8px;
-            padding: 16px 22px;
-            transition: all 0.3s;
+        .overview-section {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
         }
         
-        .content-card:hover {
-            background: #e8f2ff;
-            transform: translateX(5px);
+        .overview-card {
+            background: linear-gradient(135deg, #1E64C8 0%, #2874d8 100%);
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            color: white;
+            transition: transform 0.3s;
+            cursor: pointer;
         }
         
-        .card-label {
-            font-size: 19px;
+        .overview-card:hover {
+            transform: translateY(-5px);
+        }
+        
+        .overview-card-title {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .overview-card-desc {
+            font-size: 14px;
+            opacity: 0.95;
+        }
+        
+        .section {
+            margin-bottom: 70px;
+            padding-bottom: 40px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-title {
+            font-size: 32px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 5px;
+            margin-bottom: 25px;
+            padding-left: 15px;
+            border-left: 6px solid #1E64C8;
         }
         
-        .card-desc {
-            font-size: 17px;
+        .content-layout {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 20px;
+        }
+        
+        .diagram-container {
+            background: #f8fbff;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            border: 2px solid #e0e9f5;
+        }
+        
+        .diagram {
+            width: 100%;
+            max-width: 100%;
+        }
+        
+        .description {
+            padding: 20px;
+        }
+        
+        .description h3 {
+            color: #1E64C8;
+            font-size: 22px;
+            margin-bottom: 15px;
+        }
+        
+        .description p {
             color: #333;
-            line-height: 1.4;
+            font-size: 16px;
+            margin-bottom: 12px;
+            text-align: justify;
+        }
+        
+        .key-points {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        
+        .key-points h4 {
+            color: #f57c00;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .key-points ul {
+            margin-left: 20px;
+            color: #333;
+        }
+        
+        .key-points li {
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        
+        .clinical-applications {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 15px 20px;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+        
+        .clinical-applications h4 {
+            color: #2e7d32;
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .clinical-applications ul {
+            margin-left: 20px;
+            color: #333;
+        }
+        
+        .clinical-applications li {
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+        
+        @media (max-width: 968px) {
+            .content-layout {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">MRI Sequences and Contrast</div>
+        <div class="main-title">MRI Sequences and Contrast</div>
+        <div class="subtitle">Comprehensive Guide to Magnetic Resonance Imaging Techniques</div>
         
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="card-label">Spin echo</div>
-                <div class="card-desc">180° refocusing pulse, high SNR</div>
+        <!-- Overview Section -->
+        <div class="overview-section">
+            <div class="overview-card">
+                <div class="overview-card-title">Spin Echo</div>
+                <div class="overview-card-desc">180° refocusing pulse, high SNR</div>
             </div>
-            <div class="content-card">
-                <div class="card-label">Gradient echo</div>
-                <div class="card-desc">Faster acquisition, T2* weighting</div>
+            <div class="overview-card">
+                <div class="overview-card-title">Gradient Echo</div>
+                <div class="overview-card-desc">Faster acquisition, T2* weighting</div>
             </div>
-            <div class="content-card">
-                <div class="card-label">T1/T2/PD weighting</div>
-                <div class="card-desc">Tissue contrast manipulation</div>
+            <div class="overview-card">
+                <div class="overview-card-title">T1/T2/PD Weighting</div>
+                <div class="overview-card-desc">Tissue contrast manipulation</div>
             </div>
-            <div class="content-card">
-                <div class="card-label">DWI/DTI</div>
-                <div class="card-desc">Diffusion imaging for stroke and white matter</div>
+            <div class="overview-card">
+                <div class="overview-card-title">DWI/DTI</div>
+                <div class="overview-card-desc">Diffusion imaging for stroke and white matter</div>
             </div>
-            <div class="content-card">
-                <div class="card-label">Functional MRI basics</div>
-                <div class="card-desc">BOLD signal reflects brain activity</div>
+            <div class="overview-card">
+                <div class="overview-card-title">Functional MRI</div>
+                <div class="overview-card-desc">BOLD signal reflects brain activity</div>
             </div>
-
         </div>
+
+        <!-- Section 1: Spin Echo -->
+        <div class="section">
+            <div class="section-title">1. Spin Echo Sequence</div>
+            <div class="content-layout">
+                <div class="diagram-container">
+                    <svg class="diagram" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <!-- RF Pulse Line -->
+                        <text x="10" y="30" font-size="14" font-weight="bold" fill="#1E64C8">RF Pulse</text>
+                        <line x1="80" y1="25" x2="380" y2="25" stroke="#333" stroke-width="1"/>
+                        
+                        <!-- 90° pulse -->
+                        <rect x="100" y="10" width="30" height="30" fill="#4CAF50"/>
+                        <text x="110" y="30" font-size="12" fill="white" font-weight="bold">90°</text>
+                        
+                        <!-- 180° pulse -->
+                        <rect x="250" y="5" width="30" height="40" fill="#FF5722"/>
+                        <text x="255" y="30" font-size="12" fill="white" font-weight="bold">180°</text>
+                        
+                        <!-- Signal Line -->
+                        <text x="10" y="100" font-size="14" font-weight="bold" fill="#1E64C8">Signal</text>
+                        <line x1="80" y1="95" x2="380" y2="95" stroke="#333" stroke-width="1"/>
+                        
+                        <!-- FID -->
+                        <path d="M 130 95 Q 180 60 220 95" stroke="#FF9800" stroke-width="2" fill="none"/>
+                        <text x="150" y="75" font-size="11" fill="#FF9800">FID</text>
+                        
+                        <!-- Echo -->
+                        <path d="M 280 95 Q 300 45 320 95" stroke="#2196F3" stroke-width="3" fill="none"/>
+                        <text x="290" y="40" font-size="11" fill="#2196F3" font-weight="bold">Echo</text>
+                        
+                        <!-- Time markers -->
+                        <line x1="115" y1="140" x2="115" y2="150" stroke="#666" stroke-width="1"/>
+                        <line x1="265" y1="140" x2="265" y2="150" stroke="#666" stroke-width="1"/>
+                        <line x1="300" y1="140" x2="300" y2="150" stroke="#666" stroke-width="1"/>
+                        
+                        <!-- TE line -->
+                        <line x1="115" y1="145" x2="300" y2="145" stroke="#E91E63" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <line x1="115" y1="145" x2="115" y2="145" stroke="#E91E63" stroke-width="2" marker-start="url(#arrowstart)"/>
+                        <text x="190" y="165" font-size="12" fill="#E91E63" font-weight="bold">TE (Echo Time)</text>
+                        
+                        <!-- Gradient Line -->
+                        <text x="10" y="210" font-size="14" font-weight="bold" fill="#1E64C8">Gradient</text>
+                        <line x1="80" y1="205" x2="380" y2="205" stroke="#333" stroke-width="1"/>
+                        
+                        <!-- Phase encoding -->
+                        <rect x="140" y="195" width="15" height="20" fill="#9C27B0"/>
+                        <rect x="270" y="195" width="15" height="20" fill="#9C27B0"/>
+                        
+                        <!-- Frequency encoding -->
+                        <rect x="285" y="190" width="40" height="30" fill="#00BCD4"/>
+                        <text x="140" y="240" font-size="10" fill="#9C27B0">Phase</text>
+                        <text x="290" y="240" font-size="10" fill="#00BCD4">Frequency</text>
+                        
+                        <!-- Arrow markers -->
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#E91E63"/>
+                            </marker>
+                            <marker id="arrowstart" markerWidth="10" markerHeight="10" refX="1" refY="3" orient="auto">
+                                <polygon points="10 0, 0 3, 10 6" fill="#E91E63"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="description">
+                    <h3>Overview</h3>
+                    <p>Spin echo sequences are the fundamental MRI pulse sequences that use a 90° excitation pulse followed by a 180° refocusing pulse. This technique was developed to overcome magnetic field inhomogeneities and provides excellent image quality with high signal-to-noise ratio (SNR).</p>
+                    
+                    <p>The sequence begins with a 90° RF pulse that tips the magnetization into the transverse plane. As protons begin to dephase due to field inhomogeneities, a 180° refocusing pulse is applied, which reverses the dephasing and creates an echo signal at time TE (echo time).</p>
+                    
+                    <p>The 180° pulse effectively cancels out the effects of static magnetic field inhomogeneities, resulting in true T2 weighting rather than T2* weighting. This makes spin echo sequences particularly valuable for tissue characterization.</p>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>Key Technical Points</h4>
+                <ul>
+                    <li><strong>TR (Repetition Time):</strong> Time between successive 90° pulses; determines T1 weighting</li>
+                    <li><strong>TE (Echo Time):</strong> Time between 90° pulse and signal acquisition; determines T2 weighting</li>
+                    <li><strong>Signal Equation:</strong> S ∝ ρ(H) · (1 - e^(-TR/T1)) · e^(-TE/T2)</li>
+                    <li><strong>SNR Advantage:</strong> 180° refocusing pulse recovers signal lost to field inhomogeneities</li>
+                    <li><strong>Scan Time:</strong> Relatively long due to need for complete relaxation between sequences</li>
+                </ul>
+            </div>
+            
+            <div class="clinical-applications">
+                <h4>Clinical Applications</h4>
+                <ul>
+                    <li><strong>Brain Imaging:</strong> Standard for anatomical brain imaging with excellent gray-white matter contrast</li>
+                    <li><strong>Spine Imaging:</strong> Detailed visualization of spinal cord and nerve roots</li>
+                    <li><strong>Musculoskeletal:</strong> Assessment of soft tissue pathology, joint abnormalities</li>
+                    <li><strong>Tumor Detection:</strong> High sensitivity for detecting and characterizing lesions</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 2: Gradient Echo -->
+        <div class="section">
+            <div class="section-title">2. Gradient Echo Sequence</div>
+            <div class="content-layout">
+                <div class="diagram-container">
+                    <svg class="diagram" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <!-- RF Pulse Line -->
+                        <text x="10" y="30" font-size="14" font-weight="bold" fill="#1E64C8">RF Pulse</text>
+                        <line x1="80" y1="25" x2="380" y2="25" stroke="#333" stroke-width="1"/>
+                        
+                        <!-- Alpha pulse -->
+                        <rect x="100" y="15" width="25" height="20" fill="#4CAF50"/>
+                        <text x="105" y="30" font-size="11" fill="white" font-weight="bold">α</text>
+                        <text x="95" y="55" font-size="10" fill="#4CAF50">&lt;90°</text>
+                        
+                        <!-- Signal Line -->
+                        <text x="10" y="100" font-size="14" font-weight="bold" fill="#1E64C8">Signal</text>
+                        <line x1="80" y1="95" x2="380" y2="95" stroke="#333" stroke-width="1"/>
+                        
+                        <!-- FID and Echo -->
+                        <path d="M 125 95 Q 160 70 195 95" stroke="#FF9800" stroke-width="2" fill="none"/>
+                        <path d="M 195 95 Q 230 65 265 95" stroke="#2196F3" stroke-width="3" fill="none"/>
+                        <text x="220" y="60" font-size="11" fill="#2196F3" font-weight="bold">GRE Signal</text>
+                        
+                        <!-- Gradient Line -->
+                        <text x="10" y="160" font-size="14" font-weight="bold" fill="#1E64C8">Gradient</text>
+                        <line x1="80" y1="155" x2="380" y2="155" stroke="#333" stroke-width="1"/>
+                        
+                        <!-- Dephasing gradient (negative) -->
+                        <polygon points="130,155 150,145 150,165" fill="#FF5722"/>
+                        <text x="125" y="185" font-size="10" fill="#FF5722">Dephase</text>
+                        
+                        <!-- Rephasing gradient (positive) -->
+                        <polygon points="200,165 220,155 220,145" fill="#4CAF50"/>
+                        <text x="195" y="185" font-size="10" fill="#4CAF50">Rephase</text>
+                        
+                        <!-- Readout gradient -->
+                        <rect x="240" y="145" width="50" height="20" fill="#00BCD4"/>
+                        <text x="245" y="185" font-size="10" fill="#00BCD4">Readout</text>
+                        
+                        <!-- TE marker -->
+                        <line x1="112" y1="120" x2="250" y2="120" stroke="#E91E63" stroke-width="2"/>
+                        <text x="160" y="140" font-size="11" fill="#E91E63" font-weight="bold">Short TE</text>
+                        
+                        <!-- Comparison box -->
+                        <rect x="90" y="210" width="280" height="70" fill="#FFF3E0" stroke="#FF9800" stroke-width="2" rx="5"/>
+                        <text x="100" y="230" font-size="12" font-weight="bold" fill="#F57C00">GRE vs Spin Echo:</text>
+                        <text x="100" y="248" font-size="11" fill="#333">✓ Faster acquisition (shorter TR)</text>
+                        <text x="100" y="263" font-size="11" fill="#333">✓ T2* weighting (sensitive to susceptibility)</text>
+                        <text x="100" y="278" font-size="11" fill="#333">✗ Lower SNR, more artifacts</text>
+                    </svg>
+                </div>
+                <div class="description">
+                    <h3>Overview</h3>
+                    <p>Gradient echo (GRE) sequences use a variable flip angle (typically less than 90°) and gradient reversal instead of a 180° refocusing pulse to generate an echo. This fundamental difference allows for much faster image acquisition compared to spin echo sequences.</p>
+                    
+                    <p>Instead of using a 180° RF pulse to refocus spins, GRE sequences apply a negative gradient to dephase the spins, followed by a positive gradient to rephase them. This creates a gradient echo at a time determined by the strength and duration of the gradients.</p>
+                    
+                    <p>Because GRE sequences don't use a 180° refocusing pulse, they are sensitive to both T2 relaxation and magnetic field inhomogeneities, resulting in T2* (T-two-star) weighting. This sensitivity makes GRE particularly useful for detecting hemorrhage, calcifications, and iron deposits.</p>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>Key Technical Points</h4>
+                <ul>
+                    <li><strong>Flip Angle (α):</strong> Typically 10-40°; smaller angles allow shorter TR and faster imaging</li>
+                    <li><strong>T2* Weighting:</strong> Sensitive to magnetic susceptibility effects (hemorrhage, iron, air-tissue interfaces)</li>
+                    <li><strong>Spoiled vs Steady-State:</strong> Spoiled GRE destroys residual transverse magnetization; steady-state maintains it</li>
+                    <li><strong>Speed Advantage:</strong> Can achieve TR as short as 3-5 ms compared to 500+ ms for spin echo</li>
+                    <li><strong>Common Variants:</strong> FLASH, SPGR, FISP, GRASS, and many more</li>
+                </ul>
+            </div>
+            
+            <div class="clinical-applications">
+                <h4>Clinical Applications</h4>
+                <ul>
+                    <li><strong>Hemorrhage Detection:</strong> Superior for detecting blood products due to T2* sensitivity</li>
+                    <li><strong>Angiography:</strong> Time-of-flight (TOF) MRA uses GRE for vascular imaging</li>
+                    <li><strong>Dynamic Imaging:</strong> Fast acquisition enables dynamic contrast-enhanced studies</li>
+                    <li><strong>Cardiac Imaging:</strong> Breath-hold sequences for heart imaging</li>
+                    <li><strong>3D Volumetric Scans:</strong> Thin-slice high-resolution brain imaging</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 3: T1/T2/PD Weighting -->
+        <div class="section">
+            <div class="section-title">3. T1/T2/PD Weighting</div>
+            <div class="content-layout">
+                <div class="diagram-container">
+                    <svg class="diagram" viewBox="0 0 400 320" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Title -->
+                        <text x="120" y="20" font-size="16" font-weight="bold" fill="#1E64C8">Tissue Contrast Parameters</text>
+                        
+                        <!-- T1 Weighted -->
+                        <rect x="20" y="40" width="110" height="260" fill="#E3F2FD" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="45" y="60" font-size="14" font-weight="bold" fill="#1E64C8">T1-Weighted</text>
+                        <text x="30" y="80" font-size="11" fill="#333">Short TR (400-700)</text>
+                        <text x="30" y="95" font-size="11" fill="#333">Short TE (10-30)</text>
+                        
+                        <!-- T1 brain diagram -->
+                        <ellipse cx="75" cy="150" rx="40" ry="50" fill="#D3D3D3" stroke="#333" stroke-width="2"/>
+                        <ellipse cx="60" cy="140" rx="15" ry="20" fill="#F0F0F0"/>
+                        <ellipse cx="90" cy="140" rx="15" ry="20" fill="#F0F0F0"/>
+                        <path d="M 55 165 Q 75 175 95 165" stroke="#333" stroke-width="2" fill="none"/>
+                        
+                        <text x="30" y="220" font-size="10" fill="#333" font-weight="bold">Appearance:</text>
+                        <text x="30" y="235" font-size="9" fill="#333">• Fat: Bright</text>
+                        <text x="30" y="248" font-size="9" fill="#333">• CSF: Dark</text>
+                        <text x="30" y="261" font-size="9" fill="#333">• Gray matter: Gray</text>
+                        <text x="30" y="274" font-size="9" fill="#333">• White matter: Light</text>
+                        <text x="30" y="287" font-size="9" fill="#333">• Best anatomy</text>
+                        
+                        <!-- T2 Weighted -->
+                        <rect x="145" y="40" width="110" height="260" fill="#FFF3E0" stroke="#FF9800" stroke-width="2" rx="5"/>
+                        <text x="165" y="60" font-size="14" font-weight="bold" fill="#FF9800">T2-Weighted</text>
+                        <text x="155" y="80" font-size="11" fill="#333">Long TR (2000+)</text>
+                        <text x="155" y="95" font-size="11" fill="#333">Long TE (80-120)</text>
+                        
+                        <!-- T2 brain diagram -->
+                        <ellipse cx="200" cy="150" rx="40" ry="50" fill="#808080" stroke="#333" stroke-width="2"/>
+                        <ellipse cx="185" cy="140" rx="15" ry="20" fill="#606060"/>
+                        <ellipse cx="215" cy="140" rx="15" ry="20" fill="#606060"/>
+                        <path d="M 180 165 Q 200 175 220 165" stroke="#FFF" stroke-width="2" fill="none"/>
+                        
+                        <text x="155" y="220" font-size="10" fill="#333" font-weight="bold">Appearance:</text>
+                        <text x="155" y="235" font-size="9" fill="#333">• Fat: Dark</text>
+                        <text x="155" y="248" font-size="9" fill="#333">• CSF: Bright</text>
+                        <text x="155" y="261" font-size="9" fill="#333">• Gray matter: Light</text>
+                        <text x="155" y="274" font-size="9" fill="#333">• White matter: Dark</text>
+                        <text x="155" y="287" font-size="9" fill="#333">• Best pathology</text>
+                        
+                        <!-- PD Weighted -->
+                        <rect x="270" y="40" width="110" height="260" fill="#F3E5F5" stroke="#9C27B0" stroke-width="2" rx="5"/>
+                        <text x="280" y="60" font-size="14" font-weight="bold" fill="#9C27B0">PD-Weighted</text>
+                        <text x="280" y="80" font-size="11" fill="#333">Long TR (2000+)</text>
+                        <text x="280" y="95" font-size="11" fill="#333">Short TE (10-30)</text>
+                        
+                        <!-- PD brain diagram -->
+                        <ellipse cx="325" cy="150" rx="40" ry="50" fill="#A9A9A9" stroke="#333" stroke-width="2"/>
+                        <ellipse cx="310" cy="140" rx="15" ry="20" fill="#8A8A8A"/>
+                        <ellipse cx="340" cy="140" rx="15" ry="20" fill="#8A8A8A"/>
+                        <path d="M 305 165 Q 325 175 345 165" stroke="#FFF" stroke-width="2" fill="none"/>
+                        
+                        <text x="280" y="220" font-size="10" fill="#333" font-weight="bold">Appearance:</text>
+                        <text x="280" y="235" font-size="9" fill="#333">• Based on proton</text>
+                        <text x="280" y="248" font-size="9" fill="#333">  density</text>
+                        <text x="280" y="261" font-size="9" fill="#333">• Minimal T1/T2</text>
+                        <text x="280" y="274" font-size="9" fill="#333">  contrast</text>
+                        <text x="280" y="287" font-size="9" fill="#333">• Used for cartilage</text>
+                    </svg>
+                </div>
+                <div class="description">
+                    <h3>Overview</h3>
+                    <p>Image contrast in MRI is primarily determined by three tissue properties: T1 relaxation time, T2 relaxation time, and proton density (PD). By manipulating TR (repetition time) and TE (echo time) parameters, radiologists can emphasize different tissue characteristics and optimize images for specific diagnostic purposes.</p>
+                    
+                    <p><strong>T1-Weighted Imaging:</strong> Uses short TR and short TE to emphasize T1 differences between tissues. Fat appears bright (hyperintense) while water/CSF appears dark (hypointense). T1-weighted images provide excellent anatomical detail and are ideal for visualizing normal anatomy. Gadolinium contrast agents primarily affect T1 relaxation, making T1-weighted sequences essential for post-contrast imaging.</p>
+                    
+                    <p><strong>T2-Weighted Imaging:</strong> Uses long TR and long TE to emphasize T2 differences. Water and CSF appear bright while fat appears relatively dark. Most pathology (tumors, inflammation, edema) contains increased water content and therefore appears bright on T2-weighted images, making this sequence highly sensitive for detecting abnormalities.</p>
+                    
+                    <p><strong>Proton Density Weighting:</strong> Uses long TR and short TE to minimize T1 and T2 effects, allowing the image contrast to reflect primarily the concentration of hydrogen protons in the tissue. PD-weighted images show good anatomical detail with moderate contrast and are particularly useful for evaluating cartilage and menisci in musculoskeletal imaging.</p>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>Key Technical Points</h4>
+                <ul>
+                    <li><strong>T1 Weighting:</strong> Short TR (400-700 ms) and short TE (10-30 ms) - emphasizes T1 relaxation differences</li>
+                    <li><strong>T2 Weighting:</strong> Long TR (>2000 ms) and long TE (80-120 ms) - emphasizes T2 relaxation differences</li>
+                    <li><strong>PD Weighting:</strong> Long TR (>2000 ms) and short TE (10-30 ms) - minimizes T1 and T2 effects</li>
+                    <li><strong>Signal Intensity:</strong> T1: fat > white matter > gray matter > CSF; T2: CSF > gray matter > white matter > fat</li>
+                    <li><strong>Contrast Agents:</strong> Gadolinium shortens T1, making enhancing lesions bright on T1-weighted images</li>
+                </ul>
+            </div>
+            
+            <div class="clinical-applications">
+                <h4>Clinical Applications</h4>
+                <ul>
+                    <li><strong>T1-Weighted:</strong> Anatomy definition, fat detection, post-contrast studies, hemorrhage staging</li>
+                    <li><strong>T2-Weighted:</strong> Pathology detection (edema, tumors, inflammation), CSF evaluation</li>
+                    <li><strong>PD-Weighted:</strong> Cartilage imaging, meniscal tears, multiple sclerosis lesions</li>
+                    <li><strong>Combined Protocols:</strong> Standard protocols use multiple weightings for comprehensive evaluation</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 4: DWI/DTI -->
+        <div class="section">
+            <div class="section-title">4. Diffusion-Weighted Imaging (DWI) and Diffusion Tensor Imaging (DTI)</div>
+            <div class="content-layout">
+                <div class="diagram-container">
+                    <svg class="diagram" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Title -->
+                        <text x="100" y="25" font-size="15" font-weight="bold" fill="#1E64C8">Diffusion Imaging Principle</text>
+                        
+                        <!-- Normal Diffusion -->
+                        <rect x="30" y="40" width="160" height="110" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2" rx="5"/>
+                        <text x="70" y="60" font-size="13" font-weight="bold" fill="#2E7D32">Normal Diffusion</text>
+                        
+                        <!-- Water molecules moving freely -->
+                        <circle cx="70" cy="90" r="3" fill="#2196F3"/>
+                        <path d="M 70 90 L 85 75" stroke="#2196F3" stroke-width="1.5" marker-end="url(#arrowblue)"/>
+                        
+                        <circle cx="110" cy="95" r="3" fill="#2196F3"/>
+                        <path d="M 110 95 L 125 110" stroke="#2196F3" stroke-width="1.5" marker-end="url(#arrowblue)"/>
+                        
+                        <circle cx="150" cy="85" r="3" fill="#2196F3"/>
+                        <path d="M 150 85 L 135 100" stroke="#2196F3" stroke-width="1.5" marker-end="url(#arrowblue)"/>
+                        
+                        <circle cx="90" cy="120" r="3" fill="#2196F3"/>
+                        <path d="M 90 120 L 105 105" stroke="#2196F3" stroke-width="1.5" marker-end="url(#arrowblue)"/>
+                        
+                        <text x="50" y="140" font-size="10" fill="#333">✓ Free movement</text>
+                        <text x="50" y="152" font-size="10" fill="#333">✓ Signal decreases</text>
+                        
+                        <!-- Restricted Diffusion -->
+                        <rect x="210" y="40" width="160" height="110" fill="#FFEBEE" stroke="#F44336" stroke-width="2" rx="5"/>
+                        <text x="235" y="60" font-size="13" font-weight="bold" fill="#C62828">Restricted Diffusion</text>
+                        
+                        <!-- Barriers -->
+                        <rect x="240" y="75" width="3" height="60" fill="#666"/>
+                        <rect x="280" y="75" width="3" height="60" fill="#666"/>
+                        <rect x="320" y="75" width="3" height="60" fill="#666"/>
+                        
+                        <!-- Water molecules restricted -->
+                        <circle cx="260" cy="90" r="3" fill="#2196F3"/>
+                        <path d="M 260 90 L 260 80" stroke="#2196F3" stroke-width="1.5"/>
+                        <path d="M 260 80 L 255 85" stroke="#F44336" stroke-width="2"/>
+                        
+                        <circle cx="300" cy="100" r="3" fill="#2196F3"/>
+                        <path d="M 300 100 L 305 105" stroke="#2196F3" stroke-width="1.5"/>
+                        <path d="M 305 105 L 300 110" stroke="#F44336" stroke-width="2"/>
+                        
+                        <text x="230" y="140" font-size="10" fill="#333">✗ Limited movement</text>
+                        <text x="230" y="152" font-size="10" fill="#333">✗ Signal remains high</text>
+                        
+                        <!-- Gradient scheme -->
+                        <rect x="30" y="165" width="340" height="115" fill="#F5F5F5" stroke="#666" stroke-width="1" rx="5"/>
+                        <text x="40" y="185" font-size="12" font-weight="bold" fill="#1E64C8">Diffusion Gradient Scheme</text>
+                        
+                        <!-- Gradient pulses -->
+                        <rect x="50" y="195" width="15" height="40" fill="#FF9800"/>
+                        <text x="45" y="243" font-size="9" fill="#FF9800">G1</text>
+                        
+                        <rect x="130" y="195" width="15" height="40" fill="#FF9800"/>
+                        <text x="125" y="243" font-size="9" fill="#FF9800">G2</text>
+                        
+                        <!-- Phase diagram -->
+                        <circle cx="90" cy="210" r="12" fill="none" stroke="#4CAF50" stroke-width="2"/>
+                        <line x1="90" y1="210" x2="98" y2="218" stroke="#4CAF50" stroke-width="2"/>
+                        <text x="75" y="255" font-size="9" fill="#4CAF50">Stationary:</text>
+                        <text x="75" y="265" font-size="9" fill="#4CAF50">Rephased</text>
+                        
+                        <circle cx="170" cy="210" r="12" fill="none" stroke="#F44336" stroke-width="2"/>
+                        <line x1="170" y1="210" x2="175" y2="205" stroke="#F44336" stroke-width="2"/>
+                        <line x1="170" y1="210" x2="165" y2="215" stroke="#F44336" stroke-width="2"/>
+                        <text x="155" y="255" font-size="9" fill="#F44336">Moving:</text>
+                        <text x="155" y="265" font-size="9" fill="#F44336">Dephased</text>
+                        
+                        <!-- DTI representation -->
+                        <text x="220" y="200" font-size="11" font-weight="bold" fill="#9C27B0">DTI: Tensor Model</text>
+                        
+                        <!-- Ellipsoid -->
+                        <ellipse cx="290" cy="225" rx="30" ry="10" fill="#9C27B0" opacity="0.3" stroke="#9C27B0" stroke-width="2"/>
+                        <line x1="260" y1="225" x2="320" y2="225" stroke="#9C27B0" stroke-width="3" marker-end="url(#arrowpurple)"/>
+                        
+                        <text x="220" y="255" font-size="9" fill="#333">Directional</text>
+                        <text x="220" y="265" font-size="9" fill="#333">diffusion in WM</text>
+                        
+                        <!-- Arrow markers -->
+                        <defs>
+                            <marker id="arrowblue" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                                <polygon points="0 0, 8 3, 0 6" fill="#2196F3"/>
+                            </marker>
+                            <marker id="arrowpurple" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                                <polygon points="0 0, 8 3, 0 6" fill="#9C27B0"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+                <div class="description">
+                    <h3>Overview</h3>
+                    <p>Diffusion-weighted imaging (DWI) measures the random (Brownian) motion of water molecules within tissue. This technique applies strong magnetic field gradients that make the MRI signal sensitive to water diffusion. Areas with restricted diffusion (such as in acute stroke) appear bright on DWI images.</p>
+                    
+                    <p>The technique works by applying a pair of diffusion-sensitizing gradients. If water molecules move between these gradients, they experience different magnetic field strengths and lose signal. Restricted diffusion (less movement) results in higher signal intensity. The degree of diffusion restriction is quantified using the Apparent Diffusion Coefficient (ADC), with low ADC values indicating restricted diffusion.</p>
+                    
+                    <p><strong>Diffusion Tensor Imaging (DTI)</strong> extends DWI by measuring diffusion in multiple directions to characterize the directional dependence (anisotropy) of water diffusion. In white matter, water diffuses preferentially along axons rather than across them. DTI can map these fiber directions, enabling tractography - visualization of white matter pathways in the brain.</p>
+                    
+                    <p>DTI uses mathematical tensors (3D ellipsoids) to represent diffusion in each voxel. Fractional anisotropy (FA) measures the degree of directionality, while mean diffusivity (MD) measures overall diffusion magnitude. These metrics provide unique insights into white matter integrity and microstructural changes in disease.</p>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>Key Technical Points</h4>
+                <ul>
+                    <li><strong>b-value:</strong> Degree of diffusion weighting (typical: 0, 500, 1000 s/mm²); higher values increase diffusion sensitivity</li>
+                    <li><strong>ADC Map:</strong> Quantitative map of diffusion; low ADC = restricted diffusion, high ADC = increased diffusion</li>
+                    <li><strong>DWI vs ADC:</strong> Bright on DWI + Dark on ADC = True restricted diffusion (e.g., acute stroke)</li>
+                    <li><strong>DTI Metrics:</strong> FA (anisotropy), MD (mean diffusivity), radial/axial diffusivity</li>
+                    <li><strong>Directions:</strong> DTI requires at least 6 gradient directions; more directions (30-64) improve accuracy</li>
+                    <li><strong>Tractography:</strong> Fiber tracking algorithms visualize white matter pathways based on DTI data</li>
+                </ul>
+            </div>
+            
+            <div class="clinical-applications">
+                <h4>Clinical Applications</h4>
+                <ul>
+                    <li><strong>Acute Stroke:</strong> DWI is the most sensitive technique for detecting acute ischemia (within minutes)</li>
+                    <li><strong>Brain Tumors:</strong> Differentiate tumor types, assess cellularity, predict tumor grade</li>
+                    <li><strong>Abscess vs Tumor:</strong> Abscesses show restricted diffusion; cystic tumors typically do not</li>
+                    <li><strong>White Matter Disease:</strong> DTI detects subtle white matter changes in MS, traumatic brain injury</li>
+                    <li><strong>Surgical Planning:</strong> Tractography maps eloquent white matter pathways for neurosurgery</li>
+                    <li><strong>Neonatal Brain:</strong> Assessment of brain maturation and detection of hypoxic-ischemic injury</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Section 5: Functional MRI -->
+        <div class="section">
+            <div class="section-title">5. Functional MRI (fMRI)</div>
+            <div class="content-layout">
+                <div class="diagram-container">
+                    <svg class="diagram" viewBox="0 0 400 300" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Title -->
+                        <text x="110" y="25" font-size="15" font-weight="bold" fill="#1E64C8">BOLD Signal Mechanism</text>
+                        
+                        <!-- Resting state -->
+                        <rect x="30" y="40" width="160" height="120" fill="#E3F2FD" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="70" y="60" font-size="12" font-weight="bold" fill="#1E64C8">Resting State</text>
+                        
+                        <!-- Blood vessel with deoxyHb -->
+                        <rect x="50" y="75" width="120" height="25" rx="12" fill="#EF9A9A" stroke="#C62828" stroke-width="2"/>
+                        
+                        <!-- DeoxHb molecules -->
+                        <circle cx="70" cy="87" r="4" fill="#8B0000"/>
+                        <circle cx="90" cy="87" r="4" fill="#8B0000"/>
+                        <circle cx="110" cy="87" r="4" fill="#8B0000"/>
+                        <circle cx="130" cy="87" r="4" fill="#8B0000"/>
+                        <circle cx="150" cy="87" r="4" fill="#8B0000"/>
+                        
+                        <text x="50" y="115" font-size="10" fill="#333">More deoxyHb</text>
+                        <text x="50" y="128" font-size="10" fill="#C62828" font-weight="bold">↓ MR Signal</text>
+                        <text x="50" y="145" font-size="9" fill="#666">(paramagnetic effect)</text>
+                        
+                        <!-- Active state -->
+                        <rect x="210" y="40" width="160" height="120" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2" rx="5"/>
+                        <text x="245" y="60" font-size="12" font-weight="bold" fill="#2E7D32">Active State</text>
+                        
+                        <!-- Blood vessel with more oxyHb -->
+                        <rect x="230" y="75" width="120" height="25" rx="12" fill="#EF5350" stroke="#C62828" stroke-width="2"/>
+                        
+                        <!-- OxyHb molecules (fewer deoxyHb) -->
+                        <circle cx="250" cy="87" r="4" fill="#FF6B6B"/>
+                        <circle cx="270" cy="87" r="4" fill="#8B0000"/>
+                        <circle cx="290" cy="87" r="4" fill="#FF6B6B"/>
+                        <circle cx="310" cy="87" r="4" fill="#FF6B6B"/>
+                        <circle cx="330" cy="87" r="4" fill="#FF6B6B"/>
+                        
+                        <text x="230" y="115" font-size="10" fill="#333">Less deoxyHb</text>
+                        <text x="230" y="128" font-size="10" fill="#4CAF50" font-weight="bold">↑ MR Signal</text>
+                        <text x="230" y="145" font-size="9" fill="#666">(reduced dephasing)</text>
+                        
+                        <!-- Timeline -->
+                        <rect x="30" y="175" width="340" height="105" fill="#FFF8E1" stroke="#FF9800" stroke-width="2" rx="5"/>
+                        <text x="40" y="195" font-size="12" font-weight="bold" fill="#F57C00">fMRI Experiment Timeline</text>
+                        
+                        <!-- Task blocks -->
+                        <line x1="50" y1="220" x2="350" y2="220" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Rest periods -->
+                        <rect x="50" y="205" width="50" height="30" fill="#BBDEFB" stroke="#1976D2" stroke-width="1"/>
+                        <text x="60" y="223" font-size="9" fill="#1976D2">Rest</text>
+                        
+                        <!-- Task periods -->
+                        <rect x="110" y="205" width="50" height="30" fill="#C8E6C9" stroke="#388E3C" stroke-width="1"/>
+                        <text x="118" y="223" font-size="9" fill="#388E3C">Task</text>
+                        
+                        <rect x="170" y="205" width="50" height="30" fill="#BBDEFB" stroke="#1976D2" stroke-width="1"/>
+                        <text x="180" y="223" font-size="9" fill="#1976D2">Rest</text>
+                        
+                        <rect x="230" y="205" width="50" height="30" fill="#C8E6C9" stroke="#388E3C" stroke-width="1"/>
+                        <text x="238" y="223" font-size="9" fill="#388E3C">Task</text>
+                        
+                        <rect x="290" y="205" width="50" height="30" fill="#BBDEFB" stroke="#1976D2" stroke-width="1"/>
+                        <text x="300" y="223" font-size="9" fill="#1976D2">Rest</text>
+                        
+                        <!-- Signal curve -->
+                        <path d="M 50 250 L 110 250 L 115 240 L 155 240 L 160 250 L 170 250 L 230 250 L 235 240 L 275 240 L 280 250 L 350 250" 
+                              stroke="#E91E63" stroke-width="3" fill="none"/>
+                        
+                        <text x="150" y="270" font-size="10" fill="#E91E63" font-weight="bold">BOLD Signal</text>
+                        
+                        <!-- Hemodynamic response note -->
+                        <text x="50" y="260" font-size="8" fill="#666">Signal peaks 4-6s after stimulus</text>
+                    </svg>
+                </div>
+                <div class="description">
+                    <h3>Overview</h3>
+                    <p>Functional MRI (fMRI) is a powerful technique that measures brain activity by detecting changes in blood flow and oxygenation. When a brain region becomes active, it requires more oxygen, leading to a localized increase in blood flow. This neurovascular coupling forms the basis of the Blood Oxygen Level Dependent (BOLD) signal.</p>
+                    
+                    <p>The BOLD signal exploits the magnetic properties of hemoglobin. Deoxygenated hemoglobin (deoxyHb) is paramagnetic and causes local magnetic field distortions that reduce MR signal. Oxygenated hemoglobin (oxyHb) is diamagnetic and has minimal effect on the signal. When neurons become active, blood flow increases disproportionately to oxygen consumption, resulting in a relative decrease in deoxyHb concentration and an increase in MR signal.</p>
+                    
+                    <p>fMRI typically uses T2*-weighted gradient echo EPI (echo-planar imaging) sequences that are sensitive to these subtle BOLD signal changes (typically 1-5% signal change). Images are acquired rapidly (every 1-3 seconds) while the subject performs tasks or rests, allowing researchers to map brain activity patterns associated with cognitive, sensory, or motor functions.</p>
+                    
+                    <p>The hemodynamic response function (HRF) describes how the BOLD signal evolves over time following neural activity. The signal typically peaks 4-6 seconds after stimulus onset and returns to baseline after 12-20 seconds. This delay must be accounted for in fMRI experimental design and data analysis.</p>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>Key Technical Points</h4>
+                <ul>
+                    <li><strong>BOLD Mechanism:</strong> Neural activity → increased blood flow → decreased deoxyHb → increased MR signal</li>
+                    <li><strong>Sequence:</strong> T2*-weighted gradient echo EPI; typical parameters: TR=2-3s, TE=30-40ms, flip angle=90°</li>
+                    <li><strong>Temporal Resolution:</strong> 1-3 seconds per brain volume (limited by hemodynamic response)</li>
+                    <li><strong>Spatial Resolution:</strong> Typically 3-4mm isotropic (trade-off with temporal resolution and SNR)</li>
+                    <li><strong>Statistical Analysis:</strong> General Linear Model (GLM) compares task vs. rest periods</li>
+                    <li><strong>Preprocessing:</strong> Motion correction, spatial smoothing, temporal filtering essential for valid results</li>
+                </ul>
+            </div>
+            
+            <div class="clinical-applications">
+                <h4>Clinical Applications</h4>
+                <ul>
+                    <li><strong>Presurgical Mapping:</strong> Localize eloquent cortex (language, motor) before tumor resection</li>
+                    <li><strong>Neurological Disorders:</strong> Study brain reorganization after stroke, traumatic brain injury</li>
+                    <li><strong>Psychiatric Research:</strong> Investigate brain function in depression, schizophrenia, ADHD</li>
+                    <li><strong>Resting-State fMRI:</strong> Map brain networks and connectivity without explicit tasks</li>
+                    <li><strong>Cognitive Neuroscience:</strong> Research tool for understanding brain-behavior relationships</li>
+                    <li><strong>Pharmacological Studies:</strong> Assess drug effects on brain activity patterns</li>
+                </ul>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

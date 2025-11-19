@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Confocal Microscopy</title>
+    <title>Confocal Microscopy - Enhanced</title>
     <style>
         * {
             margin: 0;
@@ -14,10 +14,15 @@
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
             background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            padding: 20px;
+        }
+        
+        .page {
+            width: 960px;
+            margin: 0 auto 80px;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            page-break-after: always;
         }
         
         .container {
@@ -25,8 +30,6 @@
             height: 540px;
             padding: 40px 60px;
             background: white;
-            display: flex;
-            flex-direction: column;
         }
         
         .title {
@@ -36,6 +39,16 @@
             margin-bottom: 30px;
             text-align: center;
             padding-bottom: 15px;
+            border-bottom: 3px solid #1E64C8;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            text-align: center;
+            padding-bottom: 10px;
             border-bottom: 3px solid #1E64C8;
         }
         
@@ -84,114 +97,829 @@
             align-items: center;
             justify-content: center;
         }
+        
+        .detail-section {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .detail-diagram {
+            flex: 0 0 400px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .detail-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .detail-box {
+            background: #f8fbff;
+            border-left: 4px solid #1E64C8;
+            padding: 15px 20px;
+            border-radius: 6px;
+        }
+        
+        .detail-box h3 {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 8px;
+        }
+        
+        .detail-box p {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .detail-box ul {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+        
+        .detail-box li {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.5;
+            margin-bottom: 4px;
+        }
+        
+        @media print {
+            .page {
+                box-shadow: none;
+                margin-bottom: 0;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">Confocal Microscopy</div>
-        
-        <div class="main-content">
-            <div class="content-grid">
-                <div class="content-card">
-                    <div class="card-label">Pinhole principle</div>
-                    <div class="card-desc">Rejection of out-of-focus light</div>
-                </div>
-                <div class="content-card">
-                    <div class="card-label">Optical sectioning</div>
-                    <div class="card-desc">Thin optical slices through sample</div>
-                </div>
-                <div class="content-card">
-                    <div class="card-label">Laser scanning</div>
-                    <div class="card-desc">Point-by-point image acquisition</div>
-                </div>
-                <div class="content-card">
-                    <div class="card-label">Z-stack acquisition</div>
-                    <div class="card-desc">Series of optical sections</div>
-                </div>
-                <div class="content-card">
-                    <div class="card-label">3D rendering</div>
-                    <div class="card-desc">Volumetric visualization from stacks</div>
-                </div>
-            </div>
+    <!-- Page 1: Overview -->
+    <div class="page">
+        <div class="container">
+            <div class="title">Confocal Microscopy</div>
             
-            <div class="diagram-container">
-                <svg width="420" height="400" viewBox="0 0 420 400">
-                    <!-- Laser Source -->
-                    <circle cx="210" cy="30" r="12" fill="#FF0000" stroke="#CC0000" stroke-width="2"/>
-                    <text x="210" y="55" text-anchor="middle" font-size="11" fill="#CC0000" font-weight="600">Laser</text>
-                    
-                    <!-- Beam splitter -->
-                    <rect x="195" y="80" width="30" height="3" fill="#888" stroke="#333" stroke-width="1"/>
-                    <line x1="210" y1="80" x2="240" y2="50" stroke="#888" stroke-width="2"/>
-                    <text x="250" y="70" font-size="10" fill="#333" font-weight="600">Beam splitter</text>
-                    
-                    <!-- Incident light path -->
-                    <line x1="210" y1="60" x2="210" y2="80" stroke="#FF0000" stroke-width="2.5"/>
-                    <line x1="210" y1="83" x2="210" y2="140" stroke="#FF0000" stroke-width="2.5"/>
-                    
-                    <!-- Objective lens -->
-                    <ellipse cx="210" cy="150" rx="40" ry="6" fill="#B8D4F1" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="270" y="155" font-size="10" fill="#1E64C8" font-weight="600">Objective</text>
-                    
-                    <!-- Focus cone -->
-                    <path d="M 210 156 L 190 200 L 230 200 Z" fill="#FF0000" opacity="0.3" stroke="#FF0000" stroke-width="1"/>
-                    
-                    <!-- Specimen layers -->
-                    <rect x="150" y="195" width="120" height="8" fill="#90EE90" opacity="0.4" stroke="#228B22" stroke-width="1" stroke-dasharray="2,2"/>
-                    <rect x="150" y="205" width="120" height="8" fill="#90EE90" opacity="0.7" stroke="#228B22" stroke-width="1.5"/>
-                    <rect x="150" y="215" width="120" height="8" fill="#90EE90" opacity="0.4" stroke="#228B22" stroke-width="1" stroke-dasharray="2,2"/>
-                    
-                    <text x="275" y="210" font-size="10" fill="#228B22" font-weight="600">Focal plane</text>
-                    <text x="275" y="200" font-size="9" fill="#228B22" opacity="0.6">Out of focus</text>
-                    <text x="275" y="220" font-size="9" fill="#228B22" opacity="0.6">Out of focus</text>
-                    
-                    <!-- Emitted light (fluorescence) -->
-                    <line x1="210" y1="200" x2="210" y2="156" stroke="#00FF00" stroke-width="2.5" opacity="0.7"/>
-                    <line x1="200" y1="197" x2="205" y2="156" stroke="#00FF00" stroke-width="1.5" opacity="0.3" stroke-dasharray="3,3"/>
-                    <line x1="220" y1="197" x2="215" y2="156" stroke="#00FF00" stroke-width="1.5" opacity="0.3" stroke-dasharray="3,3"/>
-                    
-                    <!-- Reflected light path through beam splitter -->
-                    <line x1="210" y1="140" x2="210" y2="83" stroke="#00FF00" stroke-width="2.5" opacity="0.7"/>
-                    <line x1="210" y1="80" x2="160" y2="80" stroke="#00FF00" stroke-width="2.5" opacity="0.7"/>
-                    
-                    <!-- Out of focus scattered light -->
-                    <line x1="205" y1="83" x2="150" y2="100" stroke="#00FF00" stroke-width="1.5" opacity="0.2" stroke-dasharray="3,3"/>
-                    <line x1="215" y1="83" x2="150" y2="60" stroke="#00FF00" stroke-width="1.5" opacity="0.2" stroke-dasharray="3,3"/>
-                    
-                    <!-- Pinhole aperture -->
-                    <rect x="115" y="75" width="30" height="10" fill="#555" stroke="#333" stroke-width="2"/>
-                    <circle cx="130" cy="80" r="3" fill="black"/>
-                    <text x="130" y="100" text-anchor="middle" font-size="10" fill="#333" font-weight="600">Pinhole</text>
-                    
-                    <!-- Blocked out-of-focus light -->
-                    <line x1="150" y1="100" x2="135" y2="90" stroke="#00FF00" stroke-width="2" opacity="0.3"/>
-                    <line x1="150" y1="60" x2="135" y2="70" stroke="#00FF00" stroke-width="2" opacity="0.3"/>
-                    <text x="100" y="75" font-size="9" fill="#CC0000">✕ Blocked</text>
-                    
-                    <!-- Passed focused light -->
-                    <line x1="160" y1="80" x2="130" y2="80" stroke="#00FF00" stroke-width="2.5" opacity="0.7"/>
-                    <line x1="127" y1="80" x2="90" y2="80" stroke="#00FF00" stroke-width="2.5" opacity="0.7"/>
-                    
-                    <!-- Detector -->
-                    <rect x="60" y="65" width="25" height="30" fill="#FFD700" stroke="#FFA500" stroke-width="2"/>
-                    <text x="72" y="110" text-anchor="middle" font-size="10" fill="#333" font-weight="600">Detector</text>
-                    
-                    <!-- Annotations -->
-                    <defs>
-                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
-                        </marker>
-                    </defs>
-                    
-                    <!-- Key benefit box -->
-                    <rect x="20" y="280" width="380" height="100" fill="#f0f8ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
-                    <text x="210" y="305" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">Pinhole Principle</text>
-                    <text x="210" y="330" text-anchor="middle" font-size="11" fill="#333">✓ In-focus light passes through pinhole</text>
-                    <text x="210" y="350" text-anchor="middle" font-size="11" fill="#333">✕ Out-of-focus light blocked by pinhole</text>
-                    <text x="210" y="370" text-anchor="middle" font-size="11" fill="#333">→ High axial resolution (~500 nm)</text>
-                </svg>
+            <div class="main-content">
+                <div class="content-grid">
+                    <div class="content-card">
+                        <div class="card-label">Pinhole principle</div>
+                        <div class="card-desc">Rejection of out-of-focus light</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-label">Optical sectioning</div>
+                        <div class="card-desc">Thin optical slices through sample</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-label">Laser scanning</div>
+                        <div class="card-desc">Point-by-point image acquisition</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-label">Z-stack acquisition</div>
+                        <div class="card-desc">Series of optical sections</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-label">3D rendering</div>
+                        <div class="card-desc">Volumetric visualization from stacks</div>
+                    </div>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg width="420" height="400" viewBox="0 0 420 400">
+                        <!-- Laser Source -->
+                        <circle cx="210" cy="30" r="12" fill="#FF0000" stroke="#CC0000" stroke-width="2"/>
+                        <text x="210" y="55" text-anchor="middle" font-size="11" fill="#CC0000" font-weight="600">Laser</text>
+                        
+                        <!-- Beam splitter -->
+                        <rect x="195" y="80" width="30" height="3" fill="#888" stroke="#333" stroke-width="1"/>
+                        <line x1="210" y1="80" x2="240" y2="50" stroke="#888" stroke-width="2"/>
+                        <text x="250" y="70" font-size="10" fill="#333" font-weight="600">Beam splitter</text>
+                        
+                        <!-- Incident light path -->
+                        <line x1="210" y1="60" x2="210" y2="80" stroke="#FF0000" stroke-width="2.5"/>
+                        <line x1="210" y1="83" x2="210" y2="140" stroke="#FF0000" stroke-width="2.5"/>
+                        
+                        <!-- Objective lens -->
+                        <ellipse cx="210" cy="150" rx="40" ry="6" fill="#B8D4F1" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="270" y="155" font-size="10" fill="#1E64C8" font-weight="600">Objective</text>
+                        
+                        <!-- Focus cone -->
+                        <path d="M 210 156 L 190 200 L 230 200 Z" fill="#FF0000" opacity="0.3" stroke="#FF0000" stroke-width="1"/>
+                        
+                        <!-- Specimen layers -->
+                        <rect x="150" y="195" width="120" height="8" fill="#90EE90" opacity="0.4" stroke="#228B22" stroke-width="1" stroke-dasharray="2,2"/>
+                        <rect x="150" y="205" width="120" height="8" fill="#90EE90" opacity="0.7" stroke="#228B22" stroke-width="1.5"/>
+                        <rect x="150" y="215" width="120" height="8" fill="#90EE90" opacity="0.4" stroke="#228B22" stroke-width="1" stroke-dasharray="2,2"/>
+                        
+                        <text x="275" y="210" font-size="10" fill="#228B22" font-weight="600">Focal plane</text>
+                        <text x="275" y="200" font-size="9" fill="#228B22" opacity="0.6">Out of focus</text>
+                        <text x="275" y="220" font-size="9" fill="#228B22" opacity="0.6">Out of focus</text>
+                        
+                        <!-- Emitted light (fluorescence) -->
+                        <line x1="210" y1="200" x2="210" y2="156" stroke="#00FF00" stroke-width="2.5" opacity="0.7"/>
+                        <line x1="200" y1="197" x2="205" y2="156" stroke="#00FF00" stroke-width="1.5" opacity="0.3" stroke-dasharray="3,3"/>
+                        <line x1="220" y1="197" x2="215" y2="156" stroke="#00FF00" stroke-width="1.5" opacity="0.3" stroke-dasharray="3,3"/>
+                        
+                        <!-- Reflected light path through beam splitter -->
+                        <line x1="210" y1="140" x2="210" y2="83" stroke="#00FF00" stroke-width="2.5" opacity="0.7"/>
+                        <line x1="210" y1="80" x2="160" y2="80" stroke="#00FF00" stroke-width="2.5" opacity="0.7"/>
+                        
+                        <!-- Out of focus scattered light -->
+                        <line x1="205" y1="83" x2="150" y2="100" stroke="#00FF00" stroke-width="1.5" opacity="0.2" stroke-dasharray="3,3"/>
+                        <line x1="215" y1="83" x2="150" y2="60" stroke="#00FF00" stroke-width="1.5" opacity="0.2" stroke-dasharray="3,3"/>
+                        
+                        <!-- Pinhole aperture -->
+                        <rect x="115" y="75" width="30" height="10" fill="#555" stroke="#333" stroke-width="2"/>
+                        <circle cx="130" cy="80" r="3" fill="black"/>
+                        <text x="130" y="100" text-anchor="middle" font-size="10" fill="#333" font-weight="600">Pinhole</text>
+                        
+                        <!-- Blocked out-of-focus light -->
+                        <line x1="150" y1="100" x2="135" y2="90" stroke="#00FF00" stroke-width="2" opacity="0.3"/>
+                        <line x1="150" y1="60" x2="135" y2="70" stroke="#00FF00" stroke-width="2" opacity="0.3"/>
+                        <text x="100" y="75" font-size="9" fill="#CC0000">✕ Blocked</text>
+                        
+                        <!-- Passed focused light -->
+                        <line x1="160" y1="80" x2="130" y2="80" stroke="#00FF00" stroke-width="2.5" opacity="0.7"/>
+                        <line x1="127" y1="80" x2="90" y2="80" stroke="#00FF00" stroke-width="2.5" opacity="0.7"/>
+                        
+                        <!-- Detector -->
+                        <rect x="60" y="65" width="25" height="30" fill="#FFD700" stroke="#FFA500" stroke-width="2"/>
+                        <text x="72" y="110" text-anchor="middle" font-size="10" fill="#333" font-weight="600">Detector</text>
+                        
+                        <!-- Annotations -->
+                        <defs>
+                            <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- Key benefit box -->
+                        <rect x="20" y="280" width="380" height="100" fill="#f0f8ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="210" y="305" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">Pinhole Principle</text>
+                        <text x="210" y="330" text-anchor="middle" font-size="11" fill="#333">✓ In-focus light passes through pinhole</text>
+                        <text x="210" y="350" text-anchor="middle" font-size="11" fill="#333">✕ Out-of-focus light blocked by pinhole</text>
+                        <text x="210" y="370" text-anchor="middle" font-size="11" fill="#333">→ High axial resolution (~500 nm)</text>
+                    </svg>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Page 2: Pinhole Principle -->
+    <div class="page">
+        <div class="container">
+            <div class="section-title">1. Pinhole Principle</div>
+            
+            <div class="detail-section">
+                <div class="detail-diagram">
+                    <svg width="380" height="420" viewBox="0 0 380 420">
+                        <!-- Comparison diagram -->
+                        <text x="90" y="20" text-anchor="middle" font-size="14" fill="#CC0000" font-weight="600">Widefield</text>
+                        <text x="290" y="20" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="600">Confocal</text>
+                        
+                        <!-- Widefield side -->
+                        <rect x="20" y="35" width="140" height="180" fill="#f0f0f0" stroke="#333" stroke-width="2" rx="5"/>
+                        
+                        <!-- Light source -->
+                        <circle cx="90" cy="50" r="8" fill="#FFA500" stroke="#FF8C00" stroke-width="2"/>
+                        <text x="90" y="70" text-anchor="middle" font-size="9" fill="#333">Light source</text>
+                        
+                        <!-- Sample with multiple layers -->
+                        <rect x="50" y="140" width="80" height="6" fill="#90EE90" opacity="0.4"/>
+                        <rect x="50" y="150" width="80" height="6" fill="#90EE90" opacity="0.8"/>
+                        <rect x="50" y="160" width="80" height="6" fill="#90EE90" opacity="0.4"/>
+                        
+                        <!-- Wide illumination cone -->
+                        <path d="M 90 80 L 50 140 L 130 140 Z" fill="#FFA500" opacity="0.2"/>
+                        
+                        <!-- All light reaches detector -->
+                        <path d="M 50 166 L 90 190 L 130 166" stroke="#00FF00" stroke-width="1.5" opacity="0.6" fill="none"/>
+                        <rect x="70" y="190" width="40" height="20" fill="#FFD700" stroke="#333" stroke-width="1.5"/>
+                        <text x="90" y="218" text-anchor="middle" font-size="8" fill="#333">Detector</text>
+                        
+                        <text x="90" y="240" text-anchor="middle" font-size="10" fill="#CC0000" font-weight="600">Blurred image</text>
+                        <text x="90" y="255" text-anchor="middle" font-size="8" fill="#555">Out-of-focus light</text>
+                        <text x="90" y="268" text-anchor="middle" font-size="8" fill="#555">reduces contrast</text>
+                        
+                        <!-- Confocal side -->
+                        <rect x="220" y="35" width="140" height="180" fill="#f0f0f0" stroke="#333" stroke-width="2" rx="5"/>
+                        
+                        <!-- Laser point source -->
+                        <circle cx="290" cy="50" r="8" fill="#FF0000" stroke="#CC0000" stroke-width="2"/>
+                        <text x="290" y="70" text-anchor="middle" font-size="9" fill="#333">Laser point</text>
+                        
+                        <!-- Sample with multiple layers -->
+                        <rect x="250" y="140" width="80" height="6" fill="#90EE90" opacity="0.4"/>
+                        <rect x="250" y="150" width="80" height="6" fill="#90EE90" opacity="0.8"/>
+                        <rect x="250" y="160" width="80" height="6" fill="#90EE90" opacity="0.4"/>
+                        
+                        <!-- Focused illumination -->
+                        <path d="M 290 80 L 280 150 L 300 150 Z" fill="#FF0000" opacity="0.3"/>
+                        
+                        <!-- Pinhole blocks scattered light -->
+                        <line x1="280" y1="142" x2="275" y2="175" stroke="#00FF00" stroke-width="1.5" opacity="0.3" stroke-dasharray="2,2"/>
+                        <line x1="300" y1="162" x2="305" y2="175" stroke="#00FF00" stroke-width="1.5" opacity="0.3" stroke-dasharray="2,2"/>
+                        
+                        <!-- Pinhole -->
+                        <rect x="280" y="173" width="20" height="6" fill="#555" stroke="#333" stroke-width="1.5"/>
+                        <circle cx="290" cy="176" r="2" fill="black"/>
+                        
+                        <!-- Focused light passes -->
+                        <line x1="290" y1="153" x2="290" y2="173" stroke="#00FF00" stroke-width="2" opacity="0.8"/>
+                        <line x1="290" y1="179" x2="290" y2="190" stroke="#00FF00" stroke-width="2" opacity="0.8"/>
+                        
+                        <rect x="270" y="190" width="40" height="20" fill="#FFD700" stroke="#333" stroke-width="1.5"/>
+                        <text x="290" y="218" text-anchor="middle" font-size="8" fill="#333">Detector</text>
+                        
+                        <text x="290" y="240" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Sharp image</text>
+                        <text x="290" y="255" text-anchor="middle" font-size="8" fill="#555">Only in-focus light</text>
+                        <text x="290" y="268" text-anchor="middle" font-size="8" fill="#555">reaches detector</text>
+                        
+                        <!-- Key advantages box -->
+                        <rect x="20" y="290" width="340" height="115" fill="#f0f8ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="190" y="312" text-anchor="middle" font-size="13" fill="#1E64C8" font-weight="700">Key Advantages</text>
+                        
+                        <text x="30" y="335" font-size="11" fill="#333">✓ Eliminates out-of-focus blur</text>
+                        <text x="30" y="355" font-size="11" fill="#333">✓ Improves contrast and resolution</text>
+                        <text x="30" y="375" font-size="11" fill="#333">✓ Enables optical sectioning</text>
+                        <text x="30" y="395" font-size="11" fill="#333">✓ Axial resolution: ~500 nm (vs ~2 µm widefield)</text>
+                    </svg>
+                </div>
+                
+                <div class="detail-text">
+                    <div class="detail-box">
+                        <h3>Mechanism</h3>
+                        <p>The pinhole aperture is placed at a conjugate focal plane (confocal) to the specimen focal plane. Light from the in-focus region converges to a point and passes through the pinhole, while out-of-focus light is spatially distributed and blocked.</p>
+                    </div>
+                    
+                    <div class="detail-box">
+                        <h3>Physical Principle</h3>
+                        <p>Based on the point spread function (PSF) of the optical system. In-focus light has a tight PSF that fits through the pinhole, while out-of-focus light has a broad PSF that is rejected.</p>
+                    </div>
+                    
+                    <div class="detail-box">
+                        <h3>Pinhole Size</h3>
+                        <p>Typical size: 1 Airy Unit (AU)</p>
+                        <ul>
+                            <li>Smaller pinhole → Better optical sectioning, lower signal</li>
+                            <li>Larger pinhole → More signal, reduced sectioning</li>
+                            <li>Optimal: 0.5-1.5 AU depending on application</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-box">
+                        <h3>Applications</h3>
+                        <p>Essential for imaging thick specimens like tissue sections, embryos, and 3D cell cultures where conventional microscopy suffers from out-of-focus blur.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 3: Optical Sectioning -->
+    <div class="page">
+        <div class="container">
+            <div class="section-title">2. Optical Sectioning</div>
+            
+            <div class="detail-section">
+                <div class="detail-diagram">
+                    <svg width="380" height="420" viewBox="0 0 380 420">
+                        <!-- 3D sample representation -->
+                        <defs>
+                            <linearGradient id="sampleGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#90EE90;stop-opacity:0.3" />
+                                <stop offset="50%" style="stop-color:#90EE90;stop-opacity:0.8" />
+                                <stop offset="100%" style="stop-color:#90EE90;stop-opacity:0.3" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Sample block -->
+                        <rect x="50" y="40" width="120" height="160" fill="url(#sampleGrad)" stroke="#228B22" stroke-width="2" rx="5"/>
+                        <text x="110" y="215" text-anchor="middle" font-size="11" fill="#228B22" font-weight="600">Sample</text>
+                        
+                        <!-- Multiple optical sections -->
+                        <g opacity="0.6">
+                            <rect x="50" y="50" width="120" height="3" fill="#FF6B6B" opacity="0.5"/>
+                            <text x="180" y="52" font-size="8" fill="#CC0000">Section 1</text>
+                        </g>
+                        
+                        <g opacity="0.6">
+                            <rect x="50" y="80" width="120" height="3" fill="#4ECDC4" opacity="0.5"/>
+                            <text x="180" y="82" font-size="8" fill="#008B8B">Section 2</text>
+                        </g>
+                        
+                        <g>
+                            <rect x="50" y="110" width="120" height="3" fill="#FFD93D" opacity="0.9"/>
+                            <text x="180" y="112" font-size="9" fill="#FF8C00" font-weight="600">Focal plane</text>
+                        </g>
+                        
+                        <g opacity="0.6">
+                            <rect x="50" y="140" width="120" height="3" fill="#6BCB77" opacity="0.5"/>
+                            <text x="180" y="142" font-size="8" fill="#228B22">Section 4</text>
+                        </g>
+                        
+                        <g opacity="0.6">
+                            <rect x="50" y="170" width="120" height="3" fill="#A8E6CF" opacity="0.5"/>
+                            <text x="180" y="172" font-size="8" fill="#2F855A">Section 5</text>
+                        </g>
+                        
+                        <!-- Z-axis arrow -->
+                        <defs>
+                            <marker id="arrowZ" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        <line x1="30" y1="50" x2="30" y2="190" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowZ)"/>
+                        <text x="15" y="120" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600" transform="rotate(-90 15 120)">Z-axis</text>
+                        
+                        <!-- Optical section thickness diagram -->
+                        <rect x="50" y="250" width="280" height="150" fill="#f0f0f0" stroke="#333" stroke-width="2" rx="5"/>
+                        <text x="190" y="275" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">Optical Section Thickness</text>
+                        
+                        <!-- PSF representation -->
+                        <ellipse cx="120" cy="335" rx="15" ry="35" fill="#FF6B6B" opacity="0.5" stroke="#CC0000" stroke-width="1.5"/>
+                        <line x1="105" y1="300" x2="135" y2="300" stroke="#CC0000" stroke-width="1.5" stroke-dasharray="3,3"/>
+                        <line x1="105" y1="370" x2="135" y2="370" stroke="#CC0000" stroke-width="1.5" stroke-dasharray="3,3"/>
+                        <text x="120" y="390" text-anchor="middle" font-size="9" fill="#333">~500 nm</text>
+                        
+                        <!-- Comparison bars -->
+                        <rect x="160" y="305" width="25" height="60" fill="#1E64C8" opacity="0.7"/>
+                        <text x="172" y="380" text-anchor="middle" font-size="8" fill="#333">Confocal</text>
+                        <text x="172" y="390" text-anchor="middle" font-size="7" fill="#333">~0.5 µm</text>
+                        
+                        <rect x="200" y="295" width="25" height="80" fill="#888" opacity="0.5"/>
+                        <text x="212" y="380" text-anchor="middle" font-size="8" fill="#333">2-Photon</text>
+                        <text x="212" y="390" text-anchor="middle" font-size="7" fill="#333">~0.8 µm</text>
+                        
+                        <rect x="240" y="270" width="25" height="105" fill="#CCC" opacity="0.5"/>
+                        <text x="252" y="380" text-anchor="middle" font-size="8" fill="#333">Widefield</text>
+                        <text x="252" y="390" text-anchor="middle" font-size="7" fill="#333">~2 µm</text>
+                    </svg>
+                </div>
+                
+                <div class="detail-text">
+                    <div class="detail-box">
+                        <h3>Definition</h3>
+                        <p>Optical sectioning is the ability to obtain thin, focused images from different depths within a thick specimen without physical sectioning. Each image represents a single plane of focus.</p>
+                    </div>
+                    
+                    <div class="detail-box">
+                        <h3>Section Thickness</h3>
+                        <p>Determined by the numerical aperture (NA) and wavelength:</p>
+                        <ul>
+                            <li>Typical thickness: 0.5-1.5 µm</li>
+                            <li>Formula: Δz ≈ 2λ / NA²</li>
+                            <li>Higher NA → Thinner optical sections</li>
+                            <li>Shorter wavelength → Better resolution</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-box">
+                        <h3>Advantages</h3>
+                        <ul>
+                            <li>Non-invasive imaging of thick samples</li>
+                            <li>Preservation of sample integrity</li>
+                            <li>Real-time imaging possible</li>
+                            <li>Sequential sections perfectly aligned</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-box">
+                        <h3>Applications</h3>
+                        <p>Ideal for tissue sections (50-200 µm thick), whole-mount embryos, organoids, and biofilms. Enables visualization of structures at specific depths without interference from other planes.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 4: Laser Scanning -->
+    <div class="page">
+        <div class="container">
+            <div class="section-title">3. Laser Scanning</div>
+            
+            <div class="detail-section">
+                <div class="detail-diagram">
+                    <svg width="380" height="420" viewBox="0 0 380 420">
+                        <!-- Scanning pattern illustration -->
+                        <rect x="30" y="30" width="150" height="150" fill="#f0f0f0" stroke="#333" stroke-width="2" rx="5"/>
+                        <text x="105" y="20" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">Raster Scanning Pattern</text>
+                        
+                        <!-- Grid representing pixels -->
+                        <g opacity="0.2">
+                            <line x1="30" y1="60" x2="180" y2="60" stroke="#999" stroke-width="0.5"/>
+                            <line x1="30" y1="90" x2="180" y2="90" stroke="#999" stroke-width="0.5"/>
+                            <line x1="30" y1="120" x2="180" y2="120" stroke="#999" stroke-width="0.5"/>
+                            <line x1="30" y1="150" x2="180" y2="150" stroke="#999" stroke-width="0.5"/>
+                            <line x1="60" y1="30" x2="60" y2="180" stroke="#999" stroke-width="0.5"/>
+                            <line x1="90" y1="30" x2="90" y2="180" stroke="#999" stroke-width="0.5"/>
+                            <line x1="120" y1="30" x2="120" y2="180" stroke="#999" stroke-width="0.5"/>
+                            <line x1="150" y1="30" x2="150" y2="180" stroke="#999" stroke-width="0.5"/>
+                        </g>
+                        
+                        <!-- Scanning lines with arrows -->
+                        <defs>
+                            <marker id="scanArrow" markerWidth="8" markerHeight="8" refX="6" refY="4" orient="auto">
+                                <polygon points="0 0, 8 4, 0 8" fill="#FF0000"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- Row 1 -->
+                        <line x1="35" y1="45" x2="175" y2="45" stroke="#FF0000" stroke-width="2" marker-end="url(#scanArrow)"/>
+                        <circle cx="35" cy="45" r="3" fill="#FF0000"/>
+                        
+                        <!-- Row 2 -->
+                        <line x1="175" y1="75" x2="35" y2="75" stroke="#FF6B6B" stroke-width="1.5" opacity="0.7"/>
+                        
+                        <!-- Row 3 -->
+                        <line x1="35" y1="105" x2="175" y2="105" stroke="#FF6B6B" stroke-width="1.5" opacity="0.5"/>
+                        
+                        <!-- Partial scan -->
+                        <line x1="175" y1="135" x2="90" y2="135" stroke="#FF6B6B" stroke-width="1.5" opacity="0.3"/>
+                        <circle cx="90" cy="135" r="4" fill="#FFD93D" stroke="#FF8C00" stroke-width="2"/>
+                        <text x="105" y="140" font-size="9" fill="#FF8C00" font-weight="600">Current position</text>
+                        
+                        <!-- Scanning components -->
+                        <rect x="210" y="30" width="150" height="150" fill="#f0f8ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="285" y="20" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">Scanning System</text>
+                        
+                        <!-- Galvo mirrors -->
+                        <rect x="245" y="55" width="30" height="20" fill="#888" stroke="#333" stroke-width="1.5" rx="2"/>
+                        <text x="260" y="68" text-anchor="middle" font-size="8" fill="white" font-weight="600">X-galvo</text>
+                        <line x1="230" y1="65" x2="245" y2="65" stroke="#FF0000" stroke-width="2"/>
+                        <line x1="275" y1="65" x2="290" y2="55" stroke="#FF0000" stroke-width="2"/>
+                        
+                        <rect x="295" y="55" width="30" height="20" fill="#888" stroke="#333" stroke-width="1.5" rx="2"/>
+                        <text x="310" y="68" text-anchor="middle" font-size="8" fill="white" font-weight="600">Y-galvo</text>
+                        <line x1="290" y1="55" x2="295" y2="65" stroke="#FF0000" stroke-width="2"/>
+                        <line x1="325" y1="65" x2="340" y2="75" stroke="#FF0000" stroke-width="2"/>
+                        
+                        <!-- Objective -->
+                        <ellipse cx="285" cy="120" rx="35" ry="8" fill="#B8D4F1" stroke="#1E64C8" stroke-width="2"/>
+                        <line x1="340" y1="75" x2="285" y2="112" stroke="#FF0000" stroke-width="2"/>
+                        <text x="285" y="145" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">Objective lens</text>
+                        
+                        <!-- Sample -->
+                        <rect x="260" y="155" width="50" height="15" fill="#90EE90" opacity="0.6" stroke="#228B22" stroke-width="1.5"/>
+                        <text x="285" y="180" text-anchor="middle" font-size="9" fill="#228B22">Sample</text>
+                        
+                        <!-- Timing diagram -->
+                        <rect x="30" y="200" width="330" height="200" fill="#f0f0f0" stroke="#333" stroke-width="2" rx="5"/>
+                        <text x="195" y="220" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">Scanning Parameters</text>
+                        
+                        <!-- Parameter boxes -->
+                        <g>
+                            <rect x="45" y="235" width="145" height="70" fill="white" stroke="#1E64C8" stroke-width="1.5" rx="3"/>
+                            <text x="117" y="252" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Speed</text>
+                            <text x="55" y="270" font-size="9" fill="#333">• Typical: 1-10 fps</text>
+                            <text x="55" y="285" font-size="9" fill="#333">• Fast scan: up to 30 fps</text>
+                            <text x="55" y="300" font-size="9" fill="#333">• Trade-off with resolution</text>
+                        </g>
+                        
+                        <g>
+                            <rect x="200" y="235" width="145" height="70" fill="white" stroke="#1E64C8" stroke-width="1.5" rx="3"/>
+                            <text x="272" y="252" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Resolution</text>
+                            <text x="210" y="270" font-size="9" fill="#333">• Typical: 512×512 pixels</text>
+                            <text x="210" y="285" font-size="9" fill="#333">• High-res: 2048×2048</text>
+                            <text x="210" y="300" font-size="9" fill="#333">• Adjustable zoom factor</text>
+                        </g>
+                        
+                        <g>
+                            <rect x="45" y="315" width="300" height="70" fill="white" stroke="#1E64C8" stroke-width="1.5" rx="3"/>
+                            <text x="195" y="332" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Dwell Time</text>
+                            <text x="55" y="350" font-size="9" fill="#333">• Time laser spends at each pixel: 0.5-10 µs</text>
+                            <text x="55" y="365" font-size="9" fill="#333">• Longer dwell time → Better signal-to-noise ratio</text>
+                            <text x="55" y="380" font-size="9" fill="#333">• Shorter dwell time → Faster imaging, less photobleaching</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="detail-text">
+                    <div class="detail-box">
+                        <h3>Mechanism</h3>
+                        <p>A focused laser beam is scanned across the specimen point-by-point using galvanometer mirrors (galvo mirrors). The X-galvo controls horizontal scanning, Y-galvo controls vertical scanning. Fluorescence emission from each point is collected sequentially.</p>
+                    </div>
+                    
+                    <div class="detail-box">
+                        <h3>Scanning Modes</h3>
+                        <ul>
+                            <li><strong>Unidirectional:</strong> Scan in one direction, fly back</li>
+                            <li><strong>Bidirectional:</strong> Scan both directions (faster)</li>
+                            <li><strong>Line scanning:</strong> Rapid scanning along one axis</li>
+                            <li><strong>Frame scanning:</strong> Complete 2D image acquisition</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-box">
+                        <h3>Advantages</h3>
+                        <ul>
+                            <li>Precise control of illumination position</li>
+                            <li>Minimal sample exposure per pixel</li>
+                            <li>Flexible field of view and zoom</li>
+                            <li>Compatible with multiple detectors</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-box">
+                        <h3>Limitations</h3>
+                        <p>Sequential acquisition means slower imaging compared to widefield. Speed-resolution trade-off: faster scanning reduces dwell time and signal quality. Resonant scanners can achieve video-rate imaging.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 5: Z-stack Acquisition -->
+    <div class="page">
+        <div class="container">
+            <div class="section-title">4. Z-stack Acquisition</div>
+            
+            <div class="detail-section">
+                <div class="detail-diagram">
+                    <svg width="380" height="420" viewBox="0 0 380 420">
+                        <!-- 3D visualization of z-stack -->
+                        <text x="190" y="20" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">Sequential Optical Sections</text>
+                        
+                        <!-- Motorized stage -->
+                        <rect x="140" y="340" width="100" height="25" fill="#666" stroke="#333" stroke-width="2" rx="3"/>
+                        <text x="190" y="357" text-anchor="middle" font-size="9" fill="white" font-weight="600">Motorized Stage</text>
+                        <line x1="190" y1="340" x2="190" y2="310" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="205" y="330" font-size="8" fill="#1E64C8">Z-axis motor</text>
+                        
+                        <!-- Stack of images with offset -->
+                        <g transform="translate(0, 0)">
+                            <!-- Image 1 (bottom) -->
+                            <rect x="80" y="270" width="100" height="75" fill="#FFE5E5" stroke="#FF6B6B" stroke-width="2" rx="3"/>
+                            <text x="130" y="295" text-anchor="middle" font-size="9" fill="#333">Section 1</text>
+                            <text x="130" y="310" text-anchor="middle" font-size="8" fill="#666">z = 0 µm</text>
+                            <circle cx="110" cy="325" r="8" fill="#FF6B6B" opacity="0.7"/>
+                            <circle cx="150" cy="320" r="6" fill="#FF6B6B" opacity="0.7"/>
+                        </g>
+                        
+                        <g transform="translate(15, -30)">
+                            <!-- Image 2 -->
+                            <rect x="80" y="270" width="100" height="75" fill="#E5F5FF" stroke="#4ECDC4" stroke-width="2" rx="3"/>
+                            <text x="130" y="295" text-anchor="middle" font-size="9" fill="#333">Section 2</text>
+                            <text x="130" y="310" text-anchor="middle" font-size="8" fill="#666">z = 1 µm</text>
+                            <circle cx="105" cy="325" r="10" fill="#4ECDC4" opacity="0.7"/>
+                            <circle cx="155" cy="330" r="7" fill="#4ECDC4" opacity="0.7"/>
+                        </g>
+                        
+                        <g transform="translate(30, -60)">
+                            <!-- Image 3 -->
+                            <rect x="80" y="270" width="100" height="75" fill="#FFF9E5" stroke="#FFD93D" stroke-width="2" rx="3"/>
+                            <text x="130" y="295" text-anchor="middle" font-size="9" fill="#333">Section 3</text>
+                            <text x="130" y="310" text-anchor="middle" font-size="8" fill="#666">z = 2 µm</text>
+                            <circle cx="115" cy="320" r="9" fill="#FFD93D" opacity="0.7"/>
+                            <circle cx="145" cy="335" r="8" fill="#FFD93D" opacity="0.7"/>
+                        </g>
+                        
+                        <g transform="translate(45, -90)">
+                            <!-- Image 4 (top) -->
+                            <rect x="80" y="270" width="100" height="75" fill="#E5FFE5" stroke="#6BCB77" stroke-width="2" rx="3"/>
+                            <text x="130" y="295" text-anchor="middle" font-size="9" fill="#333">Section n</text>
+                            <text x="130" y="310" text-anchor="middle" font-size="8" fill="#666">z = n µm</text>
+                            <circle cx="120" cy="325" r="7" fill="#6BCB77" opacity="0.7"/>
+                            <circle cx="140" cy="332" r="9" fill="#6BCB77" opacity="0.7"/>
+                        </g>
+                        
+                        <!-- Z-axis indicator -->
+                        <defs>
+                            <marker id="zArrow" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        <line x1="250" y1="310" x2="250" y2="160" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#zArrow)"/>
+                        <text x="265" y="240" font-size="10" fill="#1E64C8" font-weight="600">Z-axis</text>
+                        <text x="265" y="255" font-size="8" fill="#666">(depth)</text>
+                        
+                        <!-- Parameters panel -->
+                        <rect x="20" y="35" width="160" height="140" fill="#f0f8ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="100" y="55" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600">Key Parameters</text>
+                        
+                        <text x="30" y="75" font-size="9" fill="#333" font-weight="600">Step Size (Δz):</text>
+                        <text x="35" y="90" font-size="8" fill="#555">• Typical: 0.3-2 µm</text>
+                        <text x="35" y="103" font-size="8" fill="#555">• Nyquist: ≤ optical section/2</text>
+                        
+                        <text x="30" y="123" font-size="9" fill="#333" font-weight="600">Total Range:</text>
+                        <text x="35" y="138" font-size="8" fill="#555">• Depends on sample thickness</text>
+                        <text x="35" y="151" font-size="8" fill="#555">• Typical: 20-100 µm</text>
+                        <text x="35" y="164" font-size="8" fill="#555">• Number of slices = Range/Δz</text>
+                        
+                        <!-- Acquisition info -->
+                        <rect x="200" y="35" width="160" height="100" fill="#FFF9E5" stroke="#FF8C00" stroke-width="2" rx="5"/>
+                        <text x="280" y="55" text-anchor="middle" font-size="11" fill="#FF8C00" font-weight="600">Acquisition</text>
+                        
+                        <text x="210" y="75" font-size="8" fill="#333">1. Start at bottom of sample</text>
+                        <text x="210" y="90" font-size="8" fill="#333">2. Acquire image at z=0</text>
+                        <text x="210" y="105" font-size="8" fill="#333">3. Move stage up by Δz</text>
+                        <text x="210" y="120" font-size="8" fill="#333">4. Repeat until top reached</text>
+                    </svg>
+                </div>
+                
+                <div class="detail-text">
+                    <div class="detail-box">
+                        <h3>Definition</h3>
+                        <p>A z-stack is a series of optical sections acquired at different focal planes through the depth of a specimen. The microscope stage (or objective) moves in precise increments along the z-axis to capture each plane.</p>
+                    </div>
+                    
+                    <div class="detail-box">
+                        <h3>Step Size Selection</h3>
+                        <p>Critical parameter affecting data quality:</p>
+                        <ul>
+                            <li><strong>Nyquist criterion:</strong> Step size ≤ optical section thickness / 2</li>
+                            <li><strong>Too large:</strong> Missing information between slices</li>
+                            <li><strong>Too small:</strong> Oversampling, more photobleaching, larger files</li>
+                            <li><strong>Practical:</strong> 0.3-1 µm for most applications</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-box">
+                        <h3>Considerations</h3>
+                        <ul>
+                            <li>Total acquisition time increases with number of slices</li>
+                            <li>Photobleaching accumulates through stack</li>
+                            <li>Stage drift can affect alignment</li>
+                            <li>File sizes can be large (GB range)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-box">
+                        <h3>Applications</h3>
+                        <p>Essential for 3D cell imaging, tissue architecture studies, developmental biology, and neuroscience. Enables volume quantification and 3D reconstruction of cellular structures.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 6: 3D Rendering -->
+    <div class="page">
+        <div class="container">
+            <div class="section-title">5. 3D Rendering & Visualization</div>
+            
+            <div class="detail-section">
+                <div class="detail-diagram">
+                    <svg width="380" height="420" viewBox="0 0 380 420">
+                        <!-- Stack to 3D workflow -->
+                        <text x="190" y="20" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">From Z-stack to 3D Volume</text>
+                        
+                        <!-- Input: Image stack -->
+                        <g>
+                            <rect x="30" y="40" width="80" height="60" fill="#FFE5E5" stroke="#FF6B6B" stroke-width="1.5" rx="2"/>
+                            <rect x="35" y="35" width="80" height="60" fill="#E5F5FF" stroke="#4ECDC4" stroke-width="1.5" rx="2"/>
+                            <rect x="40" y="30" width="80" height="60" fill="#FFF9E5" stroke="#FFD93D" stroke-width="1.5" rx="2"/>
+                            <text x="80" y="70" text-anchor="middle" font-size="10" fill="#333" font-weight="600">Z-stack</text>
+                            <text x="80" y="110" text-anchor="middle" font-size="8" fill="#666">50 slices</text>
+                        </g>
+                        
+                        <!-- Arrow -->
+                        <defs>
+                            <marker id="processArrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        <line x1="130" y1="65" x2="170" y2="65" stroke="#1E64C8" stroke-width="2" marker-end="url(#processArrow)"/>
+                        
+                        <!-- Processing -->
+                        <rect x="170" y="40" width="100" height="50" fill="#f0f8ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="220" y="60" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">3D Reconstruction</text>
+                        <text x="220" y="75" text-anchor="middle" font-size="7" fill="#555">Volume rendering</text>
+                        <text x="220" y="85" text-anchor="middle" font-size="7" fill="#555">Surface extraction</text>
+                        
+                        <!-- Arrow -->
+                        <line x1="280" y1="65" x2="320" y2="65" stroke="#1E64C8" stroke-width="2" marker-end="url(#processArrow)"/>
+                        
+                        <!-- Output: 3D volume -->
+                        <g>
+                            <!-- 3D cube representation -->
+                            <path d="M 290 35 L 340 35 L 360 55 L 310 55 Z" fill="#B8D4F1" stroke="#1E64C8" stroke-width="1.5"/>
+                            <path d="M 340 35 L 360 55 L 360 100 L 340 80 Z" fill="#8FB8E8" stroke="#1E64C8" stroke-width="1.5"/>
+                            <path d="M 290 35 L 310 55 L 310 100 L 290 80 Z" fill="#6BA3D8" stroke="#1E64C8" stroke-width="1.5"/>
+                            <path d="M 290 80 L 340 80 L 360 100 L 310 100 Z" fill="#4E8DC7" stroke="#1E64C8" stroke-width="1.5"/>
+                            
+                            <text x="325" y="110" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">3D Volume</text>
+                        </g>
+                        
+                        <!-- Rendering methods -->
+                        <rect x="20" y="130" width="340" height="135" fill="#f0f0f0" stroke="#333" stroke-width="2" rx="5"/>
+                        <text x="190" y="150" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600">Rendering Methods</text>
+                        
+                        <!-- Maximum Intensity Projection -->
+                        <g>
+                            <rect x="30" y="160" width="100" height="95" fill="white" stroke="#FF6B6B" stroke-width="1.5" rx="3"/>
+                            <text x="80" y="175" text-anchor="middle" font-size="9" fill="#FF6B6B" font-weight="600">MIP</text>
+                            <text x="80" y="187" text-anchor="middle" font-size="7" fill="#333">Max Intensity</text>
+                            <text x="80" y="197" text-anchor="middle" font-size="7" fill="#333">Projection</text>
+                            
+                            <!-- MIP visualization -->
+                            <rect x="40" y="205" width="80" height="3" fill="#FF6B6B" opacity="0.3"/>
+                            <rect x="40" y="213" width="80" height="3" fill="#FF6B6B" opacity="0.6"/>
+                            <rect x="40" y="221" width="80" height="3" fill="#FF6B6B" opacity="0.9"/>
+                            <line x1="80" y1="230" x2="80" y2="245" stroke="#FF6B6B" stroke-width="2"/>
+                            <text x="80" y="252" text-anchor="middle" font-size="6" fill="#555">Brightest pixel</text>
+                        </g>
+                        
+                        <!-- Volume Rendering -->
+                        <g>
+                            <rect x="140" y="160" width="100" height="95" fill="white" stroke="#4ECDC4" stroke-width="1.5" rx="3"/>
+                            <text x="190" y="175" text-anchor="middle" font-size="9" fill="#4ECDC4" font-weight="600">Volume</text>
+                            <text x="190" y="187" text-anchor="middle" font-size="7" fill="#333">Rendering</text>
+                            
+                            <!-- Volume viz -->
+                            <ellipse cx="190" cy="220" rx="30" ry="20" fill="#4ECDC4" opacity="0.3" stroke="#4ECDC4" stroke-width="1"/>
+                            <ellipse cx="190" cy="220" rx="20" ry="13" fill="#4ECDC4" opacity="0.5"/>
+                            <ellipse cx="190" cy="220" rx="10" ry="7" fill="#4ECDC4" opacity="0.8"/>
+                            <text x="190" y="250" text-anchor="middle" font-size="6" fill="#555">Transparent</text>
+                        </g>
+                        
+                        <!-- Surface Rendering -->
+                        <g>
+                            <rect x="250" y="160" width="100" height="95" fill="white" stroke="#6BCB77" stroke-width="1.5" rx="3"/>
+                            <text x="300" y="175" text-anchor="middle" font-size="9" fill="#6BCB77" font-weight="600">Surface</text>
+                            <text x="300" y="187" text-anchor="middle" font-size="7" fill="#333">Rendering</text>
+                            
+                            <!-- Surface viz -->
+                            <ellipse cx="300" cy="220" rx="25" ry="20" fill="none" stroke="#6BCB77" stroke-width="2"/>
+                            <path d="M 285 220 Q 300 200, 315 220" fill="#6BCB77" opacity="0.5"/>
+                            <text x="300" y="250" text-anchor="middle" font-size="6" fill="#555">Smooth surface</text>
+                        </g>
+                        
+                        <!-- Software tools -->
+                        <rect x="20" y="280" width="340" height="125" fill="#f0f8ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="190" y="300" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600">Analysis & Visualization Software</text>
+                        
+                        <g>
+                            <rect x="30" y="310" width="100" height="85" fill="white" stroke="#1E64C8" stroke-width="1" rx="2"/>
+                            <text x="80" y="325" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">ImageJ/Fiji</text>
+                            <text x="35" y="340" font-size="7" fill="#333">• Free, open-source</text>
+                            <text x="35" y="352" font-size="7" fill="#333">• 3D Viewer plugin</text>
+                            <text x="35" y="364" font-size="7" fill="#333">• Volume rendering</text>
+                            <text x="35" y="376" font-size="7" fill="#333">• MIP, orthogonal views</text>
+                            <text x="35" y="388" font-size="7" fill="#333">• Extensive plugins</text>
+                        </g>
+                        
+                        <g>
+                            <rect x="140" y="310" width="100" height="85" fill="white" stroke="#1E64C8" stroke-width="1" rx="2"/>
+                            <text x="190" y="325" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">Imaris</text>
+                            <text x="145" y="340" font-size="7" fill="#333">• Commercial software</text>
+                            <text x="145" y="352" font-size="7" fill="#333">• Advanced 3D/4D viz</text>
+                            <text x="145" y="364" font-size="7" fill="#333">• Surface rendering</text>
+                            <text x="145" y="376" font-size="7" fill="#333">• Tracking & analysis</text>
+                            <text x="145" y="388" font-size="7" fill="#333">• Publication quality</text>
+                        </g>
+                        
+                        <g>
+                            <rect x="250" y="310" width="100" height="85" fill="white" stroke="#1E64C8" stroke-width="1" rx="2"/>
+                            <text x="300" y="325" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">Arivis / Amira</text>
+                            <text x="255" y="340" font-size="7" fill="#333">• Professional tools</text>
+                            <text x="255" y="352" font-size="7" fill="#333">• Large dataset handling</text>
+                            <text x="255" y="364" font-size="7" fill="#333">• Quantitative 3D</text>
+                            <text x="255" y="376" font-size="7" fill="#333">• Segmentation</text>
+                            <text x="255" y="388" font-size="7" fill="#333">• Network visualization</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="detail-text">
+                    <div class="detail-box">
+                        <h3>3D Reconstruction</h3>
+                        <p>Z-stack images are compiled into a 3D volume dataset. Each voxel (3D pixel) contains intensity information. The volume can be visualized using various rendering techniques to reveal spatial relationships.</p>
+                    </div>
+                    
+                    <div class="detail-box">
+                        <h3>Visualization Methods</h3>
+                        <ul>
+                            <li><strong>MIP:</strong> Projects maximum intensity along viewing axis - good for sparse structures</li>
+                            <li><strong>Volume rendering:</strong> Assigns opacity/color based on intensity - shows internal structures</li>
+                            <li><strong>Surface rendering:</strong> Creates smooth 3D surface from threshold - ideal for morphology</li>
+                            <li><strong>Orthogonal views:</strong> XY, XZ, YZ cross-sections</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-box">
+                        <h3>Applications</h3>
+                        <ul>
+                            <li>3D cell morphology and organelle distribution</li>
+                            <li>Neuronal network reconstruction</li>
+                            <li>Vascular architecture mapping</li>
+                            <li>Volumetric quantification (cell volume, surface area)</li>
+                            <li>Spatial relationship analysis</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="detail-box">
+                        <h3>Considerations</h3>
+                        <p>Requires adequate sampling (proper step size), sufficient signal-to-noise ratio, and correction for spherical aberration in deep imaging. Deconvolution can improve 3D resolution.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

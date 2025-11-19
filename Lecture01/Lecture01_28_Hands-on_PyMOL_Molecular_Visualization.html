@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hands-on: PyMOL Molecular Visualization</title>
+    <title>Hands-on: PyMOL Molecular Visualization - Comprehensive Guide</title>
     <style>
         * {
             margin: 0;
@@ -13,114 +13,934 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 40px 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 30px 45px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
-        .title {
-            font-size: 22px;
-            font-weight: 600;
-            color: #1E64C8;
-            margin-bottom: 20px;
+        .header {
+            background: linear-gradient(135deg, #1E64C8 0%, #2a7fd8 100%);
+            padding: 40px;
             text-align: center;
+            color: white;
         }
         
-        .content-grid {
+        .main-title {
+            font-size: 32px;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 40px;
+        }
+        
+        .overview-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 20px;
+            margin-bottom: 50px;
         }
         
         .info-box {
             background: #f8f9fb;
             border-left: 4px solid #1E64C8;
-            padding: 16px 18px;
+            padding: 20px;
             border-radius: 6px;
+            transition: transform 0.2s;
+        }
+        
+        .info-box:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(30, 100, 200, 0.15);
         }
         
         .info-title {
-            font-size: 17px;
+            font-size: 18px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         
         .info-content {
             font-size: 15px;
             color: #333;
-            line-height: 1.5;
+            line-height: 1.6;
         }
         
         .bullet {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         
         .bullet::before {
             content: "•";
             color: #1E64C8;
             font-weight: bold;
-            margin-right: 8px;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+        }
+        
+        .section-header {
+            background: #1E64C8;
+            color: white;
+            padding: 15px 25px;
+            font-size: 24px;
+            font-weight: 600;
+            margin-bottom: 30px;
+            border-radius: 6px;
+        }
+        
+        .detail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .text-content {
+            padding: 20px;
+        }
+        
+        .text-content h3 {
+            color: #1E64C8;
+            font-size: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .text-content p {
+            color: #444;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            font-size: 15px;
+        }
+        
+        .text-content ul {
+            margin-left: 20px;
+            color: #444;
+            line-height: 1.8;
+        }
+        
+        .text-content li {
+            margin-bottom: 8px;
+        }
+        
+        .image-placeholder {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border: 2px dashed #1E64C8;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+            padding: 30px;
+            text-align: center;
+        }
+        
+        .image-placeholder-icon {
+            font-size: 48px;
+            color: #1E64C8;
+            margin-bottom: 15px;
+        }
+        
+        .image-placeholder-text {
+            color: #1E64C8;
             font-size: 16px;
+            font-weight: 500;
+            margin-bottom: 8px;
+        }
+        
+        .image-placeholder-desc {
+            color: #666;
+            font-size: 14px;
+            max-width: 300px;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            line-height: 1.6;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
+        
+        .code-comment {
+            color: #75715e;
+        }
+        
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .highlight-box strong {
+            color: #856404;
+        }
+        
+        .tips-box {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .tips-box strong {
+            color: #155724;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Hands-on: PyMOL Molecular Visualization</div>
+        <div class="header">
+            <div class="main-title">Hands-on: PyMOL Molecular Visualization</div>
+            <div class="subtitle">A Comprehensive Guide to Protein Structure Visualization and Analysis</div>
+        </div>
         
-        <div class="content-grid">
-            <div class="info-box">
-                <div class="info-title">Getting Started</div>
-                <div class="info-content">
-                    <div class="bullet">Install PyMOL (open source available)</div>
-                    <div class="bullet">Load PDB files: fetch 1AKE</div>
-                    <div class="bullet">Basic navigation: mouse controls</div>
-                    <div class="bullet">Command line interface</div>
+        <div class="content">
+            <!-- Overview Section -->
+            <div class="overview-grid">
+                <div class="info-box">
+                    <div class="info-title">Getting Started</div>
+                    <div class="info-content">
+                        <div class="bullet">Install PyMOL (open source available)</div>
+                        <div class="bullet">Load PDB files: fetch 1AKE</div>
+                        <div class="bullet">Basic navigation: mouse controls</div>
+                        <div class="bullet">Command line interface</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">Visualization Options</div>
+                    <div class="info-content">
+                        <div class="bullet">Cartoon: secondary structure</div>
+                        <div class="bullet">Sticks: detailed bonds</div>
+                        <div class="bullet">Surface: molecular surface</div>
+                        <div class="bullet">Ribbon: protein backbone</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">Analysis Tools</div>
+                    <div class="info-content">
+                        <div class="bullet">Distance measurements</div>
+                        <div class="bullet">Hydrogen bond identification</div>
+                        <div class="bullet">Surface area calculations</div>
+                        <div class="bullet">Electrostatic potentials</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">Creating Figures</div>
+                    <div class="info-content">
+                        <div class="bullet">Ray tracing for publication</div>
+                        <div class="bullet">Color schemes</div>
+                        <div class="bullet">Label atoms/residues</div>
+                        <div class="bullet">Export high-resolution images</div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="info-box">
-                <div class="info-title">Visualization Options</div>
-                <div class="info-content">
-                    <div class="bullet">Cartoon: secondary structure</div>
-                    <div class="bullet">Sticks: detailed bonds</div>
-                    <div class="bullet">Surface: molecular surface</div>
-                    <div class="bullet">Ribbon: protein backbone</div>
+
+            <!-- Section 1: Getting Started -->
+            <div class="section">
+                <div class="section-header">1. Getting Started with PyMOL</div>
+                
+                <div class="detail-content">
+                    <div class="text-content">
+                        <h3>Installation and Setup</h3>
+                        <p>PyMOL is a powerful molecular visualization system used by researchers worldwide. There are two main versions available:</p>
+                        <ul>
+                            <li><strong>Open-Source PyMOL:</strong> Free version available through package managers or compilation from source</li>
+                            <li><strong>Incentive PyMOL:</strong> Commercial version with additional features and support</li>
+                        </ul>
+                        
+                        <div class="code-block">
+<span class="code-comment"># Install via conda (recommended)</span>
+conda install -c conda-forge pymol-open-source
+
+<span class="code-comment"># Or via pip</span>
+pip install pymol-open-source
+                        </div>
+                        
+                        <div class="tips-box">
+                            <strong>💡 Pro Tip:</strong> For beginners, using conda provides the easiest installation with all dependencies automatically handled.
+                        </div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <div class="image-placeholder-icon">🖥️</div>
+                        <div class="image-placeholder-text">PyMOL Interface Screenshot</div>
+                        <div class="image-placeholder-desc">Main PyMOL window showing the viewer panel, command line, and object list</div>
+                    </div>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="image-placeholder">
+                        <div class="image-placeholder-icon">🧬</div>
+                        <div class="image-placeholder-text">Loading a Structure Example</div>
+                        <div class="image-placeholder-desc">Example of fetching PDB 1AKE (Adenylate Kinase) from the Protein Data Bank</div>
+                    </div>
+                    
+                    <div class="text-content">
+                        <h3>Loading Molecular Structures</h3>
+                        <p>PyMOL can load structures from various sources:</p>
+                        
+                        <div class="code-block">
+<span class="code-comment"># Fetch from PDB database</span>
+fetch 1AKE
+
+<span class="code-comment"># Load local file</span>
+load /path/to/protein.pdb
+
+<span class="code-comment"># Load with custom name</span>
+load myprotein.pdb, protein1
+                        </div>
+                        
+                        <p><strong>Common File Formats:</strong></p>
+                        <ul>
+                            <li>PDB (.pdb) - Protein Data Bank format</li>
+                            <li>mmCIF (.cif) - Macromolecular Crystallographic Information</li>
+                            <li>MOL2 (.mol2) - Tripos molecule format</li>
+                            <li>SDF (.sdf) - Structure Data File</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="text-content">
+                        <h3>Basic Navigation Controls</h3>
+                        <p>Mastering mouse controls is essential for efficient work in PyMOL:</p>
+                        
+                        <ul>
+                            <li><strong>Left Mouse Button:</strong> Rotate the view around the molecule</li>
+                            <li><strong>Middle Mouse Button:</strong> Move/translate the molecule in the viewing plane</li>
+                            <li><strong>Right Mouse Button:</strong> Zoom in and out (move up/down)</li>
+                            <li><strong>Scroll Wheel:</strong> Alternative zoom control</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                            <strong>⚠️ Important:</strong> These controls can be customized in Edit → Mouse → 3 Button Viewing for different mouse configurations.
+                        </div>
+                        
+                        <div class="code-block">
+<span class="code-comment"># Useful view commands</span>
+reset           <span class="code-comment"># Reset view to original</span>
+zoom            <span class="code-comment"># Zoom to fit all objects</span>
+center          <span class="code-comment"># Center on selection</span>
+orient          <span class="code-comment"># Orient selection to standard view</span>
+                        </div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <div class="image-placeholder-icon">🖱️</div>
+                        <div class="image-placeholder-text">Mouse Control Guide</div>
+                        <div class="image-placeholder-desc">Visual guide showing left/middle/right mouse button functions</div>
+                    </div>
+                </div>
+                
+                <div class="text-content">
+                    <h3>Command Line Interface Basics</h3>
+                    <p>The PyMOL command line is powerful for automation and precise control:</p>
+                    
+                    <div class="code-block">
+<span class="code-comment"># Selection examples</span>
+select chain A          <span class="code-comment"># Select chain A</span>
+select resi 10-50       <span class="code-comment"># Select residues 10 to 50</span>
+select name CA          <span class="code-comment"># Select all alpha carbons</span>
+
+<span class="code-comment"># Basic commands</span>
+hide everything         <span class="code-comment"># Hide all representations</span>
+show cartoon           <span class="code-comment"># Show cartoon representation</span>
+color blue, chain A    <span class="code-comment"># Color chain A blue</span>
+bg_color white         <span class="code-comment"># Set background to white</span>
+                    </div>
                 </div>
             </div>
-            
-            <div class="info-box">
-                <div class="info-title">Analysis Tools</div>
-                <div class="info-content">
-                    <div class="bullet">Distance measurements</div>
-                    <div class="bullet">Hydrogen bond identification</div>
-                    <div class="bullet">Surface area calculations</div>
-                    <div class="bullet">Electrostatic potentials</div>
+
+            <!-- Section 2: Visualization Options -->
+            <div class="section">
+                <div class="section-header">2. Visualization Options</div>
+                
+                <div class="detail-content">
+                    <div class="text-content">
+                        <h3>Cartoon Representation</h3>
+                        <p>The cartoon representation is ideal for visualizing secondary structures (α-helices, β-sheets, loops) in proteins. It provides a clear overview of the protein's overall fold while maintaining clarity.</p>
+                        
+                        <p><strong>Key Features:</strong></p>
+                        <ul>
+                            <li>α-helices displayed as spirals/cylinders</li>
+                            <li>β-sheets shown as arrows/ribbons</li>
+                            <li>Loops represented as tubes or thin lines</li>
+                            <li>Excellent for publication figures</li>
+                        </ul>
+                        
+                        <div class="code-block">
+<span class="code-comment"># Display cartoon</span>
+show cartoon
+
+<span class="code-comment"># Customize cartoon appearance</span>
+set cartoon_fancy_helices, 1
+set cartoon_smooth_loops, 1
+set cartoon_tube_radius, 0.5
+
+<span class="code-comment"># Color by secondary structure</span>
+color red, ss h      <span class="code-comment"># Helices red</span>
+color yellow, ss s   <span class="code-comment"># Sheets yellow</span>
+color green, ss l    <span class="code-comment"># Loops green</span>
+                        </div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <div class="image-placeholder-icon">🎨</div>
+                        <div class="image-placeholder-text">Cartoon Representation</div>
+                        <div class="image-placeholder-desc">Protein shown in cartoon mode highlighting helices, sheets, and loops</div>
+                    </div>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="image-placeholder">
+                        <div class="image-placeholder-icon">🔗</div>
+                        <div class="image-placeholder-text">Stick Representation</div>
+                        <div class="image-placeholder-desc">Active site residues shown as sticks with detailed chemical bonds</div>
+                    </div>
+                    
+                    <div class="text-content">
+                        <h3>Stick Representation</h3>
+                        <p>Stick representation displays individual atoms and bonds, perfect for examining active sites, ligand binding, and detailed molecular interactions.</p>
+                        
+                        <p><strong>Best Uses:</strong></p>
+                        <ul>
+                            <li>Visualizing ligand-protein interactions</li>
+                            <li>Examining active site residues</li>
+                            <li>Showing detailed chemical bonds</li>
+                            <li>Highlighting specific residues of interest</li>
+                        </ul>
+                        
+                        <div class="code-block">
+<span class="code-comment"># Display sticks for selection</span>
+show sticks, resi 50-75
+
+<span class="code-comment"># Adjust stick properties</span>
+set stick_radius, 0.15
+set stick_ball, on
+set stick_ball_ratio, 1.5
+
+<span class="code-comment"># Combine with cartoon</span>
+show cartoon
+show sticks, resi 100-110 and name CA+CB+CG
+                        </div>
+                        
+                        <div class="tips-box">
+                            <strong>💡 Pro Tip:</strong> Combine cartoon and stick representations to show overall structure while highlighting specific regions of interest.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="text-content">
+                        <h3>Surface Representation</h3>
+                        <p>Surface representation displays the molecular surface, showing the accessible surface area and revealing binding pockets and cavities.</p>
+                        
+                        <p><strong>Surface Types:</strong></p>
+                        <ul>
+                            <li><strong>Surface:</strong> Quick surface calculation</li>
+                            <li><strong>Mesh:</strong> Wireframe surface</li>
+                            <li><strong>Dots:</strong> Dot surface representation</li>
+                        </ul>
+                        
+                        <div class="code-block">
+<span class="code-comment"># Show molecular surface</span>
+show surface
+
+<span class="code-comment"># Adjust transparency</span>
+set transparency, 0.5
+
+<span class="code-comment"># Surface quality settings</span>
+set surface_quality, 2
+set surface_type, 2  <span class="code-comment"># 0=solid, 1=mesh, 2=dots</span>
+
+<span class="code-comment"># Color by hydrophobicity</span>
+color yellow, hydrophobic
+color red, polar
+                        </div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <div class="image-placeholder-icon">🌐</div>
+                        <div class="image-placeholder-text">Surface Representation</div>
+                        <div class="image-placeholder-desc">Molecular surface showing protein topology and binding pockets</div>
+                    </div>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="image-placeholder">
+                        <div class="image-placeholder-icon">🧵</div>
+                        <div class="image-placeholder-text">Ribbon Representation</div>
+                        <div class="image-placeholder-desc">Ribbon view showing protein backbone connectivity</div>
+                    </div>
+                    
+                    <div class="text-content">
+                        <h3>Ribbon Representation</h3>
+                        <p>Ribbon representation traces the protein backbone (Cα atoms), providing a simplified view of protein topology and fold.</p>
+                        
+                        <p><strong>Applications:</strong></p>
+                        <ul>
+                            <li>Showing backbone trace for complex structures</li>
+                            <li>Highlighting domain organization</li>
+                            <li>Comparing multiple structures</li>
+                            <li>Creating simplified overviews</li>
+                        </ul>
+                        
+                        <div class="code-block">
+<span class="code-comment"># Display ribbon</span>
+show ribbon
+
+<span class="code-comment"># Ribbon customization</span>
+set ribbon_width, 3.0
+set ribbon_smooth, 1
+set ribbon_trace_atoms, 1
+
+<span class="code-comment"># Putty representation (B-factor coloring)</span>
+show cartoon
+set cartoon_putty_radius, 0.4
+spectrum b, rainbow, minimum=10, maximum=50
+                        </div>
+                    </div>
                 </div>
             </div>
-            
-            <div class="info-box">
-                <div class="info-title">Creating Figures</div>
-                <div class="info-content">
-                    <div class="bullet">Ray tracing for publication</div>
-                    <div class="bullet">Color schemes</div>
-                    <div class="bullet">Label atoms/residues</div>
-                    <div class="bullet">Export high-resolution images</div>
+
+            <!-- Section 3: Analysis Tools -->
+            <div class="section">
+                <div class="section-header">3. Analysis Tools</div>
+                
+                <div class="detail-content">
+                    <div class="text-content">
+                        <h3>Distance Measurements</h3>
+                        <p>Measuring distances between atoms is crucial for understanding molecular interactions, validating models, and analyzing structural features.</p>
+                        
+                        <p><strong>Types of Measurements:</strong></p>
+                        <ul>
+                            <li><strong>Distance:</strong> Linear distance between two atoms</li>
+                            <li><strong>Angle:</strong> Angle between three atoms</li>
+                            <li><strong>Dihedral:</strong> Torsion angle between four atoms</li>
+                        </ul>
+                        
+                        <div class="code-block">
+<span class="code-comment"># Measure distance between atoms</span>
+distance dist1, resi 25 and name CA, resi 50 and name CA
+
+<span class="code-comment"># Measure all distances in selection</span>
+distance all_contacts, chain A, chain B, 4.0
+
+<span class="code-comment"># Measure angle</span>
+angle ang1, resi 10 and name CA, resi 11 and name CA, resi 12 and name CA
+
+<span class="code-comment"># Customize measurement display</span>
+set dash_radius, 0.15
+set dash_color, red
+set label_size, 20
+                        </div>
+                        
+                        <div class="highlight-box">
+                            <strong>⚠️ Note:</strong> Typical hydrogen bond distances range from 2.5-3.5 Å, while van der Waals contacts are typically 3.5-4.5 Å.
+                        </div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <div class="image-placeholder-icon">📏</div>
+                        <div class="image-placeholder-text">Distance Measurements</div>
+                        <div class="image-placeholder-desc">Example showing distance measurements between key residues with labeled values</div>
+                    </div>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="image-placeholder">
+                        <div class="image-placeholder-icon">🔗</div>
+                        <div class="image-placeholder-text">Hydrogen Bond Network</div>
+                        <div class="image-placeholder-desc">Hydrogen bonds displayed with dashed lines showing interaction network</div>
+                    </div>
+                    
+                    <div class="text-content">
+                        <h3>Hydrogen Bond Identification</h3>
+                        <p>Hydrogen bonds are crucial for protein stability, ligand binding, and catalytic function. PyMOL provides tools to identify and visualize these interactions.</p>
+                        
+                        <p><strong>Criteria for H-bonds:</strong></p>
+                        <ul>
+                            <li>Distance: 2.5-3.5 Å between donor and acceptor</li>
+                            <li>Angle: Donor-H-Acceptor angle > 120°</li>
+                            <li>Typically between O, N, and sometimes S atoms</li>
+                        </ul>
+                        
+                        <div class="code-block">
+<span class="code-comment"># Find hydrogen bonds</span>
+distance hbonds, chain A, chain B, 3.2, mode=2
+
+<span class="code-comment"># Show polar contacts</span>
+set h_bond_cutoff_center, 3.6
+set h_bond_cutoff_edge, 3.2
+
+<span class="code-comment"># Advanced H-bond visualization</span>
+distance hb1, (resi 50 and name O), (resi 75 and name N), 3.5
+color yellow, hb1
+set dash_gap, 0
+
+<span class="code-comment"># Label H-bonds with distances</span>
+set label_position, (0, 0, 5)
+                        </div>
+                        
+                        <div class="tips-box">
+                            <strong>💡 Pro Tip:</strong> Use "mode=2" in distance command to automatically filter for potential hydrogen bonds based on geometry.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="text-content">
+                        <h3>Surface Area Calculations</h3>
+                        <p>Surface area analysis helps understand protein-protein interactions, ligand binding sites, and structural accessibility.</p>
+                        
+                        <p><strong>Key Concepts:</strong></p>
+                        <ul>
+                            <li><strong>Solvent Accessible Surface Area (SASA):</strong> Area accessible to solvent</li>
+                            <li><strong>Buried Surface Area (BSA):</strong> Area hidden upon complex formation</li>
+                            <li><strong>Surface Charge Distribution:</strong> Electrostatic surface properties</li>
+                        </ul>
+                        
+                        <div class="code-block">
+<span class="code-comment"># Calculate solvent accessible surface area</span>
+get_area selection
+
+<span class="code-comment"># Example: Calculate total protein area</span>
+get_area protein
+
+<span class="code-comment"># Calculate buried surface area</span>
+get_area chain A and chain B
+buried_area = get_area(chainA) + get_area(chainB) - get_area(complex)
+
+<span class="code-comment"># Show accessible surface</span>
+show surface
+set surface_mode, 1  <span class="code-comment"># 0=solid, 1=surface</span>
+set surface_quality, 2
+                        </div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <div class="image-placeholder-icon">📊</div>
+                        <div class="image-placeholder-text">Surface Area Visualization</div>
+                        <div class="image-placeholder-desc">Protein surface colored by accessible surface area or hydrophobicity</div>
+                    </div>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="image-placeholder">
+                        <div class="image-placeholder-icon">⚡</div>
+                        <div class="image-placeholder-text">Electrostatic Potential Map</div>
+                        <div class="image-placeholder-desc">Surface colored by electrostatic potential (red=negative, blue=positive)</div>
+                    </div>
+                    
+                    <div class="text-content">
+                        <h3>Electrostatic Potentials</h3>
+                        <p>Electrostatic potential maps reveal charged regions important for ligand binding, protein-protein interactions, and catalysis. This requires APBS (Adaptive Poisson-Boltzmann Solver).</p>
+                        
+                        <p><strong>Applications:</strong></p>
+                        <ul>
+                            <li>Identifying binding sites</li>
+                            <li>Understanding substrate specificity</li>
+                            <li>Analyzing protein-protein interfaces</li>
+                            <li>Drug design and docking studies</li>
+                        </ul>
+                        
+                        <div class="code-block">
+<span class="code-comment"># Using APBS plugin (if installed)</span>
+<span class="code-comment"># Plugin → APBS Tools</span>
+
+<span class="code-comment"># Manual approach: color by atom charge</span>
+color red, formal_charge < 0
+color blue, formal_charge > 0
+
+<span class="code-comment"># Color surface by electrostatics</span>
+util.protein_vacuum_esp(selection, mode=2)
+
+<span class="code-comment"># Simple charge visualization</span>
+select acidic, resn ASP+GLU
+select basic, resn ARG+LYS+HIS
+color red, acidic
+color blue, basic
+                        </div>
+                        
+                        <div class="highlight-box">
+                            <strong>⚠️ Important:</strong> For publication-quality electrostatic maps, install APBS and use the APBS Tools plugin with proper parameter settings.
+                        </div>
+                    </div>
                 </div>
             </div>
-            
+
+            <!-- Section 4: Creating Figures -->
+            <div class="section">
+                <div class="section-header">4. Creating Publication-Quality Figures</div>
+                
+                <div class="detail-content">
+                    <div class="text-content">
+                        <h3>Ray Tracing for Publication</h3>
+                        <p>Ray tracing produces high-quality, photorealistic images suitable for publications and presentations by simulating realistic lighting and shadows.</p>
+                        
+                        <p><strong>Benefits of Ray Tracing:</strong></p>
+                        <ul>
+                            <li>Smooth, anti-aliased edges</li>
+                            <li>Realistic shadows and depth perception</li>
+                            <li>Professional appearance</li>
+                            <li>Adjustable quality and resolution</li>
+                        </ul>
+                        
+                        <div class="code-block">
+<span class="code-comment"># Basic ray tracing</span>
+ray
+
+<span class="code-comment"># High-resolution ray tracing</span>
+ray 1200, 1200  <span class="code-comment"># Width, height in pixels</span>
+
+<span class="code-comment"># Ray tracing settings</span>
+set ray_trace_mode, 1    <span class="code-comment"># 0=fast, 1=normal, 3=quantized</span>
+set ray_shadows, on
+set ray_trace_fog, 0
+set antialias, 2
+set orthoscopic, on
+
+<span class="code-comment"># Save ray-traced image</span>
+png output.png, width=2400, height=2400, dpi=300, ray=1
+                        </div>
+                        
+                        <div class="tips-box">
+                            <strong>💡 Pro Tip:</strong> For publications, use at least 1200x1200 pixels or 300 DPI resolution. Ray tracing may take several minutes for complex structures.
+                        </div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <div class="image-placeholder-icon">🎬</div>
+                        <div class="image-placeholder-text">Ray Traced Image</div>
+                        <div class="image-placeholder-desc">Comparison of standard view vs ray-traced rendering showing improved quality</div>
+                    </div>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="image-placeholder">
+                        <div class="image-placeholder-icon">🎨</div>
+                        <div class="image-placeholder-text">Color Scheme Examples</div>
+                        <div class="image-placeholder-desc">Various coloring schemes: by chain, by element, by B-factor, rainbow spectrum</div>
+                    </div>
+                    
+                    <div class="text-content">
+                        <h3>Color Schemes and Customization</h3>
+                        <p>Effective color schemes enhance clarity and highlight important features in molecular structures.</p>
+                        
+                        <p><strong>Common Coloring Strategies:</strong></p>
+                        <ul>
+                            <li><strong>By Chain:</strong> Different colors for each protein chain</li>
+                            <li><strong>By Element:</strong> CPK (carbon=cyan, oxygen=red, nitrogen=blue)</li>
+                            <li><strong>By Secondary Structure:</strong> Helices, sheets, loops</li>
+                            <li><strong>By Property:</strong> B-factor, hydrophobicity, charge</li>
+                            <li><strong>Rainbow/Spectrum:</strong> N-terminus to C-terminus</li>
+                        </ul>
+                        
+                        <div class="code-block">
+<span class="code-comment"># Color by chain</span>
+util.cbc  <span class="code-comment"># Color by chain (automatic)</span>
+color red, chain A
+color blue, chain B
+
+<span class="code-comment"># Color by element (CPK)</span>
+util.cnc  <span class="code-comment"># Color by element</span>
+
+<span class="code-comment"># Rainbow coloring (N to C terminus)</span>
+spectrum count, rainbow, selection
+
+<span class="code-comment"># Color by B-factor</span>
+spectrum b, blue_white_red, minimum=10, maximum=50
+
+<span class="code-comment"># Custom colors</span>
+set_color mycolor, [0.5, 0.8, 0.3]  <span class="code-comment"># RGB values</span>
+color mycolor, resi 50-75
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="text-content">
+                        <h3>Labeling Atoms and Residues</h3>
+                        <p>Labels help identify specific residues, atoms, or features in molecular structures, making figures more informative and accessible.</p>
+                        
+                        <p><strong>Labeling Options:</strong></p>
+                        <ul>
+                            <li>Residue names and numbers</li>
+                            <li>Atom names</li>
+                            <li>Custom text labels</li>
+                            <li>Distance measurements</li>
+                        </ul>
+                        
+                        <div class="code-block">
+<span class="code-comment"># Label residues</span>
+label resi 50 and name CA, "%s %s" % (resn, resi)
+
+<span class="code-comment"># Label specific atoms</span>
+label name CA and resi 25+50+75, "%s%s" % (resn, resi)
+
+<span class="code-comment"># Customize label appearance</span>
+set label_size, 20
+set label_color, black
+set label_position, (0, 0, 3)
+set label_font_id, 7  <span class="code-comment"># Font selection</span>
+
+<span class="code-comment"># Remove labels</span>
+label all, ""
+
+<span class="code-comment"># Label by chain</span>
+label chain A and name CA and resi 1, "Chain A"
+                        </div>
+                        
+                        <div class="highlight-box">
+                            <strong>⚠️ Tip:</strong> Keep labels minimal and strategic. Too many labels can clutter the image and reduce clarity.
+                        </div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <div class="image-placeholder-icon">🏷️</div>
+                        <div class="image-placeholder-text">Labeled Structure</div>
+                        <div class="image-placeholder-desc">Protein structure with residue labels highlighting active site residues</div>
+                    </div>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="image-placeholder">
+                        <div class="image-placeholder-icon">💾</div>
+                        <div class="image-placeholder-text">Export Options</div>
+                        <div class="image-placeholder-desc">High-resolution PNG export at 300 DPI for publication</div>
+                    </div>
+                    
+                    <div class="text-content">
+                        <h3>Exporting High-Resolution Images</h3>
+                        <p>Proper image export ensures your figures meet publication requirements and maintain quality across different media.</p>
+                        
+                        <p><strong>Export Formats:</strong></p>
+                        <ul>
+                            <li><strong>PNG:</strong> Best for publications (lossless, transparency support)</li>
+                            <li><strong>PDF/EPS:</strong> Vector format for scalable graphics</li>
+                            <li><strong>TIFF:</strong> High-quality raster format</li>
+                            <li><strong>PDB/PSE:</strong> Save PyMOL session for later editing</li>
+                        </ul>
+                        
+                        <div class="code-block">
+<span class="code-comment"># High-quality PNG export</span>
+png figure1.png, width=2400, height=2400, dpi=300, ray=1
+
+<span class="code-comment"># Quick preview (no ray tracing)</span>
+png preview.png, width=800, height=800
+
+<span class="code-comment"># Export with transparent background</span>
+set ray_opaque_background, off
+png transparent.png, dpi=300, ray=1
+
+<span class="code-comment"># Save session for later</span>
+save mysession.pse
+
+<span class="code-comment"># Export coordinates</span>
+save output.pdb, selection
+                        </div>
+                        
+                        <div class="tips-box">
+                            <strong>💡 Publication Standards:</strong>
+                            <ul style="margin-top: 10px;">
+                                <li>Minimum 300 DPI for print publications</li>
+                                <li>Minimum 1200x1200 pixels for single-column figures</li>
+                                <li>Use white or light background for print</li>
+                                <li>Include scale bars or size references when appropriate</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="code-block">
+<span class="code-comment"># Complete publication workflow example</span>
+bg_color white
+set ray_shadows, on
+set antialias, 2
+set orthoscopic, on
+ray 2400, 2400
+png publication_figure.png, dpi=300
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Additional Resources Section -->
+            <div class="section">
+                <div class="section-header">Additional Resources and Best Practices</div>
+                
+                <div class="text-content">
+                    <h3>Workflow Tips for Efficient Visualization</h3>
+                    
+                    <div class="tips-box">
+                        <strong>🎯 Best Practices:</strong>
+                        <ul style="margin-top: 10px; margin-left: 20px;">
+                            <li>Always start with structure validation (check for missing atoms, unusual geometries)</li>
+                            <li>Use consistent color schemes across related figures</li>
+                            <li>Save PyMOL sessions (.pse files) regularly for reproducibility</li>
+                            <li>Document your visualization commands in scripts for publication methods</li>
+                            <li>Test different viewing angles before finalizing figures</li>
+                            <li>Use high-quality settings only for final renders (saves time during editing)</li>
+                        </ul>
+                    </div>
+                    
+                    <h3 style="margin-top: 25px;">Common PyMOL Shortcuts</h3>
+                    <div class="code-block">
+<span class="code-comment"># Essential keyboard shortcuts</span>
+reset              <span class="code-comment"># Reset view</span>
+zoom               <span class="code-comment"># Zoom to fit</span>
+center sele        <span class="code-comment"># Center on selection</span>
+orient sele        <span class="code-comment"># Orient selection</span>
+hide everything    <span class="code-comment"># Clean slate</span>
+as cartoon         <span class="code-comment"># Show as cartoon (shorthand)</span>
+as sticks          <span class="code-comment"># Show as sticks</span>
+util.cbc           <span class="code-comment"># Color by chain</span>
+util.cnc           <span class="code-comment"># Color by element</span>
+clip               <span class="code-comment"># Toggle clipping planes</span>
+                    </div>
+                    
+                    <h3 style="margin-top: 25px;">Recommended Learning Resources</h3>
+                    <ul style="margin-left: 20px; line-height: 1.8;">
+                        <li><strong>PyMOL Wiki:</strong> Comprehensive documentation and tutorials</li>
+                        <li><strong>PyMOL Users Mailing List:</strong> Community support and discussions</li>
+                        <li><strong>Online Tutorials:</strong> Video tutorials on YouTube and molecular visualization courses</li>
+                        <li><strong>PDB Education:</strong> Resources from RCSB Protein Data Bank</li>
+                        <li><strong>Scientific Papers:</strong> Methods sections often include PyMOL visualization details</li>
+                    </ul>
+                    
+                    <div class="highlight-box" style="margin-top: 20px;">
+                        <strong>📚 Further Learning:</strong> Practice with diverse structures from the Protein Data Bank (www.rcsb.org). Start with well-characterized proteins and gradually work with more complex systems like membrane proteins or large assemblies.
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

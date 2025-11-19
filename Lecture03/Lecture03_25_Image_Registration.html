@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Image Registration</title>
+    <title>Image Registration - Detailed Guide</title>
     <style>
         * {
             margin: 0;
@@ -13,24 +13,27 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 40px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
-            display: flex;
-            flex-direction: column;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .slide {
+            width: 100%;
+            padding: 60px 80px;
+            min-height: 600px;
+            page-break-after: always;
+            background: white;
         }
         
         .title {
-            font-size: 36px;
+            font-size: 42px;
             font-weight: 700;
             color: #1E64C8;
             margin-bottom: 30px;
@@ -39,10 +42,18 @@
             border-bottom: 3px solid #1E64C8;
         }
         
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1E64C8;
+        }
+        
         .main-content {
             display: flex;
             gap: 30px;
-            flex: 1;
         }
         
         .content-grid {
@@ -84,178 +95,1151 @@
             align-items: center;
             justify-content: center;
         }
+        
+        .detail-section {
+            margin-top: 30px;
+        }
+        
+        .detail-card {
+            background: #f8fbff;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 2px solid #1E64C8;
+        }
+        
+        .detail-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .detail-content {
+            display: flex;
+            gap: 25px;
+            align-items: flex-start;
+        }
+        
+        .detail-text {
+            flex: 1;
+        }
+        
+        .detail-text h3 {
+            font-size: 18px;
+            color: #1E64C8;
+            margin-top: 15px;
+            margin-bottom: 8px;
+        }
+        
+        .detail-text p {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .detail-text ul {
+            margin-left: 20px;
+            margin-bottom: 10px;
+        }
+        
+        .detail-text li {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 5px;
+        }
+        
+        .detail-visual {
+            flex: 0 0 350px;
+        }
+        
+        .highlight-box {
+            background: #fff8f0;
+            border-left: 4px solid #FFA500;
+            padding: 12px 15px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        
+        .highlight-box p {
+            margin: 0;
+            color: #555;
+        }
+        
+        @media print {
+            .slide {
+                page-break-after: always;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Image Registration</div>
-        
-        <div class="main-content">
-            <div class="content-grid">
-                <div class="content-card">
-                    <div class="card-label">Rigid vs non-rigid</div>
-                    <div class="card-desc">Translation/rotation vs deformation</div>
+        <!-- Slide 1: Overview -->
+        <div class="slide">
+            <div class="title">Image Registration</div>
+            
+            <div class="main-content">
+                <div class="content-grid">
+                    <div class="content-card">
+                        <div class="card-label">Rigid vs non-rigid</div>
+                        <div class="card-desc">Translation/rotation vs deformation</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-label">Similarity metrics</div>
+                        <div class="card-desc">Mutual information, correlation</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-label">Optimization methods</div>
+                        <div class="card-desc">Gradient descent, genetic algorithms</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-label">Multi-modal registration</div>
+                        <div class="card-desc">Aligning different imaging modalities</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-label">Validation approaches</div>
+                        <div class="card-desc">Fiducial markers, Dice coefficient</div>
+                    </div>
                 </div>
-                <div class="content-card">
-                    <div class="card-label">Similarity metrics</div>
-                    <div class="card-desc">Mutual information, correlation</div>
+                
+                <div class="diagram-container">
+                    <svg width="420" height="400" viewBox="0 0 420 400">
+                        <!-- Registration Pipeline -->
+                        
+                        <!-- Fixed Image -->
+                        <g id="fixed">
+                            <rect x="20" y="20" width="80" height="80" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
+                            <circle cx="45" cy="45" r="8" fill="#4A90E2"/>
+                            <circle cx="75" cy="75" r="8" fill="#4A90E2"/>
+                            <rect x="50" y="55" width="25" height="25" fill="#4A90E2" opacity="0.5"/>
+                            <text x="60" y="115" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Fixed Image</text>
+                            <text x="60" y="128" text-anchor="middle" font-size="9" fill="#666">(Reference)</text>
+                        </g>
+                        
+                        <!-- Moving Image (Misaligned) -->
+                        <g id="moving">
+                            <rect x="130" y="35" width="80" height="80" fill="#FFF8F0" stroke="#FFA500" stroke-width="2" transform="rotate(15 170 75)"/>
+                            <circle cx="155" cy="60" r="8" fill="#FF8C42" transform="rotate(15 170 75)"/>
+                            <circle cx="185" cy="90" r="8" fill="#FF8C42" transform="rotate(15 170 75)"/>
+                            <rect x="160" y="70" width="25" height="25" fill="#FF8C42" opacity="0.5" transform="rotate(15 170 75)"/>
+                            <text x="170" y="130" text-anchor="middle" font-size="11" fill="#FFA500" font-weight="700">Moving Image</text>
+                            <text x="170" y="143" text-anchor="middle" font-size="9" fill="#666">(To be aligned)</text>
+                        </g>
+                        
+                        <!-- Arrow to transformation -->
+                        <defs>
+                            <marker id="regarrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#28a745"/>
+                            </marker>
+                        </defs>
+                        <line x1="210" y1="75" x2="245" y2="75" stroke="#28a745" stroke-width="2.5" marker-end="url(#regarrow)"/>
+                        
+                        <!-- Transformation box -->
+                        <g id="transform">
+                            <rect x="255" y="35" width="80" height="80" fill="#F0FFF0" stroke="#28a745" stroke-width="2"/>
+                            <text x="295" y="60" text-anchor="middle" font-size="10" fill="#28a745" font-weight="700">Transform</text>
+                            
+                            <!-- Transformation icons -->
+                            <g transform="translate(265, 65)">
+                                <rect x="0" y="0" width="15" height="15" fill="#90EE90" opacity="0.5"/>
+                                <line x1="7" y1="3" x2="7" y2="12" stroke="#28a745" stroke-width="2" marker-end="url(#tarrow)"/>
+                                <line x1="3" y1="7" x2="12" y2="7" stroke="#28a745" stroke-width="2" marker-end="url(#tarrow)"/>
+                            </g>
+                            <text x="273" y="95" font-size="8" fill="#666">Translation</text>
+                            
+                            <g transform="translate(300, 65)">
+                                <rect x="0" y="0" width="15" height="15" fill="#90EE90" opacity="0.5"/>
+                                <path d="M 7 3 A 4 4 0 1 1 7 11" fill="none" stroke="#28a745" stroke-width="2" marker-end="url(#tarrow)"/>
+                            </g>
+                            <text x="308" y="95" font-size="8" fill="#666">Rotation</text>
+                            
+                            <defs>
+                                <marker id="tarrow" markerWidth="6" markerHeight="6" refX="5" refY="2" orient="auto">
+                                    <polygon points="0 0, 6 2, 0 4" fill="#28a745"/>
+                                </marker>
+                            </defs>
+                        </g>
+                        
+                        <!-- Arrow to registered -->
+                        <line x1="335" y1="75" x2="365" y2="75" stroke="#28a745" stroke-width="2.5" marker-end="url(#regarrow)"/>
+                        
+                        <!-- Registered Image (Aligned) -->
+                        <g id="registered">
+                            <rect x="20" y="160" width="80" height="80" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
+                            <circle cx="45" cy="185" r="8" fill="#4A90E2"/>
+                            <circle cx="75" cy="215" r="8" fill="#4A90E2"/>
+                            <rect x="50" y="195" width="25" height="25" fill="#4A90E2" opacity="0.5"/>
+                            
+                            <!-- Overlay of moving (now aligned) -->
+                            <circle cx="45" cy="185" r="8" fill="#FF8C42" opacity="0.5"/>
+                            <circle cx="75" cy="215" r="8" fill="#FF8C42" opacity="0.5"/>
+                            <rect x="50" y="195" width="25" height="25" fill="#FF8C42" opacity="0.3"/>
+                            
+                            <text x="60" y="255" text-anchor="middle" font-size="11" fill="#28a745" font-weight="700">Registered</text>
+                            <text x="60" y="268" text-anchor="middle" font-size="9" fill="#666">(Aligned)</text>
+                        </g>
+                        
+                        <!-- Similarity Metric Visualization -->
+                        <g id="metric">
+                            <rect x="130" y="160" width="100" height="110" fill="#fff8f0" stroke="#FFA500" stroke-width="2" rx="5"/>
+                            <text x="180" y="180" text-anchor="middle" font-size="11" fill="#FFA500" font-weight="700">Similarity Metric</text>
+                            
+                            <!-- Graph -->
+                            <line x1="145" y1="250" x2="215" y2="250" stroke="#666" stroke-width="1.5"/>
+                            <line x1="145" y1="250" x2="145" y2="195" stroke="#666" stroke-width="1.5"/>
+                            
+                            <!-- Optimization curve -->
+                            <path d="M 145 245 Q 165 235, 175 210 T 215 200" fill="none" stroke="#FFA500" stroke-width="2.5"/>
+                            <circle cx="215" cy="200" r="4" fill="#FF6B6B"/>
+                            
+                            <text x="180" y="265" text-anchor="middle" font-size="9" fill="#666">Iterations</text>
+                            <text x="137" y="225" font-size="8" fill="#666">Score</text>
+                            <text x="218" y="202" font-size="8" fill="#FF6B6B" font-weight="600">Optimum</text>
+                        </g>
+                        
+                        <!-- Rigid vs Non-rigid comparison -->
+                        <g id="types">
+                            <rect x="250" y="160" width="160" height="110" fill="#f0f8ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="330" y="180" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Transformation Types</text>
+                            
+                            <!-- Rigid -->
+                            <g transform="translate(260, 190)">
+                                <rect x="0" y="0" width="30" height="30" fill="none" stroke="#1E64C8" stroke-width="2"/>
+                                <text x="35" y="10" font-size="10" fill="#1E64C8" font-weight="600">Rigid</text>
+                                <text x="35" y="22" font-size="8" fill="#666">• Translation</text>
+                                <text x="35" y="32" font-size="8" fill="#666">• Rotation</text>
+                            </g>
+                            
+                            <!-- Non-rigid -->
+                            <g transform="translate(260, 225)">
+                                <path d="M 0 0 Q 10 -5, 20 0 T 30 0 Q 35 5, 30 15 T 20 30 Q 10 35, 0 30 T 0 15 Q -5 5, 0 0" fill="none" stroke="#FFA500" stroke-width="2"/>
+                                <text x="35" y="10" font-size="10" fill="#FFA500" font-weight="600">Non-rigid</text>
+                                <text x="35" y="22" font-size="8" fill="#666">• Deformation</text>
+                                <text x="35" y="32" font-size="8" fill="#666">• Warping</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Application examples -->
+                        <g id="applications">
+                            <rect x="20" y="285" width="390" height="100" fill="#f8f8f8" stroke="#666" stroke-width="2" rx="5"/>
+                            <text x="215" y="305" text-anchor="middle" font-size="12" fill="#333" font-weight="700">Clinical Applications</text>
+                            
+                            <g transform="translate(30, 315)">
+                                <circle cx="5" cy="0" r="3" fill="#1E64C8"/>
+                                <text x="12" y="4" font-size="10" fill="#333">Multi-modal fusion (MRI + PET)</text>
+                            </g>
+                            <g transform="translate(30, 335)">
+                                <circle cx="5" cy="0" r="3" fill="#1E64C8"/>
+                                <text x="12" y="4" font-size="10" fill="#333">Longitudinal analysis (tumor growth)</text>
+                            </g>
+                            <g transform="translate(30, 355)">
+                                <circle cx="5" cy="0" r="3" fill="#1E64C8"/>
+                                <text x="12" y="4" font-size="10" fill="#333">Atlas-based segmentation</text>
+                            </g>
+                            <g transform="translate(30, 375)">
+                                <circle cx="5" cy="0" r="3" fill="#1E64C8"/>
+                                <text x="12" y="4" font-size="10" fill="#333">Image-guided surgery planning</text>
+                            </g>
+                        </g>
+                    </svg>
                 </div>
-                <div class="content-card">
-                    <div class="card-label">Optimization methods</div>
-                    <div class="card-desc">Gradient descent, genetic algorithms</div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Rigid vs Non-rigid Transformations -->
+        <div class="slide">
+            <div class="section-title">1. Rigid vs Non-rigid Transformations</div>
+            
+            <div class="detail-card">
+                <div class="detail-title">
+                    <span>📐</span>
+                    <span>Rigid Transformations</span>
                 </div>
-                <div class="content-card">
-                    <div class="card-label">Multi-modal registration</div>
-                    <div class="card-desc">Aligning different imaging modalities</div>
-                </div>
-                <div class="content-card">
-                    <div class="card-label">Validation approaches</div>
-                    <div class="card-desc">Fiducial markers, Dice coefficient</div>
+                <div class="detail-content">
+                    <div class="detail-text">
+                        <p>Rigid transformations preserve the shape and size of objects, only changing their position and orientation in space. These are the simplest form of geometric transformations.</p>
+                        
+                        <h3>Key Characteristics:</h3>
+                        <ul>
+                            <li><strong>Translation:</strong> Moving the image along x, y, or z axes</li>
+                            <li><strong>Rotation:</strong> Rotating the image around specific axes</li>
+                            <li><strong>Preservation:</strong> Maintains distances, angles, and volumes</li>
+                            <li><strong>Degrees of Freedom:</strong> 6 DOF in 3D (3 translations + 3 rotations)</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                            <p><strong>Clinical Use:</strong> Ideal for bone registration, brain registration within the same patient, and aligning images from the same imaging session.</p>
+                        </div>
+                        
+                        <h3>Advantages:</h3>
+                        <ul>
+                            <li>Computationally efficient and fast</li>
+                            <li>Fewer parameters to optimize</li>
+                            <li>Less prone to unrealistic deformations</li>
+                        </ul>
+                    </div>
+                    <div class="detail-visual">
+                        <svg width="350" height="400" viewBox="0 0 350 400">
+                            <text x="175" y="20" text-anchor="middle" font-size="16" font-weight="700" fill="#1E64C8">Rigid Registration</text>
+                            
+                            <!-- Original image -->
+                            <g id="original">
+                                <rect x="30" y="40" width="100" height="100" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
+                                <circle cx="60" cy="70" r="10" fill="#4A90E2"/>
+                                <circle cx="100" cy="110" r="10" fill="#4A90E2"/>
+                                <path d="M 60 90 L 100 90 L 80 120 Z" fill="#4A90E2" opacity="0.5"/>
+                                <text x="80" y="160" text-anchor="middle" font-size="12" fill="#333">Original</text>
+                            </g>
+                            
+                            <!-- Translation -->
+                            <g id="translated">
+                                <rect x="180" y="60" width="100" height="100" fill="#FFF8F0" stroke="#FFA500" stroke-width="2"/>
+                                <circle cx="210" cy="90" r="10" fill="#FF8C42"/>
+                                <circle cx="250" cy="130" r="10" fill="#FF8C42"/>
+                                <path d="M 210 110 L 250 110 L 230 140 Z" fill="#FF8C42" opacity="0.5"/>
+                                <text x="230" y="180" text-anchor="middle" font-size="12" fill="#333">Translated</text>
+                                <text x="230" y="195" text-anchor="middle" font-size="10" fill="#666">(Shifted 20px right, down)</text>
+                            </g>
+                            
+                            <!-- Rotation -->
+                            <g id="rotated">
+                                <rect x="50" y="220" width="100" height="100" fill="#F0FFF0" stroke="#28a745" stroke-width="2" transform="rotate(30 100 270)"/>
+                                <circle cx="80" cy="250" r="10" fill="#28a745" transform="rotate(30 100 270)"/>
+                                <circle cx="120" cy="290" r="10" fill="#28a745" transform="rotate(30 100 270)"/>
+                                <path d="M 80 270 L 120 270 L 100 300 Z" fill="#28a745" opacity="0.5" transform="rotate(30 100 270)"/>
+                                <text x="100" y="340" text-anchor="middle" font-size="12" fill="#333">Rotated</text>
+                                <text x="100" y="355" text-anchor="middle" font-size="10" fill="#666">(30° clockwise)</text>
+                            </g>
+                            
+                            <!-- Combined -->
+                            <g id="combined">
+                                <rect x="200" y="240" width="100" height="100" fill="#FFF0F5" stroke="#9C27B0" stroke-width="2" transform="rotate(15 250 290)"/>
+                                <circle cx="230" cy="270" r="10" fill="#9C27B0" transform="rotate(15 250 290)"/>
+                                <circle cx="270" cy="310" r="10" fill="#9C27B0" transform="rotate(15 250 290)"/>
+                                <path d="M 230 290 L 270 290 L 250 320 Z" fill="#9C27B0" opacity="0.5" transform="rotate(15 250 290)"/>
+                                <text x="250" y="360" text-anchor="middle" font-size="12" fill="#333">Combined</text>
+                                <text x="250" y="375" text-anchor="middle" font-size="10" fill="#666">(Translation + Rotation)</text>
+                            </g>
+                            
+                            <!-- Shape preservation note -->
+                            <text x="175" y="395" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600">✓ Shape and size preserved in all transformations</text>
+                        </svg>
+                    </div>
                 </div>
             </div>
             
-            <div class="diagram-container">
-                <svg width="420" height="400" viewBox="0 0 420 400">
-                    <!-- Registration Pipeline -->
-                    
-                    <!-- Fixed Image -->
-                    <g id="fixed">
-                        <rect x="20" y="20" width="80" height="80" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
-                        <circle cx="45" cy="45" r="8" fill="#4A90E2"/>
-                        <circle cx="75" cy="75" r="8" fill="#4A90E2"/>
-                        <rect x="50" y="55" width="25" height="25" fill="#4A90E2" opacity="0.5"/>
-                        <text x="60" y="115" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Fixed Image</text>
-                        <text x="60" y="128" text-anchor="middle" font-size="9" fill="#666">(Reference)</text>
-                    </g>
-                    
-                    <!-- Moving Image (Misaligned) -->
-                    <g id="moving">
-                        <rect x="130" y="35" width="80" height="80" fill="#FFF8F0" stroke="#FFA500" stroke-width="2" transform="rotate(15 170 75)"/>
-                        <circle cx="155" cy="60" r="8" fill="#FF8C42" transform="rotate(15 170 75)"/>
-                        <circle cx="185" cy="90" r="8" fill="#FF8C42" transform="rotate(15 170 75)"/>
-                        <rect x="160" y="70" width="25" height="25" fill="#FF8C42" opacity="0.5" transform="rotate(15 170 75)"/>
-                        <text x="170" y="130" text-anchor="middle" font-size="11" fill="#FFA500" font-weight="700">Moving Image</text>
-                        <text x="170" y="143" text-anchor="middle" font-size="9" fill="#666">(To be aligned)</text>
-                    </g>
-                    
-                    <!-- Arrow to transformation -->
-                    <defs>
-                        <marker id="regarrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                            <polygon points="0 0, 10 3, 0 6" fill="#28a745"/>
-                        </marker>
-                    </defs>
-                    <line x1="210" y1="75" x2="245" y2="75" stroke="#28a745" stroke-width="2.5" marker-end="url(#regarrow)"/>
-                    
-                    <!-- Transformation box -->
-                    <g id="transform">
-                        <rect x="255" y="35" width="80" height="80" fill="#F0FFF0" stroke="#28a745" stroke-width="2"/>
-                        <text x="295" y="60" text-anchor="middle" font-size="10" fill="#28a745" font-weight="700">Transform</text>
+            <div class="detail-card">
+                <div class="detail-title">
+                    <span>🌊</span>
+                    <span>Non-rigid Transformations</span>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-text">
+                        <p>Non-rigid (deformable) transformations allow local deformations, enabling different parts of the image to move independently. This is essential for registering soft tissues and organs that change shape.</p>
                         
-                        <!-- Transformation icons -->
-                        <!-- Translation -->
-                        <g transform="translate(265, 65)">
-                            <rect x="0" y="0" width="15" height="15" fill="#90EE90" opacity="0.5"/>
-                            <line x1="7" y1="3" x2="7" y2="12" stroke="#28a745" stroke-width="2" marker-end="url(#tarrow)"/>
-                            <line x1="3" y1="7" x2="12" y2="7" stroke="#28a745" stroke-width="2" marker-end="url(#tarrow)"/>
-                        </g>
-                        <text x="273" y="95" font-size="8" fill="#666">Translation</text>
+                        <h3>Key Characteristics:</h3>
+                        <ul>
+                            <li><strong>Deformation:</strong> Local warping of image regions</li>
+                            <li><strong>Flexibility:</strong> Can model breathing, cardiac motion, soft tissue changes</li>
+                            <li><strong>Complexity:</strong> Many degrees of freedom (potentially millions)</li>
+                            <li><strong>Control:</strong> Regularization needed to prevent unrealistic deformations</li>
+                        </ul>
                         
-                        <!-- Rotation -->
-                        <g transform="translate(300, 65)">
-                            <rect x="0" y="0" width="15" height="15" fill="#90EE90" opacity="0.5"/>
-                            <path d="M 7 3 A 4 4 0 1 1 7 11" fill="none" stroke="#28a745" stroke-width="2" marker-end="url(#tarrow)"/>
-                        </g>
-                        <text x="308" y="95" font-size="8" fill="#666">Rotation</text>
+                        <div class="highlight-box">
+                            <p><strong>Clinical Use:</strong> Soft tissue registration, cardiac imaging, respiratory motion compensation, tumor tracking during treatment.</p>
+                        </div>
                         
-                        <defs>
-                            <marker id="tarrow" markerWidth="6" markerHeight="6" refX="5" refY="2" orient="auto">
-                                <polygon points="0 0, 6 2, 0 4" fill="#28a745"/>
-                            </marker>
-                        </defs>
-                    </g>
-                    
-                    <!-- Arrow to registered -->
-                    <line x1="335" y1="75" x2="365" y2="75" stroke="#28a745" stroke-width="2.5" marker-end="url(#regarrow)"/>
-                    
-                    <!-- Registered Image (Aligned) -->
-                    <g id="registered">
-                        <rect x="20" y="160" width="80" height="80" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
-                        <circle cx="45" cy="185" r="8" fill="#4A90E2"/>
-                        <circle cx="75" cy="215" r="8" fill="#4A90E2"/>
-                        <rect x="50" y="195" width="25" height="25" fill="#4A90E2" opacity="0.5"/>
+                        <h3>Common Algorithms:</h3>
+                        <ul>
+                            <li>B-spline free-form deformation</li>
+                            <li>Optical flow methods</li>
+                            <li>Diffeomorphic demons</li>
+                            <li>Large deformation diffeomorphic metric mapping (LDDMM)</li>
+                        </ul>
+                    </div>
+                    <div class="detail-visual">
+                        <svg width="350" height="400" viewBox="0 0 350 400">
+                            <text x="175" y="20" text-anchor="middle" font-size="16" font-weight="700" fill="#FFA500">Non-rigid Registration</text>
+                            
+                            <!-- Original shape -->
+                            <g id="nonrigid-original">
+                                <ellipse cx="80" cy="100" rx="50" ry="70" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
+                                <circle cx="70" cy="80" r="8" fill="#4A90E2"/>
+                                <circle cx="90" cy="80" r="8" fill="#4A90E2"/>
+                                <path d="M 65 110 Q 80 120, 95 110" fill="none" stroke="#4A90E2" stroke-width="2"/>
+                                <text x="80" y="190" text-anchor="middle" font-size="12" fill="#333">Reference</text>
+                                <text x="80" y="205" text-anchor="middle" font-size="10" fill="#666">(e.g., exhale state)</text>
+                            </g>
+                            
+                            <!-- Deformed shape -->
+                            <g id="nonrigid-deformed">
+                                <path d="M 180 60 Q 220 50, 260 60 Q 280 90, 270 130 Q 250 160, 220 165 Q 190 160, 170 130 Q 160 90, 180 60" fill="#FFF8F0" stroke="#FFA500" stroke-width="2"/>
+                                <circle cx="210" cy="85" r="8" fill="#FF8C42"/>
+                                <circle cx="240" cy="80" r="8" fill="#FF8C42"/>
+                                <path d="M 205 115 Q 225 125, 245 115" fill="none" stroke="#FF8C42" stroke-width="2"/>
+                                <text x="220" y="190" text-anchor="middle" font-size="12" fill="#333">Moving</text>
+                                <text x="220" y="205" text-anchor="middle" font-size="10" fill="#666">(e.g., inhale state)</text>
+                            </g>
+                            
+                            <!-- Deformation field visualization -->
+                            <g id="deformation-field">
+                                <text x="175" y="235" text-anchor="middle" font-size="14" fill="#28a745" font-weight="600">Deformation Field</text>
+                                
+                                <!-- Grid showing deformation -->
+                                <defs>
+                                    <marker id="defarrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                                        <polygon points="0 0, 8 3, 0 6" fill="#28a745"/>
+                                    </marker>
+                                </defs>
+                                
+                                <!-- Grid lines (deformed) -->
+                                <path d="M 30 260 Q 80 255, 130 260 Q 180 265, 230 260 Q 280 255, 320 260" fill="none" stroke="#ccc" stroke-width="1"/>
+                                <path d="M 30 300 Q 80 290, 130 300 Q 180 310, 230 300 Q 280 290, 320 300" fill="none" stroke="#ccc" stroke-width="1"/>
+                                <path d="M 30 340 Q 80 335, 130 340 Q 180 345, 230 340 Q 280 335, 320 340" fill="none" stroke="#ccc" stroke-width="1"/>
+                                
+                                <path d="M 50 250 Q 48 295, 50 350" fill="none" stroke="#ccc" stroke-width="1"/>
+                                <path d="M 100 250 Q 95 295, 100 350" fill="none" stroke="#ccc" stroke-width="1"/>
+                                <path d="M 150 250 Q 150 295, 150 350" fill="none" stroke="#ccc" stroke-width="1"/>
+                                <path d="M 200 250 Q 205 295, 200 350" fill="none" stroke="#ccc" stroke-width="1"/>
+                                <path d="M 250 250 Q 252 295, 250 350" fill="none" stroke="#ccc" stroke-width="1"/>
+                                <path d="M 300 250 Q 302 295, 300 350" fill="none" stroke="#ccc" stroke-width="1"/>
+                                
+                                <!-- Deformation vectors -->
+                                <line x1="80" y1="270" x2="95" y2="265" stroke="#28a745" stroke-width="2" marker-end="url(#defarrow)"/>
+                                <line x1="175" y1="270" x2="185" y2="275" stroke="#28a745" stroke-width="2" marker-end="url(#defarrow)"/>
+                                <line x1="270" y1="270" x2="280" y2="268" stroke="#28a745" stroke-width="2" marker-end="url(#defarrow)"/>
+                                
+                                <line x1="80" y1="310" x2="75" y2="320" stroke="#28a745" stroke-width="2" marker-end="url(#defarrow)"/>
+                                <line x1="175" y1="310" x2="180" y2="325" stroke="#28a745" stroke-width="2" marker-end="url(#defarrow)"/>
+                                <line x1="270" y1="310" x2="268" y2="318" stroke="#28a745" stroke-width="2" marker-end="url(#defarrow)"/>
+                                
+                                <text x="175" y="375" text-anchor="middle" font-size="11" fill="#666">Each point moves independently</text>
+                                <text x="175" y="390" text-anchor="middle" font-size="11" fill="#666">to match the target shape</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 3: Similarity Metrics -->
+        <div class="slide">
+            <div class="section-title">2. Similarity Metrics</div>
+            
+            <div class="detail-card">
+                <div class="detail-title">
+                    <span>📊</span>
+                    <span>Measuring Image Alignment Quality</span>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-text">
+                        <p>Similarity metrics quantify how well two images are aligned. The choice of metric depends on the imaging modalities and the expected relationship between intensity values.</p>
                         
-                        <!-- Overlay of moving (now aligned) -->
-                        <circle cx="45" cy="185" r="8" fill="#FF8C42" opacity="0.5"/>
-                        <circle cx="75" cy="215" r="8" fill="#FF8C42" opacity="0.5"/>
-                        <rect x="50" y="195" width="25" height="25" fill="#FF8C42" opacity="0.3"/>
+                        <h3>1. Sum of Squared Differences (SSD)</h3>
+                        <p>Measures the squared difference between corresponding pixel intensities. Works best for mono-modal registration (same imaging technique).</p>
+                        <ul>
+                            <li>Formula: SSD = Σ(I₁(x) - I₂(x))²</li>
+                            <li>Lower values indicate better alignment</li>
+                            <li>Fast to compute but sensitive to intensity variations</li>
+                        </ul>
                         
-                        <text x="60" y="255" text-anchor="middle" font-size="11" fill="#28a745" font-weight="700">Registered</text>
-                        <text x="60" y="268" text-anchor="middle" font-size="9" fill="#666">(Aligned)</text>
-                    </g>
-                    
-                    <!-- Similarity Metric Visualization -->
-                    <g id="metric">
-                        <rect x="130" y="160" width="100" height="110" fill="#fff8f0" stroke="#FFA500" stroke-width="2" rx="5"/>
-                        <text x="180" y="180" text-anchor="middle" font-size="11" fill="#FFA500" font-weight="700">Similarity Metric</text>
+                        <h3>2. Normalized Cross-Correlation (NCC)</h3>
+                        <p>Measures the linear relationship between image intensities. Robust to linear intensity differences.</p>
+                        <ul>
+                            <li>Values range from -1 to 1 (higher is better)</li>
+                            <li>Invariant to linear intensity transformations</li>
+                            <li>Good for mono-modal registration</li>
+                        </ul>
                         
-                        <!-- Graph -->
-                        <line x1="145" y1="250" x2="215" y2="250" stroke="#666" stroke-width="1.5"/>
-                        <line x1="145" y1="250" x2="145" y2="195" stroke="#666" stroke-width="1.5"/>
+                        <h3>3. Mutual Information (MI)</h3>
+                        <p>Measures statistical dependence between images. The gold standard for multi-modal registration.</p>
+                        <ul>
+                            <li>Based on joint probability distributions</li>
+                            <li>Works even when intensity relationships are non-linear</li>
+                            <li>Essential for MRI-CT, PET-MRI registration</li>
+                        </ul>
                         
-                        <!-- Optimization curve -->
-                        <path d="M 145 245 Q 165 235, 175 210 T 215 200" fill="none" stroke="#FFA500" stroke-width="2.5"/>
-                        <circle cx="215" cy="200" r="4" fill="#FF6B6B"/>
+                        <div class="highlight-box">
+                            <p><strong>Key Insight:</strong> MI can detect alignment even when the same anatomical structure appears bright in one image and dark in another.</p>
+                        </div>
+                    </div>
+                    <div class="detail-visual">
+                        <svg width="350" height="500" viewBox="0 0 350 500">
+                            <text x="175" y="20" text-anchor="middle" font-size="16" font-weight="700" fill="#1E64C8">Similarity Metrics Comparison</text>
+                            
+                            <!-- SSD Visualization -->
+                            <g id="ssd-viz">
+                                <rect x="20" y="40" width="310" height="120" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                                <text x="175" y="60" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Sum of Squared Differences (SSD)</text>
+                                
+                                <!-- Two similar images -->
+                                <rect x="40" y="75" width="60" height="60" fill="url(#grad1)" stroke="#333" stroke-width="1"/>
+                                <text x="70" y="145" text-anchor="middle" font-size="10" fill="#666">Image 1</text>
+                                
+                                <text x="110" y="105" text-anchor="middle" font-size="20" fill="#333">-</text>
+                                
+                                <rect x="130" y="75" width="60" height="60" fill="url(#grad2)" stroke="#333" stroke-width="1"/>
+                                <text x="160" y="145" text-anchor="middle" font-size="10" fill="#666">Image 2</text>
+                                
+                                <text x="200" y="105" text-anchor="middle" font-size="20" fill="#333">=</text>
+                                
+                                <!-- Difference visualization -->
+                                <rect x="220" y="75" width="60" height="60" fill="#90EE90" stroke="#333" stroke-width="1"/>
+                                <text x="250" y="100" text-anchor="middle" font-size="11" fill="#333" font-weight="600">Low SSD</text>
+                                <text x="250" y="115" text-anchor="middle" font-size="10" fill="#666">Good</text>
+                                <text x="250" y="128" text-anchor="middle" font-size="10" fill="#666">alignment</text>
+                                
+                                <defs>
+                                    <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#4A90E2;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#E8F2FF;stop-opacity:1" />
+                                    </linearGradient>
+                                    <linearGradient id="grad2" x1="0%" y1="0%" x2="100%" y2="100%">
+                                        <stop offset="0%" style="stop-color:#5A9FE8;stop-opacity:1" />
+                                        <stop offset="100%" style="stop-color:#F0F5FF;stop-opacity:1" />
+                                    </linearGradient>
+                                </defs>
+                            </g>
+                            
+                            <!-- NCC Visualization -->
+                            <g id="ncc-viz">
+                                <rect x="20" y="175" width="310" height="120" fill="#fff8f0" stroke="#FFA500" stroke-width="2" rx="5"/>
+                                <text x="175" y="195" text-anchor="middle" font-size="14" font-weight="600" fill="#FFA500">Normalized Cross-Correlation (NCC)</text>
+                                
+                                <!-- Scatter plot showing correlation -->
+                                <rect x="40" y="210" width="120" height="70" fill="white" stroke="#333" stroke-width="1"/>
+                                <line x1="50" y1="270" x2="150" y2="270" stroke="#666" stroke-width="1"/>
+                                <line x1="50" y1="270" x2="50" y2="220" stroke="#666" stroke-width="1"/>
+                                
+                                <!-- Correlation line -->
+                                <line x1="55" y1="265" x2="145" y2="225" stroke="#FFA500" stroke-width="2"/>
+                                
+                                <!-- Data points -->
+                                <circle cx="60" cy="262" r="2" fill="#FF8C42"/>
+                                <circle cx="75" cy="255" r="2" fill="#FF8C42"/>
+                                <circle cx="90" cy="248" r="2" fill="#FF8C42"/>
+                                <circle cx="105" cy="240" r="2" fill="#FF8C42"/>
+                                <circle cx="120" cy="235" r="2" fill="#FF8C42"/>
+                                <circle cx="135" cy="228" r="2" fill="#FF8C42"/>
+                                
+                                <text x="100" y="288" text-anchor="middle" font-size="9" fill="#666">Image 1 Intensity</text>
+                                <text x="35" y="245" text-anchor="middle" font-size="9" fill="#666" transform="rotate(-90 35 245)">Image 2 Intensity</text>
+                                
+                                <text x="230" y="240" text-anchor="middle" font-size="12" fill="#FF8C42" font-weight="600">r = 0.95</text>
+                                <text x="230" y="255" text-anchor="middle" font-size="10" fill="#666">High correlation</text>
+                                <text x="230" y="268" text-anchor="middle" font-size="10" fill="#666">= Good alignment</text>
+                            </g>
+                            
+                            <!-- MI Visualization -->
+                            <g id="mi-viz">
+                                <rect x="20" y="310" width="310" height="170" fill="#f0fff0" stroke="#28a745" stroke-width="2" rx="5"/>
+                                <text x="175" y="330" text-anchor="middle" font-size="14" font-weight="600" fill="#28a745">Mutual Information (MI)</text>
+                                
+                                <!-- Joint histogram -->
+                                <text x="175" y="350" text-anchor="middle" font-size="11" fill="#666">Joint Histogram</text>
+                                
+                                <!-- Misaligned case -->
+                                <g transform="translate(40, 360)">
+                                    <rect x="0" y="0" width="80" height="80" fill="white" stroke="#333" stroke-width="1"/>
+                                    <text x="40" y="-5" text-anchor="middle" font-size="10" fill="#666">Misaligned</text>
+                                    
+                                    <!-- Scattered distribution -->
+                                    <circle cx="20" cy="20" r="3" fill="#FF6B6B" opacity="0.6"/>
+                                    <circle cx="60" cy="30" r="3" fill="#FF6B6B" opacity="0.6"/>
+                                    <circle cx="35" cy="50" r="3" fill="#FF6B6B" opacity="0.6"/>
+                                    <circle cx="70" cy="70" r="3" fill="#FF6B6B" opacity="0.6"/>
+                                    <circle cx="15" cy="65" r="3" fill="#FF6B6B" opacity="0.6"/>
+                                    <circle cx="50" cy="15" r="3" fill="#FF6B6B" opacity="0.6"/>
+                                    <circle cx="40" cy="40" r="3" fill="#FF6B6B" opacity="0.6"/>
+                                    
+                                    <text x="40" y="95" text-anchor="middle" font-size="10" fill="#FF6B6B" font-weight="600">Low MI</text>
+                                </g>
+                                
+                                <text x="170" y="420" text-anchor="middle" font-size="16" fill="#666">→</text>
+                                
+                                <!-- Aligned case -->
+                                <g transform="translate(190, 360)">
+                                    <rect x="0" y="0" width="80" height="80" fill="white" stroke="#333" stroke-width="1"/>
+                                    <text x="40" y="-5" text-anchor="middle" font-size="10" fill="#666">Aligned</text>
+                                    
+                                    <!-- Clustered distribution -->
+                                    <circle cx="35" cy="35" r="4" fill="#28a745" opacity="0.8"/>
+                                    <circle cx="40" cy="38" r="4" fill="#28a745" opacity="0.8"/>
+                                    <circle cx="42" cy="33" r="4" fill="#28a745" opacity="0.8"/>
+                                    <circle cx="38" cy="41" r="4" fill="#28a745" opacity="0.8"/>
+                                    <circle cx="45" cy="36" r="4" fill="#28a745" opacity="0.8"/>
+                                    <circle cx="37" cy="32" r="4" fill="#28a745" opacity="0.8"/>
+                                    <circle cx="41" cy="43" r="4" fill="#28a745" opacity="0.8"/>
+                                    
+                                    <text x="40" y="95" text-anchor="middle" font-size="10" fill="#28a745" font-weight="600">High MI</text>
+                                </g>
+                                
+                                <text x="175" y="465" text-anchor="middle" font-size="11" fill="#666">Clustered distribution = Better alignment</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Optimization Methods -->
+        <div class="slide">
+            <div class="section-title">3. Optimization Methods</div>
+            
+            <div class="detail-card">
+                <div class="detail-title">
+                    <span>🎯</span>
+                    <span>Finding the Best Transformation</span>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-text">
+                        <p>Optimization methods search for transformation parameters that maximize the similarity metric. Different algorithms balance speed, accuracy, and robustness.</p>
                         
-                        <text x="180" y="265" text-anchor="middle" font-size="9" fill="#666">Iterations</text>
-                        <text x="137" y="225" font-size="8" fill="#666">Score</text>
-                        <text x="218" y="202" font-size="8" fill="#FF6B6B" font-weight="600">Optimum</text>
-                    </g>
-                    
-                    <!-- Rigid vs Non-rigid comparison -->
-                    <g id="types">
-                        <rect x="250" y="160" width="160" height="110" fill="#f0f8ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
-                        <text x="330" y="180" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Transformation Types</text>
+                        <h3>1. Gradient Descent</h3>
+                        <p>Iteratively moves in the direction of steepest improvement of the similarity metric.</p>
+                        <ul>
+                            <li><strong>Pros:</strong> Fast convergence, well-understood, easy to implement</li>
+                            <li><strong>Cons:</strong> Can get stuck in local minima</li>
+                            <li><strong>Variants:</strong> Stochastic gradient descent, Adam optimizer</li>
+                            <li><strong>Use case:</strong> Initial alignment, mono-modal registration</li>
+                        </ul>
                         
-                        <!-- Rigid -->
-                        <g transform="translate(260, 190)">
-                            <rect x="0" y="0" width="30" height="30" fill="none" stroke="#1E64C8" stroke-width="2"/>
-                            <text x="35" y="10" font-size="10" fill="#1E64C8" font-weight="600">Rigid</text>
-                            <text x="35" y="22" font-size="8" fill="#666">• Translation</text>
-                            <text x="35" y="32" font-size="8" fill="#666">• Rotation</text>
-                        </g>
+                        <h3>2. Powell's Method</h3>
+                        <p>Direction-set method that doesn't require gradient computation.</p>
+                        <ul>
+                            <li>Sequentially optimizes along different directions</li>
+                            <li>Good for metrics with discontinuous derivatives</li>
+                            <li>More robust but slower than gradient descent</li>
+                        </ul>
                         
-                        <!-- Non-rigid -->
-                        <g transform="translate(260, 225)">
-                            <path d="M 0 0 Q 10 -5, 20 0 T 30 0 Q 35 5, 30 15 T 20 30 Q 10 35, 0 30 T 0 15 Q -5 5, 0 0" fill="none" stroke="#FFA500" stroke-width="2"/>
-                            <text x="35" y="10" font-size="10" fill="#FFA500" font-weight="600">Non-rigid</text>
-                            <text x="35" y="22" font-size="8" fill="#666">• Deformation</text>
-                            <text x="35" y="32" font-size="8" fill="#666">• Warping</text>
-                        </g>
-                    </g>
-                    
-                    <!-- Application examples -->
-                    <g id="applications">
-                        <rect x="20" y="285" width="390" height="100" fill="#f8f8f8" stroke="#666" stroke-width="2" rx="5"/>
-                        <text x="215" y="305" text-anchor="middle" font-size="12" fill="#333" font-weight="700">Clinical Applications</text>
+                        <h3>3. Genetic Algorithms</h3>
+                        <p>Population-based search inspired by biological evolution.</p>
+                        <ul>
+                            <li><strong>Pros:</strong> Global optimization, handles multimodal landscapes</li>
+                            <li><strong>Cons:</strong> Computationally expensive</li>
+                            <li><strong>Use case:</strong> Complex multi-modal registration with many local optima</li>
+                        </ul>
                         
-                        <g transform="translate(30, 315)">
-                            <circle cx="5" cy="0" r="3" fill="#1E64C8"/>
-                            <text x="12" y="4" font-size="10" fill="#333">Multi-modal fusion (MRI + PET)</text>
-                        </g>
-                        <g transform="translate(30, 335)">
-                            <circle cx="5" cy="0" r="3" fill="#1E64C8"/>
-                            <text x="12" y="4" font-size="10" fill="#333">Longitudinal analysis (tumor growth)</text>
-                        </g>
-                        <g transform="translate(30, 355)">
-                            <circle cx="5" cy="0" r="3" fill="#1E64C8"/>
-                            <text x="12" y="4" font-size="10" fill="#333">Atlas-based segmentation</text>
-                        </g>
-                        <g transform="translate(30, 375)">
-                            <circle cx="5" cy="0" r="3" fill="#1E64C8"/>
-                            <text x="12" y="4" font-size="10" fill="#333">Image-guided surgery planning</text>
-                        </g>
-                    </g>
-                </svg>
+                        <div class="highlight-box">
+                            <p><strong>Multi-resolution Strategy:</strong> Start optimization at coarse resolution and progressively refine at finer resolutions. This prevents local minima and speeds up convergence.</p>
+                        </div>
+                        
+                        <h3>4. L-BFGS (Limited-memory BFGS)</h3>
+                        <p>Quasi-Newton method that approximates the inverse Hessian matrix.</p>
+                        <ul>
+                            <li>Better convergence than gradient descent</li>
+                            <li>Memory-efficient for high-dimensional problems</li>
+                            <li>Popular for deformable registration</li>
+                        </ul>
+                    </div>
+                    <div class="detail-visual">
+                        <svg width="350" height="500" viewBox="0 0 350 500">
+                            <text x="175" y="20" text-anchor="middle" font-size="16" font-weight="700" fill="#1E64C8">Optimization Landscape</text>
+                            
+                            <!-- Optimization surface -->
+                            <g id="landscape">
+                                <rect x="20" y="40" width="310" height="200" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                                
+                                <!-- Cost function surface -->
+                                <path d="M 40 180 Q 80 160, 120 180 Q 140 190, 160 140 Q 180 90, 200 100 Q 220 110, 240 120 Q 270 130, 310 160" 
+                                      fill="none" stroke="#1E64C8" stroke-width="3"/>
+                                
+                                <!-- Local minima -->
+                                <circle cx="120" cy="180" r="5" fill="#FF6B6B"/>
+                                <text x="120" y="200" text-anchor="middle" font-size="9" fill="#FF6B6B">Local min</text>
+                                
+                                <!-- Global minimum -->
+                                <circle cx="180" cy="90" r="6" fill="#28a745"/>
+                                <text x="180" y="75" text-anchor="middle" font-size="10" fill="#28a745" font-weight="600">Global min</text>
+                                
+                                <!-- Another local minimum -->
+                                <circle cx="240" cy="120" r="5" fill="#FF6B6B"/>
+                                <text x="240" y="110" text-anchor="middle" font-size="9" fill="#FF6B6B">Local min</text>
+                                
+                                <!-- Gradient descent path (gets stuck) -->
+                                <defs>
+                                    <marker id="optarrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                                        <polygon points="0 0, 8 3, 0 6" fill="#FFA500"/>
+                                    </marker>
+                                </defs>
+                                
+                                <path d="M 50 175 L 70 170 L 90 172 L 110 180" 
+                                      fill="none" stroke="#FFA500" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#optarrow)"/>
+                                <text x="70" y="165" font-size="9" fill="#FFA500">Gradient descent</text>
+                                <text x="70" y="222" text-anchor="middle" font-size="9" fill="#FFA500">(stuck in local minimum)</text>
+                                
+                                <!-- Genetic algorithm exploration -->
+                                <circle cx="60" cy="165" r="3" fill="#9C27B0" opacity="0.6"/>
+                                <circle cx="150" cy="160" r="3" fill="#9C27B0" opacity="0.6"/>
+                                <circle cx="190" cy="95" r="3" fill="#9C27B0" opacity="0.6"/>
+                                <circle cx="250" cy="125" r="3" fill="#9C27B0" opacity="0.6"/>
+                                <circle cx="280" cy="145" r="3" fill="#9C27B0" opacity="0.6"/>
+                                <text x="250" y="220" text-anchor="middle" font-size="9" fill="#9C27B0">Genetic algorithm</text>
+                                <text x="250" y="232" text-anchor="middle" font-size="9" fill="#9C27B0">(explores globally)</text>
+                                
+                                <!-- Axes -->
+                                <line x1="40" y1="215" x2="310" y2="215" stroke="#666" stroke-width="1.5"/>
+                                <text x="175" y="230" text-anchor="middle" font-size="10" fill="#666">Transformation Parameters</text>
+                                <text x="30" y="140" text-anchor="middle" font-size="10" fill="#666" transform="rotate(-90 30 140)">Cost Function</text>
+                            </g>
+                            
+                            <!-- Multi-resolution strategy -->
+                            <g id="multiresolution">
+                                <rect x="20" y="260" width="310" height="220" fill="#f0fff0" stroke="#28a745" stroke-width="2" rx="5"/>
+                                <text x="175" y="280" text-anchor="middle" font-size="14" font-weight="600" fill="#28a745">Multi-resolution Strategy</text>
+                                
+                                <!-- Coarse level -->
+                                <g transform="translate(40, 295)">
+                                    <rect x="0" y="0" width="60" height="60" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
+                                    <rect x="0" y="0" width="30" height="30" fill="#4A90E2"/>
+                                    <rect x="30" y="0" width="30" height="30" fill="#6BA5E7"/>
+                                    <rect x="0" y="30" width="30" height="30" fill="#6BA5E7"/>
+                                    <rect x="30" y="30" width="30" height="30" fill="#8BB8EC"/>
+                                    <text x="30" y="75" text-anchor="middle" font-size="10" fill="#666">Coarse (4x4)</text>
+                                    <text x="30" y="88" text-anchor="middle" font-size="9" fill="#28a745" font-weight="600">Fast, rough</text>
+                                </g>
+                                
+                                <text x="125" y="335" text-anchor="middle" font-size="20" fill="#28a745">→</text>
+                                
+                                <!-- Medium level -->
+                                <g transform="translate(145, 295)">
+                                    <rect x="0" y="0" width="60" height="60" fill="#E8F2FF" stroke="#1E64C8" stroke-width="1.5"/>
+                                    <rect x="0" y="0" width="15" height="15" fill="#4A90E2"/>
+                                    <rect x="15" y="0" width="15" height="15" fill="#5A9FE8"/>
+                                    <rect x="30" y="0" width="15" height="15" fill="#6BA5E7"/>
+                                    <rect x="45" y="0" width="15" height="15" fill="#7BABE9"/>
+                                    <rect x="0" y="15" width="15" height="15" fill="#5A9FE8"/>
+                                    <rect x="15" y="15" width="15" height="15" fill="#6BA5E7"/>
+                                    <rect x="30" y="15" width="15" height="15" fill="#7BABE9"/>
+                                    <rect x="45" y="15" width="15" height="15" fill="#8BB8EC"/>
+                                    <rect x="0" y="30" width="15" height="15" fill="#6BA5E7"/>
+                                    <rect x="15" y="30" width="15" height="15" fill="#7BABE9"/>
+                                    <rect x="30" y="30" width="15" height="15" fill="#8BB8EC"/>
+                                    <rect x="45" y="30" width="15" height="15" fill="#9BC4EF"/>
+                                    <rect x="0" y="45" width="15" height="15" fill="#7BABE9"/>
+                                    <rect x="15" y="45" width="15" height="15" fill="#8BB8EC"/>
+                                    <rect x="30" y="45" width="15" height="15" fill="#9BC4EF"/>
+                                    <rect x="45" y="45" width="15" height="15" fill="#ABCFF1"/>
+                                    <text x="30" y="75" text-anchor="middle" font-size="10" fill="#666">Medium (8x8)</text>
+                                    <text x="30" y="88" text-anchor="middle" font-size="9" fill="#28a745" font-weight="600">Refine</text>
+                                </g>
+                                
+                                <text x="230" y="335" text-anchor="middle" font-size="20" fill="#28a745">→</text>
+                                
+                                <!-- Fine level -->
+                                <g transform="translate(250, 295)">
+                                    <rect x="0" y="0" width="60" height="60" fill="#E8F2FF" stroke="#1E64C8" stroke-width="1"/>
+                                    <!-- Fine grid (16x16 represented conceptually) -->
+                                    <line x1="7.5" y1="0" x2="7.5" y2="60" stroke="#1E64C8" stroke-width="0.5" opacity="0.5"/>
+                                    <line x1="15" y1="0" x2="15" y2="60" stroke="#1E64C8" stroke-width="0.5" opacity="0.5"/>
+                                    <line x1="22.5" y1="0" x2="22.5" y2="60" stroke="#1E64C8" stroke-width="0.5" opacity="0.5"/>
+                                    <line x1="30" y1="0" x2="30" y2="60" stroke="#1E64C8" stroke-width="0.5" opacity="0.5"/>
+                                    <line x1="37.5" y1="0" x2="37.5" y2="60" stroke="#1E64C8" stroke-width="0.5" opacity="0.5"/>
+                                    <line x1="45" y1="0" x2="45" y2="60" stroke="#1E64C8" stroke-width="0.5" opacity="0.5"/>
+                                    <line x1="52.5" y1="0" x2="52.5" y2="60" stroke="#1E64C8" stroke-width="0.5" opacity="0.5"/>
+                                    
+                                    <line x1="0" y1="7.5" x2="60" y2="7.5" stroke="#1E64C8" stroke-width="0.5" opacity="0.5"/>
+                                    <line x1="0" y1="15" x2="60" y2="15" stroke="#1E64C8" stroke-width="0.5" opacity="0.5"/>
+                                    <line x1="0" y1="22.5" x2="60" y2="22.5" stroke="#1E64C8" stroke-width="0.5" opacity="0.5"/>
+                                    <line x1="0" y1="30" x2="60" y2="30" stroke="#1E64C8" stroke-width="0.5" opacity="0.5"/>
+                                    <line x1="0" y1="37.5" x2="60" y2="37.5" stroke="#1E64C8" stroke-width="0.5" opacity="0.5"/>
+                                    <line x1="0" y1="45" x2="60" y2="45" stroke="#1E64C8" stroke-width="0.5" opacity="0.5"/>
+                                    <line x1="0" y1="52.5" x2="60" y2="52.5" stroke="#1E64C8" stroke-width="0.5" opacity="0.5"/>
+                                    
+                                    <text x="30" y="75" text-anchor="middle" font-size="10" fill="#666">Fine (16x16)</text>
+                                    <text x="30" y="88" text-anchor="middle" font-size="9" fill="#28a745" font-weight="600">Precise</text>
+                                </g>
+                                
+                                <!-- Benefits -->
+                                <g transform="translate(30, 400)">
+                                    <text x="0" y="0" font-size="12" fill="#333" font-weight="600">Benefits:</text>
+                                    <text x="10" y="18" font-size="11" fill="#333">• Avoids local minima at coarse scales</text>
+                                    <text x="10" y="35" font-size="11" fill="#333">• Faster convergence (fewer iterations needed)</text>
+                                    <text x="10" y="52" font-size="11" fill="#333">• More robust to initial misalignment</text>
+                                    <text x="10" y="69" font-size="11" fill="#333">• Progressively refines the solution</text>
+                                </g>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Multi-modal Registration -->
+        <div class="slide">
+            <div class="section-title">4. Multi-modal Registration</div>
+            
+            <div class="detail-card">
+                <div class="detail-title">
+                    <span>🔬</span>
+                    <span>Aligning Different Imaging Modalities</span>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-text">
+                        <p>Multi-modal registration aligns images from different imaging techniques (MRI, CT, PET, ultrasound) where the same anatomy appears with different intensities and contrasts.</p>
+                        
+                        <h3>Why Multi-modal Registration?</h3>
+                        <ul>
+                            <li><strong>Complementary information:</strong> Each modality reveals different tissue properties</li>
+                            <li><strong>Treatment planning:</strong> Combine anatomical detail (CT/MRI) with functional data (PET/SPECT)</li>
+                            <li><strong>Diagnosis:</strong> Correlate structural and metabolic abnormalities</li>
+                        </ul>
+                        
+                        <h3>Common Multi-modal Pairs</h3>
+                        <p><strong>MRI-CT:</strong> MRI provides superior soft tissue contrast, CT shows bone structure and electron density for radiation therapy planning.</p>
+                        
+                        <p><strong>PET-CT:</strong> PET reveals metabolic activity (tumor detection, staging), CT provides anatomical reference and attenuation correction.</p>
+                        
+                        <p><strong>MRI-PET:</strong> Combines high-resolution anatomy with metabolic information for neuroimaging and oncology.</p>
+                        
+                        <p><strong>Ultrasound-MRI:</strong> Used in image-guided interventions, combining real-time ultrasound with pre-operative MRI.</p>
+                        
+                        <div class="highlight-box">
+                            <p><strong>Challenge:</strong> Intensity values have no direct correspondence between modalities. Mutual Information is essential as it captures statistical dependencies rather than linear relationships.</p>
+                        </div>
+                        
+                        <h3>Pre-processing Steps</h3>
+                        <ul>
+                            <li>Resampling to common resolution</li>
+                            <li>Intensity normalization or histogram matching</li>
+                            <li>Brain extraction or organ segmentation</li>
+                            <li>Removing artifacts specific to each modality</li>
+                        </ul>
+                    </div>
+                    <div class="detail-visual">
+                        <svg width="350" height="500" viewBox="0 0 350 500">
+                            <text x="175" y="20" text-anchor="middle" font-size="16" font-weight="700" fill="#1E64C8">Multi-modal Registration Example</text>
+                            
+                            <!-- MRI Image representation -->
+                            <g id="mri">
+                                <rect x="30" y="40" width="120" height="120" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                                <text x="90" y="30" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">MRI</text>
+                                
+                                <!-- Brain outline -->
+                                <ellipse cx="90" cy="100" rx="45" ry="50" fill="#B8D8F8" stroke="#1E64C8" stroke-width="1"/>
+                                
+                                <!-- Ventricles (bright on MRI) -->
+                                <ellipse cx="80" cy="90" rx="8" ry="10" fill="#E8F2FF"/>
+                                <ellipse cx="100" cy="90" rx="8" ry="10" fill="#E8F2FF"/>
+                                
+                                <!-- Gray matter (medium intensity) -->
+                                <path d="M 55 80 Q 70 70, 90 75 T 125 80" fill="#9CC5F0" opacity="0.6"/>
+                                
+                                <!-- Tumor (hyperintense) -->
+                                <circle cx="105" cy="110" r="12" fill="#FF9999" opacity="0.7"/>
+                                
+                                <text x="90" y="175" text-anchor="middle" font-size="10" fill="#666">Excellent soft tissue</text>
+                                <text x="90" y="188" text-anchor="middle" font-size="10" fill="#666">contrast</text>
+                            </g>
+                            
+                            <!-- PET Image representation -->
+                            <g id="pet">
+                                <rect x="200" y="40" width="120" height="120" fill="#FFF8F0" stroke="#FFA500" stroke-width="2" rx="5"/>
+                                <text x="260" y="30" text-anchor="middle" font-size="13" font-weight="600" fill="#FFA500">PET</text>
+                                
+                                <!-- Brain outline (low signal) -->
+                                <ellipse cx="260" cy="100" rx="45" ry="50" fill="#FFE8C8" stroke="#FFA500" stroke-width="1" opacity="0.6"/>
+                                
+                                <!-- High metabolic activity in tumor -->
+                                <circle cx="275" cy="110" r="15" fill="#FF4500" opacity="0.8"/>
+                                <circle cx="275" cy="110" r="10" fill="#FF6B00" opacity="0.9"/>
+                                <circle cx="275" cy="110" r="5" fill="#FF8C00"/>
+                                
+                                <!-- Normal brain activity -->
+                                <circle cx="245" cy="85" r="4" fill="#FFB84D" opacity="0.6"/>
+                                <circle cx="270" cy="80" r="4" fill="#FFB84D" opacity="0.6"/>
+                                
+                                <text x="260" y="175" text-anchor="middle" font-size="10" fill="#666">Metabolic/functional</text>
+                                <text x="260" y="188" text-anchor="middle" font-size="10" fill="#666">information</text>
+                            </g>
+                            
+                            <!-- Registration arrow -->
+                            <defs>
+                                <marker id="fusearrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#28a745"/>
+                                </marker>
+                            </defs>
+                            <line x1="90" y1="200" x2="90" y2="225" stroke="#28a745" stroke-width="3" marker-end="url(#fusearrow)"/>
+                            <line x1="260" y1="200" x2="260" y2="225" stroke="#28a745" stroke-width="3" marker-end="url(#fusearrow)"/>
+                            
+                            <text x="175" y="217" text-anchor="middle" font-size="13" font-weight="600" fill="#28a745">Registration</text>
+                            
+                            <!-- Fused Image -->
+                            <g id="fused">
+                                <rect x="80" y="240" width="190" height="150" fill="#F0FFF0" stroke="#28a745" stroke-width="2" rx="5"/>
+                                <text x="175" y="260" text-anchor="middle" font-size="14" font-weight="600" fill="#28a745">Fused Image (MRI + PET)</text>
+                                
+                                <!-- Combined visualization -->
+                                <ellipse cx="175" cy="315" rx="60" ry="65" fill="#B8D8F8" stroke="#1E64C8" stroke-width="1.5"/>
+                                
+                                <!-- Ventricles -->
+                                <ellipse cx="160" cy="300" rx="10" ry="12" fill="#E8F2FF"/>
+                                <ellipse cx="190" cy="300" rx="10" ry="12" fill="#E8F2FF"/>
+                                
+                                <!-- Gray matter -->
+                                <path d="M 130 290 Q 150 275, 175 282 T 220 290" fill="#9CC5F0" opacity="0.6"/>
+                                
+                                <!-- Tumor with PET overlay -->
+                                <circle cx="195" cy="330" r="18" fill="#FF9999" opacity="0.5"/>
+                                <circle cx="195" cy="330" r="15" fill="#FF4500" opacity="0.6"/>
+                                <circle cx="195" cy="330" r="10" fill="#FF6B00" opacity="0.7"/>
+                                <circle cx="195" cy="330" r="6" fill="#FF8C00" opacity="0.9"/>
+                                
+                                <text x="175" y="405" text-anchor="middle" font-size="11" fill="#333" font-weight="600">Benefits:</text>
+                                <text x="175" y="420" text-anchor="middle" font-size="10" fill="#333">• Precise localization of metabolically active tumor</text>
+                                <text x="175" y="435" text-anchor="middle" font-size="10" fill="#333">• Anatomical context for functional data</text>
+                                <text x="175" y="450" text-anchor="middle" font-size="10" fill="#333">• Improved diagnosis and treatment planning</text>
+                            </g>
+                            
+                            <!-- Mutual Information note -->
+                            <g id="mi-note">
+                                <rect x="20" y="410" width="310" height="75" fill="#fff8f0" stroke="#FFA500" stroke-width="2" rx="5"/>
+                                <text x="175" y="430" text-anchor="middle" font-size="12" font-weight="600" fill="#FFA500">Why Mutual Information Works</text>
+                                <text x="175" y="448" text-anchor="middle" font-size="10" fill="#333">Tumor appears BRIGHT on MRI (hyperintense)</text>
+                                <text x="175" y="463" text-anchor="middle" font-size="10" fill="#333">Tumor appears BRIGHT on PET (high uptake)</text>
+                                <text x="175" y="478" text-anchor="middle" font-size="10" fill="#28a745" font-weight="600">MI detects this co-occurrence pattern!</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Validation Approaches -->
+        <div class="slide">
+            <div class="section-title">5. Validation Approaches</div>
+            
+            <div class="detail-card">
+                <div class="detail-title">
+                    <span>✓</span>
+                    <span>Ensuring Registration Accuracy</span>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-text">
+                        <p>Validating registration accuracy is critical for clinical applications. Different methods provide quantitative and qualitative assessment of alignment quality.</p>
+                        
+                        <h3>1. Fiducial Markers (Gold Standard)</h3>
+                        <p>Physical markers placed on or attached to the patient that are visible in both images.</p>
+                        <ul>
+                            <li><strong>Types:</strong> Skin markers, bone-implanted markers, vitamin E capsules</li>
+                            <li><strong>Metric:</strong> Target Registration Error (TRE) - distance between corresponding markers after registration</li>
+                            <li><strong>Pros:</strong> Direct, interpretable measure of accuracy</li>
+                            <li><strong>Cons:</strong> Invasive, marker placement errors, not always feasible</li>
+                        </ul>
+                        
+                        <h3>2. Dice Similarity Coefficient (DSC)</h3>
+                        <p>Measures overlap between corresponding anatomical structures or segmentations.</p>
+                        <ul>
+                            <li><strong>Formula:</strong> DSC = 2|A ∩ B| / (|A| + |B|)</li>
+                            <li><strong>Range:</strong> 0 (no overlap) to 1 (perfect overlap)</li>
+                            <li><strong>Use:</strong> Organ alignment validation, tumor tracking</li>
+                            <li><strong>Threshold:</strong> DSC > 0.7 often considered good alignment</li>
+                        </ul>
+                        
+                        <h3>3. Hausdorff Distance</h3>
+                        <p>Measures maximum distance between surface points of corresponding structures.</p>
+                        <ul>
+                            <li>Sensitive to outliers and local misalignments</li>
+                            <li>Useful for detecting edge mismatches</li>
+                            <li>Often used alongside DSC for comprehensive assessment</li>
+                        </ul>
+                        
+                        <div class="highlight-box">
+                            <p><strong>Clinical Relevance:</strong> For radiation therapy, TRE should be < 2mm. For surgical navigation, sub-millimeter accuracy may be required.</p>
+                        </div>
+                        
+                        <h3>4. Visual Inspection</h3>
+                        <p>Expert review using visualization tools:</p>
+                        <ul>
+                            <li><strong>Checkerboard:</strong> Alternating tiles from both images</li>
+                            <li><strong>Overlay:</strong> Semi-transparent overlay with adjustable opacity</li>
+                            <li><strong>Contour comparison:</strong> Edge overlays to check alignment</li>
+                            <li><strong>Side-by-side:</strong> Synchronized scrolling through both volumes</li>
+                        </ul>
+                        
+                        <h3>5. Landmark-based Validation</h3>
+                        <p>Anatomical landmarks identified by experts in both images.</p>
+                        <ul>
+                            <li>Less invasive than fiducial markers</li>
+                            <li>Subject to inter-observer variability</li>
+                            <li>Used when physical markers not available</li>
+                        </ul>
+                    </div>
+                    <div class="detail-visual">
+                        <svg width="350" height="550" viewBox="0 0 350 550">
+                            <text x="175" y="20" text-anchor="middle" font-size="16" font-weight="700" fill="#1E64C8">Validation Methods</text>
+                            
+                            <!-- Fiducial Markers -->
+                            <g id="fiducials">
+                                <rect x="20" y="35" width="150" height="120" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                                <text x="95" y="55" text-anchor="middle" font-size="12" font-weight="600" fill="#1E64C8">Fiducial Markers</text>
+                                
+                                <!-- Image 1 with markers -->
+                                <rect x="35" y="65" width="55" height="55" fill="#E8F2FF" stroke="#333" stroke-width="1"/>
+                                <circle cx="45" cy="75" r="3" fill="#FF0000" stroke="#000" stroke-width="1"/>
+                                <circle cx="75" cy="75" r="3" fill="#FF0000" stroke="#000" stroke-width="1"/>
+                                <circle cx="45" cy="105" r="3" fill="#FF0000" stroke="#000" stroke-width="1"/>
+                                <circle cx="75" cy="105" r="3" fill="#FF0000" stroke="#000" stroke-width="1"/>
+                                <text x="62" y="132" text-anchor="middle" font-size="9" fill="#666">Image 1</text>
+                                
+                                <!-- Image 2 with markers -->
+                                <rect x="100" y="65" width="55" height="55" fill="#FFF8F0" stroke="#333" stroke-width="1"/>
+                                <circle cx="110" cy="75" r="3" fill="#FF0000" stroke="#000" stroke-width="1"/>
+                                <circle cx="140" cy="76" r="3" fill="#FF0000" stroke="#000" stroke-width="1"/>
+                                <circle cx="111" cy="105" r="3" fill="#FF0000" stroke="#000" stroke-width="1"/>
+                                <circle cx="139" cy="106" r="3" fill="#FF0000" stroke="#000" stroke-width="1"/>
+                                <text x="127" y="132" text-anchor="middle" font-size="9" fill="#666">Image 2</text>
+                                
+                                <!-- Distance measurement -->
+                                <line x1="140" y1="76" x2="145" y2="76" stroke="#FF6B6B" stroke-width="1" stroke-dasharray="2,2"/>
+                                <text x="148" y="78" font-size="8" fill="#FF6B6B">TRE</text>
+                            </g>
+                            
+                            <!-- Dice Coefficient -->
+                            <g id="dice">
+                                <rect x="180" y="35" width="150" height="120" fill="#fff8f0" stroke="#FFA500" stroke-width="2" rx="5"/>
+                                <text x="255" y="55" text-anchor="middle" font-size="12" font-weight="600" fill="#FFA500">Dice Coefficient</text>
+                                
+                                <!-- Venn diagram -->
+                                <circle cx="230" cy="100" r="25" fill="#4A90E2" opacity="0.5"/>
+                                <circle cx="255" cy="100" r="25" fill="#FF8C42" opacity="0.5"/>
+                                
+                                <!-- Labels -->
+                                <text x="215" y="102" font-size="9" fill="#1E64C8" font-weight="600">A</text>
+                                <text x="270" y="102" font-size="9" fill="#FFA500" font-weight="600">B</text>
+                                <text x="242" y="102" font-size="9" fill="#28a745" font-weight="600">A∩B</text>
+                                
+                                <!-- Formula -->
+                                <text x="255" y="138" text-anchor="middle" font-size="10" fill="#333">DSC = 2|A∩B| / (|A|+|B|)</text>
+                            </g>
+                            
+                            <!-- Checkerboard Visualization -->
+                            <g id="checkerboard">
+                                <rect x="20" y="170" width="150" height="140" fill="#f0fff0" stroke="#28a745" stroke-width="2" rx="5"/>
+                                <text x="95" y="190" text-anchor="middle" font-size="12" font-weight="600" fill="#28a745">Checkerboard View</text>
+                                
+                                <!-- Checkerboard pattern -->
+                                <g transform="translate(35, 200)">
+                                    <!-- Good alignment -->
+                                    <text x="60" y="-5" text-anchor="middle" font-size="10" fill="#666">Good Alignment</text>
+                                    <rect x="0" y="0" width="20" height="20" fill="#4A90E2"/>
+                                    <rect x="20" y="0" width="20" height="20" fill="#FF8C42"/>
+                                    <rect x="40" y="0" width="20" height="20" fill="#4A90E2"/>
+                                    <rect x="60" y="0" width="20" height="20" fill="#FF8C42"/>
+                                    <rect x="80" y="0" width="20" height="20" fill="#4A90E2"/>
+                                    <rect x="100" y="0" width="20" height="20" fill="#FF8C42"/>
+                                    
+                                    <rect x="0" y="20" width="20" height="20" fill="#FF8C42"/>
+                                    <rect x="20" y="20" width="20" height="20" fill="#4A90E2"/>
+                                    <rect x="40" y="20" width="20" height="20" fill="#FF8C42"/>
+                                    <rect x="60" y="20" width="20" height="20" fill="#4A90E2"/>
+                                    <rect x="80" y="20" width="20" height="20" fill="#FF8C42"/>
+                                    <rect x="100" y="20" width="20" height="20" fill="#4A90E2"/>
+                                    
+                                    <rect x="0" y="40" width="20" height="20" fill="#4A90E2"/>
+                                    <rect x="20" y="40" width="20" height="20" fill="#FF8C42"/>
+                                    <rect x="40" y="40" width="20" height="20" fill="#4A90E2"/>
+                                    <rect x="60" y="40" width="20" height="20" fill="#FF8C42"/>
+                                    <rect x="80" y="40" width="20" height="20" fill="#4A90E2"/>
+                                    <rect x="100" y="40" width="20" height="20" fill="#FF8C42"/>
+                                    
+                                    <!-- Smooth boundaries indicate good alignment -->
+                                    <text x="60" y="75" text-anchor="middle" font-size="9" fill="#28a745">✓ Smooth boundaries</text>
+                                </g>
+                            </g>
+                            
+                            <!-- Poor alignment example -->
+                            <g id="poor-alignment">
+                                <rect x="180" y="170" width="150" height="140" fill="#fff0f0" stroke="#FF6B6B" stroke-width="2" rx="5"/>
+                                <text x="255" y="190" text-anchor="middle" font-size="12" font-weight="600" fill="#FF6B6B">Poor Alignment</text>
+                                
+                                <!-- Misaligned checkerboard -->
+                                <g transform="translate(195, 200)">
+                                    <rect x="0" y="0" width="20" height="20" fill="#4A90E2"/>
+                                    <rect x="20" y="0" width="20" height="20" fill="#FF8C42"/>
+                                    <rect x="40" y="0" width="20" height="20" fill="#4A90E2"/>
+                                    <rect x="60" y="0" width="20" height="20" fill="#FF8C42"/>
+                                    <rect x="80" y="0" width="20" height="20" fill="#4A90E2"/>
+                                    <rect x="100" y="0" width="20" height="20" fill="#FF8C42"/>
+                                    
+                                    <!-- Shifted second image creates jagged boundaries -->
+                                    <rect x="5" y="20" width="20" height="20" fill="#FF8C42"/>
+                                    <rect x="25" y="20" width="20" height="20" fill="#4A90E2"/>
+                                    <rect x="45" y="20" width="20" height="20" fill="#FF8C42"/>
+                                    <rect x="65" y="20" width="20" height="20" fill="#4A90E2"/>
+                                    <rect x="85" y="20" width="20" height="20" fill="#FF8C42"/>
+                                    <rect x="105" y="20" width="20" height="20" fill="#4A90E2"/>
+                                    
+                                    <rect x="3" y="40" width="20" height="20" fill="#4A90E2"/>
+                                    <rect x="23" y="40" width="20" height="20" fill="#FF8C42"/>
+                                    <rect x="43" y="40" width="20" height="20" fill="#4A90E2"/>
+                                    <rect x="63" y="40" width="20" height="20" fill="#FF8C42"/>
+                                    <rect x="83" y="40" width="20" height="20" fill="#4A90E2"/>
+                                    <rect x="103" y="40" width="20" height="20" fill="#FF8C42"/>
+                                    
+                                    <!-- Jagged boundaries indicate misalignment -->
+                                    <text x="60" y="75" text-anchor="middle" font-size="9" fill="#FF6B6B">✗ Jagged boundaries</text>
+                                </g>
+                            </g>
+                            
+                            <!-- Validation metrics table -->
+                            <g id="metrics-table">
+                                <rect x="20" y="325" width="310" height="210" fill="#f8f8f8" stroke="#666" stroke-width="2" rx="5"/>
+                                <text x="175" y="345" text-anchor="middle" font-size="13" font-weight="600" fill="#333">Validation Metrics Comparison</text>
+                                
+                                <!-- Table headers -->
+                                <line x1="30" y1="360" x2="320" y2="360" stroke="#999" stroke-width="1"/>
+                                <text x="90" y="375" text-anchor="middle" font-size="11" font-weight="600" fill="#333">Method</text>
+                                <text x="190" y="375" text-anchor="middle" font-size="11" font-weight="600" fill="#333">Advantages</text>
+                                <text x="275" y="375" text-anchor="middle" font-size="11" font-weight="600" fill="#333">Limitations</text>
+                                
+                                <line x1="30" y1="380" x2="320" y2="380" stroke="#999" stroke-width="1"/>
+                                
+                                <!-- Row 1: Fiducials -->
+                                <text x="35" y="395" font-size="10" fill="#333" font-weight="600">Fiducials</text>
+                                <text x="140" y="395" font-size="9" fill="#333">Gold standard</text>
+                                <text x="225" y="395" font-size="9" fill="#333">Invasive, costly</text>
+                                
+                                <!-- Row 2: Dice -->
+                                <line x1="30" y1="400" x2="320" y2="400" stroke="#ddd" stroke-width="1"/>
+                                <text x="35" y="415" font-size="10" fill="#333" font-weight="600">Dice/DSC</text>
+                                <text x="140" y="415" font-size="9" fill="#333">Quantitative overlap</text>
+                                <text x="225" y="415" font-size="9" fill="#333">Needs segmentation</text>
+                                
+                                <!-- Row 3: Hausdorff -->
+                                <line x1="30" y1="420" x2="320" y2="420" stroke="#ddd" stroke-width="1"/>
+                                <text x="35" y="435" font-size="10" fill="#333" font-weight="600">Hausdorff</text>
+                                <text x="140" y="435" font-size="9" fill="#333">Edge sensitivity</text>
+                                <text x="225" y="435" font-size="9" fill="#333">Outlier sensitive</text>
+                                
+                                <!-- Row 4: Visual -->
+                                <line x1="30" y1="440" x2="320" y2="440" stroke="#ddd" stroke-width="1"/>
+                                <text x="35" y="455" font-size="10" fill="#333" font-weight="600">Visual</text>
+                                <text x="140" y="455" font-size="9" fill="#333">Intuitive, fast</text>
+                                <text x="225" y="455" font-size="9" fill="#333">Subjective</text>
+                                
+                                <!-- Row 5: Landmarks -->
+                                <line x1="30" y1="460" x2="320" y2="460" stroke="#ddd" stroke-width="1"/>
+                                <text x="35" y="475" font-size="10" fill="#333" font-weight="600">Landmarks</text>
+                                <text x="140" y="475" font-size="9" fill="#333">Non-invasive</text>
+                                <text x="225" y="475" font-size="9" fill="#333">Observer variability</text>
+                                
+                                <line x1="30" y1="480" x2="320" y2="480" stroke="#999" stroke-width="1"/>
+                                
+                                <!-- Recommendation -->
+                                <text x="175" y="500" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Recommendation: Use multiple methods</text>
+                                <text x="175" y="515" text-anchor="middle" font-size="9" fill="#666">Combine quantitative metrics with visual inspection</text>
+                                <text x="175" y="528" text-anchor="middle" font-size="9" fill="#666">for comprehensive validation</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

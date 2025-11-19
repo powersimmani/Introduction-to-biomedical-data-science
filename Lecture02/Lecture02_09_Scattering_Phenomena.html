@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Scattering Phenomena</title>
+    <title>Scattering Phenomena - Detailed Guide</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -13,6 +13,7 @@
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 20px;
         }
         .container { width: 960px; padding: 40px 60px; }
         .title {
@@ -57,13 +58,100 @@
             padding: 20px;
             margin-bottom: 20px;
         }
-        .list-item {
-            padding: 12px 20px;
+        .detailed-section {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 3px solid #1E64C8;
+        }
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .detail-card {
+            background: white;
+            border: 2px solid #1E64C8;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 35px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        .detail-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .detail-title::before {
+            content: '▶';
+            font-size: 16px;
+        }
+        .diagram-container {
             background: #f8f9fa;
+            border: 2px dashed #1E64C8;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 250px;
+        }
+        .description-text {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        .subsection {
+            background: #f8fbff;
+            padding: 15px 20px;
             border-left: 4px solid #1E64C8;
             border-radius: 6px;
+            margin: 15px 0;
+        }
+        .subsection-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 8px;
+        }
+        .key-points {
+            background: #fff8e1;
+            border: 2px solid #ffa726;
+            border-radius: 8px;
+            padding: 15px 20px;
+            margin: 15px 0;
+        }
+        .key-points-title {
+            font-size: 17px;
+            font-weight: 600;
+            color: #f57c00;
             margin-bottom: 10px;
-            font-size: 16px;
+        }
+        ul {
+            margin-left: 25px;
+            margin-top: 10px;
+        }
+        li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        .formula {
+            background: #e3f2fd;
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 15px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: 600;
+            color: #0d47a1;
         }
     </style>
 </head>
@@ -109,6 +197,7 @@
                 </div>
             </div>
         </div>
+        
         <div class="highlight-box" style="margin-top: 20px;">
             <div style="font-size: 18px; font-weight: 600; color: #1E64C8; margin-bottom: 10px;">
                 🧬 Biological Applications
@@ -119,7 +208,455 @@
                 <strong>Tissue imaging:</strong> Raman microscopy for cancer detection
             </div>
         </div>
-    
+
+        <!-- DETAILED SECTIONS BEGIN HERE -->
+        <div class="detailed-section">
+            <div class="section-title">📚 Detailed Explanations and Visual Representations</div>
+
+            <!-- 1. RAYLEIGH SCATTERING -->
+            <div class="detail-card">
+                <div class="detail-title">1. Rayleigh Scattering</div>
+                
+                <div class="diagram-container">
+                    <svg width="700" height="220" viewBox="0 0 700 220">
+                        <!-- Sun -->
+                        <circle cx="50" cy="110" r="30" fill="#FFD700" stroke="#FF8C00" stroke-width="2"/>
+                        <text x="50" y="160" text-anchor="middle" font-size="14" fill="#333">Sun</text>
+                        
+                        <!-- Light rays -->
+                        <line x1="80" y1="110" x2="580" y2="110" stroke="#FF6B6B" stroke-width="3"/>
+                        <text x="330" y="95" text-anchor="middle" font-size="13" fill="#FF6B6B">White Light (all wavelengths)</text>
+                        
+                        <!-- Atmosphere particles -->
+                        <circle cx="200" cy="110" r="3" fill="#4A90E2"/>
+                        <circle cx="250" cy="95" r="3" fill="#4A90E2"/>
+                        <circle cx="300" cy="120" r="3" fill="#4A90E2"/>
+                        <circle cx="350" cy="100" r="3" fill="#4A90E2"/>
+                        <circle cx="400" cy="115" r="3" fill="#4A90E2"/>
+                        <text x="300" y="150" text-anchor="middle" font-size="12" fill="#666">Air molecules (N₂, O₂)</text>
+                        
+                        <!-- Scattered blue light -->
+                        <line x1="250" y1="95" x2="250" y2="30" stroke="#4169E1" stroke-width="2" marker-end="url(#arrowblue)"/>
+                        <line x1="350" y1="100" x2="420" y2="40" stroke="#4169E1" stroke-width="2"/>
+                        <text x="280" y="50" font-size="12" fill="#4169E1">Blue light</text>
+                        <text x="380" y="50" font-size="12" fill="#4169E1">scattered</text>
+                        
+                        <!-- Transmitted red light -->
+                        <line x1="580" y1="110" x2="660" y2="110" stroke="#DC143C" stroke-width="3" marker-end="url(#arrowred)"/>
+                        <text x="620" y="130" text-anchor="middle" font-size="12" fill="#DC143C">Red light</text>
+                        <text x="620" y="145" text-anchor="middle" font-size="12" fill="#DC143C">transmitted</text>
+                        
+                        <!-- Observer -->
+                        <circle cx="250" cy="15" r="8" fill="#333"/>
+                        <line x1="250" y1="23" x2="250" y2="40" stroke="#333" stroke-width="2"/>
+                        <text x="250" y="10" text-anchor="middle" font-size="11" fill="#333">Observer</text>
+                        
+                        <defs>
+                            <marker id="arrowblue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#4169E1" />
+                            </marker>
+                            <marker id="arrowred" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#DC143C" />
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+
+                <div class="description-text">
+                    <strong>Physical Principle:</strong> Rayleigh scattering occurs when light interacts with particles much smaller than the wavelength of light (typically < λ/10). This elastic scattering phenomenon is responsible for many natural optical effects we observe daily.
+                </div>
+
+                <div class="formula">
+                    I ∝ 1/λ⁴
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Why the Sky is Blue</div>
+                    <div class="description-text">
+                        Sunlight entering Earth's atmosphere contains all visible wavelengths. Since scattering intensity is inversely proportional to the fourth power of wavelength, blue light (λ ≈ 450 nm) is scattered approximately 10 times more than red light (λ ≈ 650 nm). This scattered blue light reaches our eyes from all directions, making the sky appear blue. At sunset, light travels through more atmosphere, scattering away most blue light and leaving red-orange hues.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Application in Dynamic Light Scattering (DLS)</div>
+                    <div class="description-text">
+                        DLS exploits Rayleigh scattering to measure particle size in the nanometer range. By analyzing the time-dependent fluctuations in scattered light intensity caused by Brownian motion, we can determine the hydrodynamic radius of nanoparticles, proteins, and polymers. The technique is non-destructive and requires minimal sample preparation.
+                    </div>
+                </div>
+
+                <div class="key-points">
+                    <div class="key-points-title">⭐ Key Characteristics</div>
+                    <ul>
+                        <li>Particle size: Much smaller than wavelength (< 0.1λ)</li>
+                        <li>Scattering pattern: Symmetric forward and backward scattering</li>
+                        <li>Wavelength dependence: Strong (1/λ⁴)</li>
+                        <li>Examples: Air molecules (O₂, N₂), small nanoparticles (< 50 nm)</li>
+                        <li>Typical size range: 0.01 - 50 nm</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 2. MIE SCATTERING -->
+            <div class="detail-card">
+                <div class="detail-title">2. Mie Scattering</div>
+                
+                <div class="diagram-container">
+                    <svg width="700" height="250" viewBox="0 0 700 250">
+                        <!-- Incident light -->
+                        <line x1="50" y1="125" x2="250" y2="125" stroke="#FF6B6B" stroke-width="3" marker-end="url(#arrow1)"/>
+                        <text x="150" y="115" text-anchor="middle" font-size="13" fill="#FF6B6B">Incident Light</text>
+                        
+                        <!-- Large particle -->
+                        <circle cx="350" cy="125" r="50" fill="#87CEEB" stroke="#1E64C8" stroke-width="3" opacity="0.7"/>
+                        <text x="350" y="130" text-anchor="middle" font-size="14" fill="#000" font-weight="bold">Cell/Bacteria</text>
+                        <text x="350" y="200" text-anchor="middle" font-size="12" fill="#666">Size ≈ λ (1-10 μm)</text>
+                        
+                        <!-- Forward scatter (strong) -->
+                        <line x1="400" y1="125" x2="520" y2="125" stroke="#4169E1" stroke-width="4" marker-end="url(#arrow2)"/>
+                        <text x="550" y="125" font-size="13" fill="#4169E1" font-weight="bold">Forward Scatter</text>
+                        <text x="550" y="140" font-size="11" fill="#4169E1">(FSC - strong)</text>
+                        
+                        <!-- Side scatter -->
+                        <line x1="350" y1="75" x2="350" y2="20" stroke="#9370DB" stroke-width="3" marker-end="url(#arrow3)"/>
+                        <text x="370" y="40" font-size="13" fill="#9370DB" font-weight="bold">Side Scatter</text>
+                        <text x="370" y="55" font-size="11" fill="#9370DB">(SSC - moderate)</text>
+                        
+                        <!-- Backward scatter (weak) -->
+                        <line x1="300" y1="125" x2="180" y2="125" stroke="#90EE90" stroke-width="2" marker-end="url(#arrow4)"/>
+                        <text x="140" y="145" font-size="11" fill="#2E8B57">Backward Scatter</text>
+                        <text x="140" y="158" font-size="10" fill="#2E8B57">(weak)</text>
+                        
+                        <!-- Angular distribution illustration -->
+                        <g transform="translate(550, 180)">
+                            <circle cx="0" cy="0" r="2" fill="#1E64C8"/>
+                            <ellipse cx="30" cy="0" rx="40" ry="15" fill="none" stroke="#4169E1" stroke-width="2"/>
+                            <text x="0" y="35" text-anchor="middle" font-size="10" fill="#666">Angular distribution</text>
+                        </g>
+                        
+                        <defs>
+                            <marker id="arrow1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#FF6B6B" />
+                            </marker>
+                            <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#4169E1" />
+                            </marker>
+                            <marker id="arrow3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#9370DB" />
+                            </marker>
+                            <marker id="arrow4" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#90EE90" />
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+
+                <div class="description-text">
+                    <strong>Physical Principle:</strong> Mie scattering occurs when particles have dimensions comparable to the wavelength of incident light. Named after Gustav Mie, this theory provides complete solutions to Maxwell's equations for spherical particles. The scattering pattern is complex and strongly forward-directed.
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Flow Cytometry Application</div>
+                    <div class="description-text">
+                        Flow cytometry exploits Mie scattering to analyze and sort cells. Forward scatter (FSC) intensity correlates with cell size, while side scatter (SSC) relates to internal complexity and granularity. By measuring both parameters simultaneously, different cell populations can be distinguished without fluorescent labels. This technique is essential in immunology, hematology, and cancer research.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Scattering Pattern Characteristics</div>
+                    <div class="description-text">
+                        Unlike Rayleigh scattering's symmetric pattern, Mie scattering produces an asymmetric angular distribution with strong forward scattering. The exact pattern depends on the size parameter (2πr/λ) and refractive index contrast. As particle size increases relative to wavelength, forward scattering becomes increasingly dominant, creating a narrow cone of scattered light.
+                    </div>
+                </div>
+
+                <div class="key-points">
+                    <div class="key-points-title">⭐ Key Characteristics</div>
+                    <ul>
+                        <li>Particle size: Comparable to wavelength (0.1λ - 10λ)</li>
+                        <li>Scattering pattern: Asymmetric, strongly forward-directed</li>
+                        <li>Wavelength dependence: Complex, not simply 1/λ⁴</li>
+                        <li>Examples: Bacterial cells, yeast, blood cells, droplets in fog</li>
+                        <li>Typical size range: 0.5 - 10 μm</li>
+                        <li>Applications: Flow cytometry, aerosol science, atmospheric physics</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 3. DYNAMIC LIGHT SCATTERING -->
+            <div class="detail-card">
+                <div class="detail-title">3. Dynamic Light Scattering (DLS)</div>
+                
+                <div class="diagram-container">
+                    <svg width="700" height="280" viewBox="0 0 700 280">
+                        <!-- Laser source -->
+                        <rect x="20" y="100" width="60" height="40" fill="#DC143C" stroke="#8B0000" stroke-width="2" rx="5"/>
+                        <text x="50" y="125" text-anchor="middle" font-size="12" fill="white" font-weight="bold">Laser</text>
+                        
+                        <!-- Laser beam -->
+                        <line x1="80" y1="120" x2="280" y2="120" stroke="#FF0000" stroke-width="3"/>
+                        <line x1="80" y1="123" x2="280" y2="123" stroke="#FF6666" stroke-width="1"/>
+                        
+                        <!-- Sample cell -->
+                        <rect x="280" y="70" width="100" height="100" fill="none" stroke="#1E64C8" stroke-width="3" rx="5"/>
+                        <text x="330" y="60" text-anchor="middle" font-size="13" fill="#1E64C8" font-weight="bold">Sample Cell</text>
+                        
+                        <!-- Particles with Brownian motion -->
+                        <circle cx="300" cy="100" r="5" fill="#4A90E2"/>
+                        <circle cx="340" cy="130" r="5" fill="#4A90E2"/>
+                        <circle cx="320" cy="145" r="5" fill="#4A90E2"/>
+                        <circle cx="360" cy="110" r="5" fill="#4A90E2"/>
+                        
+                        <!-- Motion arrows -->
+                        <path d="M 300 100 L 305 95" stroke="#FF6B6B" stroke-width="2" fill="none" marker-end="url(#arrowmotion)"/>
+                        <path d="M 340 130 L 335 135" stroke="#FF6B6B" stroke-width="2" fill="none" marker-end="url(#arrowmotion)"/>
+                        <path d="M 320 145 L 325 143" stroke="#FF6B6B" stroke-width="2" fill="none" marker-end="url(#arrowmotion)"/>
+                        <text x="330" y="190" text-anchor="middle" font-size="11" fill="#666">Brownian Motion</text>
+                        
+                        <!-- Scattered light -->
+                        <line x1="330" y1="120" x2="450" y2="40" stroke="#4169E1" stroke-width="2"/>
+                        <line x1="330" y1="120" x2="430" y2="70" stroke="#6495ED" stroke-width="2"/>
+                        <line x1="330" y1="120" x2="460" y2="100" stroke="#87CEEB" stroke-width="2"/>
+                        
+                        <!-- Detector -->
+                        <rect x="450" y="50" width="70" height="60" fill="#2E8B57" stroke="#1B5E3E" stroke-width="2" rx="5"/>
+                        <text x="485" y="75" text-anchor="middle" font-size="11" fill="white" font-weight="bold">Detector</text>
+                        <text x="485" y="90" text-anchor="middle" font-size="10" fill="white">(90° angle)</text>
+                        
+                        <!-- Correlator -->
+                        <rect x="540" y="60" width="80" height="40" fill="#FFD700" stroke="#B8860B" stroke-width="2" rx="5"/>
+                        <text x="580" y="85" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">Correlator</text>
+                        
+                        <!-- Output graph -->
+                        <g transform="translate(480, 200)">
+                            <rect x="0" y="0" width="120" height="70" fill="white" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                            <text x="60" y="-8" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="bold">Correlation Function</text>
+                            <!-- Decay curve -->
+                            <path d="M 10 15 Q 40 15, 50 30 T 110 60" stroke="#DC143C" stroke-width="2.5" fill="none"/>
+                            <line x1="10" y1="65" x2="110" y2="65" stroke="#666" stroke-width="1"/>
+                            <line x1="10" y1="15" x2="10" y2="65" stroke="#666" stroke-width="1"/>
+                            <text x="60" y="62" text-anchor="middle" font-size="9" fill="#666">Time (τ)</text>
+                        </g>
+                        
+                        <defs>
+                            <marker id="arrowmotion" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L7,3 z" fill="#FF6B6B" />
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+
+                <div class="description-text">
+                    <strong>Physical Principle:</strong> DLS, also known as Photon Correlation Spectroscopy (PCS) or Quasi-Elastic Light Scattering (QELS), measures the time-dependent fluctuations in scattered light intensity caused by Brownian motion of particles. The rate of intensity fluctuation is directly related to the diffusion coefficient, which can be used to calculate particle size.
+                </div>
+
+                <div class="formula">
+                    D = kT / (6πηRh)  →  Rh = kT / (6πηD)
+                </div>
+                <div class="description-text" style="font-size: 14px; text-align: center; color: #666;">
+                    (Stokes-Einstein equation: D = diffusion coefficient, Rh = hydrodynamic radius)
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Measurement Process</div>
+                    <div class="description-text">
+                        A monochromatic laser illuminates the sample, and scattered light is collected at a fixed angle (typically 90° or 173°). The detector measures intensity fluctuations over time. Fast-moving small particles cause rapid fluctuations, while slow-moving large particles produce slower fluctuations. An autocorrelation function is calculated to extract the decay time, which relates to particle size.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Protein Aggregation Studies</div>
+                    <div class="description-text">
+                        DLS is invaluable for monitoring protein stability and aggregation in pharmaceutical development. It can detect early-stage aggregates (oligomers) before they become visible precipitates. The technique tracks changes in hydrodynamic radius, polydispersity index, and size distribution during stress conditions (temperature, pH changes, freeze-thaw cycles), helping predict long-term protein stability and shelf life.
+                    </div>
+                </div>
+
+                <div class="key-points">
+                    <div class="key-points-title">⭐ Key Characteristics</div>
+                    <ul>
+                        <li>Size range: 0.3 nm - 10 μm (optimally 1-1000 nm)</li>
+                        <li>Sample requirement: Low concentration, minimal preparation</li>
+                        <li>Measurement time: Seconds to minutes</li>
+                        <li>Non-destructive and non-invasive technique</li>
+                        <li>Applications: Nanoparticle characterization, protein stability, drug formulation, polymer science</li>
+                        <li>Limitations: Assumes spherical particles, sensitive to dust contamination</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- 4. RAMAN SCATTERING -->
+            <div class="detail-card">
+                <div class="detail-title">4. Raman Scattering</div>
+                
+                <div class="diagram-container">
+                    <svg width="700" height="300" viewBox="0 0 700 300">
+                        <!-- Energy level diagram -->
+                        <g transform="translate(50, 50)">
+                            <text x="100" y="-10" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="bold">Energy Level Diagram</text>
+                            
+                            <!-- Ground state -->
+                            <line x1="20" y1="200" x2="180" y2="200" stroke="#000" stroke-width="3"/>
+                            <text x="10" y="205" text-anchor="end" font-size="12" fill="#000">v=0</text>
+                            
+                            <!-- Excited vibrational states -->
+                            <line x1="20" y1="170" x2="180" y2="170" stroke="#666" stroke-width="2"/>
+                            <text x="10" y="175" text-anchor="end" font-size="12" fill="#666">v=1</text>
+                            <line x1="20" y1="140" x2="180" y2="140" stroke="#666" stroke-width="2"/>
+                            <text x="10" y="145" text-anchor="end" font-size="12" fill="#666">v=2</text>
+                            
+                            <!-- Virtual state -->
+                            <line x1="20" y1="40" x2="180" y2="40" stroke="#DC143C" stroke-width="2" stroke-dasharray="5,5"/>
+                            <text x="100" y="35" text-anchor="middle" font-size="11" fill="#DC143C">Virtual State</text>
+                            
+                            <!-- Rayleigh scattering -->
+                            <line x1="50" y1="200" x2="50" y2="45" stroke="#4169E1" stroke-width="2" marker-end="url(#arrowup)"/>
+                            <line x1="55" y1="45" x2="55" y2="195" stroke="#4169E1" stroke-width="2" marker-end="url(#arrowdown)"/>
+                            <text x="52" y="225" text-anchor="middle" font-size="11" fill="#4169E1">Rayleigh</text>
+                            <text x="52" y="237" text-anchor="middle" font-size="10" fill="#4169E1">(Elastic)</text>
+                            
+                            <!-- Stokes Raman -->
+                            <line x1="100" y1="200" x2="100" y2="45" stroke="#9370DB" stroke-width="2" marker-end="url(#arrowup)"/>
+                            <line x1="105" y1="45" x2="105" y2="175" stroke="#9370DB" stroke-width="2" marker-end="url(#arrowdown)"/>
+                            <text x="102" y="225" text-anchor="middle" font-size="11" fill="#9370DB">Stokes</text>
+                            <text x="102" y="237" text-anchor="middle" font-size="10" fill="#9370DB">(Inelastic)</text>
+                            
+                            <!-- Anti-Stokes Raman -->
+                            <line x1="150" y1="170" x2="150" y2="45" stroke="#FF6B6B" stroke-width="2" marker-end="url(#arrowup)"/>
+                            <line x1="155" y1="45" x2="155" y2="195" stroke="#FF6B6B" stroke-width="2" marker-end="url(#arrowdown)"/>
+                            <text x="152" y="225" text-anchor="middle" font-size="11" fill="#FF6B6B">Anti-Stokes</text>
+                            <text x="152" y="237" text-anchor="middle" font-size="10" fill="#FF6B6B">(Inelastic)</text>
+                        </g>
+                        
+                        <!-- Raman spectrum -->
+                        <g transform="translate(350, 80)">
+                            <text x="140" y="-10" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="bold">Raman Spectrum</text>
+                            <rect x="0" y="0" width="280" height="150" fill="white" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            
+                            <!-- Axes -->
+                            <line x1="20" y1="130" x2="260" y2="130" stroke="#333" stroke-width="1.5"/>
+                            <line x1="20" y1="20" x2="20" y2="130" stroke="#333" stroke-width="1.5"/>
+                            <text x="140" y="148" text-anchor="middle" font-size="11" fill="#333">Raman Shift (cm⁻¹)</text>
+                            <text x="5" y="75" text-anchor="middle" font-size="11" fill="#333" transform="rotate(-90 5 75)">Intensity</text>
+                            
+                            <!-- Rayleigh peak (very strong, center) -->
+                            <rect x="135" y="30" width="10" height="100" fill="#4169E1" opacity="0.7"/>
+                            <text x="140" y="25" text-anchor="middle" font-size="9" fill="#4169E1">Rayleigh</text>
+                            
+                            <!-- Stokes peaks -->
+                            <rect x="170" y="70" width="6" height="60" fill="#9370DB" opacity="0.7"/>
+                            <rect x="190" y="85" width="6" height="45" fill="#9370DB" opacity="0.7"/>
+                            <rect x="210" y="75" width="6" height="55" fill="#9370DB" opacity="0.7"/>
+                            <text x="190" y="145" text-anchor="middle" font-size="9" fill="#9370DB">Stokes</text>
+                            
+                            <!-- Anti-Stokes peaks (weaker) -->
+                            <rect x="100" y="90" width="6" height="40" fill="#FF6B6B" opacity="0.7"/>
+                            <rect x="80" y="100" width="6" height="30" fill="#FF6B6B" opacity="0.7"/>
+                            <rect x="60" y="95" width="6" height="35" fill="#FF6B6B" opacity="0.7"/>
+                            <text x="80" y="145" text-anchor="middle" font-size="9" fill="#FF6B6B">Anti-Stokes</text>
+                        </g>
+                        
+                        <defs>
+                            <marker id="arrowup" markerWidth="8" markerHeight="8" refX="4" refY="7" orient="auto">
+                                <path d="M0,7 L4,0 L8,7" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                            </marker>
+                            <marker id="arrowdown" markerWidth="8" markerHeight="8" refX="4" refY="0" orient="auto">
+                                <path d="M0,0 L4,7 L8,0" fill="none" stroke="currentColor" stroke-width="1.5"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+
+                <div class="description-text">
+                    <strong>Physical Principle:</strong> Raman scattering is an inelastic scattering process where incident photons interact with molecular vibrations, resulting in energy exchange. Unlike Rayleigh scattering (elastic), Raman scattering produces photons with shifted frequencies that correspond to specific molecular vibrational modes, creating a unique "molecular fingerprint."
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Stokes vs. Anti-Stokes Raman</div>
+                    <div class="description-text">
+                        <strong>Stokes Raman:</strong> The molecule absorbs energy from the incident photon, moving from ground state (v=0) to an excited vibrational state (v=1). The scattered photon has lower energy (longer wavelength) than the incident photon. This is the dominant process at room temperature.<br><br>
+                        <strong>Anti-Stokes Raman:</strong> The molecule is already in an excited vibrational state and loses energy to the scattered photon, which has higher energy (shorter wavelength) than incident light. This is weaker because fewer molecules are in excited states at room temperature.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Molecular Fingerprinting and Chemical Analysis</div>
+                    <div class="description-text">
+                        Each molecule has a unique set of vibrational modes determined by its structure and chemical bonds. The Raman spectrum acts as a molecular fingerprint, allowing identification without labels or dyes. This label-free nature makes Raman spectroscopy ideal for studying biological samples in their native state, pharmaceutical quality control, forensic analysis, and material characterization.
+                    </div>
+                </div>
+
+                <div class="subsection">
+                    <div class="subsection-title">Surface-Enhanced Raman Spectroscopy (SERS)</div>
+                    <div class="description-text">
+                        SERS amplifies Raman signals by factors of 10⁶-10¹⁴ when molecules are adsorbed on rough metal surfaces (typically gold or silver nanoparticles). This enhancement enables single-molecule detection and trace analysis. SERS is revolutionary for biosensing, environmental monitoring (detecting pollutants at ultra-low concentrations), and cancer diagnostics through blood analysis.
+                    </div>
+                </div>
+
+                <div class="key-points">
+                    <div class="key-points-title">⭐ Key Characteristics</div>
+                    <ul>
+                        <li>Type: Inelastic scattering (energy exchange with molecules)</li>
+                        <li>Efficiency: Very weak (~1 in 10⁷ photons undergo Raman scattering)</li>
+                        <li>Information: Molecular structure, chemical composition, crystallinity</li>
+                        <li>Advantages: Label-free, non-destructive, minimal sample preparation, works through glass/water</li>
+                        <li>Applications: Cancer detection, drug identification, quality control, geological analysis, art conservation</li>
+                        <li>Typical laser wavelengths: 532 nm, 633 nm, 785 nm, 1064 nm</li>
+                    </ul>
+                </div>
+            </div>
+
+            <!-- COMPARISON TABLE -->
+            <div class="detail-card" style="background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);">
+                <div class="detail-title">📊 Comparative Summary</div>
+                <table style="width: 100%; border-collapse: collapse; margin-top: 20px; background: white;">
+                    <thead>
+                        <tr style="background: #1E64C8; color: white;">
+                            <th style="padding: 12px; border: 1px solid #ddd; text-align: left;">Property</th>
+                            <th style="padding: 12px; border: 1px solid #ddd;">Rayleigh</th>
+                            <th style="padding: 12px; border: 1px solid #ddd;">Mie</th>
+                            <th style="padding: 12px; border: 1px solid #ddd;">DLS</th>
+                            <th style="padding: 12px; border: 1px solid #ddd;">Raman</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">Particle Size</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">≪ λ</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">≈ λ</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">0.3 nm - 10 μm</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Molecular</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">Scattering Type</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Elastic</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Elastic</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Elastic</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Inelastic</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">Key Information</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Size, concentration</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Size, shape, structure</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Size distribution, diffusion</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Molecular structure, composition</td>
+                        </tr>
+                        <tr style="background: #f8f9fa;">
+                            <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">Primary Application</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Atmospheric optics</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Flow cytometry, cell sorting</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Nanoparticle sizing, protein stability</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Chemical identification, imaging</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">Scattering Efficiency</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Very weak (∝ 1/λ⁴)</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Strong</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Weak-Moderate</td>
+                            <td style="padding: 10px; border: 1px solid #ddd;">Very weak (~10⁻⁷)</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+        </div>
     </div>
 </body>
 </html>

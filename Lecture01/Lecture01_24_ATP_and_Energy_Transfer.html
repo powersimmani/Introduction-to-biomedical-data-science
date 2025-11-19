@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ATP and Energy Transfer</title>
+    <title>ATP and Energy Transfer - Detailed</title>
     <style>
         * {
             margin: 0;
@@ -13,111 +13,551 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 40px 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 30px 45px;
+            max-width: 1400px;
+            margin: 0 auto;
             background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
         }
         
         .title {
-            font-size: 22px;
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 15px;
+        }
+        
+        .summary-section {
+            margin-bottom: 50px;
+        }
+        
+        .section-heading {
+            font-size: 20px;
             font-weight: 600;
             color: #1E64C8;
             margin-bottom: 20px;
-            text-align: center;
         }
         
         .content-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
+            margin-bottom: 40px;
         }
         
         .info-box {
             background: #f8f9fb;
             border-left: 4px solid #1E64C8;
-            padding: 16px 18px;
-            border-radius: 6px;
+            padding: 20px;
+            border-radius: 8px;
+            transition: transform 0.2s;
+        }
+        
+        .info-box:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(30, 100, 200, 0.2);
         }
         
         .info-title {
-            font-size: 17px;
+            font-size: 18px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         
         .info-content {
             font-size: 15px;
             color: #333;
-            line-height: 1.5;
+            line-height: 1.6;
         }
         
         .bullet {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         
         .bullet::before {
             content: "•";
             color: #1E64C8;
             font-weight: bold;
-            margin-right: 8px;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        /* Detailed Section Styles */
+        .detail-section {
+            margin-top: 50px;
+        }
+        
+        .detail-box {
+            background: white;
+            border: 3px solid #1E64C8;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 12px rgba(30, 100, 200, 0.15);
+        }
+        
+        .detail-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .detail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .diagram {
+            background: linear-gradient(135deg, #f0f4f8 0%, #e3edf7 100%);
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            border: 2px solid #d0e0f0;
+        }
+        
+        .diagram-title {
             font-size: 16px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        
+        .molecule {
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            color: #2c3e50;
+            margin: 8px 0;
+            font-weight: 600;
+            background: white;
+            padding: 8px 15px;
+            border-radius: 6px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .arrow {
+            font-size: 24px;
+            color: #1E64C8;
+            margin: 10px 0;
+            font-weight: bold;
+        }
+        
+        .explanation {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.8;
+        }
+        
+        .explanation-point {
+            margin-bottom: 15px;
+            padding-left: 5px;
+        }
+        
+        .highlight {
+            color: #1E64C8;
+            font-weight: 700;
+            font-size: 16px;
+        }
+        
+        .energy-value {
+            background: #fff3cd;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 700;
+            font-size: 15px;
+            color: #856404;
+            border: 2px solid #ffeaa7;
+            margin: 10px 0;
+        }
+        
+        .cycle-diagram {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .cycle-box {
+            background: white;
+            border: 3px solid #1E64C8;
+            border-radius: 10px;
+            padding: 15px 25px;
+            font-weight: 600;
+            color: #1E64C8;
+            text-align: center;
+            box-shadow: 0 3px 6px rgba(30, 100, 200, 0.2);
+            min-width: 250px;
+        }
+        
+        .carrier-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+        }
+        
+        .carrier-item {
+            background: white;
+            border: 2px solid #1E64C8;
+            border-radius: 10px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .carrier-item:hover {
+            transform: scale(1.05);
+            box-shadow: 0 4px 8px rgba(30, 100, 200, 0.3);
+        }
+        
+        .carrier-name {
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 8px;
+            font-size: 18px;
+        }
+        
+        .carrier-function {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.4;
+        }
+        
+        .budget-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+            width: 100%;
+        }
+        
+        .budget-bar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .bar-label {
+            min-width: 120px;
+            font-size: 14px;
+            font-weight: 600;
+            color: #2c3e50;
+        }
+        
+        .bar-container {
+            flex: 1;
+            height: 35px;
+            background: #e0e0e0;
+            border-radius: 8px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .bar-visual {
+            height: 100%;
+            background: linear-gradient(to right, #1E64C8, #4a8fe7);
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+            color: white;
+            font-size: 13px;
+            font-weight: 700;
+            transition: width 0.5s ease;
+        }
+        
+        .note {
+            margin-top: 20px;
+            font-size: 13px;
+            color: #666;
+            text-align: center;
+            font-style: italic;
+            background: #f8f9fa;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 3px solid #1E64C8;
+        }
+        
+        @media (max-width: 968px) {
+            .detail-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">ATP and Energy Transfer</div>
+        <div class="title">ATP and Energy Transfer: Comprehensive Overview</div>
         
-        <div class="content-grid">
-            <div class="info-box">
-                <div class="info-title">ATP Structure</div>
-                <div class="info-content">
-                    <div class="bullet">Adenosine + 3 phosphates</div>
-                    <div class="bullet">High-energy phosphate bonds</div>
-                    <div class="bullet">Hydrolysis: ATP → ADP + Pi</div>
-                    <div class="bullet">ΔG°' = -7.3 kcal/mol</div>
+        <!-- Summary Section -->
+        <div class="summary-section">
+            <div class="section-heading">Quick Reference Summary</div>
+            <div class="content-grid">
+                <div class="info-box">
+                    <div class="info-title">ATP Structure</div>
+                    <div class="info-content">
+                        <div class="bullet">Adenosine + 3 phosphates</div>
+                        <div class="bullet">High-energy phosphate bonds</div>
+                        <div class="bullet">Hydrolysis: ATP → ADP + Pi</div>
+                        <div class="bullet">ΔG°' = -7.3 kcal/mol</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">Energy Coupling</div>
+                    <div class="info-content">
+                        <div class="bullet">Links exergonic to endergonic</div>
+                        <div class="bullet">Common intermediate strategy</div>
+                        <div class="bullet">Enzyme catalyzed</div>
+                        <div class="bullet">Metabolic efficiency</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">Other Energy Carriers</div>
+                    <div class="info-content">
+                        <div class="bullet">GTP: protein synthesis</div>
+                        <div class="bullet">NADH: reduction reactions</div>
+                        <div class="bullet">FADH₂: electron transport</div>
+                        <div class="bullet">Creatine phosphate: muscle</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">Cellular Energy Budget</div>
+                    <div class="info-content">
+                        <div class="bullet">Daily ATP turnover: ~body weight</div>
+                        <div class="bullet">Majority for biosynthesis</div>
+                        <div class="bullet">Transport and signaling</div>
+                        <div class="bullet">Mechanical work</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detailed Explanations Section -->
+        <div class="detail-section">
+            <div class="section-heading">Detailed Explanations and Visual Representations</div>
+            
+            <!-- ATP Structure Details -->
+            <div class="detail-box">
+                <div class="detail-title">1. ATP Structure and Hydrolysis Mechanism</div>
+                <div class="detail-content">
+                    <div class="diagram">
+                        <div class="diagram-title">ATP Hydrolysis Reaction</div>
+                        <div class="molecule">ATP</div>
+                        <div style="font-size: 12px; color: #666; margin: 5px 0;">
+                            (Adenosine-P~P~P)
+                        </div>
+                        <div class="arrow">+ H₂O ↓</div>
+                        <div class="molecule">ADP + Pi</div>
+                        <div style="font-size: 12px; color: #666; margin: 5px 0;">
+                            (Adenosine-P~P) + (Phosphate)
+                        </div>
+                        <div class="arrow">↓</div>
+                        <div class="energy-value">ΔG°' = -7.3 kcal/mol</div>
+                        <div class="note">
+                            The terminal phosphate bond (~P) contains<br/>
+                            high-energy potential released during hydrolysis
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <div class="explanation-point">
+                            <span class="highlight">Molecular Components:</span> ATP (adenosine triphosphate) is composed of three key parts: an adenine base derived from purine, a ribose sugar (a five-carbon monosaccharide), and three phosphate groups connected by phosphoanhydride bonds. The bonds between the phosphate groups are particularly energy-rich.
+                        </div>
+                        <div class="explanation-point">
+                            <span class="highlight">Energy Release Mechanism:</span> When the terminal (gamma) phosphate bond is cleaved through hydrolysis, approximately 7.3 kcal/mol of free energy is released under standard biochemical conditions (pH 7, 25°C). This energy drives countless cellular processes requiring work input.
+                        </div>
+                        <div class="explanation-point">
+                            <span class="highlight">Reversible ATP-ADP Cycle:</span> ATP can be continuously regenerated from ADP and inorganic phosphate (Pi) through cellular respiration processes including glycolysis, the citric acid cycle, and oxidative phosphorylation. This creates a perpetual energy cycle that sustains life.
+                        </div>
+                        <div class="explanation-point">
+                            <span class="highlight">Universal Energy Currency:</span> ATP functions as the primary energy currency across all domains of life - from the simplest bacteria to complex multicellular organisms like humans. This universal adoption demonstrates ATP's evolutionary optimization for biological energy transfer.
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="info-box">
-                <div class="info-title">Energy Coupling</div>
-                <div class="info-content">
-                    <div class="bullet">Links exergonic to endergonic</div>
-                    <div class="bullet">Common intermediate strategy</div>
-                    <div class="bullet">Enzyme catalyzed</div>
-                    <div class="bullet">Metabolic efficiency</div>
+            <!-- Energy Coupling Details -->
+            <div class="detail-box">
+                <div class="detail-title">2. Energy Coupling Mechanism in Metabolism</div>
+                <div class="detail-content">
+                    <div class="diagram">
+                        <div class="diagram-title">Coupled Reaction Process</div>
+                        <div class="cycle-diagram">
+                            <div class="cycle-box">
+                                <strong>Exergonic Reaction</strong><br/>
+                                ATP → ADP + Pi<br/>
+                                <span style="color: #27ae60;">ΔG < 0 (spontaneous)</span>
+                            </div>
+                            <div class="arrow">⇩ Energy Transfer ⇩</div>
+                            <div class="cycle-box">
+                                <strong>Endergonic Reaction</strong><br/>
+                                Substrate A + B → Product C<br/>
+                                <span style="color: #e74c3c;">ΔG > 0 (non-spontaneous)</span>
+                            </div>
+                            <div style="margin-top: 15px; font-size: 14px; color: white; background: #27ae60; padding: 10px; border-radius: 6px; font-weight: 700;">
+                                Net Result: ΔG_total < 0<br/>(Thermodynamically Favorable)
+                            </div>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <div class="explanation-point">
+                            <span class="highlight">Coupling Strategy:</span> Energy coupling allows thermodynamically unfavorable (endergonic) reactions with positive ΔG values to proceed by linking them to thermodynamically favorable (exergonic) reactions like ATP hydrolysis. The combined reaction has a negative overall ΔG, making the entire process spontaneous.
+                        </div>
+                        <div class="explanation-point">
+                            <span class="highlight">Common Intermediate Formation:</span> Rather than directly transferring energy, ATP phosphorylates substrate molecules, creating high-energy phosphorylated intermediates. These intermediates are more reactive and can proceed to form products. This mechanism ensures efficient energy transfer with minimal loss.
+                        </div>
+                        <div class="explanation-point">
+                            <span class="highlight">Enzyme Catalysis:</span> Specialized enzymes called kinases, synthetases, and phosphorylases facilitate these coupled reactions. They bind both ATP and substrate simultaneously, enabling precise energy transfer with high specificity and catalytic efficiency, often increasing reaction rates by factors of 10⁶ or more.
+                        </div>
+                        <div class="explanation-point">
+                            <span class="highlight">Classical Example:</span> In the first step of glycolysis, glucose (a stable molecule) is phosphorylated by ATP to form glucose-6-phosphate and ADP. The phosphorylation "activates" glucose, making it reactive and trapping it inside the cell. This reaction couples ATP hydrolysis (ΔG = -7.3 kcal/mol) with glucose phosphorylation (ΔG = +3.3 kcal/mol) for a net ΔG of -4.0 kcal/mol.
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="info-box">
-                <div class="info-title">Other Energy Carriers</div>
-                <div class="info-content">
-                    <div class="bullet">GTP: protein synthesis</div>
-                    <div class="bullet">NADH: reduction reactions</div>
-                    <div class="bullet">FADH₂: electron transport</div>
-                    <div class="bullet">Creatine phosphate: muscle</div>
+            <!-- Other Energy Carriers Details -->
+            <div class="detail-box">
+                <div class="detail-title">3. Alternative Energy Carriers in Cellular Metabolism</div>
+                <div class="detail-content">
+                    <div class="diagram">
+                        <div class="diagram-title">Key Energy Molecules</div>
+                        <div class="carrier-grid">
+                            <div class="carrier-item">
+                                <div class="carrier-name">GTP</div>
+                                <div class="carrier-function">
+                                    <strong>Guanosine Triphosphate</strong><br/>
+                                    • Protein synthesis (translation)<br/>
+                                    • Signal transduction (G-proteins)<br/>
+                                    • Microtubule assembly
+                                </div>
+                            </div>
+                            <div class="carrier-item">
+                                <div class="carrier-name">NADH</div>
+                                <div class="carrier-function">
+                                    <strong>Nicotinamide Adenine Dinucleotide</strong><br/>
+                                    • Electron carrier (reduced form)<br/>
+                                    • Catabolic pathways<br/>
+                                    • Yields ~2.5 ATP in ETC
+                                </div>
+                            </div>
+                            <div class="carrier-item">
+                                <div class="carrier-name">FADH₂</div>
+                                <div class="carrier-function">
+                                    <strong>Flavin Adenine Dinucleotide</strong><br/>
+                                    • Electron transport chain<br/>
+                                    • Krebs cycle (succinate→fumarate)<br/>
+                                    • Yields ~1.5 ATP in ETC
+                                </div>
+                            </div>
+                            <div class="carrier-item">
+                                <div class="carrier-name">Creatine-P</div>
+                                <div class="carrier-function">
+                                    <strong>Phosphocreatine</strong><br/>
+                                    • Rapid ATP regeneration<br/>
+                                    • Muscle energy buffer<br/>
+                                    • First 10 seconds of contraction
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <div class="explanation-point">
+                            <span class="highlight">GTP Functions:</span> Guanosine triphosphate is structurally and energetically equivalent to ATP. It powers ribosomal translocation during protein synthesis, moving the ribosome along mRNA. GTP also activates G-proteins in signal transduction cascades, enabling cells to respond to hormones and neurotransmitters. In the citric acid cycle, GTP is directly produced from GDP by substrate-level phosphorylation.
+                        </div>
+                        <div class="explanation-point">
+                            <span class="highlight">NADH and FADH₂ Roles:</span> These reduced coenzymes carry high-energy electrons harvested from nutrients during glycolysis and the citric acid cycle. They deliver these electrons to the electron transport chain in mitochondria, where the energy is used to pump protons and ultimately synthesize ATP through chemiosmosis. Each NADH produces approximately 2.5 ATP, while each FADH₂ produces about 1.5 ATP.
+                        </div>
+                        <div class="explanation-point">
+                            <span class="highlight">Creatine Phosphate System:</span> Phosphocreatine serves as an immediate energy reserve in muscle and nerve cells. It contains a high-energy phosphate bond (ΔG = -10.3 kcal/mol) and can rapidly donate its phosphate to ADP, regenerating ATP within milliseconds. This system provides energy during the first 10 seconds of intense muscle contraction before glycolysis ramps up.
+                        </div>
+                        <div class="explanation-point">
+                            <span class="highlight">Specialized Metabolic Roles:</span> Each energy carrier is optimized for specific cellular contexts. This diversity provides metabolic flexibility, allowing cells to fine-tune energy production and utilization based on tissue type, activity level, and environmental conditions. The presence of multiple energy currencies prevents metabolic bottlenecks and enhances cellular adaptability.
+                        </div>
+                    </div>
                 </div>
             </div>
             
-            <div class="info-box">
-                <div class="info-title">Cellular Energy Budget</div>
-                <div class="info-content">
-                    <div class="bullet">Daily ATP turnover: ~body weight</div>
-                    <div class="bullet">Majority for biosynthesis</div>
-                    <div class="bullet">Transport and signaling</div>
-                    <div class="bullet">Mechanical work</div>
+            <!-- Cellular Energy Budget Details -->
+            <div class="detail-box">
+                <div class="detail-title">4. Cellular Energy Budget and ATP Distribution</div>
+                <div class="detail-content">
+                    <div class="diagram">
+                        <div class="diagram-title">ATP Utilization Pattern</div>
+                        <div class="budget-chart">
+                            <div class="budget-bar">
+                                <div class="bar-label">Biosynthesis</div>
+                                <div class="bar-container">
+                                    <div class="bar-visual" style="width: 75%;">~45%</div>
+                                </div>
+                            </div>
+                            <div class="budget-bar">
+                                <div class="bar-label">Active Transport</div>
+                                <div class="bar-container">
+                                    <div class="bar-visual" style="width: 50%;">~30%</div>
+                                </div>
+                            </div>
+                            <div class="budget-bar">
+                                <div class="bar-label">Mechanical Work</div>
+                                <div class="bar-container">
+                                    <div class="bar-visual" style="width: 33%;">~20%</div>
+                                </div>
+                            </div>
+                            <div class="budget-bar">
+                                <div class="bar-label">Heat Generation</div>
+                                <div class="bar-container">
+                                    <div class="bar-visual" style="width: 17%;">~5%</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="note">
+                            <strong>Remarkable Fact:</strong> An average 70 kg human produces and<br/>
+                            consumes approximately 70 kg of ATP per day!<br/>
+                            This represents a turnover rate equal to body weight.
+                        </div>
+                    </div>
+                    <div class="explanation">
+                        <div class="explanation-point">
+                            <span class="highlight">Massive Daily Turnover:</span> A typical adult human recycles ATP at an astonishing rate, producing and consuming approximately their entire body weight in ATP every 24 hours. For a 70 kg person, this equals about 70 kg of ATP daily. However, the body only contains about 250 grams of ATP at any given moment, highlighting the continuous regeneration cycle.
+                        </div>
+                        <div class="explanation-point">
+                            <span class="highlight">Biosynthesis Dominance (45%):</span> Nearly half of cellular ATP powers anabolic processes - the construction of macromolecules. This includes protein synthesis (peptide bond formation), DNA replication and RNA transcription, lipid biosynthesis for membrane construction, and synthesis of complex carbohydrates. These processes are essential for growth, repair, and cellular maintenance.
+                        </div>
+                        <div class="explanation-point">
+                            <span class="highlight">Active Transport Processes (30%):</span> A substantial portion of ATP maintains crucial concentration gradients across cellular membranes. The Na⁺/K⁺-ATPase pump alone consumes 20-40% of resting energy, maintaining proper ion balance. Additional ATP powers nutrient uptake, waste removal, pH regulation, and the establishment of membrane potentials essential for nerve and muscle function.
+                        </div>
+                        <div class="explanation-point">
+                            <span class="highlight">Mechanical Work (20%):</span> ATP drives various forms of cellular movement including muscle contraction (myosin-actin sliding), ciliary and flagellar beating for cell motility, chromosome separation during mitosis and meiosis, vesicle transport along microtubules and actin filaments, and cell shape changes during migration. These processes enable organisms to move, cells to divide, and materials to be transported within cells.
+                        </div>
+                    </div>
                 </div>
             </div>
             
