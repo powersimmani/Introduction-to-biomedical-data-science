@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -144,6 +144,275 @@
         </div>
         <div class="highlight-box">
             <div class="highlight-text">Common Tools: FastQC, MultiQC, Trimmomatic, Cutadapt</div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Quality Score Principles</div>
+            <div class="content-box">
+                <div style="margin-bottom: 20px;">
+                    <div style="font-size: 18px; font-weight: 600; color: #1E64C8; margin-bottom: 10px;">Phred Quality Score</div>
+                    <div class="info-text" style="margin-bottom: 15px;">
+                        Q = -10 × log₁₀(P) <br>
+                        where P is the probability of base calling error.
+                    </div>
+                    <div class="spec-grid">
+                        <div class="spec-box">
+                            <div class="spec-label">Phred 20</div>
+                            <div class="spec-value">99% Accuracy</div>
+                            <div style="font-size: 12px; color: #666; margin-top: 5px;">1/100 error rate</div>
+                        </div>
+                        <div class="spec-box">
+                            <div class="spec-label">Phred 30</div>
+                            <div class="spec-value">99.9% Accuracy</div>
+                            <div style="font-size: 12px; color: #666; margin-top: 5px;">1/1,000 error rate</div>
+                        </div>
+                        <div class="spec-box">
+                            <div class="spec-label">Phred 40</div>
+                            <div class="spec-value">99.99% Accuracy</div>
+                            <div style="font-size: 12px; color: #666; margin-top: 5px;">1/10,000 error rate</div>
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: white; border-radius: 8px; padding: 20px; margin-top: 20px;">
+                    <div style="font-size: 16px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">Quality Score Visualization Example</div>
+                    <svg width="100%" height="250" viewBox="0 0 800 250">
+                        <rect x="50" y="20" width="700" height="180" fill="#f8f9fa" stroke="#ddd" stroke-width="1"/>
+                        <line x1="50" y1="60" x2="750" y2="60" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="5,5"/>
+                        <line x1="50" y1="100" x2="750" y2="100" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="5,5"/>
+                        <line x1="50" y1="140" x2="750" y2="140" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="5,5"/>
+                        <rect x="50" y="20" width="700" height="40" fill="#d4edda" opacity="0.3"/>
+                        <rect x="50" y="60" width="700" height="40" fill="#fff3cd" opacity="0.3"/>
+                        <rect x="50" y="100" width="700" height="100" fill="#f8d7da" opacity="0.3"/>
+                        <text x="35" y="25" font-size="12" fill="#333">40</text>
+                        <text x="35" y="65" font-size="12" fill="#333">30</text>
+                        <text x="35" y="105" font-size="12" fill="#333">20</text>
+                        <text x="35" y="145" font-size="12" fill="#333">10</text>
+                        <text x="35" y="205" font-size="12" fill="#333">0</text>
+                        <polyline points="50,40 150,35 250,38 350,45 450,55 550,70 650,90 750,110" 
+                                  fill="none" stroke="#1E64C8" stroke-width="3"/>
+                        <g transform="translate(150, 0)">
+                            <line x1="0" y1="30" x2="0" y2="50" stroke="#1E64C8" stroke-width="2"/>
+                            <rect x="-8" y="33" width="16" height="12" fill="#4a90e2" opacity="0.7"/>
+                            <line x1="-8" y1="39" x2="8" y2="39" stroke="white" stroke-width="2"/>
+                        </g>
+                        <g transform="translate(450, 0)">
+                            <line x1="0" y1="45" x2="0" y2="75" stroke="#1E64C8" stroke-width="2"/>
+                            <rect x="-8" y="50" width="16" height="18" fill="#4a90e2" opacity="0.7"/>
+                            <line x1="-8" y1="60" x2="8" y2="60" stroke="white" stroke-width="2"/>
+                        </g>
+                        <g transform="translate(650, 0)">
+                            <line x1="0" y1="75" x2="0" y2="120" stroke="#1E64C8" stroke-width="2"/>
+                            <rect x="-8" y="85" width="16" height="25" fill="#4a90e2" opacity="0.7"/>
+                            <line x1="-8" y1="97" x2="8" y2="97" stroke="white" stroke-width="2"/>
+                        </g>
+                        <line x1="50" y1="200" x2="750" y2="200" stroke="#333" stroke-width="2"/>
+                        <text x="350" y="230" font-size="14" fill="#333" font-weight="600">Read Position (bp)</text>
+                        <text x="45" y="215" font-size="11" fill="#666">1</text>
+                        <text x="340" y="215" font-size="11" fill="#666">50</text>
+                        <text x="690" y="215" font-size="11" fill="#666">100</text>
+                        <rect x="600" y="215" width="15" height="10" fill="#d4edda"/>
+                        <text x="620" y="224" font-size="11" fill="#333">Good (>28)</text>
+                        <rect x="600" y="230" width="15" height="10" fill="#fff3cd"/>
+                        <text x="620" y="239" font-size="11" fill="#333">OK (20-28)</text>
+                    </svg>
+                    <div style="font-size: 14px; color: #666; margin-top: 10px; text-align: center;">
+                        Typical pattern showing quality score decrease toward the end of reads
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">GC Content Analysis</div>
+            <div class="content-box">
+                <div style="background: white; border-radius: 8px; padding: 20px;">
+                    <div style="font-size: 16px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">GC Content Distribution</div>
+                    <svg width="100%" height="250" viewBox="0 0 800 250">
+                        <rect x="50" y="20" width="700" height="180" fill="#f8f9fa" stroke="#ddd" stroke-width="1"/>
+                        <line x1="50" y1="60" x2="750" y2="60" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="5,5"/>
+                        <line x1="50" y1="100" x2="750" y2="100" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="5,5"/>
+                        <line x1="50" y1="140" x2="750" y2="140" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="5,5"/>
+                        <path d="M 100,180 Q 200,120 300,80 T 400,50 T 500,80 Q 600,120 700,180" 
+                              fill="none" stroke="#28a745" stroke-width="2" stroke-dasharray="5,5"/>
+                        <path d="M 100,185 L 150,160 L 200,120 L 250,85 L 300,65 L 350,55 L 400,50 L 450,55 L 500,70 L 550,95 L 600,130 L 650,165 L 700,190" 
+                              fill="none" stroke="#1E64C8" stroke-width="3"/>
+                        <path d="M 100,185 L 150,160 L 200,120 L 250,85 L 300,65 L 350,55 L 400,50 L 450,55 L 500,70 L 550,95 L 600,130 L 650,165 L 700,190 L 700,200 L 100,200 Z" 
+                              fill="#1E64C8" opacity="0.2"/>
+                        <line x1="50" y1="200" x2="750" y2="200" stroke="#333" stroke-width="2"/>
+                        <line x1="50" y1="20" x2="50" y2="200" stroke="#333" stroke-width="2"/>
+                        <text x="90" y="220" font-size="11" fill="#666">0%</text>
+                        <text x="240" y="220" font-size="11" fill="#666">25%</text>
+                        <text x="390" y="220" font-size="11" fill="#666">50%</text>
+                        <text x="540" y="220" font-size="11" fill="#666">75%</text>
+                        <text x="685" y="220" font-size="11" fill="#666">100%</text>
+                        <text x="350" y="240" font-size="13" fill="#333" font-weight="600">GC Content (%)</text>
+                        <text x="15" y="115" font-size="13" fill="#333" font-weight="600" transform="rotate(-90 15 115)">Frequency</text>
+                        <line x1="560" y1="35" x2="590" y2="35" stroke="#28a745" stroke-width="2" stroke-dasharray="5,5"/>
+                        <text x="595" y="40" font-size="12" fill="#333">Theoretical</text>
+                        <line x1="560" y1="50" x2="590" y2="50" stroke="#1E64C8" stroke-width="3"/>
+                        <text x="595" y="55" font-size="12" fill="#333">Observed</text>
+                    </svg>
+                    <div style="font-size: 14px; color: #666; margin-top: 10px; text-align: center;">
+                        Normal samples show a normal distribution centered around the species' average GC content
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <div class="info-grid">
+                        <div class="info-box">
+                            <div class="info-label">Normal GC Distribution</div>
+                            <div class="info-text">• Single peak<br>• Near expected GC%<br>• Narrow variance<br>• Matches theoretical distribution</div>
+                        </div>
+                        <div class="info-box">
+                            <div class="info-label">Abnormal GC Distribution</div>
+                            <div class="info-text">• Multiple peaks (contamination)<br>• GC% bias<br>• Wide variance<br>• Deviates from theory</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Sequence Duplication Analysis</div>
+            <div class="content-box">
+                <div style="background: white; border-radius: 8px; padding: 20px;">
+                    <div style="font-size: 16px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">Duplication Level Distribution</div>
+                    <svg width="100%" height="280" viewBox="0 0 800 280">
+                        <rect x="80" y="20" width="650" height="200" fill="#f8f9fa" stroke="#ddd" stroke-width="1"/>
+                        <line x1="80" y1="70" x2="730" y2="70" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="5,5"/>
+                        <line x1="80" y1="120" x2="730" y2="120" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="5,5"/>
+                        <line x1="80" y1="170" x2="730" y2="170" stroke="#e0e0e0" stroke-width="1" stroke-dasharray="5,5"/>
+                        <rect x="100" y="40" width="40" height="160" fill="#28a745" opacity="0.8"/>
+                        <rect x="150" y="140" width="40" height="60" fill="#28a745" opacity="0.8"/>
+                        <rect x="200" y="170" width="40" height="30" fill="#ffc107" opacity="0.8"/>
+                        <rect x="250" y="185" width="40" height="15" fill="#ffc107" opacity="0.8"/>
+                        <rect x="300" y="190" width="40" height="10" fill="#ffc107" opacity="0.8"/>
+                        <rect x="350" y="195" width="40" height="5" fill="#dc3545" opacity="0.8"/>
+                        <rect x="400" y="197" width="40" height="3" fill="#dc3545" opacity="0.8"/>
+                        <rect x="450" y="198" width="40" height="2" fill="#dc3545" opacity="0.8"/>
+                        <line x1="80" y1="220" x2="730" y2="220" stroke="#333" stroke-width="2"/>
+                        <line x1="80" y1="20" x2="80" y2="220" stroke="#333" stroke-width="2"/>
+                        <text x="110" y="240" font-size="10" fill="#666">1</text>
+                        <text x="158" y="240" font-size="10" fill="#666">2</text>
+                        <text x="208" y="240" font-size="10" fill="#666">3</text>
+                        <text x="258" y="240" font-size="10" fill="#666">4</text>
+                        <text x="308" y="240" font-size="10" fill="#666">5</text>
+                        <text x="352" y="240" font-size="10" fill="#666">6-10</text>
+                        <text x="398" y="240" font-size="10" fill="#666">10-50</text>
+                        <text x="448" y="240" font-size="10" fill="#666">>50</text>
+                        <text x="330" y="265" font-size="13" fill="#333" font-weight="600">Duplication Level</text>
+                        <text x="45" y="25" font-size="11" fill="#666">100%</text>
+                        <text x="50" y="75" font-size="11" fill="#666">75%</text>
+                        <text x="50" y="125" font-size="11" fill="#666">50%</text>
+                        <text x="50" y="175" font-size="11" fill="#666">25%</text>
+                        <text x="55" y="225" font-size="11" fill="#666">0%</text>
+                        <text x="15" y="130" font-size="13" fill="#333" font-weight="600" transform="rotate(-90 15 130)">% of Library</text>
+                        <text x="115" y="35" font-size="11" fill="#333" font-weight="600">80%</text>
+                        <text x="165" y="135" font-size="11" fill="#333" font-weight="600">10%</text>
+                        <line x1="340" y1="20" x2="340" y2="220" stroke="#dc3545" stroke-width="2" stroke-dasharray="5,5"/>
+                        <text x="345" y="15" font-size="11" fill="#dc3545" font-weight="600">Caution needed</text>
+                    </svg>
+                    <div style="font-size: 14px; color: #666; margin-top: 10px; text-align: center;">
+                        Good quality: most sequences are unique (single occurrence) / Poor quality: high duplication
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px;">
+                    <div class="bullet-list">
+                        <div class="bullet-item"><strong>PCR duplicates:</strong> Caused by excessive PCR amplification during library preparation</div>
+                        <div class="bullet-item"><strong>Optical duplicates:</strong> Caused by overly dense sequencing clusters</div>
+                        <div class="bullet-item"><strong>Biological duplicates:</strong> Actually identical DNA fragments (highly expressed genes in RNA-seq)</div>
+                        <div class="bullet-item"><strong>Threshold:</strong> Generally, >50% duplication indicates a problem</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Adapter Contamination</div>
+            <div class="content-box">
+                <div style="background: white; border-radius: 8px; padding: 20px; margin-bottom: 15px;">
+                    <div style="font-size: 16px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">Adapter Content Example</div>
+                    <div style="display: flex; gap: 20px; align-items: center;">
+                        <div style="flex: 1;">
+                            <div style="background: #f0f5fc; padding: 15px; border-radius: 6px; margin-bottom: 10px;">
+                                <div style="font-size: 13px; color: #666; margin-bottom: 5px;">Read sequence:</div>
+                                <div style="font-family: 'Courier New', monospace; font-size: 12px; color: #333; word-break: break-all;">
+                                    ATCGATCGATCGATCG<span style="background: #ffc107; padding: 2px;">AGATCGGAAGAGC</span>
+                                </div>
+                            </div>
+                            <div style="background: #f0f5fc; padding: 15px; border-radius: 6px;">
+                                <div style="font-size: 13px; color: #666; margin-bottom: 5px;">Insert (original DNA):</div>
+                                <div style="font-family: 'Courier New', monospace; font-size: 12px; color: #1E64C8;">
+                                    ATCGATCGATCGATCG
+                                </div>
+                                <div style="font-size: 13px; color: #666; margin-top: 5px;">+ Adapter sequence (needs removal)</div>
+                            </div>
+                        </div>
+                        <div style="flex: 1;">
+                            <svg width="280" height="180" viewBox="0 0 280 180">
+                                <rect x="10" y="40" width="180" height="30" fill="#1E64C8" opacity="0.7"/>
+                                <text x="100" y="60" font-size="12" fill="white" text-anchor="middle">Insert DNA</text>
+                                <rect x="190" y="40" width="80" height="30" fill="#ffc107" opacity="0.8"/>
+                                <text x="230" y="60" font-size="11" fill="#333" text-anchor="middle">Adapter</text>
+                                <line x1="10" y1="90" x2="270" y2="90" stroke="#333" stroke-width="2"/>
+                                <line x1="10" y1="85" x2="10" y2="95" stroke="#333" stroke-width="2"/>
+                                <line x1="270" y1="85" x2="270" y2="95" stroke="#333" stroke-width="2"/>
+                                <text x="140" y="110" font-size="11" fill="#666" text-anchor="middle">Read Length (e.g., 150bp)</text>
+                                <text x="10" y="135" font-size="10" fill="#28a745" font-weight="600">✓ Desired sequence</text>
+                                <text x="190" y="135" font-size="10" fill="#dc3545" font-weight="600">✗ Needs removal</text>
+                                <text x="10" y="160" font-size="10" fill="#666">Occurs when Insert &lt; Read length</text>
+                            </svg>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="info-grid">
+                    <div class="info-box">
+                        <div class="info-label">Why Adapters Remain</div>
+                        <div class="info-text">• When insert DNA is shorter than read length<br>• Sequencing reads beyond insert into adapter<br>• Common in small RNA-seq</div>
+                    </div>
+                    <div class="info-box">
+                        <div class="info-label">Removal Methods</div>
+                        <div class="info-text">• Use Cutadapt, Trimmomatic<br>• Specify adapter sequences<br>• Set minimum length<br>• Perform quality trimming simultaneously</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">Quality Control Workflow</div>
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; padding: 25px; color: white;">
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 20px;">
+                    <div style="flex: 1; text-align: center; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px; margin: 0 5px;">
+                        <div style="font-size: 28px; margin-bottom: 5px;">1️⃣</div>
+                        <div style="font-size: 14px; font-weight: 600;">Raw Data</div>
+                        <div style="font-size: 11px; opacity: 0.8;">FASTQ files</div>
+                    </div>
+                    <div style="font-size: 24px;">→</div>
+                    <div style="flex: 1; text-align: center; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px; margin: 0 5px;">
+                        <div style="font-size: 28px; margin-bottom: 5px;">2️⃣</div>
+                        <div style="font-size: 14px; font-weight: 600;">FastQC</div>
+                        <div style="font-size: 11px; opacity: 0.8;">Quality check</div>
+                    </div>
+                    <div style="font-size: 24px;">→</div>
+                    <div style="flex: 1; text-align: center; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px; margin: 0 5px;">
+                        <div style="font-size: 28px; margin-bottom: 5px;">3️⃣</div>
+                        <div style="font-size: 14px; font-weight: 600;">Trimming</div>
+                        <div style="font-size: 11px; opacity: 0.8;">Remove adapters</div>
+                    </div>
+                    <div style="font-size: 24px;">→</div>
+                    <div style="flex: 1; text-align: center; padding: 15px; background: rgba(255,255,255,0.1); border-radius: 8px; margin: 0 5px;">
+                        <div style="font-size: 28px; margin-bottom: 5px;">4️⃣</div>
+                        <div style="font-size: 14px; font-weight: 600;">Clean Data</div>
+                        <div style="font-size: 11px; opacity: 0.8;">Ready for analysis</div>
+                    </div>
+                </div>
+                <div style="text-align: center; font-size: 13px; opacity: 0.9; padding-top: 15px; border-top: 1px solid rgba(255,255,255,0.3);">
+                    Essential first step for all NGS analysis - Quality control determines downstream analysis reliability
+                </div>
+            </div>
         </div>
     
     </div>

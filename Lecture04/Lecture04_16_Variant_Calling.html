@@ -337,5 +337,508 @@
             </div>
         </div>
     </div>
+    
+    <!-- New Section: Detailed Principles and Examples -->
+    <div class="container" style="margin-top: 40px;">
+        <div class="title">Variant Calling Principles: Detailed Examples</div>
+        
+        <!-- Statistical Foundation -->
+        <div class="visual-section">
+            <div class="section-title">1. Statistical Foundation: Bayesian Variant Calling</div>
+            <div style="display: flex; justify-content: center; margin: 20px 0;">
+                <svg width="900" height="320" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Title -->
+                    <text x="450" y="20" font-size="16" fill="#1E64C8" font-weight="bold" text-anchor="middle">Bayesian Probability Model for Genotype Determination</text>
+                    
+                    <!-- Formula Section -->
+                    <g transform="translate(50, 40)">
+                        <rect x="0" y="0" width="800" height="100" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        <text x="400" y="25" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">Bayes' Theorem for Variant Calling</text>
+                        
+                        <!-- Main formula -->
+                        <text x="400" y="55" font-size="14" fill="#333" text-anchor="middle" font-family="serif">
+                            P(G | D) = [P(D | G) × P(G)] / P(D)
+                        </text>
+                        
+                        <!-- Explanation -->
+                        <text x="80" y="85" font-size="11" fill="#666">P(G | D): Posterior probability of genotype G given observed data D</text>
+                        <text x="520" y="85" font-size="11" fill="#666">P(D | G): Likelihood of data given genotype</text>
+                    </g>
+                    
+                    <!-- Example Calculation -->
+                    <g transform="translate(50, 160)">
+                        <rect x="0" y="0" width="800" height="140" fill="white" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        <text x="400" y="20" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">Practical Example: SNV at chr1:10177 (A→G)</text>
+                        
+                        <!-- Three genotype scenarios -->
+                        <g transform="translate(40, 40)">
+                            <!-- AA (reference) -->
+                            <rect x="0" y="0" width="220" height="80" fill="#ffe0e0" stroke="#FF6B6B" stroke-width="2" rx="6"/>
+                            <text x="110" y="18" font-size="12" fill="#FF6B6B" font-weight="bold" text-anchor="middle">Genotype: A/A</text>
+                            <text x="15" y="38" font-size="10" fill="#333">Observed: 1A, 5G reads</text>
+                            <text x="15" y="53" font-size="10" fill="#333">P(D|A/A) = 0.001</text>
+                            <text x="15" y="68" font-size="10" fill="#FF6B6B" font-weight="bold">P(A/A|D) ≈ 0.02 (2%)</text>
+                            
+                            <!-- AG (heterozygous) -->
+                            <rect x="240" y="0" width="220" height="80" fill="#e0ffe0" stroke="#4CAF50" stroke-width="2" rx="6"/>
+                            <text x="350" y="18" font-size="12" fill="#4CAF50" font-weight="bold" text-anchor="middle">Genotype: A/G</text>
+                            <text x="255" y="38" font-size="10" fill="#333">Observed: 1A, 5G reads</text>
+                            <text x="255" y="53" font-size="10" fill="#333">P(D|A/G) = 0.085</text>
+                            <text x="255" y="68" font-size="10" fill="#4CAF50" font-weight="bold">P(A/G|D) ≈ 0.17 (17%)</text>
+                            
+                            <!-- GG (variant) -->
+                            <rect x="480" y="0" width="220" height="80" fill="#e0e0ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                            <text x="590" y="18" font-size="12" fill="#1E64C8" font-weight="bold" text-anchor="middle">Genotype: G/G</text>
+                            <text x="495" y="38" font-size="10" fill="#333">Observed: 1A, 5G reads</text>
+                            <text x="495" y="53" font-size="10" fill="#333">P(D|G/G) = 0.413</text>
+                            <text x="495" y="68" font-size="10" fill="#1E64C8" font-weight="bold">P(G/G|D) ≈ 0.81 (81%) ✓</text>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="info-box" style="margin-top: 15px;">
+                <div class="info-label">Key Principle</div>
+                <div class="info-text">
+                    The variant caller evaluates all possible genotypes (A/A, A/G, G/G) and selects the one with the highest posterior probability. 
+                    In this example, despite having one reference read (A), the model correctly identifies G/G as the most likely genotype based on 
+                    the quality scores and allele frequencies. The low probability for A/A suggests the single A read is likely a sequencing error.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Quality Score Calculation -->
+        <div class="visual-section" style="margin-top: 30px;">
+            <div class="section-title">2. Quality Score Calculation & Phred Scale</div>
+            <div style="display: flex; justify-content: center; margin: 20px 0;">
+                <svg width="900" height="380" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Title -->
+                    <text x="450" y="20" font-size="16" fill="#1E64C8" font-weight="bold" text-anchor="middle">Understanding Quality Scores in Variant Calling</text>
+                    
+                    <!-- Phred Scale Explanation -->
+                    <g transform="translate(50, 40)">
+                        <rect x="0" y="0" width="800" height="100" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        <text x="400" y="25" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">Phred Quality Score Formula</text>
+                        
+                        <text x="400" y="55" font-size="14" fill="#333" text-anchor="middle" font-family="serif">
+                            Q = -10 × log₁₀(P_error)
+                        </text>
+                        
+                        <text x="400" y="80" font-size="11" fill="#666" text-anchor="middle">
+                            Where P_error is the probability that the base call or variant call is incorrect
+                        </text>
+                    </g>
+                    
+                    <!-- Quality Score Table -->
+                    <g transform="translate(50, 160)">
+                        <rect x="0" y="0" width="800" height="200" fill="white" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        <text x="400" y="20" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">Quality Score Reference Table</text>
+                        
+                        <!-- Table header -->
+                        <rect x="50" y="35" width="150" height="30" fill="#1E64C8" opacity="0.2"/>
+                        <rect x="200" y="35" width="200" height="30" fill="#1E64C8" opacity="0.2"/>
+                        <rect x="400" y="35" width="200" height="30" fill="#1E64C8" opacity="0.2"/>
+                        <rect x="600" y="35" width="150" height="30" fill="#1E64C8" opacity="0.2"/>
+                        
+                        <text x="125" y="55" font-size="11" fill="#1E64C8" font-weight="bold" text-anchor="middle">Phred Score</text>
+                        <text x="300" y="55" font-size="11" fill="#1E64C8" font-weight="bold" text-anchor="middle">Error Probability</text>
+                        <text x="500" y="55" font-size="11" fill="#1E64C8" font-weight="bold" text-anchor="middle">Accuracy</text>
+                        <text x="675" y="55" font-size="11" fill="#1E64C8" font-weight="bold" text-anchor="middle">Interpretation</text>
+                        
+                        <!-- Table rows -->
+                        <g transform="translate(0, 65)">
+                            <!-- Row 1: Q10 -->
+                            <rect x="50" y="0" width="700" height="25" fill="#ffe0e0"/>
+                            <text x="125" y="17" font-size="10" fill="#333" text-anchor="middle">Q10</text>
+                            <text x="300" y="17" font-size="10" fill="#333" text-anchor="middle">1 in 10 (10%)</text>
+                            <text x="500" y="17" font-size="10" fill="#333" text-anchor="middle">90%</text>
+                            <text x="675" y="17" font-size="10" fill="#FF6B6B" text-anchor="middle">Low quality</text>
+                            
+                            <!-- Row 2: Q20 -->
+                            <rect x="50" y="25" width="700" height="25" fill="#fff5e0"/>
+                            <text x="125" y="42" font-size="10" fill="#333" text-anchor="middle">Q20</text>
+                            <text x="300" y="42" font-size="10" fill="#333" text-anchor="middle">1 in 100 (1%)</text>
+                            <text x="500" y="42" font-size="10" fill="#333" text-anchor="middle">99%</text>
+                            <text x="675" y="42" font-size="10" fill="#FFA726" text-anchor="middle">Moderate</text>
+                            
+                            <!-- Row 3: Q30 -->
+                            <rect x="50" y="50" width="700" height="25" fill="#e0ffe0"/>
+                            <text x="125" y="67" font-size="10" fill="#333" text-anchor="middle">Q30</text>
+                            <text x="300" y="67" font-size="10" fill="#333" text-anchor="middle">1 in 1,000 (0.1%)</text>
+                            <text x="500" y="67" font-size="10" fill="#333" text-anchor="middle">99.9%</text>
+                            <text x="675" y="67" font-size="10" fill="#4CAF50" font-weight="bold" text-anchor="middle">Good (Standard)</text>
+                            
+                            <!-- Row 4: Q40 -->
+                            <rect x="50" y="75" width="700" height="25" fill="#e0e0ff"/>
+                            <text x="125" y="92" font-size="10" fill="#333" text-anchor="middle">Q40</text>
+                            <text x="300" y="92" font-size="10" fill="#333" text-anchor="middle">1 in 10,000 (0.01%)</text>
+                            <text x="500" y="92" font-size="10" fill="#333" text-anchor="middle">99.99%</text>
+                            <text x="675" y="92" font-size="10" fill="#1E64C8" font-weight="bold" text-anchor="middle">High quality</text>
+                            
+                            <!-- Row 5: Q60 -->
+                            <rect x="50" y="100" width="700" height="25" fill="#d0d0ff"/>
+                            <text x="125" y="117" font-size="10" fill="#333" text-anchor="middle">Q60</text>
+                            <text x="300" y="117" font-size="10" fill="#333" text-anchor="middle">1 in 1,000,000</text>
+                            <text x="500" y="117" font-size="10" fill="#333" text-anchor="middle">99.9999%</text>
+                            <text x="675" y="117" font-size="10" fill="#1E64C8" font-weight="bold" text-anchor="middle">Very high quality</text>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="info-box" style="margin-top: 15px;">
+                <div class="info-label">Quality Score Application</div>
+                <div class="info-text">
+                    Quality scores are logarithmic: every 10-point increase represents a 10-fold decrease in error probability. 
+                    A Q30 threshold is commonly used for high-confidence variant calls, meaning we accept only variants with ≤0.1% chance of being errors. 
+                    Base quality scores from sequencing are combined with mapping quality and other factors to produce the final variant quality score (QUAL).
+                </div>
+            </div>
+        </div>
+    </div>
+        
+        <!-- Read Depth and Allele Frequency -->
+        <div class="visual-section" style="margin-top: 30px;">
+            <div class="section-title">3. Read Depth & Allele Frequency Analysis</div>
+            <div style="display: flex; justify-content: center; margin: 20px 0;">
+                <svg width="900" height="420" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Title -->
+                    <text x="450" y="20" font-size="16" fill="#1E64C8" font-weight="bold" text-anchor="middle">Interpreting Coverage and Allele Balance</text>
+                    
+                    <!-- Example 1: Heterozygous SNV -->
+                    <g transform="translate(50, 40)">
+                        <rect x="0" y="0" width="380" height="160" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        <text x="190" y="20" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">Example 1: Heterozygous SNV (A/G)</text>
+                        
+                        <!-- Read visualization -->
+                        <g transform="translate(20, 35)">
+                            <text x="0" y="0" font-size="11" fill="#666" font-weight="bold">Aligned Reads (DP=20):</text>
+                            
+                            <!-- A allele reads -->
+                            <text x="0" y="20" font-size="10" fill="#FF6B6B">Allele A:</text>
+                            <rect x="60" y="10" width="100" height="12" fill="#FF6B6B" opacity="0.8" rx="2"/>
+                            <text x="170" y="20" font-size="10" fill="#333">(9 reads, 45%)</text>
+                            
+                            <!-- G allele reads -->
+                            <text x="0" y="40" font-size="10" fill="#4CAF50">Allele G:</text>
+                            <rect x="60" y="30" width="110" height="12" fill="#4CAF50" opacity="0.8" rx="2"/>
+                            <text x="180" y="40" font-size="10" fill="#333">(11 reads, 55%)</text>
+                            
+                            <!-- Statistics -->
+                            <rect x="0" y="60" width="340" height="80" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                            <text x="10" y="80" font-size="10" fill="#333">Total Depth (DP): 20</text>
+                            <text x="10" y="95" font-size="10" fill="#333">Allele Frequency (AF): 0.55 (55%)</text>
+                            <text x="10" y="110" font-size="10" fill="#333">Expected for Het: ~0.5 (50%)</text>
+                            <text x="10" y="125" font-size="10" fill="#4CAF50" font-weight="bold">✓ Consistent with A/G genotype</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Example 2: Homozygous Variant -->
+                    <g transform="translate(470, 40)">
+                        <rect x="0" y="0" width="380" height="160" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        <text x="190" y="20" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">Example 2: Homozygous Variant (G/G)</text>
+                        
+                        <!-- Read visualization -->
+                        <g transform="translate(20, 35)">
+                            <text x="0" y="0" font-size="11" fill="#666" font-weight="bold">Aligned Reads (DP=25):</text>
+                            
+                            <!-- A allele reads (error) -->
+                            <text x="0" y="20" font-size="10" fill="#FF6B6B">Allele A:</text>
+                            <rect x="60" y="10" width="5" height="12" fill="#FF6B6B" opacity="0.8" rx="2"/>
+                            <text x="75" y="20" font-size="10" fill="#333">(1 read, 4%)</text>
+                            
+                            <!-- G allele reads -->
+                            <text x="0" y="40" font-size="10" fill="#4CAF50">Allele G:</text>
+                            <rect x="60" y="30" width="240" height="12" fill="#4CAF50" opacity="0.8" rx="2"/>
+                            <text x="310" y="40" font-size="10" fill="#333">(24 reads, 96%)</text>
+                            
+                            <!-- Statistics -->
+                            <rect x="0" y="60" width="340" height="80" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                            <text x="10" y="80" font-size="10" fill="#333">Total Depth (DP): 25</text>
+                            <text x="10" y="95" font-size="10" fill="#333">Allele Frequency (AF): 0.96 (96%)</text>
+                            <text x="10" y="110" font-size="10" fill="#333">Expected for Hom: ~1.0 (100%)</text>
+                            <text x="10" y="125" font-size="10" fill="#4CAF50" font-weight="bold">✓ Consistent with G/G genotype</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Example 3: Low Coverage Problem -->
+                    <g transform="translate(50, 220)">
+                        <rect x="0" y="0" width="380" height="160" fill="#fff5f5" stroke="#FF6B6B" stroke-width="2" rx="8"/>
+                        <text x="190" y="20" font-size="13" fill="#FF6B6B" font-weight="bold" text-anchor="middle">Example 3: Low Coverage (Unreliable)</text>
+                        
+                        <!-- Read visualization -->
+                        <g transform="translate(20, 35)">
+                            <text x="0" y="0" font-size="11" fill="#666" font-weight="bold">Aligned Reads (DP=3):</text>
+                            
+                            <!-- A allele reads -->
+                            <text x="0" y="20" font-size="10" fill="#FF6B6B">Allele A:</text>
+                            <rect x="60" y="10" width="15" height="12" fill="#FF6B6B" opacity="0.8" rx="2"/>
+                            <text x="85" y="20" font-size="10" fill="#333">(1 read, 33%)</text>
+                            
+                            <!-- G allele reads -->
+                            <text x="0" y="40" font-size="10" fill="#4CAF50">Allele G:</text>
+                            <rect x="60" y="30" width="30" height="12" fill="#4CAF50" opacity="0.8" rx="2"/>
+                            <text x="100" y="40" font-size="10" fill="#333">(2 reads, 67%)</text>
+                            
+                            <!-- Statistics -->
+                            <rect x="0" y="60" width="340" height="80" fill="#ffe0e0" stroke="#FF6B6B" stroke-width="1" rx="4"/>
+                            <text x="10" y="80" font-size="10" fill="#333">Total Depth (DP): 3</text>
+                            <text x="10" y="95" font-size="10" fill="#333">Allele Frequency (AF): 0.67 (67%)</text>
+                            <text x="10" y="110" font-size="10" fill="#666">Minimum recommended: DP ≥ 10</text>
+                            <text x="10" y="125" font-size="10" fill="#FF6B6B" font-weight="bold">✗ Insufficient coverage - unreliable call</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Example 4: Strand Bias Problem -->
+                    <g transform="translate(470, 220)">
+                        <rect x="0" y="0" width="380" height="160" fill="#fff5f5" stroke="#FF6B6B" stroke-width="2" rx="8"/>
+                        <text x="190" y="20" font-size="13" fill="#FF6B6B" font-weight="bold" text-anchor="middle">Example 4: Strand Bias (Artifact)</text>
+                        
+                        <!-- Read visualization -->
+                        <g transform="translate(20, 35)">
+                            <text x="0" y="0" font-size="11" fill="#666" font-weight="bold">Aligned Reads (DP=20):</text>
+                            
+                            <!-- Forward strand -->
+                            <text x="0" y="20" font-size="10" fill="#1E64C8">Forward (+):</text>
+                            <text x="80" y="20" font-size="10" fill="#FF6B6B">10 A reads</text>
+                            <text x="180" y="20" font-size="10" fill="#4CAF50">0 G reads</text>
+                            
+                            <!-- Reverse strand -->
+                            <text x="0" y="40" font-size="10" fill="#1E64C8">Reverse (-):</text>
+                            <text x="80" y="40" font-size="10" fill="#FF6B6B">0 A reads</text>
+                            <text x="180" y="40" font-size="10" fill="#4CAF50">10 G reads</text>
+                            
+                            <!-- Statistics -->
+                            <rect x="0" y="60" width="340" height="80" fill="#ffe0e0" stroke="#FF6B6B" stroke-width="1" rx="4"/>
+                            <text x="10" y="80" font-size="10" fill="#333">Fisher Strand Bias (FS): 85.2</text>
+                            <text x="10" y="95" font-size="10" fill="#333">Threshold: FS < 60 for SNVs</text>
+                            <text x="10" y="110" font-size="10" fill="#666">Variant only on one strand</text>
+                            <text x="10" y="125" font-size="10" fill="#FF6B6B" font-weight="bold">✗ Likely sequencing artifact</text>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="info-box" style="margin-top: 15px;">
+                <div class="info-label">Coverage & Allele Balance Interpretation</div>
+                <div class="info-text">
+                    <strong>Read Depth (DP):</strong> Higher coverage provides more statistical power. Minimum 10x recommended, 30x or higher ideal for clinical applications. 
+                    <strong>Allele Frequency (AF):</strong> For diploid organisms, heterozygous variants should have AF ≈ 0.5, homozygous variants AF ≈ 1.0. 
+                    Deviations may indicate sequencing bias, copy number variations, or sample contamination. 
+                    <strong>Strand Bias:</strong> True variants should appear on both DNA strands equally; systematic bias suggests technical artifacts.
+                </div>
+            </div>
+        </div>
+    </div>
+        
+        <!-- Haplotype-based Calling -->
+        <div class="visual-section" style="margin-top: 30px;">
+            <div class="section-title">4. Haplotype-Based Variant Calling (HaplotypeCaller Method)</div>
+            <div style="display: flex; justify-content: center; margin: 20px 0;">
+                <svg width="900" height="480" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Title -->
+                    <text x="450" y="20" font-size="16" fill="#1E64C8" font-weight="bold" text-anchor="middle">Local Assembly and Haplotype Construction</text>
+                    
+                    <!-- Step 1: Active Region Detection -->
+                    <g transform="translate(50, 40)">
+                        <rect x="0" y="0" width="800" height="80" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        <text x="400" y="20" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">Step 1: Identify Active Regions (Areas with Variation)</text>
+                        
+                        <!-- Reference -->
+                        <text x="20" y="45" font-size="11" fill="#666">Reference:</text>
+                        <rect x="100" y="35" width="660" height="16" fill="#E0E0E0" rx="2"/>
+                        <text x="110" y="47" font-size="10" fill="#333" font-family="monospace">...ATCGATCG</text>
+                        <text x="190" y="47" font-size="10" fill="#FF6B6B" font-family="monospace" font-weight="bold">AAAA</text>
+                        <text x="230" y="47" font-size="10" fill="#333" font-family="monospace">TCGATCGATCG</text>
+                        <text x="350" y="47" font-size="10" fill="#4CAF50" font-family="monospace" font-weight="bold">C</text>
+                        <text x="360" y="47" font-size="10" fill="#333" font-family="monospace">GATCGATCG...</text>
+                        
+                        <!-- Active region marker -->
+                        <rect x="180" y="55" width="200" height="20" fill="#FFA726" opacity="0.3" rx="4"/>
+                        <text x="280" y="68" font-size="10" fill="#FFA726" font-weight="bold" text-anchor="middle">Active Region (High Mismatch)</text>
+                    </g>
+                    
+                    <!-- Step 2: Local Assembly -->
+                    <g transform="translate(50, 140)">
+                        <rect x="0" y="0" width="800" height="140" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        <text x="400" y="20" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">Step 2: Local De Novo Assembly of Reads</text>
+                        
+                        <g transform="translate(20, 35)">
+                            <text x="0" y="0" font-size="11" fill="#666" font-weight="bold">Reads in active region:</text>
+                            
+                            <!-- Multiple reads - simplified for clarity -->
+                            <text x="0" y="20" font-size="9" fill="#333" font-family="monospace">Read1: ...ATCG</text>
+                            <text x="80" y="20" font-size="9" fill="#4CAF50" font-family="monospace" font-weight="bold">AAA</text>
+                            <text x="110" y="20" font-size="9" fill="#333" font-family="monospace">TCGATC</text>
+                            <text x="170" y="20" font-size="9" fill="#FFA726" font-family="monospace" font-weight="bold">G</text>
+                            <text x="180" y="20" font-size="9" fill="#333" font-family="monospace">GATCG...</text>
+                            
+                            <text x="0" y="35" font-size="9" fill="#333" font-family="monospace">Read2: ...ATCG</text>
+                            <text x="80" y="35" font-size="9" fill="#FF6B6B" font-family="monospace" font-weight="bold">AAAA</text>
+                            <text x="120" y="35" font-size="9" fill="#333" font-family="monospace">TCGATC</text>
+                            <text x="180" y="35" font-size="9" fill="#1E64C8" font-family="monospace" font-weight="bold">C</text>
+                            <text x="190" y="35" font-size="9" fill="#333" font-family="monospace">GATCG...</text>
+                            
+                            <text x="0" y="50" font-size="9" fill="#666">...and 13 more reads supporting these patterns...</text>
+                            
+                            <!-- Assembly result -->
+                            <rect x="0" y="70" width="760" height="50" fill="#e0ffe0" stroke="#4CAF50" stroke-width="2" rx="4"/>
+                            <text x="10" y="87" font-size="10" fill="#666">Assembled Haplotypes:</text>
+                            <text x="10" y="103" font-size="10" fill="#4CAF50" font-weight="bold">H1: ...ATCG-AAA-TCGATC-G-GATCG... (1bp deletion + C→G SNV)</text>
+                            <text x="450" y="103" font-size="9" fill="#666">(8 reads)</text>
+                            <text x="530" y="87" font-size="10" fill="#1E64C8" font-weight="bold">H2: ...ATCG-AAAA-TCGATC-C-GATCG... (reference)</text>
+                            <text x="760" y="87" font-size="9" fill="#666">(7 reads)</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Step 3: Haplotype Evaluation -->
+                    <g transform="translate(50, 300)">
+                        <rect x="0" y="0" width="800" height="160" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        <text x="400" y="20" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">Step 3: Calculate Likelihood for Each Haplotype Pair</text>
+                        
+                        <g transform="translate(40, 40)">
+                            <!-- Haplotype pairs -->
+                            <rect x="0" y="0" width="240" height="100" fill="#ffe0e0" stroke="#FF6B6B" stroke-width="2" rx="6"/>
+                            <text x="120" y="20" font-size="11" fill="#FF6B6B" font-weight="bold" text-anchor="middle">H2/H2 (Ref/Ref)</text>
+                            <text x="15" y="40" font-size="10" fill="#333">Both chromosomes</text>
+                            <text x="15" y="55" font-size="10" fill="#333">match reference</text>
+                            <text x="15" y="75" font-size="10" fill="#333">Likelihood: 0.001</text>
+                            <text x="15" y="90" font-size="10" fill="#FF6B6B">P(H2/H2|reads) = 2%</text>
+                            
+                            <rect x="260" y="0" width="240" height="100" fill="#e0ffe0" stroke="#4CAF50" stroke-width="2" rx="6"/>
+                            <text x="380" y="20" font-size="11" fill="#4CAF50" font-weight="bold" text-anchor="middle">H1/H2 (Het)</text>
+                            <text x="275" y="40" font-size="10" fill="#333">One variant</text>
+                            <text x="275" y="55" font-size="10" fill="#333">one reference</text>
+                            <text x="275" y="75" font-size="10" fill="#333">Likelihood: 0.823</text>
+                            <text x="275" y="90" font-size="10" fill="#4CAF50" font-weight="bold">P(H1/H2|reads) = 79% ✓</text>
+                            
+                            <rect x="520" y="0" width="240" height="100" fill="#e0e0ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                            <text x="640" y="20" font-size="11" fill="#1E64C8" font-weight="bold" text-anchor="middle">H1/H1 (Hom Alt)</text>
+                            <text x="535" y="40" font-size="10" fill="#333">Both chromosomes</text>
+                            <text x="535" y="55" font-size="10" fill="#333">have variant</text>
+                            <text x="535" y="75" font-size="10" fill="#333">Likelihood: 0.195</text>
+                            <text x="535" y="90" font-size="10" fill="#1E64C8">P(H1/H1|reads) = 19%</text>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="info-box" style="margin-top: 15px;">
+                <div class="info-label">Advantages of Haplotype-Based Calling</div>
+                <div class="info-text">
+                    Traditional variant callers evaluate each position independently, which can miss complex variants or misinterpret nearby variants. 
+                    Haplotype-based methods like GATK HaplotypeCaller perform local de novo assembly to construct complete haplotypes in regions of variation. 
+                    This approach: (1) Accurately calls indels by considering the full context, (2) Correctly phases nearby variants that occur on the same chromosome, 
+                    (3) Reduces false positives from alignment artifacts, and (4) Better handles complex variants like MNPs (multi-nucleotide polymorphisms) 
+                    by evaluating them as a single event rather than multiple independent SNVs.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Real-World Example -->
+        <div class="visual-section" style="margin-top: 30px;">
+            <div class="section-title">5. Complete Real-World Example: Clinical Variant</div>
+            <div style="display: flex; justify-content: center; margin: 20px 0;">
+                <svg width="900" height="450" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Title -->
+                    <text x="450" y="20" font-size="16" fill="#1E64C8" font-weight="bold" text-anchor="middle">BRCA1 Gene Pathogenic Variant (chr17:43094464 G>A)</text>
+                    
+                    <!-- Variant Information Panel -->
+                    <g transform="translate(50, 40)">
+                        <rect x="0" y="0" width="800" height="100" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        <text x="400" y="20" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">Variant Details from VCF File</text>
+                        
+                        <g transform="translate(20, 35)">
+                            <text x="0" y="0" font-size="10" fill="#333">CHROM: chr17</text>
+                            <text x="150" y="0" font-size="10" fill="#333">POS: 43094464</text>
+                            <text x="300" y="0" font-size="10" fill="#333">REF: G</text>
+                            <text x="400" y="0" font-size="10" fill="#333">ALT: A</text>
+                            <text x="500" y="0" font-size="10" fill="#4CAF50" font-weight="bold">QUAL: 2847.77</text>
+                            
+                            <text x="0" y="20" font-size="10" fill="#333">Gene: BRCA1</text>
+                            <text x="150" y="20" font-size="10" fill="#333">Transcript: NM_007294.3</text>
+                            <text x="380" y="20" font-size="10" fill="#333">Consequence: missense_variant</text>
+                            
+                            <text x="0" y="40" font-size="10" fill="#FF6B6B" font-weight="bold">Clinical Significance: Pathogenic</text>
+                            <text x="260" y="40" font-size="10" fill="#333">ClinVar ID: VCV000055726</text>
+                            
+                            <text x="0" y="60" font-size="10" fill="#333">Protein Change: p.Cys64Tyr (C64Y)</text>
+                            <text x="260" y="60" font-size="10" fill="#666">Associated with hereditary breast cancer</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Sequencing Evidence -->
+                    <g transform="translate(50, 160)">
+                        <rect x="0" y="0" width="800" height="130" fill="white" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        <text x="400" y="20" font-size="13" fill="#1E64C8" font-weight="bold" text-anchor="middle">Sequencing Evidence</text>
+                        
+                        <g transform="translate(30, 40)">
+                            <!-- Coverage visualization -->
+                            <text x="0" y="0" font-size="11" fill="#666" font-weight="bold">Coverage at variant position (DP=87):</text>
+                            
+                            <!-- Reference allele -->
+                            <text x="0" y="25" font-size="10" fill="#E0E0E0">G (Ref):</text>
+                            <rect x="70" y="15" width="200" height="14" fill="#E0E0E0" rx="2"/>
+                            <text x="280" y="26" font-size="10" fill="#666">42 reads (48.3%)</text>
+                            <text x="400" y="26" font-size="9" fill="#666">Avg Quality: 34.2</text>
+                            
+                            <!-- Alternative allele -->
+                            <text x="0" y="50" font-size="10" fill="#4CAF50" font-weight="bold">A (Alt):</text>
+                            <rect x="70" y="40" width="210" height="14" fill="#4CAF50" opacity="0.8" rx="2"/>
+                            <text x="290" y="51" font-size="10" fill="#333" font-weight="bold">45 reads (51.7%)</text>
+                            <text x="400" y="51" font-size="9" fill="#666">Avg Quality: 35.8</text>
+                            
+                            <!-- Quality metrics -->
+                            <rect x="0" y="70" width="740" height="45" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                            <text x="10" y="88" font-size="10" fill="#333">Genotype: 0/1 (Heterozygous G/A)</text>
+                            <text x="250" y="88" font-size="10" fill="#333">GQ: 99 (High confidence)</text>
+                            <text x="450" y="88" font-size="10" fill="#333">MQ: 60 (Perfect mapping)</text>
+                            <text x="10" y="103" font-size="10" fill="#333">Strand Bias (FS): 1.234 (No bias)</text>
+                            <text x="250" y="103" font-size="10" fill="#333">Allele Balance: 0.517 (Expected ~0.5)</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Filtering Decision -->
+                    <g transform="translate(50, 310)">
+                        <rect x="0" y="0" width="800" height="120" fill="#e0ffe0" stroke="#4CAF50" stroke-width="3" rx="8"/>
+                        <text x="400" y="25" font-size="14" fill="#4CAF50" font-weight="bold" text-anchor="middle">✓ PASS - High Quality Variant Call</text>
+                        
+                        <g transform="translate(30, 45)">
+                            <text x="0" y="0" font-size="11" fill="#666" font-weight="bold">Quality checks passed:</text>
+                            
+                            <g transform="translate(20, 15)">
+                                <circle cx="0" cy="-3" r="4" fill="#4CAF50"/>
+                                <text x="15" y="0" font-size="10" fill="#333">Quality score (QUAL=2847.77) exceeds threshold (Q30)</text>
+                                
+                                <circle cx="0" cy="12" r="4" fill="#4CAF50"/>
+                                <text x="15" y="15" font-size="10" fill="#333">Read depth (DP=87) sufficient for high-confidence calling</text>
+                                
+                                <circle cx="0" cy="27" r="4" fill="#4CAF50"/>
+                                <text x="15" y="30" font-size="10" fill="#333">Allele balance (0.517) consistent with heterozygous genotype</text>
+                                
+                                <circle cx="0" cy="42" r="4" fill="#4CAF50"/>
+                                <text x="15" y="45" font-size="10" fill="#333">No strand bias detected (FS=1.234 < 60)</text>
+                                
+                                <circle cx="0" cy="57" r="4" fill="#4CAF50"/>
+                                <text x="15" y="60" font-size="10" fill="#333">Perfect mapping quality (MQ=60) - unique alignment</text>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="info-box" style="margin-top: 15px;">
+                <div class="info-label">Clinical Interpretation</div>
+                <div class="info-text">
+                    This example demonstrates a high-confidence pathogenic variant in the BRCA1 gene. The excellent quality metrics 
+                    (QUAL=2847, DP=87, perfect mapping quality) and balanced allele frequencies (51.7% vs 48.3%) provide strong evidence for 
+                    a true heterozygous variant. The BRCA1 C64Y variant is well-documented in ClinVar as pathogenic, significantly increasing 
+                    breast and ovarian cancer risk. This variant would be reported in a clinical setting and would inform medical management decisions. 
+                    The high-quality sequencing data ensures confidence in this clinically actionable result, minimizing the risk of false positive 
+                    findings that could lead to unnecessary interventions.
+                </div>
+            </div>
+        </div>
+    </div>
 </body>
 </html>

@@ -161,6 +161,151 @@
         <div class="highlight-box">
             <div class="highlight-text"><strong>Phred Score:</strong> Q = -10 × log₁₀(P) | Q30 = 99.9% accuracy, Q40 = 99.99%</div>
         </div>
+
+        <!-- Detailed Examples Section -->
+        <div class="content-box" style="margin-top: 30px;">
+            <div class="section-title">Detailed Component Breakdown</div>
+            
+            <!-- Line 1: Identifier -->
+            <div style="margin-bottom: 25px;">
+                <div style="background: #e8f2ff; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                    <div style="font-size: 18px; font-weight: 600; color: #1E64C8; margin-bottom: 8px;">Line 1: Sequence Identifier</div>
+                    <div style="font-family: monospace; font-size: 14px; background: white; padding: 10px; border-radius: 5px;">
+                        @HWUSI-EAS100R:6:73:941:1973#0/1
+                    </div>
+                </div>
+                <div style="padding: 0 15px;">
+                    <div style="font-size: 15px; color: #333; line-height: 1.8;">
+                        <strong>Components:</strong><br>
+                        • <strong>@</strong> - Indicates start of FASTQ record<br>
+                        • <strong>HWUSI-EAS100R</strong> - Instrument name<br>
+                        • <strong>6</strong> - Flow cell lane<br>
+                        • <strong>73</strong> - Tile number within lane<br>
+                        • <strong>941</strong> - X-coordinate on tile<br>
+                        • <strong>1973</strong> - Y-coordinate on tile<br>
+                        • <strong>#0</strong> - Index sequence (for multiplexing)<br>
+                        • <strong>/1</strong> - Read number (paired-end: /1 or /2)
+                    </div>
+                </div>
+            </div>
+
+            <!-- Line 2: Sequence -->
+            <div style="margin-bottom: 25px;">
+                <div style="background: #e8f2ff; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                    <div style="font-size: 18px; font-weight: 600; color: #1E64C8; margin-bottom: 8px;">Line 2: Nucleotide Sequence</div>
+                    <div style="font-family: monospace; font-size: 14px; background: white; padding: 10px; border-radius: 5px;">
+                        GATTTGGGGTTCAAAGCAGTATCGATCAAATAGTAAATCCATTTGTTCAACTCACAGTTT
+                    </div>
+                </div>
+                <div style="padding: 0 15px;">
+                    <div style="font-size: 15px; color: #333; line-height: 1.8;">
+                        <strong>Details:</strong><br>
+                        • Raw base calls from sequencing instrument<br>
+                        • Standard nucleotides: <strong>A</strong> (Adenine), <strong>T</strong> (Thymine), <strong>C</strong> (Cytosine), <strong>G</strong> (Guanine)<br>
+                        • <strong>N</strong> represents ambiguous base call<br>
+                        • Length varies by sequencing platform (typically 50-300 bp)<br>
+                        • Read direction: 5' → 3'
+                    </div>
+                </div>
+            </div>
+
+            <!-- Line 3: Separator -->
+            <div style="margin-bottom: 25px;">
+                <div style="background: #e8f2ff; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                    <div style="font-size: 18px; font-weight: 600; color: #1E64C8; margin-bottom: 8px;">Line 3: Separator Line</div>
+                    <div style="font-family: monospace; font-size: 14px; background: white; padding: 10px; border-radius: 5px;">
+                        +
+                    </div>
+                </div>
+                <div style="padding: 0 15px;">
+                    <div style="font-size: 15px; color: #333; line-height: 1.8;">
+                        <strong>Purpose:</strong><br>
+                        • Always begins with <strong>+</strong> symbol<br>
+                        • Separates sequence from quality scores<br>
+                        • May optionally repeat the identifier from Line 1<br>
+                        • Modern FASTQ files typically use just "+" for efficiency
+                    </div>
+                </div>
+            </div>
+
+            <!-- Line 4: Quality Scores -->
+            <div style="margin-bottom: 25px;">
+                <div style="background: #e8f2ff; padding: 15px; border-radius: 8px; margin-bottom: 10px;">
+                    <div style="font-size: 18px; font-weight: 600; color: #1E64C8; margin-bottom: 8px;">Line 4: Quality Scores</div>
+                    <div style="font-family: monospace; font-size: 14px; background: white; padding: 10px; border-radius: 5px;">
+                        !''*((((***+))%%%++)(%%%%).1***-+*''))**55CCF>>>>>>CCCCCCC65
+                    </div>
+                </div>
+                <div style="padding: 0 15px;">
+                    <div style="font-size: 15px; color: #333; line-height: 1.8;">
+                        <strong>Encoding System:</strong><br>
+                        • ASCII characters represent Phred quality scores<br>
+                        • Each character corresponds to one base in Line 2<br>
+                        • <strong>Must be same length as sequence</strong><br><br>
+                        
+                        <strong>Quality Score Examples:</strong><br>
+                        • <strong>!</strong> (ASCII 33) = Q0 = 0% accuracy<br>
+                        • <strong>*</strong> (ASCII 42) = Q9 = 87.4% accuracy<br>
+                        • <strong>5</strong> (ASCII 53) = Q20 = 99% accuracy<br>
+                        • <strong>?</strong> (ASCII 63) = Q30 = 99.9% accuracy<br>
+                        • <strong>I</strong> (ASCII 73) = Q40 = 99.99% accuracy<br><br>
+                        
+                        <strong>Calculation:</strong> Quality (Q) = ASCII value - 33
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Quality Score Visual Guide -->
+        <div class="content-box" style="margin-top: 20px;">
+            <div class="section-title">Phred Quality Score Visual Guide</div>
+            <div style="background: white; padding: 20px; border-radius: 8px;">
+                <svg width="900" height="220" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Title -->
+                    <text x="450" y="25" font-size="16" fill="#1E64C8" font-weight="bold" text-anchor="middle">ASCII Character to Quality Score Mapping</text>
+                    
+                    <!-- Low Quality (Red) -->
+                    <rect x="50" y="50" width="250" height="60" fill="#ffebee" stroke="#e53935" stroke-width="2" rx="5"/>
+                    <text x="175" y="75" font-size="14" fill="#c62828" font-weight="bold" text-anchor="middle">Low Quality (Q0-Q20)</text>
+                    <text x="175" y="95" font-size="12" fill="#333" text-anchor="middle">Characters: ! " # $ % &amp; ' ( ) * + , - . / 0 1 2 3 4</text>
+                    
+                    <!-- Medium Quality (Orange) -->
+                    <rect x="325" y="50" width="250" height="60" fill="#fff3e0" stroke="#fb8c00" stroke-width="2" rx="5"/>
+                    <text x="450" y="75" font-size="14" fill="#e65100" font-weight="bold" text-anchor="middle">Medium Quality (Q20-Q30)</text>
+                    <text x="450" y="95" font-size="12" fill="#333" text-anchor="middle">Characters: 5 6 7 8 9 : ; &lt; = &gt;</text>
+                    
+                    <!-- High Quality (Green) -->
+                    <rect x="600" y="50" width="250" height="60" fill="#e8f5e9" stroke="#43a047" stroke-width="2" rx="5"/>
+                    <text x="725" y="75" font-size="14" fill="#2e7d32" font-weight="bold" text-anchor="middle">High Quality (Q30+)</text>
+                    <text x="725" y="95" font-size="12" fill="#333" text-anchor="middle">Characters: ? @ A B C D E F G H I J K</text>
+                    
+                    <!-- Formula -->
+                    <rect x="50" y="130" width="800" height="70" fill="#f5f5f5" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="450" y="158" font-size="15" fill="#1E64C8" font-weight="bold" text-anchor="middle">Phred Quality Score Formula</text>
+                    <text x="450" y="185" font-size="13" fill="#333" text-anchor="middle">Q = -10 × log₁₀(P)  |  P = 10^(-Q/10)  |  Where P = probability of incorrect base call</text>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Practical Example -->
+        <div class="content-box" style="margin-top: 20px;">
+            <div class="section-title">Complete FASTQ Record Example</div>
+            <div style="background: #f5f5f5; padding: 20px; border-radius: 8px; font-family: monospace; font-size: 14px; line-height: 2;">
+                <div style="color: #1E64C8; font-weight: bold;">@SRR001666.1 071112_SLXA-EAS1_s_7:5:1:817:345 length=36</div>
+                <div style="color: #2e7d32;">GGGTGATGGCCGCTGCCGATGGCGTCAAATCCCACC</div>
+                <div style="color: #1E64C8; font-weight: bold;">+SRR001666.1 071112_SLXA-EAS1_s_7:5:1:817:345 length=36</div>
+                <div style="color: #e65100;">IIIIIIIIIIIIIIIIIIIIIIIIIIIIII9IG9IC</div>
+            </div>
+            <div style="margin-top: 15px; padding: 15px; background: #fff4e6; border-radius: 8px;">
+                <div style="font-size: 15px; color: #333; line-height: 1.8;">
+                    <strong>Interpretation:</strong><br>
+                    • Sequence length: 36 bases<br>
+                    • Quality scores: Mostly "I" characters (Q40 = 99.99% accuracy)<br>
+                    • Last few bases show slightly lower quality: "9" (Q24 = 99.4%), "I" (Q40), "G" (Q38), "9" (Q24), "I" (Q40), "C" (Q34)<br>
+                    • Overall: High-quality read suitable for downstream analysis
+                </div>
+            </div>
+        </div>
     
     </div>
 </body>

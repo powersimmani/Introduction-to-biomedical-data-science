@@ -1,21 +1,18 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Illumina Sequencing</title>
+    <title>NGS Library Preparation - Enhanced Guide</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            background: #f5f7fa;
             min-height: 100vh;
             padding: 40px 20px;
         }
-        .container { width: 960px; padding: 35px 45px; background: white; }
+        .container { max-width: 1200px; width: 100%; padding: 35px 45px; background: white; margin: 0 auto; }
         .title {
             font-size: 36px;
             font-weight: 700;
@@ -24,278 +21,1212 @@
             text-align: center;
         }
         .process-visual {
-            background: white;
-            padding: 20px;
+            background: #f8fbff;
+            border: 2px solid #1E64C8;
             border-radius: 10px;
+            padding: 20px;
             margin-bottom: 20px;
             display: flex;
             justify-content: center;
         }
-        .spec-grid {
+        .info-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 15px;
+            gap: 20px;
         }
-        .spec-box {
+        .info-box {
             background: #f0f5fc;
-            border: 2px solid #1E64C8;
-            border-radius: 8px;
-            padding: 15px;
-            text-align: center;
+            border-left: 4px solid #1E64C8;
+            padding: 18px 22px;
+            border-radius: 6px;
         }
-        .spec-label {
-            font-size: 14px;
-            color: #666;
-            margin-bottom: 5px;
+        .info-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 8px;
         }
-        .spec-value {
-            font-size: 18px;
+        .info-text {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.6;
+        }
+    
+        
+        /* Detailed sections */
+        .section-title {
+            font-size: 32px;
             font-weight: 700;
             color: #1E64C8;
+            margin: 50px 0 30px 0;
+            text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 15px;
         }
-    </style>
+        
+        .detail-section {
+            background: white;
+            border: 2px solid #e0e8f4;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+            page-break-inside: avoid;
+        }
+        
+        .detail-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .detail-number {
+            background: #1E64C8;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+            flex-shrink: 0;
+        }
+        
+        .detail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .detail-text {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.8;
+        }
+        
+        .detail-text h3 {
+            color: #1E64C8;
+            font-size: 18px;
+            margin: 20px 0 10px 0;
+        }
+        
+        .detail-text h4 {
+            color: #1E64C8;
+            font-size: 16px;
+            margin: 15px 0 8px 0;
+        }
+        
+        .detail-text ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .detail-text li {
+            margin-bottom: 8px;
+        }
+        
+        .detail-diagram {
+            background: #f8fbff;
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .highlight-box {
+            background: #fff8e1;
+            border-left: 4px solid #FFA726;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .key-point {
+            background: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        @media (max-width: 768px) {
+            .detail-content {
+                grid-template-columns: 1fr;
+            }
+        }
+    
+        
+        @media (max-width: 1024px) {
+            .container { 
+                max-width: 960px;
+                padding: 25px 30px;
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .detail-content {
+                grid-template-columns: 1fr;
+            }
+            .info-grid {
+                grid-template-columns: 1fr;
+            }
+            .title {
+                font-size: 28px;
+            }
+            .section-title {
+                font-size: 24px;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            .container {
+                padding: 20px 15px;
+            }
+            .process-visual {
+                overflow-x: auto;
+            }
+        }</style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Illumina Sequencing (SBS)</div>
+        <div class="title">Library Preparation</div>
         
         <div class="process-visual">
-            <svg width="900" height="420" xmlns="http://www.w3.org/2000/svg">
-                <!-- Background for flow cell -->
-                <rect x="10" y="10" width="880" height="400" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="10"/>
+            <svg width="900" height="520" xmlns="http://www.w3.org/2000/svg">
+                <!-- Background -->
+                <rect x="5" y="5" width="890" height="510" fill="white" stroke="#1E64C8" stroke-width="2" rx="10"/>
                 
                 <!-- Title -->
-                <text x="450" y="35" font-size="20" fill="#1E64C8" font-weight="bold" text-anchor="middle">Sequencing by Synthesis Process</text>
+                <text x="450" y="30" font-size="18" fill="#1E64C8" font-weight="bold" text-anchor="middle">NGS Library Preparation: Molecular Details</text>
                 
-                <!-- Step 1: Library Preparation -->
-                <g transform="translate(50, 60)">
-                    <rect x="0" y="0" width="160" height="140" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="8"/>
-                    <text x="80" y="20" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">1. Library Prep</text>
+                <!-- Step 1: DNA Fragmentation -->
+                <g transform="translate(30, 50)">
+                    <rect x="0" y="0" width="250" height="200" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                    <text x="125" y="20" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">1. DNA Fragmentation</text>
                     
-                    <!-- DNA fragment visualization -->
-                    <rect x="30" y="40" width="100" height="8" fill="#1E64C8" rx="2"/>
-                    <!-- Adapters -->
-                    <rect x="25" y="38" width="10" height="12" fill="#FF6B6B" rx="2"/>
-                    <rect x="125" y="38" width="10" height="12" fill="#FF6B6B" rx="2"/>
+                    <!-- Original DNA -->
+                    <text x="10" y="40" font-size="10" fill="#666">Input DNA (High MW)</text>
+                    <rect x="10" y="45" width="230" height="8" fill="#1E64C8" rx="2"/>
                     
-                    <!-- Multiple fragments -->
-                    <rect x="30" y="60" width="100" height="8" fill="#1E64C8" opacity="0.6" rx="2"/>
-                    <rect x="25" y="58" width="10" height="12" fill="#FF6B6B" opacity="0.6" rx="2"/>
-                    <rect x="125" y="58" width="10" height="12" fill="#FF6B6B" opacity="0.6" rx="2"/>
+                    <!-- Fragmentation methods -->
+                    <g transform="translate(10, 65)">
+                        <!-- Physical shearing -->
+                        <rect x="0" y="0" width="105" height="60" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+                        <text x="52" y="15" font-size="10" fill="#666" font-weight="bold" text-anchor="middle">Physical</text>
+                        <!-- Sonication waves -->
+                        <path d="M 20 25 Q 25 20 30 25 T 40 25" stroke="#4CAF50" stroke-width="1.5" fill="none"/>
+                        <path d="M 20 35 Q 25 30 30 35 T 40 35" stroke="#4CAF50" stroke-width="1.5" fill="none"/>
+                        <path d="M 20 45 Q 25 40 30 45 T 40 45" stroke="#4CAF50" stroke-width="1.5" fill="none"/>
+                        <text x="52" y="55" font-size="9" fill="#666" text-anchor="middle">Sonication</text>
+                        
+                        <!-- Enzymatic digestion -->
+                        <rect x="115" y="0" width="105" height="60" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+                        <text x="167" y="15" font-size="10" fill="#666" font-weight="bold" text-anchor="middle">Enzymatic</text>
+                        <!-- Enzyme icon -->
+                        <ellipse cx="167" cy="35" rx="20" ry="15" fill="#FFA726" opacity="0.3"/>
+                        <text x="167" y="39" font-size="9" fill="#333" text-anchor="middle">DNase</text>
+                        <text x="167" y="55" font-size="9" fill="#666" text-anchor="middle">Tagmentation</text>
+                    </g>
                     
-                    <rect x="30" y="80" width="100" height="8" fill="#1E64C8" opacity="0.3" rx="2"/>
-                    <rect x="25" y="78" width="10" height="12" fill="#FF6B6B" opacity="0.3" rx="2"/>
-                    <rect x="125" y="78" width="10" height="12" fill="#FF6B6B" opacity="0.3" rx="2"/>
+                    <!-- Fragmented DNA -->
+                    <text x="10" y="145" font-size="10" fill="#666">Fragmented DNA (200-600 bp)</text>
+                    <g transform="translate(10, 150)">
+                        <rect x="0" y="0" width="45" height="6" fill="#1E64C8" rx="1"/>
+                        <rect x="50" y="0" width="35" height="6" fill="#1E64C8" rx="1"/>
+                        <rect x="90" y="0" width="55" height="6" fill="#1E64C8" rx="1"/>
+                        <rect x="150" y="0" width="40" height="6" fill="#1E64C8" rx="1"/>
+                        <rect x="195" y="0" width="35" height="6" fill="#1E64C8" rx="1"/>
+                    </g>
                     
-                    <text x="80" y="115" font-size="11" fill="#666" text-anchor="middle">DNA + Adapters</text>
-                    <text x="80" y="130" font-size="11" fill="#666" text-anchor="middle">Size Selection</text>
+                    <!-- Size distribution -->
+                    <rect x="60" y="170" width="120" height="25" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+                    <path d="M 70 185 Q 120 175 170 185" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                    <text x="120" y="192" font-size="8" fill="#666" text-anchor="middle">Target: 300-500 bp</text>
                 </g>
                 
                 <!-- Arrow 1 -->
-                <path d="M 220 130 L 250 130" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                <path d="M 290 150 L 320 150" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow)"/>
                 
-                <!-- Step 2: Cluster Generation -->
-                <g transform="translate(260, 60)">
-                    <rect x="0" y="0" width="160" height="140" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="8"/>
-                    <text x="80" y="20" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">2. Cluster Generation</text>
+                <!-- Step 2: End Repair & A-tailing -->
+                <g transform="translate(330, 50)">
+                    <rect x="0" y="0" width="250" height="200" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                    <text x="125" y="20" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">2. End Repair & A-tailing</text>
                     
-                    <!-- Flow cell surface -->
-                    <rect x="10" y="35" width="140" height="80" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="4"/>
-                    
-                    <!-- Bridge amplification visualization -->
-                    <!-- Original strand -->
-                    <path d="M 30 100 Q 40 85 50 100" stroke="#1E64C8" stroke-width="2" fill="none"/>
-                    <circle cx="30" cy="100" r="3" fill="#FF6B6B"/>
-                    <circle cx="50" cy="100" r="3" fill="#FF6B6B"/>
-                    
-                    <!-- Amplified clusters -->
-                    <g opacity="0.7">
-                        <path d="M 35 100 Q 45 85 55 100" stroke="#1E64C8" stroke-width="2" fill="none"/>
-                        <path d="M 25 100 Q 35 85 45 100" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                    <!-- End repair process -->
+                    <g transform="translate(20, 35)">
+                        <text x="105" y="0" font-size="10" fill="#666" text-anchor="middle">End Repair (Blunt ends)</text>
+                        
+                        <!-- Before repair -->
+                        <text x="10" y="15" font-size="9" fill="#666">5'</text>
+                        <rect x="25" y="10" width="60" height="6" fill="#1E64C8"/>
+                        <path d="M 85 13 L 95 8 L 95 13" fill="#1E64C8"/>
+                        <text x="100" y="15" font-size="9" fill="#666">3'</text>
+                        
+                        <text x="10" y="30" font-size="9" fill="#666">3'</text>
+                        <path d="M 25 27 L 15 27 L 15 22" fill="#1E64C8"/>
+                        <rect x="25" y="24" width="60" height="6" fill="#1E64C8"/>
+                        <text x="100" y="30" font-size="9" fill="#666">5'</text>
+                        
+                        <!-- Enzyme action -->
+                        <ellipse cx="125" cy="20" rx="15" ry="12" fill="#4CAF50" opacity="0.3"/>
+                        <text x="125" y="24" font-size="8" fill="#333" text-anchor="middle">T4 Pol</text>
+                        
+                        <!-- After repair -->
+                        <text x="155" y="15" font-size="9" fill="#666">5'</text>
+                        <rect x="170" y="10" width="60" height="6" fill="#1E64C8"/>
+                        <text x="235" y="15" font-size="9" fill="#666">3'</text>
+                        
+                        <text x="155" y="30" font-size="9" fill="#666">3'</text>
+                        <rect x="170" y="24" width="60" height="6" fill="#1E64C8"/>
+                        <text x="235" y="30" font-size="9" fill="#666">5'</text>
                     </g>
                     
-                    <!-- More clusters -->
-                    <g transform="translate(50, 0)">
-                        <path d="M 30 100 Q 40 85 50 100" stroke="#1E64C8" stroke-width="2" fill="none"/>
-                        <circle cx="30" cy="100" r="3" fill="#FF6B6B"/>
-                        <circle cx="50" cy="100" r="3" fill="#FF6B6B"/>
-                        <g opacity="0.7">
-                            <path d="M 35 100 Q 45 85 55 100" stroke="#1E64C8" stroke-width="2" fill="none"/>
-                            <path d="M 25 100 Q 35 85 45 100" stroke="#1E64C8" stroke-width="2" fill="none"/>
-                        </g>
+                    <!-- A-tailing process -->
+                    <g transform="translate(20, 90)">
+                        <text x="105" y="0" font-size="10" fill="#666" text-anchor="middle">A-tailing (3' overhang)</text>
+                        
+                        <!-- Before A-tailing -->
+                        <text x="10" y="15" font-size="9" fill="#666">5'</text>
+                        <rect x="25" y="10" width="60" height="6" fill="#1E64C8"/>
+                        <text x="90" y="15" font-size="9" fill="#666">3'</text>
+                        
+                        <!-- Taq polymerase -->
+                        <ellipse cx="115" cy="13" rx="15" ry="12" fill="#FFA726" opacity="0.3"/>
+                        <text x="115" y="17" font-size="8" fill="#333" text-anchor="middle">Taq</text>
+                        
+                        <!-- After A-tailing -->
+                        <text x="155" y="15" font-size="9" fill="#666">5'</text>
+                        <rect x="170" y="10" width="60" height="6" fill="#1E64C8"/>
+                        <circle cx="233" cy="13" r="4" fill="#FF6B6B"/>
+                        <text x="233" y="16" font-size="8" fill="white" text-anchor="middle">A</text>
+                        <text x="245" y="15" font-size="9" fill="#666">3'</text>
+                        
+                        <text x="155" y="30" font-size="9" fill="#666">3'</text>
+                        <circle cx="167" cy="27" r="4" fill="#FF6B6B"/>
+                        <text x="167" y="30" font-size="8" fill="white" text-anchor="middle">A</text>
+                        <rect x="170" y="24" width="60" height="6" fill="#1E64C8"/>
+                        <text x="245" y="30" font-size="9" fill="#666">5'</text>
                     </g>
                     
-                    <text x="80" y="130" font-size="11" fill="#666" text-anchor="middle">Bridge Amplification</text>
+                    <!-- Chemical details -->
+                    <rect x="30" y="140" width="190" height="45" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+                    <text x="125" y="155" font-size="9" fill="#666" text-anchor="middle">Reaction conditions:</text>
+                    <text x="125" y="168" font-size="8" fill="#333" text-anchor="middle">• T4 DNA Polymerase + T4 PNK</text>
+                    <text x="125" y="179" font-size="8" fill="#333" text-anchor="middle">• Taq Polymerase + dATP @ 72°C</text>
                 </g>
                 
                 <!-- Arrow 2 -->
-                <path d="M 430 130 L 460 130" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                <path d="M 590 150 L 620 150" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow)"/>
                 
-                <!-- Step 3: Sequencing Cycles -->
-                <g transform="translate(470, 60)">
-                    <rect x="0" y="0" width="180" height="140" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="8"/>
-                    <text x="90" y="20" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">3. Sequencing Cycles</text>
+                <!-- Step 3: Adapter Ligation -->
+                <g transform="translate(630, 50)">
+                    <rect x="0" y="0" width="250" height="200" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                    <text x="125" y="20" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">3. Adapter Ligation</text>
                     
-                    <!-- Cycle visualization -->
+                    <!-- Adapter structure -->
                     <g transform="translate(20, 35)">
-                        <!-- Base strand -->
-                        <rect x="10" y="40" width="140" height="6" fill="#CCCCCC" rx="2"/>
+                        <text x="105" y="0" font-size="10" fill="#666" text-anchor="middle">Y-shaped Adapters</text>
                         
-                        <!-- Fluorescent nucleotides being added -->
-                        <circle cx="30" cy="30" r="8" fill="#FF6B6B" opacity="0.8"/>
-                        <text x="30" y="34" font-size="10" fill="white" font-weight="bold" text-anchor="middle">A</text>
-                        
-                        <circle cx="60" cy="30" r="8" fill="#4CAF50" opacity="0.8"/>
-                        <text x="60" y="34" font-size="10" fill="white" font-weight="bold" text-anchor="middle">T</text>
-                        
-                        <circle cx="90" cy="30" r="8" fill="#FFA726" opacity="0.8"/>
-                        <text x="90" y="34" font-size="10" fill="white" font-weight="bold" text-anchor="middle">G</text>
-                        
-                        <circle cx="120" cy="30" r="8" fill="#9C27B0" opacity="0.8"/>
-                        <text x="120" y="34" font-size="10" fill="white" font-weight="bold" text-anchor="middle">C</text>
-                        
-                        <!-- Arrows showing incorporation -->
-                        <path d="M 30 38 L 30 40" stroke="#FF6B6B" stroke-width="2" marker-end="url(#smallarrow)"/>
-                        <path d="M 60 38 L 60 40" stroke="#4CAF50" stroke-width="2" marker-end="url(#smallarrow)"/>
-                        <path d="M 90 38 L 90 40" stroke="#FFA726" stroke-width="2" marker-end="url(#smallarrow)"/>
-                        <path d="M 120 38 L 120 40" stroke="#9C27B0" stroke-width="2" marker-end="url(#smallarrow)"/>
+                        <!-- Adapter diagram -->
+                        <g transform="translate(10, 10)">
+                            <!-- P5 adapter -->
+                            <rect x="0" y="0" width="15" height="25" fill="#9C27B0" rx="2"/>
+                            <text x="7" y="15" font-size="7" fill="white" text-anchor="middle">P5</text>
+                            <path d="M 15 12 L 25 12 L 30 17" stroke="#9C27B0" stroke-width="2" fill="none"/>
+                            <circle cx="30" cy="20" r="3" fill="#4CAF50"/>
+                            <text x="30" y="23" font-size="7" fill="white" text-anchor="middle">T</text>
+                            
+                            <!-- P7 adapter -->
+                            <rect x="170" y="0" width="15" height="25" fill="#FF6B6B" rx="2"/>
+                            <text x="177" y="15" font-size="7" fill="white" text-anchor="middle">P7</text>
+                            <path d="M 170 12 L 160 12 L 155 17" stroke="#FF6B6B" stroke-width="2" fill="none"/>
+                            <circle cx="155" cy="20" r="3" fill="#4CAF50"/>
+                            <text x="155" y="23" font-size="7" fill="white" text-anchor="middle">T</text>
+                            
+                            <!-- Index sequences -->
+                            <rect x="35" y="8" width="25" height="8" fill="#FFA726" opacity="0.5" rx="1"/>
+                            <text x="47" y="14" font-size="6" fill="#333" text-anchor="middle">Index1</text>
+                            
+                            <rect x="125" y="8" width="25" height="8" fill="#FFA726" opacity="0.5" rx="1"/>
+                            <text x="137" y="14" font-size="6" fill="#333" text-anchor="middle">Index2</text>
+                        </g>
                     </g>
                     
-                    <text x="90" y="115" font-size="11" fill="#666" text-anchor="middle">Add fluorescent dNTPs</text>
-                    <text x="90" y="130" font-size="11" fill="#666" text-anchor="middle">Image → Cleave → Repeat</text>
-                </g>
-                
-                <!-- Arrow 3 -->
-                <path d="M 660 130 L 690 130" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)"/>
-                
-                <!-- Step 4: Data Analysis -->
-                <g transform="translate(700, 60)">
-                    <rect x="0" y="0" width="160" height="140" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="8"/>
-                    <text x="80" y="20" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">4. Data Output</text>
-                    
-                    <!-- Camera icon -->
-                    <rect x="35" y="35" width="50" height="35" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2" rx="4"/>
-                    <circle cx="60" cy="52" r="12" fill="none" stroke="#1E64C8" stroke-width="2"/>
-                    <circle cx="60" cy="52" r="6" fill="#1E64C8"/>
-                    
-                    <!-- Data output -->
-                    <text x="100" y="45" font-size="10" fill="#FF6B6B" font-family="monospace">A</text>
-                    <text x="110" y="45" font-size="10" fill="#4CAF50" font-family="monospace">T</text>
-                    <text x="120" y="45" font-size="10" fill="#FFA726" font-family="monospace">G</text>
-                    <text x="130" y="45" font-size="10" fill="#9C27B0" font-family="monospace">C</text>
-                    
-                    <text x="100" y="58" font-size="10" fill="#9C27B0" font-family="monospace">C</text>
-                    <text x="110" y="58" font-size="10" fill="#FFA726" font-family="monospace">G</text>
-                    <text x="120" y="58" font-size="10" fill="#FF6B6B" font-family="monospace">A</text>
-                    <text x="130" y="58" font-size="10" fill="#4CAF50" font-family="monospace">T</text>
-                    
-                    <!-- Quality scores visualization -->
-                    <rect x="30" y="85" width="100" height="25" fill="white" stroke="#1E64C8" stroke-width="1" rx="3"/>
-                    <rect x="35" y="90" width="10" height="15" fill="#4CAF50" opacity="0.8"/>
-                    <rect x="48" y="92" width="10" height="13" fill="#4CAF50" opacity="0.7"/>
-                    <rect x="61" y="88" width="10" height="17" fill="#4CAF50" opacity="0.9"/>
-                    <rect x="74" y="91" width="10" height="14" fill="#FFA726" opacity="0.6"/>
-                    <rect x="87" y="93" width="10" height="12" fill="#FFA726" opacity="0.5"/>
-                    <rect x="100" y="89" width="10" height="16" fill="#4CAF50" opacity="0.8"/>
-                    <rect x="113" y="90" width="10" height="15" fill="#4CAF50" opacity="0.8"/>
-                    
-                    <text x="80" y="130" font-size="11" fill="#666" text-anchor="middle">FASTQ Output</text>
-                </g>
-                
-                <!-- Detailed mechanism box -->
-                <g transform="translate(50, 230)">
-                    <rect x="0" y="0" width="800" height="150" fill="white" stroke="#1E64C8" stroke-width="2" rx="8"/>
-                    <text x="400" y="25" font-size="16" fill="#1E64C8" font-weight="bold" text-anchor="middle">Key Innovation: Reversible Terminator Chemistry</text>
-                    
-                    <!-- Chemical mechanism -->
-                    <g transform="translate(50, 40)">
-                        <!-- Step 1 -->
-                        <rect x="0" y="10" width="120" height="70" fill="#f8fbff" stroke="#1E64C8" stroke-width="1" rx="4"/>
-                        <text x="60" y="30" font-size="12" fill="#1E64C8" font-weight="bold" text-anchor="middle">1. Add dNTP</text>
-                        <circle cx="30" cy="50" r="10" fill="#FF6B6B"/>
-                        <text x="30" y="54" font-size="8" fill="white" font-weight="bold" text-anchor="middle">A</text>
-                        <rect x="45" y="48" width="25" height="4" fill="#666"/>
-                        <circle cx="75" cy="50" r="5" fill="#FFA726"/>
-                        <text x="60" y="70" font-size="9" fill="#666" text-anchor="middle">3'-OH blocked</text>
+                    <!-- Ligation reaction -->
+                    <g transform="translate(20, 80)">
+                        <text x="105" y="0" font-size="10" fill="#666" text-anchor="middle">Ligation Reaction</text>
                         
-                        <!-- Arrow -->
-                        <path d="M 125 45 L 155 45" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <!-- DNA with A-overhang -->
+                        <rect x="50" y="10" width="80" height="6" fill="#1E64C8"/>
+                        <circle cx="133" cy="13" r="3" fill="#FF6B6B"/>
+                        <text x="133" y="16" font-size="7" fill="white" text-anchor="middle">A</text>
                         
-                        <!-- Step 2 -->
-                        <rect x="160" y="10" width="120" height="70" fill="#f8fbff" stroke="#1E64C8" stroke-width="1" rx="4"/>
-                        <text x="220" y="30" font-size="12" fill="#1E64C8" font-weight="bold" text-anchor="middle">2. Image</text>
-                        <circle cx="190" cy="50" r="10" fill="#FF6B6B"/>
-                        <text x="190" y="54" font-size="8" fill="white" font-weight="bold" text-anchor="middle">A</text>
-                        <!-- Camera flash -->
-                        <path d="M 220 40 L 215 50 L 225 50 L 220 60" stroke="#FFA726" stroke-width="2" fill="#FFA726" opacity="0.5"/>
-                        <text x="220" y="70" font-size="9" fill="#666" text-anchor="middle">Detect fluorescence</text>
+                        <!-- T-overhang adapter -->
+                        <rect x="135" y="10" width="30" height="6" fill="#9C27B0"/>
+                        <circle cx="135" cy="13" r="3" fill="#4CAF50"/>
+                        <text x="135" y="16" font-size="7" fill="white" text-anchor="middle">T</text>
                         
-                        <!-- Arrow -->
-                        <path d="M 285 45 L 315 45" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <!-- Ligase -->
+                        <ellipse cx="105" cy="30" rx="20" ry="12" fill="#4CAF50" opacity="0.3"/>
+                        <text x="105" y="34" font-size="8" fill="#333" text-anchor="middle">T4 Ligase</text>
                         
-                        <!-- Step 3 -->
-                        <rect x="320" y="10" width="120" height="70" fill="#f8fbff" stroke="#1E64C8" stroke-width="1" rx="4"/>
-                        <text x="380" y="30" font-size="12" fill="#1E64C8" font-weight="bold" text-anchor="middle">3. Cleave</text>
-                        <circle cx="350" cy="50" r="10" fill="#CCCCCC"/>
-                        <text x="350" y="54" font-size="8" fill="white" font-weight="bold" text-anchor="middle">A</text>
-                        <path d="M 365 45 L 375 55" stroke="#FF6B6B" stroke-width="3"/>
-                        <path d="M 365 55 L 375 45" stroke="#FF6B6B" stroke-width="3"/>
-                        <text x="380" y="70" font-size="9" fill="#666" text-anchor="middle">Remove fluor + block</text>
-                        
-                        <!-- Arrow -->
-                        <path d="M 445 45 L 475 45" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
-                        
-                        <!-- Step 4 -->
-                        <rect x="480" y="10" width="120" height="70" fill="#f8fbff" stroke="#1E64C8" stroke-width="1" rx="4"/>
-                        <text x="540" y="30" font-size="12" fill="#1E64C8" font-weight="bold" text-anchor="middle">4. Next Cycle</text>
-                        <circle cx="510" cy="50" r="10" fill="#CCCCCC"/>
-                        <text x="510" y="54" font-size="8" fill="white" font-weight="bold" text-anchor="middle">A</text>
-                        <circle cx="540" cy="50" r="10" fill="#4CAF50" opacity="0.7"/>
-                        <text x="540" y="54" font-size="8" fill="white" font-weight="bold" text-anchor="middle">T</text>
-                        <path d="M 525 50 L 530 50" stroke="#1E64C8" stroke-width="2" marker-end="url(#smallarrow)"/>
-                        <text x="540" y="70" font-size="9" fill="#666" text-anchor="middle">Ready for next base</text>
-                        
-                        <!-- Cycle indicator -->
-                        <path d="M 610 45 Q 630 25 630 5 Q 630 -15 610 -35 L 60 -35 Q 40 -35 20 -15 Q 0 5 0 25 Q 0 45 20 45" 
-                              fill="none" stroke="#1E64C8" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
-                        <text x="320" y="-20" font-size="11" fill="#1E64C8" text-anchor="middle">Repeat 50-300 cycles</text>
+                        <!-- Ligated product -->
+                        <g transform="translate(0, 55)">
+                            <rect x="15" y="0" width="30" height="8" fill="#9C27B0"/>
+                            <rect x="45" y="0" width="80" height="8" fill="#1E64C8"/>
+                            <rect x="125" y="0" width="30" height="8" fill="#FF6B6B"/>
+                            <text x="10" y="6" font-size="7" fill="#666">P5</text>
+                            <text x="160" y="6" font-size="7" fill="#666">P7</text>
+                        </g>
                     </g>
+                    
+                    <!-- Adapter features -->
+                    <rect x="30" y="160" width="190" height="30" fill="white" stroke="#666" stroke-width="1" rx="3"/>
+                    <text x="125" y="173" font-size="9" fill="#666" text-anchor="middle">Adapter Components:</text>
+                    <text x="125" y="185" font-size="8" fill="#333" text-anchor="middle">Sequencing primers • Indices • Flow cell binding</text>
                 </g>
                 
-                <!-- Arrow definitions -->
+                <!-- Bottom section: Size Selection & Amplification -->
+                <g transform="translate(30, 270)">
+                    <rect x="0" y="0" width="410" height="220" fill="white" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                    <text x="205" y="20" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">4. Size Selection</text>
+                    
+                    <!-- Gel or bead selection -->
+                    <g transform="translate(20, 35)">
+                        <!-- Gel electrophoresis -->
+                        <rect x="0" y="0" width="180" height="100" fill="#f8fbff" stroke="#666" stroke-width="1" rx="3"/>
+                        <text x="90" y="15" font-size="10" fill="#666" text-anchor="middle">Gel/Bead Selection</text>
+                        
+                        <!-- Gel lanes -->
+                        <rect x="20" y="25" width="20" height="65" fill="#e0e8f4" stroke="#666" stroke-width="1"/>
+                        <rect x="50" y="25" width="20" height="65" fill="#e0e8f4" stroke="#666" stroke-width="1"/>
+                        <rect x="80" y="25" width="20" height="65" fill="#e0e8f4" stroke="#666" stroke-width="1"/>
+                        <rect x="110" y="25" width="20" height="65" fill="#e0e8f4" stroke="#666" stroke-width="1"/>
+                        <rect x="140" y="25" width="20" height="65" fill="#e0e8f4" stroke="#666" stroke-width="1"/>
+                        
+                        <!-- Bands -->
+                        <rect x="22" y="30" width="16" height="3" fill="#1E64C8" opacity="0.8"/>
+                        <rect x="22" y="40" width="16" height="3" fill="#1E64C8" opacity="0.6"/>
+                        <rect x="22" y="55" width="16" height="3" fill="#1E64C8" opacity="0.4"/>
+                        <rect x="22" y="75" width="16" height="3" fill="#1E64C8" opacity="0.2"/>
+                        
+                        <!-- Target region -->
+                        <rect x="50" y="38" width="90" height="20" fill="#4CAF50" opacity="0.2" stroke="#4CAF50" stroke-width="2" stroke-dasharray="3,3"/>
+                        <text x="95" y="50" font-size="9" fill="#4CAF50" text-anchor="middle">300-500 bp</text>
+                    </g>
+                    
+                    <!-- SPRI beads -->
+                    <g transform="translate(210, 35)">
+                        <rect x="0" y="0" width="180" height="100" fill="#f8fbff" stroke="#666" stroke-width="1" rx="3"/>
+                        <text x="90" y="15" font-size="10" fill="#666" text-anchor="middle">SPRI Beads</text>
+                        
+                        <!-- Bead illustration -->
+                        <circle cx="60" cy="50" r="25" fill="#8B4513" opacity="0.3"/>
+                        <circle cx="50" cy="45" r="4" fill="#8B4513"/>
+                        <circle cx="60" cy="48" r="4" fill="#8B4513"/>
+                        <circle cx="55" cy="55" r="4" fill="#8B4513"/>
+                        <circle cx="65" cy="52" r="4" fill="#8B4513"/>
+                        
+                        <!-- DNA binding -->
+                        <path d="M 85 45 Q 90 40 95 45" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                        <path d="M 85 55 Q 90 50 95 55" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                        
+                        <text x="90" y="80" font-size="8" fill="#666" text-anchor="middle">Size-selective binding</text>
+                        <text x="90" y="92" font-size="8" fill="#666" text-anchor="middle">Buffer/bead ratio</text>
+                    </g>
+                    
+                    <!-- Quality metrics -->
+                    <rect x="20" y="145" width="370" height="60" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="3"/>
+                    <text x="205" y="160" font-size="10" fill="#1E64C8" font-weight="bold" text-anchor="middle">Quality Control Checkpoints</text>
+                    <text x="50" y="180" font-size="9" fill="#333">• Fragment size: 300-500 bp</text>
+                    <text x="50" y="195" font-size="9" fill="#333">• Concentration: >10 ng/μL</text>
+                    <text x="230" y="180" font-size="9" fill="#333">• A260/280: 1.8-2.0</text>
+                    <text x="230" y="195" font-size="9" fill="#333">• Bioanalyzer profile</text>
+                </g>
+                
+                <!-- PCR Amplification -->
+                <g transform="translate(460, 270)">
+                    <rect x="0" y="0" width="410" height="220" fill="white" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                    <text x="205" y="20" font-size="14" fill="#1E64C8" font-weight="bold" text-anchor="middle">5. PCR Amplification</text>
+                    
+                    <!-- PCR cycles -->
+                    <g transform="translate(20, 35)">
+                        <text x="185" y="0" font-size="10" fill="#666" text-anchor="middle">Limited Cycle PCR (8-12 cycles)</text>
+                        
+                        <!-- Temperature profile -->
+                        <rect x="10" y="10" width="350" height="80" fill="#f8fbff" stroke="#666" stroke-width="1" rx="3"/>
+                        
+                        <!-- Temperature graph -->
+                        <line x1="30" y1="80" x2="340" y2="80" stroke="#666" stroke-width="1"/>
+                        <line x1="30" y1="20" x2="30" y2="80" stroke="#666" stroke-width="1"/>
+                        
+                        <!-- PCR profile -->
+                        <path d="M 30 70 L 50 30 L 70 30 L 90 50 L 110 50 L 130 70 L 130 75 L 150 30 L 170 30 L 190 50 L 210 50 L 230 70 L 230 75 L 250 30 L 270 30 L 290 50 L 310 50 L 330 70" 
+                              stroke="#FF6B6B" stroke-width="2" fill="none"/>
+                        
+                        <text x="30" y="95" font-size="8" fill="#666">0</text>
+                        <text x="150" y="95" font-size="8" fill="#666">Time</text>
+                        <text x="330" y="95" font-size="8" fill="#666">End</text>
+                        
+                        <text x="20" y="30" font-size="8" fill="#666">95°C</text>
+                        <text x="20" y="50" font-size="8" fill="#666">60°C</text>
+                        <text x="20" y="70" font-size="8" fill="#666">72°C</text>
+                    </g>
+                    
+                    <!-- Amplification products -->
+                    <g transform="translate(20, 130)">
+                        <text x="185" y="0" font-size="10" fill="#666" text-anchor="middle">Final Library</text>
+                        
+                        <!-- Library molecules -->
+                        <g transform="translate(50, 10)">
+                            <rect x="0" y="0" width="20" height="6" fill="#9C27B0"/>
+                            <rect x="20" y="0" width="80" height="6" fill="#1E64C8"/>
+                            <rect x="100" y="0" width="20" height="6" fill="#FF6B6B"/>
+                            
+                            <rect x="140" y="0" width="20" height="6" fill="#9C27B0"/>
+                            <rect x="160" y="0" width="80" height="6" fill="#1E64C8"/>
+                            <rect x="240" y="0" width="20" height="6" fill="#FF6B6B"/>
+                            
+                            <text x="130" y="20" font-size="8" fill="#666" text-anchor="middle">Ready for sequencing</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Final notes -->
+                    <rect x="20" y="165" width="370" height="40" fill="#f0f5fc" stroke="#4CAF50" stroke-width="2" rx="3"/>
+                    <text x="205" y="180" font-size="10" fill="#4CAF50" font-weight="bold" text-anchor="middle">✓ Library Complete</text>
+                    <text x="205" y="195" font-size="9" fill="#333" text-anchor="middle">Indexed, amplified, quality controlled - Ready for NGS</text>
+                </g>
+                
+                <!-- Arrow definition -->
                 <defs>
-                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
+                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="5" orient="auto">
                         <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
-                    </marker>
-                    <marker id="smallarrow" markerWidth="6" markerHeight="6" refX="5" refY="3" orient="auto">
-                        <polygon points="0 0, 6 3, 0 6" fill="currentColor"/>
                     </marker>
                 </defs>
             </svg>
         </div>
         
-        <div class="spec-grid">
-            <div class="spec-box">
-                <div class="spec-label">Read Length</div>
-                <div class="spec-value">50-300 bp</div>
-                <div style="font-size: 12px; color: #666; margin-top: 5px;">Per read direction</div>
+        <div class="info-grid">
+            <div class="info-box">
+                <div class="info-label">Critical Factors</div>
+                <div class="info-text">• Input DNA quality and quantity<br>• Fragment size distribution<br>• Adapter ligation efficiency<br>• Minimal PCR cycles to avoid bias</div>
             </div>
-            <div class="spec-box">
-                <div class="spec-label">Accuracy</div>
-                <div class="spec-value">>99%</div>
-                <div style="font-size: 12px; color: #666; margin-top: 5px;">Q30 bases</div>
+            <div class="info-box">
+                <div class="info-label">Library Types</div>
+                <div class="info-text">• Whole genome libraries<br>• PCR-free libraries (reduce bias)<br>• Mate-pair libraries (long-range)<br>• Targeted capture libraries</div>
             </div>
-            <div class="spec-box">
-                <div class="spec-label">Throughput</div>
-                <div class="spec-value">Up to 6 Tb/run</div>
-                <div style="font-size: 12px; color: #666; margin-top: 5px;">NovaSeq 6000</div>
+        
+
+        <!-- Detailed Sections Start Here -->
+        <div class="section-title">Detailed Step-by-Step Guide</div>
+        <p style="text-align: center; color: #666; font-size: 16px; margin-bottom: 40px;">
+            Comprehensive explanations and diagrams for each library preparation step
+        </p>
+
+        <!-- Step 1: DNA Fragmentation - Detailed -->
+        <div class="detail-section">
+            <div class="detail-title">
+                <div class="detail-number">1</div>
+                DNA Fragmentation - Detailed Explanation
             </div>
-            <div class="spec-box">
-                <div class="spec-label">Market Share</div>
-                <div class="spec-value">~80% of NGS</div>
-                <div style="font-size: 12px; color: #666; margin-top: 5px;">Global dominance</div>
+            <div class="detail-content">
+                <div class="detail-text">
+                    <p>DNA fragmentation is the critical first step in NGS library preparation, where high molecular weight genomic DNA is broken into smaller fragments suitable for sequencing platforms. The target fragment size typically ranges from 200-600 base pairs, with most applications optimized for 300-500 bp inserts.</p>
+                    
+                    <h3>Physical Fragmentation Methods</h3>
+                    <ul>
+                        <li><strong>Acoustic Shearing (Covaris):</strong> Uses focused ultrasonic energy to generate controlled cavitation events that shear DNA. This method provides the most uniform size distribution and is highly reproducible.</li>
+                        <li><strong>Nebulization:</strong> Forces DNA through a small aperture under high pressure, creating shear forces. Less expensive but offers less control over fragment size distribution.</li>
+                        <li><strong>Hydrodynamic Shearing:</strong> DNA is forced through narrow channels, causing mechanical breakage. Provides good control but requires specialized equipment.</li>
+                    </ul>
+                    
+                    <h3>Enzymatic Fragmentation</h3>
+                    <ul>
+                        <li><strong>Tagmentation (Nextera):</strong> Uses a hyperactive Tn5 transposase that simultaneously fragments DNA and adds adapter sequences. This "tagmentation" process reduces library prep time significantly.</li>
+                        <li><strong>DNase I Digestion:</strong> Controlled digestion with DNase I in the presence of Mg²⁺ ions. Fragment size is controlled by enzyme concentration and incubation time.</li>
+                        <li><strong>Restriction Enzymes:</strong> Uses specific or frequent-cutting restriction enzymes to create defined breakpoints.</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <strong>⚠ Critical Consideration:</strong> The fragmentation method impacts downstream bias. Acoustic shearing provides the most random fragmentation, while enzymatic methods may show sequence-specific preferences.
+                    </div>
+                    
+                    <div class="key-point">
+                        <strong>✓ Best Practice:</strong> Always validate fragment size distribution using a Bioanalyzer, TapeStation, or Fragment Analyzer before proceeding to the next step.
+                    </div>
+                </div>
+                
+                <div class="detail-diagram">
+                    <div style="text-align: center; padding: 20px;">
+                        <h4 style="color: #1E64C8; margin-bottom: 20px;">Fragmentation Methods Comparison</h4>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 25px;">
+                            <div style="border: 2px solid #4CAF50; border-radius: 8px; padding: 15px; background: #f1f8f4;">
+                                <h5 style="color: #4CAF50; margin-bottom: 10px;">Physical Methods</h5>
+                                <p style="font-size: 14px; color: #333; margin-bottom: 8px;"><strong>Acoustic Shearing</strong></p>
+                                <p style="font-size: 12px; color: #666;">• Most uniform distribution<br>• Highly reproducible<br>• 30-60 min processing<br>• High equipment cost</p>
+                            </div>
+                            
+                            <div style="border: 2px solid #FF9800; border-radius: 8px; padding: 15px; background: #fff8f1;">
+                                <h5 style="color: #FF9800; margin-bottom: 10px;">Enzymatic Methods</h5>
+                                <p style="font-size: 14px; color: #333; margin-bottom: 8px;"><strong>Tagmentation</strong></p>
+                                <p style="font-size: 12px; color: #666;">• One-step process<br>• Fast (5-15 min)<br>• Low input DNA (1-50 ng)<br>• Some sequence bias</p>
+                            </div>
+                        </div>
+                        
+                        <table style="width: 100%; border-collapse: collapse; font-size: 13px;">
+                            <thead>
+                                <tr style="background: #e8f2ff;">
+                                    <th style="padding: 10px; border: 1px solid #1E64C8;">Parameter</th>
+                                    <th style="padding: 10px; border: 1px solid #1E64C8;">Acoustic</th>
+                                    <th style="padding: 10px; border: 1px solid #1E64C8;">Enzymatic</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Uniformity</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd; background: #e8f5e9;">Excellent</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Good</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Speed</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">30-60 min</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd; background: #e8f5e9;">5-15 min</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">DNA Input</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">100 ng - 5 μg</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd; background: #e8f5e9;">1-50 ng</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Sequence Bias</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd; background: #e8f5e9;">Minimal</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Some bias</td>
+                                </tr>
+                                <tr>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">Equipment Cost</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd;">High ($$$)</td>
+                                    <td style="padding: 8px; border: 1px solid #ddd; background: #e8f5e9;">Low ($)</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- Step 2: End Repair & A-tailing - Detailed -->
+        <div class="detail-section">
+            <div class="detail-title">
+                <div class="detail-number">2</div>
+                End Repair & A-tailing - Detailed Explanation
+            </div>
+            <div class="detail-content">
+                <div class="detail-text">
+                    <p>After fragmentation, DNA fragments have heterogeneous ends (5' overhangs, 3' overhangs, or blunt ends). End repair converts all fragments to blunt-ended, 5'-phosphorylated molecules suitable for adapter ligation. A-tailing then adds a single adenine (A) nucleotide to the 3' ends of these blunt fragments.</p>
+                    
+                    <h3>End Repair Process</h3>
+                    <p>The end repair reaction uses three enzymatic activities simultaneously:</p>
+                    <ul>
+                        <li><strong>T4 DNA Polymerase:</strong> Fills in 5' overhangs with its 5'→3' polymerase activity and removes 3' overhangs with its 3'→5' exonuclease activity.</li>
+                        <li><strong>Klenow Fragment:</strong> Fills in 5' overhangs and provides additional 3'→5' exonuclease activity.</li>
+                        <li><strong>T4 Polynucleotide Kinase:</strong> Phosphorylates 5' ends, which is essential for subsequent ligation reactions.</li>
+                    </ul>
+                    
+                    <h3>A-tailing Purpose and Mechanism</h3>
+                    <p>A-tailing adds a single deoxyadenosine to the 3' end of blunt fragments using Klenow fragment (3'→5' exo-minus) or Taq polymerase. This creates a T overhang that is complementary to the T overhangs on adapter molecules, ensuring proper directional ligation.</p>
+                    
+                    <ul>
+                        <li><strong>Prevents Adapter Dimer Formation:</strong> Only fragments with A-tails can ligate to T-overhang adapters.</li>
+                        <li><strong>Increases Ligation Efficiency:</strong> T-A base pairing is more stable than blunt-end ligation.</li>
+                        <li><strong>Directional Cloning:</strong> Ensures adapters ligate in the correct orientation.</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <strong>⚠ Temperature Sensitivity:</strong> End repair is typically performed at 20-25°C, while A-tailing requires 37-72°C depending on the enzyme. Improper temperatures lead to incomplete reactions.
+                    </div>
+                    
+                    <div class="key-point">
+                        <strong>✓ Quality Check:</strong> Incomplete end repair or A-tailing dramatically reduces library yield. Some kits now offer combined end repair/A-tailing reactions to streamline the workflow and reduce sample loss.
+                    </div>
+                </div>
+                
+                <div class="detail-diagram">
+                    <div style="text-align: center; padding: 20px;">
+                        <h4 style="color: #1E64C8; margin-bottom: 20px;">End Repair & A-tailing Chemistry</h4>
+                        
+                        <div style="border: 2px solid #1E64C8; border-radius: 8px; padding: 20px; background: #f8fbff; margin-bottom: 20px;">
+                            <h5 style="color: #1E64C8; margin-bottom: 15px;">Step 1: End Repair</h5>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; text-align: left;">
+                                <div>
+                                    <p style="font-size: 13px; margin-bottom: 10px;"><strong>Before Repair (5' overhang):</strong></p>
+                                    <p style="font-size: 12px; color: #666; font-family: monospace;">
+                                        5'──────────────────── 3'<br>
+                                        3'───────────── 5'-P
+                                    </p>
+                                    <p style="font-size: 11px; color: #999; margin-top: 5px;">↓ T4 DNA Polymerase</p>
+                                    <p style="font-size: 12px; color: #4CAF50; font-family: monospace; margin-top: 5px;">
+                                        5'──────────────────── 3'<br>
+                                        3'──────────────────── 5'-P
+                                    </p>
+                                </div>
+                                
+                                <div>
+                                    <p style="font-size: 13px; margin-bottom: 10px;"><strong>Before Repair (3' overhang):</strong></p>
+                                    <p style="font-size: 12px; color: #666; font-family: monospace;">
+                                        5'───────────── 3'<br>
+                                        3'──────────────────── 5'
+                                    </p>
+                                    <p style="font-size: 11px; color: #999; margin-top: 5px;">↓ 3'→5' Exonuclease</p>
+                                    <p style="font-size: 12px; color: #4CAF50; font-family: monospace; margin-top: 5px;">
+                                        5'-P──────────────────── 3'<br>
+                                        3'───────────────────── 5'-P
+                                    </p>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; padding: 12px; margin-top: 15px; border-radius: 5px;">
+                                <p style="font-size: 12px; color: #333;"><strong>Enzyme Cocktail:</strong> T4 DNA Polymerase • Klenow Fragment • T4 PNK • dNTPs • ATP</p>
+                            </div>
+                        </div>
+                        
+                        <div style="border: 2px solid #4CAF50; border-radius: 8px; padding: 20px; background: #f1f8f4;">
+                            <h5 style="color: #4CAF50; margin-bottom: 15px;">Step 2: A-tailing</h5>
+                            <p style="font-size: 13px; margin-bottom: 10px;"><strong>Adding 3' A-overhang:</strong></p>
+                            <div style="text-align: left;">
+                                <p style="font-size: 12px; color: #666; font-family: monospace;">
+                                    5'-P──────────────────── 3'-OH<br>
+                                    3'-OH──────────────────── 5'-P
+                                </p>
+                                <p style="font-size: 11px; color: #999; margin: 8px 0;">↓ Klenow (exo-) + dATP</p>
+                                <p style="font-size: 12px; color: #4CAF50; font-family: monospace;">
+                                    5'-P────────────────────<span style="background: #4CAF50; color: white; padding: 2px 4px; border-radius: 3px;">A</span> 3'-OH<br>
+                                    3' <span style="background: #4CAF50; color: white; padding: 2px 4px; border-radius: 3px;">T</span>───────────────────── 5'-P
+                                </p>
+                            </div>
+                            
+                            <div style="background: #e8f5e9; padding: 12px; margin-top: 15px; border-radius: 5px; border-left: 4px solid #4CAF50;">
+                                <p style="font-size: 12px; color: #333;"><strong>✓ Result:</strong> 3' A-overhang complements T-overhang on adapters for efficient ligation</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 3: Adapter Ligation - Detailed -->
+        <div class="detail-section">
+            <div class="detail-title">
+                <div class="detail-number">3</div>
+                Adapter Ligation - Detailed Explanation
+            </div>
+            <div class="detail-content">
+                <div class="detail-text">
+                    <p>Adapter ligation is the process of attaching synthetic oligonucleotide adapters to both ends of the prepared DNA fragments. These adapters contain several critical elements necessary for NGS sequencing and are the defining feature that converts fragmented DNA into a "sequencing library."</p>
+                    
+                    <h3>Adapter Structure and Components</h3>
+                    <ul>
+                        <li><strong>P5 and P7 Binding Sites:</strong> Complementary sequences to oligonucleotides on the flow cell surface, enabling cluster generation during bridge amplification.</li>
+                        <li><strong>Sequencing Primer Binding Sites:</strong> Allow sequencing primers to hybridize and initiate sequencing reactions.</li>
+                        <li><strong>Index Sequences (Barcodes):</strong> 6-10 bp unique identifiers that enable sample multiplexing. Can be single-indexed (one barcode) or dual-indexed (two barcodes for added specificity).</li>
+                        <li><strong>T-overhangs:</strong> Single thymine nucleotides at the 3' ends that complement the A-tails on DNA fragments.</li>
+                    </ul>
+                    
+                    <h3>Ligation Chemistry</h3>
+                    <p>T4 DNA Ligase catalyzes the formation of phosphodiester bonds between the 3'-OH of the A-tailed insert and the 5'-phosphate of the T-overhang adapter. The reaction:</p>
+                    <ul>
+                        <li>Requires ATP as a cofactor</li>
+                        <li>Is typically performed at 20-25°C for 15-60 minutes</li>
+                        <li>Benefits from PEG (polyethylene glycol) to create molecular crowding and increase effective concentration</li>
+                    </ul>
+                    
+                    <h3>Multiplexing Strategy</h3>
+                    <p>Index sequences enable pooling of multiple samples in a single sequencing run. During data analysis, reads are "demultiplexed" based on their index sequences to assign them back to individual samples. Dual indexing (i5 and i7 indices) provides additional accuracy and can correct for index hopping in patterned flow cells.</p>
+                    
+                    <div class="highlight-box">
+                        <strong>⚠ Adapter Dimers:</strong> A major challenge is adapter-adapter ligation without insert DNA, creating short molecules (~120 bp) that sequence efficiently but provide no useful data. Proper insert:adapter ratios and size selection steps are critical to minimize dimers.
+                    </div>
+                    
+                    <div class="key-point">
+                        <strong>✓ Optimization Tip:</strong> Use a 10-20 molar excess of adapters to DNA fragments to ensure complete ligation while minimizing adapter dimers. Always include a size selection step post-ligation to remove excess unligated adapters and adapter dimers.
+                    </div>
+                </div>
+                
+                <div class="detail-diagram">
+                    <div style="text-align: center; padding: 20px;">
+                        <h4 style="color: #1E64C8; margin-bottom: 20px;">Adapter Structure & Ligation</h4>
+                        
+                        <div style="border: 2px solid #1E64C8; border-radius: 8px; padding: 20px; background: #f8fbff; margin-bottom: 20px;">
+                            <h5 style="color: #1E64C8; margin-bottom: 15px;">Complete Adapter Structure</h5>
+                            <div style="display: flex; align-items: center; justify-content: center; gap: 5px; margin: 20px 0;">
+                                <div style="background: #9C27B0; color: white; padding: 10px 15px; border-radius: 5px; font-size: 12px; font-weight: bold;">
+                                    P5<br><span style="font-size: 10px; font-weight: normal;">Flow cell</span>
+                                </div>
+                                <div style="background: #BA68C8; color: white; padding: 10px 15px; border-radius: 5px; font-size: 12px;">
+                                    Read 1<br><span style="font-size: 10px;">Primer</span>
+                                </div>
+                                <div style="background: #CE93D8; color: #333; padding: 10px 15px; border-radius: 5px; font-size: 12px;">
+                                    Index i5<br><span style="font-size: 10px;">Barcode</span>
+                                </div>
+                                <div style="background: #4CAF50; color: white; padding: 10px; border-radius: 5px; font-size: 11px; font-weight: bold;">T</div>
+                                <div style="background: #1E64C8; color: white; padding: 10px 30px; border-radius: 5px; font-size: 12px;">
+                                    DNA Insert<br><span style="font-size: 10px;">Your sample</span>
+                                </div>
+                                <div style="background: #4CAF50; color: white; padding: 10px; border-radius: 5px; font-size: 11px; font-weight: bold;">T</div>
+                                <div style="background: #EF9A9A; color: #333; padding: 10px 15px; border-radius: 5px; font-size: 12px;">
+                                    Index i7<br><span style="font-size: 10px;">Barcode</span>
+                                </div>
+                                <div style="background: #E57373; color: white; padding: 10px 15px; border-radius: 5px; font-size: 12px;">
+                                    Read 2<br><span style="font-size: 10px;">Primer</span>
+                                </div>
+                                <div style="background: #FF6B6B; color: white; padding: 10px 15px; border-radius: 5px; font-size: 12px; font-weight: bold;">
+                                    P7<br><span style="font-size: 10px; font-weight: normal;">Flow cell</span>
+                                </div>
+                            </div>
+                            <p style="font-size: 13px; color: #666; margin-top: 15px;">Complete library molecule ready for cluster generation</p>
+                        </div>
+                        
+                        <div style="border: 2px solid #FFA726; border-radius: 8px; padding: 20px; background: #fff8f1;">
+                            <h5 style="color: #FF6B00; margin-bottom: 15px;">Ligation Reaction</h5>
+                            <div style="text-align: left;">
+                                <p style="font-size: 13px; margin-bottom: 10px;"><strong>Before Ligation:</strong></p>
+                                <p style="font-size: 12px; color: #666; line-height: 1.8;">
+                                    <span style="background: #9C27B0; color: white; padding: 3px 8px; border-radius: 3px;">Adapter</span>
+                                    <span style="background: #4CAF50; color: white; padding: 3px 6px; border-radius: 3px; margin-left: 3px;">T</span> 3'-OH
+                                </p>
+                                <p style="font-size: 12px; color: #666; line-height: 1.8; margin-top: 5px;">
+                                    5'-P <span style="background: #4CAF50; color: white; padding: 3px 6px; border-radius: 3px;">A</span>
+                                    <span style="background: #1E64C8; color: white; padding: 3px 15px; border-radius: 3px; margin-left: 3px;">DNA Fragment</span> 3'-OH
+                                </p>
+                                
+                                <p style="font-size: 11px; color: #999; margin: 12px 0;">↓ T4 DNA Ligase + ATP</p>
+                                
+                                <p style="font-size: 13px; margin-bottom: 10px;"><strong>After Ligation:</strong></p>
+                                <p style="font-size: 12px; color: #4CAF50; line-height: 1.8;">
+                                    <span style="background: #9C27B0; color: white; padding: 3px 8px; border-radius: 3px;">Adapter</span>
+                                    <span style="background: #1E64C8; color: white; padding: 3px 15px; border-radius: 3px; margin-left: 3px;">DNA Fragment</span> 3'-OH
+                                </p>
+                                <p style="font-size: 11px; color: #4CAF50; margin-top: 8px;">✓ Covalent phosphodiester linkage formed</p>
+                            </div>
+                            
+                            <div style="background: white; padding: 12px; margin-top: 15px; border-radius: 5px;">
+                                <p style="font-size: 12px; color: #333;"><strong>Optimal Conditions:</strong> 20-25°C, 15-60 min, 10-20:1 adapter:insert molar ratio</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 4: Size Selection - Detailed -->
+        <div class="detail-section">
+            <div class="detail-title">
+                <div class="detail-number">4</div>
+                Size Selection - Detailed Explanation
+            </div>
+            <div class="detail-content">
+                <div class="detail-text">
+                    <p>Size selection is a critical quality control step that removes unwanted DNA fragments from the library preparation, including adapter dimers, very short fragments, and excessively long fragments. Proper size selection ensures optimal cluster density, sequencing quality, and data output.</p>
+                    
+                    <h3>Methods for Size Selection</h3>
+                    
+                    <h4>1. SPRI Beads (AMPure XP)</h4>
+                    <p>SPRI beads are paramagnetic beads coated with carboxyl groups that reversibly bind DNA in the presence of polyethylene glycol (PEG) and salt. This is currently the most popular method.</p>
+                    <ul>
+                        <li><strong>Mechanism:</strong> DNA binding efficiency depends on the bead:sample volume ratio.</li>
+                        <li><strong>Size selection strategy:</strong>
+                            <ul>
+                                <li>0.6X bead ratio: Selects fragments >500 bp</li>
+                                <li>0.8X bead ratio: Selects fragments >300 bp</li>
+                                <li>1.8X bead ratio: Selects fragments >100 bp</li>
+                                <li>Double-sided selection (0.5X then 0.7X): Narrow range (300-500 bp)</li>
+                            </ul>
+                        </li>
+                        <li><strong>Advantages:</strong> Fast (15-20 min), scalable, minimal DNA loss</li>
+                    </ul>
+                    
+                    <h4>2. Gel Electrophoresis</h4>
+                    <p>Traditional agarose gel electrophoresis provides the most precise size selection but is labor-intensive.</p>
+                    <ul>
+                        <li><strong>Procedure:</strong> Run library on 2% agarose gel, visualize, excise target band (400-500 bp), purify DNA from gel slice</li>
+                        <li><strong>Advantages:</strong> Visual confirmation, precise selection, complete adapter dimer removal</li>
+                        <li><strong>Disadvantages:</strong> Time-consuming (1-2 hours), higher DNA loss</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <strong>⚠ Adapter Dimer Problem:</strong> Adapter dimers (~120 bp) are highly problematic because they:
+                        <ul style="margin-top: 8px;">
+                            <li>Compete with insert-containing molecules during cluster generation</li>
+                            <li>Sequence more efficiently than longer fragments</li>
+                            <li>Can consume 20-80% of sequencing capacity if not removed</li>
+                            <li>Provide zero useful data</li>
+                        </ul>
+                        Always verify complete removal of the ~120 bp adapter dimer peak before sequencing!
+                    </div>
+                    
+                    <div class="key-point">
+                        <strong>✓ Quality Control:</strong> Use a Bioanalyzer, TapeStation, or Fragment Analyzer to verify:
+                        <ul style="margin-top: 8px;">
+                            <li>Complete removal of adapter dimers (~120 bp peak)</li>
+                            <li>Tight size distribution around target size (e.g., 400-500 bp)</li>
+                            <li>Adequate DNA concentration for sequencing (typically >2-5 nM)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="detail-diagram">
+                    <div style="text-align: center; padding: 20px;">
+                        <h4 style="color: #1E64C8; margin-bottom: 20px;">Size Selection Methods</h4>
+                        
+                        <div style="border: 2px solid #1E64C8; border-radius: 8px; padding: 20px; background: #f8fbff; margin-bottom: 20px;">
+                            <h5 style="color: #1E64C8; margin-bottom: 15px;">SPRI Bead Selection Process</h5>
+                            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 15px; margin-top: 15px;">
+                                <div style="background: white; padding: 15px; border-radius: 6px; border: 2px solid #1E64C8;">
+                                    <p style="font-size: 14px; font-weight: bold; color: #1E64C8; margin-bottom: 10px;">1. Mix</p>
+                                    <p style="font-size: 12px; color: #666;">Add beads to DNA sample</p>
+                                    <div style="margin-top: 10px;">
+                                        <span style="display: inline-block; width: 8px; height: 8px; background: #8B4513; border-radius: 50%; margin: 2px;"></span>
+                                        <span style="display: inline-block; width: 8px; height: 8px; background: #8B4513; border-radius: 50%; margin: 2px;"></span>
+                                        <span style="display: inline-block; width: 8px; height: 8px; background: #8B4513; border-radius: 50%; margin: 2px;"></span>
+                                    </div>
+                                </div>
+                                
+                                <div style="background: white; padding: 15px; border-radius: 6px; border: 2px solid #1E64C8;">
+                                    <p style="font-size: 14px; font-weight: bold; color: #1E64C8; margin-bottom: 10px;">2. Bind</p>
+                                    <p style="font-size: 12px; color: #666;">DNA binds to beads</p>
+                                    <p style="font-size: 11px; color: #4CAF50; margin-top: 8px;">PEG + Salt</p>
+                                </div>
+                                
+                                <div style="background: white; padding: 15px; border-radius: 6px; border: 2px solid #1E64C8;">
+                                    <p style="font-size: 14px; font-weight: bold; color: #1E64C8; margin-bottom: 10px;">3. Capture</p>
+                                    <p style="font-size: 12px; color: #666;">Magnetic separation</p>
+                                    <p style="font-size: 11px; color: #FF6B6B; margin-top: 8px;">Remove supernatant</p>
+                                </div>
+                                
+                                <div style="background: white; padding: 15px; border-radius: 6px; border: 2px solid #4CAF50;">
+                                    <p style="font-size: 14px; font-weight: bold; color: #4CAF50; margin-bottom: 10px;">4. Elute</p>
+                                    <p style="font-size: 12px; color: #666;">Purified DNA</p>
+                                    <p style="font-size: 11px; color: #4CAF50; margin-top: 8px;">Size-selected</p>
+                                </div>
+                            </div>
+                            
+                            <div style="background: white; padding: 15px; margin-top: 15px; border-radius: 6px;">
+                                <p style="font-size: 12px; color: #333;"><strong>Bead:Sample Ratio Controls Size Cutoff:</strong></p>
+                                <p style="font-size: 11px; color: #666; margin-top: 5px;">0.6X = >500bp | 0.8X = >300bp | 1.8X = >100bp</p>
+                            </div>
+                        </div>
+                        
+                        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                            <div style="border: 2px solid #FFA726; border-radius: 8px; padding: 15px; background: #fff8f1;">
+                                <h5 style="color: #FF6B00; margin-bottom: 10px;">Gel Method</h5>
+                                <p style="font-size: 12px; color: #333; text-align: left;">
+                                    ✓ Precise size selection<br>
+                                    ✓ Visual confirmation<br>
+                                    ✗ Time: 1-2 hours<br>
+                                    ✗ Higher DNA loss
+                                </p>
+                            </div>
+                            
+                            <div style="border: 2px solid #4CAF50; border-radius: 8px; padding: 15px; background: #f1f8f4;">
+                                <h5 style="color: #4CAF50; margin-bottom: 10px;">SPRI Beads Method</h5>
+                                <p style="font-size: 12px; color: #333; text-align: left;">
+                                    ✓ Fast: 15-20 minutes<br>
+                                    ✓ Automatable<br>
+                                    ✓ Minimal DNA loss<br>
+                                    ✗ Less precise cutoffs
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Step 5: PCR Amplification - Detailed -->
+        <div class="detail-section">
+            <div class="detail-title">
+                <div class="detail-number">5</div>
+                PCR Amplification - Detailed Explanation
+            </div>
+            <div class="detail-content">
+                <div class="detail-text">
+                    <p>PCR amplification is the final step of library preparation, enriching the adapter-ligated DNA fragments to generate sufficient material for sequencing. This step must be carefully optimized to achieve adequate library concentration while minimizing amplification bias and artifacts.</p>
+                    
+                    <h3>Purpose of Library Amplification</h3>
+                    <ul>
+                        <li><strong>Increase DNA Quantity:</strong> Generate enough library material (typically 10-50 nM in 25-50 μL) for accurate quantification and sequencing</li>
+                        <li><strong>Enrich Properly Ligated Molecules:</strong> Selectively amplify fragments with adapters on both ends</li>
+                        <li><strong>Add Flow Cell Binding Sites:</strong> Incorporate complete P5 and P7 sequences needed for cluster generation</li>
+                        <li><strong>Introduce Additional Indices:</strong> Some protocols add sample indices during PCR rather than ligation</li>
+                    </ul>
+                    
+                    <h3>PCR Cycling Parameters</h3>
+                    <p>Typical library amplification uses a "limited cycle" protocol (8-12 cycles):</p>
+                    <ul>
+                        <li><strong>Initial Denaturation:</strong> 98°C for 30 seconds</li>
+                        <li><strong>Cycling (8-12 cycles):</strong>
+                            <ul>
+                                <li>Denaturation: 98°C for 10 seconds</li>
+                                <li>Annealing: 60-65°C for 30 seconds</li>
+                                <li>Extension: 72°C for 30 seconds</li>
+                            </ul>
+                        </li>
+                        <li><strong>Final Extension:</strong> 72°C for 5 minutes</li>
+                    </ul>
+                    
+                    <h3>Cycle Number Optimization</h3>
+                    <ul>
+                        <li><strong>High input (>100 ng):</strong> 4-6 cycles</li>
+                        <li><strong>Medium input (10-100 ng):</strong> 8-10 cycles</li>
+                        <li><strong>Low input (1-10 ng):</strong> 12-15 cycles</li>
+                        <li><strong>Very low input (<1 ng):</strong> 15-18 cycles (increased bias risk)</li>
+                    </ul>
+                    
+                    <h3>PCR-Free Libraries</h3>
+                    <p>When sufficient input DNA is available (typically >1 μg), PCR-free library preparation is preferred because it:</p>
+                    <ul>
+                        <li>Eliminates PCR-induced GC bias and errors</li>
+                        <li>Provides more uniform genome coverage</li>
+                        <li>Reduces duplicate reads</li>
+                        <li>Improves variant calling accuracy</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <strong>⚠ PCR Artifacts:</strong> Excessive PCR cycles can introduce:
+                        <ul style="margin-top: 8px;">
+                            <li><strong>GC Bias:</strong> AT-rich regions amplify more efficiently than GC-rich regions</li>
+                            <li><strong>PCR Duplicates:</strong> Same molecule amplified multiple times, reducing effective coverage</li>
+                            <li><strong>Chimeric Reads:</strong> Template switching during PCR creates artificial rearrangements</li>
+                            <li><strong>PCR Errors:</strong> Polymerase errors become permanent and can be mistaken for variants</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="key-point">
+                        <strong>✓ Best Practice:</strong> 
+                        <ul style="margin-top: 8px;">
+                            <li>Always use high-fidelity polymerase (e.g., KAPA HiFi, Q5)</li>
+                            <li>Minimize cycle number to the absolute minimum needed</li>
+                            <li>Perform final bead cleanup (0.8-1.0X) to remove primers</li>
+                            <li>Quantify library by qPCR (most accurate for NGS)</li>
+                            <li>Check library quality on Bioanalyzer: expect single peak at ~420-520 bp</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="detail-diagram">
+                    <div style="text-align: center; padding: 20px;">
+                        <h4 style="color: #1E64C8; margin-bottom: 20px;">PCR Amplification Process</h4>
+                        
+                        <div style="border: 2px solid #1E64C8; border-radius: 8px; padding: 20px; background: #f8fbff; margin-bottom: 20px;">
+                            <h5 style="color: #1E64C8; margin-bottom: 15px;">Exponential Amplification</h5>
+                            <div style="text-align: left;">
+                                <div style="margin-bottom: 15px;">
+                                    <p style="font-size: 13px; margin-bottom: 8px;"><strong>Cycle 0 (Template):</strong></p>
+                                    <div style="display: flex; align-items: center; gap: 3px;">
+                                        <div style="background: #9C27B0; color: white; padding: 8px; border-radius: 3px; font-size: 11px;">P5</div>
+                                        <div style="background: #1E64C8; color: white; padding: 8px 40px; border-radius: 3px; font-size: 11px;">Insert</div>
+                                        <div style="background: #FF6B6B; color: white; padding: 8px; border-radius: 3px; font-size: 11px;">P7</div>
+                                        <span style="margin-left: 10px; font-size: 12px; color: #666;">1 molecule</span>
+                                    </div>
+                                </div>
+                                
+                                <p style="font-size: 12px; color: #999; margin: 10px 0;">↓ 98°C → 60°C → 72°C</p>
+                                
+                                <div style="margin-bottom: 15px;">
+                                    <p style="font-size: 13px; margin-bottom: 8px;"><strong>After Cycle 1:</strong></p>
+                                    <div>
+                                        <div style="display: flex; align-items: center; gap: 3px; margin-bottom: 3px;">
+                                            <div style="background: #9C27B0; color: white; padding: 6px; border-radius: 3px; font-size: 10px;">P5</div>
+                                            <div style="background: #1E64C8; color: white; padding: 6px 35px; border-radius: 3px; font-size: 10px;">Insert</div>
+                                            <div style="background: #FF6B6B; color: white; padding: 6px; border-radius: 3px; font-size: 10px;">P7</div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 3px;">
+                                            <div style="background: #9C27B0; color: white; padding: 6px; border-radius: 3px; font-size: 10px;">P5</div>
+                                            <div style="background: #1E64C8; color: white; padding: 6px 35px; border-radius: 3px; font-size: 10px;">Insert</div>
+                                            <div style="background: #FF6B6B; color: white; padding: 6px; border-radius: 3px; font-size: 10px;">P7</div>
+                                            <span style="margin-left: 10px; font-size: 12px; color: #666;">2 molecules</span>
+                                        </div>
+                                    </div>
+                                </div>
+                                
+                                <p style="font-size: 12px; color: #999; margin: 10px 0;">↓ Exponential growth</p>
+                                
+                                <div>
+                                    <p style="font-size: 13px; margin-bottom: 8px;"><strong>After 8-12 Cycles:</strong></p>
+                                    <div>
+                                        <div style="display: flex; align-items: center; gap: 3px; margin-bottom: 2px;">
+                                            <div style="background: #9C27B0; color: white; padding: 5px; border-radius: 3px; font-size: 9px;">P5</div>
+                                            <div style="background: #1E64C8; color: white; padding: 5px 30px; border-radius: 3px; font-size: 9px;">Insert</div>
+                                            <div style="background: #FF6B6B; color: white; padding: 5px; border-radius: 3px; font-size: 9px;">P7</div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 3px; margin-bottom: 2px;">
+                                            <div style="background: #9C27B0; color: white; padding: 5px; border-radius: 3px; font-size: 9px;">P5</div>
+                                            <div style="background: #1E64C8; color: white; padding: 5px 30px; border-radius: 3px; font-size: 9px;">Insert</div>
+                                            <div style="background: #FF6B6B; color: white; padding: 5px; border-radius: 3px; font-size: 9px;">P7</div>
+                                        </div>
+                                        <div style="display: flex; align-items: center; gap: 3px; margin-bottom: 2px;">
+                                            <div style="background: #9C27B0; color: white; padding: 5px; border-radius: 3px; font-size: 9px;">P5</div>
+                                            <div style="background: #1E64C8; color: white; padding: 5px 30px; border-radius: 3px; font-size: 9px;">Insert</div>
+                                            <div style="background: #FF6B6B; color: white; padding: 5px; border-radius: 3px; font-size: 9px;">P7</div>
+                                        </div>
+                                        <p style="font-size: 14px; color: #666; margin-top: 5px;">⋮</p>
+                                        <p style="font-size: 12px; color: #4CAF50; margin-top: 5px; font-weight: bold;">256 - 4,096 molecules</p>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                        <div style="border: 2px solid #FFA726; border-radius: 8px; padding: 20px; background: #fff8f1;">
+                            <h5 style="color: #FF6B00; margin-bottom: 15px;">⚠ PCR Considerations</h5>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; text-align: left;">
+                                <div>
+                                    <p style="font-size: 13px; font-weight: bold; color: #333; margin-bottom: 8px;">Potential Issues:</p>
+                                    <p style="font-size: 12px; color: #666; line-height: 1.7;">
+                                        • GC bias<br>
+                                        • PCR duplicates<br>
+                                        • Polymerase errors<br>
+                                        • Chimeric reads
+                                    </p>
+                                </div>
+                                
+                                <div>
+                                    <p style="font-size: 13px; font-weight: bold; color: #4CAF50; margin-bottom: 8px;">Best Practices:</p>
+                                    <p style="font-size: 12px; color: #666; line-height: 1.7;">
+                                        ✓ High-fidelity polymerase<br>
+                                        ✓ Minimize cycle number<br>
+                                        ✓ PCR-free when possible<br>
+                                        ✓ Final bead cleanup
+                                    </p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
+
+
+
+        <!-- Summary Section -->
+        <div class="section-title" style="margin-top: 60px;">Library Preparation Summary</div>
+        
+        <div class="detail-section" style="background: linear-gradient(135deg, #f8fbff 0%, #e8f5e9 100%); border: 3px solid #1E64C8;">
+            <div class="detail-content" style="grid-template-columns: 1fr;">
+                <div class="detail-text">
+                    <h3 style="color: #1E64C8; font-size: 20px; text-align: center; margin-bottom: 20px;">Complete Workflow Overview</h3>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(5, 1fr); gap: 15px; margin: 30px 0;">
+                        <!-- Step 1 -->
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #1E64C8; text-align: center;">
+                            <div style="background: #1E64C8; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 18px; font-weight: bold;">1</div>
+                            <h4 style="color: #1E64C8; margin-bottom: 8px; font-size: 14px;">Fragmentation</h4>
+                            <p style="font-size: 12px; color: #666;">Break DNA into 200-600 bp fragments</p>
+                            <p style="font-size: 11px; color: #999; margin-top: 5px;">Time: 15-60 min</p>
+                        </div>
+                        
+                        <!-- Step 2 -->
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #1E64C8; text-align: center;">
+                            <div style="background: #1E64C8; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 18px; font-weight: bold;">2</div>
+                            <h4 style="color: #1E64C8; margin-bottom: 8px; font-size: 14px;">End Repair</h4>
+                            <p style="font-size: 12px; color: #666;">Create blunt ends + A-tails</p>
+                            <p style="font-size: 11px; color: #999; margin-top: 5px;">Time: 30-45 min</p>
+                        </div>
+                        
+                        <!-- Step 3 -->
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #1E64C8; text-align: center;">
+                            <div style="background: #1E64C8; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 18px; font-weight: bold;">3</div>
+                            <h4 style="color: #1E64C8; margin-bottom: 8px; font-size: 14px;">Ligation</h4>
+                            <p style="font-size: 12px; color: #666;">Attach indexed adapters</p>
+                            <p style="font-size: 11px; color: #999; margin-top: 5px;">Time: 15-60 min</p>
+                        </div>
+                        
+                        <!-- Step 4 -->
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #1E64C8; text-align: center;">
+                            <div style="background: #1E64C8; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 18px; font-weight: bold;">4</div>
+                            <h4 style="color: #1E64C8; margin-bottom: 8px; font-size: 14px;">Size Selection</h4>
+                            <p style="font-size: 12px; color: #666;">Remove adapter dimers</p>
+                            <p style="font-size: 11px; color: #999; margin-top: 5px;">Time: 15-90 min</p>
+                        </div>
+                        
+                        <!-- Step 5 -->
+                        <div style="background: white; padding: 15px; border-radius: 8px; border: 2px solid #1E64C8; text-align: center;">
+                            <div style="background: #1E64C8; color: white; width: 35px; height: 35px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 10px; font-size: 18px; font-weight: bold;">5</div>
+                            <h4 style="color: #1E64C8; margin-bottom: 8px; font-size: 14px;">Amplification</h4>
+                            <p style="font-size: 12px; color: #666;">PCR enrichment (8-12 cycles)</p>
+                            <p style="font-size: 11px; color: #999; margin-top: 5px;">Time: 30-60 min</p>
+                        </div>
+                    </div>
+                    
+                    <div class="key-point" style="margin-top: 30px;">
+                        <h4 style="color: #4CAF50; margin-bottom: 10px;">✓ Critical Success Factors</h4>
+                        <ul style="margin-left: 20px;">
+                            <li><strong>High-quality input DNA:</strong> A260/280 ratio 1.8-2.0, no degradation</li>
+                            <li><strong>Proper fragment size:</strong> 300-500 bp insert for optimal sequencing</li>
+                            <li><strong>Complete adapter removal:</strong> No adapter dimers in final library</li>
+                            <li><strong>Minimal PCR cycles:</strong> Reduce bias and maintain library complexity</li>
+                            <li><strong>Accurate quantification:</strong> Use qPCR for precise library molarity</li>
+                            <li><strong>Quality control at each step:</strong> Bioanalyzer/TapeStation validation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight-box" style="margin-top: 20px;">
+                        <h4 style="color: #FFA726; margin-bottom: 10px;">⏱ Total Workflow Time</h4>
+                        <p style="font-size: 14px;"><strong>Manual Protocol:</strong> 6-8 hours (1 day)<br>
+                        <strong>Automated Protocol:</strong> 4-5 hours (same day)<br>
+                        <strong>Rapid Protocol (Tagmentation):</strong> 90-120 minutes</p>
+                    </div>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 8px; border: 2px solid #4CAF50; margin-top: 25px;">
+                        <h4 style="color: #4CAF50; text-align: center; margin-bottom: 15px; font-size: 18px;">Final Library Quality Specifications</h4>
+                        <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; text-align: center;">
+                            <div>
+                                <p style="font-size: 12px; color: #666; margin-bottom: 5px;">Fragment Size</p>
+                                <p style="font-size: 16px; font-weight: bold; color: #1E64C8;">400-520 bp</p>
+                                <p style="font-size: 10px; color: #999;">(300-400 bp insert + adapters)</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 12px; color: #666; margin-bottom: 5px;">Concentration</p>
+                                <p style="font-size: 16px; font-weight: bold; color: #1E64C8;">10-50 nM</p>
+                                <p style="font-size: 10px; color: #999;">(by qPCR quantification)</p>
+                            </div>
+                            <div>
+                                <p style="font-size: 12px; color: #666; margin-bottom: 5px;">Adapter Dimers</p>
+                                <p style="font-size: 16px; font-weight: bold; color: #4CAF50;">< 5%</p>
+                                <p style="font-size: 10px; color: #999;">(ideally 0%)</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="background: #e3f2fd; padding: 20px; border-radius: 8px; border: 2px solid #1E64C8; margin-top: 25px; text-align: center;">
+                        <h4 style="color: #1E64C8; margin-bottom: 15px; font-size: 18px;">📚 Key Takeaways</h4>
+                        <div style="text-align: left; max-width: 800px; margin: 0 auto;">
+                            <p style="font-size: 14px; color: #333; line-height: 1.8; margin-bottom: 12px;">
+                                <strong>1.</strong> Library preparation is a multi-step process that converts genomic DNA into sequencing-ready libraries with adapters, indices, and optimal fragment sizes.
+                            </p>
+                            <p style="font-size: 14px; color: #333; line-height: 1.8; margin-bottom: 12px;">
+                                <strong>2.</strong> Each step requires careful optimization and quality control to ensure high-quality sequencing data with minimal bias.
+                            </p>
+                            <p style="font-size: 14px; color: #333; line-height: 1.8; margin-bottom: 12px;">
+                                <strong>3.</strong> The choice of fragmentation method, cycle number, and size selection strategy significantly impacts library quality and downstream data analysis.
+                            </p>
+                            <p style="font-size: 14px; color: #333; line-height: 1.8;">
+                                <strong>4.</strong> Modern library preparation kits have simplified and accelerated the workflow, but understanding the underlying molecular mechanisms is essential for troubleshooting and optimization.
+                            </p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+</div>
     </div>
 </body>
 </html>

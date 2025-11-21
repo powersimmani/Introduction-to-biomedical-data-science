@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Long-read Sequencing (PacBio)</title>
+    <title>Long-read Sequencing (PacBio) - Detailed Guide</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -97,6 +97,7 @@
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 15px;
+            margin-bottom: 25px;
         }
         .spec-box {
             background: #f0f5fc;
@@ -115,6 +116,108 @@
             font-weight: 700;
             color: #1E64C8;
         }
+        
+        /* New styles for detailed sections */
+        .detailed-section {
+            margin-top: 40px;
+            margin-bottom: 30px;
+            padding: 25px;
+            background: #ffffff;
+            border: 2px solid #1E64C8;
+            border-radius: 12px;
+        }
+        
+        .detailed-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            text-align: center;
+            padding-bottom: 12px;
+            border-bottom: 3px solid #1E64C8;
+        }
+        
+        .diagram-container {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f8fbff;
+            border-radius: 8px;
+        }
+        
+        .diagram-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .svg-diagram {
+            width: 100%;
+            max-width: 800px;
+            margin: 0 auto;
+            display: block;
+        }
+        
+        .explanation-box {
+            background: #fff;
+            border-left: 4px solid #1E64C8;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .explanation-text {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+        
+        .example-box {
+            background: #e8f4f8;
+            border: 2px dashed #1E64C8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+        }
+        
+        .example-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 8px;
+        }
+        
+        .example-text {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .comparison-table th {
+            background: #1E64C8;
+            color: white;
+            padding: 12px;
+            font-size: 16px;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 10px;
+            font-size: 15px;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f8fbff;
+        }
     </style>
 </head>
 <body>
@@ -129,6 +232,7 @@
                 <div class="bullet-item">Zero-mode waveguides (ZMWs) for detection</div>
             </div>
         </div>
+        
         <div class="spec-grid">
             <div class="spec-box">
                 <div class="spec-label">Read Length</div>
@@ -143,6 +247,7 @@
                 <div class="spec-value">~30 Gb/run</div>
             </div>
         </div>
+        
         <div class="section">
             <div class="section-title">Advantages</div>
             <div class="bullet-list">
@@ -152,7 +257,562 @@
                 <div class="bullet-item">Native base modification detection (methylation)</div>
             </div>
         </div>
-    
+
+        <!-- DETAILED SECTION 1: SMRT Technology -->
+        <div class="detailed-section">
+            <div class="detailed-title">1. Single Molecule Real-Time (SMRT) Sequencing</div>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">SMRT Sequencing Mechanism</div>
+                <svg class="svg-diagram" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Zero-mode waveguide structure -->
+                    <rect x="50" y="50" width="200" height="250" fill="#e0e8f4" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="150" y="30" text-anchor="middle" font-size="16" font-weight="600" fill="#1E64C8">Zero-Mode Waveguide (ZMW)</text>
+                    
+                    <!-- Light cone -->
+                    <path d="M 150 100 L 100 250 L 200 250 Z" fill="#fff4e6" stroke="#ff9900" stroke-width="2" opacity="0.7"/>
+                    <text x="150" y="200" text-anchor="middle" font-size="14" fill="#333">Illumination</text>
+                    <text x="150" y="220" text-anchor="middle" font-size="14" fill="#333">Volume (~20 zL)</text>
+                    
+                    <!-- DNA polymerase -->
+                    <circle cx="150" cy="260" r="20" fill="#1E64C8"/>
+                    <text x="150" y="265" text-anchor="middle" font-size="12" fill="white" font-weight="600">POL</text>
+                    
+                    <!-- DNA template -->
+                    <line x1="130" y1="280" x2="130" y2="320" stroke="#333" stroke-width="3"/>
+                    <line x1="170" y1="280" x2="170" y2="320" stroke="#333" stroke-width="3"/>
+                    <text x="150" y="340" text-anchor="middle" font-size="12" fill="#333">DNA Template</text>
+                    
+                    <!-- Fluorescent nucleotides -->
+                    <circle cx="350" cy="100" r="15" fill="#ff4444"/>
+                    <circle cx="400" cy="100" r="15" fill="#44ff44"/>
+                    <circle cx="450" cy="100" r="15" fill="#4444ff"/>
+                    <circle cx="500" cy="100" r="15" fill="#ffff44"/>
+                    
+                    <text x="425" y="80" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Fluorescent Nucleotides</text>
+                    <text x="350" y="135" text-anchor="middle" font-size="12" fill="#333">A</text>
+                    <text x="400" y="135" text-anchor="middle" font-size="12" fill="#333">C</text>
+                    <text x="450" y="135" text-anchor="middle" font-size="12" fill="#333">G</text>
+                    <text x="500" y="135" text-anchor="middle" font-size="12" fill="#333">T</text>
+                    
+                    <!-- Real-time detection -->
+                    <rect x="320" y="180" width="200" height="120" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                    <text x="420" y="205" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Real-Time Detection</text>
+                    
+                    <!-- Signal trace -->
+                    <line x1="340" y1="260" x2="360" y2="240" stroke="#ff4444" stroke-width="2"/>
+                    <line x1="360" y1="240" x2="380" y2="250" stroke="#44ff44" stroke-width="2"/>
+                    <line x1="380" y1="250" x2="400" y2="240" stroke="#4444ff" stroke-width="2"/>
+                    <line x1="400" y1="240" x2="420" y2="255" stroke="#ffff44" stroke-width="2"/>
+                    <line x1="420" y1="255" x2="440" y2="245" stroke="#ff4444" stroke-width="2"/>
+                    <line x1="440" y1="245" x2="460" y2="250" stroke="#44ff44" stroke-width="2"/>
+                    <line x1="460" y1="250" x2="480" y2="240" stroke="#4444ff" stroke-width="2"/>
+                    <line x1="480" y1="240" x2="500" y2="255" stroke="#ffff44" stroke-width="2"/>
+                    
+                    <text x="420" y="285" text-anchor="middle" font-size="12" fill="#333">Sequence: ACGTAGCT</text>
+                    
+                    <!-- Arrow showing process -->
+                    <path d="M 250 180 L 310 180" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrowhead)"/>
+                    
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            
+            <div class="explanation-box">
+                <div class="explanation-text">
+                    <strong>How SMRT Sequencing Works:</strong> The technology uses zero-mode waveguides (ZMWs), which are tiny wells with a diameter of approximately 70 nanometers at the bottom of the well. Light is directed through the bottom, creating an illumination volume of only about 20 zeptoliters (10⁻²¹ liters). This extremely small detection volume allows observation of single DNA polymerase molecules at work.
+                </div>
+                <div class="explanation-text">
+                    Each of the four DNA bases (A, C, G, T) is attached to a different fluorescent dye. When the polymerase incorporates a nucleotide into the growing DNA strand, the fluorescent label emits a light pulse that is detected in real-time. The dye is then cleaved off, allowing the next nucleotide to be incorporated without interference.
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">Example Application:</div>
+                <div class="example-text">
+                    During sequencing of a bacterial genome, the SMRT system can continuously monitor a single DNA polymerase for several hours, generating reads of 10-30 kilobases without interruption. The real-time nature means that the sequencing speed is only limited by the natural rate of DNA polymerase (approximately 10 nucleotides per second).
+                </div>
+            </div>
+        </div>
+
+        <!-- DETAILED SECTION 2: Read Length -->
+        <div class="detailed-section">
+            <div class="detailed-title">2. Long Read Length (10-30 Kb)</div>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">Read Length Comparison</div>
+                <svg class="svg-diagram" viewBox="0 0 800 350" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Short reads (Illumina) -->
+                    <text x="50" y="40" font-size="16" font-weight="600" fill="#1E64C8">Short-read (Illumina)</text>
+                    <rect x="50" y="50" width="30" height="15" fill="#ff6b6b" stroke="#333"/>
+                    <rect x="85" y="50" width="30" height="15" fill="#ff6b6b" stroke="#333"/>
+                    <rect x="120" y="50" width="30" height="15" fill="#ff6b6b" stroke="#333"/>
+                    <rect x="155" y="50" width="30" height="15" fill="#ff6b6b" stroke="#333"/>
+                    <rect x="190" y="50" width="30" height="15" fill="#ff6b6b" stroke="#333"/>
+                    <text x="50" y="85" font-size="12" fill="#666">~150-300 bp per read</text>
+                    
+                    <!-- PacBio long reads -->
+                    <text x="50" y="130" font-size="16" font-weight="600" fill="#1E64C8">PacBio Long-read</text>
+                    <rect x="50" y="140" width="600" height="25" fill="#4ecdc4" stroke="#333" stroke-width="2"/>
+                    <text x="350" y="157" text-anchor="middle" font-size="14" fill="#333" font-weight="600">Single continuous read: 10,000-30,000 bp</text>
+                    <text x="50" y="180" font-size="12" fill="#666">Can span entire genes, regulatory regions, and repetitive elements</text>
+                    
+                    <!-- Gene structure example -->
+                    <text x="50" y="220" font-size="16" font-weight="600" fill="#1E64C8">Gene Structure Coverage</text>
+                    
+                    <!-- Gene diagram -->
+                    <line x1="50" y1="250" x2="700" y2="250" stroke="#333" stroke-width="2"/>
+                    
+                    <!-- Exons -->
+                    <rect x="100" y="235" width="60" height="30" fill="#1E64C8" stroke="#333"/>
+                    <rect x="250" y="235" width="80" height="30" fill="#1E64C8" stroke="#333"/>
+                    <rect x="450" y="235" width="70" height="30" fill="#1E64C8" stroke="#333"/>
+                    <rect x="600" y="235" width="60" height="30" fill="#1E64C8" stroke="#333"/>
+                    
+                    <!-- Introns -->
+                    <line x1="160" y1="250" x2="250" y2="250" stroke="#333" stroke-width="2" stroke-dasharray="5,5"/>
+                    <line x1="330" y1="250" x2="450" y2="250" stroke="#333" stroke-width="2" stroke-dasharray="5,5"/>
+                    <line x1="520" y1="250" x2="600" y2="250" stroke="#333" stroke-width="2" stroke-dasharray="5,5"/>
+                    
+                    <!-- Labels -->
+                    <text x="130" y="280" text-anchor="middle" font-size="12" fill="#333">Exon 1</text>
+                    <text x="290" y="280" text-anchor="middle" font-size="12" fill="#333">Exon 2</text>
+                    <text x="485" y="280" text-anchor="middle" font-size="12" fill="#333">Exon 3</text>
+                    <text x="630" y="280" text-anchor="middle" font-size="12" fill="#333">Exon 4</text>
+                    
+                    <text x="205" y="295" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Intron</text>
+                    <text x="390" y="295" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Intron</text>
+                    <text x="560" y="295" text-anchor="middle" font-size="11" fill="#666" font-style="italic">Intron</text>
+                    
+                    <!-- Coverage bracket -->
+                    <path d="M 70 310 L 70 315 L 680 315 L 680 310" stroke="#4ecdc4" stroke-width="3" fill="none"/>
+                    <text x="375" y="335" text-anchor="middle" font-size="13" fill="#4ecdc4" font-weight="600">Single PacBio read can cover entire gene</text>
+                </svg>
+            </div>
+            
+            <div class="explanation-box">
+                <div class="explanation-text">
+                    <strong>Advantages of Long Reads:</strong> The extended read length of PacBio sequencing (10-30 kb compared to 150-300 bp for Illumina) provides several critical advantages. Long reads can span entire genes including all exons and introns, making it possible to determine full-length transcript isoforms without computational assembly.
+                </div>
+                <div class="explanation-text">
+                    Long reads are particularly valuable for resolving complex genomic regions such as segmental duplications, tandem repeats, and other repetitive sequences that are typically fragmented or misassembled with short-read technologies. This capability significantly improves genome assembly contiguity and reduces the number of gaps in assembled genomes.
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">Example Application:</div>
+                <div class="example-text">
+                    The human dystrophin gene (DMD) spans approximately 2.4 million base pairs with 79 exons. Short-read sequencing would require computational assembly of thousands of reads to reconstruct this gene, with potential for errors in repetitive regions. A single PacBio HiFi read can span multiple exons continuously, enabling direct detection of splicing patterns, structural variants, and disease-causing mutations without assembly artifacts.
+                </div>
+            </div>
+        </div>
+
+        <!-- DETAILED SECTION 3: HiFi Accuracy -->
+        <div class="detailed-section">
+            <div class="detailed-title">3. High Accuracy (99.9% HiFi)</div>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">Circular Consensus Sequencing (CCS) for HiFi Reads</div>
+                <svg class="svg-diagram" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Circular DNA template -->
+                    <circle cx="200" cy="150" r="80" fill="none" stroke="#1E64C8" stroke-width="4"/>
+                    <text x="200" y="155" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="600">Circular</text>
+                    <text x="200" y="170" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="600">Template</text>
+                    
+                    <!-- SMRTbell adapters -->
+                    <circle cx="200" cy="70" r="12" fill="#ff6b6b"/>
+                    <text x="230" y="75" font-size="12" fill="#666">SMRTbell adapter</text>
+                    
+                    <!-- Multiple passes -->
+                    <g transform="translate(400, 50)">
+                        <text x="0" y="0" font-size="16" font-weight="600" fill="#1E64C8">Multiple Sequencing Passes</text>
+                        
+                        <!-- Pass 1 -->
+                        <rect x="0" y="20" width="300" height="20" fill="#e3f2fd" stroke="#1E64C8"/>
+                        <text x="-40" y="35" font-size="12" fill="#333">Pass 1:</text>
+                        <text x="10" y="35" font-size="11" fill="#333" font-family="monospace">ACGTACGTNNGTACGTACGT</text>
+                        
+                        <!-- Pass 2 -->
+                        <rect x="0" y="50" width="300" height="20" fill="#e3f2fd" stroke="#1E64C8"/>
+                        <text x="-40" y="65" font-size="12" fill="#333">Pass 2:</text>
+                        <text x="10" y="65" font-size="11" fill="#333" font-family="monospace">ACGTACGTAAGTACGTACGT</text>
+                        
+                        <!-- Pass 3 -->
+                        <rect x="0" y="80" width="300" height="20" fill="#e3f2fd" stroke="#1E64C8"/>
+                        <text x="-40" y="95" font-size="12" fill="#333">Pass 3:</text>
+                        <text x="10" y="95" font-size="11" fill="#333" font-family="monospace">ACGTACGTAAGTACGTACGT</text>
+                        
+                        <!-- Pass 4 -->
+                        <rect x="0" y="110" width="300" height="20" fill="#e3f2fd" stroke="#1E64C8"/>
+                        <text x="-40" y="125" font-size="12" fill="#333">Pass 4:</text>
+                        <text x="10" y="125" font-size="11" fill="#333" font-family="monospace">ACGTACGTAAGTACGTACGT</text>
+                        
+                        <!-- Consensus -->
+                        <rect x="0" y="150" width="300" height="25" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2"/>
+                        <text x="-70" y="167" font-size="13" fill="#2e7d32" font-weight="600">Consensus:</text>
+                        <text x="10" y="167" font-size="12" fill="#2e7d32" font-family="monospace" font-weight="600">ACGTACGTAAGTACGTACGT</text>
+                        
+                        <text x="150" y="200" text-anchor="middle" font-size="12" fill="#666">Error correction through</text>
+                        <text x="150" y="215" text-anchor="middle" font-size="12" fill="#666">multiple observations</text>
+                    </g>
+                    
+                    <!-- Arrow -->
+                    <path d="M 290 150 L 380 120" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrowhead2)"/>
+                    
+                    <!-- Accuracy improvement chart -->
+                    <g transform="translate(100, 280)">
+                        <text x="200" y="0" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Accuracy Improvement</text>
+                        
+                        <line x1="50" y1="80" x2="350" y2="80" stroke="#333" stroke-width="1"/>
+                        <line x1="50" y1="20" x2="50" y2="80" stroke="#333" stroke-width="1"/>
+                        
+                        <!-- Bars -->
+                        <rect x="80" y="60" width="40" height="20" fill="#ff6b6b"/>
+                        <text x="100" y="100" text-anchor="middle" font-size="11" fill="#333">Single</text>
+                        <text x="100" y="112" text-anchor="middle" font-size="11" fill="#333">pass: 85%</text>
+                        
+                        <rect x="180" y="35" width="40" height="45" fill="#ffd54f"/>
+                        <text x="200" y="100" text-anchor="middle" font-size="11" fill="#333">3-5 passes:</text>
+                        <text x="200" y="112" text-anchor="middle" font-size="11" fill="#333">99%</text>
+                        
+                        <rect x="280" y="25" width="40" height="55" fill="#66bb6a"/>
+                        <text x="300" y="100" text-anchor="middle" font-size="11" fill="#333">10+ passes:</text>
+                        <text x="300" y="112" text-anchor="middle" font-size="11" fill="#333">99.9%</text>
+                    </g>
+                    
+                    <defs>
+                        <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            
+            <div class="explanation-box">
+                <div class="explanation-text">
+                    <strong>HiFi Technology:</strong> PacBio HiFi (High Fidelity) reads combine the advantages of long read lengths with high accuracy through Circular Consensus Sequencing (CCS). The DNA insert is ligated to hairpin adapters creating a circular template called a SMRTbell. The polymerase continuously sequences this circular template multiple times, generating multiple passes over the same DNA molecule.
+                </div>
+                <div class="explanation-text">
+                    Each pass may contain random errors, but by sequencing the same molecule 10-20 times, these errors can be identified and corrected through consensus calling. The final HiFi read achieves greater than 99.9% (Q30) accuracy while maintaining read lengths of 10-25 kb, matching or exceeding the accuracy of short-read platforms while preserving long-range information.
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">Example Application:</div>
+                <div class="example-text">
+                    In clinical diagnostics, HiFi sequencing enables accurate detection of single nucleotide variants (SNVs) and small insertions/deletions (indels) across complex genomic regions. For example, HiFi reads can accurately sequence through the highly polymorphic HLA genes (human leukocyte antigen) which are critical for transplant matching, resolving both allelic variations and structural differences with clinical-grade accuracy.
+                </div>
+            </div>
+        </div>
+
+        <!-- DETAILED SECTION 4: Structural Variant Detection -->
+        <div class="detailed-section">
+            <div class="detailed-title">4. Structural Variant Detection</div>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">Types of Structural Variants Detected by Long Reads</div>
+                <svg class="svg-diagram" viewBox="0 0 800 500" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Reference genome -->
+                    <text x="50" y="30" font-size="14" font-weight="600" fill="#333">Reference:</text>
+                    <rect x="150" y="15" width="600" height="25" fill="#e0e0e0" stroke="#333"/>
+                    <text x="450" y="32" text-anchor="middle" font-size="12" fill="#333">Normal Genomic Region</text>
+                    
+                    <!-- Deletion -->
+                    <text x="50" y="90" font-size="14" font-weight="600" fill="#1E64C8">Deletion:</text>
+                    <rect x="150" y="75" width="250" height="25" fill="#90caf9" stroke="#333"/>
+                    <rect x="550" y="75" width="200" height="25" fill="#90caf9" stroke="#333"/>
+                    <line x1="400" y1="87" x2="550" y2="87" stroke="#ff1744" stroke-width="3" stroke-dasharray="5,5"/>
+                    <text x="475" y="120" text-anchor="middle" font-size="11" fill="#ff1744" font-weight="600">Deleted region (5-50 kb)</text>
+                    
+                    <!-- Insertion -->
+                    <text x="50" y="170" font-size="14" font-weight="600" fill="#1E64C8">Insertion:</text>
+                    <rect x="150" y="155" width="250" height="25" fill="#90caf9" stroke="#333"/>
+                    <rect x="400" y="155" width="100" height="25" fill="#ffd54f" stroke="#333"/>
+                    <rect x="500" y="155" width="250" height="25" fill="#90caf9" stroke="#333"/>
+                    <text x="450" y="200" text-anchor="middle" font-size="11" fill="#ff6f00" font-weight="600">Inserted sequence (e.g., transposon)</text>
+                    
+                    <!-- Inversion -->
+                    <text x="50" y="250" font-size="14" font-weight="600" fill="#1E64C8">Inversion:</text>
+                    <rect x="150" y="235" width="200" height="25" fill="#90caf9" stroke="#333"/>
+                    <rect x="350" y="235" width="200" height="25" fill="#ce93d8" stroke="#333"/>
+                    <rect x="550" y="235" width="200" height="25" fill="#90caf9" stroke="#333"/>
+                    
+                    <!-- Arrow showing inversion -->
+                    <path d="M 370 247 L 530 247" stroke="#333" stroke-width="1.5" fill="none" marker-end="url(#arrowleft)"/>
+                    <path d="M 530 253 L 370 253" stroke="#333" stroke-width="1.5" fill="none" marker-end="url(#arrowleft)"/>
+                    <text x="450" y="280" text-anchor="middle" font-size="11" fill="#7b1fa2" font-weight="600">Inverted orientation</text>
+                    
+                    <!-- Duplication -->
+                    <text x="50" y="330" font-size="14" font-weight="600" fill="#1E64C8">Duplication:</text>
+                    <rect x="150" y="315" width="200" height="25" fill="#90caf9" stroke="#333"/>
+                    <rect x="350" y="315" width="150" height="25" fill="#a5d6a7" stroke="#333"/>
+                    <rect x="500" y="315" width="150" height="25" fill="#a5d6a7" stroke="#333" stroke-dasharray="3,3"/>
+                    <rect x="650" y="315" width="100" height="25" fill="#90caf9" stroke="#333"/>
+                    <text x="575" y="360" text-anchor="middle" font-size="11" fill="#2e7d32" font-weight="600">Tandem duplication</text>
+                    
+                    <!-- Translocation -->
+                    <text x="50" y="410" font-size="14" font-weight="600" fill="#1E64C8">Translocation:</text>
+                    <rect x="150" y="395" width="150" height="25" fill="#90caf9" stroke="#333"/>
+                    <rect x="300" y="395" width="120" height="25" fill="#ffab91" stroke="#333"/>
+                    <text x="360" y="375" text-anchor="middle" font-size="11" fill="#333">Chr A</text>
+                    
+                    <rect x="500" y="395" width="100" height="25" fill="#b39ddb" stroke="#333"/>
+                    <rect x="600" y="395" width="120" height="25" fill="#ffab91" stroke="#333" stroke-dasharray="3,3"/>
+                    <text x="630" y="375" text-anchor="middle" font-size="11" fill="#333">Chr B</text>
+                    
+                    <path d="M 360 420 Q 400 450 560 420" stroke="#d84315" stroke-width="2" fill="none" marker-end="url(#arrowhead3)"/>
+                    <text x="450" y="470" text-anchor="middle" font-size="11" fill="#d84315" font-weight="600">Inter-chromosomal exchange</text>
+                    
+                    <defs>
+                        <marker id="arrowleft" markerWidth="10" markerHeight="10" refX="1" refY="3" orient="auto">
+                            <polygon points="10 0, 0 3, 10 6" fill="#333"/>
+                        </marker>
+                        <marker id="arrowhead3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#d84315"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            
+            <div class="explanation-box">
+                <div class="explanation-text">
+                    <strong>Structural Variant Detection Capabilities:</strong> Long reads excel at detecting structural variants (SVs) that are difficult or impossible to identify with short reads. SVs include deletions, insertions, inversions, duplications, and translocations that affect segments typically larger than 50 base pairs. These variants play crucial roles in genome evolution, genetic disease, and cancer development.
+                </div>
+                <div class="explanation-text">
+                    PacBio reads can span entire structural variants, including their breakpoints, providing direct evidence of the variant structure. This is particularly valuable in repetitive regions where short reads cannot uniquely map. Long reads can also resolve complex rearrangements involving multiple events and determine their phase on individual chromosomes.
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">Example Application:</div>
+                <div class="example-text">
+                    In cancer genomics, structural variants such as gene fusions drive oncogenesis. For example, the BCR-ABL1 fusion in chronic myeloid leukemia results from a translocation between chromosomes 9 and 22. PacBio long reads can span the fusion breakpoint, precisely determining the exact junction sequence and any additional complexity (e.g., insertions or deletions at the breakpoint) that may affect treatment response to tyrosine kinase inhibitors.
+                </div>
+            </div>
+        </div>
+
+        <!-- DETAILED SECTION 5: Methylation Detection -->
+        <div class="detailed-section">
+            <div class="detailed-title">5. Native Base Modification Detection (Methylation)</div>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">Direct Detection of DNA Methylation</div>
+                <svg class="svg-diagram" viewBox="0 0 800 450" xmlns="http://www.w3.org/2000/svg">
+                    <!-- DNA polymerase kinetics -->
+                    <g transform="translate(50, 50)">
+                        <text x="150" y="0" text-anchor="middle" font-size="16" font-weight="600" fill="#1E64C8">Polymerase Kinetics</text>
+                        
+                        <!-- Unmodified base -->
+                        <rect x="0" y="30" width="140" height="120" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        <text x="70" y="55" text-anchor="middle" font-size="13" font-weight="600" fill="#333">Unmodified Cytosine</text>
+                        
+                        <!-- DNA base -->
+                        <circle cx="70" cy="90" r="20" fill="#90caf9" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="70" y="95" text-anchor="middle" font-size="14" fill="#333" font-weight="600">C</text>
+                        
+                        <!-- Signal -->
+                        <rect x="10" y="120" width="120" height="3" fill="#4caf50"/>
+                        <text x="70" y="140" text-anchor="middle" font-size="11" fill="#333">Fast incorporation</text>
+                        
+                        <!-- Modified base -->
+                        <rect x="160" y="30" width="140" height="120" fill="#fff4e6" stroke="#ff9800" stroke-width="2" rx="8"/>
+                        <text x="230" y="55" text-anchor="middle" font-size="13" font-weight="600" fill="#333">5-methylcytosine</text>
+                        
+                        <!-- DNA base with methyl group -->
+                        <circle cx="230" cy="90" r="20" fill="#90caf9" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="230" y="95" text-anchor="middle" font-size="14" fill="#333" font-weight="600">C</text>
+                        <circle cx="245" cy="75" r="8" fill="#ff9800"/>
+                        <text x="245" y="79" text-anchor="middle" font-size="9" fill="white" font-weight="600">CH₃</text>
+                        
+                        <!-- Signal -->
+                        <rect x="170" y="120" width="60" height="3" fill="#ff9800"/>
+                        <text x="170" y="127" font-size="10" fill="#333">█</text>
+                        <rect x="230" y="122" width="60" height="1" fill="#ff9800"/>
+                        <text x="230" y="140" text-anchor="middle" font-size="11" fill="#333">Slower incorporation</text>
+                    </g>
+                    
+                    <!-- Inter-pulse duration graph -->
+                    <g transform="translate(380, 50)">
+                        <text x="150" y="0" text-anchor="middle" font-size="16" font-weight="600" fill="#1E64C8">Signal Characteristics</text>
+                        
+                        <rect x="0" y="30" width="300" height="120" fill="#f8fbff" stroke="#1E64C8" stroke-width="1"/>
+                        
+                        <!-- Axes -->
+                        <line x1="20" y1="140" x2="280" y2="140" stroke="#333" stroke-width="1"/>
+                        <line x1="20" y1="50" x2="20" y2="140" stroke="#333" stroke-width="1"/>
+                        
+                        <text x="150" y="165" text-anchor="middle" font-size="11" fill="#333">Time</text>
+                        <text x="5" y="95" text-anchor="middle" font-size="11" fill="#333" transform="rotate(-90, 5, 95)">IPD</text>
+                        
+                        <!-- Normal bases -->
+                        <circle cx="50" cy="130" r="3" fill="#4caf50"/>
+                        <circle cx="80" cy="128" r="3" fill="#4caf50"/>
+                        <circle cx="110" cy="131" r="3" fill="#4caf50"/>
+                        
+                        <!-- Methylated base -->
+                        <circle cx="140" cy="90" r="5" fill="#ff9800"/>
+                        <line x1="140" y1="90" x2="140" y2="140" stroke="#ff9800" stroke-width="1" stroke-dasharray="2,2"/>
+                        <text x="145" y="88" font-size="10" fill="#ff9800" font-weight="600">5mC</text>
+                        
+                        <!-- More normal bases -->
+                        <circle cx="170" cy="129" r="3" fill="#4caf50"/>
+                        <circle cx="200" cy="132" r="3" fill="#4caf50"/>
+                        <circle cx="230" cy="130" r="3" fill="#4caf50"/>
+                        <circle cx="260" cy="128" r="3" fill="#4caf50"/>
+                        
+                        <text x="150" y="55" text-anchor="middle" font-size="10" fill="#666">Increased inter-pulse</text>
+                        <text x="150" y="67" text-anchor="middle" font-size="10" fill="#666">duration (IPD) indicates</text>
+                        <text x="150" y="79" text-anchor="middle" font-size="10" fill="#666">methylation</text>
+                    </g>
+                    
+                    <!-- Methylation patterns -->
+                    <g transform="translate(50, 230)">
+                        <text x="350" y="0" text-anchor="middle" font-size="16" font-weight="600" fill="#1E64C8">Common Methylation Patterns</text>
+                        
+                        <!-- CpG island -->
+                        <rect x="0" y="20" width="700" height="80" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        <text x="20" y="40" font-size="13" font-weight="600" fill="#333">CpG Island:</text>
+                        
+                        <!-- DNA sequence with methylation -->
+                        <g transform="translate(20, 55)">
+                            <text x="0" y="0" font-size="12" fill="#333" font-family="monospace">5'-</text>
+                            <text x="30" y="0" font-size="12" fill="#333" font-family="monospace">ATCG</text>
+                            
+                            <text x="70" y="0" font-size="12" fill="#ff9800" font-family="monospace" font-weight="600">CG</text>
+                            <circle cx="78" cy="-8" r="6" fill="#ff9800"/>
+                            <text x="78" y="-5" text-anchor="middle" font-size="7" fill="white">Me</text>
+                            
+                            <text x="100" y="0" font-size="12" fill="#333" font-family="monospace">TACG</text>
+                            
+                            <text x="150" y="0" font-size="12" fill="#ff9800" font-family="monospace" font-weight="600">CG</text>
+                            <circle cx="158" cy="-8" r="6" fill="#ff9800"/>
+                            <text x="158" y="-5" text-anchor="middle" font-size="7" fill="white">Me</text>
+                            
+                            <text x="180" y="0" font-size="12" fill="#333" font-family="monospace">ATGC</text>
+                            
+                            <text x="230" y="0" font-size="12" fill="#ff9800" font-family="monospace" font-weight="600">CG</text>
+                            <circle cx="238" cy="-8" r="6" fill="#ff9800"/>
+                            <text x="238" y="-5" text-anchor="middle" font-size="7" fill="white">Me</text>
+                            
+                            <text x="260" y="0" font-size="12" fill="#333" font-family="monospace">TAAT-3'</text>
+                        </g>
+                        
+                        <text x="20" y="85" font-size="11" fill="#666">Methylated cytosines in CpG dinucleotides</text>
+                        
+                        <!-- Gene regulation example -->
+                        <rect x="0" y="120" width="700" height="70" fill="#fff4e6" stroke="#ff9800" stroke-width="2" rx="8"/>
+                        <text x="20" y="140" font-size="13" font-weight="600" fill="#333">Gene Regulation:</text>
+                        
+                        <g transform="translate(20, 150)">
+                            <rect x="0" y="0" width="100" height="20" fill="#4caf50" opacity="0.3"/>
+                            <text x="50" y="14" text-anchor="middle" font-size="11" fill="#2e7d32" font-weight="600">Promoter</text>
+                            <text x="50" y="32" text-anchor="middle" font-size="10" fill="#333">Unmethylated → Active</text>
+                            
+                            <rect x="180" y="0" width="100" height="20" fill="#ff9800" opacity="0.3"/>
+                            <text x="230" y="14" text-anchor="middle" font-size="11" fill="#e65100" font-weight="600">Promoter</text>
+                            <circle cx="215" cy="5" r="4" fill="#ff9800"/>
+                            <circle cx="230" cy="5" r="4" fill="#ff9800"/>
+                            <circle cx="245" cy="5" r="4" fill="#ff9800"/>
+                            <text x="230" y="32" text-anchor="middle" font-size="10" fill="#333">Methylated → Silenced</text>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="explanation-box">
+                <div class="explanation-text">
+                    <strong>Direct Methylation Detection:</strong> Unlike other sequencing platforms that require chemical conversion (bisulfite sequencing) to detect methylation, PacBio directly detects DNA modifications during sequencing. Modified bases, such as 5-methylcytosine (5mC) and N6-methyladenine (6mA), affect the kinetics of DNA polymerase incorporation.
+                </div>
+                <div class="explanation-text">
+                    The SMRT system measures the inter-pulse duration (IPD), which is the time between successive nucleotide incorporations. When the polymerase encounters a modified base, it pauses slightly longer, resulting in an increased IPD. By analyzing these kinetic signatures across the genome, PacBio can simultaneously determine DNA sequence and map methylation patterns without additional sample preparation or loss of sequence information.
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">Example Application:</div>
+                <div class="example-text">
+                    In cancer epigenetics research, aberrant DNA methylation patterns are hallmarks of tumorigenesis. PacBio sequencing can identify hypermethylation of tumor suppressor gene promoters (such as BRCA1 or MLH1) that leads to gene silencing without requiring separate methylation assays. This integrated approach enables researchers to correlate structural variants, sequence mutations, and epigenetic modifications in a single experiment, providing a comprehensive view of cancer genome architecture.
+                </div>
+            </div>
+            
+            <table class="comparison-table">
+                <tr>
+                    <th>Feature</th>
+                    <th>Bisulfite Sequencing</th>
+                    <th>PacBio Native Detection</th>
+                </tr>
+                <tr>
+                    <td><strong>Sample preparation</strong></td>
+                    <td>Chemical conversion required</td>
+                    <td>No conversion needed</td>
+                </tr>
+                <tr>
+                    <td><strong>DNA degradation</strong></td>
+                    <td>Significant (~90% loss)</td>
+                    <td>No degradation</td>
+                </tr>
+                <tr>
+                    <td><strong>Read length</strong></td>
+                    <td>Reduced due to treatment</td>
+                    <td>Full long-read length maintained</td>
+                </tr>
+                <tr>
+                    <td><strong>Modification types</strong></td>
+                    <td>5mC only</td>
+                    <td>5mC, 6mA, and other modifications</td>
+                </tr>
+                <tr>
+                    <td><strong>Sequence context</strong></td>
+                    <td>C/T ambiguity</td>
+                    <td>Original sequence preserved</td>
+                </tr>
+                <tr>
+                    <td><strong>Phasing information</strong></td>
+                    <td>Lost in short reads</td>
+                    <td>Maintained across long reads</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="detailed-section">
+            <div class="detailed-title">Summary: PacBio SMRT Sequencing Advantages</div>
+            
+            <div class="explanation-box">
+                <div class="explanation-text">
+                    PacBio's Single Molecule Real-Time (SMRT) sequencing technology represents a paradigm shift in genomics by providing long, accurate reads with native modification detection. The key advantages include:
+                </div>
+            </div>
+            
+            <div class="info-grid">
+                <div class="info-box">
+                    <div class="info-label">Long-Range Information</div>
+                    <div class="info-text">Spanning 10-30 kb enables resolution of complex genomic regions, complete gene structures, and haplotype phasing</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">High Accuracy</div>
+                    <div class="info-text">HiFi reads achieve >99.9% accuracy through multiple sequencing passes, suitable for clinical applications</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Structural Variant Detection</div>
+                    <div class="info-text">Direct observation of large insertions, deletions, inversions, and complex rearrangements</div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Epigenetic Profiling</div>
+                    <div class="info-text">Simultaneous detection of DNA sequence and modifications without additional library preparation</div>
+                </div>
+            </div>
+            
+            <div class="highlight-box">
+                <div class="highlight-text">
+                    PacBio technology is particularly valuable for de novo genome assembly, characterization of complex genetic diseases, cancer genomics, and microbiome research where comprehensive genomic information is essential.
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
