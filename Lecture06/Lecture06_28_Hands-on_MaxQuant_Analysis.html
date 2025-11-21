@@ -1,115 +1,939 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hands-on MaxQuant Analysis</title>
+    <title>Hands-on MaxQuant Analysis - Detailed Guide</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+            line-height: 1.6;
         }
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 35px 45px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .title {
-            font-size: 20px;
-            font-weight: 600;
+        .main-title {
+            font-size: 32px;
+            font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 25px;
             text-align: center;
+            margin-bottom: 40px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #1E64C8;
         }
-        .content-grid {
+        .overview-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
+            margin-bottom: 50px;
         }
-        .content-card {
+        .overview-card {
             background: #f8fbff;
             border-left: 4px solid #1E64C8;
-            padding: 18px 22px;
+            padding: 20px;
             border-radius: 6px;
             transition: all 0.3s;
         }
-        .content-card:hover {
+        .overview-card:hover {
             background: #e8f2ff;
-            transform: translateX(5px);
+            transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(30,100,200,0.15);
         }
         .card-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 10px;
-        }
-        .card-content {
-            font-size: 16px;
-            color: #333;
-            line-height: 1.5;
+            margin-bottom: 12px;
         }
         .bullet {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
+            font-size: 15px;
+            color: #333;
         }
         .bullet::before {
             content: "•";
             color: #1E64C8;
             font-weight: bold;
-            margin-right: 8px;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        .detailed-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+        .section-header {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+        .section-number {
+            background: #1E64C8;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        .section-content {
+            background: #fafbfd;
+            padding: 30px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .subsection-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-top: 25px;
+            margin-bottom: 15px;
+            padding-left: 15px;
+            border-left: 3px solid #1E64C8;
+        }
+        .description {
             font-size: 16px;
+            color: #444;
+            margin-bottom: 20px;
+            line-height: 1.8;
+        }
+        .visual-diagram {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 30px;
+            margin: 25px 0;
+            min-height: 200px;
+        }
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+            padding: 15px;
+            background: #f0f7ff;
+            border-radius: 6px;
+        }
+        .step-number {
+            background: #1E64C8;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-weight: bold;
+            flex-shrink: 0;
+        }
+        .step-content {
+            flex: 1;
+        }
+        .step-title {
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 5px;
+        }
+        .step-description {
+            color: #555;
+            font-size: 14px;
+        }
+        .parameter-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+        .parameter-table th {
+            background: #1E64C8;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .parameter-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .parameter-table tr:hover {
+            background: #f8fbff;
+        }
+        .highlight-box {
+            background: #fff9e6;
+            border-left: 4px solid #ffa500;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .highlight-box strong {
+            color: #ff8c00;
+        }
+        .quality-metric {
+            display: inline-block;
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 8px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        .diagram-title {
+            text-align: center;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 20px;
+        }
+        .flow-arrow {
+            text-align: center;
+            color: #1E64C8;
+            font-size: 24px;
+            margin: 10px 0;
+        }
+        .analysis-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+        .processing-box {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+        .output-box {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: 600;
+        }
+        .key-points {
+            background: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .key-points h4 {
+            color: #1E64C8;
+            margin-bottom: 12px;
+            font-size: 18px;
+        }
+        .key-points ul {
+            list-style: none;
+        }
+        .key-points li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .key-points li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4caf50;
+            font-weight: bold;
+            font-size: 18px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Hands-on MaxQuant Analysis</div>
+        <div class="main-title">Hands-on MaxQuant Analysis: Comprehensive Guide</div>
         
-        <div class="content-grid">
-            <div class="content-card">
+        <!-- Overview Section -->
+        <div class="overview-grid">
+            <div class="overview-card">
                 <div class="card-title">Raw File Processing</div>
-                <div class="card-content">
-                    <div class="bullet">Load RAW files from mass spec</div>
-                    <div class="bullet">Automatic peak detection</div>
-                    <div class="bullet">Retention time alignment</div>
-                </div>
+                <div class="bullet">Load RAW files from mass spec</div>
+                <div class="bullet">Automatic peak detection</div>
+                <div class="bullet">Retention time alignment</div>
             </div>
             
-            <div class="content-card">
+            <div class="overview-card">
                 <div class="card-title">Parameter Settings</div>
-                <div class="card-content">
-                    <div class="bullet">Enzyme: Trypsin/P</div>
-                    <div class="bullet">Fixed/variable modifications</div>
-                    <div class="bullet">FDR thresholds (1% peptide/protein)</div>
-                </div>
+                <div class="bullet">Enzyme: Trypsin/P</div>
+                <div class="bullet">Fixed/variable modifications</div>
+                <div class="bullet">FDR thresholds (1% peptide/protein)</div>
             </div>
             
-            <div class="content-card">
+            <div class="overview-card">
                 <div class="card-title">Perseus Downstream</div>
-                <div class="card-content">
-                    <div class="bullet">Statistical analysis platform</div>
-                    <div class="bullet">Filtering and normalization</div>
-                    <div class="bullet">Differential expression analysis</div>
-                </div>
+                <div class="bullet">Statistical analysis platform</div>
+                <div class="bullet">Filtering and normalization</div>
+                <div class="bullet">Differential expression analysis</div>
             </div>
             
-            <div class="content-card">
+            <div class="overview-card">
                 <div class="card-title">Quality Assessment</div>
-                <div class="card-content">
-                    <div class="bullet">Check identification rates</div>
-                    <div class="bullet">Review mass error distributions</div>
-                    <div class="bullet">Evaluate quantification reproducibility</div>
-                </div>
+                <div class="bullet">Check identification rates</div>
+                <div class="bullet">Review mass error distributions</div>
+                <div class="bullet">Evaluate quantification reproducibility</div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 1: Raw File Processing -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                Raw File Processing
             </div>
             
+            <div class="section-content">
+                <div class="description">
+                    Raw file processing is the initial and crucial step in MaxQuant analysis where mass spectrometry data is imported, 
+                    processed, and prepared for protein identification. This stage involves converting vendor-specific RAW files into 
+                    a format that MaxQuant can analyze, extracting peptide features, and aligning data across multiple runs.
+                </div>
+
+                <div class="visual-diagram">
+                    <div class="diagram-title">Raw File Processing Workflow</div>
+                    
+                    <div class="processing-box">MS RAW Files (.raw, .wiff, .d)</div>
+                    <div class="flow-arrow">↓</div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">File Import & Conversion</div>
+                            <div class="step-description">Load vendor-specific files and convert to internal format</div>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Peak Detection</div>
+                            <div class="step-description">Identify MS1 peaks and extract isotope patterns</div>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">3D Peak Assembly</div>
+                            <div class="step-description">Combine m/z, retention time, and intensity information</div>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Retention Time Alignment</div>
+                            <div class="step-description">Align features across multiple runs for accurate quantification</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow">↓</div>
+                    <div class="output-box">Processed Features Ready for Database Search</div>
+                </div>
+
+                <div class="subsection-title">Key Processing Steps</div>
+                
+                <div class="description">
+                    <strong>1. Peak Detection Algorithm:</strong><br>
+                    MaxQuant uses a sophisticated 3D peak detection algorithm that identifies peptide features based on their 
+                    mass-to-charge ratio (m/z), retention time, and signal intensity. The algorithm recognizes isotope patterns 
+                    and distinguishes true peptide signals from noise.
+                </div>
+
+                <div class="description">
+                    <strong>2. Retention Time Alignment:</strong><br>
+                    This critical step ensures that the same peptide appearing in different LC-MS runs is correctly matched. 
+                    MaxQuant builds a nonlinear alignment model that accounts for retention time shifts between runs, enabling 
+                    accurate "match between runs" (MBR) functionality.
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Pro Tip:</strong> Enable "Match Between Runs" (MBR) feature to increase protein identification by 
+                    transferring identifications from one run to another based on accurate mass and retention time alignment. 
+                    This typically increases identifications by 30-50%.
+                </div>
+
+                <div class="key-points">
+                    <h4>Critical Considerations:</h4>
+                    <ul>
+                        <li>Ensure RAW files are from the same instrument type for optimal alignment</li>
+                        <li>Check that gradient conditions are consistent across all runs</li>
+                        <li>Verify that file sizes are reasonable (corrupted files will cause processing errors)</li>
+                        <li>Monitor memory usage for large datasets (>50 files may require >32GB RAM)</li>
+                    </ul>
+                </div>
+            </div>
         </div>
+
+        <!-- Detailed Section 2: Parameter Settings -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                Parameter Settings
+            </div>
+            
+            <div class="section-content">
+                <div class="description">
+                    Proper parameter configuration is essential for accurate protein identification and quantification. 
+                    MaxQuant offers extensive customization options that must be carefully selected based on your experimental 
+                    design, sample preparation method, and instrument type.
+                </div>
+
+                <div class="visual-diagram">
+                    <div class="diagram-title">Key Parameter Categories</div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px; margin-top: 20px;">
+                        <div class="analysis-box">
+                            <div style="font-size: 18px; margin-bottom: 10px;">⚙️ Enzyme Settings</div>
+                            <div style="font-size: 14px; font-weight: normal;">
+                                Digestion specificity<br>
+                                Missed cleavages<br>
+                                Cleavage rules
+                            </div>
+                        </div>
+                        
+                        <div class="analysis-box">
+                            <div style="font-size: 18px; margin-bottom: 10px;">🔬 Modifications</div>
+                            <div style="font-size: 14px; font-weight: normal;">
+                                Fixed modifications<br>
+                                Variable modifications<br>
+                                Max modifications per peptide
+                            </div>
+                        </div>
+                        
+                        <div class="analysis-box">
+                            <div style="font-size: 18px; margin-bottom: 10px;">🎯 Search Parameters</div>
+                            <div style="font-size: 14px; font-weight: normal;">
+                                Precursor mass tolerance<br>
+                                Fragment mass tolerance<br>
+                                Database selection
+                            </div>
+                        </div>
+                        
+                        <div class="analysis-box">
+                            <div style="font-size: 18px; margin-bottom: 10px;">📊 Quantification</div>
+                            <div style="font-size: 14px; font-weight: normal;">
+                                Label-free quantification<br>
+                                SILAC labels<br>
+                                iBAQ calculation
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection-title">Essential Parameter Configuration</div>
+
+                <table class="parameter-table">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>Recommended Setting</th>
+                            <th>Purpose</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Enzyme</strong></td>
+                            <td>Trypsin/P</td>
+                            <td>Cleaves after K/R, including before proline</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Max Missed Cleavages</strong></td>
+                            <td>2</td>
+                            <td>Allows incomplete digestion events</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fixed Modification</strong></td>
+                            <td>Carbamidomethyl (C)</td>
+                            <td>Alkylation of cysteine residues</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Variable Modifications</strong></td>
+                            <td>Oxidation (M), Acetyl (Protein N-term)</td>
+                            <td>Common biological/chemical modifications</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Max Modifications</strong></td>
+                            <td>5</td>
+                            <td>Limits search space while capturing real modifications</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Main Search Tolerance</strong></td>
+                            <td>4.5 ppm</td>
+                            <td>Precursor mass accuracy for high-resolution MS</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MS/MS Tolerance</strong></td>
+                            <td>20 ppm (Orbitrap) / 0.5 Da (Ion trap)</td>
+                            <td>Fragment ion mass accuracy</td>
+                        </tr>
+                        <tr>
+                            <td><strong>PSM FDR</strong></td>
+                            <td>0.01 (1%)</td>
+                            <td>Peptide spectrum match false discovery rate</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Protein FDR</strong></td>
+                            <td>0.01 (1%)</td>
+                            <td>Protein identification false discovery rate</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="subsection-title">Quantification Methods</div>
+
+                <div class="description">
+                    <strong>Label-Free Quantification (LFQ):</strong><br>
+                    MaxQuant's LFQ algorithm normalizes peptide intensities across samples and calculates protein abundances 
+                    without requiring isotopic labeling. It uses the "MaxLFQ" algorithm which:
+                </div>
+
+                <div class="key-points">
+                    <ul>
+                        <li>Performs pairwise ratio comparison between samples</li>
+                        <li>Applies median normalization to account for loading differences</li>
+                        <li>Requires at least 2 ratio counts for quantification</li>
+                        <li>Handles missing values through advanced imputation strategies</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Important:</strong> Always include at least 3 biological replicates per condition for robust 
+                    statistical analysis. Enable "Match Between Runs" to reduce missing values and improve quantification accuracy.
+                </div>
+
+                <div class="description">
+                    <strong>SILAC (Stable Isotope Labeling by Amino acids in Cell culture):</strong><br>
+                    For SILAC experiments, configure the multiplicity settings to match your labeling scheme (Lys0/Arg0 for 
+                    light, Lys4/Arg6 or Lys8/Arg10 for heavy labels). MaxQuant automatically identifies and quantifies 
+                    peptide pairs.
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 3: Perseus Downstream Analysis -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                Perseus Downstream Analysis
+            </div>
+            
+            <div class="section-content">
+                <div class="description">
+                    Perseus is a comprehensive statistical analysis platform designed specifically for processing MaxQuant output. 
+                    It provides a wide range of tools for data filtering, normalization, statistical testing, and visualization, 
+                    making it ideal for proteomic data interpretation.
+                </div>
+
+                <div class="visual-diagram">
+                    <div class="diagram-title">Perseus Analysis Pipeline</div>
+                    
+                    <div class="output-box">MaxQuant proteinGroups.txt</div>
+                    <div class="flow-arrow">↓</div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">1</div>
+                        <div class="step-content">
+                            <div class="step-title">Data Import & Annotation</div>
+                            <div class="step-description">Load protein intensities and define experimental groups</div>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">2</div>
+                        <div class="step-content">
+                            <div class="step-title">Filtering & Transformation</div>
+                            <div class="step-description">Remove contaminants, reverse sequences, and apply log2 transformation</div>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">3</div>
+                        <div class="step-content">
+                            <div class="step-title">Normalization</div>
+                            <div class="step-description">Median or Z-score normalization across samples</div>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">4</div>
+                        <div class="step-content">
+                            <div class="step-title">Imputation</div>
+                            <div class="step-description">Handle missing values using appropriate methods</div>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">5</div>
+                        <div class="step-content">
+                            <div class="step-title">Statistical Testing</div>
+                            <div class="step-description">T-test, ANOVA, or other appropriate tests</div>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <div class="step-number">6</div>
+                        <div class="step-content">
+                            <div class="step-title">Visualization & Export</div>
+                            <div class="step-description">Create volcano plots, heatmaps, PCA plots</div>
+                        </div>
+                    </div>
+                    
+                    <div class="flow-arrow">↓</div>
+                    <div class="processing-box">Biological Insights & Publication-Ready Figures</div>
+                </div>
+
+                <div class="subsection-title">Key Analysis Steps</div>
+
+                <div class="description">
+                    <strong>1. Data Filtering:</strong><br>
+                    Essential first step to ensure data quality:
+                </div>
+
+                <div class="key-points">
+                    <ul>
+                        <li>Remove proteins identified "Only by site" (modified peptides without unmodified evidence)</li>
+                        <li>Remove reverse database hits (false positives from decoy search)</li>
+                        <li>Remove potential contaminants (keratins, trypsin, BSA)</li>
+                        <li>Filter based on valid values (e.g., require protein to be present in at least 70% of samples in at least one group)</li>
+                    </ul>
+                </div>
+
+                <div class="description">
+                    <strong>2. Log2 Transformation:</strong><br>
+                    Transform intensity values to log2 scale to:
+                </div>
+
+                <div class="key-points">
+                    <ul>
+                        <li>Normalize the distribution of protein abundances</li>
+                        <li>Make the data more suitable for statistical tests assuming normal distribution</li>
+                        <li>Linearize fold-change relationships (2-fold up = +1, 2-fold down = -1)</li>
+                    </ul>
+                </div>
+
+                <div class="description">
+                    <strong>3. Missing Value Imputation:</strong><br>
+                    Perseus offers multiple imputation strategies:
+                </div>
+
+                <table class="parameter-table">
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Use Case</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>From Normal Distribution</strong></td>
+                            <td>MNAR (Missing Not At Random)</td>
+                            <td>Imputes low values for proteins below detection limit</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Replace by NaN</strong></td>
+                            <td>Keep missing values</td>
+                            <td>No imputation, use tests that handle missing data</td>
+                        </tr>
+                        <tr>
+                            <td><strong>k-Nearest Neighbor</strong></td>
+                            <td>MAR (Missing At Random)</td>
+                            <td>Estimates values based on similar proteins</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="subsection-title">Statistical Analysis</div>
+
+                <div class="description">
+                    <strong>Two-Sample T-test:</strong><br>
+                    For comparing two experimental groups (e.g., control vs. treatment):
+                </div>
+
+                <div class="key-points">
+                    <ul>
+                        <li>Use permutation-based FDR correction (recommended FDR < 0.05)</li>
+                        <li>Set S0 parameter (typically 0.1) to avoid over-emphasizing small fold changes</li>
+                        <li>Consider both statistical significance (p-value) and biological significance (fold change)</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Volcano Plot Interpretation:</strong> Proteins in the upper left/right quadrants are both 
+                    statistically significant (high -log10 p-value) and show substantial fold change. These are your 
+                    primary candidates for biological interpretation.
+                </div>
+
+                <div class="description">
+                    <strong>Multi-Group Analysis (ANOVA):</strong><br>
+                    For experiments with more than two groups:
+                </div>
+
+                <div class="key-points">
+                    <ul>
+                        <li>Identify proteins that vary significantly across groups</li>
+                        <li>Follow up with post-hoc tests for pairwise comparisons</li>
+                        <li>Use hierarchical clustering to identify expression patterns</li>
+                    </ul>
+                </div>
+
+                <div class="subsection-title">Enrichment Analysis</div>
+
+                <div class="description">
+                    Perseus integrates with annotation databases to perform functional enrichment analysis:
+                </div>
+
+                <div class="key-points">
+                    <ul>
+                        <li>Gene Ontology (GO) term enrichment - identify overrepresented biological processes</li>
+                        <li>KEGG pathway analysis - map proteins to metabolic and signaling pathways</li>
+                        <li>Protein domain enrichment - detect structural motifs</li>
+                        <li>Keyword enrichment - text mining of protein annotations</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 4: Quality Assessment -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                Quality Assessment
+            </div>
+            
+            <div class="section-content">
+                <div class="description">
+                    Quality assessment is crucial for ensuring the reliability and reproducibility of proteomic experiments. 
+                    Systematic evaluation of multiple quality metrics helps identify technical issues, validate experimental 
+                    procedures, and ensure that results are publication-ready.
+                </div>
+
+                <div class="visual-diagram">
+                    <div class="diagram-title">Quality Control Metrics Dashboard</div>
+                    
+                    <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; margin-top: 20px;">
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 2px solid #dee2e6;">
+                            <div style="font-weight: 600; color: #1E64C8; margin-bottom: 15px; font-size: 16px;">📊 Identification Metrics</div>
+                            <div class="quality-metric">MS/MS Count: 25,000-50,000</div>
+                            <div class="quality-metric">Peptides: 15,000-30,000</div>
+                            <div class="quality-metric">Proteins: 3,000-6,000</div>
+                            <div style="margin-top: 10px; font-size: 13px; color: #666;">
+                                <strong>Target:</strong> Consistent across replicates (CV < 10%)
+                            </div>
+                        </div>
+                        
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 2px solid #dee2e6;">
+                            <div style="font-weight: 600; color: #1E64C8; margin-bottom: 15px; font-size: 16px;">🎯 Mass Accuracy</div>
+                            <div class="quality-metric">Precursor: < 5 ppm</div>
+                            <div class="quality-metric">Fragment: < 20 ppm</div>
+                            <div class="quality-metric">Distribution: Normal</div>
+                            <div style="margin-top: 10px; font-size: 13px; color: #666;">
+                                <strong>Check:</strong> Histogram should be centered at 0 ppm
+                            </div>
+                        </div>
+                        
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 2px solid #dee2e6;">
+                            <div style="font-weight: 600; color: #1E64C8; margin-bottom: 15px; font-size: 16px;">📈 Quantification Quality</div>
+                            <div class="quality-metric">CV < 20% (technical)</div>
+                            <div class="quality-metric">Correlation r > 0.9</div>
+                            <div class="quality-metric">Missing < 30%</div>
+                            <div style="margin-top: 10px; font-size: 13px; color: #666;">
+                                <strong>Goal:</strong> High reproducibility between replicates
+                            </div>
+                        </div>
+                        
+                        <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; border: 2px solid #dee2e6;">
+                            <div style="font-weight: 600; color: #1E64C8; margin-bottom: 15px; font-size: 16px;">✅ Data Completeness</div>
+                            <div class="quality-metric">Sequence Coverage</div>
+                            <div class="quality-metric">Peptide Count/Protein</div>
+                            <div class="quality-metric">Unique Peptides</div>
+                            <div style="margin-top: 10px; font-size: 13px; color: #666;">
+                                <strong>Ideal:</strong> ≥2 unique peptides per protein
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="subsection-title">Critical Quality Checks</div>
+
+                <div class="description">
+                    <strong>1. Identification Rate Assessment:</strong>
+                </div>
+
+                <table class="parameter-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Good Quality</th>
+                            <th>Poor Quality</th>
+                            <th>Action if Poor</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>MS/MS Identified (%)</strong></td>
+                            <td>> 50%</td>
+                            <td>< 30%</td>
+                            <td>Check sample prep, LC gradient, MS parameters</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Protein Groups</strong></td>
+                            <td>3,000-6,000</td>
+                            <td>< 1,000</td>
+                            <td>Verify database, check sample complexity</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Peptides per Protein</strong></td>
+                            <td>> 5 (median)</td>
+                            <td>< 2 (median)</td>
+                            <td>Improve digestion, increase gradient time</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Unique Peptides</strong></td>
+                            <td>> 70%</td>
+                            <td>< 50%</td>
+                            <td>May indicate high protein redundancy</td>
+                        </tr>
+                    </tbody>
+                </table>
+
+                <div class="description">
+                    <strong>2. Mass Error Distribution:</strong><br>
+                    The mass error histogram is one of the most important QC plots. It shows the distribution of mass 
+                    deviations between observed and theoretical peptide masses.
+                </div>
+
+                <div class="key-points">
+                    <h4>What to Look For:</h4>
+                    <ul>
+                        <li>Symmetric, bell-shaped distribution centered at 0 ppm</li>
+                        <li>Standard deviation < 3 ppm for high-resolution instruments</li>
+                        <li>No systematic shifts (would indicate calibration issues)</li>
+                        <li>Minimal outliers beyond ±10 ppm</li>
+                    </ul>
+                </div>
+
+                <div class="highlight-box">
+                    <strong>Red Flag:</strong> If the mass error distribution is asymmetric or shows multiple peaks, 
+                    this indicates serious calibration problems or incorrect search parameters. Re-run with recalibration 
+                    enabled or check instrument calibration.
+                </div>
+
+                <div class="subsection-title">Quantification Reproducibility</div>
+
+                <div class="description">
+                    <strong>Coefficient of Variation (CV) Analysis:</strong><br>
+                    Calculate CV for all proteins across technical or biological replicates:
+                </div>
+
+                <div class="key-points">
+                    <ul>
+                        <li>Technical replicates: CV < 15% (excellent), < 20% (acceptable)</li>
+                        <li>Biological replicates: CV < 30% (good), < 50% (acceptable)</li>
+                        <li>Plot CV distribution as histogram - should be skewed toward low values</li>
+                        <li>High CV proteins may reflect true biological variability or technical noise</li>
+                    </ul>
+                </div>
+
+                <div class="description">
+                    <strong>Correlation Analysis:</strong><br>
+                    Create scatter plots comparing protein intensities between replicates:
+                </div>
+
+                <div class="key-points">
+                    <ul>
+                        <li>Technical replicates: Pearson r > 0.95</li>
+                        <li>Biological replicates: Pearson r > 0.85</li>
+                        <li>Points should cluster around diagonal with minimal scatter</li>
+                        <li>Check for outliers that may represent interesting biology or technical errors</li>
+                    </ul>
+                </div>
+
+                <div class="subsection-title">Sample Quality Indicators</div>
+
+                <div class="description">
+                    <strong>Principal Component Analysis (PCA):</strong><br>
+                    PCA provides a global view of sample relationships and can reveal:
+                </div>
+
+                <div class="key-points">
+                    <ul>
+                        <li>Clustering of biological replicates (should group together)</li>
+                        <li>Separation between experimental conditions</li>
+                        <li>Potential batch effects or outlier samples</li>
+                        <li>Overall data structure and variance composition</li>
+                    </ul>
+                </div>
+
+                <div class="description">
+                    <strong>Intensity Distribution:</strong><br>
+                    Examine box plots of log2 protein intensities across all samples:
+                </div>
+
+                <div class="key-points">
+                    <ul>
+                        <li>All samples should show similar median intensities</li>
+                        <li>Similar distribution shape and range</li>
+                        <li>Major differences may indicate loading issues or technical problems</li>
+                        <li>Use normalization if systematic differences are observed</li>
+                    </ul>
+                </div>
+
+                <div class="subsection-title">Final QC Checklist</div>
+
+                <div class="highlight-box">
+                    <strong>Before Publishing:</strong> Ensure all of the following criteria are met:
+                </div>
+
+                <div class="key-points">
+                    <ul>
+                        <li>✓ Identification rates are consistent across all samples (< 10% variation)</li>
+                        <li>✓ Mass accuracy is excellent (< 5 ppm standard deviation)</li>
+                        <li>✓ Technical replicates show high correlation (r > 0.95)</li>
+                        <li>✓ Biological replicates cluster in PCA space</li>
+                        <li>✓ No significant batch effects detected</li>
+                        <li>✓ FDR thresholds are appropriate (1% at both PSM and protein level)</li>
+                        <li>✓ Sufficient peptides per protein for confident identification (≥2 unique)</li>
+                        <li>✓ Missing value patterns are reasonable and have been properly handled</li>
+                        <li>✓ Quantification CVs are within acceptable ranges</li>
+                        <li>✓ All quality control plots have been reviewed and archived</li>
+                    </ul>
+                </div>
+
+                <div class="description" style="margin-top: 30px; padding: 20px; background: #e8f5e9; border-radius: 8px;">
+                    <strong style="color: #2e7d32; font-size: 18px;">Remember:</strong><br>
+                    Quality assessment is not just a box to check at the end of analysis. It should be an ongoing process 
+                    that guides parameter optimization and identifies issues early. Invest time in thorough QC to ensure 
+                    your results are reproducible, reliable, and publication-ready. Poor quality data cannot be rescued by 
+                    sophisticated statistics!
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

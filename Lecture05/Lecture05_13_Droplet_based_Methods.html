@@ -1,46 +1,60 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Droplet-based Methods</title>
+    <title>Droplet-based Methods - Detailed</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f8f9fa;
+            padding: 20px;
         }
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 30px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .title {
-            font-size: 28px;
-            font-weight: 600;
+        .main-title {
+            font-size: 36px;
+            font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
             margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 4px solid #1E64C8;
+            padding-bottom: 15px;
         }
-        .content-card {
+        .intro-section {
+            background: #f0f5fc;
+            border-left: 6px solid #1E64C8;
+            padding: 20px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+        }
+        .intro-text {
+            font-size: 16px;
+            line-height: 1.6;
+            color: #333;
+        }
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 16px;
+            margin-bottom: 50px;
+        }
+        .overview-card {
             background: white;
             border: 2.5px solid #1E64C8;
             border-radius: 10px;
             padding: 16px;
             transition: all 0.3s;
+            cursor: pointer;
         }
-        .content-card:hover {
+        .overview-card:hover {
             transform: translateY(-3px);
             box-shadow: 0 6px 20px rgba(30, 100, 200, 0.2);
             background: #f8fbff;
@@ -52,124 +66,1079 @@
             margin-bottom: 8px;
         }
         .card-desc {
-            font-size: 15px;
-            color: #333;
+            font-size: 14px;
+            color: #555;
             line-height: 1.4;
         }
-        .note-box {
-            background: #f0f5fc;
-            border-left: 4px solid #1E64C8;
+        .detail-section {
+            margin-bottom: 60px;
+            page-break-inside: avoid;
+        }
+        .section-header {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1E64C8;
+        }
+        .section-number {
+            display: inline-block;
+            width: 40px;
+            height: 40px;
+            background: #1E64C8;
+            color: white;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 40px;
+            margin-right: 12px;
+            font-size: 20px;
+        }
+        .content-box {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .text-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .subsection-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-top: 10px;
+            margin-bottom: 8px;
+        }
+        .description {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #444;
+            text-align: justify;
+        }
+        .key-points {
+            background: #e8f4f8;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
             border-radius: 6px;
-            padding: 12px 18px;
+        }
+        .key-points-title {
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 10px;
+            font-size: 16px;
+        }
+        .key-points ul {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+        .key-points li {
+            margin-bottom: 6px;
+            color: #333;
+        }
+        .diagram-container {
+            background: #fafafa;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .highlight-box {
+            background: #fff3e0;
+            border: 2px solid #FF9800;
+            border-radius: 8px;
+            padding: 15px;
             margin-top: 15px;
         }
-        .note-text {
-            font-size: 16px;
-            color: #333;
+        .highlight-title {
+            font-weight: 700;
+            color: #F57C00;
+            margin-bottom: 8px;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+        .comparison-table th {
+            background: #1E64C8;
+            color: white;
+            padding: 12px;
+            text-align: left;
             font-weight: 600;
         }
-        .visual-section {
-            margin-top: 20px;
-            text-align: center;
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .comparison-table tr:hover {
+            background: #f5f5f5;
+        }
+        @media print {
+            body { background: white; }
+            .detail-section { page-break-inside: avoid; }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Droplet-based Methods</div>
-        <div class="content-grid">
-            <div class="content-card">
+        <div class="main-title">Droplet-based Single-Cell RNA Sequencing Methods</div>
+        
+        <div class="intro-section">
+            <p class="intro-text">
+                Droplet-based methods represent a revolutionary approach to single-cell RNA sequencing, enabling the analysis 
+                of thousands to millions of individual cells in a single experiment. These platforms use microfluidic technology 
+                to encapsulate individual cells with barcoded beads in nanoliter-sized droplets, allowing for massive parallelization 
+                and cost-effective profiling of cellular heterogeneity at unprecedented scales.
+            </p>
+        </div>
+
+        <div class="overview-grid">
+            <div class="overview-card">
                 <div class="card-title">10X Genomics Platform</div>
                 <div class="card-desc">Most widely used - Chromium platform with GEMs</div>
             </div>
-            <div class="content-card">
+            <div class="overview-card">
                 <div class="card-title">Drop-seq Principles</div>
                 <div class="card-desc">Co-encapsulation of cells and barcoded beads</div>
             </div>
-            <div class="content-card">
+            <div class="overview-card">
                 <div class="card-title">InDrop Technology</div>
                 <div class="card-desc">Hydrogel beads with photocleavable barcodes</div>
             </div>
-            <div class="content-card">
+            <div class="overview-card">
                 <div class="card-title">Barcode Design</div>
                 <div class="card-desc">Cell barcode + UMI for molecular counting</div>
             </div>
-            <div class="content-card">
+            <div class="overview-card">
                 <div class="card-title">Doublet Detection</div>
                 <div class="card-desc">Computational and experimental QC for multiplets</div>
             </div>
+        </div>
 
+        <!-- Section 1: 10X Genomics Platform -->
+        <div class="detail-section">
+            <div class="section-header">
+                <span class="section-number">1</span>10X Genomics Chromium Platform
+            </div>
+            
+            <div class="content-box">
+                <div class="text-content">
+                    <div class="subsection-title">Overview</div>
+                    <p class="description">
+                        The 10X Genomics Chromium platform is the gold standard in droplet-based scRNA-seq, utilizing 
+                        Gel Bead-in-Emulsion (GEM) technology. The system can process up to 80,000 cells per run, with 
+                        each cell receiving a unique barcode from gel beads containing millions of oligonucleotides.
+                    </p>
+                    
+                    <div class="subsection-title">Key Features</div>
+                    <p class="description">
+                        The platform uses a specialized microfluidic chip that partitions cells into individual GEMs 
+                        along with gel beads and reagents. Each gel bead is covered with approximately 100 million 
+                        copies of a unique oligonucleotide, ensuring robust barcode capture. The system achieves high 
+                        cell capture rates (typically 50-65%) with low doublet rates (<1% per 1,000 cells).
+                    </p>
+                    
+                    <div class="key-points">
+                        <div class="key-points-title">🔬 Technical Specifications</div>
+                        <ul>
+                            <li><strong>Throughput:</strong> 500-80,000 cells per sample</li>
+                            <li><strong>Capture rate:</strong> 50-65% of input cells</li>
+                            <li><strong>Genes detected:</strong> ~1,000-5,000 per cell</li>
+                            <li><strong>UMIs per cell:</strong> ~10,000-50,000</li>
+                            <li><strong>Processing time:</strong> ~7-8 minutes for partitioning</li>
+                            <li><strong>Doublet rate:</strong> ~0.8% per 1,000 cells loaded</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">⚡ Advantages</div>
+                        <p class="description">
+                            User-friendly automated workflow, standardized protocols, comprehensive computational tools 
+                            (Cell Ranger, Loupe Browser), and extensive community support make 10X the preferred choice 
+                            for most research applications.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg width="450" height="550" viewBox="0 0 450 550" xmlns="http://www.w3.org/2000/svg">
+                        <defs>
+                            <linearGradient id="gelBeadGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#4CAF50;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#81C784;stop-opacity:1" />
+                            </linearGradient>
+                            <linearGradient id="gemGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#2196F3;stop-opacity:0.3" />
+                                <stop offset="100%" style="stop-color:#64B5F6;stop-opacity:0.3" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Title -->
+                        <text x="225" y="25" font-family="Arial" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">10X Chromium Workflow</text>
+                        
+                        <!-- Step 1: Cell Suspension -->
+                        <g transform="translate(50, 50)">
+                            <rect x="0" y="0" width="140" height="80" rx="8" fill="#FFF3E0" stroke="#FF9800" stroke-width="2"/>
+                            <text x="70" y="20" font-family="Arial" font-size="14" font-weight="600" fill="#333" text-anchor="middle">Cell Suspension</text>
+                            <circle cx="40" cy="50" r="8" fill="#FFB74D" opacity="0.8"/>
+                            <circle cx="60" cy="50" r="8" fill="#FFB74D" opacity="0.8"/>
+                            <circle cx="80" cy="50" r="8" fill="#FFB74D" opacity="0.8"/>
+                            <circle cx="100" cy="50" r="8" fill="#FFB74D" opacity="0.8"/>
+                            <circle cx="50" cy="65" r="8" fill="#FFB74D" opacity="0.8"/>
+                            <circle cx="70" cy="65" r="8" fill="#FFB74D" opacity="0.8"/>
+                            <circle cx="90" cy="65" r="8" fill="#FFB74D" opacity="0.8"/>
+                        </g>
+                        
+                        <!-- Arrow 1 -->
+                        <path d="M 120 140 L 120 165" stroke="#1E64C8" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Step 2: Gel Beads -->
+                        <g transform="translate(200, 50)">
+                            <rect x="0" y="0" width="140" height="80" rx="8" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+                            <text x="70" y="20" font-family="Arial" font-size="14" font-weight="600" fill="#333" text-anchor="middle">Gel Beads</text>
+                            <circle cx="40" cy="50" r="10" fill="url(#gelBeadGrad)" stroke="#2E7D32" stroke-width="1.5"/>
+                            <circle cx="70" cy="50" r="10" fill="url(#gelBeadGrad)" stroke="#2E7D32" stroke-width="1.5"/>
+                            <circle cx="100" cy="50" r="10" fill="url(#gelBeadGrad)" stroke="#2E7D32" stroke-width="1.5"/>
+                            <circle cx="55" cy="68" r="10" fill="url(#gelBeadGrad)" stroke="#2E7D32" stroke-width="1.5"/>
+                            <circle cx="85" cy="68" r="10" fill="url(#gelBeadGrad)" stroke="#2E7D32" stroke-width="1.5"/>
+                            <!-- Barcode lines on beads -->
+                            <line x1="38" y1="48" x2="42" y2="48" stroke="#FFF" stroke-width="1"/>
+                            <line x1="38" y1="51" x2="42" y2="51" stroke="#FFF" stroke-width="1"/>
+                            <line x1="68" y1="48" x2="72" y2="48" stroke="#FFF" stroke-width="1"/>
+                            <line x1="68" y1="51" x2="72" y2="51" stroke="#FFF" stroke-width="1"/>
+                        </g>
+                        
+                        <!-- Arrow 2 -->
+                        <path d="M 270 140 L 270 165" stroke="#1E64C8" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Step 3: Microfluidic Chip -->
+                        <g transform="translate(125, 180)">
+                            <rect x="0" y="0" width="200" height="100" rx="8" fill="#E3F2FD" stroke="#1E64C8" stroke-width="3"/>
+                            <text x="100" y="20" font-family="Arial" font-size="14" font-weight="600" fill="#333" text-anchor="middle">Chromium Controller</text>
+                            
+                            <!-- Microfluidic channels -->
+                            <rect x="20" y="35" width="160" height="8" rx="2" fill="#90CAF9"/>
+                            <rect x="20" y="50" width="160" height="8" rx="2" fill="#90CAF9"/>
+                            <rect x="20" y="65" width="160" height="8" rx="2" fill="#90CAF9"/>
+                            
+                            <!-- Junction point -->
+                            <circle cx="100" cy="52" r="15" fill="#1E64C8" opacity="0.3"/>
+                            <text x="100" y="90" font-family="Arial" font-size="11" fill="#666" text-anchor="middle">GEM Generation</text>
+                        </g>
+                        
+                        <!-- Arrow 3 -->
+                        <path d="M 225 290 L 225 315" stroke="#1E64C8" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Step 4: GEMs Formation -->
+                        <g transform="translate(75, 330)">
+                            <rect x="0" y="0" width="300" height="120" rx="8" fill="#F3E5F5" stroke="#9C27B0" stroke-width="2"/>
+                            <text x="150" y="25" font-family="Arial" font-size="14" font-weight="600" fill="#333" text-anchor="middle">GEMs (Gel Bead-in-Emulsion)</text>
+                            
+                            <!-- Individual GEMs -->
+                            <g transform="translate(30, 45)">
+                                <ellipse cx="30" cy="30" rx="28" ry="32" fill="url(#gemGrad)" stroke="#2196F3" stroke-width="2"/>
+                                <circle cx="30" cy="30" r="8" fill="url(#gelBeadGrad)" stroke="#2E7D32" stroke-width="1.5"/>
+                                <circle cx="26" cy="22" r="3" fill="#FFB74D"/>
+                                <text x="30" y="70" font-family="Arial" font-size="10" fill="#666" text-anchor="middle">1 Cell</text>
+                            </g>
+                            
+                            <g transform="translate(105, 45)">
+                                <ellipse cx="30" cy="30" rx="28" ry="32" fill="url(#gemGrad)" stroke="#2196F3" stroke-width="2"/>
+                                <circle cx="30" cy="30" r="8" fill="url(#gelBeadGrad)" stroke="#2E7D32" stroke-width="1.5"/>
+                                <circle cx="28" cy="24" r="3" fill="#FFB74D"/>
+                                <text x="30" y="70" font-family="Arial" font-size="10" fill="#666" text-anchor="middle">1 Bead</text>
+                            </g>
+                            
+                            <g transform="translate(180, 45)">
+                                <ellipse cx="30" cy="30" rx="28" ry="32" fill="url(#gemGrad)" stroke="#2196F3" stroke-width="2"/>
+                                <circle cx="30" cy="30" r="8" fill="url(#gelBeadGrad)" stroke="#2E7D32" stroke-width="1.5"/>
+                                <circle cx="32" cy="26" r="3" fill="#FFB74D"/>
+                                <text x="30" y="70" font-family="Arial" font-size="10" fill="#666" text-anchor="middle">Reagents</text>
+                            </g>
+                            
+                            <g transform="translate(240, 45)">
+                                <ellipse cx="30" cy="30" rx="28" ry="32" fill="url(#gemGrad)" stroke="#2196F3" stroke-width="2"/>
+                                <circle cx="30" cy="30" r="8" fill="url(#gelBeadGrad)" stroke="#2E7D32" stroke-width="1.5"/>
+                                <line x1="22" y1="28" x2="38" y2="28" stroke="#FF5722" stroke-width="1.5"/>
+                                <line x1="22" y1="32" x2="38" y2="32" stroke="#FF5722" stroke-width="1.5"/>
+                            </g>
+                        </g>
+                        
+                        <!-- Arrow 4 -->
+                        <path d="M 225 460 L 225 485" stroke="#1E64C8" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Step 5: RT and Library -->
+                        <g transform="translate(100, 500)">
+                            <rect x="0" y="0" width="250" height="40" rx="6" fill="#FFF9C4" stroke="#F57F17" stroke-width="2"/>
+                            <text x="125" y="25" font-family="Arial" font-size="13" font-weight="600" fill="#333" text-anchor="middle">RT → cDNA → Sequencing Library</text>
+                        </g>
+                        
+                        <!-- Arrow marker definition -->
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
         </div>
-        <div class="note-box">
-            <div class="note-text">💡 High throughput but lower sensitivity per cell</div>
+
+        <!-- Section 2: Drop-seq Principles -->
+        <div class="detail-section">
+            <div class="section-header">
+                <span class="section-number">2</span>Drop-seq Principles
+            </div>
+            
+            <div class="content-box">
+                <div class="text-content">
+                    <div class="subsection-title">Fundamental Concept</div>
+                    <p class="description">
+                        Drop-seq, developed at Harvard Medical School, pioneered the co-encapsulation approach for 
+                        droplet-based scRNA-seq. The method uses custom microfluidic devices to pair individual cells 
+                        with uniquely barcoded microparticles (beads) in nanoliter-volume aqueous droplets suspended 
+                        in oil. This enables massively parallel single-cell transcriptomics at low cost.
+                    </p>
+                    
+                    <div class="subsection-title">Technical Implementation</div>
+                    <p class="description">
+                        The Drop-seq workflow involves flowing cells and barcoded beads through separate channels that 
+                        merge at a junction where oil is introduced, creating droplets. Each bead contains ~100 million 
+                        copies of a unique 12-nucleotide barcode sequence. After droplet formation, cells are lysed, 
+                        mRNA is captured on beads, and reverse transcription occurs within droplets.
+                    </p>
+                    
+                    <div class="key-points">
+                        <div class="key-points-title">🔬 Key Advantages</div>
+                        <ul>
+                            <li><strong>Cost-effective:</strong> DIY approach with open-source protocols</li>
+                            <li><strong>Scalable:</strong> Can profile 10,000+ cells per experiment</li>
+                            <li><strong>Flexible:</strong> Customizable for different applications</li>
+                            <li><strong>Accessible:</strong> Detailed protocols publicly available</li>
+                            <li><strong>Compatible:</strong> Standard molecular biology reagents</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">📊 Performance Metrics</div>
+                        <p class="description">
+                            Typical Drop-seq experiments capture ~1,000-3,000 genes per cell with median UMI counts 
+                            around 1,000-5,000. While lower than plate-based methods, the massive throughput enables 
+                            comprehensive characterization of cellular populations and rare cell types.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg width="450" height="550" viewBox="0 0 450 550" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Title -->
+                        <text x="225" y="30" font-family="Arial" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">Drop-seq Microfluidic Design</text>
+                        
+                        <!-- Microfluidic Device -->
+                        <g transform="translate(50, 60)">
+                            <!-- Device outline -->
+                            <rect x="0" y="0" width="350" height="250" rx="10" fill="#E3F2FD" stroke="#1E64C8" stroke-width="3"/>
+                            
+                            <!-- Cell input channel -->
+                            <path d="M 0 80 L 150 80" stroke="#FF9800" stroke-width="12" fill="none"/>
+                            <text x="75" y="70" font-family="Arial" font-size="12" font-weight="600" fill="#333" text-anchor="middle">Cells</text>
+                            
+                            <!-- Cells in channel -->
+                            <circle cx="30" cy="80" r="4" fill="#FFB74D"/>
+                            <circle cx="60" cy="80" r="4" fill="#FFB74D"/>
+                            <circle cx="90" cy="80" r="4" fill="#FFB74D"/>
+                            <circle cx="120" cy="80" r="4" fill="#FFB74D"/>
+                            
+                            <!-- Bead input channel -->
+                            <path d="M 0 170 L 150 170" stroke="#4CAF50" stroke-width="12" fill="none"/>
+                            <text x="75" y="160" font-family="Arial" font-size="12" font-weight="600" fill="#333" text-anchor="middle">Beads</text>
+                            
+                            <!-- Beads in channel -->
+                            <circle cx="30" cy="170" r="5" fill="#81C784" stroke="#2E7D32" stroke-width="1"/>
+                            <circle cx="65" cy="170" r="5" fill="#81C784" stroke="#2E7D32" stroke-width="1"/>
+                            <circle cx="100" cy="170" r="5" fill="#81C784" stroke="#2E7D32" stroke-width="1"/>
+                            <circle cx="135" cy="170" r="5" fill="#81C784" stroke="#2E7D32" stroke-width="1"/>
+                            
+                            <!-- Oil input channel -->
+                            <path d="M 175 0 L 175 100" stroke="#90CAF9" stroke-width="12" fill="none"/>
+                            <text x="205" y="50" font-family="Arial" font-size="12" font-weight="600" fill="#333">Oil</text>
+                            
+                            <!-- Junction area -->
+                            <circle cx="175" cy="125" r="30" fill="#FFF" stroke="#1E64C8" stroke-width="3"/>
+                            <text x="175" y="195" font-family="Arial" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">Droplet Junction</text>
+                            
+                            <!-- Output channel with droplets -->
+                            <path d="M 205 125 L 350 125" stroke="#64B5F6" stroke-width="14" fill="none"/>
+                            
+                            <!-- Droplets in output -->
+                            <circle cx="230" cy="125" r="11" fill="#E1F5FE" stroke="#2196F3" stroke-width="2"/>
+                            <circle cx="230" cy="125" r="3" fill="#FFB74D"/>
+                            <circle cx="228" cy="125" r="2" fill="#81C784"/>
+                            
+                            <circle cx="260" cy="125" r="11" fill="#E1F5FE" stroke="#2196F3" stroke-width="2"/>
+                            <circle cx="260" cy="125" r="3" fill="#FFB74D"/>
+                            <circle cx="258" cy="125" r="2" fill="#81C784"/>
+                            
+                            <circle cx="290" cy="125" r="11" fill="#E1F5FE" stroke="#2196F3" stroke-width="2"/>
+                            <circle cx="290" cy="125" r="3" fill="#FFB74D"/>
+                            <circle cx="288" cy="125" r="2" fill="#81C784"/>
+                            
+                            <circle cx="320" cy="125" r="11" fill="#E1F5FE" stroke="#2196F3" stroke-width="2"/>
+                            <circle cx="320" cy="125" r="3" fill="#FFB74D"/>
+                            <circle cx="318" cy="125" r="2" fill="#81C784"/>
+                        </g>
+                        
+                        <!-- Bead Detail -->
+                        <g transform="translate(50, 340)">
+                            <rect x="0" y="0" width="180" height="180" rx="8" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+                            <text x="90" y="25" font-family="Arial" font-size="14" font-weight="600" fill="#333" text-anchor="middle">Barcoded Bead</text>
+                            
+                            <!-- Bead -->
+                            <circle cx="90" cy="90" r="50" fill="#81C784" stroke="#2E7D32" stroke-width="2"/>
+                            
+                            <!-- Oligonucleotides -->
+                            <line x1="50" y1="70" x2="70" y2="75" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="55" y1="85" x2="72" y2="85" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="52" y1="100" x2="70" y2="98" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="58" y1="115" x2="74" y2="110" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <line x1="130" y1="70" x2="110" y2="75" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="125" y1="85" x2="108" y2="85" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="128" y1="100" x2="110" y2="98" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="122" y1="115" x2="106" y2="110" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <line x1="75" y1="50" x2="82" y2="65" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="90" y1="45" x2="90" y2="62" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="105" y1="50" x2="98" y2="65" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <text x="90" y="160" font-family="Arial" font-size="11" fill="#666" text-anchor="middle">~10⁸ oligonucleotides</text>
+                            <text x="90" y="175" font-family="Arial" font-size="11" fill="#666" text-anchor="middle">Unique barcode</text>
+                        </g>
+                        
+                        <!-- Process Steps -->
+                        <g transform="translate(250, 340)">
+                            <rect x="0" y="0" width="150" height="180" rx="8" fill="#FFF3E0" stroke="#FF9800" stroke-width="2"/>
+                            <text x="75" y="25" font-family="Arial" font-size="14" font-weight="600" fill="#333" text-anchor="middle">Process Steps</text>
+                            
+                            <text x="10" y="50" font-family="Arial" font-size="12" fill="#333">1. Cell lysis in droplet</text>
+                            <text x="10" y="75" font-family="Arial" font-size="12" fill="#333">2. mRNA capture on bead</text>
+                            <text x="10" y="100" font-family="Arial" font-size="12" fill="#333">3. Reverse transcription</text>
+                            <text x="10" y="125" font-family="Arial" font-size="12" fill="#333">4. Break emulsion</text>
+                            <text x="10" y="150" font-family="Arial" font-size="12" fill="#333">5. PCR amplification</text>
+                            <text x="10" y="175" font-family="Arial" font-size="12" fill="#333">6. Library preparation</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
         </div>
-        
-        <div class="visual-section">
-            <svg width="860" height="100" viewBox="0 0 860 100" xmlns="http://www.w3.org/2000/svg">
-                <!-- Microfluidic channel representation -->
-                <defs>
-                    <linearGradient id="dropletGrad" x1="0%" y1="0%" x2="100%" y2="0%">
-                        <stop offset="0%" style="stop-color:#e3f2fd;stop-opacity:1" />
-                        <stop offset="50%" style="stop-color:#90caf9;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#e3f2fd;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                
-                <!-- Input channels -->
-                <rect x="20" y="30" width="100" height="15" rx="3" fill="#FFB74D" opacity="0.7"/>
-                <text x="70" y="22" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#333" text-anchor="middle">Cells</text>
-                
-                <rect x="20" y="55" width="100" height="15" rx="3" fill="#64B5F6" opacity="0.7"/>
-                <text x="70" y="84" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#333" text-anchor="middle">Beads</text>
-                
-                <!-- Junction -->
-                <path d="M 120 37 L 160 50 M 120 62 L 160 50" stroke="#666" stroke-width="2" fill="none"/>
-                
-                <!-- Droplet formation zone -->
-                <rect x="160" y="40" width="200" height="20" rx="5" fill="#E0E0E0"/>
-                <text x="260" y="35" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">Droplet Formation</text>
-                
-                <!-- Individual droplets -->
-                <circle cx="190" cy="50" r="8" fill="url(#dropletGrad)" stroke="#1E64C8" stroke-width="1.5"/>
-                <circle cx="195" cy="50" r="2" fill="#FFB74D"/>
-                <circle cx="198" cy="50" r="1.5" fill="#2196F3"/>
-                
-                <circle cx="230" cy="50" r="8" fill="url(#dropletGrad)" stroke="#1E64C8" stroke-width="1.5"/>
-                <circle cx="235" cy="50" r="2" fill="#FFB74D"/>
-                <circle cx="238" cy="50" r="1.5" fill="#2196F3"/>
-                
-                <circle cx="270" cy="50" r="8" fill="url(#dropletGrad)" stroke="#1E64C8" stroke-width="1.5"/>
-                <circle cx="275" cy="50" r="2" fill="#FFB74D"/>
-                <circle cx="278" cy="50" r="1.5" fill="#2196F3"/>
-                
-                <circle cx="310" cy="50" r="8" fill="url(#dropletGrad)" stroke="#1E64C8" stroke-width="1.5"/>
-                <circle cx="315" cy="50" r="2" fill="#FFB74D"/>
-                <circle cx="318" cy="50" r="1.5" fill="#2196F3"/>
-                
-                <circle cx="350" cy="50" r="8" fill="url(#dropletGrad)" stroke="#1E64C8" stroke-width="1.5"/>
-                
-                <!-- Arrow to next step -->
-                <path d="M 370 50 L 410 50" stroke="#1E64C8" stroke-width="3" fill="none"/>
-                <polygon points="410,50 403,46 403,54" fill="#1E64C8"/>
-                
-                <!-- Barcode structure -->
-                <g transform="translate(430, 20)">
-                    <rect x="0" y="0" width="420" height="60" rx="5" fill="#f5f5f5" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="210" y="-5" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">Barcode Structure</text>
+
+        <!-- Section 3: InDrop Technology -->
+        <div class="detail-section">
+            <div class="section-header">
+                <span class="section-number">3</span>InDrop Technology
+            </div>
+            
+            <div class="content-box">
+                <div class="text-content">
+                    <div class="subsection-title">Innovation Overview</div>
+                    <p class="description">
+                        InDrop (Indexing Droplets) represents a unique approach using hydrogel microspheres with 
+                        photocleavable primers. Developed at Harvard, this system employs UV light to release barcoded 
+                        primers after encapsulation, enabling precise control of the reverse transcription reaction 
+                        timing. The technology supports high-throughput analysis with improved flexibility.
+                    </p>
                     
-                    <!-- Cell Barcode -->
-                    <rect x="10" y="12" width="120" height="36" rx="4" fill="#2196F3" opacity="0.8"/>
-                    <text x="70" y="33" font-family="Aptos, sans-serif" font-size="11" font-weight="700" fill="white" text-anchor="middle">Cell Barcode</text>
+                    <div class="subsection-title">Photocleavable Mechanism</div>
+                    <p class="description">
+                        The hallmark of InDrop is its use of hydrogel beads containing photocleavable primers. These 
+                        primers remain inactive until UV exposure, which cleaves a photolabile group and releases the 
+                        primers into the droplet. This design prevents premature reactions and allows for better 
+                        temporal control of the workflow, reducing background and improving data quality.
+                    </p>
                     
-                    <!-- UMI -->
-                    <rect x="140" y="12" width="90" height="36" rx="4" fill="#4CAF50" opacity="0.8"/>
-                    <text x="185" y="33" font-family="Aptos, sans-serif" font-size="11" font-weight="700" fill="white" text-anchor="middle">UMI</text>
+                    <div class="key-points">
+                        <div class="key-points-title">🔬 Technical Features</div>
+                        <ul>
+                            <li><strong>Hydrogel beads:</strong> Soft, porous structure for better reagent diffusion</li>
+                            <li><strong>Photocleavable primers:</strong> UV-activated barcode release</li>
+                            <li><strong>Cell viability:</strong> Gentle encapsulation preserves cell integrity</li>
+                            <li><strong>Barcode diversity:</strong> 147,456 unique cell barcodes</li>
+                            <li><strong>Throughput:</strong> Thousands of cells per run</li>
+                            <li><strong>Flexibility:</strong> Compatible with various cell types and conditions</li>
+                        </ul>
+                    </div>
                     
-                    <!-- cDNA -->
-                    <rect x="240" y="12" width="170" height="36" rx="4" fill="#FF9800" opacity="0.8"/>
-                    <text x="325" y="33" font-family="Aptos, sans-serif" font-size="11" font-weight="700" fill="white" text-anchor="middle">cDNA Sequence</text>
-                </g>
-            </svg>
+                    <div class="highlight-box">
+                        <div class="highlight-title">💡 Unique Advantages</div>
+                        <p class="description">
+                            The photocleavable design provides superior control over reaction timing, reducing premature 
+                            primer extension and barcode swapping. The hydrogel matrix allows better diffusion of lysate 
+                            and reagents compared to solid beads, potentially improving capture efficiency for long 
+                            transcripts.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg width="450" height="550" viewBox="0 0 450 550" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Title -->
+                        <text x="225" y="30" font-family="Arial" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">InDrop Photocleavable Technology</text>
+                        
+                        <!-- Step 1: Hydrogel Bead Before UV -->
+                        <g transform="translate(50, 60)">
+                            <rect x="0" y="0" width="160" height="140" rx="8" fill="#F3E5F5" stroke="#9C27B0" stroke-width="2"/>
+                            <text x="80" y="20" font-family="Arial" font-size="13" font-weight="600" fill="#333" text-anchor="middle">Before UV Exposure</text>
+                            
+                            <!-- Hydrogel bead -->
+                            <circle cx="80" cy="75" r="40" fill="#CE93D8" opacity="0.4" stroke="#7B1FA2" stroke-width="2" stroke-dasharray="3,3"/>
+                            
+                            <!-- Primers attached -->
+                            <g>
+                                <line x1="50" y1="60" x2="68" y2="68" stroke="#1E64C8" stroke-width="2"/>
+                                <circle cx="48" cy="58" r="3" fill="#FFA726"/>
+                                
+                                <line x1="55" y1="75" x2="70" y2="75" stroke="#1E64C8" stroke-width="2"/>
+                                <circle cx="53" cy="75" r="3" fill="#FFA726"/>
+                                
+                                <line x1="52" y1="90" x2="68" y2="85" stroke="#1E64C8" stroke-width="2"/>
+                                <circle cx="50" cy="92" r="3" fill="#FFA726"/>
+                                
+                                <line x1="110" y1="60" x2="92" y2="68" stroke="#1E64C8" stroke-width="2"/>
+                                <circle cx="112" cy="58" r="3" fill="#FFA726"/>
+                                
+                                <line x1="105" y1="75" x2="90" y2="75" stroke="#1E64C8" stroke-width="2"/>
+                                <circle cx="107" cy="75" r="3" fill="#FFA726"/>
+                                
+                                <line x1="108" y1="90" x2="92" y2="85" stroke="#1E64C8" stroke-width="2"/>
+                                <circle cx="110" cy="92" r="3" fill="#FFA726"/>
+                            </g>
+                            
+                            <text x="80" y="130" font-family="Arial" font-size="10" fill="#666" text-anchor="middle">Photocleavable</text>
+                            <text x="80" y="142" font-family="Arial" font-size="10" fill="#666" text-anchor="middle">group intact</text>
+                        </g>
+                        
+                        <!-- Arrow and UV -->
+                        <g transform="translate(220, 115)">
+                            <path d="M 0 0 L 30 0" stroke="#FFA726" stroke-width="3" marker-end="url(#arrowhead2)"/>
+                            <text x="15" y="-8" font-family="Arial" font-size="13" font-weight="700" fill="#FFA726" text-anchor="middle">UV</text>
+                            
+                            <!-- UV rays -->
+                            <line x1="10" y1="-20" x2="10" y2="-5" stroke="#FFA726" stroke-width="2"/>
+                            <line x1="15" y1="-20" x2="15" y2="-5" stroke="#FFA726" stroke-width="2"/>
+                            <line x1="20" y1="-20" x2="20" y2="-5" stroke="#FFA726" stroke-width="2"/>
+                        </g>
+                        
+                        <!-- Step 2: Hydrogel Bead After UV -->
+                        <g transform="translate(260, 60)">
+                            <rect x="0" y="0" width="160" height="140" rx="8" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+                            <text x="80" y="20" font-family="Arial" font-size="13" font-weight="600" fill="#333" text-anchor="middle">After UV Exposure</text>
+                            
+                            <!-- Hydrogel bead -->
+                            <circle cx="80" cy="75" r="40" fill="#CE93D8" opacity="0.4" stroke="#7B1FA2" stroke-width="2" stroke-dasharray="3,3"/>
+                            
+                            <!-- Released primers -->
+                            <g>
+                                <line x1="45" y1="55" x2="60" y2="62" stroke="#4CAF50" stroke-width="2.5"/>
+                                <line x1="48" y1="70" x2="62" y2="70" stroke="#4CAF50" stroke-width="2.5"/>
+                                <line x1="46" y1="85" x2="60" y2="80" stroke="#4CAF50" stroke-width="2.5"/>
+                                
+                                <line x1="115" y1="55" x2="100" y2="62" stroke="#4CAF50" stroke-width="2.5"/>
+                                <line x1="112" y1="70" x2="98" y2="70" stroke="#4CAF50" stroke-width="2.5"/>
+                                <line x1="114" y1="85" x2="100" y2="80" stroke="#4CAF50" stroke-width="2.5"/>
+                                
+                                <line x1="70" y1="42" x2="75" y2="55" stroke="#4CAF50" stroke-width="2.5"/>
+                                <line x1="90" y1="42" x2="85" y2="55" stroke="#4CAF50" stroke-width="2.5"/>
+                                <line x1="70" y1="108" x2="75" y2="95" stroke="#4CAF50" stroke-width="2.5"/>
+                                <line x1="90" y1="108" x2="85" y2="95" stroke="#4CAF50" stroke-width="2.5"/>
+                            </g>
+                            
+                            <text x="80" y="130" font-family="Arial" font-size="10" fill="#666" text-anchor="middle">Primers released</text>
+                            <text x="80" y="142" font-family="Arial" font-size="10" fill="#666" text-anchor="middle">and active</text>
+                        </g>
+                        
+                        <!-- Droplet Formation -->
+                        <g transform="translate(75, 230)">
+                            <rect x="0" y="0" width="300" height="120" rx="8" fill="#E1F5FE" stroke="#2196F3" stroke-width="2"/>
+                            <text x="150" y="25" font-family="Arial" font-size="14" font-weight="600" fill="#333" text-anchor="middle">Droplet with Cell and Hydrogel Bead</text>
+                            
+                            <!-- Droplet -->
+                            <ellipse cx="150" cy="75" rx="120" ry="40" fill="#B3E5FC" opacity="0.3" stroke="#0288D1" stroke-width="2"/>
+                            
+                            <!-- Cell -->
+                            <circle cx="100" cy="75" r="18" fill="#FFB74D" opacity="0.7" stroke="#F57C00" stroke-width="2"/>
+                            <circle cx="100" cy="75" r="8" fill="#FF9800" opacity="0.5"/>
+                            
+                            <!-- Hydrogel bead -->
+                            <circle cx="180" cy="75" r="20" fill="#CE93D8" opacity="0.4" stroke="#7B1FA2" stroke-width="2" stroke-dasharray="2,2"/>
+                            
+                            <!-- mRNA and primers interaction -->
+                            <path d="M 118 70 Q 140 60 165 72" stroke="#FF5722" stroke-width="2" fill="none"/>
+                            <path d="M 120 75 Q 140 75 165 75" stroke="#4CAF50" stroke-width="2" fill="none"/>
+                            <path d="M 118 80 Q 140 90 165 78" stroke="#FF5722" stroke-width="2" fill="none"/>
+                        </g>
+                        
+                        <!-- Process Timeline -->
+                        <g transform="translate(50, 380)">
+                            <rect x="0" y="0" width="350" height="150" rx="8" fill="#FFF9C4" stroke="#F57F17" stroke-width="2"/>
+                            <text x="175" y="25" font-family="Arial" font-size="14" font-weight="600" fill="#333" text-anchor="middle">InDrop Workflow Timeline</text>
+                            
+                            <!-- Timeline -->
+                            <line x1="30" y1="60" x2="320" y2="60" stroke="#666" stroke-width="2"/>
+                            
+                            <!-- Step markers -->
+                            <circle cx="60" cy="60" r="5" fill="#1E64C8"/>
+                            <text x="60" y="80" font-family="Arial" font-size="10" fill="#333" text-anchor="middle">Encapsulation</text>
+                            <text x="60" y="93" font-family="Arial" font-size="9" fill="#666" text-anchor="middle">t=0</text>
+                            
+                            <circle cx="140" cy="60" r="5" fill="#FFA726"/>
+                            <text x="140" y="80" font-family="Arial" font-size="10" fill="#333" text-anchor="middle">UV Exposure</text>
+                            <text x="140" y="93" font-family="Arial" font-size="9" fill="#666" text-anchor="middle">t=2 min</text>
+                            
+                            <circle cx="220" cy="60" r="5" fill="#4CAF50"/>
+                            <text x="220" y="80" font-family="Arial" font-size="10" fill="#333" text-anchor="middle">RT Reaction</text>
+                            <text x="220" y="93" font-family="Arial" font-size="9" fill="#666" text-anchor="middle">t=5-60 min</text>
+                            
+                            <circle cx="290" cy="60" r="5" fill="#9C27B0"/>
+                            <text x="290" y="80" font-family="Arial" font-size="10" fill="#333" text-anchor="middle">Break Emulsion</text>
+                            <text x="290" y="93" font-family="Arial" font-size="9" fill="#666" text-anchor="middle">t=90 min</text>
+                            
+                            <!-- Benefits box -->
+                            <rect x="10" y="110" width="330" height="30" rx="4" fill="#E8F5E9" stroke="#4CAF50" stroke-width="1"/>
+                            <text x="175" y="127" font-family="Arial" font-size="11" fill="#333" text-anchor="middle">Precise temporal control reduces background and barcode swapping</text>
+                        </g>
+                        
+                        <!-- Arrow marker -->
+                        <defs>
+                            <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#FFA726"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Barcode Design -->
+        <div class="detail-section">
+            <div class="section-header">
+                <span class="section-number">4</span>Barcode Design and UMI Strategy
+            </div>
+            
+            <div class="content-box">
+                <div class="text-content">
+                    <div class="subsection-title">Barcode Architecture</div>
+                    <p class="description">
+                        The barcode design in droplet-based scRNA-seq is critical for accurate molecular counting and 
+                        cell identification. A typical barcode structure consists of multiple functional elements: a cell 
+                        barcode (identifying individual cells), a Unique Molecular Identifier (UMI) for counting individual 
+                        mRNA molecules, and a polyT sequence for mRNA capture. This hierarchical design enables precise 
+                        quantification while minimizing technical artifacts.
+                    </p>
+                    
+                    <div class="subsection-title">UMI Functionality</div>
+                    <p class="description">
+                        UMIs are random nucleotide sequences (typically 10-12 bp) that tag individual mRNA molecules before 
+                        amplification. By collapsing PCR duplicates back to unique molecules based on UMI sequences, 
+                        researchers can accurately count original transcript numbers rather than amplified copies. This 
+                        dramatically improves quantification accuracy and reduces amplification bias, particularly important 
+                        for detecting low-abundance transcripts.
+                    </p>
+                    
+                    <div class="key-points">
+                        <div class="key-points-title">🔬 Design Specifications</div>
+                        <ul>
+                            <li><strong>Cell barcode:</strong> 12-16 bp, 147K-16M unique combinations</li>
+                            <li><strong>UMI length:</strong> 10-12 bp, ~1-4 million unique tags</li>
+                            <li><strong>Error correction:</strong> Hamming distance algorithms for barcode errors</li>
+                            <li><strong>PolyT tail:</strong> 20-30 T's for mRNA poly(A) capture</li>
+                            <li><strong>Read structure:</strong> R1 = barcode+UMI, R2 = cDNA insert</li>
+                            <li><strong>Multiplexing:</strong> Sample barcodes for pooled sequencing</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">📊 UMI Benefits</div>
+                        <p class="description">
+                            UMI-based counting reduces quantification bias by 3-10 fold compared to read counting, 
+                            particularly for highly expressed genes. It enables accurate detection of fold-changes as low 
+                            as 1.5x and improves identification of differentially expressed genes in low-input samples.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg width="450" height="550" viewBox="0 0 450 550" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Title -->
+                        <text x="225" y="30" font-family="Arial" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">Barcode Structure and UMI Strategy</text>
+                        
+                        <!-- Complete Barcode Structure -->
+                        <g transform="translate(25, 60)">
+                            <rect x="0" y="0" width="400" height="100" rx="8" fill="#E3F2FD" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="200" y="25" font-family="Arial" font-size="14" font-weight="600" fill="#333" text-anchor="middle">Complete Oligonucleotide Structure</text>
+                            
+                            <!-- Illumina adapter -->
+                            <rect x="10" y="45" width="60" height="40" rx="4" fill="#9C27B0" opacity="0.7"/>
+                            <text x="40" y="62" font-family="Arial" font-size="10" font-weight="600" fill="white" text-anchor="middle">Illumina</text>
+                            <text x="40" y="75" font-family="Arial" font-size="10" font-weight="600" fill="white" text-anchor="middle">Adapter</text>
+                            
+                            <!-- Cell Barcode -->
+                            <rect x="80" y="45" width="90" height="40" rx="4" fill="#2196F3" opacity="0.8"/>
+                            <text x="125" y="62" font-family="Arial" font-size="10" font-weight="700" fill="white" text-anchor="middle">Cell Barcode</text>
+                            <text x="125" y="75" font-family="Arial" font-size="9" fill="white" text-anchor="middle">16 bp</text>
+                            
+                            <!-- UMI -->
+                            <rect x="180" y="45" width="70" height="40" rx="4" fill="#4CAF50" opacity="0.8"/>
+                            <text x="215" y="62" font-family="Arial" font-size="10" font-weight="700" fill="white" text-anchor="middle">UMI</text>
+                            <text x="215" y="75" font-family="Arial" font-size="9" fill="white" text-anchor="middle">12 bp</text>
+                            
+                            <!-- PolyT -->
+                            <rect x="260" y="45" width="60" height="40" rx="4" fill="#FF9800" opacity="0.8"/>
+                            <text x="290" y="62" font-family="Arial" font-size="10" font-weight="700" fill="white" text-anchor="middle">PolyT</text>
+                            <text x="290" y="75" font-family="Arial" font-size="9" fill="white" text-anchor="middle">30 bp</text>
+                            
+                            <!-- cDNA -->
+                            <rect x="330" y="45" width="60" height="40" rx="4" fill="#F06292" opacity="0.8"/>
+                            <text x="360" y="62" font-family="Arial" font-size="10" font-weight="700" fill="white" text-anchor="middle">cDNA</text>
+                            <text x="360" y="75" font-family="Arial" font-size="9" fill="white" text-anchor="middle">Variable</text>
+                        </g>
+                        
+                        <!-- UMI Principle -->
+                        <g transform="translate(25, 190)">
+                            <rect x="0" y="0" width="400" height="180" rx="8" fill="#F3E5F5" stroke="#9C27B0" stroke-width="2"/>
+                            <text x="200" y="25" font-family="Arial" font-size="14" font-weight="600" fill="#333" text-anchor="middle">UMI Molecular Counting Principle</text>
+                            
+                            <!-- Original mRNA molecules -->
+                            <text x="20" y="50" font-family="Arial" font-size="12" font-weight="600" fill="#333">Original mRNA:</text>
+                            
+                            <g transform="translate(20, 60)">
+                                <rect x="0" y="0" width="180" height="20" rx="3" fill="#FFB74D" opacity="0.6"/>
+                                <text x="5" y="14" font-family="Arial" font-size="9" fill="#333">AGCTTAGC + AAAA...</text>
+                                <text x="165" y="14" font-family="Arial" font-size="9" font-weight="600" fill="#1E64C8">UMI:1</text>
+                            </g>
+                            
+                            <g transform="translate(20, 85)">
+                                <rect x="0" y="0" width="180" height="20" rx="3" fill="#FFB74D" opacity="0.6"/>
+                                <text x="5" y="14" font-family="Arial" font-size="9" fill="#333">CGATTAGC + AAAA...</text>
+                                <text x="165" y="14" font-family="Arial" font-size="9" font-weight="600" fill="#1E64C8">UMI:2</text>
+                            </g>
+                            
+                            <!-- Arrow -->
+                            <path d="M 210 85 L 240 85" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead3)"/>
+                            <text x="225" y="78" font-family="Arial" font-size="11" font-weight="600" fill="#333" text-anchor="middle">PCR</text>
+                            
+                            <!-- After amplification -->
+                            <text x="250" y="50" font-family="Arial" font-size="12" font-weight="600" fill="#333">After PCR:</text>
+                            
+                            <g transform="translate(250, 60)">
+                                <rect x="0" y="0" width="140" height="15" rx="2" fill="#81C784" opacity="0.4"/>
+                                <text x="5" y="11" font-family="Arial" font-size="8" fill="#333">Copy 1 - UMI:1</text>
+                            </g>
+                            <g transform="translate(250, 77)">
+                                <rect x="0" y="0" width="140" height="15" rx="2" fill="#81C784" opacity="0.4"/>
+                                <text x="5" y="11" font-family="Arial" font-size="8" fill="#333">Copy 2 - UMI:1</text>
+                            </g>
+                            <g transform="translate(250, 94)">
+                                <rect x="0" y="0" width="140" height="15" rx="2" fill="#81C784" opacity="0.4"/>
+                                <text x="5" y="11" font-family="Arial" font-size="8" fill="#333">Copy 3 - UMI:1</text>
+                            </g>
+                            <g transform="translate(250, 111)">
+                                <rect x="0" y="0" width="140" height="15" rx="2" fill="#90CAF9" opacity="0.4"/>
+                                <text x="5" y="11" font-family="Arial" font-size="8" fill="#333">Copy 1 - UMI:2</text>
+                            </g>
+                            <g transform="translate(250, 128)">
+                                <rect x="0" y="0" width="140" height="15" rx="2" fill="#90CAF9" opacity="0.4"/>
+                                <text x="5" y="11" font-family="Arial" font-size="8" fill="#333">Copy 2 - UMI:2</text>
+                            </g>
+                            
+                            <!-- Result -->
+                            <rect x="10" y="155" width="380" height="20" rx="4" fill="#C8E6C9" stroke="#4CAF50" stroke-width="2"/>
+                            <text x="200" y="169" font-family="Arial" font-size="11" font-weight="600" fill="#333" text-anchor="middle">Result: 2 unique molecules detected (not 5 reads)</text>
+                        </g>
+                        
+                        <!-- Error Correction -->
+                        <g transform="translate(25, 400)">
+                            <rect x="0" y="0" width="400" height="130" rx="8" fill="#FFF3E0" stroke="#FF9800" stroke-width="2"/>
+                            <text x="200" y="25" font-family="Arial" font-size="14" font-weight="600" fill="#333" text-anchor="middle">Barcode Error Correction</text>
+                            
+                            <!-- Whitelist -->
+                            <text x="20" y="50" font-family="Arial" font-size="12" font-weight="600" fill="#333">Known barcodes (whitelist):</text>
+                            <rect x="20" y="55" width="180" height="25" rx="3" fill="#4CAF50" opacity="0.3"/>
+                            <text x="30" y="72" font-family="Arial" font-size="10" font-family="monospace" fill="#333">ACGTACGTACGTACGT</text>
+                            
+                            <rect x="20" y="85" width="180" height="25" rx="3" fill="#4CAF50" opacity="0.3"/>
+                            <text x="30" y="102" font-family="Arial" font-size="10" font-family="monospace" fill="#333">TGCATGCATGCATGCA</text>
+                            
+                            <!-- Observed -->
+                            <text x="220" y="50" font-family="Arial" font-size="12" font-weight="600" fill="#333">Observed (with error):</text>
+                            <rect x="220" y="55" width="170" height="25" rx="3" fill="#FF5722" opacity="0.3"/>
+                            <text x="230" y="72" font-family="Arial" font-size="10" font-family="monospace" fill="#333">ACGTACGTACGTAC<tspan font-weight="700" fill="#D32F2F">T</tspan>T</text>
+                            <text x="300" y="92" font-family="Arial" font-size="10" fill="#666">↓ Corrected</text>
+                            
+                            <rect x="220" y="95" width="170" height="25" rx="3" fill="#4CAF50" opacity="0.3"/>
+                            <text x="230" y="112" font-family="Arial" font-size="10" font-family="monospace" fill="#333">ACGTACGTACGTACGT</text>
+                        </g>
+                        
+                        <!-- Arrow marker -->
+                        <defs>
+                            <marker id="arrowhead3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Doublet Detection -->
+        <div class="detail-section">
+            <div class="section-header">
+                <span class="section-number">5</span>Doublet Detection and Quality Control
+            </div>
+            
+            <div class="content-box">
+                <div class="text-content">
+                    <div class="subsection-title">Doublet Formation</div>
+                    <p class="description">
+                        Doublets occur when two or more cells are captured in a single droplet, resulting in merged 
+                        transcriptomes that can be misinterpreted as novel cell states. The doublet rate typically 
+                        increases linearly with cell loading concentration, ranging from 0.4% per 1,000 cells in 10X 
+                        Genomics to higher rates in other platforms. Doublets are particularly problematic as they can 
+                        create artificial cell types or mask true biological variation.
+                    </p>
+                    
+                    <div class="subsection-title">Detection Strategies</div>
+                    <p class="description">
+                        Multiple computational approaches exist for doublet detection. DoubletFinder uses artificial 
+                        doublets created by averaging expression profiles to train a classifier. Scrublet generates 
+                        simulated doublets and compares them to observed cells using nearest-neighbor distances. DoubletDecon 
+                        uses deconvolution to identify cells with mixed expression signatures. Experimental approaches 
+                        include cell hashing with oligonucleotide-conjugated antibodies and genetic demultiplexing using 
+                        natural genetic variation.
+                    </p>
+                    
+                    <div class="key-points">
+                        <div class="key-points-title">🔬 Detection Methods</div>
+                        <ul>
+                            <li><strong>Computational:</strong> DoubletFinder, Scrublet, DoubletDecon algorithms</li>
+                            <li><strong>Cell hashing:</strong> Lipid-tagged oligonucleotides for sample multiplexing</li>
+                            <li><strong>Genetic demux:</strong> SNP-based identification of mixed genotypes</li>
+                            <li><strong>Expression patterns:</strong> Dual marker gene detection</li>
+                            <li><strong>Library size:</strong> Elevated UMI counts indicate doublets</li>
+                            <li><strong>Heterotypic doublets:</strong> Most detectable (different cell types)</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">⚠️ Quality Control Thresholds</div>
+                        <p class="description">
+                            Standard QC includes filtering cells with <200 or >5,000 genes, >10% mitochondrial reads, 
+                            and doublet scores above threshold. Multiplet rate estimation: doublet rate ≈ 0.008 × (cells 
+                            loaded / 1,000). Combined computational and experimental approaches provide highest accuracy.
+                        </p>
+                    </div>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg width="450" height="550" viewBox="0 0 450 550" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Title -->
+                        <text x="225" y="30" font-family="Arial" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">Doublet Detection Strategies</text>
+                        
+                        <!-- Types of Droplets -->
+                        <g transform="translate(25, 60)">
+                            <rect x="0" y="0" width="400" height="140" rx="8" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+                            <text x="200" y="25" font-family="Arial" font-size="14" font-weight="600" fill="#333" text-anchor="middle">Droplet Capture Scenarios</text>
+                            
+                            <!-- Singlet -->
+                            <g transform="translate(40, 45)">
+                                <ellipse cx="40" cy="35" rx="35" ry="30" fill="#B3E5FC" opacity="0.4" stroke="#0288D1" stroke-width="2"/>
+                                <circle cx="40" cy="35" r="12" fill="#FFB74D" opacity="0.8"/>
+                                <text x="40" y="75" font-family="Arial" font-size="11" font-weight="600" fill="#4CAF50" text-anchor="middle">Singlet ✓</text>
+                                <text x="40" y="90" font-family="Arial" font-size="9" fill="#666" text-anchor="middle">1 cell/droplet</text>
+                            </g>
+                            
+                            <!-- Doublet (same type) -->
+                            <g transform="translate(150, 45)">
+                                <ellipse cx="40" cy="35" rx="35" ry="30" fill="#FFCCBC" opacity="0.4" stroke="#FF5722" stroke-width="2"/>
+                                <circle cx="32" cy="35" r="10" fill="#FFB74D" opacity="0.8"/>
+                                <circle cx="48" cy="35" r="10" fill="#FFB74D" opacity="0.8"/>
+                                <text x="40" y="75" font-family="Arial" font-size="11" font-weight="600" fill="#FF5722" text-anchor="middle">Homotypic ✗</text>
+                                <text x="40" y="90" font-family="Arial" font-size="9" fill="#666" text-anchor="middle">Same cell type</text>
+                            </g>
+                            
+                            <!-- Doublet (different types) -->
+                            <g transform="translate(260, 45)">
+                                <ellipse cx="40" cy="35" rx="35" ry="30" fill="#FFCDD2" opacity="0.4" stroke="#D32F2F" stroke-width="2"/>
+                                <circle cx="32" cy="35" r="10" fill="#FFB74D" opacity="0.8"/>
+                                <circle cx="48" cy="35" r="10" fill="#64B5F6" opacity="0.8"/>
+                                <text x="40" y="75" font-family="Arial" font-size="11" font-weight="600" fill="#D32F2F" text-anchor="middle">Heterotypic ✗</text>
+                                <text x="40" y="90" font-family="Arial" font-size="9" fill="#666" text-anchor="middle">Different types</text>
+                            </g>
+                            
+                            <!-- Empty -->
+                            <g transform="translate(370, 45)">
+                                <ellipse cx="30" cy="35" rx="25" ry="30" fill="#F5F5F5" opacity="0.6" stroke="#9E9E9E" stroke-width="2" stroke-dasharray="3,3"/>
+                                <text x="30" y="75" font-family="Arial" font-size="11" font-weight="600" fill="#666" text-anchor="middle">Empty</text>
+                                <text x="30" y="90" font-family="Arial" font-size="9" fill="#666" text-anchor="middle">0 cells</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Computational Detection -->
+                        <g transform="translate(25, 220)">
+                            <rect x="0" y="0" width="400" height="150" rx="8" fill="#E3F2FD" stroke="#2196F3" stroke-width="2"/>
+                            <text x="200" y="25" font-family="Arial" font-size="14" font-weight="600" fill="#333" text-anchor="middle">Computational Doublet Detection</text>
+                            
+                            <!-- Method 1: Scrublet -->
+                            <g transform="translate(15, 40)">
+                                <rect x="0" y="0" width="110" height="95" rx="5" fill="#FFF" stroke="#1E64C8" stroke-width="1.5"/>
+                                <text x="55" y="18" font-family="Arial" font-size="12" font-weight="600" fill="#1E64C8" text-anchor="middle">Scrublet</text>
+                                
+                                <text x="8" y="35" font-family="Arial" font-size="9" fill="#333">1. Simulate doublets</text>
+                                <text x="8" y="50" font-family="Arial" font-size="9" fill="#333">2. PCA embedding</text>
+                                <text x="8" y="65" font-family="Arial" font-size="9" fill="#333">3. KNN comparison</text>
+                                <text x="8" y="80" font-family="Arial" font-size="9" fill="#333">4. Doublet score</text>
+                            </g>
+                            
+                            <!-- Method 2: DoubletFinder -->
+                            <g transform="translate(140, 40)">
+                                <rect x="0" y="0" width="115" height="95" rx="5" fill="#FFF" stroke="#1E64C8" stroke-width="1.5"/>
+                                <text x="57" y="18" font-family="Arial" font-size="12" font-weight="600" fill="#1E64C8" text-anchor="middle">DoubletFinder</text>
+                                
+                                <text x="8" y="35" font-family="Arial" font-size="9" fill="#333">1. Create artificial</text>
+                                <text x="8" y="48" font-family="Arial" font-size="9" fill="#333">   doublets</text>
+                                <text x="8" y="63" font-family="Arial" font-size="9" fill="#333">2. Train classifier</text>
+                                <text x="8" y="78" font-family="Arial" font-size="9" fill="#333">3. Predict doublets</text>
+                            </g>
+                            
+                            <!-- Method 3: DoubletDecon -->
+                            <g transform="translate(270, 40)">
+                                <rect x="0" y="0" width="115" height="95" rx="5" fill="#FFF" stroke="#1E64C8" stroke-width="1.5"/>
+                                <text x="57" y="18" font-family="Arial" font-size="12" font-weight="600" fill="#1E64C8" text-anchor="middle">DoubletDecon</text>
+                                
+                                <text x="8" y="35" font-family="Arial" font-size="9" fill="#333">1. Cluster cells</text>
+                                <text x="8" y="50" font-family="Arial" font-size="9" fill="#333">2. Deconvolution</text>
+                                <text x="8" y="65" font-family="Arial" font-size="9" fill="#333">3. Expression mix</text>
+                                <text x="8" y="80" font-family="Arial" font-size="9" fill="#333">4. Identify doublets</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Experimental Approaches -->
+                        <g transform="translate(25, 390)">
+                            <rect x="0" y="0" width="400" height="140" rx="8" fill="#FFF3E0" stroke="#FF9800" stroke-width="2"/>
+                            <text x="200" y="25" font-family="Arial" font-size="14" font-weight="600" fill="#333" text-anchor="middle">Experimental Doublet Detection</text>
+                            
+                            <!-- Cell Hashing -->
+                            <g transform="translate(20, 45)">
+                                <rect x="0" y="0" width="170" height="80" rx="5" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+                                <text x="85" y="20" font-family="Arial" font-size="12" font-weight="600" fill="#333" text-anchor="middle">Cell Hashing</text>
+                                
+                                <!-- Sample 1 cells -->
+                                <circle cx="35" cy="45" r="10" fill="#FFB74D" opacity="0.6" stroke="#F57C00" stroke-width="1.5"/>
+                                <rect x="30" y="40" width="10" height="3" fill="#2196F3"/>
+                                <text x="35" y="65" font-family="Arial" font-size="8" fill="#333" text-anchor="middle">HTO-1</text>
+                                
+                                <circle cx="65" cy="45" r="10" fill="#FFB74D" opacity="0.6" stroke="#F57C00" stroke-width="1.5"/>
+                                <rect x="60" y="40" width="10" height="3" fill="#2196F3"/>
+                                
+                                <!-- Sample 2 cells -->
+                                <circle cx="105" cy="45" r="10" fill="#64B5F6" opacity="0.6" stroke="#1976D2" stroke-width="1.5"/>
+                                <rect x="100" y="40" width="10" height="3" fill="#4CAF50"/>
+                                <text x="105" y="65" font-family="Arial" font-size="8" fill="#333" text-anchor="middle">HTO-2</text>
+                                
+                                <circle cx="135" cy="45" r="10" fill="#64B5F6" opacity="0.6" stroke="#1976D2" stroke-width="1.5"/>
+                                <rect x="130" y="40" width="10" height="3" fill="#4CAF50"/>
+                                
+                                <!-- Doublet -->
+                                <ellipse cx="85" cy="55" rx="15" ry="12" fill="#FFCDD2" opacity="0.3" stroke="#D32F2F" stroke-width="2"/>
+                                <circle cx="80" cy="55" r="6" fill="#FFB74D" opacity="0.6"/>
+                                <circle cx="90" cy="55" r="6" fill="#64B5F6" opacity="0.6"/>
+                                <rect x="82" y="52" width="6" height="2" fill="#2196F3"/>
+                                <rect x="82" y="55" width="6" height="2" fill="#4CAF50"/>
+                                <text x="85" y="73" font-family="Arial" font-size="8" fill="#D32F2F" text-anchor="middle">Doublet</text>
+                            </g>
+                            
+                            <!-- Genetic Demultiplexing -->
+                            <g transform="translate(210, 45)">
+                                <rect x="0" y="0" width="170" height="80" rx="5" fill="#F3E5F5" stroke="#9C27B0" stroke-width="2"/>
+                                <text x="85" y="20" font-family="Arial" font-size="12" font-weight="600" fill="#333" text-anchor="middle">Genetic Demultiplexing</text>
+                                
+                                <!-- Donor 1 -->
+                                <circle cx="40" cy="50" r="10" fill="#FFB74D" opacity="0.6" stroke="#F57C00" stroke-width="1.5"/>
+                                <text x="40" y="53" font-family="Arial" font-size="9" font-weight="700" fill="#333" text-anchor="middle">AA</text>
+                                
+                                <!-- Donor 2 -->
+                                <circle cx="85" cy="50" r="10" fill="#64B5F6" opacity="0.6" stroke="#1976D2" stroke-width="1.5"/>
+                                <text x="85" y="53" font-family="Arial" font-size="9" font-weight="700" fill="#333" text-anchor="middle">BB</text>
+                                
+                                <!-- Mixed genotype (doublet) -->
+                                <ellipse cx="130" cy="50" rx="15" ry="12" fill="#FFCDD2" opacity="0.3" stroke="#D32F2F" stroke-width="2"/>
+                                <text x="130" y="53" font-family="Arial" font-size="9" font-weight="700" fill="#D32F2F" text-anchor="middle">AB</text>
+                                <text x="130" y="73" font-family="Arial" font-size="8" fill="#D32F2F" text-anchor="middle">Doublet</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Comparison Table -->
+            <table class="comparison-table" style="margin-top: 30px;">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Type</th>
+                        <th>Sensitivity</th>
+                        <th>Specificity</th>
+                        <th>Limitations</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>Scrublet</strong></td>
+                        <td>Computational</td>
+                        <td>70-85%</td>
+                        <td>90-95%</td>
+                        <td>Misses homotypic doublets</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DoubletFinder</strong></td>
+                        <td>Computational</td>
+                        <td>75-90%</td>
+                        <td>92-97%</td>
+                        <td>Computationally intensive</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Cell Hashing</strong></td>
+                        <td>Experimental</td>
+                        <td>95-99%</td>
+                        <td>98-99%</td>
+                        <td>Requires sample multiplexing</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Genetic Demux</strong></td>
+                        <td>Experimental</td>
+                        <td>90-95%</td>
+                        <td>95-98%</td>
+                        <td>Requires genetic diversity</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- Summary Section -->
+        <div style="background: #E3F2FD; border: 3px solid #1E64C8; border-radius: 12px; padding: 25px; margin-top: 40px;">
+            <h2 style="color: #1E64C8; margin-bottom: 15px; font-size: 24px;">💡 Key Takeaways</h2>
+            <ul style="line-height: 2; color: #333; font-size: 15px;">
+                <li><strong>High Throughput:</strong> Droplet methods enable profiling of 10,000-80,000 cells per experiment</li>
+                <li><strong>Cost-Effective:</strong> Lower per-cell costs compared to plate-based methods</li>
+                <li><strong>Trade-off:</strong> Higher throughput at the expense of per-cell sensitivity (1,000-5,000 genes/cell)</li>
+                <li><strong>Barcode Design:</strong> Cell barcodes + UMIs enable accurate molecular counting</li>
+                <li><strong>Quality Control:</strong> Computational and experimental doublet detection methods are essential</li>
+                <li><strong>Platform Choice:</strong> 10X Genomics offers user-friendliness; Drop-seq/InDrop offer flexibility</li>
+            </ul>
         </div>
     </div>
 </body>

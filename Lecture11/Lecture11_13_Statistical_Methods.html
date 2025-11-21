@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Statistical Methods</title>
+    <title>Biomarker Validation Strategies</title>
     <style>
         * {
             margin: 0;
@@ -12,103 +12,1290 @@
         }
         
         body {
-            font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            padding: 40px 20px;
+            line-height: 1.6;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #6a11cb 0%, #2575fc 100%);
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 42px;
+            margin-bottom: 15px;
+            font-weight: 700;
+        }
+        
+        .header p {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+        
+        .content {
+            padding: 50px;
+        }
+        
+        .pipeline {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
             padding: 40px;
+            border-radius: 12px;
+            margin-bottom: 50px;
+            color: white;
+        }
+        
+        .pipeline h2 {
+            font-size: 28px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .pipeline-steps {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .pipeline-step {
+            flex: 1;
+            background: rgba(255,255,255,0.15);
+            padding: 25px 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid rgba(255,255,255,0.3);
+            transition: all 0.3s;
+        }
+        
+        .pipeline-step:hover {
+            background: rgba(255,255,255,0.25);
+            transform: translateY(-5px);
+        }
+        
+        .pipeline-step h3 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .pipeline-step p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .arrow {
+            font-size: 30px;
+            opacity: 0.7;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+            border-bottom: 2px solid #e8e8e8;
+            padding-bottom: 40px;
+        }
+        
+        .section:last-child {
+            border-bottom: none;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+        
+        .section-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 22px;
+            font-weight: bold;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            color: #667eea;
+            font-weight: 700;
+        }
+        
+        .section-description {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            background: #f8f9fb;
+            padding: 20px;
+            border-left: 5px solid #667eea;
+            border-radius: 8px;
+        }
+        
+        .visualization {
+            background: #f8f9fb;
+            border-radius: 12px;
+            padding: 35px;
+            margin: 25px 0;
+            border: 2px solid #e0e6ed;
+        }
+        
+        .viz-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 25px;
+            text-align: center;
+            border-bottom: 3px solid #667eea;
+            padding-bottom: 10px;
+        }
+        
+        .split-validation {
+            display: flex;
+            gap: 30px;
+            margin: 30px 0;
+        }
+        
+        .split-column {
+            flex: 1;
+        }
+        
+        .split-box {
+            background: white;
+            border: 3px solid #667eea;
+            border-radius: 10px;
+            padding: 25px;
+            height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            position: relative;
+        }
+        
+        .split-box h4 {
+            font-size: 20px;
+            color: #667eea;
+            margin-bottom: 15px;
+        }
+        
+        .split-box p {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+        }
+        
+        .split-label {
+            position: absolute;
+            top: -15px;
+            background: #667eea;
+            color: white;
+            padding: 5px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .cohort-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .cohort-card {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .cohort-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(102, 126, 234, 0.2);
+        }
+        
+        .cohort-card h4 {
+            font-size: 18px;
+            color: #667eea;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .cohort-icon {
+            width: 35px;
+            height: 35px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .cohort-card ul {
+            list-style-position: inside;
+            color: #666;
+        }
+        
+        .cohort-card li {
+            margin: 8px 0;
+            font-size: 15px;
+        }
+        
+        .timeline {
+            position: relative;
+            padding-left: 50px;
+            margin: 30px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 20px;
+            top: 0;
+            bottom: 0;
+            width: 4px;
+            background: linear-gradient(180deg, #667eea 0%, #764ba2 100%);
+        }
+        
+        .timeline-item {
+            position: relative;
+            margin-bottom: 30px;
+            background: white;
+            border: 2px solid #e0e6ed;
+            border-radius: 10px;
+            padding: 20px;
+            transition: all 0.3s;
+        }
+        
+        .timeline-item:hover {
+            border-color: #667eea;
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.15);
+        }
+        
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -42px;
+            top: 25px;
+            width: 20px;
+            height: 20px;
+            background: #667eea;
+            border: 4px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 3px #667eea;
+        }
+        
+        .timeline-item h4 {
+            font-size: 18px;
+            color: #667eea;
+            margin-bottom: 10px;
+        }
+        
+        .timeline-item p {
+            color: #666;
+            font-size: 15px;
+            line-height: 1.6;
+        }
+        
+        .performance-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 36px;
+            font-weight: 700;
+            margin: 15px 0;
+        }
+        
+        .metric-label {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .metric-description {
+            font-size: 13px;
+            margin-top: 10px;
+            opacity: 0.8;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
             background: white;
         }
         
-        .title {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1E64C8;
-            margin-bottom: 25px;
-            text-align: center;
+        .comparison-table th,
+        .comparison-table td {
+            border: 1px solid #ddd;
+            padding: 15px;
+            text-align: left;
         }
         
-        .content-list {
+        .comparison-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            font-weight: 600;
+            font-size: 16px;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fb;
+        }
+        
+        .comparison-table td {
+            font-size: 15px;
+            color: #666;
+        }
+        
+        .key-points {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        
+        .key-points h4 {
+            color: #856404;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .key-points ul {
+            list-style-position: inside;
+            color: #856404;
+        }
+        
+        .key-points li {
+            margin: 10px 0;
+            font-size: 15px;
+        }
+        
+        .warning-box {
+            background: #f8d7da;
+            border-left: 5px solid #dc3545;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        
+        .warning-box h4 {
+            color: #721c24;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .warning-box ul {
+            list-style-position: inside;
+            color: #721c24;
+        }
+        
+        .warning-box li {
+            margin: 10px 0;
+            font-size: 15px;
+        }
+        
+        .success-box {
+            background: #d4edda;
+            border-left: 5px solid #28a745;
+            padding: 25px;
+            border-radius: 8px;
+            margin: 25px 0;
+        }
+        
+        .success-box h4 {
+            color: #155724;
+            margin-bottom: 15px;
+            font-size: 20px;
+        }
+        
+        .success-box ul {
+            list-style-position: inside;
+            color: #155724;
+        }
+        
+        .success-box li {
+            margin: 10px 0;
+            font-size: 15px;
+        }
+        
+        .flowchart {
             display: flex;
             flex-direction: column;
-            gap: 15px;
-            margin-bottom: 25px;
+            gap: 20px;
+            margin: 30px 0;
         }
         
-        .content-card {
-            background: #f8f9fb;
-            border-left: 5px solid #1E64C8;
-            padding: 18px 22px;
-            border-radius: 8px;
-            transition: all 0.3s;
+        .flow-row {
             display: flex;
+            align-items: center;
             gap: 15px;
-            align-items: flex-start;
         }
         
-        .content-card:hover {
-            background: #e8f2ff;
-            transform: translateX(5px);
-        }
-        
-        .card-title {
-            font-size: 17px;
-            font-weight: 700;
-            color: #1E64C8;
-            min-width: 180px;
-            flex-shrink: 0;
-        }
-        
-        .card-content {
-            font-size: 16px;
-            color: #333;
-            line-height: 1.5;
-        }
-        
-        .highlight-box {
-            background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
-            color: white;
-            padding: 18px 25px;
+        .flow-box {
+            flex: 1;
+            background: white;
+            border: 3px solid #667eea;
             border-radius: 10px;
+            padding: 20px;
             text-align: center;
+            font-weight: 600;
+            color: #667eea;
             font-size: 16px;
-            font-weight: 500;
+        }
+        
+        .flow-box.highlight {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+        }
+        
+        .flow-arrow {
+            font-size: 30px;
+            color: #667eea;
+            font-weight: bold;
+        }
+        
+        .roc-curve {
+            width: 100%;
+            max-width: 500px;
+            height: 400px;
+            margin: 30px auto;
+            position: relative;
+            background: white;
+            border: 2px solid #ddd;
+            border-radius: 10px;
+        }
+        
+        .roc-curve svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        .checklist {
+            background: white;
+            border: 2px solid #667eea;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 25px 0;
+        }
+        
+        .checklist h4 {
+            color: #667eea;
+            font-size: 22px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .checklist-item {
+            display: flex;
+            align-items: start;
+            gap: 15px;
+            margin: 15px 0;
+            padding: 15px;
+            background: #f8f9fb;
+            border-radius: 8px;
+        }
+        
+        .checkbox {
+            width: 24px;
+            height: 24px;
+            border: 3px solid #667eea;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            background: white;
+            margin-top: 2px;
+        }
+        
+        .checkbox::after {
+            content: '✓';
+            color: #667eea;
+            font-size: 18px;
+            font-weight: bold;
+        }
+        
+        .checklist-text {
+            font-size: 15px;
+            color: #333;
             line-height: 1.6;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Statistical Methods</div>
-        
-        <div class="content-list">
-            <div class="content-card">
-                <div class="card-title">Feature Selection</div>
-                <div class="card-content">LASSO, elastic net, random forests for variable selection</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Multiple Testing</div>
-                <div class="card-content">FDR correction and permutation-based adjustments</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Cross-validation</div>
-                <div class="card-content">K-fold CV and nested CV prevent overfitting</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Bootstrap CI</div>
-                <div class="card-content">Confidence intervals through resampling methods</div>
-            </div>
+        <div class="header">
+            <h1>Biomarker Validation Strategies</h1>
+            <p>Comprehensive Framework for Discovery and Clinical Translation</p>
         </div>
         
-        <div class="highlight-box">
-            Power Analysis: Essential for determining adequate sample size and detecting true effects
+        <div class="content">
+            <!-- Validation Pipeline -->
+            <div class="pipeline">
+                <h2>Biomarker Development Pipeline</h2>
+                <div class="pipeline-steps">
+                    <div class="pipeline-step">
+                        <h3>Discovery</h3>
+                        <p>Identify candidate biomarkers</p>
+                    </div>
+                    <span class="arrow">→</span>
+                    <div class="pipeline-step">
+                        <h3>Qualification</h3>
+                        <p>Analytical validation</p>
+                    </div>
+                    <span class="arrow">→</span>
+                    <div class="pipeline-step">
+                        <h3>Verification</h3>
+                        <p>Clinical validation</p>
+                    </div>
+                    <span class="arrow">→</span>
+                    <div class="pipeline-step">
+                        <h3>Validation</h3>
+                        <p>Independent cohorts</p>
+                    </div>
+                    <span class="arrow">→</span>
+                    <div class="pipeline-step">
+                        <h3>Translation</h3>
+                        <p>Clinical implementation</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section 1: Internal Validation -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">1</div>
+                    <div class="section-title">Internal Validation</div>
+                </div>
+                
+                <div class="section-description">
+                    Internal validation assesses biomarker performance using the same dataset or institution where discovery occurred. This critical first step ensures reproducibility before investing in external validation efforts.
+                </div>
+                
+                <div class="visualization">
+                    <div class="viz-title">Data Splitting Strategies</div>
+                    
+                    <div class="split-validation">
+                        <div class="split-column">
+                            <div class="split-box">
+                                <span class="split-label">Training Set (70%)</span>
+                                <h4>Model Development</h4>
+                                <p>Build predictive model<br>Select features<br>Optimize parameters</p>
+                            </div>
+                        </div>
+                        <div class="split-column">
+                            <div class="split-box">
+                                <span class="split-label">Test Set (30%)</span>
+                                <h4>Performance Evaluation</h4>
+                                <p>Assess generalization<br>Calculate metrics<br>Validate predictions</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div style="text-align: center; margin-top: 25px; padding: 20px; background: white; border-radius: 8px;">
+                        <strong style="color: #667eea; font-size: 18px;">Alternative: K-Fold Cross-Validation</strong>
+                        <p style="color: #666; margin-top: 10px;">Maximizes data usage by rotating test sets across multiple iterations</p>
+                    </div>
+                </div>
+                
+                <div class="key-points">
+                    <h4>Key Methods:</h4>
+                    <ul>
+                        <li><strong>Hold-out Validation:</strong> Single train-test split (70-30 or 80-20)</li>
+                        <li><strong>K-Fold Cross-Validation:</strong> Multiple train-test iterations for robust estimates</li>
+                        <li><strong>Bootstrap Validation:</strong> Resampling with replacement to assess stability</li>
+                        <li><strong>Temporal Validation:</strong> Earlier samples for training, later samples for testing</li>
+                    </ul>
+                </div>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Method</th>
+                        <th>Advantages</th>
+                        <th>Limitations</th>
+                        <th>Best Used When</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Hold-out (70-30)</strong></td>
+                        <td>Simple, fast, mimics real deployment</td>
+                        <td>High variance, wastes data</td>
+                        <td>Large datasets (n > 1000)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>10-Fold CV</strong></td>
+                        <td>Low bias, uses all data</td>
+                        <td>Computationally expensive</td>
+                        <td>Medium datasets (n = 100-1000)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>LOOCV</strong></td>
+                        <td>Maximum data usage, unbiased</td>
+                        <td>Very expensive, high variance</td>
+                        <td>Small datasets (n < 100)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Bootstrap (B=1000)</strong></td>
+                        <td>Stable estimates, CIs available</td>
+                        <td>Optimism in performance</td>
+                        <td>Assessing model stability</td>
+                    </tr>
+                </table>
+                
+                <div class="warning-box">
+                    <h4>⚠ Common Pitfalls to Avoid:</h4>
+                    <ul>
+                        <li><strong>Data Leakage:</strong> Ensure complete separation between training and test sets</li>
+                        <li><strong>Overfitting:</strong> Avoid testing on data used for feature selection</li>
+                        <li><strong>Batch Effects:</strong> Account for technical variation when splitting data</li>
+                        <li><strong>Class Imbalance:</strong> Use stratified splitting to maintain outcome proportions</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Section 2: External Validation -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">2</div>
+                    <div class="section-title">External Validation</div>
+                </div>
+                
+                <div class="section-description">
+                    External validation tests biomarker performance in completely independent cohorts, often from different institutions, populations, or time periods. This is the gold standard for demonstrating clinical utility and generalizability.
+                </div>
+                
+                <div class="visualization">
+                    <div class="viz-title">Types of External Validation Cohorts</div>
+                    
+                    <div class="cohort-grid">
+                        <div class="cohort-card">
+                            <h4><span class="cohort-icon">G</span>Geographic Validation</h4>
+                            <ul>
+                                <li>Different institutions/countries</li>
+                                <li>Tests population generalizability</li>
+                                <li>Accounts for ethnic diversity</li>
+                                <li>Validates across healthcare systems</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="cohort-card">
+                            <h4><span class="cohort-icon">T</span>Temporal Validation</h4>
+                            <ul>
+                                <li>Prospectively collected samples</li>
+                                <li>Tests temporal stability</li>
+                                <li>Mimics clinical deployment</li>
+                                <li>Reduces selection bias</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="cohort-card">
+                            <h4><span class="cohort-icon">P</span>Platform Validation</h4>
+                            <ul>
+                                <li>Different measurement technologies</li>
+                                <li>Tests analytical robustness</li>
+                                <li>Validates across lab protocols</li>
+                                <li>Ensures reproducibility</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="cohort-card">
+                            <h4><span class="cohort-icon">C</span>Clinical Subgroup</h4>
+                            <ul>
+                                <li>Different disease stages/subtypes</li>
+                                <li>Tests clinical applicability</li>
+                                <li>Evaluates boundary conditions</li>
+                                <li>Identifies limitations</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="success-box">
+                    <h4>✓ Best Practices for External Validation:</h4>
+                    <ul>
+                        <li><strong>Pre-specify Analysis Plan:</strong> Lock model before validation to prevent optimization</li>
+                        <li><strong>Multiple Cohorts:</strong> Validate in 2-3 independent datasets when possible</li>
+                        <li><strong>Document Differences:</strong> Record population characteristics and collection protocols</li>
+                        <li><strong>Report Transparently:</strong> Include all validation results, even if performance declines</li>
+                        <li><strong>Assess Calibration:</strong> Verify predicted probabilities match observed outcomes</li>
+                    </ul>
+                </div>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Validation Type</th>
+                        <th>Strength of Evidence</th>
+                        <th>Resource Requirements</th>
+                        <th>Clinical Confidence</th>
+                    </tr>
+                    <tr>
+                        <td>Internal (same institution)</td>
+                        <td>⭐⭐</td>
+                        <td>Low</td>
+                        <td>Limited</td>
+                    </tr>
+                    <tr>
+                        <td>External (different institution)</td>
+                        <td>⭐⭐⭐⭐</td>
+                        <td>Medium</td>
+                        <td>Moderate</td>
+                    </tr>
+                    <tr>
+                        <td>External + Temporal</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>High</td>
+                        <td>High</td>
+                    </tr>
+                    <tr>
+                        <td>Multi-center prospective</td>
+                        <td>⭐⭐⭐⭐⭐</td>
+                        <td>Very High</td>
+                        <td>Very High</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Section 3: Performance Metrics -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">3</div>
+                    <div class="section-title">Performance Metrics</div>
+                </div>
+                
+                <div class="section-description">
+                    Rigorous biomarker validation requires multiple complementary metrics. No single metric captures all aspects of performance; comprehensive reporting enables informed clinical decisions.
+                </div>
+                
+                <div class="visualization">
+                    <div class="viz-title">Essential Performance Metrics</div>
+                    
+                    <div class="performance-grid">
+                        <div class="metric-card">
+                            <div class="metric-label">Sensitivity</div>
+                            <div class="metric-value">85%</div>
+                            <div class="metric-description">True Positive Rate<br>P(Test+ | Disease+)</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-label">Specificity</div>
+                            <div class="metric-value">92%</div>
+                            <div class="metric-description">True Negative Rate<br>P(Test- | Disease-)</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-label">AUC-ROC</div>
+                            <div class="metric-value">0.89</div>
+                            <div class="metric-description">Overall Discrimination<br>0.5 = random, 1.0 = perfect</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-label">PPV</div>
+                            <div class="metric-value">78%</div>
+                            <div class="metric-description">Positive Predictive Value<br>P(Disease+ | Test+)</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-label">NPV</div>
+                            <div class="metric-value">95%</div>
+                            <div class="metric-description">Negative Predictive Value<br>P(Disease- | Test-)</div>
+                        </div>
+                        
+                        <div class="metric-card">
+                            <div class="metric-label">C-Index</div>
+                            <div class="metric-value">0.87</div>
+                            <div class="metric-description">Concordance Index<br>For survival outcomes</div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visualization">
+                    <div class="viz-title">ROC Curve Analysis</div>
+                    <div class="roc-curve">
+                        <svg viewBox="0 0 500 400" style="padding: 20px;">
+                            <!-- Axes -->
+                            <line x1="50" y1="350" x2="450" y2="350" stroke="#333" stroke-width="2"/>
+                            <line x1="50" y1="50" x2="50" y2="350" stroke="#333" stroke-width="2"/>
+                            
+                            <!-- Diagonal reference line -->
+                            <line x1="50" y1="350" x2="450" y2="50" stroke="#999" stroke-width="2" stroke-dasharray="5,5"/>
+                            
+                            <!-- ROC Curve -->
+                            <path d="M 50 350 Q 80 250, 120 150 T 200 80 T 300 50 T 450 50" 
+                                  fill="none" stroke="#667eea" stroke-width="4"/>
+                            
+                            <!-- AUC shading -->
+                            <path d="M 50 350 Q 80 250, 120 150 T 200 80 T 300 50 T 450 50 L 450 350 Z" 
+                                  fill="#667eea" opacity="0.2"/>
+                            
+                            <!-- Labels -->
+                            <text x="250" y="385" text-anchor="middle" font-size="14" fill="#333">1 - Specificity (False Positive Rate)</text>
+                            <text x="20" y="200" text-anchor="middle" font-size="14" fill="#333" transform="rotate(-90, 20, 200)">Sensitivity (True Positive Rate)</text>
+                            
+                            <!-- Legend -->
+                            <text x="300" y="300" font-size="16" fill="#667eea" font-weight="bold">AUC = 0.89</text>
+                            <text x="300" y="320" font-size="14" fill="#999">Random = 0.50</text>
+                        </svg>
+                    </div>
+                    <p style="text-align: center; color: #666; margin-top: 15px;">
+                        <strong>Interpretation:</strong> AUC > 0.9 (Excellent) | 0.8-0.9 (Good) | 0.7-0.8 (Fair) | < 0.7 (Poor)
+                    </p>
+                </div>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Metric</th>
+                        <th>When to Prioritize</th>
+                        <th>Clinical Context</th>
+                    </tr>
+                    <tr>
+                        <td><strong>High Sensitivity</strong></td>
+                        <td>Screening tests, ruling out disease</td>
+                        <td>Missing cases is costly (e.g., cancer screening)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>High Specificity</strong></td>
+                        <td>Confirmatory tests, ruling in disease</td>
+                        <td>False positives are harmful (e.g., before surgery)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>High PPV</strong></td>
+                        <td>Low prevalence conditions</td>
+                        <td>Positive result needs to be trustworthy</td>
+                    </tr>
+                    <tr>
+                        <td><strong>High NPV</strong></td>
+                        <td>High prevalence conditions</td>
+                        <td>Negative result needs to be trustworthy</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Balanced AUC</strong></td>
+                        <td>Overall discrimination needed</td>
+                        <td>General clinical decision-making</td>
+                    </tr>
+                </table>
+                
+                <div class="key-points">
+                    <h4>Additional Important Metrics:</h4>
+                    <ul>
+                        <li><strong>Calibration:</strong> Agreement between predicted and observed probabilities (Hosmer-Lemeshow test)</li>
+                        <li><strong>Net Reclassification Index (NRI):</strong> Improvement in risk classification over existing models</li>
+                        <li><strong>Decision Curve Analysis:</strong> Clinical utility across different threshold probabilities</li>
+                        <li><strong>Brier Score:</strong> Overall accuracy of probabilistic predictions (lower is better)</li>
+                        <li><strong>Integrated Discrimination Improvement (IDI):</strong> Average improvement in predicted probabilities</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Section 4: Clinical Utility Assessment -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">4</div>
+                    <div class="section-title">Clinical Utility Assessment</div>
+                </div>
+                
+                <div class="section-description">
+                    Statistical validation alone is insufficient. Clinical utility demonstrates that biomarker-guided decisions improve patient outcomes, cost-effectiveness, or quality of care compared to standard practice.
+                </div>
+                
+                <div class="visualization">
+                    <div class="viz-title">Clinical Utility Evaluation Framework</div>
+                    
+                    <div class="timeline">
+                        <div class="timeline-item">
+                            <h4>Step 1: Define Clinical Question</h4>
+                            <p>What decision will the biomarker inform? (Diagnosis, prognosis, treatment selection, monitoring)</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h4>Step 2: Compare to Standard of Care</h4>
+                            <p>Demonstrate added value beyond existing clinical factors, imaging, or laboratory tests</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h4>Step 3: Decision Curve Analysis</h4>
+                            <p>Quantify net benefit across threshold probabilities relevant to clinical decision-making</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h4>Step 4: Impact on Management</h4>
+                            <p>Document changes in clinical decisions: treatments prescribed, procedures ordered, follow-up intensity</p>
+                        </div>
+                        
+                        <div class="timeline-item">
+                            <h4>Step 5: Outcome Improvement</h4>
+                            <p>Demonstrate improved patient outcomes: survival, quality of life, adverse events, costs</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="success-box">
+                    <h4>✓ Evidence Hierarchy for Clinical Utility:</h4>
+                    <ul>
+                        <li><strong>Level 1 (Strongest):</strong> Randomized controlled trial showing improved outcomes with biomarker-guided care</li>
+                        <li><strong>Level 2:</strong> Prospective cohort showing changes in management and associated outcomes</li>
+                        <li><strong>Level 3:</strong> Decision analysis modeling cost-effectiveness and outcomes</li>
+                        <li><strong>Level 4:</strong> Cross-sectional studies showing independent prognostic value</li>
+                        <li><strong>Level 5 (Weakest):</strong> Statistical association without clinical context</li>
+                    </ul>
+                </div>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Clinical Context</th>
+                        <th>Key Questions</th>
+                        <th>Validation Requirements</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Diagnostic Biomarker</strong></td>
+                        <td>Does it identify disease accurately?<br>Does it change diagnosis?</td>
+                        <td>Sensitivity/specificity in relevant population<br>Comparison to gold standard</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Prognostic Biomarker</strong></td>
+                        <td>Does it predict outcomes?<br>Independent of known factors?</td>
+                        <td>Survival analysis (C-index, HR)<br>Multivariable adjustment</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Predictive Biomarker</strong></td>
+                        <td>Does it identify treatment responders?<br>Treatment-biomarker interaction?</td>
+                        <td>Interaction testing<br>Subgroup analysis<br>Ideally: RCT</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Monitoring Biomarker</strong></td>
+                        <td>Does it track disease/treatment?<br>Does it guide adjustments?</td>
+                        <td>Correlation with disease activity<br>Lead time before clinical change</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Section 5: Analytical Validation -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">5</div>
+                    <div class="section-title">Analytical Validation</div>
+                </div>
+                
+                <div class="section-description">
+                    Before clinical validation, assays must demonstrate robust analytical performance. This technical validation ensures measurements are accurate, precise, and reproducible across different conditions.
+                </div>
+                
+                <div class="visualization">
+                    <div class="viz-title">Key Analytical Performance Characteristics</div>
+                    
+                    <div class="cohort-grid">
+                        <div class="cohort-card">
+                            <h4><span class="cohort-icon">A</span>Accuracy</h4>
+                            <ul>
+                                <li>Agreement with gold standard</li>
+                                <li>Spike-in recovery experiments</li>
+                                <li>Reference material testing</li>
+                                <li>Bias assessment</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="cohort-card">
+                            <h4><span class="cohort-icon">P</span>Precision</h4>
+                            <ul>
+                                <li>Intra-assay repeatability (CV < 10%)</li>
+                                <li>Inter-assay reproducibility</li>
+                                <li>Inter-laboratory variation</li>
+                                <li>Technical replicates</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="cohort-card">
+                            <h4><span class="cohort-icon">S</span>Sensitivity</h4>
+                            <ul>
+                                <li>Limit of detection (LOD)</li>
+                                <li>Limit of quantification (LOQ)</li>
+                                <li>Dynamic range</li>
+                                <li>Signal-to-noise ratio</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="cohort-card">
+                            <h4><span class="cohort-icon">R</span>Robustness</h4>
+                            <ul>
+                                <li>Pre-analytical stability</li>
+                                <li>Freeze-thaw tolerance</li>
+                                <li>Matrix effects</li>
+                                <li>Interference testing</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist">
+                    <h4>Analytical Validation Checklist</h4>
+                    
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Linearity:</strong> Establish linear range with serial dilutions (R² > 0.95)
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Specificity:</strong> Test for cross-reactivity with related compounds and common interferents
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Stability:</strong> Validate sample handling (room temp, 4°C, -80°C) and freeze-thaw cycles
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Quality Controls:</strong> Implement at low, medium, and high concentrations
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Reference Standards:</strong> Use certified reference materials when available
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Inter-laboratory Testing:</strong> Validate in at least 2-3 independent laboratories
+                        </div>
+                    </div>
+                </div>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Parameter</th>
+                        <th>Acceptable Criteria</th>
+                        <th>Testing Method</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Intra-assay CV</strong></td>
+                        <td>< 10% (preferably < 5%)</td>
+                        <td>10 replicates within same run</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Inter-assay CV</strong></td>
+                        <td>< 15% (preferably < 10%)</td>
+                        <td>Across 20+ independent runs</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Recovery</strong></td>
+                        <td>90-110% of expected value</td>
+                        <td>Spike-in experiments at multiple levels</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Linearity (R²)</strong></td>
+                        <td>> 0.95 across range</td>
+                        <td>Serial dilutions (6-8 points)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Freeze-thaw</strong></td>
+                        <td>< 10% change after 3 cycles</td>
+                        <td>Compare fresh vs. freeze-thawed</td>
+                    </tr>
+                </table>
+            </div>
+            
+            <!-- Section 6: Best Practices & Reporting -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">6</div>
+                    <div class="section-title">Best Practices & Reporting Standards</div>
+                </div>
+                
+                <div class="section-description">
+                    Transparent, standardized reporting is essential for reproducibility and clinical adoption. Multiple guidelines exist to ensure comprehensive documentation of biomarker validation studies.
+                </div>
+                
+                <div class="visualization">
+                    <div class="viz-title">Reporting Guidelines</div>
+                    
+                    <div class="flowchart">
+                        <div class="flow-row">
+                            <div class="flow-box highlight">STARD</div>
+                            <div style="flex: 2; font-size: 15px; color: #666; padding: 0 20px;">
+                                Standards for Reporting Diagnostic Accuracy Studies<br>
+                                <strong>Use for:</strong> Diagnostic biomarker validation
+                            </div>
+                        </div>
+                        
+                        <div class="flow-row">
+                            <div class="flow-box highlight">REMARK</div>
+                            <div style="flex: 2; font-size: 15px; color: #666; padding: 0 20px;">
+                                Reporting Recommendations for Tumor Marker Prognostic Studies<br>
+                                <strong>Use for:</strong> Prognostic biomarker studies
+                            </div>
+                        </div>
+                        
+                        <div class="flow-row">
+                            <div class="flow-box highlight">TRIPOD</div>
+                            <div style="flex: 2; font-size: 15px; color: #666; padding: 0 20px;">
+                                Transparent Reporting of Multivariable Prediction Models<br>
+                                <strong>Use for:</strong> Prediction model development and validation
+                            </div>
+                        </div>
+                        
+                        <div class="flow-row">
+                            <div class="flow-box highlight">MIQE</div>
+                            <div style="flex: 2; font-size: 15px; color: #666; padding: 0 20px;">
+                                Minimum Information for qPCR Experiments<br>
+                                <strong>Use for:</strong> Gene expression biomarkers
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="checklist">
+                    <h4>Essential Elements for Biomarker Validation Reports</h4>
+                    
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Study Design:</strong> Prospective vs. retrospective, sample size justification, inclusion/exclusion criteria
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Cohort Characteristics:</strong> Demographics, disease characteristics, treatment received, follow-up duration
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Sample Processing:</strong> Collection protocol, storage conditions, processing time, quality control
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Assay Details:</strong> Platform, reagents, protocols, quality metrics, blinding procedures
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Statistical Analysis:</strong> Pre-specified plan, handling of missing data, multiple testing correction
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Performance Metrics:</strong> Complete confusion matrix, sensitivity, specificity, PPV, NPV, AUC with CIs
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Validation Results:</strong> Internal and external validation cohorts, performance in subgroups
+                        </div>
+                    </div>
+                    
+                    <div class="checklist-item">
+                        <div class="checkbox"></div>
+                        <div class="checklist-text">
+                            <strong>Clinical Context:</strong> Comparison to existing methods, clinical utility, implementation feasibility
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="warning-box">
+                    <h4>⚠ Common Validation Failures:</h4>
+                    <ul>
+                        <li><strong>Lack of Independent Validation:</strong> Only internal validation performed</li>
+                        <li><strong>Optimistic Performance Estimates:</strong> Not accounting for model selection/optimization</li>
+                        <li><strong>Poor Generalizability:</strong> Validation only in similar populations/settings</li>
+                        <li><strong>Incomplete Reporting:</strong> Missing key details needed for replication</li>
+                        <li><strong>Publication Bias:</strong> Only positive validation results published</li>
+                        <li><strong>Absence of Clinical Utility:</strong> Statistical validation without demonstrating clinical value</li>
+                    </ul>
+                </div>
+                
+                <div class="success-box">
+                    <h4>✓ Keys to Successful Biomarker Translation:</h4>
+                    <ul>
+                        <li><strong>Multi-phase Approach:</strong> Progress systematically through discovery → validation → implementation</li>
+                        <li><strong>Collaborative Partnerships:</strong> Engage clinicians, statisticians, regulators early</li>
+                        <li><strong>Sample Banking:</strong> Collect sufficient samples for initial and subsequent validation</li>
+                        <li><strong>Standardization:</strong> Develop and disseminate standard operating procedures</li>
+                        <li><strong>Regulatory Path:</strong> Understand FDA/CLIA requirements for clinical implementation</li>
+                        <li><strong>Cost-effectiveness:</strong> Demonstrate value proposition for healthcare systems</li>
+                        <li><strong>Clinical Champions:</strong> Identify opinion leaders to facilitate adoption</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Final Summary Box -->
+            <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; border-radius: 12px; margin-top: 40px;">
+                <h2 style="text-align: center; font-size: 32px; margin-bottom: 20px;">Validation Strategy Summary</h2>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-top: 30px;">
+                    <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 10px;">
+                        <h3 style="font-size: 20px; margin-bottom: 12px;">📊 Statistical Validation</h3>
+                        <p style="font-size: 15px; line-height: 1.7;">Internal validation → External validation → Multiple cohorts → Comprehensive performance metrics</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 10px;">
+                        <h3 style="font-size: 20px; margin-bottom: 12px;">🔬 Analytical Validation</h3>
+                        <p style="font-size: 15px; line-height: 1.7;">Accuracy → Precision → Sensitivity → Robustness → Inter-laboratory reproducibility</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 10px;">
+                        <h3 style="font-size: 20px; margin-bottom: 12px;">🏥 Clinical Validation</h3>
+                        <p style="font-size: 15px; line-height: 1.7;">Define clinical question → Demonstrate added value → Prove outcome improvement → Cost-effectiveness</p>
+                    </div>
+                    <div style="background: rgba(255,255,255,0.15); padding: 20px; border-radius: 10px;">
+                        <h3 style="font-size: 20px; margin-bottom: 12px;">📝 Transparent Reporting</h3>
+                        <p style="font-size: 15px; line-height: 1.7;">Follow guidelines (STARD/REMARK/TRIPOD) → Complete documentation → Enable reproducibility</p>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

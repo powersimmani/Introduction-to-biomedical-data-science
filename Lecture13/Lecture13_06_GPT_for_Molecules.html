@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>GPT for Molecules</title>
+    <title>GPT for Molecules - Extended</title>
     <style>
         * {
             margin: 0;
@@ -15,16 +15,19 @@
             font-family: Aptos, 'Segoe UI', sans-serif;
             background: white;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
-            min-height: 100vh;
+            padding: 40px 20px;
         }
         
-        .container {
+        .slide {
             width: 960px;
-            height: 540px;
+            min-height: 540px;
             padding: 40px 60px;
             background: white;
+            margin-bottom: 40px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            page-break-after: always;
         }
         
         .title {
@@ -35,6 +38,16 @@
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            text-align: center;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1E64C8;
         }
         
         .content-wrapper {
@@ -83,6 +96,76 @@
             color: #666;
         }
         
+        .detail-content {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .detail-visual {
+            flex: 1.2;
+        }
+        
+        .detail-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .detail-section {
+            margin-bottom: 18px;
+        }
+        
+        .section-title {
+            font-size: 15px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 8px;
+        }
+        
+        .section-text {
+            font-size: 13px;
+            color: #444;
+            line-height: 1.6;
+        }
+        
+        .bullet-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .bullet-list li {
+            font-size: 13px;
+            color: #444;
+            line-height: 1.7;
+            padding-left: 20px;
+            position: relative;
+            margin-bottom: 8px;
+        }
+        
+        .bullet-list li:before {
+            content: "▸";
+            color: #1E64C8;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .highlight-box {
+            background: #e8f2ff;
+            border-left: 3px solid #1E64C8;
+            padding: 12px;
+            border-radius: 4px;
+            margin-top: 15px;
+        }
+        
+        .highlight-box p {
+            font-size: 12px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
         .token-appear {
             animation: tokenAppear 1.5s ease-in-out infinite;
         }
@@ -91,23 +174,31 @@
             0%, 100% { opacity: 0.3; transform: scale(0.9); }
             50% { opacity: 1; transform: scale(1); }
         }
+        
+        @media print {
+            body {
+                padding: 0;
+            }
+            .slide {
+                margin-bottom: 0;
+                box-shadow: none;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Slide 1: Overview -->
+    <div class="slide">
         <div class="title">GPT for Molecules</div>
         <div class="content-wrapper">
             <div class="generation-visual">
                 <svg width="500" height="370" viewBox="0 0 500 370">
-                    <!-- Title -->
                     <text x="250" y="25" font-size="15" fill="#333" text-anchor="middle" font-weight="600">SMILES Generation Process</text>
                     
-                    <!-- GPT Model -->
                     <g transform="translate(50, 50)">
                         <rect x="0" y="0" width="150" height="200" rx="10" fill="#f8f9fa" stroke="#1E64C8" stroke-width="3"/>
                         <text x="75" y="30" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="700">GPT Model</text>
                         
-                        <!-- Layers representation -->
                         <rect x="20" y="50" width="110" height="25" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
                         <text x="75" y="67" font-size="11" fill="#333" text-anchor="middle">Attention Layer</text>
                         
@@ -121,7 +212,6 @@
                         <text x="75" y="172" font-size="11" fill="#333" text-anchor="middle">Feed Forward</text>
                     </g>
                     
-                    <!-- Arrow -->
                     <defs>
                         <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
                             <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
@@ -129,11 +219,9 @@
                     </defs>
                     <path d="M 210,150 L 250,150" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow)"/>
                     
-                    <!-- Sequential Generation -->
                     <g transform="translate(260, 70)">
                         <text x="0" y="0" font-size="13" fill="#666" font-weight="600">Autoregressive Generation:</text>
                         
-                        <!-- Step 1 -->
                         <g transform="translate(0, 20)">
                             <circle cx="5" cy="5" r="4" fill="#1E64C8"/>
                             <text x="15" y="10" font-size="12" fill="#333">C C ( C ) O</text>
@@ -141,7 +229,6 @@
                             <text x="100" y="9" font-size="12" fill="#666" text-anchor="middle">→</text>
                         </g>
                         
-                        <!-- Step 2 -->
                         <g transform="translate(0, 45)">
                             <circle cx="5" cy="5" r="4" fill="#1E64C8"/>
                             <text x="15" y="10" font-size="12" fill="#333">C C ( C ) O C</text>
@@ -149,7 +236,6 @@
                             <text x="117" y="9" font-size="12" fill="#666" text-anchor="middle">=</text>
                         </g>
                         
-                        <!-- Step 3 -->
                         <g transform="translate(0, 70)">
                             <circle cx="5" cy="5" r="4" fill="#1E64C8"/>
                             <text x="15" y="10" font-size="12" fill="#333">C C ( C ) O C = O</text>
@@ -160,11 +246,9 @@
                         <text x="0" y="110" font-size="11" fill="#666" font-style="italic">Token-by-token prediction</text>
                     </g>
                     
-                    <!-- Molecular Structure -->
                     <g transform="translate(260, 230)">
                         <text x="0" y="0" font-size="13" fill="#666" font-weight="600">Generated Molecule:</text>
                         
-                        <!-- Simple molecular diagram -->
                         <g transform="translate(40, 20)">
                             <circle cx="0" cy="0" r="8" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
                             <text x="0" y="4" font-size="10" fill="#333" text-anchor="middle" font-weight="600">C</text>
@@ -198,19 +282,15 @@
             
             <div class="features-grid">
                 <div class="feature-card">
-                    <div class="feature-title">SMILES generation</div>
+                    <div class="feature-title">SMILES Generation</div>
                     <div class="feature-desc">String-based molecular representation</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-title">Chemical language models</div>
-                    <div class="feature-desc">ChemGPT, MolGPT architectures</div>
-                </div>
-                <div class="feature-card">
-                    <div class="feature-title">Property conditioning</div>
+                    <div class="feature-title">Property Conditioning</div>
                     <div class="feature-desc">Control molecular attributes</div>
                 </div>
                 <div class="feature-card">
-                    <div class="feature-title">Reaction prediction</div>
+                    <div class="feature-title">Reaction Prediction</div>
                     <div class="feature-desc">Reactants → Products mapping</div>
                 </div>
                 <div class="feature-card">
@@ -220,5 +300,515 @@
             </div>
         </div>
     </div>
+
+    <!-- Slide 2: SMILES Generation -->
+    <div class="slide">
+        <div class="subtitle">SMILES Generation with Chemical Language Models</div>
+        <div class="detail-content">
+            <div class="detail-visual">
+                <svg width="520" height="420" viewBox="0 0 520 420">
+                    <!-- Title -->
+                    <text x="260" y="25" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="600">Molecular Generation Pipeline</text>
+                    
+                    <!-- Training Data -->
+                    <g transform="translate(40, 50)">
+                        <rect x="0" y="0" width="180" height="80" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="90" y="25" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="600">Training Database</text>
+                        
+                        <text x="10" y="45" font-size="10" fill="#666">• ChEMBL (2M+ compounds)</text>
+                        <text x="10" y="60" font-size="10" fill="#666">• ZINC (millions of molecules)</text>
+                        <text x="10" y="75" font-size="10" fill="#666">• PubChem (100M+ structures)</text>
+                    </g>
+                    
+                    <!-- Arrow -->
+                    <defs>
+                        <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                    <path d="M 130,140 L 130,170" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow2)"/>
+                    
+                    <!-- Tokenization -->
+                    <g transform="translate(40, 180)">
+                        <rect x="0" y="0" width="180" height="60" rx="8" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="90" y="25" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="600">Tokenization</text>
+                        <text x="90" y="45" font-size="11" fill="#333" text-anchor="middle">CC(=O)Oc1ccccc1C(=O)O</text>
+                    </g>
+                    
+                    <path d="M 130,250 L 130,280" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow2)"/>
+                    
+                    <!-- Model Training -->
+                    <g transform="translate(40, 290)">
+                        <rect x="0" y="0" width="180" height="70" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="90" y="25" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="600">ChemGPT / MolGPT</text>
+                        
+                        <rect x="20" y="35" width="140" height="12" rx="2" fill="#e8f2ff"/>
+                        <text x="90" y="44" font-size="9" fill="#333" text-anchor="middle">Self-attention mechanism</text>
+                    </g>
+                    
+                    <!-- Generation Process -->
+                    <g transform="translate(280, 50)">
+                        <rect x="0" y="0" width="220" height="310" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="110" y="25" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="600">Generation Examples</text>
+                        
+                        <!-- Example 1 -->
+                        <g transform="translate(15, 45)">
+                            <text x="0" y="0" font-size="11" fill="#666" font-weight="600">Drug-like molecule:</text>
+                            <rect x="0" y="8" width="190" height="30" rx="4" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                            <text x="95" y="25" font-size="10" fill="#333" text-anchor="middle">CC(C)Cc1ccc(cc1)C(C)C(=O)O</text>
+                            
+                            <!-- Simple structure -->
+                            <g transform="translate(20, 50)">
+                                <circle cx="0" cy="0" r="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <line x1="5" y1="0" x2="15" y2="0" stroke="#1E64C8" stroke-width="1.5"/>
+                                <circle cx="20" cy="0" r="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <line x1="25" y1="0" x2="35" y2="0" stroke="#1E64C8" stroke-width="1.5"/>
+                                <circle cx="40" cy="0" r="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <text x="135" y="5" font-size="9" fill="#666">Ibuprofen analog</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Example 2 -->
+                        <g transform="translate(15, 145)">
+                            <text x="0" y="0" font-size="11" fill="#666" font-weight="600">Novel compound:</text>
+                            <rect x="0" y="8" width="190" height="30" rx="4" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                            <text x="95" y="25" font-size="10" fill="#333" text-anchor="middle">c1ccc2c(c1)c(c[nH]2)CCN</text>
+                            
+                            <g transform="translate(20, 50)">
+                                <circle cx="0" cy="0" r="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <line x1="4" y1="4" x2="12" y2="12" stroke="#1E64C8" stroke-width="1.5"/>
+                                <circle cx="16" cy="16" r="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <line x1="20" y1="20" x2="28" y2="28" stroke="#1E64C8" stroke-width="1.5"/>
+                                <circle cx="32" cy="32" r="6" fill="#fff3cd" stroke="#1E64C8" stroke-width="1.5"/>
+                                <text x="45" y="36" font-size="8" fill="#333">N</text>
+                                <text x="120" y="25" font-size="9" fill="#666">Tryptamine derivative</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Validity metrics -->
+                        <g transform="translate(15, 245)">
+                            <text x="0" y="0" font-size="11" fill="#666" font-weight="600">Quality Metrics:</text>
+                            <text x="10" y="18" font-size="10" fill="#333">✓ Validity: ~97%</text>
+                            <text x="10" y="33" font-size="10" fill="#333">✓ Uniqueness: ~95%</text>
+                            <text x="10" y="48" font-size="10" fill="#333">✓ Novelty: ~80%</text>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="detail-text">
+                <div class="detail-section">
+                    <div class="section-title">SMILES Representation</div>
+                    <div class="section-text">
+                        SMILES (Simplified Molecular Input Line Entry System) converts molecular structures into sequential text strings, enabling language models to generate valid chemical structures.
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="section-title">Key Features</div>
+                    <ul class="bullet-list">
+                        <li>Character-level or token-level encoding of molecular structure</li>
+                        <li>Autoregressive generation learns chemical syntax and rules</li>
+                        <li>Pre-training on massive molecular databases</li>
+                        <li>Fine-tuning for specific property targets</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="section-title">Applications</div>
+                    <ul class="bullet-list">
+                        <li>De novo drug design and lead optimization</li>
+                        <li>Chemical space exploration</li>
+                        <li>Molecule optimization for desired properties</li>
+                    </ul>
+                </div>
+                
+                <div class="highlight-box">
+                    <p><strong>Models:</strong> ChemGPT, MolGPT, and SMILES-BERT leverage transformer architectures to understand chemical grammar and generate chemically valid molecules with high success rates.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Property Conditioning -->
+    <div class="slide">
+        <div class="subtitle">Property-Conditioned Molecular Generation</div>
+        <div class="detail-content">
+            <div class="detail-visual">
+                <svg width="520" height="420" viewBox="0 0 520 420">
+                    <text x="260" y="25" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="600">Controlled Generation Framework</text>
+                    
+                    <!-- Input Properties -->
+                    <g transform="translate(30, 50)">
+                        <rect x="0" y="0" width="200" height="140" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="100" y="25" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="600">Target Properties</text>
+                        
+                        <!-- Property sliders visualization -->
+                        <g transform="translate(20, 45)">
+                            <text x="0" y="0" font-size="11" fill="#666">LogP (lipophilicity):</text>
+                            <rect x="0" y="5" width="160" height="8" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1"/>
+                            <circle cx="120" cy="9" r="6" fill="#1E64C8"/>
+                            <text x="165" y="12" font-size="10" fill="#333">2.5</text>
+                            
+                            <text x="0" y="35" font-size="11" fill="#666">Mol. Weight:</text>
+                            <rect x="0" y="40" width="160" height="8" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1"/>
+                            <circle cx="80" cy="44" r="6" fill="#1E64C8"/>
+                            <text x="165" y="47" font-size="10" fill="#333">350</text>
+                            
+                            <text x="0" y="70" font-size="11" fill="#666">QED (drug-likeness):</text>
+                            <rect x="0" y="75" width="160" height="8" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1"/>
+                            <circle cx="140" cy="79" r="6" fill="#1E64C8"/>
+                            <text x="165" y="82" font-size="10" fill="#333">0.8</text>
+                            
+                            <text x="0" y="105" font-size="11" fill="#666">TPSA (polarity):</text>
+                            <rect x="0" y="110" width="160" height="8" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1"/>
+                            <circle cx="60" cy="114" r="6" fill="#1E64C8"/>
+                            <text x="165" y="117" font-size="10" fill="#333">60</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Arrow -->
+                    <defs>
+                        <marker id="arrow3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                    <path d="M 240,120 L 280,120" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow3)"/>
+                    
+                    <!-- Conditional GPT -->
+                    <g transform="translate(290, 60)">
+                        <rect x="0" y="0" width="140" height="120" rx="8" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="70" y="25" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="600">Conditional GPT</text>
+                        
+                        <!-- Model layers -->
+                        <rect x="15" y="40" width="110" height="18" rx="3" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                        <text x="70" y="53" font-size="9" fill="#333" text-anchor="middle">Property Embedding</text>
+                        
+                        <rect x="15" y="65" width="110" height="18" rx="3" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                        <text x="70" y="78" font-size="9" fill="#333" text-anchor="middle">Transformer Layers</text>
+                        
+                        <rect x="15" y="90" width="110" height="18" rx="3" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                        <text x="70" y="103" font-size="9" fill="#333" text-anchor="middle">SMILES Decoder</text>
+                    </g>
+                    
+                    <path d="M 360,190 L 360,220" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow3)"/>
+                    
+                    <!-- Generated Molecules -->
+                    <g transform="translate(250, 230)">
+                        <rect x="0" y="0" width="220" height="170" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="110" y="25" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="600">Generated Candidates</text>
+                        
+                        <!-- Molecule 1 -->
+                        <g transform="translate(15, 40)">
+                            <rect x="0" y="0" width="190" height="35" rx="4" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                            <text x="5" y="15" font-size="9" fill="#333">CC(C)NCC(O)COc1ccc(CC)cc1</text>
+                            <text x="5" y="28" font-size="8" fill="#666">LogP: 2.4 | MW: 349 | QED: 0.79</text>
+                        </g>
+                        
+                        <!-- Molecule 2 -->
+                        <g transform="translate(15, 85)">
+                            <rect x="0" y="0" width="190" height="35" rx="4" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                            <text x="5" y="15" font-size="9" fill="#333">COc1ccc(CCN(C)C)cc1OC(C)C</text>
+                            <text x="5" y="28" font-size="8" fill="#666">LogP: 2.6 | MW: 352 | QED: 0.82</text>
+                        </g>
+                        
+                        <!-- Molecule 3 -->
+                        <g transform="translate(15, 130)">
+                            <rect x="0" y="0" width="190" height="35" rx="4" fill="#d4edda" stroke="#28a745" stroke-width="1.5"/>
+                            <text x="5" y="15" font-size="9" fill="#333">Cc1ccc(OCCN(C)C)c(C)c1O</text>
+                            <text x="5" y="28" font-size="8" fill="#28a745" font-weight="600">✓ Best match: LogP: 2.5 | MW: 351 | QED: 0.81</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Optimization loop -->
+                    <path d="M 250,300 Q 180,320 130,250" stroke="#1E64C8" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrow3)"/>
+                    <text x="160" y="310" font-size="10" fill="#666" font-style="italic">Iterative refinement</text>
+                </svg>
+            </div>
+            
+            <div class="detail-text">
+                <div class="detail-section">
+                    <div class="section-title">Controlled Generation</div>
+                    <div class="section-text">
+                        Property-conditioned models generate molecules that satisfy specific physicochemical or biological constraints by integrating target properties into the generation process.
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="section-title">Conditioning Approaches</div>
+                    <ul class="bullet-list">
+                        <li><strong>Prefix conditioning:</strong> Property tokens prepended to SMILES</li>
+                        <li><strong>Latent conditioning:</strong> Property embeddings in hidden layers</li>
+                        <li><strong>Reinforcement learning:</strong> Reward-guided optimization</li>
+                        <li><strong>Multi-objective:</strong> Balance multiple property constraints</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="section-title">Target Properties</div>
+                    <ul class="bullet-list">
+                        <li>Physicochemical: LogP, molecular weight, TPSA</li>
+                        <li>Drug-likeness: QED, Lipinski's rule compliance</li>
+                        <li>Biological activity: Binding affinity, selectivity</li>
+                        <li>ADMET: Solubility, permeability, toxicity</li>
+                    </ul>
+                </div>
+                
+                <div class="highlight-box">
+                    <p><strong>Impact:</strong> Enables rational drug design by generating molecules with optimized pharmacokinetic properties, reducing experimental screening costs and accelerating lead discovery.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 4: Reaction Prediction -->
+    <div class="slide">
+        <div class="subtitle">Chemical Reaction Prediction</div>
+        <div class="detail-content">
+            <div class="detail-visual">
+                <svg width="520" height="420" viewBox="0 0 520 420">
+                    <text x="260" y="25" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="600">Forward Synthesis Prediction</text>
+                    
+                    <!-- Reactants -->
+                    <g transform="translate(30, 60)">
+                        <text x="100" y="0" font-size="12" fill="#666" text-anchor="middle" font-weight="600">Reactants</text>
+                        
+                        <rect x="0" y="10" width="200" height="80" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        
+                        <!-- Molecule 1 -->
+                        <g transform="translate(20, 30)">
+                            <text x="0" y="0" font-size="10" fill="#333" font-weight="600">Reactant A:</text>
+                            <text x="0" y="15" font-size="9" fill="#666">c1ccccc1Br</text>
+                            <g transform="translate(10, 25)">
+                                <circle cx="0" cy="0" r="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <line x1="5" y1="0" x2="15" y2="0" stroke="#1E64C8" stroke-width="1.5"/>
+                                <circle cx="20" cy="0" r="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <circle cx="30" cy="0" r="6" fill="#ffcccc" stroke="#1E64C8" stroke-width="1.5"/>
+                                <text x="35" y="4" font-size="7" fill="#c00">Br</text>
+                            </g>
+                        </g>
+                        
+                        <line x1="20" y1="65" x2="180" y2="65" stroke="#ccc" stroke-width="1"/>
+                        <text x="100" y="72" font-size="10" fill="#999" text-anchor="middle">+</text>
+                        
+                        <!-- Molecule 2 -->
+                        <g transform="translate(100, 30)">
+                            <text x="0" y="0" font-size="10" fill="#333" font-weight="600">Reactant B:</text>
+                            <text x="0" y="15" font-size="9" fill="#666">B(OH)2-Ph</text>
+                            <g transform="translate(10, 25)">
+                                <circle cx="0" cy="0" r="6" fill="#fff3cd" stroke="#1E64C8" stroke-width="1.5"/>
+                                <text x="0" y="3" font-size="7" fill="#666">B</text>
+                                <line x1="5" y1="0" x2="15" y2="0" stroke="#1E64C8" stroke-width="1.5"/>
+                                <circle cx="20" cy="0" r="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                            </g>
+                        </g>
+                    </g>
+                    
+                    <!-- Plus sign -->
+                    <text x="245" y="115" font-size="16" fill="#666" text-anchor="middle" font-weight="600">+</text>
+                    
+                    <!-- Conditions -->
+                    <g transform="translate(260, 70)">
+                        <rect x="0" y="0" width="150" height="80" rx="8" fill="#fff3cd" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="75" y="20" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">Reaction Conditions</text>
+                        <text x="10" y="40" font-size="9" fill="#333">Catalyst: Pd(PPh₃)₄</text>
+                        <text x="10" y="55" font-size="9" fill="#333">Solvent: THF</text>
+                        <text x="10" y="70" font-size="9" fill="#333">Temperature: 80°C</text>
+                    </g>
+                    
+                    <defs>
+                        <marker id="arrow4" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
+                            <polygon points="0 0, 12 3, 0 6" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                    <path d="M 260,170 L 260,200" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow4)"/>
+                    
+                    <!-- GPT Model -->
+                    <g transform="translate(160, 210)">
+                        <rect x="0" y="0" width="200" height="60" rx="8" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="100" y="25" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="600">Reaction GPT</text>
+                        <text x="100" y="45" font-size="10" fill="#666" text-anchor="middle">Seq2Seq Transformer</text>
+                    </g>
+                    
+                    <path d="M 260,280 L 260,310" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow4)"/>
+                    
+                    <!-- Products -->
+                    <g transform="translate(120, 320)">
+                        <rect x="0" y="0" width="280" height="90" rx="8" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
+                        <text x="140" y="25" font-size="12" fill="#28a745" text-anchor="middle" font-weight="600">Predicted Products</text>
+                        
+                        <!-- Main product -->
+                        <g transform="translate(20, 40)">
+                            <text x="0" y="0" font-size="10" fill="#333" font-weight="600">Major Product (85%):</text>
+                            <text x="0" y="15" font-size="9" fill="#333">c1ccc(cc1)c2ccccc2</text>
+                            <text x="0" y="30" font-size="8" fill="#666">(Biphenyl - Suzuki coupling product)</text>
+                            
+                            <g transform="translate(180, 10)">
+                                <circle cx="0" cy="0" r="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <line x1="4" y1="0" x2="12" y2="0" stroke="#1E64C8" stroke-width="1.5"/>
+                                <circle cx="16" cy="0" r="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <line x1="20" y1="0" x2="28" y2="0" stroke="#1E64C8" stroke-width="1.5"/>
+                                <circle cx="32" cy="0" r="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                            </g>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="detail-text">
+                <div class="detail-section">
+                    <div class="section-title">Forward Reaction Prediction</div>
+                    <div class="section-text">
+                        GPT models learn to predict reaction outcomes by training on millions of reaction examples, mapping reactants and conditions to products using sequence-to-sequence architectures.
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="section-title">Model Architecture</div>
+                    <ul class="bullet-list">
+                        <li><strong>Input:</strong> Reactant SMILES + reaction conditions + reagents</li>
+                        <li><strong>Encoder:</strong> Processes reactant molecular structure</li>
+                        <li><strong>Decoder:</strong> Generates product SMILES sequentially</li>
+                        <li><strong>Attention:</strong> Focuses on reactive sites and functional groups</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="section-title">Key Capabilities</div>
+                    <ul class="bullet-list">
+                        <li>Named reaction prediction (e.g., Suzuki, Grignard, Diels-Alder)</li>
+                        <li>Regioselectivity and stereochemistry prediction</li>
+                        <li>Side product and byproduct identification</li>
+                        <li>Yield estimation and reaction feasibility</li>
+                    </ul>
+                </div>
+                
+                <div class="highlight-box">
+                    <p><strong>Training Data:</strong> Models trained on USPTO (United States Patent and Trademark Office) dataset containing millions of experimentally validated reactions, achieving >90% top-1 accuracy for common reaction types.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Retrosynthesis -->
+    <div class="slide">
+        <div class="subtitle">Retrosynthetic Planning with GPT Models</div>
+        <div class="detail-content">
+            <div class="detail-visual">
+                <svg width="520" height="420" viewBox="0 0 520 420">
+                    <text x="260" y="25" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="600">Multi-Step Retrosynthesis Tree</text>
+                    
+                    <!-- Target molecule -->
+                    <g transform="translate(190, 50)">
+                        <rect x="0" y="0" width="140" height="60" rx="8" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
+                        <text x="70" y="20" font-size="11" fill="#28a745" text-anchor="middle" font-weight="600">Target Molecule</text>
+                        <text x="70" y="38" font-size="9" fill="#333" text-anchor="middle">Complex Drug Candidate</text>
+                        
+                        <!-- Molecule structure simplified -->
+                        <g transform="translate(70, 45)">
+                            <circle cx="-20" cy="0" r="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1"/>
+                            <line x1="-16" y1="0" x2="-8" y2="0" stroke="#1E64C8" stroke-width="1"/>
+                            <circle cx="-4" cy="0" r="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1"/>
+                            <line x1="0" y1="0" x2="8" y2="0" stroke="#1E64C8" stroke-width="1"/>
+                            <circle cx="12" cy="0" r="4" fill="#fff3cd" stroke="#1E64C8" stroke-width="1"/>
+                            <text x="12" y="3" font-size="6" fill="#666">O</text>
+                        </g>
+                    </g>
+                    
+                    <defs>
+                        <marker id="arrow5" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                    
+                    <!-- Retrosynthesis arrows pointing up -->
+                    <path d="M 230,120 L 130,160" stroke="#1E64C8" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrow5)"/>
+                    <path d="M 290,120 L 390,160" stroke="#1E64C8" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrow5)"/>
+                    
+                    <text x="260" y="142" font-size="9" fill="#1E64C8" text-anchor="middle" font-style="italic">Disconnection</text>
+                    
+                    <!-- Intermediate 1 -->
+                    <g transform="translate(30, 170)">
+                        <rect x="0" y="0" width="120" height="50" rx="6" fill="#fff3cd" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="60" y="18" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">Precursor A</text>
+                        <text x="60" y="35" font-size="8" fill="#666" text-anchor="middle">Intermediate fragment</text>
+                    </g>
+                    
+                    <!-- Intermediate 2 -->
+                    <g transform="translate(370, 170)">
+                        <rect x="0" y="0" width="120" height="50" rx="6" fill="#fff3cd" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="60" y="18" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">Precursor B</text>
+                        <text x="60" y="35" font-size="8" fill="#666" text-anchor="middle">Intermediate fragment</text>
+                    </g>
+                    
+                    <!-- Further retrosynthesis -->
+                    <path d="M 90,230 L 90,260" stroke="#1E64C8" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrow5)"/>
+                    <path d="M 430,230 L 360,260" stroke="#1E64C8" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrow5)"/>
+                    <path d="M 430,230 L 500,260" stroke="#1E64C8" stroke-width="2" stroke-dasharray="3,3" marker-end="url(#arrow5)"/>
+                    
+                    <!-- Starting materials -->
+                    <g transform="translate(40, 270)">
+                        <rect x="0" y="0" width="100" height="45" rx="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="50" y="18" font-size="9" fill="#1E64C8" text-anchor="middle" font-weight="600">Building Block 1</text>
+                        <text x="50" y="33" font-size="7" fill="#666" text-anchor="middle">Commercially available</text>
+                    </g>
+                    
+                    <g transform="translate(300, 270)">
+                        <rect x="0" y="0" width="100" height="45" rx="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="50" y="18" font-size="9" fill="#1E64C8" text-anchor="middle" font-weight="600">Building Block 2</text>
+                        <text x="50" y="33" font-size="7" fill="#666" text-anchor="middle">Simple synthesis</text>
+                    </g>
+                    
+                    <g transform="translate(440, 270)">
+                        <rect x="0" y="0" width="100" height="45" rx="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="50" y="18" font-size="9" fill="#1E64C8" text-anchor="middle" font-weight="600">Building Block 3</text>
+                        <text x="50" y="33" font-size="7" fill="#666" text-anchor="middle">Catalog compound</text>
+                    </g>
+                    
+                    <!-- GPT processing box -->
+                    <g transform="translate(160, 340)">
+                        <rect x="0" y="0" width="200" height="60" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="100" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">RetroGPT Engine</text>
+                        <text x="100" y="38" font-size="9" fill="#666" text-anchor="middle">• Template-free disconnection</text>
+                        <text x="100" y="52" font-size="9" fill="#666" text-anchor="middle">• Route scoring & ranking</text>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="detail-text">
+                <div class="detail-section">
+                    <div class="section-title">Retrosynthetic Analysis</div>
+                    <div class="section-text">
+                        Retrosynthesis works backwards from target molecules to identify synthetic routes using simpler, commercially available starting materials. GPT models automate this complex planning process.
+                    </div>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="section-title">Model Approaches</div>
+                    <ul class="bullet-list">
+                        <li><strong>Template-free:</strong> Direct SMILES transformation without predefined reaction rules</li>
+                        <li><strong>Template-based:</strong> Apply learned reaction templates from databases</li>
+                        <li><strong>Hybrid:</strong> Combine both approaches for robust predictions</li>
+                        <li><strong>Multi-step planning:</strong> Build complete synthesis trees</li>
+                    </ul>
+                </div>
+                
+                <div class="detail-section">
+                    <div class="section-title">Key Features</div>
+                    <ul class="bullet-list">
+                        <li>Automated disconnection site identification</li>
+                        <li>Route feasibility scoring and ranking</li>
+                        <li>Cost and availability optimization</li>
+                        <li>Stereoselective synthesis planning</li>
+                    </ul>
+                </div>
+                
+                <div class="highlight-box">
+                    <p><strong>Applications:</strong> Retrosynthetic GPT models like Molecular Transformer and RetroGPT are used in pharmaceutical companies to accelerate drug discovery, reducing synthesis planning time from weeks to hours while suggesting novel synthetic routes.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

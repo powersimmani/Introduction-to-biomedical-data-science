@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Resistance Mechanisms</title>
+    <title>Resistance Mechanisms - Detailed</title>
     <style>
         * {
             margin: 0;
@@ -13,23 +13,34 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f0f2f5;
+            padding: 20px;
         }
         
-        .container {
+        .slide {
             width: 960px;
-            height: 540px;
+            min-height: 540px;
             padding: 40px;
             background: white;
+            margin: 0 auto 30px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            page-break-after: always;
         }
         
         .title {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 15px;
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            font-weight: 600;
             color: #1E64C8;
             margin-bottom: 20px;
             text-align: center;
@@ -50,6 +61,11 @@
         .mechanism-svg {
             width: 100%;
             height: 100%;
+        }
+        
+        .detail-svg {
+            width: 100%;
+            height: 350px;
         }
         
         .target-cell {
@@ -197,10 +213,144 @@
             fill: none;
             stroke-linecap: round;
         }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .detail-box {
+            background: #f8f9fb;
+            padding: 20px;
+            border-radius: 10px;
+            border-left: 4px solid #1E64C8;
+        }
+        
+        .detail-box.primary {
+            border-left-color: #ff6b6b;
+        }
+        
+        .detail-box.acquired {
+            border-left-color: #ffa500;
+        }
+        
+        .detail-box.bypass {
+            border-left-color: #ff9f6b;
+        }
+        
+        .detail-box.combo {
+            border-left-color: #4CAF50;
+        }
+        
+        .detail-box h3 {
+            color: #1E64C8;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+        
+        .detail-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .detail-box li {
+            padding: 8px 0;
+            padding-left: 24px;
+            position: relative;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .detail-box li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #1E64C8;
+            font-weight: bold;
+        }
+        
+        .example-box {
+            background: #fff9e6;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            border: 2px solid #ffd700;
+        }
+        
+        .example-box h4 {
+            color: #ff8c00;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+        
+        .example-box p {
+            font-size: 13px;
+            line-height: 1.5;
+            color: #333;
+        }
+        
+        .membrane {
+            fill: none;
+            stroke: #666;
+            stroke-width: 3;
+        }
+        
+        .cell-interior {
+            fill: #e3f2fd;
+            opacity: 0.3;
+        }
+        
+        .arrow {
+            stroke: #333;
+            stroke-width: 2;
+            fill: none;
+            marker-end: url(#arrowhead);
+        }
+        
+        .drug-active {
+            fill: #4CAF50;
+        }
+        
+        .drug-inactive {
+            fill: #ff6b6b;
+        }
+        
+        .enzyme {
+            fill: #9c27b0;
+            stroke: white;
+            stroke-width: 2;
+        }
+        
+        .mutated-receptor {
+            fill: #ff6b6b;
+            stroke: white;
+            stroke-width: 2;
+        }
+        
+        .normal-receptor {
+            fill: #4CAF50;
+            stroke: white;
+            stroke-width: 2;
+        }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .slide {
+                box-shadow: none;
+                margin: 0;
+                page-break-after: always;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Slide 1: Overview -->
+    <div class="slide">
         <div class="title">Resistance Mechanisms</div>
         
         <div class="diagram-container">
@@ -330,5 +480,539 @@
             Monitoring Approaches: Serial biopsies and liquid biopsy track resistance evolution
         </div>
     </div>
+
+    <!-- Slide 2: Primary Resistance -->
+    <div class="slide">
+        <div class="subtitle">Primary (Intrinsic) Resistance</div>
+        
+        <div class="diagram-container">
+            <svg class="detail-svg" viewBox="0 0 800 350">
+                <defs>
+                    <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                        <polygon points="0 0, 10 3.5, 0 7" fill="#333" />
+                    </marker>
+                </defs>
+                
+                <!-- Cell membrane -->
+                <ellipse cx="400" cy="175" rx="250" ry="140" class="cell-interior"/>
+                <ellipse cx="400" cy="175" rx="250" ry="140" class="membrane"/>
+                
+                <!-- Title -->
+                <text x="400" y="30" text-anchor="middle" font-size="18" font-weight="bold" fill="#ff6b6b">Pre-existing Resistance Factors</text>
+                
+                <!-- Mechanism 1: Target Mutation -->
+                <g transform="translate(150, 120)">
+                    <rect class="mutated-receptor" x="-20" y="-30" width="40" height="60" rx="5"/>
+                    <text x="0" y="-5" text-anchor="middle" fill="white" font-size="16">X</text>
+                    <text x="0" y="80" text-anchor="middle" font-size="13" font-weight="600">Mutated Target</text>
+                    
+                    <!-- Drug unable to bind -->
+                    <circle class="blocked-drug" cx="-60" cy="0" r="12"/>
+                    <line x1="-75" y1="-15" x2="-45" y2="15" stroke="#ff6b6b" stroke-width="3"/>
+                    <line x1="-75" y1="15" x2="-45" y2="-15" stroke="#ff6b6b" stroke-width="3"/>
+                </g>
+                
+                <!-- Mechanism 2: Low Expression -->
+                <g transform="translate(400, 120)">
+                    <rect class="receptor" x="-15" y="-25" width="30" height="50" rx="5" opacity="0.3"/>
+                    <text x="0" y="60" text-anchor="middle" font-size="13" font-weight="600">Low Target</text>
+                    <text x="0" y="78" text-anchor="middle" font-size="13" font-weight="600">Expression</text>
+                    
+                    <!-- Few receptors -->
+                    <rect class="receptor" x="-45" y="-15" width="20" height="30" rx="3" opacity="0.2"/>
+                    <rect class="receptor" x="25" y="-15" width="20" height="30" rx="3" opacity="0.2"/>
+                </g>
+                
+                <!-- Mechanism 3: Efflux Pumps -->
+                <g transform="translate(650, 120)">
+                    <g class="efflux-pump" transform="translate(0, 0)">
+                        <rect x="-20" y="-35" width="40" height="70" rx="5"/>
+                        <path d="M-12,0 L0,-15 L12,0 L0,15 Z" fill="white"/>
+                    </g>
+                    <text x="0" y="70" text-anchor="middle" font-size="13" font-weight="600">Efflux Pumps</text>
+                    
+                    <!-- Drug being pumped out -->
+                    <circle class="blocked-drug" cx="0" cy="-60" r="10"/>
+                    <path class="arrow" d="M0,-50 L0,-70" marker-end="url(#arrowhead)"/>
+                </g>
+                
+                <!-- Bottom explanation -->
+                <text x="400" y="280" text-anchor="middle" font-size="14" fill="#666">Genetic factors present before treatment initiation</text>
+            </svg>
+        </div>
+        
+        <div class="content-grid">
+            <div class="detail-box primary">
+                <h3>Key Characteristics</h3>
+                <ul>
+                    <li>Pre-existing in tumor cells before treatment</li>
+                    <li>Germline or somatic mutations present at diagnosis</li>
+                    <li>Tumor heterogeneity with resistant subclones</li>
+                    <li>Immediate treatment failure or minimal response</li>
+                </ul>
+            </div>
+            
+            <div class="detail-box primary">
+                <h3>Mechanisms</h3>
+                <ul>
+                    <li>Target gene mutations preventing drug binding</li>
+                    <li>Low or absent target protein expression</li>
+                    <li>High expression of drug efflux transporters</li>
+                    <li>Pre-existing bypass pathway activation</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="example-box">
+            <h4>Clinical Example</h4>
+            <p><strong>EGFR-mutant NSCLC with T790M:</strong> Approximately 60% of EGFR-mutant non-small cell lung cancers that develop resistance to first-generation EGFR TKIs (erlotinib, gefitinib) harbor the T790M gatekeeper mutation, which increases ATP affinity and prevents drug binding.</p>
+        </div>
+    </div>
+
+    <!-- Slide 3: Acquired Resistance -->
+    <div class="slide">
+        <div class="subtitle">Acquired Resistance</div>
+        
+        <div class="diagram-container">
+            <svg class="detail-svg" viewBox="0 0 800 350">
+                <!-- Timeline showing progression -->
+                <line x1="50" y1="50" x2="750" y2="50" stroke="#1E64C8" stroke-width="3"/>
+                
+                <!-- Time point 1: Treatment Start -->
+                <g transform="translate(150, 50)">
+                    <circle cx="0" cy="0" r="10" fill="#4CAF50"/>
+                    <text x="0" y="-25" text-anchor="middle" font-size="13" font-weight="600">Treatment Start</text>
+                    
+                    <!-- Sensitive cell -->
+                    <circle cx="0" cy="80" r="40" fill="#4CAF50" opacity="0.7" stroke="white" stroke-width="2"/>
+                    <text x="0" y="85" text-anchor="middle" fill="white" font-weight="600">Sensitive</text>
+                    <rect class="normal-receptor" x="-30" y="60" width="15" height="25" rx="3"/>
+                    <rect class="normal-receptor" x="15" y="60" width="15" height="25" rx="3"/>
+                </g>
+                
+                <!-- Arrow -->
+                <path d="M200,50 L350,50" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="275" y="40" text-anchor="middle" font-size="12" fill="#666">Drug Pressure</text>
+                
+                <!-- Time point 2: Evolution -->
+                <g transform="translate(400, 50)">
+                    <circle cx="0" cy="0" r="10" fill="#ffa500"/>
+                    <text x="0" y="-25" text-anchor="middle" font-size="13" font-weight="600">Selection</text>
+                    
+                    <!-- Mutating cell -->
+                    <circle cx="0" cy="80" r="40" fill="#ffa500" opacity="0.7" stroke="white" stroke-width="2"/>
+                    <circle class="mutation-marker" cx="-10" cy="70" r="6"/>
+                    <circle class="mutation-marker" cx="10" cy="70" r="6"/>
+                    <text x="0" y="150" text-anchor="middle" font-size="11">Mutation</text>
+                </g>
+                
+                <!-- Arrow -->
+                <path d="M450,50 L600,50" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <text x="525" y="40" text-anchor="middle" font-size="12" fill="#666">Clonal Expansion</text>
+                
+                <!-- Time point 3: Resistance -->
+                <g transform="translate(650, 50)">
+                    <circle cx="0" cy="0" r="10" fill="#ff6b6b"/>
+                    <text x="0" y="-25" text-anchor="middle" font-size="13" font-weight="600">Progression</text>
+                    
+                    <!-- Resistant cell -->
+                    <circle cx="0" cy="80" r="40" fill="#ff6b6b" opacity="0.7" stroke="white" stroke-width="2"/>
+                    <text x="0" y="85" text-anchor="middle" fill="white" font-weight="600">Resistant</text>
+                    <rect class="mutated-receptor" x="-30" y="60" width="15" height="25" rx="3"/>
+                    <rect class="mutated-receptor" x="15" y="60" width="15" height="25" rx="3"/>
+                </g>
+                
+                <!-- Bottom section: Mechanisms -->
+                <g transform="translate(0, 200)">
+                    <text x="400" y="0" text-anchor="middle" font-size="16" font-weight="bold" fill="#ffa500">Adaptive Mechanisms During Therapy</text>
+                    
+                    <!-- Mechanism boxes -->
+                    <g transform="translate(100, 30)">
+                        <rect x="0" y="0" width="140" height="80" rx="8" fill="#fff8e8" stroke="#ffa500" stroke-width="2"/>
+                        <text x="70" y="25" text-anchor="middle" font-size="12" font-weight="600">Secondary</text>
+                        <text x="70" y="40" text-anchor="middle" font-size="12" font-weight="600">Mutations</text>
+                        <text x="70" y="60" text-anchor="middle" font-size="10">Target alterations</text>
+                        <text x="70" y="73" text-anchor="middle" font-size="10">Downstream changes</text>
+                    </g>
+                    
+                    <g transform="translate(260, 30)">
+                        <rect x="0" y="0" width="140" height="80" rx="8" fill="#fff8e8" stroke="#ffa500" stroke-width="2"/>
+                        <text x="70" y="25" text-anchor="middle" font-size="12" font-weight="600">Gene</text>
+                        <text x="70" y="40" text-anchor="middle" font-size="12" font-weight="600">Amplification</text>
+                        <text x="70" y="60" text-anchor="middle" font-size="10">MET amplification</text>
+                        <text x="70" y="73" text-anchor="middle" font-size="10">HER2 amplification</text>
+                    </g>
+                    
+                    <g transform="translate(420, 30)">
+                        <rect x="0" y="0" width="140" height="80" rx="8" fill="#fff8e8" stroke="#ffa500" stroke-width="2"/>
+                        <text x="70" y="25" text-anchor="middle" font-size="12" font-weight="600">Phenotypic</text>
+                        <text x="70" y="40" text-anchor="middle" font-size="12" font-weight="600">Changes</text>
+                        <text x="70" y="60" text-anchor="middle" font-size="10">EMT transition</text>
+                        <text x="70" y="73" text-anchor="middle" font-size="10">Histologic shifts</text>
+                    </g>
+                </g>
+            </svg>
+        </div>
+        
+        <div class="content-grid">
+            <div class="detail-box acquired">
+                <h3>Key Characteristics</h3>
+                <ul>
+                    <li>Develops during treatment exposure</li>
+                    <li>Initial response followed by progression</li>
+                    <li>Clonal selection under drug pressure</li>
+                    <li>Time to resistance: months to years</li>
+                </ul>
+            </div>
+            
+            <div class="detail-box acquired">
+                <h3>Common Mechanisms</h3>
+                <ul>
+                    <li>On-target: Secondary mutations in target gene</li>
+                    <li>Off-target: Parallel pathway activation</li>
+                    <li>Drug metabolism: Increased efflux, decreased uptake</li>
+                    <li>Histologic transformation: SCLC conversion</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="example-box">
+            <h4>Clinical Example</h4>
+            <p><strong>Osimertinib Resistance in EGFR T790M+ NSCLC:</strong> C797S mutation emerges in approximately 15-30% of patients treated with osimertinib (third-generation EGFR TKI), preventing covalent drug binding. MET amplification accounts for another 15-20% of resistance mechanisms.</p>
+        </div>
+    </div>
+
+    <!-- Slide 4: Bypass Pathways -->
+    <div class="slide">
+        <div class="subtitle">Bypass Pathway Activation</div>
+        
+        <div class="diagram-container">
+            <svg class="detail-svg" viewBox="0 0 800 350">
+                <!-- Normal signaling -->
+                <g transform="translate(150, 50)">
+                    <text x="0" y="0" font-size="15" font-weight="bold" fill="#4CAF50">Normal Signaling</text>
+                    
+                    <!-- Receptor -->
+                    <rect class="normal-receptor" x="-15" y="30" width="30" height="50" rx="5"/>
+                    <text x="0" y="100" text-anchor="middle" font-size="11" font-weight="600">EGFR</text>
+                    
+                    <!-- Linear pathway -->
+                    <circle cx="0" cy="140" r="15" fill="#5088d4" stroke="white" stroke-width="2"/>
+                    <text x="0" y="145" text-anchor="middle" fill="white" font-size="10" font-weight="600">RAS</text>
+                    
+                    <path class="arrow" d="M0,80 L0,125" marker-end="url(#arrowhead)"/>
+                    
+                    <circle cx="0" cy="190" r="15" fill="#5088d4" stroke="white" stroke-width="2"/>
+                    <text x="0" y="195" text-anchor="middle" fill="white" font-size="10" font-weight="600">RAF</text>
+                    
+                    <path class="arrow" d="M0,155 L0,175" marker-end="url(#arrowhead)"/>
+                    
+                    <circle cx="0" cy="240" r="15" fill="#5088d4" stroke="white" stroke-width="2"/>
+                    <text x="0" y="245" text-anchor="middle" fill="white" font-size="10" font-weight="600">MEK</text>
+                    
+                    <path class="arrow" d="M0,205 L0,225" marker-end="url(#arrowhead)"/>
+                    
+                    <circle cx="0" cy="290" r="15" fill="#5088d4" stroke="white" stroke-width="2"/>
+                    <text x="0" y="295" text-anchor="middle" fill="white" font-size="10" font-weight="600">ERK</text>
+                    
+                    <path class="arrow" d="M0,255 L0,275" marker-end="url(#arrowhead)"/>
+                </g>
+                
+                <!-- Drug block -->
+                <g transform="translate(300, 175)">
+                    <rect x="-50" y="-40" width="100" height="80" rx="10" fill="#ff6b6b" opacity="0.2" stroke="#ff6b6b" stroke-width="3"/>
+                    <text x="0" y="-50" text-anchor="middle" font-size="14" font-weight="bold" fill="#ff6b6b">Drug Block</text>
+                    <circle class="drug-molecule" cx="0" cy="0" r="15"/>
+                    <text x="0" y="5" text-anchor="middle" fill="white" font-size="11" font-weight="600">TKI</text>
+                </g>
+                
+                <!-- Arrow indicating resistance -->
+                <path d="M250,175 L450,175" stroke="#ff6b6b" stroke-width="3" marker-end="url(#arrowhead)" stroke-dasharray="10,5"/>
+                <text x="350" y="165" text-anchor="middle" font-size="13" font-weight="bold" fill="#ff6b6b">Resistance</text>
+                
+                <!-- Bypass pathways -->
+                <g transform="translate(650, 50)">
+                    <text x="-50" y="0" font-size="15" font-weight="bold" fill="#ff9f6b">Bypass Activation</text>
+                    
+                    <!-- Multiple receptors -->
+                    <rect class="mutated-receptor" x="-65" y="30" width="30" height="50" rx="5"/>
+                    <text x="-50" y="100" text-anchor="middle" font-size="11" font-weight="600">EGFR</text>
+                    <line x1="-65" y1="40" x2="-35" y2="70" stroke="#ff6b6b" stroke-width="3"/>
+                    <line x1="-65" y1="70" x2="-35" y2="40" stroke="#ff6b6b" stroke-width="3"/>
+                    
+                    <rect class="normal-receptor" x="-15" y="30" width="30" height="50" rx="5"/>
+                    <text x="0" y="100" text-anchor="middle" font-size="11" font-weight="600">MET</text>
+                    
+                    <rect class="normal-receptor" x="35" y="30" width="30" height="50" rx="5"/>
+                    <text x="50" y="100" text-anchor="middle" font-size="11" font-weight="600">HER2</text>
+                    
+                    <!-- Converging pathways -->
+                    <circle cx="0" cy="140" r="15" fill="#ff9f6b" stroke="white" stroke-width="2"/>
+                    <text x="0" y="145" text-anchor="middle" fill="white" font-size="10" font-weight="600">RAS</text>
+                    
+                    <path class="bypass-pathway" d="M-50,80 Q-50,110 0,125"/>
+                    <path class="arrow" d="M0,80 L0,125" stroke="#5088d4" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <path class="bypass-pathway" d="M50,80 Q50,110 0,125"/>
+                    
+                    <circle cx="0" cy="190" r="15" fill="#ff9f6b" stroke="white" stroke-width="2"/>
+                    <text x="0" y="195" text-anchor="middle" fill="white" font-size="10" font-weight="600">PI3K</text>
+                    
+                    <path class="arrow" d="M0,155 L0,175" marker-end="url(#arrowhead)"/>
+                    
+                    <rect x="-30" y="220" width="60" height="30" rx="5" fill="#4CAF50" stroke="white" stroke-width="2"/>
+                    <text x="0" y="240" text-anchor="middle" fill="white" font-size="11" font-weight="600">Survival</text>
+                    
+                    <path class="arrow" d="M0,205 L0,220" marker-end="url(#arrowhead)"/>
+                </g>
+            </svg>
+        </div>
+        
+        <div class="content-grid">
+            <div class="detail-box bypass">
+                <h3>Key Characteristics</h3>
+                <ul>
+                    <li>Alternative pathways maintain signaling output</li>
+                    <li>Signal redundancy overcomes single-target inhibition</li>
+                    <li>Can be pre-existing or acquired during treatment</li>
+                    <li>Often involves parallel RTK activation</li>
+                </ul>
+            </div>
+            
+            <div class="detail-box bypass">
+                <h3>Common Bypass Routes</h3>
+                <ul>
+                    <li>MET amplification bypassing EGFR inhibition</li>
+                    <li>HER2/HER3 activation maintaining PI3K signaling</li>
+                    <li>IGF-1R upregulation in hormone receptor+ breast cancer</li>
+                    <li>PIK3CA mutations activating downstream signaling</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="example-box">
+            <h4>Clinical Example</h4>
+            <p><strong>MET Amplification in EGFR-mutant NSCLC:</strong> MET gene amplification occurs in 5-15% of patients with acquired resistance to EGFR TKIs. MET activation maintains downstream PI3K/AKT and MAPK signaling despite EGFR inhibition. Combination of EGFR and MET inhibitors shows clinical benefit in this subset.</p>
+        </div>
+    </div>
+
+    <!-- Slide 5: Combination Strategies -->
+    <div class="slide">
+        <div class="subtitle">Combination Therapy Strategies</div>
+        
+        <div class="diagram-container">
+            <svg class="detail-svg" viewBox="0 0 800 350">
+                <!-- Strategy 1: Vertical Blockade -->
+                <g transform="translate(150, 80)">
+                    <text x="0" y="-20" text-anchor="middle" font-size="14" font-weight="bold" fill="#4CAF50">Vertical Blockade</text>
+                    
+                    <rect class="normal-receptor" x="-15" y="0" width="30" height="40" rx="5"/>
+                    <circle class="drug-molecule" cx="-40" cy="20" r="10"/>
+                    <text x="-40" y="24" fill="white" font-size="9" font-weight="600">D1</text>
+                    
+                    <circle cx="0" cy="70" r="12" fill="#5088d4" stroke="white" stroke-width="2"/>
+                    <path class="arrow" d="M0,40 L0,58" marker-end="url(#arrowhead)"/>
+                    
+                    <circle cx="0" cy="110" r="12" fill="#5088d4" stroke="white" stroke-width="2"/>
+                    <circle class="drug-molecule" cx="30" cy="110" r="10" fill="#5088d4"/>
+                    <text x="30" y="114" fill="white" font-size="9" font-weight="600">D2</text>
+                    <path class="arrow" d="M0,82 L0,98" marker-end="url(#arrowhead)"/>
+                    
+                    <circle cx="0" cy="150" r="12" fill="#5088d4" stroke="white" stroke-width="2"/>
+                    <path class="arrow" d="M0,122 L0,138" marker-end="url(#arrowhead)"/>
+                    
+                    <text x="0" y="190" text-anchor="middle" font-size="11" fill="#666">Same pathway</text>
+                    <text x="0" y="205" text-anchor="middle" font-size="11" fill="#666">Multiple levels</text>
+                </g>
+                
+                <!-- Strategy 2: Horizontal Blockade -->
+                <g transform="translate(400, 80)">
+                    <text x="0" y="-20" text-anchor="middle" font-size="14" font-weight="bold" fill="#5088d4">Horizontal Blockade</text>
+                    
+                    <rect class="normal-receptor" x="-50" y="0" width="30" height="40" rx="5"/>
+                    <circle class="drug-molecule" cx="-75" cy="20" r="10"/>
+                    <text x="-75" y="24" fill="white" font-size="9" font-weight="600">D1</text>
+                    
+                    <rect class="normal-receptor" x="20" y="0" width="30" height="40" rx="5"/>
+                    <circle class="drug-molecule" cx="75" cy="20" r="10" fill="#5088d4"/>
+                    <text x="75" y="24" fill="white" font-size="9" font-weight="600">D2</text>
+                    
+                    <path class="arrow" d="M-35,40 Q0,60 35,40" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    
+                    <circle cx="0" cy="110" r="15" fill="#5088d4" stroke="white" stroke-width="2"/>
+                    <text x="0" y="115" text-anchor="middle" fill="white" font-size="10" font-weight="600">Signal</text>
+                    
+                    <text x="0" y="190" text-anchor="middle" font-size="11" fill="#666">Multiple pathways</text>
+                    <text x="0" y="205" text-anchor="middle" font-size="11" fill="#666">Same level</text>
+                </g>
+                
+                <!-- Strategy 3: Targeted + Immune -->
+                <g transform="translate(650, 80)">
+                    <text x="0" y="-20" text-anchor="middle" font-size="14" font-weight="bold" fill="#ffa500">Targeted + Immune</text>
+                    
+                    <circle cx="0" cy="40" r="30" fill="#ff6b6b" opacity="0.7" stroke="white" stroke-width="2"/>
+                    <text x="0" y="45" text-anchor="middle" fill="white" font-weight="600" font-size="11">Tumor</text>
+                    
+                    <circle class="drug-molecule" cx="-50" cy="40" r="10"/>
+                    <text x="-50" y="44" fill="white" font-size="9" font-weight="600">TKI</text>
+                    
+                    <circle cx="50" cy="40" r="18" fill="#4CAF50" stroke="white" stroke-width="2"/>
+                    <text x="50" y="38" text-anchor="middle" fill="white" font-size="8" font-weight="600">T</text>
+                    <text x="50" y="47" text-anchor="middle" fill="white" font-size="8" font-weight="600">Cell</text>
+                    
+                    <circle class="drug-molecule" cx="50" cy="75" r="10" fill="#9c27b0"/>
+                    <text x="50" y="79" fill="white" font-size="8" font-weight="600">ICI</text>
+                    
+                    <text x="0" y="130" text-anchor="middle" font-size="11" fill="#666">Direct killing +</text>
+                    <text x="0" y="145" text-anchor="middle" font-size="11" fill="#666">Immune activation</text>
+                </g>
+                
+                <!-- Bottom section: Benefits -->
+                <g transform="translate(0, 250)">
+                    <rect x="50" y="0" width="700" height="80" rx="10" fill="#e8f8e8" stroke="#4CAF50" stroke-width="2"/>
+                    
+                    <text x="400" y="25" text-anchor="middle" font-size="15" font-weight="bold" fill="#4CAF50">Benefits of Combination Therapy</text>
+                    
+                    <g transform="translate(80, 40)">
+                        <circle cx="0" cy="0" r="4" fill="#4CAF50"/>
+                        <text x="15" y="4" font-size="12">Delay or prevent resistance emergence</text>
+                    </g>
+                    
+                    <g transform="translate(320, 40)">
+                        <circle cx="0" cy="0" r="4" fill="#4CAF50"/>
+                        <text x="15" y="4" font-size="12">Target multiple resistance mechanisms</text>
+                    </g>
+                    
+                    <g transform="translate(580, 40)">
+                        <circle cx="0" cy="0" r="4" fill="#4CAF50"/>
+                        <text x="15" y="4" font-size="12">Deeper responses</text>
+                    </g>
+                    
+                    <g transform="translate(80, 60)">
+                        <circle cx="0" cy="0" r="4" fill="#4CAF50"/>
+                        <text x="15" y="4" font-size="12">Synergistic efficacy</text>
+                    </g>
+                    
+                    <g transform="translate(320, 60)">
+                        <circle cx="0" cy="0" r="4" fill="#4CAF50"/>
+                        <text x="15" y="4" font-size="12">Address tumor heterogeneity</text>
+                    </g>
+                </g>
+            </svg>
+        </div>
+        
+        <div class="content-grid">
+            <div class="detail-box combo">
+                <h3>Combination Approaches</h3>
+                <ul>
+                    <li>Vertical: Target multiple nodes in same pathway</li>
+                    <li>Horizontal: Inhibit parallel signaling pathways</li>
+                    <li>Targeted + Chemo: Overcome different resistance types</li>
+                    <li>Targeted + Immune: Direct + immune-mediated killing</li>
+                </ul>
+            </div>
+            
+            <div class="detail-box combo">
+                <h3>Clinical Considerations</h3>
+                <ul>
+                    <li>Increased toxicity requiring dose adjustments</li>
+                    <li>Cost and access considerations</li>
+                    <li>Biomarker-driven selection of combinations</li>
+                    <li>Sequential vs. concurrent administration</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="example-box">
+            <h4>Clinical Example</h4>
+            <p><strong>Dabrafenib + Trametinib in BRAF V600E Melanoma:</strong> Combined BRAF and MEK inhibition (vertical blockade) significantly improves progression-free survival compared to BRAF inhibitor alone (11 vs 7 months median PFS). The combination delays resistance by preventing feedback reactivation of the MAPK pathway and reduces paradoxical MAPK activation.</p>
+        </div>
+    </div>
+
+    <!-- Slide 6: Summary -->
+    <div class="slide">
+        <div class="title">Resistance Mechanisms: Summary & Clinical Impact</div>
+        
+        <div class="content-grid" style="margin-top: 30px;">
+            <div class="detail-box primary">
+                <h3>🔒 Primary Resistance</h3>
+                <ul>
+                    <li><strong>Timing:</strong> Present before treatment</li>
+                    <li><strong>Frequency:</strong> 20-30% of patients</li>
+                    <li><strong>Strategy:</strong> Upfront biomarker testing, alternative therapies</li>
+                </ul>
+            </div>
+            
+            <div class="detail-box acquired">
+                <h3>🔄 Acquired Resistance</h3>
+                <ul>
+                    <li><strong>Timing:</strong> Develops during therapy</li>
+                    <li><strong>Frequency:</strong> Nearly universal (6-24 months)</li>
+                    <li><strong>Strategy:</strong> Resistance profiling, sequential therapies</li>
+                </ul>
+            </div>
+            
+            <div class="detail-box bypass">
+                <h3>🔀 Bypass Pathways</h3>
+                <ul>
+                    <li><strong>Mechanism:</strong> Alternative signaling activation</li>
+                    <li><strong>Frequency:</strong> 15-25% of resistance cases</li>
+                    <li><strong>Strategy:</strong> Horizontal combination therapy</li>
+                </ul>
+            </div>
+            
+            <div class="detail-box combo">
+                <h3>💊 Combination Strategy</h3>
+                <ul>
+                    <li><strong>Goal:</strong> Prevent/delay resistance</li>
+                    <li><strong>Approaches:</strong> Vertical, horizontal, multi-modal</li>
+                    <li><strong>Challenge:</strong> Toxicity management</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div style="margin-top: 30px; background: #f8f9fb; padding: 20px; border-radius: 10px; border: 2px solid #1E64C8;">
+            <h3 style="color: #1E64C8; font-size: 18px; margin-bottom: 15px; text-align: center;">Clinical Decision Framework</h3>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 15px; margin-top: 15px;">
+                <div style="text-align: center;">
+                    <div style="background: #1E64C8; color: white; padding: 10px; border-radius: 8px; font-weight: 600; margin-bottom: 8px;">
+                        Initial Assessment
+                    </div>
+                    <div style="font-size: 13px; line-height: 1.5;">
+                        • Comprehensive genomic profiling<br>
+                        • Tumor heterogeneity evaluation<br>
+                        • Baseline resistance screening
+                    </div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div style="background: #ffa500; color: white; padding: 10px; border-radius: 8px; font-weight: 600; margin-bottom: 8px;">
+                        Monitoring
+                    </div>
+                    <div style="font-size: 13px; line-height: 1.5;">
+                        • Serial liquid biopsy (ctDNA)<br>
+                        • Radiologic response tracking<br>
+                        • Resistance biomarker surveillance
+                    </div>
+                </div>
+                
+                <div style="text-align: center;">
+                    <div style="background: #4CAF50; color: white; padding: 10px; border-radius: 8px; font-weight: 600; margin-bottom: 8px;">
+                        Progression Strategy
+                    </div>
+                    <div style="font-size: 13px; line-height: 1.5;">
+                        • Re-biopsy for mechanism<br>
+                        • Mechanism-directed therapy<br>
+                        • Clinical trial consideration
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="highlight-box" style="margin-top: 25px;">
+            <strong>Key Takeaway:</strong> Understanding resistance mechanisms guides rational therapy selection, optimal sequencing strategies, and novel combination approaches to improve patient outcomes in targeted cancer therapy.
+        </div>
+    </div>
+
 </body>
 </html>

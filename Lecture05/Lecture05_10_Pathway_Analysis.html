@@ -1,219 +1,944 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pathway Analysis</title>
+    <title>Pathway Analysis - Comprehensive Guide</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 20px;
         }
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 30px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .title {
-            font-size: 28px;
-            font-weight: 600;
+        .main-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 15px;
+        }
+        .section {
+            margin-bottom: 50px;
+        }
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
             color: #1E64C8;
             margin-bottom: 20px;
-            text-align: center;
+            padding-left: 10px;
+            border-left: 5px solid #1E64C8;
         }
-        .visual-content {
-            width: 100%;
-            height: 430px;
-        }
-        .note-box {
+        .overview-box {
             background: #f0f5fc;
-            border-left: 4px solid #1E64C8;
-            border-radius: 6px;
-            padding: 12px 18px;
-            margin-top: 10px;
+            border-radius: 8px;
+            padding: 25px;
+            margin-bottom: 40px;
         }
-        .note-text {
-            font-size: 16px;
+        .methods-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .method-card {
+            border-radius: 10px;
+            padding: 25px;
+            border: 2px solid;
+        }
+        .method-card.ora {
+            background: #E3F2FD;
+            border-color: #1976D2;
+        }
+        .method-card.gsea {
+            background: #FFF3E0;
+            border-color: #F57C00;
+        }
+        .method-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        .method-card.ora .method-title { color: #0D47A1; }
+        .method-card.gsea .method-title { color: #E65100; }
+        .method-content {
+            font-size: 15px;
+            line-height: 1.8;
             color: #333;
+        }
+        .method-content ul {
+            margin: 10px 0;
+            padding-left: 25px;
+        }
+        .method-content li {
+            margin: 8px 0;
+        }
+        .database-section {
+            margin-top: 50px;
+        }
+        .database-card {
+            margin-bottom: 50px;
+            border-radius: 12px;
+            overflow: hidden;
+            border: 3px solid;
+            background: white;
+        }
+        .database-card.go { border-color: #388E3C; }
+        .database-card.kegg { border-color: #C2185B; }
+        .database-card.reactome { border-color: #1976D2; }
+        .database-card.msigdb { border-color: #7B1FA2; }
+        .database-header {
+            padding: 25px;
+            color: white;
+            font-size: 26px;
+            font-weight: 700;
+        }
+        .database-card.go .database-header { background: linear-gradient(135deg, #388E3C, #66BB6A); }
+        .database-card.kegg .database-header { background: linear-gradient(135deg, #C2185B, #EC407A); }
+        .database-card.reactome .database-header { background: linear-gradient(135deg, #1976D2, #42A5F5); }
+        .database-card.msigdb .database-header { background: linear-gradient(135deg, #7B1FA2, #AB47BC); }
+        .database-content {
+            padding: 30px;
+        }
+        .database-description {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 25px;
+        }
+        .features-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .feature-box {
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid;
+        }
+        .database-card.go .feature-box { background: #E8F5E9; border-color: #388E3C; }
+        .database-card.kegg .feature-box { background: #FCE4EC; border-color: #C2185B; }
+        .database-card.reactome .feature-box { background: #E3F2FD; border-color: #1976D2; }
+        .database-card.msigdb .feature-box { background: #F3E5F5; border-color: #7B1FA2; }
+        .feature-title {
+            font-weight: 700;
+            font-size: 15px;
+            margin-bottom: 8px;
+        }
+        .database-card.go .feature-title { color: #1B5E20; }
+        .database-card.kegg .feature-title { color: #880E4F; }
+        .database-card.reactome .feature-title { color: #0D47A1; }
+        .database-card.msigdb .feature-title { color: #4A148C; }
+        .feature-description {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .example-section {
+            margin-top: 25px;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+        .example-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 15px;
+        }
+        .example-content {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #333;
+        }
+        .visual-diagram {
+            margin: 25px 0;
+            padding: 20px;
+            background: white;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 25px 0;
+        }
+        .comparison-table th {
+            background: #1E64C8;
+            color: white;
+            padding: 12px;
+            text-align: left;
             font-weight: 600;
+        }
+        .comparison-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .highlight-box {
+            background: #FFF9C4;
+            border-left: 4px solid #FBC02D;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        .key-point {
+            font-weight: 600;
+            color: #F57C00;
+        }
+        .code-box {
+            background: #263238;
+            color: #C3E88D;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+            margin: 15px 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Pathway Analysis</div>
-        <div class="visual-content">
-            <svg width="100%" height="100%" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
-                <!-- Main Title -->
-                <text x="450" y="25" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">From Genes to Biological Pathways</text>
-                
-                <!-- Over-representation Analysis -->
-                <g id="ora">
-                    <rect x="20" y="50" width="280" height="180" rx="10" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
-                    <text x="160" y="75" font-family="Aptos, sans-serif" font-size="15" font-weight="700" fill="#0D47A1" text-anchor="middle">Over-representation (ORA)</text>
-                    
-                    <!-- Venn diagram representation -->
-                    <g transform="translate(100, 100)">
-                        <!-- Background circle (all genes) -->
-                        <circle cx="60" cy="60" r="55" fill="#E0E0E0" opacity="0.3"/>
-                        <text x="60" y="30" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">All Genes</text>
-                        
-                        <!-- DE genes circle -->
-                        <circle cx="45" cy="70" r="30" fill="#FF5722" opacity="0.5"/>
-                        <text x="25" y="70" font-family="Aptos, sans-serif" font-size="9" fill="white" font-weight="600">DE</text>
-                        
-                        <!-- Pathway genes circle -->
-                        <circle cx="75" cy="70" r="35" fill="#2196F3" opacity="0.5"/>
-                        <text x="95" y="70" font-family="Aptos, sans-serif" font-size="9" fill="white" font-weight="600">Pathway</text>
-                        
-                        <!-- Overlap -->
-                        <text x="60" y="75" font-family="Aptos, sans-serif" font-size="11" fill="#333" font-weight="700" text-anchor="middle">?</text>
-                    </g>
-                    
-                    <!-- Fisher's test -->
-                    <rect x="30" y="190" width="260" height="30" rx="5" fill="white" stroke="#1976D2" stroke-width="1"/>
-                    <text x="160" y="208" font-family="Aptos, sans-serif" font-size="11" fill="#0D47A1" text-anchor="middle">Fisher's Exact Test → p-value</text>
-                </g>
-                
-                <!-- GSEA -->
-                <g id="gsea">
-                    <rect x="320" y="50" width="560" height="180" rx="10" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
-                    <text x="600" y="75" font-family="Aptos, sans-serif" font-size="15" font-weight="700" fill="#E65100" text-anchor="middle">Gene Set Enrichment Analysis (GSEA)</text>
-                    
-                    <!-- Ranked gene list -->
-                    <g transform="translate(340, 90)">
-                        <text x="0" y="0" font-family="Aptos, sans-serif" font-size="11" fill="#666">Ranked Gene List</text>
-                        
-                        <!-- Gradient bar -->
-                        <defs>
-                            <linearGradient id="rankGradient" x1="0%" y1="0%" x2="100%" y2="0%">
-                                <stop offset="0%" style="stop-color:#D32F2F;stop-opacity:1" />
-                                <stop offset="50%" style="stop-color:#E0E0E0;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#1976D2;stop-opacity:1" />
-                            </linearGradient>
-                        </defs>
-                        <rect x="0" y="5" width="520" height="20" fill="url(#rankGradient)"/>
-                        
-                        <text x="0" y="40" font-family="Aptos, sans-serif" font-size="10" fill="#D32F2F">↓ Down</text>
-                        <text x="480" y="40" font-family="Aptos, sans-serif" font-size="10" fill="#1976D2">Up ↑</text>
-                        
-                        <!-- Gene set marks -->
-                        <line x1="100" y1="5" x2="100" y2="25" stroke="#333" stroke-width="2"/>
-                        <line x1="120" y1="5" x2="120" y2="25" stroke="#333" stroke-width="2"/>
-                        <line x1="380" y1="5" x2="380" y2="25" stroke="#333" stroke-width="2"/>
-                        <line x1="400" y1="5" x2="400" y2="25" stroke="#333" stroke-width="2"/>
-                        <line x1="420" y1="5" x2="420" y2="25" stroke="#333" stroke-width="2"/>
-                        <line x1="450" y1="5" x2="450" y2="25" stroke="#333" stroke-width="2"/>
-                        
-                        <text x="260" y="-5" font-family="Aptos, sans-serif" font-size="10" fill="#333" text-anchor="middle">Gene Set Members ↓</text>
-                    </g>
-                    
-                    <!-- Enrichment Score Plot -->
-                    <g transform="translate(340, 150)">
-                        <text x="0" y="0" font-family="Aptos, sans-serif" font-size="11" fill="#666">Enrichment Score</text>
-                        
-                        <!-- Axes -->
-                        <line x1="0" y1="40" x2="520" y2="40" stroke="#999" stroke-width="1"/>
-                        <line x1="0" y1="10" x2="0" y2="60" stroke="#999" stroke-width="1"/>
-                        
-                        <!-- ES curve -->
-                        <path d="M 0 40 L 100 20 L 120 15 L 200 25 L 380 22 L 400 15 L 420 10 L 450 8 L 520 20" 
-                              stroke="#F57C00" stroke-width="2.5" fill="none"/>
-                        
-                        <!-- Peak ES -->
-                        <circle cx="450" cy="8" r="4" fill="#E65100"/>
-                        <text x="460" y="5" font-family="Aptos, sans-serif" font-size="10" fill="#E65100" font-weight="600">ES = 0.65</text>
-                        
-                        <text x="260" y="60" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">Leading Edge</text>
-                    </g>
-                </g>
-                
-                <!-- Pathway Databases -->
-                <g id="databases">
-                    <text x="450" y="255" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#1E64C8" text-anchor="middle">Pathway Databases</text>
-                    
-                    <!-- GO -->
-                    <g transform="translate(20, 275)">
-                        <rect x="0" y="0" width="200" height="120" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
-                        <text x="100" y="25" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#1B5E20" text-anchor="middle">Gene Ontology (GO)</text>
-                        
-                        <circle cx="30" cy="50" r="3" fill="#388E3C"/>
-                        <text x="40" y="54" font-family="Aptos, sans-serif" font-size="11" fill="#333">Biological Process</text>
-                        
-                        <circle cx="30" cy="70" r="3" fill="#388E3C"/>
-                        <text x="40" y="74" font-family="Aptos, sans-serif" font-size="11" fill="#333">Molecular Function</text>
-                        
-                        <circle cx="30" cy="90" r="3" fill="#388E3C"/>
-                        <text x="40" y="94" font-family="Aptos, sans-serif" font-size="11" fill="#333">Cellular Component</text>
-                        
-                        <text x="100" y="110" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Hierarchical ontology</text>
-                    </g>
-                    
-                    <!-- KEGG -->
-                    <g transform="translate(240, 275)">
-                        <rect x="0" y="0" width="200" height="120" rx="8" fill="#FCE4EC" stroke="#C2185B" stroke-width="2"/>
-                        <text x="100" y="25" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#880E4F" text-anchor="middle">KEGG</text>
-                        
-                        <circle cx="30" cy="50" r="3" fill="#C2185B"/>
-                        <text x="40" y="54" font-family="Aptos, sans-serif" font-size="11" fill="#333">Metabolic pathways</text>
-                        
-                        <circle cx="30" cy="70" r="3" fill="#C2185B"/>
-                        <text x="40" y="74" font-family="Aptos, sans-serif" font-size="11" fill="#333">Signaling pathways</text>
-                        
-                        <circle cx="30" cy="90" r="3" fill="#C2185B"/>
-                        <text x="40" y="94" font-family="Aptos, sans-serif" font-size="11" fill="#333">Disease pathways</text>
-                        
-                        <text x="100" y="110" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Curated pathway maps</text>
-                    </g>
-                    
-                    <!-- Reactome -->
-                    <g transform="translate(460, 275)">
-                        <rect x="0" y="0" width="200" height="120" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
-                        <text x="100" y="25" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#0D47A1" text-anchor="middle">Reactome</text>
-                        
-                        <circle cx="30" cy="50" r="3" fill="#1976D2"/>
-                        <text x="40" y="54" font-family="Aptos, sans-serif" font-size="11" fill="#333">Reactions</text>
-                        
-                        <circle cx="30" cy="70" r="3" fill="#1976D2"/>
-                        <text x="40" y="74" font-family="Aptos, sans-serif" font-size="11" fill="#333">Complexes</text>
-                        
-                        <circle cx="30" cy="90" r="3" fill="#1976D2"/>
-                        <text x="40" y="94" font-family="Aptos, sans-serif" font-size="11" fill="#333">Entities</text>
-                        
-                        <text x="100" y="110" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Peer-reviewed pathways</text>
-                    </g>
-                    
-                    <!-- MSigDB -->
-                    <g transform="translate(680, 275)">
-                        <rect x="0" y="0" width="200" height="120" rx="8" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2"/>
-                        <text x="100" y="25" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#4A148C" text-anchor="middle">MSigDB</text>
-                        
-                        <circle cx="30" cy="50" r="3" fill="#7B1FA2"/>
-                        <text x="40" y="54" font-family="Aptos, sans-serif" font-size="11" fill="#333">Hallmark sets</text>
-                        
-                        <circle cx="30" cy="70" r="3" fill="#7B1FA2"/>
-                        <text x="40" y="74" font-family="Aptos, sans-serif" font-size="11" fill="#333">Curated sets</text>
-                        
-                        <circle cx="30" cy="90" r="3" fill="#7B1FA2"/>
-                        <text x="40" y="94" font-family="Aptos, sans-serif" font-size="11" fill="#333">Computational sets</text>
-                        
-                        <text x="100" y="110" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Broad collection</text>
-                    </g>
-                </g>
-                
-                <!-- Bottom note -->
-                <rect x="20" y="405" width="860" height="15" rx="5" fill="#f0f5fc"/>
-                <text x="450" y="416" font-family="Aptos, sans-serif" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">ORA: Simple but threshold-dependent | GSEA: Uses all genes, more powerful | Choose database based on biological question</text>
-            </svg>
+        <h1 class="main-title">Pathway Analysis: Comprehensive Guide</h1>
+        
+        <!-- Overview Section -->
+        <div class="overview-box">
+            <h2 class="section-title">From Genes to Biological Insights</h2>
+            <p style="font-size: 16px; line-height: 1.8; color: #333; margin-bottom: 20px;">
+                Pathway analysis transforms lists of differentially expressed genes into interpretable biological knowledge.
+                Instead of examining hundreds of individual genes, we identify enriched biological pathways, processes, and functions.
+            </p>
         </div>
-        <div class="note-box">
-            <div class="note-text">💡 Pathways provide biological context for gene expression changes</div>
+
+        <!-- Methods Comparison -->
+        <div class="section">
+            <h2 class="section-title">Analysis Methods</h2>
+            
+            <div class="methods-grid">
+                <!-- ORA Card -->
+                <div class="method-card ora">
+                    <div class="method-title">Over-Representation Analysis (ORA)</div>
+                    <div class="method-content">
+                        <strong>How it works:</strong>
+                        <ul>
+                            <li>Tests if DE genes are over-represented in a pathway</li>
+                            <li>Uses Fisher's exact test on 2×2 contingency table</li>
+                            <li>Simple and interpretable results</li>
+                        </ul>
+                        <strong>Limitations:</strong>
+                        <ul>
+                            <li>Requires arbitrary threshold (e.g., p < 0.05, |FC| > 2)</li>
+                            <li>Loses information about genes near threshold</li>
+                            <li>Ignores magnitude of gene expression changes</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <!-- GSEA Card -->
+                <div class="method-card gsea">
+                    <div class="method-title">Gene Set Enrichment Analysis (GSEA)</div>
+                    <div class="method-content">
+                        <strong>How it works:</strong>
+                        <ul>
+                            <li>Uses all genes ranked by expression change</li>
+                            <li>Calculates enrichment score (ES) using Kolmogorov-Smirnov test</li>
+                            <li>No arbitrary threshold needed</li>
+                        </ul>
+                        <strong>Advantages:</strong>
+                        <ul>
+                            <li>More sensitive than ORA</li>
+                            <li>Considers all genes and their ranks</li>
+                            <li>Identifies coordinated changes in pathways</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Comparison Table -->
+            <table class="comparison-table">
+                <tr>
+                    <th>Feature</th>
+                    <th>ORA</th>
+                    <th>GSEA</th>
+                </tr>
+                <tr>
+                    <td><strong>Input</strong></td>
+                    <td>List of significant genes</td>
+                    <td>All genes with expression values</td>
+                </tr>
+                <tr>
+                    <td><strong>Threshold</strong></td>
+                    <td>Required (e.g., p < 0.05, |FC| > 2)</td>
+                    <td>Not required</td>
+                </tr>
+                <tr>
+                    <td><strong>Statistical Test</strong></td>
+                    <td>Fisher's exact test / Hypergeometric test</td>
+                    <td>Kolmogorov-Smirnov-like statistic</td>
+                </tr>
+                <tr>
+                    <td><strong>Sensitivity</strong></td>
+                    <td>Lower (loses borderline genes)</td>
+                    <td>Higher (uses all genes)</td>
+                </tr>
+                <tr>
+                    <td><strong>Computational Cost</strong></td>
+                    <td>Fast</td>
+                    <td>Slower (permutation testing)</td>
+                </tr>
+                <tr>
+                    <td><strong>Best For</strong></td>
+                    <td>Quick exploratory analysis</td>
+                    <td>Comprehensive pathway analysis</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Database Section -->
+        <div class="database-section">
+            <h2 class="section-title">Pathway Databases</h2>
+            
+            <!-- Gene Ontology -->
+            <div class="database-card go">
+                <div class="database-header">
+                    Gene Ontology (GO)
+                </div>
+                <div class="database-content">
+                    <div class="database-description">
+                        <strong>Gene Ontology</strong> is a standardized vocabulary system that describes gene functions across all species. It provides a hierarchical, structured representation of biological knowledge organized into three independent ontologies: Biological Process (BP), Molecular Function (MF), and Cellular Component (CC). GO is the most widely used annotation system in bioinformatics and is continuously updated by the research community.
+                    </div>
+                    
+                    <div class="features-grid">
+                        <div class="feature-box">
+                            <div class="feature-title">Biological Process (BP)</div>
+                            <div class="feature-description">
+                                Series of molecular events with a defined beginning and end. Examples: "cell cycle", "immune response", "metabolic process". Represents biological objectives accomplished by ordered assemblies of molecular functions.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Molecular Function (MF)</div>
+                            <div class="feature-description">
+                                Activities at the molecular level. Examples: "kinase activity", "DNA binding", "receptor activity". Describes tasks performed by individual gene products without specifying where or when they occur.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Cellular Component (CC)</div>
+                            <div class="feature-description">
+                                Locations where gene products are active. Examples: "nucleus", "mitochondrion", "plasma membrane". Describes subcellular structures and macromolecular complexes.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Hierarchical Structure</div>
+                            <div class="feature-description">
+                                Terms organized in directed acyclic graph (DAG) from general to specific. Child terms inherit relationships from parents, enabling analysis at different granularities.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Species-Independent</div>
+                            <div class="feature-description">
+                                Applies to all organisms from bacteria to humans. Same GO term can annotate orthologous genes across species, facilitating comparative analyses.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Evidence Codes</div>
+                            <div class="feature-description">
+                                Each annotation has evidence code (IEA: inferred, IDA: direct assay, etc.) indicating confidence level and source of annotation.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="example-section">
+                        <div class="example-title">💡 Example Use Case: Cell Cycle Analysis</div>
+                        <div class="example-content">
+                            <strong>Scenario:</strong> You identified 150 upregulated genes in cancer cells vs. normal cells.
+                            <br><br>
+                            <strong>GO Analysis Results:</strong>
+                            <ul style="margin-top: 10px; line-height: 1.8;">
+                                <li><strong>BP:</strong> "Cell cycle" (GO:0007049, p = 1.2e-15) - 45 genes</li>
+                                <li><strong>BP:</strong> "DNA replication" (GO:0006260, p = 3.4e-12) - 28 genes</li>
+                                <li><strong>MF:</strong> "DNA-binding transcription factor activity" (GO:0003700, p = 2.1e-8) - 22 genes</li>
+                                <li><strong>CC:</strong> "Nucleus" (GO:0005634, p = 5.6e-10) - 78 genes</li>
+                            </ul>
+                            <br>
+                            <strong>Interpretation:</strong> Cancer cells show dysregulation of cell cycle control and DNA replication, with many transcription factors activated in the nucleus - consistent with uncontrolled proliferation.
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <span class="key-point">🎯 When to use GO:</span> Best for broad functional categorization, understanding where and how gene products function, and comparing results across different studies and organisms.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- KEGG -->
+            <div class="database-card kegg">
+                <div class="database-header">
+                    KEGG (Kyoto Encyclopedia of Genes and Genomes)
+                </div>
+                <div class="database-content">
+                    <div class="database-description">
+                        <strong>KEGG</strong> is a comprehensive database that integrates genomic, chemical, and systemic functional information. It focuses on molecular interaction networks including metabolic pathways, signaling cascades, and disease pathways. KEGG is particularly valuable for understanding how genes work together in biological systems and for visualizing pathway diagrams showing enzymes, substrates, and products.
+                    </div>
+                    
+                    <div class="features-grid">
+                        <div class="feature-box">
+                            <div class="feature-title">Visual Pathway Maps</div>
+                            <div class="feature-description">
+                                Detailed, hand-drawn pathway diagrams showing molecular interactions, substrates, and products with spatial organization. KEGG Mapper allows overlaying expression data onto these maps.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Metabolic Pathways</div>
+                            <div class="feature-description">
+                                Comprehensive coverage of metabolic processes including glycolysis, TCA cycle, amino acid metabolism, and lipid metabolism with chemical structures and enzyme reactions.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Signaling Pathways</div>
+                            <div class="feature-description">
+                                Well-curated signal transduction pathways (MAPK, PI3K-Akt, Wnt, etc.) showing protein-protein interactions, phosphorylation cascades, and transcriptional regulation.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Disease Pathways</div>
+                            <div class="feature-description">
+                                Comprehensive disease pathway collection showing genetic and environmental factors in cancer, neurodegenerative diseases, metabolic disorders, and infectious diseases.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Drug Information</div>
+                            <div class="feature-description">
+                                Includes drug-target relationships and pharmacological pathways. Useful for drug discovery, drug repurposing studies, and understanding mechanism of action.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Multi-Omics Integration</div>
+                            <div class="feature-description">
+                                Links genes, proteins, compounds, reactions, and diseases. Enables integration of genomics, transcriptomics, metabolomics, and disease data in single framework.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="example-section">
+                        <div class="example-title">💡 Example Use Case: Drug Response Study</div>
+                        <div class="example-content">
+                            <strong>Scenario:</strong> Analyzing gene expression changes in cells treated with a kinase inhibitor.
+                            <br><br>
+                            <strong>KEGG Analysis Results:</strong>
+                            <ul style="margin-top: 10px; line-height: 1.8;">
+                                <li><strong>hsa04010</strong> - MAPK signaling pathway (p = 2.3e-18) - 45 genes affected</li>
+                                <li><strong>hsa04151</strong> - PI3K-Akt signaling pathway (p = 1.5e-14) - 38 genes affected</li>
+                                <li><strong>hsa04115</strong> - p53 signaling pathway (p = 4.2e-12) - 22 genes affected</li>
+                                <li><strong>hsa05200</strong> - Pathways in cancer (p = 8.7e-10) - 52 genes affected</li>
+                            </ul>
+                            <br>
+                            <strong>Visualization:</strong> KEGG Mapper colored the affected genes on pathway diagrams, showing ERK and downstream targets downregulated (blue), apoptosis genes upregulated (red), and cell cycle checkpoint genes activated.
+                            <br><br>
+                            <strong>Interpretation:</strong> The drug effectively inhibits MAPK signaling, leading to cell cycle arrest and apoptosis activation - confirming mechanism of action.
+                        </div>
+                    </div>
+                    
+                    <div class="code-box">
+# Example: Mapping expression data to KEGG pathway
+library(pathview)
+
+# Gene expression data (log2 fold changes)
+gene.data <- setNames(deg_results$log2FoldChange, 
+                      deg_results$entrez_id)
+
+# Visualize on MAPK pathway
+pathview(gene.data = gene.data,
+         pathway.id = "04010",  # MAPK pathway
+         species = "hsa",       # Homo sapiens
+         out.suffix = "MAPK_drug_treatment")
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <span class="key-point">🎯 When to use KEGG:</span> Best for understanding molecular mechanisms, visualizing expression changes on pathway diagrams, drug target analysis, and integrating metabolomics with genomics data.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Reactome -->
+            <div class="database-card reactome">
+                <div class="database-header">
+                    Reactome
+                </div>
+                <div class="database-content">
+                    <div class="database-description">
+                        <strong>Reactome</strong> is a peer-reviewed, expert-curated database of biological pathways with a focus on human biology. It represents pathways as a series of molecular events (reactions) organized hierarchically. Reactome provides detailed pathway diagrams with emphasis on molecular interactions, post-translational modifications (PTMs), protein complexes, and subcellular localization. The database is particularly strong in signal transduction and immune system pathways.
+                    </div>
+                    
+                    <div class="features-grid">
+                        <div class="feature-box">
+                            <div class="feature-title">Reaction-Based Model</div>
+                            <div class="feature-description">
+                                Pathways decomposed into individual molecular reactions. Each reaction explicitly shows inputs, outputs, catalysts, and regulators with stoichiometry and compartmentalization.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Peer-Reviewed Content</div>
+                            <div class="feature-description">
+                                All pathways reviewed by experts in respective fields. Higher confidence in accuracy compared to automated annotations. Each pathway linked to supporting literature.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Detailed Annotations</div>
+                            <div class="feature-description">
+                                Includes specific protein modifications (phosphorylation sites), complex formations, subcellular locations, and disease variants with precise molecular detail.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Hierarchical Organization</div>
+                            <div class="feature-description">
+                                Top-level pathways subdivided into smaller units. Enables analysis at different granularity levels from broad processes to specific molecular events.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Cross-References</div>
+                            <div class="feature-description">
+                                Extensive links to external databases (UniProt, ChEBI, Ensembl, GO). Enables comprehensive data integration across multiple biological resources.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Pathway Browser</div>
+                            <div class="feature-description">
+                                Interactive visualization tool with zoom capabilities, overlay of expression data, and exploration of related pathways with intuitive interface.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="example-section">
+                        <div class="example-title">💡 Example Use Case: Immune Response Analysis</div>
+                        <div class="example-content">
+                            <strong>Scenario:</strong> RNA-seq data from T cells stimulated with antigen compared to unstimulated controls.
+                            <br><br>
+                            <strong>Reactome Analysis Results:</strong>
+                            <ul style="margin-top: 10px; line-height: 1.8;">
+                                <li><strong>R-HSA-202403</strong> - TCR signaling (p = 1.5e-22) - 58 entities</li>
+                                <li><strong>R-HSA-202424</strong> - Downstream TCR signaling (p = 3.2e-20) - 42 entities</li>
+                                <li><strong>R-HSA-1280215</strong> - Cytokine signaling in immune system (p = 8.1e-18) - 67 entities</li>
+                                <li><strong>R-HSA-983705</strong> - Interleukin-2 family signaling (p = 2.4e-15) - 28 entities</li>
+                            </ul>
+                            <br>
+                            <strong>Detailed Insights:</strong>
+                            <ul style="margin-top: 10px; line-height: 1.8;">
+                                <li>ZAP70 phosphorylation events increased (specific sites: Y319, Y493)</li>
+                                <li>LAT-SLP76 complex formation upregulated</li>
+                                <li>Nuclear translocation of NFAT transcription factors detected</li>
+                                <li>Reactions in cytoplasm and nucleus compartments identified</li>
+                            </ul>
+                            <br>
+                            <strong>Interpretation:</strong> Complete activation of TCR signaling cascade with proper complex formation and nuclear translocation - indicating functional T cell activation.
+                        </div>
+                    </div>
+                    
+                    <div class="code-box">
+# Example: Reactome pathway analysis
+library(ReactomePA)
+library(org.Hs.eg.db)
+
+# Convert gene symbols to Entrez IDs
+gene.entrez <- bitr(de.genes, fromType="SYMBOL", 
+                    toType="ENTREZID", OrgDb=org.Hs.eg.db)
+
+# Enrichment analysis
+reactome.result <- enrichPathway(gene = gene.entrez$ENTREZID,
+                                 pvalueCutoff = 0.05,
+                                 pAdjustMethod = "BH",
+                                 readable = TRUE)
+
+# Visualize as network
+library(enrichplot)
+cnetplot(reactome.result, categorySize="pvalue")
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <span class="key-point">🎯 When to use Reactome:</span> Best for detailed mechanistic understanding, analyzing protein modifications and complexes, studying immune system pathways, and when you need expert-curated, peer-reviewed pathway information.
+                    </div>
+                </div>
+            </div>
+            
+            <!-- MSigDB -->
+            <div class="database-card msigdb">
+                <div class="database-header">
+                    MSigDB (Molecular Signatures Database)
+                </div>
+                <div class="database-content">
+                    <div class="database-description">
+                        <strong>MSigDB</strong> is a comprehensive collection of annotated gene sets developed at the Broad Institute. It aggregates gene sets from multiple sources including pathway databases, published literature, and computational analyses. MSigDB is organized into collections (C1-C8 and Hallmark), each serving different analysis purposes. It's the standard resource for Gene Set Enrichment Analysis (GSEA) and is particularly valuable for its curated "Hallmark" gene sets representing well-defined biological states and processes.
+                    </div>
+                    
+                    <div class="features-grid">
+                        <div class="feature-box">
+                            <div class="feature-title">Hallmark Gene Sets (H)</div>
+                            <div class="feature-description">
+                                50 refined sets representing well-defined biological states. Reduced redundancy and noise. Most commonly used for initial GSEA analysis. Examples: HALLMARK_HYPOXIA, HALLMARK_APOPTOSIS.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Curated Gene Sets (C2)</div>
+                            <div class="feature-description">
+                                ~6,300 gene sets from pathway databases (KEGG, Reactome, BioCarta), chemical and genetic perturbations. Most comprehensive collection for exploring diverse hypotheses.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Ontology Gene Sets (C5)</div>
+                            <div class="feature-description">
+                                Gene Ontology terms organized by BP, CC, and MF. Provides GO analysis within MSigDB framework. Useful for functional annotation with GSEA method.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Oncogenic Signatures (C6)</div>
+                            <div class="feature-description">
+                                Gene sets representing signatures of cellular pathways disrupted in cancer. Includes signatures for oncogenes (MYC, RAS) and tumor suppressors (TP53, RB1).
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Immunologic Signatures (C7)</div>
+                            <div class="feature-description">
+                                Gene sets representing cell types and states of immune system. Derived from microarray and RNA-seq studies of immune cells. Useful for immune profiling.
+                            </div>
+                        </div>
+                        <div class="feature-box">
+                            <div class="feature-title">Cell Type Signatures (C8)</div>
+                            <div class="feature-description">
+                                Gene sets from single-cell RNA-seq studies. Cell type markers for various tissues and cell types. Essential for deconvolution and cell type identification.
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="example-section">
+                        <div class="example-title">💡 Example Use Case: Cancer Subtype Classification</div>
+                        <div class="example-content">
+                            <strong>Scenario:</strong> Gene expression data from breast cancer samples - understanding biological differences between subtypes.
+                            <br><br>
+                            <strong>MSigDB GSEA Results (Hallmark):</strong>
+                            <ul style="margin-top: 10px; line-height: 1.8;">
+                                <li><strong>Basal-like subtype enriched:</strong>
+                                    <ul style="margin-top: 5px;">
+                                        <li>HALLMARK_EPITHELIAL_MESENCHYMAL_TRANSITION (NES=2.45, FDR=0.001)</li>
+                                        <li>HALLMARK_HYPOXIA (NES=2.12, FDR=0.002)</li>
+                                        <li>HALLMARK_GLYCOLYSIS (NES=1.98, FDR=0.003)</li>
+                                    </ul>
+                                </li>
+                                <li><strong>Luminal subtype enriched:</strong>
+                                    <ul style="margin-top: 5px;">
+                                        <li>HALLMARK_ESTROGEN_RESPONSE_EARLY (NES=2.87, FDR<0.001)</li>
+                                        <li>HALLMARK_ESTROGEN_RESPONSE_LATE (NES=2.34, FDR=0.001)</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            <br>
+                            <strong>Using C6 (Oncogenic Signatures):</strong>
+                            <ul style="margin-top: 10px; line-height: 1.8;">
+                                <li>MYC_TARGETS highly enriched in aggressive tumors</li>
+                                <li>TP53_DN signatures in basal-like subtype</li>
+                            </ul>
+                            <br>
+                            <strong>Interpretation:</strong> Clear molecular distinction - basal-like shows aggressive phenotype with EMT and metabolic reprogramming, while luminal shows estrogen dependence.
+                        </div>
+                    </div>
+                    
+                    <div class="code-box">
+# Example: MSigDB analysis with fgsea
+library(fgsea)
+library(msigdbr)
+
+# Get Hallmark gene sets
+hallmark_sets <- msigdbr(species = "Homo sapiens", 
+                         category = "H")
+hallmark_list <- split(hallmark_sets$gene_symbol, 
+                       hallmark_sets$gs_name)
+
+# Prepare ranked gene list
+gene_ranks <- setNames(deg_results$stat, 
+                       deg_results$gene)
+gene_ranks <- sort(gene_ranks, decreasing = TRUE)
+
+# Run GSEA
+fgsea_results <- fgsea(pathways = hallmark_list,
+                       stats = gene_ranks,
+                       minSize = 15,
+                       maxSize = 500,
+                       nPermSimple = 10000)
+
+# Filter significant pathways
+sig_pathways <- fgsea_results[padj < 0.05]
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <span class="key-point">🎯 When to use MSigDB:</span> Best for GSEA analysis, exploring diverse biological hypotheses, cancer research, when you want both broad (Hallmark) and comprehensive (C2) options, and for standardized analysis workflows.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comparison and Best Practices -->
+        <div class="section" style="margin-top: 60px;">
+            <h2 class="section-title">Choosing the Right Database</h2>
+            
+            <table class="comparison-table">
+                <tr>
+                    <th>Database</th>
+                    <th>Best For</th>
+                    <th>Strengths</th>
+                    <th>Considerations</th>
+                </tr>
+                <tr>
+                    <td><strong>Gene Ontology</strong></td>
+                    <td>Broad functional annotation, cross-species comparisons</td>
+                    <td>
+                        • Universal applicability<br>
+                        • Most comprehensive<br>
+                        • Hierarchical structure<br>
+                        • Widely adopted
+                    </td>
+                    <td>
+                        • Can be redundant<br>
+                        • Varying evidence quality<br>
+                        • Less detailed mechanisms
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>KEGG</strong></td>
+                    <td>Metabolic pathways, visual interpretation, drug studies</td>
+                    <td>
+                        • Beautiful pathway maps<br>
+                        • Metabolic focus<br>
+                        • Drug information<br>
+                        • Easy visualization
+                    </td>
+                    <td>
+                        • Reference pathways<br>
+                        • License restrictions<br>
+                        • Update frequency
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>Reactome</strong></td>
+                    <td>Detailed mechanisms, immune pathways, PTM analysis</td>
+                    <td>
+                        • Peer-reviewed<br>
+                        • Reaction-level detail<br>
+                        • Excellent for signal transduction<br>
+                        • Well-annotated complexes
+                    </td>
+                    <td>
+                        • Mainly human-focused<br>
+                        • Smaller than others<br>
+                        • Can be very detailed
+                    </td>
+                </tr>
+                <tr>
+                    <td><strong>MSigDB</strong></td>
+                    <td>GSEA, cancer research, hypothesis generation</td>
+                    <td>
+                        • Hallmark sets (refined)<br>
+                        • Comprehensive collections<br>
+                        • Regular updates<br>
+                        • GSEA-optimized
+                    </td>
+                    <td>
+                        • Overlapping sets in C2<br>
+                        • Varying quality<br>
+                        • Can be overwhelming
+                    </td>
+                </tr>
+            </table>
+        </div>
+        
+        <!-- Best Practices -->
+        <div class="section" style="margin-top: 60px;">
+            <h2 class="section-title">Best Practices for Pathway Analysis</h2>
+            
+            <div class="methods-grid" style="grid-template-columns: 1fr 1fr 1fr;">
+                <div class="feature-box" style="background: #E8F5E9; border-color: #388E3C;">
+                    <div class="feature-title" style="color: #1B5E20;">1. Multiple Testing Correction</div>
+                    <div class="feature-description">
+                        Always apply FDR or Bonferroni correction. Testing thousands of pathways inflates false positives. Use adjusted p-value < 0.05 as cutoff.
+                    </div>
+                </div>
+                
+                <div class="feature-box" style="background: #E3F2FD; border-color: #1976D2;">
+                    <div class="feature-title" style="color: #0D47A1;">2. Consider Gene Set Size</div>
+                    <div class="feature-description">
+                        Filter pathways with 15-500 genes. Very small sets are unstable; very large sets are too general and lack specificity.
+                    </div>
+                </div>
+                
+                <div class="feature-box" style="background: #FCE4EC; border-color: #C2185B;">
+                    <div class="feature-title" style="color: #880E4F;">3. Validate Results</div>
+                    <div class="feature-description">
+                        Cross-validate findings across multiple databases. Examine individual genes in significant pathways for biological sense.
+                    </div>
+                </div>
+                
+                <div class="feature-box" style="background: #F3E5F5; border-color: #7B1FA2;">
+                    <div class="feature-title" style="color: #4A148C;">4. Use Background Appropriately</div>
+                    <div class="feature-description">
+                        For ORA, use all genes measured in experiment as background, not entire genome. Affects statistical significance dramatically.
+                    </div>
+                </div>
+                
+                <div class="feature-box" style="background: #FFF3E0; border-color: #F57C00;">
+                    <div class="feature-title" style="color: #E65100;">5. Report Methodology</div>
+                    <div class="feature-description">
+                        Clearly state: database version, analysis method (ORA/GSEA), p-value cutoffs, correction method, and software version.
+                    </div>
+                </div>
+                
+                <div class="feature-box" style="background: #E0F2F1; border-color: #00897B;">
+                    <div class="feature-title" style="color: #004D40;">6. Interpret Biologically</div>
+                    <div class="feature-description">
+                        Statistical significance ≠ biological importance. Consider effect sizes, biological context, and literature support.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="highlight-box" style="margin-top: 30px; background: #FFEBEE; border-left: 4px solid #D32F2F;">
+                <h3 style="color: #C62828; margin-bottom: 15px;">⚠️ Common Pitfalls to Avoid</h3>
+                <ul style="margin-left: 20px; line-height: 1.8; color: #333;">
+                    <li><strong>Cherry-picking results:</strong> Don't select only pathways that fit your hypothesis</li>
+                    <li><strong>Ignoring redundancy:</strong> Multiple related pathways may represent same biology</li>
+                    <li><strong>Over-interpreting p-values:</strong> p=0.049 vs p=0.051 is not meaningful difference</li>
+                    <li><strong>Wrong background:</strong> Using wrong gene universe inflates false positives</li>
+                    <li><strong>Outdated databases:</strong> Use current versions - biology knowledge evolves</li>
+                    <li><strong>Ignoring directionality:</strong> Check if genes are up or down-regulated in pathway</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Summary -->
+        <div class="section" style="margin-top: 60px; background: linear-gradient(135deg, #E3F2FD 0%, #F3E5F5 100%); padding: 40px; border-radius: 12px;">
+            <h2 class="section-title" style="border-color: #1E64C8;">Summary & Key Takeaways</h2>
+            
+            <div style="background: white; padding: 30px; border-radius: 8px; margin-top: 20px;">
+                <h3 style="color: #1E64C8; margin-bottom: 20px;">🎯 Quick Reference Guide</h3>
+                
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 30px; margin-bottom: 30px;">
+                    <div>
+                        <h4 style="color: #1976D2; margin-bottom: 15px;">Analysis Methods</h4>
+                        <ul style="line-height: 2; color: #333;">
+                            <li><strong>ORA:</strong> Fast, simple, requires thresholds</li>
+                            <li><strong>GSEA:</strong> More powerful, uses all genes</li>
+                            <li><strong>Recommendation:</strong> Use GSEA when possible</li>
+                            <li><strong>Why:</strong> GSEA detects subtle coordinated changes</li>
+                        </ul>
+                    </div>
+                    
+                    <div>
+                        <h4 style="color: #7B1FA2; margin-bottom: 15px;">Database Selection</h4>
+                        <ul style="line-height: 2; color: #333;">
+                            <li><strong>Starting point:</strong> MSigDB Hallmark or GO BP</li>
+                            <li><strong>Mechanism:</strong> KEGG or Reactome</li>
+                            <li><strong>Validation:</strong> Use multiple databases</li>
+                            <li><strong>Species:</strong> Non-human → prioritize GO</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="padding: 20px; background: #F5F5F5; border-radius: 6px; margin-bottom: 30px;">
+                    <h4 style="color: #F57C00; margin-bottom: 15px; text-align: center;">📊 Typical Workflow</h4>
+                    <div style="display: flex; align-items: center; justify-content: space-around; flex-wrap: wrap; gap: 20px;">
+                        <div style="text-align: center;">
+                            <div style="background: #1976D2; color: white; padding: 15px; border-radius: 50%; width: 70px; height: 70px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 24px;">1</div>
+                            <p style="margin-top: 10px; font-size: 14px; color: #333; font-weight: 600;">DEG Analysis</p>
+                            <p style="font-size: 12px; color: #666;">DESeq2/edgeR</p>
+                        </div>
+                        <div style="font-size: 30px; color: #1976D2;">→</div>
+                        <div style="text-align: center;">
+                            <div style="background: #7B1FA2; color: white; padding: 15px; border-radius: 50%; width: 70px; height: 70px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 24px;">2</div>
+                            <p style="margin-top: 10px; font-size: 14px; color: #333; font-weight: 600;">GSEA</p>
+                            <p style="font-size: 12px; color: #666;">Hallmark/C2</p>
+                        </div>
+                        <div style="font-size: 30px; color: #7B1FA2;">→</div>
+                        <div style="text-align: center;">
+                            <div style="background: #388E3C; color: white; padding: 15px; border-radius: 50%; width: 70px; height: 70px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 24px;">3</div>
+                            <p style="margin-top: 10px; font-size: 14px; color: #333; font-weight: 600;">Validate</p>
+                            <p style="font-size: 12px; color: #666;">GO/KEGG</p>
+                        </div>
+                        <div style="font-size: 30px; color: #388E3C;">→</div>
+                        <div style="text-align: center;">
+                            <div style="background: #C2185B; color: white; padding: 15px; border-radius: 50%; width: 70px; height: 70px; margin: 0 auto; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: 24px;">4</div>
+                            <p style="margin-top: 10px; font-size: 14px; color: #333; font-weight: 600;">Visualize</p>
+                            <p style="font-size: 12px; color: #666;">Interpret</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div style="padding: 20px; background: #E8F5E9; border-left: 4px solid #388E3C; border-radius: 4px;">
+                    <h4 style="color: #1B5E20; margin-bottom: 15px;">✅ Analysis Checklist</h4>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                        <div>
+                            <ul style="line-height: 1.8; color: #333; list-style-position: inside;">
+                                <li>☑ Multiple testing correction applied</li>
+                                <li>☑ Appropriate background used</li>
+                                <li>☑ Gene set size filtered (15-500)</li>
+                                <li>☑ Multiple databases consulted</li>
+                            </ul>
+                        </div>
+                        <div>
+                            <ul style="line-height: 1.8; color: #333; list-style-position: inside;">
+                                <li>☑ Individual genes examined</li>
+                                <li>☑ Biological context considered</li>
+                                <li>☑ Methods clearly documented</li>
+                                <li>☑ Results validated</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div style="margin-top: 60px; padding: 30px; background: #F5F5F5; border-radius: 8px; text-align: center;">
+            <h3 style="color: #1E64C8; margin-bottom: 20px;">📚 Additional Resources</h3>
+            <div style="display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 20px;">
+                <div style="padding: 15px; background: white; border-radius: 6px; border: 2px solid #388E3C;">
+                    <strong style="color: #388E3C; font-size: 16px;">GO Consortium</strong><br>
+                    <span style="font-size: 13px; color: #666;">geneontology.org</span><br>
+                    <span style="font-size: 12px; color: #888;">~44,000 terms</span>
+                </div>
+                <div style="padding: 15px; background: white; border-radius: 6px; border: 2px solid #C2185B;">
+                    <strong style="color: #C2185B; font-size: 16px;">KEGG</strong><br>
+                    <span style="font-size: 13px; color: #666;">genome.jp/kegg</span><br>
+                    <span style="font-size: 12px; color: #888;">~500 pathways</span>
+                </div>
+                <div style="padding: 15px; background: white; border-radius: 6px; border: 2px solid #1976D2;">
+                    <strong style="color: #1976D2; font-size: 16px;">Reactome</strong><br>
+                    <span style="font-size: 13px; color: #666;">reactome.org</span><br>
+                    <span style="font-size: 12px; color: #888;">~2,500 pathways</span>
+                </div>
+                <div style="padding: 15px; background: white; border-radius: 6px; border: 2px solid #7B1FA2;">
+                    <strong style="color: #7B1FA2; font-size: 16px;">MSigDB</strong><br>
+                    <span style="font-size: 13px; color: #666;">gsea-msigdb.org</span><br>
+                    <span style="font-size: 12px; color: #888;">~25,000 gene sets</span>
+                </div>
+            </div>
+            <div style="margin-top: 30px; padding: 20px; background: white; border-radius: 8px; border: 2px solid #1E64C8;">
+                <p style="color: #1E64C8; font-size: 18px; font-weight: 700; margin-bottom: 10px;">
+                    🧬 Remember
+                </p>
+                <p style="color: #666; font-size: 15px; line-height: 1.8;">
+                    Pathway analysis transforms gene lists into biological insights.<br>
+                    Choose your tools wisely, validate thoroughly, and always think biologically!<br>
+                    <strong style="color: #1E64C8;">The goal is understanding, not just statistics.</strong>
+                </p>
+            </div>
         </div>
     </div>
 </body>

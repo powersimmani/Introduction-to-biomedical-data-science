@@ -1,36 +1,42 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Differential Expression</title>
+    <title>Differential Expression - Enhanced</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 20px;
         }
         .container {
-            width: 960px;
-            height: 540px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .main-slide {
+            width: 100%;
             padding: 30px 40px;
             background: white;
+            margin-bottom: 40px;
+            border: 2px solid #1E64C8;
+            border-radius: 10px;
         }
         .title {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             text-align: center;
         }
         .main-content {
             display: flex;
             gap: 25px;
-            height: 420px;
+            min-height: 420px;
         }
         .left-panel {
             flex: 1;
@@ -80,145 +86,951 @@
             color: #333;
             font-weight: 600;
         }
+        
+        /* Detailed sections styling */
+        .section {
+            margin: 40px 0;
+            padding: 30px;
+            background: white;
+            border-radius: 10px;
+            border: 2px solid #e0e0e0;
+        }
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1E64C8;
+        }
+        .section-subtitle {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin: 20px 0 10px 0;
+        }
+        .section-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 15px;
+        }
+        .viz-container {
+            margin: 25px 0;
+            padding: 20px;
+            background: #f9f9f9;
+            border-radius: 8px;
+            border: 1px solid #ddd;
+        }
+        .code-block {
+            background: #f4f4f4;
+            border-left: 4px solid #1E64C8;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+        .formula {
+            background: #fff8e1;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border: 2px solid #ffc107;
+            text-align: center;
+            font-size: 16px;
+            font-family: 'Times New Roman', serif;
+        }
+        .key-points {
+            background: #e8f5e9;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 6px;
+            border-left: 4px solid #4caf50;
+        }
+        .key-points ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        .key-points li {
+            margin: 8px 0;
+            line-height: 1.6;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Differential Expression</div>
-        <div class="main-content">
-            <div class="left-panel">
-                <div class="content-card">
-                    <div class="card-title">Statistical Models</div>
-                    <div class="card-desc">Account for biological and technical variability</div>
+        <!-- Original Main Slide -->
+        <div class="main-slide">
+            <div class="title">Differential Expression</div>
+            <div class="main-content">
+                <div class="left-panel">
+                    <div class="content-card">
+                        <div class="card-title">Statistical Models</div>
+                        <div class="card-desc">Account for biological and technical variability</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-title">Negative Binomial</div>
+                        <div class="card-desc">Models count data with overdispersion</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-title">Fold Change Thresholds</div>
+                        <div class="card-desc">Typically |log2FC| > 1 for biological significance</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-title">FDR Control</div>
+                        <div class="card-desc">False Discovery Rate < 0.05 for multiple testing</div>
+                    </div>
+                    <div class="content-card">
+                        <div class="card-title">Volcano Plots</div>
+                        <div class="card-desc">Visualize FC vs statistical significance</div>
+                    </div>
                 </div>
-                <div class="content-card">
-                    <div class="card-title">Negative Binomial</div>
-                    <div class="card-desc">Models count data with overdispersion</div>
-                </div>
-                <div class="content-card">
-                    <div class="card-title">Fold Change Thresholds</div>
-                    <div class="card-desc">Typically |log2FC| > 1 for biological significance</div>
-                </div>
-                <div class="content-card">
-                    <div class="card-title">FDR Control</div>
-                    <div class="card-desc">False Discovery Rate < 0.05 for multiple testing</div>
-                </div>
-                <div class="content-card">
-                    <div class="card-title">Volcano Plots</div>
-                    <div class="card-desc">Visualize FC vs statistical significance</div>
+                
+                <div class="right-panel">
+                    <svg width="100%" height="100%" viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Title -->
+                        <text x="250" y="20" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#1E64C8" text-anchor="middle">DE Analysis Pipeline</text>
+                        
+                        <!-- Step 1: Input Data -->
+                        <g id="input">
+                            <rect x="20" y="40" width="120" height="50" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                            <text x="80" y="60" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#0D47A1" text-anchor="middle">Count Matrix</text>
+                            <text x="80" y="75" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">Genes × Samples</text>
+                        </g>
+                        
+                        <path d="M 145 65 L 175 65" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                        
+                        <!-- Step 2: Model -->
+                        <g id="model">
+                            <rect x="180" y="40" width="140" height="50" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+                            <text x="250" y="60" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#E65100" text-anchor="middle">Negative Binomial</text>
+                            <text x="250" y="75" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">Y ~ NB(μ, α)</text>
+                        </g>
+                        
+                        <path d="M 325 65 L 355 65" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                        
+                        <!-- Step 3: Test -->
+                        <g id="test">
+                            <rect x="360" y="40" width="120" height="50" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+                            <text x="420" y="60" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#1B5E20" text-anchor="middle">Statistical Test</text>
+                            <text x="420" y="75" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">Wald / LRT</text>
+                        </g>
+                        
+                        <!-- Arrow down -->
+                        <path d="M 420 95 L 420 125" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                        
+                        <!-- Volcano Plot -->
+                        <g id="volcano">
+                            <rect x="20" y="130" width="460" height="230" rx="8" fill="#f5f5f5" stroke="#666" stroke-width="1"/>
+                            <text x="250" y="150" font-family="Aptos, sans-serif" font-size="14" font-weight="600" fill="#1E64C8" text-anchor="middle">Volcano Plot</text>
+                            
+                            <!-- Axes -->
+                            <line x1="250" y1="340" x2="250" y2="170" stroke="#999" stroke-width="2"/>
+                            <line x1="60" y1="340" x2="440" y2="340" stroke="#999" stroke-width="2"/>
+                            
+                            <!-- Axis labels -->
+                            <text x="250" y="355" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">log2 Fold Change</text>
+                            <text x="35" y="255" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle" transform="rotate(-90 35 255)">-log10(p-value)</text>
+                            
+                            <!-- Threshold lines -->
+                            <line x1="180" y1="170" x2="180" y2="340" stroke="#FF5722" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+                            <line x1="320" y1="170" x2="320" y2="340" stroke="#FF5722" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+                            <line x1="60" y1="280" x2="440" y2="280" stroke="#FF5722" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
+                            
+                            <!-- Threshold labels -->
+                            <text x="180" y="165" font-family="Aptos, sans-serif" font-size="9" fill="#FF5722" text-anchor="middle">-1</text>
+                            <text x="320" y="165" font-family="Aptos, sans-serif" font-size="9" fill="#FF5722" text-anchor="middle">+1</text>
+                            <text x="50" y="277" font-family="Aptos, sans-serif" font-size="9" fill="#FF5722" text-anchor="end">0.05</text>
+                            
+                            <!-- Data points -->
+                            <!-- Non-significant (grey) -->
+                            <circle cx="230" cy="310" r="3" fill="#BDBDBD" opacity="0.6"/>
+                            <circle cx="270" cy="320" r="3" fill="#BDBDBD" opacity="0.6"/>
+                            <circle cx="210" cy="315" r="3" fill="#BDBDBD" opacity="0.6"/>
+                            <circle cx="290" cy="325" r="3" fill="#BDBDBD" opacity="0.6"/>
+                            <circle cx="250" cy="305" r="3" fill="#BDBDBD" opacity="0.6"/>
+                            <circle cx="260" cy="330" r="3" fill="#BDBDBD" opacity="0.6"/>
+                            <circle cx="240" cy="318" r="3" fill="#BDBDBD" opacity="0.6"/>
+                            <circle cx="280" cy="312" r="3" fill="#BDBDBD" opacity="0.6"/>
+                            <circle cx="220" cy="322" r="3" fill="#BDBDBD" opacity="0.6"/>
+                            
+                            <!-- Down-regulated (blue) -->
+                            <circle cx="120" cy="220" r="4" fill="#2196F3" opacity="0.8"/>
+                            <circle cx="140" cy="230" r="4" fill="#2196F3" opacity="0.8"/>
+                            <circle cx="100" cy="210" r="4" fill="#2196F3" opacity="0.8"/>
+                            <circle cx="130" cy="200" r="4" fill="#2196F3" opacity="0.8"/>
+                            <circle cx="150" cy="240" r="4" fill="#2196F3" opacity="0.8"/>
+                            <circle cx="110" cy="190" r="4" fill="#2196F3" opacity="0.8"/>
+                            
+                            <!-- Up-regulated (red) -->
+                            <circle cx="380" cy="220" r="4" fill="#F44336" opacity="0.8"/>
+                            <circle cx="360" cy="230" r="4" fill="#F44336" opacity="0.8"/>
+                            <circle cx="400" cy="210" r="4" fill="#F44336" opacity="0.8"/>
+                            <circle cx="370" cy="200" r="4" fill="#F44336" opacity="0.8"/>
+                            <circle cx="350" cy="240" r="4" fill="#F44336" opacity="0.8"/>
+                            <circle cx="390" cy="190" r="4" fill="#F44336" opacity="0.8"/>
+                            
+                            <!-- Legend -->
+                            <rect x="330" y="180" width="140" height="80" rx="5" fill="white" stroke="#999" stroke-width="1"/>
+                            <circle cx="340" cy="195" r="3" fill="#F44336"/>
+                            <text x="350" y="198" font-family="Aptos, sans-serif" font-size="10" fill="#333">Up-regulated</text>
+                            
+                            <circle cx="340" cy="210" r="3" fill="#2196F3"/>
+                            <text x="350" y="213" font-family="Aptos, sans-serif" font-size="10" fill="#333">Down-regulated</text>
+                            
+                            <circle cx="340" cy="225" r="3" fill="#BDBDBD"/>
+                            <text x="350" y="228" font-family="Aptos, sans-serif" font-size="10" fill="#333">Not significant</text>
+                            
+                            <text x="400" y="245" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">|log2FC| > 1</text>
+                            <text x="400" y="255" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">FDR < 0.05</text>
+                        </g>
+                        
+                        <!-- Arrow marker -->
+                        <defs>
+                            <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
                 </div>
             </div>
+            <div class="note-box">
+                <div class="note-text">💡 Balance statistical significance with biological relevance</div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 1: Statistical Models -->
+        <div class="section">
+            <div class="section-title">1. Statistical Models for Differential Expression</div>
             
-            <div class="right-panel">
-                <svg width="100%" height="100%" viewBox="0 0 500 380" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Title -->
-                    <text x="250" y="20" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#1E64C8" text-anchor="middle">DE Analysis Pipeline</text>
+            <div class="section-content">
+                Statistical models form the foundation of differential expression analysis by providing a mathematical framework to distinguish true biological differences from random variation. In RNA-seq data, we encounter two major sources of variability that must be accounted for.
+            </div>
+
+            <div class="section-subtitle">Sources of Variation</div>
+            <div class="viz-container">
+                <svg width="100%" height="280" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg">
+                    <text x="400" y="25" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">Biological vs Technical Variability</text>
                     
-                    <!-- Step 1: Input Data -->
-                    <g id="input">
-                        <rect x="20" y="40" width="120" height="50" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
-                        <text x="80" y="60" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#0D47A1" text-anchor="middle">Count Matrix</text>
-                        <text x="80" y="75" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">Genes × Samples</text>
+                    <!-- Biological Variability -->
+                    <rect x="50" y="50" width="320" height="200" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                    <text x="210" y="75" font-family="Aptos, sans-serif" font-size="16" font-weight="600" fill="#0D47A1" text-anchor="middle">Biological Variability</text>
+                    
+                    <text x="70" y="105" font-family="Aptos, sans-serif" font-size="13" fill="#333">• Individual differences</text>
+                    <text x="70" y="130" font-family="Aptos, sans-serif" font-size="13" fill="#333">• Cellular heterogeneity</text>
+                    <text x="70" y="155" font-family="Aptos, sans-serif" font-size="13" fill="#333">• Environmental factors</text>
+                    <text x="70" y="180" font-family="Aptos, sans-serif" font-size="13" fill="#333">• Genetic variation</text>
+                    
+                    <rect x="70" y="195" width="260" height="40" rx="5" fill="#BBDEFB" stroke="#1976D2" stroke-width="1"/>
+                    <text x="200" y="220" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#0D47A1" text-anchor="middle">Modeled by replicates</text>
+                    
+                    <!-- Technical Variability -->
+                    <rect x="430" y="50" width="320" height="200" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+                    <text x="590" y="75" font-family="Aptos, sans-serif" font-size="16" font-weight="600" fill="#E65100" text-anchor="middle">Technical Variability</text>
+                    
+                    <text x="450" y="105" font-family="Aptos, sans-serif" font-size="13" fill="#333">• Library preparation</text>
+                    <text x="450" y="130" font-family="Aptos, sans-serif" font-size="13" fill="#333">• Sequencing depth</text>
+                    <text x="450" y="155" font-family="Aptos, sans-serif" font-size="13" fill="#333">• Batch effects</text>
+                    <text x="450" y="180" font-family="Aptos, sans-serif" font-size="13" fill="#333">• PCR amplification</text>
+                    
+                    <rect x="450" y="195" width="260" height="40" rx="5" fill="#FFE0B2" stroke="#F57C00" stroke-width="1"/>
+                    <text x="580" y="220" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#E65100" text-anchor="middle">Modeled by normalization</text>
+                </svg>
+            </div>
+
+            <div class="section-subtitle">Why Standard Tests Fail</div>
+            <div class="section-content">
+                Simple t-tests or ANOVA are inadequate for RNA-seq data because they assume normally distributed data with constant variance. RNA-seq count data violates these assumptions in two critical ways:
+            </div>
+
+            <div class="key-points">
+                <strong>Characteristics of RNA-seq count data:</strong>
+                <ul>
+                    <li><span class="highlight">Discrete counts</span> not continuous measurements</li>
+                    <li><span class="highlight">Mean-variance relationship</span> variance increases with expression level</li>
+                    <li><span class="highlight">Overdispersion</span> variance exceeds what Poisson distribution predicts</li>
+                    <li><span class="highlight">Zero inflation</span> many genes have zero counts in some samples</li>
+                </ul>
+            </div>
+
+            <div class="section-subtitle">Model Comparison</div>
+            <div class="viz-container">
+                <svg width="100%" height="300" viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg">
+                    <text x="450" y="25" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">Distribution Models Comparison</text>
+                    
+                    <!-- Poisson -->
+                    <g id="poisson">
+                        <rect x="40" y="50" width="250" height="220" rx="8" fill="#FFEBEE" stroke="#E53935" stroke-width="2"/>
+                        <text x="165" y="75" font-family="Aptos, sans-serif" font-size="15" font-weight="600" fill="#C62828" text-anchor="middle">Poisson Distribution</text>
+                        
+                        <text x="60" y="100" font-family="Aptos, sans-serif" font-size="12" fill="#333">Variance = Mean</text>
+                        <text x="60" y="120" font-family="Aptos, sans-serif" font-size="12" fill="#333" font-style="italic">Too restrictive!</text>
+                        
+                        <!-- Simple distribution curve -->
+                        <path d="M 60 200 Q 120 140, 180 200 Q 240 140, 270 200" stroke="#E53935" stroke-width="2" fill="none"/>
+                        <circle cx="120" cy="140" r="3" fill="#E53935"/>
+                        <circle cx="180" cy="200" r="3" fill="#E53935"/>
+                        <circle cx="240" cy="140" r="3" fill="#E53935"/>
+                        
+                        <text x="165" y="245" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">Underestimates</text>
+                        <text x="165" y="260" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">variability</text>
                     </g>
                     
-                    <path d="M 145 65 L 175 65" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
-                    
-                    <!-- Step 2: Model -->
-                    <g id="model">
-                        <rect x="180" y="40" width="140" height="50" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
-                        <text x="250" y="60" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#E65100" text-anchor="middle">Negative Binomial</text>
-                        <text x="250" y="75" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">Y ~ NB(μ, α)</text>
+                    <!-- Negative Binomial -->
+                    <g id="negbin">
+                        <rect x="325" y="50" width="250" height="220" rx="8" fill="#E8F5E9" stroke="#43A047" stroke-width="2"/>
+                        <text x="450" y="75" font-family="Aptos, sans-serif" font-size="15" font-weight="600" fill="#2E7D32" text-anchor="middle">Negative Binomial</text>
+                        
+                        <text x="345" y="100" font-family="Aptos, sans-serif" font-size="12" fill="#333">Variance > Mean</text>
+                        <text x="345" y="120" font-family="Aptos, sans-serif" font-size="12" fill="#333" font-style="italic">Flexible!</text>
+                        
+                        <!-- Wider distribution -->
+                        <path d="M 335 210 Q 380 120, 450 160 Q 520 120, 565 210" stroke="#43A047" stroke-width="3" fill="none"/>
+                        <circle cx="380" cy="120" r="4" fill="#43A047"/>
+                        <circle cx="450" cy="160" r="4" fill="#43A047"/>
+                        <circle cx="520" cy="120" r="4" fill="#43A047"/>
+                        
+                        <text x="450" y="245" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">Accounts for</text>
+                        <text x="450" y="260" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">overdispersion</text>
                     </g>
                     
-                    <path d="M 325 65 L 355 65" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                    <!-- Normal -->
+                    <g id="normal">
+                        <rect x="610" y="50" width="250" height="220" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                        <text x="735" y="75" font-family="Aptos, sans-serif" font-size="15" font-weight="600" fill="#0D47A1" text-anchor="middle">Normal Distribution</text>
+                        
+                        <text x="630" y="100" font-family="Aptos, sans-serif" font-size="12" fill="#333">Continuous data</text>
+                        <text x="630" y="120" font-family="Aptos, sans-serif" font-size="12" fill="#333" font-style="italic">Wrong type!</text>
+                        
+                        <!-- Smooth bell curve -->
+                        <path d="M 625 210 Q 680 100, 735 150 Q 790 100, 845 210" stroke="#1976D2" stroke-width="2" fill="none" stroke-dasharray="5,5"/>
+                        
+                        <text x="735" y="245" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">For continuous</text>
+                        <text x="735" y="260" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">measurements</text>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="section-content">
+                Modern differential expression tools like DESeq2 and edgeR use <span class="highlight">generalized linear models (GLMs)</span> with negative binomial distributions to properly model RNA-seq count data while accounting for both biological and technical variation.
+            </div>
+        </div>
+
+        <!-- Detailed Section 2: Negative Binomial Distribution -->
+        <div class="section">
+            <div class="section-title">2. Negative Binomial Distribution</div>
+            
+            <div class="section-content">
+                The negative binomial distribution is the cornerstone of modern RNA-seq differential expression analysis. It extends the Poisson distribution by adding a dispersion parameter, allowing the variance to exceed the mean, which is characteristic of biological count data.
+            </div>
+
+            <div class="formula">
+                <strong>Negative Binomial Formula:</strong><br><br>
+                Y ~ NB(μ, α)<br><br>
+                Variance = μ + α × μ²<br><br>
+                where μ = mean expression, α = dispersion parameter
+            </div>
+
+            <div class="section-subtitle">Understanding Dispersion</div>
+            <div class="viz-container">
+                <svg width="100%" height="350" viewBox="0 0 1000 350" xmlns="http://www.w3.org/2000/svg">
+                    <text x="500" y="25" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">Dispersion Across Expression Levels</text>
                     
-                    <!-- Step 3: Test -->
-                    <g id="test">
-                        <rect x="360" y="40" width="120" height="50" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
-                        <text x="420" y="60" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#1B5E20" text-anchor="middle">Statistical Test</text>
-                        <text x="420" y="75" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">Wald / LRT</text>
+                    <!-- Axes -->
+                    <line x1="100" y1="300" x2="900" y2="300" stroke="#333" stroke-width="2"/>
+                    <line x1="100" y1="300" x2="100" y2="50" stroke="#333" stroke-width="2"/>
+                    
+                    <!-- Axis labels -->
+                    <text x="500" y="330" font-family="Aptos, sans-serif" font-size="14" fill="#333" text-anchor="middle">Mean Expression (log scale)</text>
+                    <text x="40" y="175" font-family="Aptos, sans-serif" font-size="14" fill="#333" text-anchor="middle" transform="rotate(-90 40 175)">Dispersion</text>
+                    
+                    <!-- Dispersion trend line -->
+                    <path d="M 150 100 Q 300 120, 450 180 T 850 250" stroke="#F57C00" stroke-width="3" fill="none"/>
+                    
+                    <!-- Data points with different dispersions -->
+                    <!-- High expression, low dispersion -->
+                    <circle cx="750" cy="240" r="6" fill="#4CAF50" opacity="0.7"/>
+                    <circle cx="780" cy="250" r="6" fill="#4CAF50" opacity="0.7"/>
+                    <circle cx="820" cy="245" r="6" fill="#4CAF50" opacity="0.7"/>
+                    <text x="800" y="275" font-family="Aptos, sans-serif" font-size="11" fill="#2E7D32" text-anchor="middle">Low dispersion</text>
+                    
+                    <!-- Medium expression, medium dispersion -->
+                    <circle cx="450" cy="175" r="6" fill="#FF9800" opacity="0.7"/>
+                    <circle cx="480" cy="185" r="6" fill="#FF9800" opacity="0.7"/>
+                    <circle cx="420" cy="180" r="6" fill="#FF9800" opacity="0.7"/>
+                    <text x="450" y="155" font-family="Aptos, sans-serif" font-size="11" fill="#E65100" text-anchor="middle">Medium dispersion</text>
+                    
+                    <!-- Low expression, high dispersion -->
+                    <circle cx="200" cy="110" r="6" fill="#F44336" opacity="0.7"/>
+                    <circle cx="230" cy="100" r="6" fill="#F44336" opacity="0.7"/>
+                    <circle cx="170" cy="120" r="6" fill="#F44336" opacity="0.7"/>
+                    <text x="200" y="85" font-family="Aptos, sans-serif" font-size="11" fill="#C62828" text-anchor="middle">High dispersion</text>
+                    
+                    <!-- Grid lines -->
+                    <line x1="100" y1="200" x2="900" y2="200" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5"/>
+                    <line x1="100" y1="150" x2="900" y2="150" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5"/>
+                    <line x1="100" y1="250" x2="900" y2="250" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5"/>
+                </svg>
+            </div>
+
+            <div class="key-points">
+                <strong>Key properties of dispersion:</strong>
+                <ul>
+                    <li><span class="highlight">Gene-specific</span> each gene has its own dispersion estimate</li>
+                    <li><span class="highlight">Expression-dependent</span> typically decreases with higher mean expression</li>
+                    <li><span class="highlight">Shrinkage estimation</span> improves accuracy by borrowing information across genes</li>
+                    <li><span class="highlight">Biological coefficient of variation</span> BCV = √α represents biological variability</li>
+                </ul>
+            </div>
+
+            <div class="section-subtitle">DESeq2 vs edgeR Approaches</div>
+            <div class="viz-container">
+                <svg width="100%" height="250" viewBox="0 0 800 250" xmlns="http://www.w3.org/2000/svg">
+                    <text x="400" y="25" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#1E64C8" text-anchor="middle">Dispersion Estimation Methods</text>
+                    
+                    <!-- DESeq2 -->
+                    <rect x="50" y="50" width="320" height="180" rx="8" fill="#E8F5E9" stroke="#43A047" stroke-width="2"/>
+                    <text x="210" y="75" font-family="Aptos, sans-serif" font-size="15" font-weight="600" fill="#2E7D32" text-anchor="middle">DESeq2</text>
+                    
+                    <text x="70" y="100" font-family="Aptos, sans-serif" font-size="12" fill="#333">1. Gene-wise estimates</text>
+                    <text x="70" y="120" font-family="Aptos, sans-serif" font-size="12" fill="#333">2. Fit trend across genes</text>
+                    <text x="70" y="140" font-family="Aptos, sans-serif" font-size="12" fill="#333">3. Shrink towards trend</text>
+                    
+                    <rect x="70" y="155" width="260" height="60" rx="5" fill="#C8E6C9" stroke="#43A047" stroke-width="1"/>
+                    <text x="200" y="175" font-family="Aptos, sans-serif" font-size="11" fill="#1B5E20" text-anchor="middle">Uses maximum a posteriori</text>
+                    <text x="200" y="190" font-family="Aptos, sans-serif" font-size="11" fill="#1B5E20" text-anchor="middle">(MAP) estimation</text>
+                    <text x="200" y="205" font-family="Aptos, sans-serif" font-size="11" fill="#1B5E20" text-anchor="middle">Conservative for low counts</text>
+                    
+                    <!-- edgeR -->
+                    <rect x="430" y="50" width="320" height="180" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                    <text x="590" y="75" font-family="Aptos, sans-serif" font-size="15" font-weight="600" fill="#0D47A1" text-anchor="middle">edgeR</text>
+                    
+                    <text x="450" y="100" font-family="Aptos, sans-serif" font-size="12" fill="#333">1. Common dispersion</text>
+                    <text x="450" y="120" font-family="Aptos, sans-serif" font-size="12" fill="#333">2. Trended dispersion</text>
+                    <text x="450" y="140" font-family="Aptos, sans-serif" font-size="12" fill="#333">3. Tagwise dispersion</text>
+                    
+                    <rect x="450" y="155" width="260" height="60" rx="5" fill="#BBDEFB" stroke="#1976D2" stroke-width="1"/>
+                    <text x="580" y="175" font-family="Aptos, sans-serif" font-size="11" fill="#0D47A1" text-anchor="middle">Uses empirical Bayes</text>
+                    <text x="580" y="190" font-family="Aptos, sans-serif" font-size="11" fill="#0D47A1" text-anchor="middle">moderation</text>
+                    <text x="580" y="205" font-family="Aptos, sans-serif" font-size="11" fill="#0D47A1" text-anchor="middle">More flexible for varied data</text>
+                </svg>
+            </div>
+
+            <div class="code-block">
+# Example R code for dispersion estimation in DESeq2
+library(DESeq2)
+
+# Create DESeq2 object
+dds <- DESeqDataSetFromMatrix(
+    countData = counts,
+    colData = metadata,
+    design = ~ condition
+)
+
+# Estimate size factors (normalization)
+dds <- estimateSizeFactors(dds)
+
+# Estimate dispersions
+dds <- estimateDispersions(dds)
+
+# Plot dispersion estimates
+plotDispEsts(dds)
+            </div>
+
+            <div class="section-content">
+                Both methods share information across genes to improve dispersion estimates, especially for genes with low counts or few replicates. This <span class="highlight">shrinkage approach</span> balances gene-specific estimates with overall trends, reducing false positives while maintaining statistical power.
+            </div>
+        </div>
+
+        <!-- Detailed Section 3: Fold Change Thresholds -->
+        <div class="section">
+            <div class="section-title">3. Fold Change Thresholds</div>
+            
+            <div class="section-content">
+                While statistical significance tells us that a difference is unlikely to be due to chance, fold change tells us whether that difference is <span class="highlight">biologically meaningful</span>. A gene might be statistically significantly different but only change by 5%, which may not be biologically relevant.
+            </div>
+
+            <div class="section-subtitle">Understanding Log2 Fold Change</div>
+            <div class="viz-container">
+                <svg width="100%" height="300" viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg">
+                    <text x="450" y="25" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">Log2 Fold Change Scale</text>
+                    
+                    <!-- Central axis -->
+                    <line x1="100" y1="150" x2="800" y2="150" stroke="#333" stroke-width="3"/>
+                    
+                    <!-- Zero point -->
+                    <circle cx="450" cy="150" r="8" fill="#757575"/>
+                    <text x="450" y="180" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#333" text-anchor="middle">0</text>
+                    <text x="450" y="195" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">(No change)</text>
+                    
+                    <!-- Negative values (down-regulation) -->
+                    <circle cx="250" cy="150" r="8" fill="#2196F3"/>
+                    <text x="250" y="180" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#1565C0" text-anchor="middle">-2</text>
+                    <text x="250" y="195" font-family="Aptos, sans-serif" font-size="11" fill="#1565C0" text-anchor="middle">(4-fold down)</text>
+                    
+                    <circle cx="350" cy="150" r="8" fill="#64B5F6"/>
+                    <text x="350" y="180" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#1976D2" text-anchor="middle">-1</text>
+                    <text x="350" y="195" font-family="Aptos, sans-serif" font-size="11" fill="#1976D2" text-anchor="middle">(2-fold down)</text>
+                    
+                    <!-- Positive values (up-regulation) -->
+                    <circle cx="550" cy="150" r="8" fill="#EF5350"/>
+                    <text x="550" y="180" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#C62828" text-anchor="middle">+1</text>
+                    <text x="550" y="195" font-family="Aptos, sans-serif" font-size="11" fill="#C62828" text-anchor="middle">(2-fold up)</text>
+                    
+                    <circle cx="650" cy="150" r="8" fill="#D32F2F"/>
+                    <text x="650" y="180" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#B71C1C" text-anchor="middle">+2</text>
+                    <text x="650" y="195" font-family="Aptos, sans-serif" font-size="11" fill="#B71C1C" text-anchor="middle">(4-fold up)</text>
+                    
+                    <!-- Threshold markers -->
+                    <rect x="340" y="120" width="20" height="5" fill="#FF9800"/>
+                    <text x="350" y="110" font-family="Aptos, sans-serif" font-size="11" fill="#E65100" text-anchor="middle">Threshold</text>
+                    
+                    <rect x="540" y="120" width="20" height="5" fill="#FF9800"/>
+                    <text x="550" y="110" font-family="Aptos, sans-serif" font-size="11" fill="#E65100" text-anchor="middle">Threshold</text>
+                    
+                    <!-- Labels -->
+                    <text x="200" y="250" font-family="Aptos, sans-serif" font-size="14" font-weight="600" fill="#1565C0" text-anchor="middle">DOWN-REGULATED</text>
+                    <text x="700" y="250" font-family="Aptos, sans-serif" font-size="14" font-weight="600" fill="#C62828" text-anchor="middle">UP-REGULATED</text>
+                    
+                    <text x="450" y="270" font-family="Aptos, sans-serif" font-size="12" fill="#666" text-anchor="middle">Typical threshold: |log2FC| > 1 means at least 2-fold change</text>
+                </svg>
+            </div>
+
+            <div class="key-points">
+                <strong>Why use log2 fold change?</strong>
+                <ul>
+                    <li><span class="highlight">Symmetry</span> up and down-regulation are symmetric (2-fold up = +1, 2-fold down = -1)</li>
+                    <li><span class="highlight">Interpretability</span> each unit represents a doubling or halving</li>
+                    <li><span class="highlight">Statistical properties</span> more normally distributed than raw fold changes</li>
+                    <li><span class="highlight">Easy comparison</span> magnitude directly comparable across genes</li>
+                </ul>
+            </div>
+
+            <div class="section-subtitle">Common Thresholds by Context</div>
+            <div class="viz-container">
+                <svg width="100%" height="320" viewBox="0 0 900 320" xmlns="http://www.w3.org/2000/svg">
+                    <text x="450" y="25" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">Fold Change Thresholds in Different Contexts</text>
+                    
+                    <!-- Strict threshold -->
+                    <rect x="50" y="60" width="250" height="230" rx="8" fill="#FFEBEE" stroke="#E53935" stroke-width="2"/>
+                    <text x="175" y="85" font-family="Aptos, sans-serif" font-size="15" font-weight="600" fill="#C62828" text-anchor="middle">Strict Criteria</text>
+                    
+                    <text x="70" y="110" font-family="Aptos, sans-serif" font-size="13" fill="#333">|log2FC| > 2</text>
+                    <text x="70" y="130" font-family="Aptos, sans-serif" font-size="12" fill="#666">(4-fold change)</text>
+                    
+                    <text x="70" y="160" font-family="Aptos, sans-serif" font-size="12" fill="#333">Used for:</text>
+                    <text x="80" y="180" font-family="Aptos, sans-serif" font-size="11" fill="#555">• Drug targets</text>
+                    <text x="80" y="197" font-family="Aptos, sans-serif" font-size="11" fill="#555">• Biomarker discovery</text>
+                    <text x="80" y="214" font-family="Aptos, sans-serif" font-size="11" fill="#555">• High-confidence hits</text>
+                    
+                    <rect x="70" y="230" width="210" height="45" rx="4" fill="#FFCDD2" stroke="#E53935" stroke-width="1"/>
+                    <text x="175" y="250" font-family="Aptos, sans-serif" font-size="11" fill="#B71C1C" text-anchor="middle">Fewer genes</text>
+                    <text x="175" y="265" font-family="Aptos, sans-serif" font-size="11" fill="#B71C1C" text-anchor="middle">Higher confidence</text>
+                    
+                    <!-- Standard threshold -->
+                    <rect x="325" y="60" width="250" height="230" rx="8" fill="#E8F5E9" stroke="#43A047" stroke-width="2"/>
+                    <text x="450" y="85" font-family="Aptos, sans-serif" font-size="15" font-weight="600" fill="#2E7D32" text-anchor="middle">Standard Criteria</text>
+                    
+                    <text x="345" y="110" font-family="Aptos, sans-serif" font-size="13" fill="#333">|log2FC| > 1</text>
+                    <text x="345" y="130" font-family="Aptos, sans-serif" font-size="12" fill="#666">(2-fold change)</text>
+                    
+                    <text x="345" y="160" font-family="Aptos, sans-serif" font-size="12" fill="#333">Used for:</text>
+                    <text x="355" y="180" font-family="Aptos, sans-serif" font-size="11" fill="#555">• General DE analysis</text>
+                    <text x="355" y="197" font-family="Aptos, sans-serif" font-size="11" fill="#555">• Pathway analysis</text>
+                    <text x="355" y="214" font-family="Aptos, sans-serif" font-size="11" fill="#555">• Most publications</text>
+                    
+                    <rect x="345" y="230" width="210" height="45" rx="4" fill="#C8E6C9" stroke="#43A047" stroke-width="1"/>
+                    <text x="450" y="250" font-family="Aptos, sans-serif" font-size="11" fill="#1B5E20" text-anchor="middle">Balanced approach</text>
+                    <text x="450" y="265" font-family="Aptos, sans-serif" font-size="11" fill="#1B5E20" text-anchor="middle">Widely accepted</text>
+                    
+                    <!-- Lenient threshold -->
+                    <rect x="600" y="60" width="250" height="230" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                    <text x="725" y="85" font-family="Aptos, sans-serif" font-size="15" font-weight="600" fill="#0D47A1" text-anchor="middle">Exploratory</text>
+                    
+                    <text x="620" y="110" font-family="Aptos, sans-serif" font-size="13" fill="#333">|log2FC| > 0.5</text>
+                    <text x="620" y="130" font-family="Aptos, sans-serif" font-size="12" fill="#666">(1.4-fold change)</text>
+                    
+                    <text x="620" y="160" font-family="Aptos, sans-serif" font-size="12" fill="#333">Used for:</text>
+                    <text x="630" y="180" font-family="Aptos, sans-serif" font-size="11" fill="#555">• Exploratory analysis</text>
+                    <text x="630" y="197" font-family="Aptos, sans-serif" font-size="11" fill="#555">• Subtle changes</text>
+                    <text x="630" y="214" font-family="Aptos, sans-serif" font-size="11" fill="#555">• Network analysis</text>
+                    
+                    <rect x="620" y="230" width="210" height="45" rx="4" fill="#BBDEFB" stroke="#1976D2" stroke-width="1"/>
+                    <text x="725" y="250" font-family="Aptos, sans-serif" font-size="11" fill="#0D47A1" text-anchor="middle">More genes</text>
+                    <text x="725" y="265" font-family="Aptos, sans-serif" font-size="11" fill="#0D47A1" text-anchor="middle">Requires validation</text>
+                </svg>
+            </div>
+
+            <div class="formula">
+                <strong>Fold Change Calculations:</strong><br><br>
+                Fold Change (FC) = Expression<sub>Treated</sub> / Expression<sub>Control</sub><br><br>
+                Log2 Fold Change = log<sub>2</sub>(Expression<sub>Treated</sub>) - log<sub>2</sub>(Expression<sub>Control</sub>)<br><br>
+                Example: Gene with 100 counts in control, 400 in treated<br>
+                FC = 400/100 = 4 → log2FC = log<sub>2</sub>(4) = 2
+            </div>
+
+            <div class="section-content">
+                The choice of fold change threshold depends on your experimental context, validation capabilities, and downstream applications. Always consider both statistical significance and biological magnitude when interpreting results.
+            </div>
+        </div>
+
+        <!-- Detailed Section 4: FDR Control -->
+        <div class="section">
+            <div class="section-title">4. False Discovery Rate (FDR) Control</div>
+            
+            <div class="section-content">
+                In RNA-seq experiments, we test thousands of genes simultaneously. This <span class="highlight">multiple testing problem</span> means that even with a p-value threshold of 0.05, we would expect 5% of genes to appear significant by chance alone. For 20,000 genes, that's 1,000 false positives!
+            </div>
+
+            <div class="section-subtitle">The Multiple Testing Problem</div>
+            <div class="viz-container">
+                <svg width="100%" height="300" viewBox="0 0 900 300" xmlns="http://www.w3.org/2000/svg">
+                    <text x="450" y="25" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">Impact of Multiple Testing</text>
+                    
+                    <!-- No correction -->
+                    <rect x="50" y="60" width="380" height="220" rx="8" fill="#FFEBEE" stroke="#E53935" stroke-width="2"/>
+                    <text x="240" y="85" font-family="Aptos, sans-serif" font-size="15" font-weight="600" fill="#C62828" text-anchor="middle">Without FDR Correction</text>
+                    
+                    <text x="240" y="115" font-family="Aptos, sans-serif" font-size="13" fill="#333" text-anchor="middle">20,000 genes tested</text>
+                    <text x="240" y="135" font-family="Aptos, sans-serif" font-size="13" fill="#333" text-anchor="middle">p-value < 0.05</text>
+                    
+                    <!-- Visualization of false positives -->
+                    <rect x="70" y="155" width="340" height="60" rx="5" fill="white" stroke="#999" stroke-width="1"/>
+                    <rect x="70" y="155" width="170" height="60" rx="5" fill="#FFCDD2"/>
+                    <text x="155" y="190" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#B71C1C" text-anchor="middle">~1000 False Positives!</text>
+                    <text x="325" y="190" font-family="Aptos, sans-serif" font-size="12" fill="#2E7D32" text-anchor="middle">True Positives</text>
+                    
+                    <text x="240" y="245" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#C62828" text-anchor="middle">50% could be false discoveries</text>
+                    
+                    <!-- With correction -->
+                    <rect x="470" y="60" width="380" height="220" rx="8" fill="#E8F5E9" stroke="#43A047" stroke-width="2"/>
+                    <text x="660" y="85" font-family="Aptos, sans-serif" font-size="15" font-weight="600" fill="#2E7D32" text-anchor="middle">With FDR Correction</text>
+                    
+                    <text x="660" y="115" font-family="Aptos, sans-serif" font-size="13" fill="#333" text-anchor="middle">20,000 genes tested</text>
+                    <text x="660" y="135" font-family="Aptos, sans-serif" font-size="13" fill="#333" text-anchor="middle">FDR < 0.05</text>
+                    
+                    <!-- Visualization with FDR -->
+                    <rect x="490" y="155" width="340" height="60" rx="5" fill="white" stroke="#999" stroke-width="1"/>
+                    <rect x="490" y="155" width="17" height="60" rx="5" fill="#FFCDD2"/>
+                    <rect x="507" y="155" width="323" height="60" rx="5" fill="#C8E6C9"/>
+                    <text x="668" y="175" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#1B5E20" text-anchor="middle">True Positives</text>
+                    <text x="668" y="195" font-family="Aptos, sans-serif" font-size="11" fill="#2E7D32" text-anchor="middle">(~95%)</text>
+                    <text x="498" y="190" font-family="Aptos, sans-serif" font-size="10" fill="#B71C1C">FP</text>
+                    
+                    <text x="660" y="245" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#2E7D32" text-anchor="middle">Only 5% false discoveries expected</text>
+                </svg>
+            </div>
+
+            <div class="section-subtitle">FDR vs P-value</div>
+            <div class="key-points">
+                <strong>Understanding the difference:</strong>
+                <ul>
+                    <li><span class="highlight">P-value</span> probability of observing data if null hypothesis is true (for a single test)</li>
+                    <li><span class="highlight">FDR (q-value)</span> expected proportion of false discoveries among all discoveries</li>
+                    <li><span class="highlight">Adjusted p-value</span> corrected p-value accounting for multiple comparisons</li>
+                    <li><span class="highlight">Benjamini-Hochberg</span> most common FDR control method in RNA-seq</li>
+                </ul>
+            </div>
+
+            <div class="section-subtitle">Benjamini-Hochberg Procedure</div>
+            <div class="viz-container">
+                <svg width="100%" height="350" viewBox="0 0 900 350" xmlns="http://www.w3.org/2000/svg">
+                    <text x="450" y="25" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">Benjamini-Hochberg Method</text>
+                    
+                    <!-- Step by step process -->
+                    <g id="step1">
+                        <rect x="50" y="50" width="800" height="50" rx="6" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                        <text x="70" y="75" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#0D47A1">Step 1:</text>
+                        <text x="130" y="75" font-family="Aptos, sans-serif" font-size="13" fill="#333">Rank all p-values from smallest to largest</text>
                     </g>
                     
-                    <!-- Arrow down -->
-                    <path d="M 420 95 L 420 125" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrow)"/>
+                    <path d="M 450 100 L 450 120" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow2)"/>
                     
-                    <!-- Volcano Plot -->
-                    <g id="volcano">
-                        <rect x="20" y="130" width="460" height="230" rx="8" fill="#f5f5f5" stroke="#666" stroke-width="1"/>
-                        <text x="250" y="150" font-family="Aptos, sans-serif" font-size="14" font-weight="600" fill="#1E64C8" text-anchor="middle">Volcano Plot</text>
-                        
-                        <!-- Axes -->
-                        <line x1="250" y1="340" x2="250" y2="170" stroke="#999" stroke-width="2"/>
-                        <line x1="60" y1="340" x2="440" y2="340" stroke="#999" stroke-width="2"/>
-                        
-                        <!-- Axis labels -->
-                        <text x="250" y="355" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">log2 Fold Change</text>
-                        <text x="35" y="255" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle" transform="rotate(-90 35 255)">-log10(p-value)</text>
-                        
-                        <!-- Threshold lines -->
-                        <line x1="180" y1="170" x2="180" y2="340" stroke="#FF5722" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
-                        <line x1="320" y1="170" x2="320" y2="340" stroke="#FF5722" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
-                        <line x1="60" y1="280" x2="440" y2="280" stroke="#FF5722" stroke-width="1" stroke-dasharray="4,4" opacity="0.5"/>
-                        
-                        <!-- Threshold labels -->
-                        <text x="180" y="165" font-family="Aptos, sans-serif" font-size="9" fill="#FF5722" text-anchor="middle">-1</text>
-                        <text x="320" y="165" font-family="Aptos, sans-serif" font-size="9" fill="#FF5722" text-anchor="middle">+1</text>
-                        <text x="50" y="277" font-family="Aptos, sans-serif" font-size="9" fill="#FF5722" text-anchor="end">0.05</text>
-                        
-                        <!-- Data points -->
-                        <!-- Non-significant (grey) -->
-                        <circle cx="230" cy="310" r="3" fill="#BDBDBD" opacity="0.6"/>
-                        <circle cx="270" cy="320" r="3" fill="#BDBDBD" opacity="0.6"/>
-                        <circle cx="210" cy="315" r="3" fill="#BDBDBD" opacity="0.6"/>
-                        <circle cx="290" cy="325" r="3" fill="#BDBDBD" opacity="0.6"/>
-                        <circle cx="250" cy="305" r="3" fill="#BDBDBD" opacity="0.6"/>
-                        <circle cx="260" cy="330" r="3" fill="#BDBDBD" opacity="0.6"/>
-                        <circle cx="240" cy="318" r="3" fill="#BDBDBD" opacity="0.6"/>
-                        <circle cx="280" cy="312" r="3" fill="#BDBDBD" opacity="0.6"/>
-                        <circle cx="220" cy="322" r="3" fill="#BDBDBD" opacity="0.6"/>
-                        
-                        <!-- Down-regulated (blue) -->
-                        <circle cx="120" cy="220" r="4" fill="#2196F3" opacity="0.8"/>
-                        <circle cx="140" cy="230" r="4" fill="#2196F3" opacity="0.8"/>
-                        <circle cx="100" cy="210" r="4" fill="#2196F3" opacity="0.8"/>
-                        <circle cx="130" cy="200" r="4" fill="#2196F3" opacity="0.8"/>
-                        <circle cx="150" cy="240" r="4" fill="#2196F3" opacity="0.8"/>
-                        <circle cx="110" cy="190" r="4" fill="#2196F3" opacity="0.8"/>
-                        
-                        <!-- Up-regulated (red) -->
-                        <circle cx="380" cy="220" r="4" fill="#F44336" opacity="0.8"/>
-                        <circle cx="360" cy="230" r="4" fill="#F44336" opacity="0.8"/>
-                        <circle cx="400" cy="210" r="4" fill="#F44336" opacity="0.8"/>
-                        <circle cx="370" cy="200" r="4" fill="#F44336" opacity="0.8"/>
-                        <circle cx="350" cy="240" r="4" fill="#F44336" opacity="0.8"/>
-                        <circle cx="390" cy="190" r="4" fill="#F44336" opacity="0.8"/>
-                        
-                        <!-- Legend -->
-                        <rect x="330" y="180" width="140" height="80" rx="5" fill="white" stroke="#999" stroke-width="1"/>
-                        <circle cx="340" cy="195" r="3" fill="#F44336"/>
-                        <text x="350" y="198" font-family="Aptos, sans-serif" font-size="10" fill="#333">Up-regulated</text>
-                        
-                        <circle cx="340" cy="210" r="3" fill="#2196F3"/>
-                        <text x="350" y="213" font-family="Aptos, sans-serif" font-size="10" fill="#333">Down-regulated</text>
-                        
-                        <circle cx="340" cy="225" r="3" fill="#BDBDBD"/>
-                        <text x="350" y="228" font-family="Aptos, sans-serif" font-size="10" fill="#333">Not significant</text>
-                        
-                        <text x="400" y="245" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">|log2FC| > 1</text>
-                        <text x="400" y="255" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">FDR < 0.05</text>
+                    <g id="step2">
+                        <rect x="50" y="120" width="800" height="50" rx="6" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+                        <text x="70" y="145" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#E65100">Step 2:</text>
+                        <text x="130" y="145" font-family="Aptos, sans-serif" font-size="13" fill="#333">For gene i, calculate: (i/m) × α, where m = total genes, α = FDR level</text>
                     </g>
                     
-                    <!-- Arrow marker -->
+                    <path d="M 450 170 L 450 190" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow2)"/>
+                    
+                    <g id="step3">
+                        <rect x="50" y="190" width="800" height="50" rx="6" fill="#E8F5E9" stroke="#43A047" stroke-width="2"/>
+                        <text x="70" y="215" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#2E7D32">Step 3:</text>
+                        <text x="130" y="215" font-family="Aptos, sans-serif" font-size="13" fill="#333">Find largest i where p-value ≤ (i/m) × α</text>
+                    </g>
+                    
+                    <path d="M 450 240 L 450 260" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow2)"/>
+                    
+                    <g id="step4">
+                        <rect x="50" y="260" width="800" height="50" rx="6" fill="#F3E5F5" stroke="#8E24AA" stroke-width="2"/>
+                        <text x="70" y="285" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#6A1B9A">Step 4:</text>
+                        <text x="130" y="285" font-family="Aptos, sans-serif" font-size="13" fill="#333">All genes up to and including i are significant at FDR α</text>
+                    </g>
+                    
+                    <!-- Example -->
+                    <text x="450" y="330" font-family="Aptos, sans-serif" font-size="12" font-style="italic" fill="#666" text-anchor="middle">Example: With 20,000 genes and α=0.05, the 100th gene needs p < (100/20000)×0.05 = 0.00025</text>
+                    
                     <defs>
-                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
                             <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
                         </marker>
                     </defs>
                 </svg>
             </div>
+
+            <div class="code-block">
+# Example R code for FDR correction
+library(DESeq2)
+
+# Run differential expression analysis
+dds <- DESeq(dds)
+results <- results(dds)
+
+# Results include both p-value and adjusted p-value (FDR)
+# padj is the Benjamini-Hochberg adjusted p-value
+
+# Filter for significant genes
+significant_genes <- results[results$padj < 0.05 & 
+                              abs(results$log2FoldChange) > 1, ]
+
+# Count significant genes
+nrow(significant_genes)
+            </code-block>
+
+            <div class="formula">
+                <strong>FDR Interpretation:</strong><br><br>
+                FDR = 0.05 means:<br>
+                "Among all genes called significant,<br>
+                we expect about 5% to be false discoveries"<br><br>
+                If 1000 genes are significant at FDR < 0.05,<br>
+                expect ~50 false positives and ~950 true positives
+            </div>
+
+            <div class="section-content">
+                FDR control is essential for reliable differential expression analysis. It provides a more interpretable measure than individual p-values when testing thousands of genes simultaneously, ensuring that your gene list has a predictable proportion of true discoveries.
+            </div>
         </div>
-        <div class="note-box">
-            <div class="note-text">💡 Balance statistical significance with biological relevance</div>
+
+        <!-- Detailed Section 5: Volcano Plots -->
+        <div class="section">
+            <div class="section-title">5. Volcano Plots</div>
+            
+            <div class="section-content">
+                Volcano plots are the most widely used visualization for differential expression results. They simultaneously display the <span class="highlight">magnitude of change</span> (fold change) and <span class="highlight">statistical confidence</span> (p-value) for all genes, making it easy to identify the most interesting candidates.
+            </div>
+
+            <div class="section-subtitle">Anatomy of a Volcano Plot</div>
+            <div class="viz-container">
+                <svg width="100%" height="500" viewBox="0 0 900 500" xmlns="http://www.w3.org/2000/svg">
+                    <text x="450" y="25" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">Detailed Volcano Plot Anatomy</text>
+                    
+                    <!-- Main plot area -->
+                    <rect x="150" y="60" width="600" height="380" rx="5" fill="#fafafa" stroke="#999" stroke-width="1"/>
+                    
+                    <!-- Axes -->
+                    <line x1="450" y1="60" x2="450" y2="440" stroke="#333" stroke-width="2"/>
+                    <line x1="150" y1="440" x2="750" y2="440" stroke="#333" stroke-width="2"/>
+                    
+                    <!-- Axis labels -->
+                    <text x="450" y="470" font-family="Aptos, sans-serif" font-size="14" font-weight="600" fill="#333" text-anchor="middle">log2 Fold Change</text>
+                    <text x="100" y="250" font-family="Aptos, sans-serif" font-size="14" font-weight="600" fill="#333" text-anchor="middle" transform="rotate(-90 100 250)">-log10(p-value)</text>
+                    
+                    <!-- Threshold lines with labels -->
+                    <line x1="350" y1="60" x2="350" y2="440" stroke="#FF5722" stroke-width="2" stroke-dasharray="5,5"/>
+                    <line x1="550" y1="60" x2="550" y2="440" stroke="#FF5722" stroke-width="2" stroke-dasharray="5,5"/>
+                    <line x1="150" y1="350" x2="750" y2="350" stroke="#FF5722" stroke-width="2" stroke-dasharray="5,5"/>
+                    
+                    <!-- Threshold annotations -->
+                    <text x="350" y="50" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#FF5722" text-anchor="middle">-1</text>
+                    <text x="550" y="50" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#FF5722" text-anchor="middle">+1</text>
+                    <text x="140" y="355" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#FF5722" text-anchor="end">0.05</text>
+                    
+                    <!-- Quadrant labels with arrows -->
+                    <text x="250" y="150" font-family="Aptos, sans-serif" font-size="14" font-weight="600" fill="#1565C0" text-anchor="middle">DOWN</text>
+                    <text x="250" y="170" font-family="Aptos, sans-serif" font-size="14" font-weight="600" fill="#1565C0" text-anchor="middle">SIGNIFICANT</text>
+                    
+                    <text x="650" y="150" font-family="Aptos, sans-serif" font-size="14" font-weight="600" fill="#C62828" text-anchor="middle">UP</text>
+                    <text x="650" y="170" font-family="Aptos, sans-serif" font-size="14" font-weight="600" fill="#C62828" text-anchor="middle">SIGNIFICANT</text>
+                    
+                    <text x="450" y="400" font-family="Aptos, sans-serif" font-size="13" fill="#757575" text-anchor="middle">NOT SIGNIFICANT</text>
+                    
+                    <!-- Sample data points -->
+                    <!-- Non-significant grey points -->
+                    <circle cx="420" cy="420" r="4" fill="#BDBDBD" opacity="0.6"/>
+                    <circle cx="480" cy="415" r="4" fill="#BDBDBD" opacity="0.6"/>
+                    <circle cx="440" cy="410" r="4" fill="#BDBDBD" opacity="0.6"/>
+                    <circle cx="460" cy="425" r="4" fill="#BDBDBD" opacity="0.6"/>
+                    <circle cx="450" cy="405" r="4" fill="#BDBDBD" opacity="0.6"/>
+                    
+                    <!-- Down-regulated significant -->
+                    <circle cx="250" cy="200" r="6" fill="#2196F3" opacity="0.8"/>
+                    <circle cx="280" cy="220" r="6" fill="#2196F3" opacity="0.8"/>
+                    <circle cx="220" cy="180" r="6" fill="#2196F3" opacity="0.8"/>
+                    <circle cx="260" cy="160" r="6" fill="#2196F3" opacity="0.8"/>
+                    <circle cx="300" cy="240" r="6" fill="#2196F3" opacity="0.8"/>
+                    
+                    <!-- Up-regulated significant -->
+                    <circle cx="650" cy="200" r="6" fill="#F44336" opacity="0.8"/>
+                    <circle cx="620" cy="220" r="6" fill="#F44336" opacity="0.8"/>
+                    <circle cx="680" cy="180" r="6" fill="#F44336" opacity="0.8"/>
+                    <circle cx="640" cy="160" r="6" fill="#F44336" opacity="0.8"/>
+                    <circle cx="600" cy="240" r="6" fill="#F44336" opacity="0.8"/>
+                    
+                    <!-- High fold change but not significant -->
+                    <circle cx="250" cy="380" r="5" fill="#90CAF9" opacity="0.7"/>
+                    <circle cx="650" cy="370" r="5" fill="#EF9A9A" opacity="0.7"/>
+                    
+                    <!-- Significant but low fold change -->
+                    <circle cx="420" cy="300" r="5" fill="#FFB74D" opacity="0.7"/>
+                    <circle cx="480" cy="310" r="5" fill="#FFB74D" opacity="0.7"/>
+                    
+                    <!-- Annotations for special cases -->
+                    <path d="M 250 380 L 200 400" stroke="#1976D2" stroke-width="1" fill="none"/>
+                    <text x="190" y="405" font-family="Aptos, sans-serif" font-size="10" fill="#1976D2" text-anchor="end">Large FC,</text>
+                    <text x="190" y="417" font-family="Aptos, sans-serif" font-size="10" fill="#1976D2" text-anchor="end">not significant</text>
+                    
+                    <path d="M 420 300 L 380 280" stroke="#F57C00" stroke-width="1" fill="none"/>
+                    <text x="370" y="275" font-family="Aptos, sans-serif" font-size="10" fill="#F57C00" text-anchor="end">Significant,</text>
+                    <text x="370" y="287" font-family="Aptos, sans-serif" font-size="10" fill="#F57C00" text-anchor="end">small FC</text>
+                    
+                    <!-- "Volcano" shape outline -->
+                    <path d="M 450 440 Q 350 350, 250 100 M 450 440 Q 550 350, 650 100" stroke="#1E64C8" stroke-width="2" stroke-dasharray="3,3" fill="none" opacity="0.3"/>
+                </svg>
+            </div>
+
+            <div class="key-points">
+                <strong>Reading a volcano plot:</strong>
+                <ul>
+                    <li><span class="highlight">X-axis</span> log2 fold change (biological magnitude)</li>
+                    <li><span class="highlight">Y-axis</span> -log10(p-value) (statistical significance)</li>
+                    <li><span class="highlight">Top corners</span> most interesting genes (large change + significant)</li>
+                    <li><span class="highlight">Color coding</span> typically red/up, blue/down, grey/not significant</li>
+                </ul>
+            </div>
+
+            <div class="section-subtitle">Enhanced Volcano Plot Features</div>
+            <div class="viz-container">
+                <svg width="100%" height="400" viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg">
+                    <text x="450" y="25" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">Advanced Volcano Plot Elements</text>
+                    
+                    <!-- Feature boxes -->
+                    <rect x="50" y="50" width="250" height="150" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                    <text x="175" y="75" font-family="Aptos, sans-serif" font-size="14" font-weight="600" fill="#0D47A1" text-anchor="middle">Gene Labels</text>
+                    <text x="70" y="100" font-family="Aptos, sans-serif" font-size="11" fill="#333">• Top N genes by p-value</text>
+                    <text x="70" y="120" font-family="Aptos, sans-serif" font-size="11" fill="#333">• Known markers</text>
+                    <text x="70" y="140" font-family="Aptos, sans-serif" font-size="11" fill="#333">• Genes of interest</text>
+                    <text x="70" y="160" font-family="Aptos, sans-serif" font-size="11" fill="#333">• Avoid overlapping</text>
+                    <text x="175" y="185" font-family="Aptos, sans-serif" font-size="10" font-style="italic" fill="#666" text-anchor="middle">ggrepel package in R</text>
+                    
+                    <rect x="325" y="50" width="250" height="150" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+                    <text x="450" y="75" font-family="Aptos, sans-serif" font-size="14" font-weight="600" fill="#E65100" text-anchor="middle">Point Sizes</text>
+                    <text x="345" y="100" font-family="Aptos, sans-serif" font-size="11" fill="#333">• By expression level</text>
+                    <text x="345" y="120" font-family="Aptos, sans-serif" font-size="11" fill="#333">• By fold change magnitude</text>
+                    <text x="345" y="140" font-family="Aptos, sans-serif" font-size="11" fill="#333">• Constant size option</text>
+                    
+                    <circle cx="375" cy="165" r="6" fill="#F57C00" opacity="0.7"/>
+                    <text x="390" y="170" font-family="Aptos, sans-serif" font-size="10" fill="#666">High expression</text>
+                    <circle cx="375" cy="180" r="3" fill="#F57C00" opacity="0.7"/>
+                    <text x="390" y="185" font-family="Aptos, sans-serif" font-size="10" fill="#666">Low expression</text>
+                    
+                    <rect x="600" y="50" width="250" height="150" rx="8" fill="#E8F5E9" stroke="#43A047" stroke-width="2"/>
+                    <text x="725" y="75" font-family="Aptos, sans-serif" font-size="14" font-weight="600" fill="#2E7D32" text-anchor="middle">Multiple Thresholds</text>
+                    <text x="620" y="100" font-family="Aptos, sans-serif" font-size="11" fill="#333">• FDR 0.01, 0.05, 0.1</text>
+                    <text x="620" y="120" font-family="Aptos, sans-serif" font-size="11" fill="#333">• Different FC cutoffs</text>
+                    <text x="620" y="140" font-family="Aptos, sans-serif" font-size="11" fill="#333">• Stricter criteria regions</text>
+                    
+                    <line x1="630" y1="165" x2="680" y2="165" stroke="#43A047" stroke-width="2" stroke-dasharray="5,5"/>
+                    <text x="690" y="170" font-family="Aptos, sans-serif" font-size="10" fill="#2E7D32">FDR 0.05</text>
+                    <line x1="630" y1="180" x2="680" y2="180" stroke="#F57C00" stroke-width="2" stroke-dasharray="5,5"/>
+                    <text x="690" y="185" font-family="Aptos, sans-serif" font-size="10" fill="#E65100">FDR 0.01</text>
+                    
+                    <rect x="50" y="220" width="380" height="150" rx="8" fill="#F3E5F5" stroke="#8E24AA" stroke-width="2"/>
+                    <text x="240" y="245" font-family="Aptos, sans-serif" font-size="14" font-weight="600" fill="#6A1B9A" text-anchor="middle">Interactive Features</text>
+                    <text x="70" y="270" font-family="Aptos, sans-serif" font-size="11" fill="#333">• Hover to see gene info</text>
+                    <text x="70" y="290" font-family="Aptos, sans-serif" font-size="11" fill="#333">• Click to highlight pathways</text>
+                    <text x="70" y="310" font-family="Aptos, sans-serif" font-size="11" fill="#333">• Zoom regions of interest</text>
+                    <text x="70" y="330" font-family="Aptos, sans-serif" font-size="11" fill="#333">• Export gene lists</text>
+                    <text x="240" y="355" font-family="Aptos, sans-serif" font-size="10" font-style="italic" fill="#666" text-anchor="middle">plotly, Shiny apps</text>
+                    
+                    <rect x="470" y="220" width="380" height="150" rx="8" fill="#FFF8E1" stroke="#FFA000" stroke-width="2"/>
+                    <text x="660" y="245" font-family="Aptos, sans-serif" font-size="14" font-weight="600" fill="#F57F17" text-anchor="middle">Statistical Overlays</text>
+                    <text x="490" y="270" font-family="Aptos, sans-serif" font-size="11" fill="#333">• Density contours</text>
+                    <text x="490" y="290" font-family="Aptos, sans-serif" font-size="11" fill="#333">• MA plot hybrid</text>
+                    <text x="490" y="310" font-family="Aptos, sans-serif" font-size="11" fill="#333">• Confidence ellipses</text>
+                    <text x="490" y="330" font-family="Aptos, sans-serif" font-size="11" fill="#333">• Background distributions</text>
+                </svg>
+            </div>
+
+            <div class="code-block">
+# Creating an enhanced volcano plot in R
+library(ggplot2)
+library(ggrepel)
+
+# Prepare data
+volcano_data <- data.frame(
+    gene = rownames(results),
+    log2FC = results$log2FoldChange,
+    pvalue = results$pvalue,
+    padj = results$padj
+)
+
+# Add significance category
+volcano_data$significance <- "Not Sig"
+volcano_data$significance[volcano_data$padj < 0.05 & 
+                          volcano_data$log2FC > 1] <- "Up"
+volcano_data$significance[volcano_data$padj < 0.05 & 
+                          volcano_data$log2FC < -1] <- "Down"
+
+# Create plot
+ggplot(volcano_data, aes(x = log2FC, y = -log10(pvalue))) +
+    geom_point(aes(color = significance), alpha = 0.6, size = 2) +
+    scale_color_manual(values = c("Up" = "#F44336", 
+                                   "Down" = "#2196F3", 
+                                   "Not Sig" = "#BDBDBD")) +
+    geom_vline(xintercept = c(-1, 1), linetype = "dashed", 
+               color = "#FF5722") +
+    geom_hline(yintercept = -log10(0.05), linetype = "dashed", 
+               color = "#FF5722") +
+    labs(title = "Volcano Plot",
+         x = "log2 Fold Change",
+         y = "-log10(p-value)") +
+    theme_minimal() +
+    geom_text_repel(data = subset(volcano_data, padj < 0.001),
+                    aes(label = gene), size = 3, max.overlaps = 10)
+            </div>
+
+            <div class="section-subtitle">Common Volcano Plot Patterns</div>
+            <div class="section-content">
+                Different experimental scenarios produce characteristic volcano plot shapes. A balanced experiment shows genes distributed symmetrically, while strong biological effects create distinct up and down-regulated clusters in the top corners. Technical issues or batch effects often manifest as asymmetric patterns or unexpected clustering.
+            </div>
+
+            <div class="key-points">
+                <strong>Interpreting patterns:</strong>
+                <ul>
+                    <li><span class="highlight">Symmetric volcano</span> balanced regulation, good experiment</li>
+                    <li><span class="highlight">Skewed distribution</span> may indicate batch effects or normalization issues</li>
+                    <li><span class="highlight">Few significant genes</span> weak biological effect or insufficient power</li>
+                    <li><span class="highlight">Many significant genes</span> strong biological effect or technical artifact</li>
+                </ul>
+            </div>
+
+            <div class="section-content">
+                Volcano plots are invaluable for quality control and hypothesis generation. They allow you to quickly assess the overall experimental results, identify candidate genes for follow-up studies, and communicate findings effectively in presentations and publications.
+            </div>
+        </div>
+
+        <!-- Footer note -->
+        <div class="note-box" style="margin-top: 40px;">
+            <div class="note-text">💡 Complete Analysis: Combine all five components for robust differential expression analysis</div>
         </div>
     </div>
 </body>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mutation Effects</title>
+    <title>Mutation Effects - Detailed Analysis</title>
     <style>
         * {
             margin: 0;
@@ -14,17 +14,22 @@
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
             background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            padding: 40px 0;
         }
         
         .container {
             width: 960px;
-            height: 540px;
-            padding: 40px 60px;
+            margin: 0 auto;
             background: white;
+        }
+        
+        .section {
+            width: 960px;
+            min-height: 540px;
+            padding: 40px 60px;
+            margin-bottom: 40px;
+            background: white;
+            border: 1px solid #e0e0e0;
         }
         
         .title {
@@ -35,6 +40,16 @@
             text-align: center;
             padding-bottom: 15px;
             border-bottom: 3px solid #1E64C8;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            text-align: center;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #1E64C8;
         }
         
         .content-wrapper {
@@ -99,133 +114,816 @@
             0% { r: 10; opacity: 1; }
             100% { r: 40; opacity: 0; }
         }
+        
+        .detail-content {
+            display: flex;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .detail-diagram {
+            flex: 1.2;
+        }
+        
+        .detail-text {
+            flex: 1;
+        }
+        
+        .detail-text h3 {
+            font-size: 18px;
+            color: #1E64C8;
+            margin-bottom: 12px;
+            font-weight: 600;
+        }
+        
+        .detail-text p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 12px;
+        }
+        
+        .detail-text ul {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .detail-text li {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 6px;
+        }
+        
+        .highlight-box {
+            background: #f0f7ff;
+            border-left: 4px solid #1E64C8;
+            padding: 12px 16px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .highlight-box p {
+            font-size: 13px;
+            color: #333;
+            margin: 0;
+        }
+        
+        .score-bar {
+            width: 100%;
+            height: 8px;
+            background: #e0e0e0;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 8px 0;
+        }
+        
+        .score-fill {
+            height: 100%;
+            transition: width 1s ease;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Mutation Effects</div>
-        <div class="content-wrapper">
-            <div class="mutation-diagram">
-                <svg width="560" height="385" viewBox="0 0 560 385">
-                    <text x="280" y="20" font-size="15" fill="#333" text-anchor="middle" font-weight="600">Mutation Impact Analysis</text>
-                    
-                    <!-- Wild Type Sequence -->
-                    <g transform="translate(60, 50)">
-                        <text x="0" y="0" font-size="12" fill="#666" font-weight="600">Wild Type:</text>
-                        <rect x="0" y="10" width="440" height="35" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+        <!-- Original Overview Section -->
+        <div class="section">
+            <div class="title">Mutation Effects</div>
+            <div class="content-wrapper">
+                <div class="mutation-diagram">
+                    <svg width="560" height="385" viewBox="0 0 560 385">
+                        <text x="280" y="20" font-size="15" fill="#333" text-anchor="middle" font-weight="600">Mutation Impact Analysis</text>
                         
-                        <g transform="translate(10, 18)" font-family="monospace" font-size="14">
-                            <text x="0" y="15" fill="#333">M K L V F F A </text>
-                            <text x="120" y="15" fill="#1E64C8" font-weight="700">R</text>
-                            <text x="135" y="15" fill="#333"> G I L S D N Q K Y</text>
-                        </g>
-                        
-                        <text x="350" y="32" font-size="10" fill="#666">Position 234</text>
-                    </g>
-                    
-                    <!-- Mutation Arrow -->
-                    <defs>
-                        <marker id="mutArrow" markerWidth="10" markerHeight="10" refX="5" refY="9" orient="auto">
-                            <polygon points="0 0, 10 0, 5 10" fill="#cc0000"/>
-                        </marker>
-                    </defs>
-                    <path d="M 280,100 L 280,120" stroke="#cc0000" stroke-width="2.5" marker-end="url(#mutArrow)"/>
-                    <text x="300" y="115" font-size="11" fill="#cc0000" font-weight="600">R234W</text>
-                    
-                    <!-- Mutant Sequence -->
-                    <g transform="translate(60, 130)">
-                        <text x="0" y="0" font-size="12" fill="#666" font-weight="600">Mutant:</text>
-                        <rect x="0" y="10" width="440" height="35" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
-                        
-                        <g transform="translate(10, 18)" font-family="monospace" font-size="14">
-                            <text x="0" y="15" fill="#333">M K L V F F A </text>
-                            <rect x="115" y="2" width="20" height="18" rx="2" class="mutation-flash"/>
-                            <text x="120" y="15" fill="#cc0000" font-weight="700">W</text>
-                            <text x="135" y="15" fill="#333"> G I L S D N Q K Y</text>
-                        </g>
-                        
-                        <!-- Impact wave effect -->
-                        <circle cx="130" cy="27" r="10" fill="none" stroke="#cc0000" stroke-width="2" opacity="1" class="impact-wave"/>
-                    </g>
-                    
-                    <!-- Effects Analysis Panel -->
-                    <g transform="translate(60, 195)">
-                        <rect x="0" y="0" width="440" height="160" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="220" y="20" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="700">Predicted Effects</text>
-                        
-                        <!-- Structure Impact -->
-                        <g transform="translate(20, 35)">
-                            <rect x="0" y="0" width="190" height="50" rx="5" fill="#ffcccc" stroke="#cc0000" stroke-width="1.5"/>
-                            <text x="95" y="18" font-size="11" fill="#cc0000" text-anchor="middle" font-weight="600">Structural Impact</text>
+                        <!-- Wild Type Sequence -->
+                        <g transform="translate(60, 50)">
+                            <text x="0" y="0" font-size="12" fill="#666" font-weight="600">Wild Type:</text>
+                            <rect x="0" y="10" width="440" height="35" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
                             
-                            <g transform="translate(10, 25)">
-                                <circle cx="5" cy="5" r="3" fill="#cc0000"/>
-                                <text x="12" y="8" font-size="9" fill="#333">ΔΔG: +3.2 kcal/mol</text>
+                            <g transform="translate(10, 18)" font-family="monospace" font-size="14">
+                                <text x="0" y="15" fill="#333">M K L V F F A </text>
+                                <text x="120" y="15" fill="#1E64C8" font-weight="700">R</text>
+                                <text x="135" y="15" fill="#333"> G I L S D N Q K Y</text>
+                            </g>
+                            
+                            <text x="350" y="32" font-size="10" fill="#666">Position 234</text>
+                        </g>
+                        
+                        <!-- Mutation Arrow -->
+                        <defs>
+                            <marker id="mutArrow" markerWidth="10" markerHeight="10" refX="5" refY="9" orient="auto">
+                                <polygon points="0 0, 10 0, 5 10" fill="#cc0000"/>
+                            </marker>
+                        </defs>
+                        <path d="M 280,100 L 280,120" stroke="#cc0000" stroke-width="2.5" marker-end="url(#mutArrow)"/>
+                        <text x="300" y="115" font-size="11" fill="#cc0000" font-weight="600">R234W</text>
+                        
+                        <!-- Mutant Sequence -->
+                        <g transform="translate(60, 130)">
+                            <text x="0" y="0" font-size="12" fill="#666" font-weight="600">Mutant:</text>
+                            <rect x="0" y="10" width="440" height="35" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                            
+                            <g transform="translate(10, 18)" font-family="monospace" font-size="14">
+                                <text x="0" y="15" fill="#333">M K L V F F A </text>
+                                <rect x="115" y="2" width="20" height="18" rx="2" class="mutation-flash"/>
+                                <text x="120" y="15" fill="#cc0000" font-weight="700">W</text>
+                                <text x="135" y="15" fill="#333"> G I L S D N Q K Y</text>
+                            </g>
+                            
+                            <!-- Impact wave effect -->
+                            <circle cx="130" cy="27" r="10" fill="none" stroke="#cc0000" stroke-width="2" opacity="1" class="impact-wave"/>
+                        </g>
+                        
+                        <!-- Effects Analysis Panel -->
+                        <g transform="translate(60, 195)">
+                            <rect x="0" y="0" width="440" height="160" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="220" y="20" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="700">Predicted Effects</text>
+                            
+                            <!-- Structure Impact -->
+                            <g transform="translate(20, 35)">
+                                <rect x="0" y="0" width="190" height="50" rx="5" fill="#ffcccc" stroke="#cc0000" stroke-width="1.5"/>
+                                <text x="95" y="18" font-size="11" fill="#cc0000" text-anchor="middle" font-weight="600">Structural Impact</text>
                                 
-                                <circle cx="95" cy="5" r="3" fill="#cc0000"/>
-                                <text x="102" y="8" font-size="9" fill="#333">Destabilizing</text>
+                                <g transform="translate(10, 25)">
+                                    <circle cx="5" cy="5" r="3" fill="#cc0000"/>
+                                    <text x="12" y="8" font-size="9" fill="#333">ΔΔG: +3.2 kcal/mol</text>
+                                    
+                                    <circle cx="95" cy="5" r="3" fill="#cc0000"/>
+                                    <text x="102" y="8" font-size="9" fill="#333">Destabilizing</text>
+                                </g>
                             </g>
-                        </g>
-                        
-                        <!-- Function Impact -->
-                        <g transform="translate(230, 35)">
-                            <rect x="0" y="0" width="190" height="50" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="1.5"/>
-                            <text x="95" y="18" font-size="11" fill="#e0a800" text-anchor="middle" font-weight="600">Functional Impact</text>
                             
-                            <g transform="translate(10, 25)">
-                                <circle cx="5" cy="5" r="3" fill="#e0a800"/>
-                                <text x="12" y="8" font-size="9" fill="#333">Activity: 12% WT</text>
+                            <!-- Function Impact -->
+                            <g transform="translate(230, 35)">
+                                <rect x="0" y="0" width="190" height="50" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="1.5"/>
+                                <text x="95" y="18" font-size="11" fill="#e0a800" text-anchor="middle" font-weight="600">Functional Impact</text>
                                 
-                                <circle cx="95" cy="5" r="3" fill="#e0a800"/>
-                                <text x="102" y="8" font-size="9" fill="#333">Loss of function</text>
+                                <g transform="translate(10, 25)">
+                                    <circle cx="5" cy="5" r="3" fill="#e0a800"/>
+                                    <text x="12" y="8" font-size="9" fill="#333">Activity: 12% WT</text>
+                                    
+                                    <circle cx="95" cy="5" r="3" fill="#e0a800"/>
+                                    <text x="102" y="8" font-size="9" fill="#333">Loss of function</text>
+                                </g>
+                            </g>
+                            
+                            <!-- Clinical Significance -->
+                            <g transform="translate(20, 95)">
+                                <rect x="0" y="0" width="400" height="45" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <text x="200" y="18" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">Clinical Interpretation</text>
+                                
+                                <g transform="translate(15, 25)">
+                                    <!-- Pathogenicity score bar -->
+                                    <text x="0" y="0" font-size="10" fill="#333">Pathogenicity:</text>
+                                    <rect x="75" y="-7" width="150" height="10" rx="2" fill="#e0e0e0"/>
+                                    <rect x="75" y="-7" width="135" height="10" rx="2" fill="#cc0000" opacity="0.7"/>
+                                    <text x="235" y="0" font-size="10" fill="#cc0000" font-weight="600">90% (Likely Pathogenic)</text>
+                                </g>
                             </g>
                         </g>
                         
-                        <!-- Clinical Significance -->
-                        <g transform="translate(20, 95)">
-                            <rect x="0" y="0" width="400" height="45" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
-                            <text x="200" y="18" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">Clinical Interpretation</text>
-                            
-                            <g transform="translate(15, 25)">
-                                <!-- Pathogenicity score bar -->
-                                <text x="0" y="0" font-size="10" fill="#333">Pathogenicity:</text>
-                                <rect x="75" y="-7" width="150" height="10" rx="2" fill="#e0e0e0"/>
-                                <rect x="75" y="-7" width="135" height="10" rx="2" fill="#cc0000" opacity="0.7"/>
-                                <text x="235" y="0" font-size="10" fill="#cc0000" font-weight="600">90% (Likely Pathogenic)</text>
-                            </g>
+                        <!-- Evolutionary Conservation -->
+                        <g transform="translate(210, 365)">
+                            <text x="0" y="0" font-size="10" fill="#666" text-anchor="middle">Conservation Score: 0.98 (Highly Conserved)</text>
                         </g>
-                    </g>
-                    
-                    <!-- Evolutionary Conservation -->
-                    <g transform="translate(210, 365)">
-                        <text x="0" y="0" font-size="10" fill="#666" text-anchor="middle">Conservation Score: 0.98 (Highly Conserved)</text>
-                    </g>
-                </svg>
-            </div>
-            
-            <div class="effects-panel">
-                <div class="effect-card">
-                    <div class="effect-name">Pathogenicity prediction</div>
-                    <div class="effect-desc">Disease association scoring</div>
+                    </svg>
                 </div>
-                <div class="effect-card">
-                    <div class="effect-name">Stability changes</div>
-                    <div class="effect-desc">ΔΔG calculation</div>
-                </div>
-                <div class="effect-card">
-                    <div class="effect-name">Function impact</div>
-                    <div class="effect-desc">Activity & binding changes</div>
-                </div>
-                <div class="effect-card">
-                    <div class="effect-name">Evolutionary constraints</div>
-                    <div class="effect-desc">Conservation analysis</div>
-                </div>
-                <div class="effect-card">
-                    <div class="effect-name">Clinical interpretation</div>
-                    <div class="effect-desc">Variant classification</div>
+                
+                <div class="effects-panel">
+                    <div class="effect-card">
+                        <div class="effect-name">Pathogenicity prediction</div>
+                        <div class="effect-desc">Disease association scoring</div>
+                    </div>
+                    <div class="effect-card">
+                        <div class="effect-name">Stability changes</div>
+                        <div class="effect-desc">ΔΔG calculation</div>
+                    </div>
+                    <div class="effect-card">
+                        <div class="effect-name">Function impact</div>
+                        <div class="effect-desc">Activity & binding changes</div>
+                    </div>
+                    <div class="effect-card">
+                        <div class="effect-name">Evolutionary constraints</div>
+                        <div class="effect-desc">Conservation analysis</div>
+                    </div>
+                    <div class="effect-card">
+                        <div class="effect-name">Clinical interpretation</div>
+                        <div class="effect-desc">Variant classification</div>
+                    </div>
                 </div>
             </div>
         </div>
+
+        <!-- Section 1: Pathogenicity Prediction -->
+        <div class="section">
+            <div class="section-title">1. Pathogenicity Prediction</div>
+            <div class="detail-content">
+                <div class="detail-diagram">
+                    <svg width="500" height="420" viewBox="0 0 500 420">
+                        <!-- Title -->
+                        <text x="250" y="25" font-size="16" fill="#1E64C8" text-anchor="middle" font-weight="600">Pathogenicity Assessment Framework</text>
+                        
+                        <!-- Input Features -->
+                        <g transform="translate(20, 50)">
+                            <text x="0" y="0" font-size="13" fill="#333" font-weight="600">Input Features:</text>
+                            
+                            <!-- Feature boxes -->
+                            <rect x="0" y="10" width="140" height="35" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                            <text x="70" y="25" font-size="11" fill="#333" text-anchor="middle">Conservation</text>
+                            <text x="70" y="38" font-size="10" fill="#666" text-anchor="middle">Score: 0.98</text>
+                            
+                            <rect x="160" y="10" width="140" height="35" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                            <text x="230" y="25" font-size="11" fill="#333" text-anchor="middle">Amino Acid Change</text>
+                            <text x="230" y="38" font-size="10" fill="#666" text-anchor="middle">R → W (charge loss)</text>
+                            
+                            <rect x="320" y="10" width="140" height="35" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                            <text x="390" y="25" font-size="11" fill="#333" text-anchor="middle">Structural Context</text>
+                            <text x="390" y="38" font-size="10" fill="#666" text-anchor="middle">Active site</text>
+                        </g>
+                        
+                        <!-- Prediction Tools -->
+                        <g transform="translate(20, 110)">
+                            <text x="230" y="0" font-size="13" fill="#333" font-weight="600" text-anchor="middle">Prediction Algorithms:</text>
+                            
+                            <!-- PolyPhen-2 -->
+                            <rect x="20" y="15" width="180" height="60" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                            <text x="110" y="35" font-size="12" fill="#e0a800" text-anchor="middle" font-weight="600">PolyPhen-2</text>
+                            <text x="110" y="50" font-size="10" fill="#333" text-anchor="middle">Score: 0.956</text>
+                            <text x="110" y="65" font-size="10" fill="#cc0000" text-anchor="middle" font-weight="600">Probably Damaging</text>
+                            
+                            <!-- SIFT -->
+                            <rect x="220" y="15" width="180" height="60" rx="5" fill="#ffcccc" stroke="#cc0000" stroke-width="2"/>
+                            <text x="310" y="35" font-size="12" fill="#cc0000" text-anchor="middle" font-weight="600">SIFT</text>
+                            <text x="310" y="50" font-size="10" fill="#333" text-anchor="middle">Score: 0.002</text>
+                            <text x="310" y="65" font-size="10" fill="#cc0000" text-anchor="middle" font-weight="600">Deleterious</text>
+                        </g>
+                        
+                        <!-- Meta-predictor -->
+                        <g transform="translate(20, 200)">
+                            <rect x="80" y="0" width="300" height="65" rx="5" fill="#f0f0f0" stroke="#666" stroke-width="2"/>
+                            <text x="230" y="25" font-size="13" fill="#333" text-anchor="middle" font-weight="600">Meta-Predictor Integration</text>
+                            <text x="230" y="43" font-size="11" fill="#666" text-anchor="middle">REVEL, CADD, MetaSVM</text>
+                            
+                            <!-- Combined score bar -->
+                            <rect x="100" y="50" width="260" height="8" rx="4" fill="#e0e0e0"/>
+                            <rect x="100" y="50" width="234" height="8" rx="4" fill="#cc0000"/>
+                        </g>
+                        
+                        <!-- Final Output -->
+                        <g transform="translate(20, 295)">
+                            <rect x="60" y="0" width="340" height="100" rx="8" fill="#ffebeb" stroke="#cc0000" stroke-width="3"/>
+                            
+                            <text x="230" y="30" font-size="14" fill="#cc0000" text-anchor="middle" font-weight="700">PATHOGENICITY PREDICTION</text>
+                            
+                            <!-- Score visualization -->
+                            <circle cx="120" cy="65" r="25" fill="none" stroke="#e0e0e0" stroke-width="4"/>
+                            <circle cx="120" cy="65" r="25" fill="none" stroke="#cc0000" stroke-width="4" 
+                                    stroke-dasharray="141.37" stroke-dashoffset="14.137" 
+                                    transform="rotate(-90 120 65)"/>
+                            <text x="120" y="70" font-size="16" fill="#cc0000" text-anchor="middle" font-weight="700">90%</text>
+                            
+                            <g transform="translate(170, 45)">
+                                <text x="0" y="0" font-size="12" fill="#333" font-weight="600">Classification:</text>
+                                <text x="0" y="18" font-size="13" fill="#cc0000" font-weight="700">LIKELY PATHOGENIC</text>
+                                <text x="0" y="33" font-size="10" fill="#666">High confidence</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="detail-text">
+                    <h3>Overview</h3>
+                    <p>Pathogenicity prediction assesses whether a genetic variant is likely to cause disease. This computational approach integrates multiple lines of evidence to estimate the probability that a mutation contributes to pathology.</p>
+                    
+                    <h3>Key Prediction Tools</h3>
+                    <ul>
+                        <li><strong>PolyPhen-2:</strong> Uses sequence conservation and structural information to predict impact on protein function</li>
+                        <li><strong>SIFT:</strong> Predicts whether an amino acid substitution affects protein function based on sequence homology</li>
+                        <li><strong>CADD:</strong> Integrates diverse annotations into a single deleteriousness score</li>
+                        <li><strong>REVEL:</strong> Ensemble method combining 13 individual tools for improved accuracy</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Clinical Application:</strong> These predictions help prioritize variants for experimental validation and guide clinical decision-making when interpreting genetic test results.</p>
+                    </div>
+                    
+                    <h3>Interpretation Guidelines</h3>
+                    <ul>
+                        <li>Scores > 0.8: Likely pathogenic</li>
+                        <li>Scores 0.4-0.8: Uncertain significance</li>
+                        <li>Scores < 0.4: Likely benign</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Stability Changes -->
+        <div class="section">
+            <div class="section-title">2. Protein Stability Changes (ΔΔG)</div>
+            <div class="detail-content">
+                <div class="detail-diagram">
+                    <svg width="500" height="420" viewBox="0 0 500 420">
+                        <!-- Title -->
+                        <text x="250" y="25" font-size="16" fill="#1E64C8" text-anchor="middle" font-weight="600">Thermodynamic Stability Analysis</text>
+                        
+                        <!-- Energy Diagram -->
+                        <g transform="translate(50, 50)">
+                            <text x="200" y="0" font-size="13" fill="#333" font-weight="600" text-anchor="middle">Free Energy Landscape</text>
+                            
+                            <!-- Axes -->
+                            <line x1="30" y1="220" x2="30" y2="20" stroke="#333" stroke-width="2"/>
+                            <line x1="30" y1="220" x2="370" y2="220" stroke="#333" stroke-width="2"/>
+                            
+                            <text x="10" y="25" font-size="10" fill="#666" text-anchor="middle">High</text>
+                            <text x="10" y="120" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Energy</text>
+                            <text x="10" y="215" font-size="10" fill="#666" text-anchor="middle">Low</text>
+                            
+                            <text x="200" y="245" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Folding Coordinate</text>
+                            
+                            <!-- Wild Type curve -->
+                            <path d="M 50,180 Q 100,40 150,80 T 250,100" 
+                                  stroke="#1E64C8" stroke-width="3" fill="none"/>
+                            <circle cx="150" cy="80" r="5" fill="#1E64C8"/>
+                            <text x="150" y="65" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">WT Native</text>
+                            <text x="150" y="105" font-size="9" fill="#1E64C8" text-anchor="middle">ΔG = -8.5 kcal/mol</text>
+                            
+                            <!-- Mutant curve -->
+                            <path d="M 50,180 Q 100,60 150,115 T 250,135" 
+                                  stroke="#cc0000" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+                            <circle cx="150" cy="115" r="5" fill="#cc0000"/>
+                            <text x="150" y="145" font-size="10" fill="#cc0000" text-anchor="middle" font-weight="600">Mutant Native</text>
+                            <text x="150" y="160" font-size="9" fill="#cc0000" text-anchor="middle">ΔG = -5.3 kcal/mol</text>
+                            
+                            <!-- ΔΔG arrow -->
+                            <defs>
+                                <marker id="arrowRed" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                                    <polygon points="0 0, 8 4, 0 8" fill="#cc0000"/>
+                                </marker>
+                            </defs>
+                            <line x1="180" y1="80" x2="180" y2="115" stroke="#cc0000" stroke-width="2" marker-end="url(#arrowRed)"/>
+                            <rect x="185" y="90" width="80" height="20" fill="white" opacity="0.9"/>
+                            <text x="225" y="103" font-size="11" fill="#cc0000" text-anchor="middle" font-weight="700">ΔΔG = +3.2</text>
+                            
+                            <!-- Unfolded state -->
+                            <circle cx="50" cy="180" r="5" fill="#666"/>
+                            <text x="50" y="200" font-size="9" fill="#666" text-anchor="middle">Unfolded</text>
+                        </g>
+                        
+                        <!-- Structural representation -->
+                        <g transform="translate(50, 300)">
+                            <rect x="0" y="0" width="400" height="100" rx="6" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <text x="200" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">Structural Consequences</text>
+                            
+                            <!-- Wild type structure -->
+                            <g transform="translate(40, 35)">
+                                <text x="60" y="0" font-size="10" fill="#333" text-anchor="middle" font-weight="600">Wild Type (Stable)</text>
+                                
+                                <!-- Compact folded protein -->
+                                <ellipse cx="60" cy="30" rx="50" ry="25" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                                <circle cx="40" cy="25" r="3" fill="#1E64C8"/>
+                                <circle cx="60" cy="30" r="3" fill="#1E64C8"/>
+                                <circle cx="80" cy="25" r="3" fill="#1E64C8"/>
+                                <text x="60" y="62" font-size="9" fill="#1E64C8" text-anchor="middle">Compact fold</text>
+                            </g>
+                            
+                            <!-- Arrow -->
+                            <path d="M 150,60 L 180,60" stroke="#cc0000" stroke-width="2" marker-end="url(#arrowRed)"/>
+                            
+                            <!-- Mutant structure -->
+                            <g transform="translate(210, 35)">
+                                <text x="60" y="0" font-size="10" fill="#cc0000" text-anchor="middle" font-weight="600">Mutant (Destabilized)</text>
+                                
+                                <!-- Partially unfolded -->
+                                <ellipse cx="60" cy="30" rx="55" ry="28" fill="#ffebeb" stroke="#cc0000" stroke-width="2" stroke-dasharray="3,2"/>
+                                <circle cx="35" cy="22" r="3" fill="#cc0000"/>
+                                <circle cx="60" cy="35" r="3" fill="#cc0000"/>
+                                <circle cx="85" cy="28" r="3" fill="#cc0000"/>
+                                <path d="M 50,30 Q 45,40 40,50" stroke="#cc0000" stroke-width="1.5" fill="none"/>
+                                <text x="60" y="62" font-size="9" fill="#cc0000" text-anchor="middle">Loose/unstable</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="detail-text">
+                    <h3>Overview</h3>
+                    <p>The change in Gibbs free energy (ΔΔG) quantifies how a mutation affects protein stability. Positive ΔΔG values indicate destabilization, while negative values suggest stabilization of the protein structure.</p>
+                    
+                    <h3>Calculation Methods</h3>
+                    <ul>
+                        <li><strong>FoldX:</strong> Empirical force field-based approach using high-resolution structures</li>
+                        <li><strong>Rosetta:</strong> Energy function combining physics-based and knowledge-based terms</li>
+                        <li><strong>DynaMut:</strong> Considers protein dynamics and flexibility changes</li>
+                        <li><strong>I-Mutant:</strong> Machine learning approach trained on experimental data</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Formula:</strong> ΔΔG = ΔG<sub>mutant</sub> - ΔG<sub>wild-type</sub><br>
+                        A value of +3.2 kcal/mol indicates significant destabilization, often leading to protein misfolding or degradation.</p>
+                    </div>
+                    
+                    <h3>Biological Consequences</h3>
+                    <ul>
+                        <li><strong>ΔΔG > +2 kcal/mol:</strong> Significant destabilization, likely protein degradation</li>
+                        <li><strong>ΔΔG +0.5 to +2:</strong> Moderate instability, temperature-sensitive phenotypes</li>
+                        <li><strong>ΔΔG -0.5 to +0.5:</strong> Minimal impact on stability</li>
+                        <li><strong>ΔΔG < -0.5:</strong> Stabilizing mutation</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Function Impact -->
+        <div class="section">
+            <div class="section-title">3. Functional Impact Assessment</div>
+            <div class="detail-content">
+                <div class="detail-diagram">
+                    <svg width="500" height="420" viewBox="0 0 500 420">
+                        <!-- Title -->
+                        <text x="250" y="25" font-size="16" fill="#1E64C8" text-anchor="middle" font-weight="600">Molecular Function Analysis</text>
+                        
+                        <!-- Activity Comparison -->
+                        <g transform="translate(50, 50)">
+                            <text x="200" y="0" font-size="13" fill="#333" font-weight="600" text-anchor="middle">Enzymatic Activity</text>
+                            
+                            <!-- Wild Type -->
+                            <g transform="translate(0, 25)">
+                                <text x="0" y="0" font-size="12" fill="#1E64C8" font-weight="600">Wild Type</text>
+                                <rect x="0" y="10" width="300" height="35" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                                <rect x="0" y="10" width="300" height="35" rx="4" fill="#1E64C8" opacity="0.6"/>
+                                <text x="310" y="32" font-size="12" fill="#333" font-weight="600">100%</text>
+                                <text x="150" y="32" font-size="11" fill="white" text-anchor="middle" font-weight="600">Full Activity</text>
+                            </g>
+                            
+                            <!-- Mutant -->
+                            <g transform="translate(0, 85)">
+                                <text x="0" y="0" font-size="12" fill="#cc0000" font-weight="600">Mutant (R234W)</text>
+                                <rect x="0" y="10" width="300" height="35" rx="4" fill="#ffebeb" stroke="#cc0000" stroke-width="2"/>
+                                <rect x="0" y="10" width="36" height="35" rx="4" fill="#cc0000" opacity="0.6"/>
+                                <text x="310" y="32" font-size="12" fill="#cc0000" font-weight="600">12%</text>
+                                <text x="18" y="32" font-size="10" fill="#cc0000" text-anchor="middle" font-weight="600">Loss</text>
+                            </g>
+                            
+                            <text x="150" y="165" font-size="11" fill="#666" text-anchor="middle" font-style="italic">88% reduction in catalytic efficiency</text>
+                        </g>
+                        
+                        <!-- Binding Affinity -->
+                        <g transform="translate(50, 230)">
+                            <text x="200" y="0" font-size="13" fill="#333" font-weight="600" text-anchor="middle">Substrate Binding Affinity</text>
+                            
+                            <!-- KM comparison chart -->
+                            <rect x="0" y="20" width="400" height="100" rx="4" fill="#f8f9fa" stroke="#999" stroke-width="1"/>
+                            
+                            <!-- Y-axis -->
+                            <line x1="30" y1="30" x2="30" y2="110" stroke="#333" stroke-width="1.5"/>
+                            <text x="15" y="35" font-size="9" fill="#666">High</text>
+                            <text x="8" y="72" font-size="10" fill="#333" font-weight="600">K<tspan font-size="8" baseline-shift="sub">M</tspan></text>
+                            <text x="15" y="108" font-size="9" fill="#666">Low</text>
+                            
+                            <!-- Bars -->
+                            <g transform="translate(80, 30)">
+                                <!-- WT bar -->
+                                <rect x="0" y="40" width="80" height="40" fill="#1E64C8" opacity="0.7"/>
+                                <text x="40" y="105" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">WT</text>
+                                <text x="40" y="62" font-size="10" fill="white" text-anchor="middle" font-weight="600">2.5 μM</text>
+                                
+                                <!-- Mutant bar -->
+                                <rect x="130" y="10" width="80" height="70" fill="#cc0000" opacity="0.7"/>
+                                <text x="170" y="105" font-size="11" fill="#cc0000" text-anchor="middle" font-weight="600">Mutant</text>
+                                <text x="170" y="50" font-size="10" fill="white" text-anchor="middle" font-weight="600">18.6 μM</text>
+                                
+                                <!-- Arrow indicating increase -->
+                                <path d="M 100,45 L 150,45" stroke="#666" stroke-width="1.5" marker-end="url(#arrowGray)"/>
+                                <defs>
+                                    <marker id="arrowGray" markerWidth="6" markerHeight="6" refX="3" refY="3" orient="auto">
+                                        <polygon points="0 0, 6 3, 0 6" fill="#666"/>
+                                    </marker>
+                                </defs>
+                                <text x="125" y="40" font-size="9" fill="#666" text-anchor="middle">7.4× increase</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Mechanism diagram -->
+                        <g transform="translate(50, 355)">
+                            <rect x="0" y="0" width="400" height="50" rx="4" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                            <text x="200" y="18" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Molecular Mechanism</text>
+                            <text x="200" y="34" font-size="10" fill="#666" text-anchor="middle">Arg234 → Trp: Loss of positive charge disrupts</text>
+                            <text x="200" y="47" font-size="10" fill="#666" text-anchor="middle">substrate coordination and catalytic geometry</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="detail-text">
+                    <h3>Overview</h3>
+                    <p>Functional impact assessment evaluates how a mutation affects the molecular activities of a protein, including catalytic activity, binding affinity, and interaction with other biomolecules.</p>
+                    
+                    <h3>Key Functional Parameters</h3>
+                    <ul>
+                        <li><strong>Catalytic Efficiency (k<sub>cat</sub>/K<sub>M</sub>):</strong> Overall measure of enzyme performance</li>
+                        <li><strong>Binding Affinity (K<sub>D</sub> or K<sub>M</sub>):</strong> Strength of protein-ligand interactions</li>
+                        <li><strong>V<sub>max</sub>:</strong> Maximum reaction velocity, reflects enzyme concentration</li>
+                        <li><strong>Protein-Protein Interactions:</strong> Changes in binding to partner proteins</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Example R234W Impact:</strong><br>
+                        • Activity reduced to 12% of wild-type<br>
+                        • K<sub>M</sub> increased 7.4-fold (weaker substrate binding)<br>
+                        • Charge loss at position 234 disrupts active site geometry</p>
+                    </div>
+                    
+                    <h3>Experimental Approaches</h3>
+                    <ul>
+                        <li><strong>Enzyme kinetics:</strong> Measure k<sub>cat</sub>, K<sub>M</sub>, V<sub>max</sub></li>
+                        <li><strong>Binding assays:</strong> SPR, ITC, fluorescence polarization</li>
+                        <li><strong>Cell-based assays:</strong> Functional readouts in cellular context</li>
+                        <li><strong>Structural studies:</strong> X-ray crystallography, cryo-EM</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Evolutionary Constraints -->
+        <div class="section">
+            <div class="section-title">4. Evolutionary Constraints & Conservation</div>
+            <div class="detail-content">
+                <div class="detail-diagram">
+                    <svg width="500" height="420" viewBox="0 0 500 420">
+                        <!-- Title -->
+                        <text x="250" y="25" font-size="16" fill="#1E64C8" text-anchor="middle" font-weight="600">Evolutionary Conservation Analysis</text>
+                        
+                        <!-- Multiple Sequence Alignment -->
+                        <g transform="translate(30, 50)">
+                            <text x="220" y="0" font-size="13" fill="#333" font-weight="600" text-anchor="middle">Multiple Sequence Alignment</text>
+                            
+                            <!-- Header -->
+                            <g transform="translate(0, 20)" font-family="monospace" font-size="10">
+                                <text x="0" y="0" fill="#666" font-weight="600">Species</text>
+                                <text x="150" y="0" fill="#666" font-weight="600">Sequence (Position 230-240)</text>
+                            </g>
+                            
+                            <!-- Alignment rows -->
+                            <g transform="translate(0, 40)" font-family="monospace" font-size="11">
+                                <!-- Human -->
+                                <text x="0" y="0" fill="#333" font-weight="600">Human</text>
+                                <rect x="100" y="-12" width="330" height="18" fill="#f0f0f0"/>
+                                <text x="110" y="0" fill="#333">L V F F A </text>
+                                <rect x="170" y="-12" width="15" height="18" fill="#ff6666"/>
+                                <text x="175" y="0" fill="#fff" font-weight="700">R</text>
+                                <text x="190" y="0" fill="#333"> G I L S D</text>
+                                
+                                <!-- Mouse -->
+                                <text x="0" y="25" fill="#333">Mouse</text>
+                                <rect x="100" y="13" width="330" height="18" fill="#f8f8f8"/>
+                                <text x="110" y="25" fill="#333">L V F F A </text>
+                                <rect x="170" y="13" width="15" height="18" fill="#ff6666"/>
+                                <text x="175" y="25" fill="#fff" font-weight="700">R</text>
+                                <text x="190" y="25" fill="#333"> G I L S D</text>
+                                
+                                <!-- Rat -->
+                                <text x="0" y="50" fill="#333">Rat</text>
+                                <rect x="100" y="38" width="330" height="18" fill="#f0f0f0"/>
+                                <text x="110" y="50" fill="#333">L V F F A </text>
+                                <rect x="170" y="38" width="15" height="18" fill="#ff6666"/>
+                                <text x="175" y="50" fill="#fff" font-weight="700">R</text>
+                                <text x="190" y="50" fill="#333"> G I L T D</text>
+                                
+                                <!-- Dog -->
+                                <text x="0" y="75" fill="#333">Dog</text>
+                                <rect x="100" y="63" width="330" height="18" fill="#f8f8f8"/>
+                                <text x="110" y="75" fill="#333">L V F F A </text>
+                                <rect x="170" y="63" width="15" height="18" fill="#ff6666"/>
+                                <text x="175" y="75" fill="#fff" font-weight="700">R</text>
+                                <text x="190" y="75" fill="#333"> G V L S D</text>
+                                
+                                <!-- Cow -->
+                                <text x="0" y="100" fill="#333">Cow</text>
+                                <rect x="100" y="88" width="330" height="18" fill="#f0f0f0"/>
+                                <text x="110" y="100" fill="#333">L V F F A </text>
+                                <rect x="170" y="88" width="15" height="18" fill="#ff6666"/>
+                                <text x="175" y="100" fill="#fff" font-weight="700">R</text>
+                                <text x="190" y="100" fill="#333"> G I L S E</text>
+                                
+                                <!-- Chicken -->
+                                <text x="0" y="125" fill="#333">Chicken</text>
+                                <rect x="100" y="113" width="330" height="18" fill="#f8f8f8"/>
+                                <text x="110" y="125" fill="#333">L V Y F A </text>
+                                <rect x="170" y="113" width="15" height="18" fill="#ff6666"/>
+                                <text x="175" y="125" fill="#fff" font-weight="700">R</text>
+                                <text x="190" y="125" fill="#333"> G I L S D</text>
+                                
+                                <!-- Zebrafish -->
+                                <text x="0" y="150" fill="#333">Zebrafish</text>
+                                <rect x="100" y="138" width="330" height="18" fill="#f0f0f0"/>
+                                <text x="110" y="150" fill="#333">M V F F A </text>
+                                <rect x="170" y="138" width="15" height="18" fill="#ff9999"/>
+                                <text x="175" y="150" fill="#333" font-weight="700">K</text>
+                                <text x="190" y="150" fill="#333"> G I L S N</text>
+                            </g>
+                            
+                            <!-- Conservation indicator -->
+                            <text x="175" y="185" font-size="10" fill="#cc0000" font-weight="600" text-anchor="middle">↑</text>
+                            <text x="175" y="200" font-size="11" fill="#cc0000" font-weight="600" text-anchor="middle">Position 234</text>
+                        </g>
+                        
+                        <!-- Conservation Score -->
+                        <g transform="translate(30, 260)">
+                            <rect x="0" y="0" width="440" height="75" rx="6" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <text x="220" y="22" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">Conservation Metrics</text>
+                            
+                            <g transform="translate(30, 35)">
+                                <text x="0" y="0" font-size="11" fill="#333">Shannon Entropy:</text>
+                                <rect x="130" y="-10" width="200" height="15" rx="3" fill="#e0e0e0"/>
+                                <rect x="130" y="-10" width="12" height="15" rx="3" fill="#1E64C8"/>
+                                <text x="340" y="0" font-size="11" fill="#1E64C8" font-weight="600">0.06 (Low variability)</text>
+                                
+                                <text x="0" y="25" font-size="11" fill="#333">Conservation Score:</text>
+                                <rect x="130" y="15" width="200" height="15" rx="3" fill="#e0e0e0"/>
+                                <rect x="130" y="15" width="196" height="15" rx="3" fill="#cc0000"/>
+                                <text x="340" y="25" font-size="11" fill="#cc0000" font-weight="600">0.98 (Highly conserved)</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Phylogenetic Tree -->
+                        <g transform="translate(50, 355)">
+                            <text x="180" y="0" font-size="12" fill="#333" font-weight="600" text-anchor="middle">Evolutionary Time Scale</text>
+                            
+                            <line x1="0" y1="30" x2="360" y2="30" stroke="#333" stroke-width="2"/>
+                            
+                            <circle cx="300" cy="30" r="4" fill="#cc0000"/>
+                            <text x="300" y="48" font-size="9" fill="#666" text-anchor="middle">Mammals</text>
+                            
+                            <circle cx="200" cy="30" r="4" fill="#cc0000"/>
+                            <text x="200" y="48" font-size="9" fill="#666" text-anchor="middle">Vertebrates</text>
+                            
+                            <circle cx="50" cy="30" r="4" fill="#e0a800"/>
+                            <text x="50" y="48" font-size="9" fill="#666" text-anchor="middle">Fish</text>
+                            
+                            <text x="180" y="63" font-size="9" fill="#666" text-anchor="middle" font-style="italic">Arg234 conserved across 600 million years</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="detail-text">
+                    <h3>Overview</h3>
+                    <p>Evolutionary conservation analysis examines how well a protein position is preserved across species. Highly conserved positions are typically functionally important, and mutations at these sites are more likely to be deleterious.</p>
+                    
+                    <h3>Conservation Metrics</h3>
+                    <ul>
+                        <li><strong>Shannon Entropy:</strong> Measures amino acid variability at each position (0 = identical, higher = variable)</li>
+                        <li><strong>Conservation Score:</strong> Quantifies evolutionary constraint (0-1 scale)</li>
+                        <li><strong>GERP Score:</strong> Identifies positions under strong selective pressure</li>
+                        <li><strong>PhyloP:</strong> Measures evolutionary conservation based on multiple alignments</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Position 234 Analysis:</strong><br>
+                        • Conserved as Arginine in all mammals<br>
+                        • Only conservative substitution (Lysine) in distantly related species<br>
+                        • Conservation score: 0.98/1.00<br>
+                        • Indicates critical functional role</p>
+                    </div>
+                    
+                    <h3>Interpretation</h3>
+                    <ul>
+                        <li><strong>Score > 0.9:</strong> Extremely conserved, mutations likely deleterious</li>
+                        <li><strong>Score 0.7-0.9:</strong> Well conserved, mutations often harmful</li>
+                        <li><strong>Score 0.4-0.7:</strong> Moderately conserved, variable tolerance</li>
+                        <li><strong>Score < 0.4:</strong> Poorly conserved, mutations often tolerated</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Clinical Interpretation -->
+        <div class="section">
+            <div class="section-title">5. Clinical Interpretation & Variant Classification</div>
+            <div class="detail-content">
+                <div class="detail-diagram">
+                    <svg width="500" height="420" viewBox="0 0 500 420">
+                        <!-- Title -->
+                        <text x="250" y="25" font-size="16" fill="#1E64C8" text-anchor="middle" font-weight="600">ACMG/AMP Classification Framework</text>
+                        
+                        <!-- Evidence Categories -->
+                        <g transform="translate(30, 50)">
+                            <text x="220" y="0" font-size="13" fill="#333" font-weight="600" text-anchor="middle">Lines of Evidence</text>
+                            
+                            <!-- Pathogenic Evidence -->
+                            <g transform="translate(0, 25)">
+                                <rect x="0" y="0" width="440" height="110" rx="6" fill="#ffebeb" stroke="#cc0000" stroke-width="2"/>
+                                <text x="220" y="20" font-size="12" fill="#cc0000" text-anchor="middle" font-weight="600">Pathogenic Evidence (Supporting)</text>
+                                
+                                <g transform="translate(15, 35)" font-size="10">
+                                    <circle cx="5" cy="0" r="3" fill="#cc0000"/>
+                                    <text x="15" y="3" fill="#333"><tspan font-weight="600">PS3 (Strong):</tspan> Well-established functional studies show damaging effect</text>
+                                    
+                                    <circle cx="5" cy="20" r="3" fill="#cc0000"/>
+                                    <text x="15" y="23" fill="#333"><tspan font-weight="600">PM1 (Moderate):</tspan> Located in critical functional domain</text>
+                                    
+                                    <circle cx="5" cy="40" r="3" fill="#cc0000"/>
+                                    <text x="15" y="43" fill="#333"><tspan font-weight="600">PM2 (Moderate):</tspan> Absent from controls in large databases</text>
+                                    
+                                    <circle cx="5" cy="60" r="3" fill="#cc0000"/>
+                                    <text x="15" y="63" fill="#333"><tspan font-weight="600">PP3 (Supporting):</tspan> Multiple computational predictions support damage</text>
+                                    
+                                    <circle cx="5" cy="80" r="3" fill="#cc0000"/>
+                                    <text x="15" y="83" fill="#333"><tspan font-weight="600">PP2 (Supporting):</tspan> Missense in gene with low tolerance to variation</text>
+                                </g>
+                            </g>
+                            
+                            <!-- Benign Evidence -->
+                            <g transform="translate(0, 155)">
+                                <rect x="0" y="0" width="440" height="50" rx="6" fill="#e8ffe8" stroke="#4CAF50" stroke-width="2"/>
+                                <text x="220" y="20" font-size="12" fill="#4CAF50" text-anchor="middle" font-weight="600">Benign Evidence</text>
+                                
+                                <g transform="translate(15, 35)" font-size="10">
+                                    <text x="5" y="0" fill="#666" font-style="italic">No significant benign evidence for R234W</text>
+                                </g>
+                            </g>
+                        </g>
+                        
+                        <!-- Classification Algorithm -->
+                        <g transform="translate(30, 230)">
+                            <rect x="0" y="0" width="440" height="100" rx="6" fill="#f0f0f0" stroke="#666" stroke-width="2"/>
+                            
+                            <text x="220" y="25" font-size="12" fill="#333" text-anchor="middle" font-weight="600">Classification Decision Tree</text>
+                            
+                            <!-- Flow -->
+                            <g transform="translate(20, 40)">
+                                <rect x="0" y="0" width="120" height="30" rx="4" fill="#ffcccc" stroke="#cc0000" stroke-width="1.5"/>
+                                <text x="60" y="18" font-size="10" fill="#333" text-anchor="middle">Evidence</text>
+                                <text x="60" y="28" font-size="9" fill="#333" text-anchor="middle">PS3 + 2×PM + 2×PP</text>
+                                
+                                <path d="M 130,15 L 160,15" stroke="#333" stroke-width="2" marker-end="url(#arrowBlack)"/>
+                                <defs>
+                                    <marker id="arrowBlack" markerWidth="8" markerHeight="8" refX="4" refY="4" orient="auto">
+                                        <polygon points="0 0, 8 4, 0 8" fill="#333"/>
+                                    </marker>
+                                </defs>
+                                
+                                <rect x="170" y="0" width="100" height="30" rx="4" fill="#fff3cd" stroke="#e0a800" stroke-width="1.5"/>
+                                <text x="220" y="18" font-size="10" fill="#333" text-anchor="middle">ACMG Rules</text>
+                                <text x="220" y="28" font-size="9" fill="#333" text-anchor="middle">Apply criteria</text>
+                                
+                                <path d="M 280,15 L 310,15" stroke="#333" stroke-width="2" marker-end="url(#arrowBlack)"/>
+                                
+                                <rect x="320" y="0" width="80" height="30" rx="4" fill="#cc0000" stroke="#990000" stroke-width="1.5"/>
+                                <text x="360" y="14" font-size="11" fill="white" text-anchor="middle" font-weight="600">Likely</text>
+                                <text x="360" y="25" font-size="11" fill="white" text-anchor="middle" font-weight="600">Pathogenic</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Final Classification -->
+                        <g transform="translate(30, 350)">
+                            <rect x="0" y="0" width="440" height="60" rx="8" fill="#cc0000" stroke="#990000" stroke-width="3"/>
+                            
+                            <text x="220" y="25" font-size="14" fill="white" text-anchor="middle" font-weight="700">CLINICAL CLASSIFICATION</text>
+                            <text x="220" y="45" font-size="16" fill="white" text-anchor="middle" font-weight="700">LIKELY PATHOGENIC (Class 4)</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="detail-text">
+                    <h3>Overview</h3>
+                    <p>Clinical interpretation follows standardized guidelines from the American College of Medical Genetics (ACMG) and Association for Molecular Pathology (AMP) to classify variants into five categories based on their likelihood of causing disease.</p>
+                    
+                    <h3>ACMG Classification Tiers</h3>
+                    <ul>
+                        <li><strong>Pathogenic (Class 5):</strong> Sufficient evidence of disease causation</li>
+                        <li><strong>Likely Pathogenic (Class 4):</strong> Strong but not conclusive evidence</li>
+                        <li><strong>Uncertain Significance (Class 3):</strong> Insufficient or conflicting evidence</li>
+                        <li><strong>Likely Benign (Class 2):</strong> Strong evidence against pathogenicity</li>
+                        <li><strong>Benign (Class 1):</strong> Established as non-pathogenic</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <p><strong>Evidence Strength Levels:</strong><br>
+                        • <strong>Very Strong (PVS):</strong> Null variants, proven functional effects<br>
+                        • <strong>Strong (PS):</strong> Well-established in vitro/in vivo studies<br>
+                        • <strong>Moderate (PM):</strong> Computational predictions, location<br>
+                        • <strong>Supporting (PP):</strong> Conservation, multiple algorithms</p>
+                    </div>
+                    
+                    <h3>Clinical Action</h3>
+                    <ul>
+                        <li><strong>Genetic counseling:</strong> Discuss implications with patients</li>
+                        <li><strong>Cascade testing:</strong> Test family members for variant</li>
+                        <li><strong>Management:</strong> Enhanced surveillance or preventive measures</li>
+                        <li><strong>Research:</strong> Further functional validation if needed</li>
+                    </ul>
+                    
+                    <h3>Databases & Resources</h3>
+                    <ul>
+                        <li><strong>ClinVar:</strong> Repository of variant interpretations</li>
+                        <li><strong>gnomAD:</strong> Population frequency data</li>
+                        <li><strong>OMIM:</strong> Gene-disease relationships</li>
+                        <li><strong>HGMD:</strong> Human gene mutation database</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

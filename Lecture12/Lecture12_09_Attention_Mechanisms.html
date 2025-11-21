@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Attention-based Integration</title>
+    <title>Attention-based Integration - Detailed Guide</title>
     <style>
         * {
             margin: 0;
@@ -49,6 +49,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
+            margin-bottom: 40px;
         }
         
         .feature-card {
@@ -75,6 +76,96 @@
             font-size: 16px;
             color: #333;
             line-height: 1.5;
+        }
+        
+        .divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #1E64C8, transparent);
+            margin: 40px 0;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin: 30px 0 20px 0;
+            text-align: center;
+        }
+        
+        .detail-section {
+            margin-bottom: 50px;
+            padding: 25px;
+            background: #f8fbff;
+            border-radius: 12px;
+            border: 2px solid #1E64C8;
+        }
+        
+        .detail-header {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1E64C8;
+        }
+        
+        .detail-content {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        
+        .detail-content p {
+            margin-bottom: 12px;
+        }
+        
+        .formula-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            border: 1px solid #1E64C8;
+            margin: 15px 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #1E64C8;
+        }
+        
+        .example-box {
+            background: #fff9e6;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #FFA500;
+            margin: 15px 0;
+        }
+        
+        .example-title {
+            font-weight: 700;
+            color: #FF8C00;
+            margin-bottom: 8px;
+        }
+        
+        .key-points {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+        
+        .key-points ul {
+            margin-left: 20px;
+        }
+        
+        .key-points li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
         }
     </style>
 </head>
@@ -240,7 +331,6 @@
         </div>
         
         <div class="features-grid">
-            
             <div class="feature-card">
                 <div class="feature-title">Self-attention Fusion</div>
                 <div class="feature-desc">Learning importance weights within modalities</div>
@@ -265,8 +355,761 @@
                 <div class="feature-title">Interpretability</div>
                 <div class="feature-desc">Attention weights as biological insights</div>
             </div>
-        
         </div>
+
+        <div class="divider"></div>
+        
+        <div class="section-title">Detailed Attention Mechanisms</div>
+
+        <!-- 1. Self-attention Fusion -->
+        <div class="detail-section">
+            <div class="detail-header">1. Self-attention Fusion</div>
+            
+            <div class="detail-content">
+                <p><strong>Overview:</strong> Self-attention fusion enables the model to learn dynamic importance weights for features within a single modality. Unlike fixed weighting schemes, self-attention adaptively determines which features are most relevant for the prediction task at hand.</p>
+                
+                <p><strong>Core Mechanism:</strong> The self-attention mechanism computes relationships between all positions in a sequence or feature set. For a given input, each feature acts as a query, key, and value simultaneously, allowing the model to weigh the relative importance of each feature based on its context.</p>
+            </div>
+
+            <div class="formula-box">
+                Self-Attention(X) = softmax(QK^T / √d_k)V<br>
+                where Q = XW_Q, K = XW_K, V = XW_V
+            </div>
+
+            <div class="diagram-container">
+                <svg width="700" height="280" viewBox="0 0 700 280">
+                    <!-- Title -->
+                    <text x="350" y="20" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">Self-attention within Genomic Data</text>
+                    
+                    <!-- Input features -->
+                    <g>
+                        <text x="80" y="60" text-anchor="middle" font-size="11" fill="#666" font-weight="600">Input Features</text>
+                        <rect x="30" y="70" width="40" height="40" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="50" y="95" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Gene A</text>
+                        
+                        <rect x="80" y="70" width="40" height="40" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="100" y="95" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Gene B</text>
+                        
+                        <rect x="130" y="70" width="40" height="40" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="150" y="95" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Gene C</text>
+                    </g>
+                    
+                    <!-- Transformation -->
+                    <g>
+                        <text x="250" y="60" text-anchor="middle" font-size="11" fill="#666" font-weight="600">Linear Transformations</text>
+                        
+                        <!-- Q -->
+                        <rect x="200" y="70" width="35" height="35" fill="#FFE8E8" stroke="#E74C3C" stroke-width="2" rx="4"/>
+                        <text x="217.5" y="92" text-anchor="middle" font-size="11" fill="#E74C3C" font-weight="700">Q</text>
+                        
+                        <!-- K -->
+                        <rect x="240" y="70" width="35" height="35" fill="#E8FFE8" stroke="#27AE60" stroke-width="2" rx="4"/>
+                        <text x="257.5" y="92" text-anchor="middle" font-size="11" fill="#27AE60" font-weight="700">K</text>
+                        
+                        <!-- V -->
+                        <rect x="280" y="70" width="35" height="35" fill="#FFE8FF" stroke="#9B59B6" stroke-width="2" rx="4"/>
+                        <text x="297.5" y="92" text-anchor="middle" font-size="11" fill="#9B59B6" font-weight="700">V</text>
+                        
+                        <!-- Arrows -->
+                        <path d="M 170 90 L 195 90" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-self1)"/>
+                    </g>
+                    
+                    <!-- Attention scores -->
+                    <g>
+                        <text x="400" y="60" text-anchor="middle" font-size="11" fill="#666" font-weight="600">Attention Matrix</text>
+                        <rect x="330" y="70" width="140" height="105" fill="white" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        
+                        <!-- Attention cells -->
+                        <rect x="340" y="80" width="35" height="25" fill="#1E64C8" opacity="0.9"/>
+                        <text x="357.5" y="96" text-anchor="middle" font-size="9" fill="white" font-weight="600">0.7</text>
+                        
+                        <rect x="380" y="80" width="35" height="25" fill="#1E64C8" opacity="0.2"/>
+                        <text x="397.5" y="96" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">0.1</text>
+                        
+                        <rect x="420" y="80" width="35" height="25" fill="#1E64C8" opacity="0.3"/>
+                        <text x="437.5" y="96" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">0.2</text>
+                        
+                        <rect x="340" y="110" width="35" height="25" fill="#1E64C8" opacity="0.3"/>
+                        <text x="357.5" y="126" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">0.2</text>
+                        
+                        <rect x="380" y="110" width="35" height="25" fill="#1E64C8" opacity="0.8"/>
+                        <text x="397.5" y="126" text-anchor="middle" font-size="9" fill="white" font-weight="600">0.6</text>
+                        
+                        <rect x="420" y="110" width="35" height="25" fill="#1E64C8" opacity="0.3"/>
+                        <text x="437.5" y="126" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">0.2</text>
+                        
+                        <rect x="340" y="140" width="35" height="25" fill="#1E64C8" opacity="0.2"/>
+                        <text x="357.5" y="156" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">0.1</text>
+                        
+                        <rect x="380" y="140" width="35" height="25" fill="#1E64C8" opacity="0.2"/>
+                        <text x="397.5" y="156" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">0.1</text>
+                        
+                        <rect x="420" y="140" width="35" height="25" fill="#1E64C8" opacity="0.9"/>
+                        <text x="437.5" y="156" text-anchor="middle" font-size="9" fill="white" font-weight="600">0.8</text>
+                        
+                        <!-- Labels -->
+                        <text x="320" y="95" text-anchor="end" font-size="8" fill="#666">A</text>
+                        <text x="320" y="125" text-anchor="end" font-size="8" fill="#666">B</text>
+                        <text x="320" y="155" text-anchor="end" font-size="8" fill="#666">C</text>
+                        
+                        <text x="357.5" y="73" text-anchor="middle" font-size="8" fill="#666">A</text>
+                        <text x="397.5" y="73" text-anchor="middle" font-size="8" fill="#666">B</text>
+                        <text x="437.5" y="73" text-anchor="middle" font-size="8" fill="#666">C</text>
+                        
+                        <!-- Arrow from transformation -->
+                        <path d="M 320 90 L 325 90" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-self1)"/>
+                    </g>
+                    
+                    <!-- Output -->
+                    <g>
+                        <text x="570" y="60" text-anchor="middle" font-size="11" fill="#666" font-weight="600">Weighted Output</text>
+                        <rect x="515" y="70" width="110" height="105" fill="#1E64C8" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="570" y="95" text-anchor="middle" font-size="10" fill="white" font-weight="700">Contextualized</text>
+                        <text x="570" y="110" text-anchor="middle" font-size="10" fill="white" font-weight="700">Features</text>
+                        <text x="570" y="135" text-anchor="middle" font-size="9" fill="white">Gene A': 0.7A+0.1B+0.2C</text>
+                        <text x="570" y="150" text-anchor="middle" font-size="9" fill="white">Gene B': 0.2A+0.6B+0.2C</text>
+                        <text x="570" y="165" text-anchor="middle" font-size="9" fill="white">Gene C': 0.1A+0.1B+0.8C</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 475 125 L 510 125" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrow-self2)"/>
+                    </g>
+                    
+                    <!-- Interpretation -->
+                    <g>
+                        <rect x="50" y="200" width="600" height="70" fill="#fff4e6" stroke="#FFA500" stroke-width="2" rx="8"/>
+                        <text x="350" y="220" text-anchor="middle" font-size="11" fill="#FF8C00" font-weight="700">Biological Interpretation</text>
+                        <text x="350" y="238" text-anchor="middle" font-size="10" fill="#666">• Gene A focuses mainly on itself (0.7) → Independent marker</text>
+                        <text x="350" y="253" text-anchor="middle" font-size="10" fill="#666">• Gene B considers both A and itself → Co-regulatory relationship</text>
+                        <text x="350" y="268" text-anchor="middle" font-size="10" fill="#666">• Gene C is highly self-focused (0.8) → Distinct pathway</text>
+                    </g>
+                    
+                    <defs>
+                        <marker id="arrow-self1" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                            <path d="M0,0 L0,6 L7,3 z" fill="#1E64C8"/>
+                        </marker>
+                        <marker id="arrow-self2" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+                            <path d="M0,0 L0,8 L8,4 z" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Clinical Example: Gene Expression Analysis</div>
+                In cancer genomics, self-attention can identify co-expressed gene modules. For instance, when analyzing breast cancer subtypes, the model might learn that BRCA1, BRCA2, and related DNA repair genes attend strongly to each other, revealing their co-regulatory network without prior biological knowledge.
+            </div>
+
+            <div class="key-points">
+                <strong>Key Advantages:</strong>
+                <ul>
+                    <li><strong>Adaptive weighting:</strong> Importance scores change based on context and sample characteristics</li>
+                    <li><strong>Long-range dependencies:</strong> Can capture relationships between distant features in the sequence</li>
+                    <li><strong>Parallel computation:</strong> All attention scores computed simultaneously, enabling efficient processing</li>
+                    <li><strong>Biological discovery:</strong> Learned attention patterns can reveal novel feature interactions</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 2. Cross-attention -->
+        <div class="detail-section">
+            <div class="detail-header">2. Cross-attention</div>
+            
+            <div class="detail-content">
+                <p><strong>Overview:</strong> Cross-attention enables interaction between different data modalities by allowing one modality to attend to another. This mechanism is crucial for multi-modal learning where relationships between heterogeneous data sources must be discovered and leveraged.</p>
+                
+                <p><strong>Core Mechanism:</strong> Unlike self-attention where queries, keys, and values come from the same source, cross-attention uses one modality as the query source and another as the key-value source. This asymmetric attention allows directed information flow between modalities.</p>
+            </div>
+
+            <div class="formula-box">
+                Cross-Attention(X, Y) = softmax(Q_X K_Y^T / √d_k)V_Y<br>
+                where Q comes from modality X, K and V come from modality Y
+            </div>
+
+            <div class="diagram-container">
+                <svg width="700" height="320" viewBox="0 0 700 320">
+                    <!-- Title -->
+                    <text x="350" y="20" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">Cross-attention: Imaging ← Genomics</text>
+                    
+                    <!-- Genomics modality -->
+                    <g>
+                        <text x="100" y="60" text-anchor="middle" font-size="11" fill="#E74C3C" font-weight="700">Genomics (Query Source)</text>
+                        <rect x="40" y="70" width="120" height="80" fill="#FFE8E8" stroke="#E74C3C" stroke-width="2" rx="6"/>
+                        
+                        <text x="100" y="90" text-anchor="middle" font-size="10" fill="#E74C3C" font-weight="600">Mutation status</text>
+                        <text x="100" y="105" text-anchor="middle" font-size="10" fill="#E74C3C" font-weight="600">Gene expression</text>
+                        <text x="100" y="120" text-anchor="middle" font-size="10" fill="#E74C3C" font-weight="600">Copy number</text>
+                        
+                        <rect x="50" y="130" width="100" height="15" fill="#E74C3C" opacity="0.3" rx="3"/>
+                        <text x="100" y="141" text-anchor="middle" font-size="9" fill="#E74C3C" font-weight="700">Generate Q</text>
+                    </g>
+                    
+                    <!-- Imaging modality -->
+                    <g>
+                        <text x="580" y="60" text-anchor="middle" font-size="11" fill="#3498DB" font-weight="700">Imaging (Key-Value Source)</text>
+                        <rect x="520" y="70" width="120" height="80" fill="#E8F4FF" stroke="#3498DB" stroke-width="2" rx="6"/>
+                        
+                        <text x="580" y="90" text-anchor="middle" font-size="10" fill="#3498DB" font-weight="600">Texture patterns</text>
+                        <text x="580" y="105" text-anchor="middle" font-size="10" fill="#3498DB" font-weight="600">Cell morphology</text>
+                        <text x="580" y="120" text-anchor="middle" font-size="10" fill="#3498DB" font-weight="600">Spatial features</text>
+                        
+                        <rect x="530" y="130" width="100" height="15" fill="#3498DB" opacity="0.3" rx="3"/>
+                        <text x="580" y="141" text-anchor="middle" font-size="9" fill="#3498DB" font-weight="700">Generate K, V</text>
+                    </g>
+                    
+                    <!-- Cross-attention computation -->
+                    <g>
+                        <text x="350" y="175" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Cross-Attention Mechanism</text>
+                        
+                        <!-- Attention matrix -->
+                        <rect x="260" y="185" width="180" height="80" fill="white" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                        
+                        <text x="350" y="202" text-anchor="middle" font-size="10" fill="#666" font-weight="600">How much does each genomic</text>
+                        <text x="350" y="215" text-anchor="middle" font-size="10" fill="#666" font-weight="600">feature attend to imaging?</text>
+                        
+                        <!-- Example scores -->
+                        <g transform="translate(270, 225)">
+                            <rect x="0" y="0" width="50" height="12" fill="#1E64C8" opacity="0.8"/>
+                            <text x="25" y="9" text-anchor="middle" font-size="8" fill="white" font-weight="600">Mutation</text>
+                            
+                            <rect x="55" y="0" width="45" height="12" fill="#3498DB" opacity="0.6"/>
+                            <text x="77.5" y="9" text-anchor="middle" font-size="7" fill="white">→ Texture: 0.7</text>
+                            
+                            <rect x="105" y="0" width="45" height="12" fill="#3498DB" opacity="0.3"/>
+                            <text x="127.5" y="9" text-anchor="middle" font-size="7" fill="#3498DB">→ Morph: 0.2</text>
+                            
+                            <rect x="0" y="17" width="50" height="12" fill="#1E64C8" opacity="0.8"/>
+                            <text x="25" y="26" text-anchor="middle" font-size="8" fill="white" font-weight="600">Expression</text>
+                            
+                            <rect x="55" y="17" width="45" height="12" fill="#3498DB" opacity="0.4"/>
+                            <text x="77.5" y="26" text-anchor="middle" font-size="7" fill="#3498DB">→ Texture: 0.3</text>
+                            
+                            <rect x="105" y="17" width="45" height="12" fill="#3498DB" opacity="0.7"/>
+                            <text x="127.5" y="26" text-anchor="middle" font-size="7" fill="white">→ Morph: 0.5</text>
+                        </g>
+                        
+                        <!-- Arrows -->
+                        <path d="M 160 110 L 255 200" stroke="#E74C3C" stroke-width="2" marker-end="url(#arrow-cross1)"/>
+                        <path d="M 520 110 L 445 200" stroke="#3498DB" stroke-width="2" marker-end="url(#arrow-cross1)"/>
+                    </g>
+                    
+                    <!-- Output -->
+                    <g>
+                        <text x="350" y="290" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Cross-Modal Features</text>
+                        <rect x="240" y="295" width="220" height="20" fill="#9B59B6" stroke="#9B59B6" stroke-width="2" rx="4"/>
+                        <text x="350" y="309" text-anchor="middle" font-size="10" fill="white" font-weight="600">Genomics enriched with imaging context</text>
+                    </g>
+                    
+                    <!-- Arrows to output -->
+                    <path d="M 350 265 L 350 290" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrow-cross2)"/>
+                    
+                    <defs>
+                        <marker id="arrow-cross1" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                            <path d="M0,0 L0,6 L7,3 z" fill="#1E64C8"/>
+                        </marker>
+                        <marker id="arrow-cross2" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+                            <path d="M0,0 L0,8 L8,4 z" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Clinical Example: Radiology-Pathology Integration</div>
+                In lung cancer diagnosis, cross-attention can link CT imaging features with genomic alterations. The model might learn that certain texture patterns in CT scans (query from imaging) correlate strongly with EGFR mutation status (attending to genomic data), enabling non-invasive mutation prediction from imaging alone.
+            </div>
+
+            <div class="key-points">
+                <strong>Key Features:</strong>
+                <ul>
+                    <li><strong>Bidirectional learning:</strong> Can implement attention in both directions (A→B and B→A) for symmetric relationships</li>
+                    <li><strong>Modality alignment:</strong> Learns implicit alignment between heterogeneous feature spaces</li>
+                    <li><strong>Missing data handling:</strong> One modality can query another even when partially observed</li>
+                    <li><strong>Clinical utility:</strong> Enables prediction of expensive tests from cheaper modalities</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 3. Multi-head Attention -->
+        <div class="detail-section">
+            <div class="detail-header">3. Multi-head Attention</div>
+            
+            <div class="detail-content">
+                <p><strong>Overview:</strong> Multi-head attention runs multiple attention mechanisms in parallel, each learning different aspects of the relationships in the data. This is analogous to having multiple expert reviewers examine the same data from different perspectives.</p>
+                
+                <p><strong>Core Mechanism:</strong> Instead of performing a single attention function, multi-head attention linearly projects the queries, keys, and values h times with different learned projections. Each projection (head) captures different types of relationships, and their outputs are concatenated and linearly transformed.</p>
+            </div>
+
+            <div class="formula-box">
+                MultiHead(Q,K,V) = Concat(head₁, ..., head_h)W^O<br>
+                where head_i = Attention(QW_i^Q, KW_i^K, VW_i^V)
+            </div>
+
+            <div class="diagram-container">
+                <svg width="700" height="350" viewBox="0 0 700 350">
+                    <!-- Title -->
+                    <text x="350" y="20" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">Multi-head Attention Architecture</text>
+                    
+                    <!-- Input -->
+                    <g>
+                        <rect x="280" y="40" width="140" height="40" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                        <text x="350" y="58" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Multi-modal Input</text>
+                        <text x="350" y="72" text-anchor="middle" font-size="9" fill="#666">(Genomics + Imaging + Clinical)</text>
+                    </g>
+                    
+                    <!-- Head 1 -->
+                    <g>
+                        <rect x="50" y="110" width="140" height="100" fill="#FFE8E8" stroke="#E74C3C" stroke-width="2" rx="6"/>
+                        <text x="120" y="130" text-anchor="middle" font-size="11" fill="#E74C3C" font-weight="700">Head 1</text>
+                        <text x="120" y="145" text-anchor="middle" font-size="9" fill="#666" font-weight="600">Gene-level interactions</text>
+                        
+                        <rect x="60" y="155" width="120" height="15" fill="#E74C3C" opacity="0.3" rx="3"/>
+                        <text x="120" y="166" text-anchor="middle" font-size="8" fill="#E74C3C">Q₁W₁^Q, K₁W₁^K, V₁W₁^V</text>
+                        
+                        <rect x="60" y="175" width="120" height="28" fill="white" stroke="#E74C3C" stroke-width="1" rx="3"/>
+                        <text x="120" y="187" text-anchor="middle" font-size="8" fill="#666">Focuses on:</text>
+                        <text x="120" y="198" text-anchor="middle" font-size="8" fill="#666">Co-expression patterns</text>
+                        
+                        <!-- Arrow from input -->
+                        <path d="M 300 80 L 120 105" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-mh)"/>
+                    </g>
+                    
+                    <!-- Head 2 -->
+                    <g>
+                        <rect x="210" y="110" width="140" height="100" fill="#E8FFE8" stroke="#27AE60" stroke-width="2" rx="6"/>
+                        <text x="280" y="130" text-anchor="middle" font-size="11" fill="#27AE60" font-weight="700">Head 2</text>
+                        <text x="280" y="145" text-anchor="middle" font-size="9" fill="#666" font-weight="600">Spatial relationships</text>
+                        
+                        <rect x="220" y="155" width="120" height="15" fill="#27AE60" opacity="0.3" rx="3"/>
+                        <text x="280" y="166" text-anchor="middle" font-size="8" fill="#27AE60">Q₂W₂^Q, K₂W₂^K, V₂W₂^V</text>
+                        
+                        <rect x="220" y="175" width="120" height="28" fill="white" stroke="#27AE60" stroke-width="1" rx="3"/>
+                        <text x="280" y="187" text-anchor="middle" font-size="8" fill="#666">Focuses on:</text>
+                        <text x="280" y="198" text-anchor="middle" font-size="8" fill="#666">Imaging morphology</text>
+                        
+                        <!-- Arrow from input -->
+                        <path d="M 330 80 L 280 105" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-mh)"/>
+                    </g>
+                    
+                    <!-- Head 3 -->
+                    <g>
+                        <rect x="370" y="110" width="140" height="100" fill="#FFE8FF" stroke="#9B59B6" stroke-width="2" rx="6"/>
+                        <text x="440" y="130" text-anchor="middle" font-size="11" fill="#9B59B6" font-weight="700">Head 3</text>
+                        <text x="440" y="145" text-anchor="middle" font-size="9" fill="#666" font-weight="600">Clinical correlations</text>
+                        
+                        <rect x="380" y="155" width="120" height="15" fill="#9B59B6" opacity="0.3" rx="3"/>
+                        <text x="440" y="166" text-anchor="middle" font-size="8" fill="#9B59B6">Q₃W₃^Q, K₃W₃^K, V₃W₃^V</text>
+                        
+                        <rect x="380" y="175" width="120" height="28" fill="white" stroke="#9B59B6" stroke-width="1" rx="3"/>
+                        <text x="440" y="187" text-anchor="middle" font-size="8" fill="#666">Focuses on:</text>
+                        <text x="440" y="198" text-anchor="middle" font-size="8" fill="#666">Patient demographics</text>
+                        
+                        <!-- Arrow from input -->
+                        <path d="M 370 80 L 440 105" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-mh)"/>
+                    </g>
+                    
+                    <!-- Head 4 -->
+                    <g>
+                        <rect x="530" y="110" width="140" height="100" fill="#FFF4E6" stroke="#F39C12" stroke-width="2" rx="6"/>
+                        <text x="600" y="130" text-anchor="middle" font-size="11" fill="#F39C12" font-weight="700">Head 4</text>
+                        <text x="600" y="145" text-anchor="middle" font-size="9" fill="#666" font-weight="600">Cross-modal fusion</text>
+                        
+                        <rect x="540" y="155" width="120" height="15" fill="#F39C12" opacity="0.3" rx="3"/>
+                        <text x="600" y="166" text-anchor="middle" font-size="8" fill="#F39C12">Q₄W₄^Q, K₄W₄^K, V₄W₄^V</text>
+                        
+                        <rect x="540" y="175" width="120" height="28" fill="white" stroke="#F39C12" stroke-width="1" rx="3"/>
+                        <text x="600" y="187" text-anchor="middle" font-size="8" fill="#666">Focuses on:</text>
+                        <text x="600" y="198" text-anchor="middle" font-size="8" fill="#666">Modality interactions</text>
+                        
+                        <!-- Arrow from input -->
+                        <path d="M 400 80 L 600 105" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-mh)"/>
+                    </g>
+                    
+                    <!-- Concatenation -->
+                    <g>
+                        <rect x="200" y="230" width="300" height="35" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                        <text x="350" y="250" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Concatenate Head Outputs</text>
+                        <text x="350" y="262" text-anchor="middle" font-size="9" fill="#666">[head₁ ‖ head₂ ‖ head₃ ‖ head₄]</text>
+                        
+                        <!-- Arrows from heads -->
+                        <path d="M 120 210 L 250 225" stroke="#E74C3C" stroke-width="1.5" marker-end="url(#arrow-mh)"/>
+                        <path d="M 280 210 L 320 225" stroke="#27AE60" stroke-width="1.5" marker-end="url(#arrow-mh)"/>
+                        <path d="M 440 210 L 380 225" stroke="#9B59B6" stroke-width="1.5" marker-end="url(#arrow-mh)"/>
+                        <path d="M 600 210 L 450 225" stroke="#F39C12" stroke-width="1.5" marker-end="url(#arrow-mh)"/>
+                    </g>
+                    
+                    <!-- Linear projection -->
+                    <g>
+                        <rect x="250" y="285" width="200" height="35" fill="#1E64C8" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                        <text x="350" y="305" text-anchor="middle" font-size="11" fill="white" font-weight="700">Linear Projection W^O</text>
+                        <text x="350" y="317" text-anchor="middle" font-size="9" fill="white">Combined representation</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 350 265 L 350 280" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrow-mh2)"/>
+                    </g>
+                    
+                    <!-- Output annotation -->
+                    <g>
+                        <rect x="150" y="330" width="400" height="15" fill="#fff4e6" stroke="#F39C12" stroke-width="1" rx="3"/>
+                        <text x="350" y="341" text-anchor="middle" font-size="9" fill="#666">Each head learns complementary patterns → Rich multi-perspective representation</text>
+                    </g>
+                    
+                    <defs>
+                        <marker id="arrow-mh" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                            <path d="M0,0 L0,6 L7,3 z" fill="#1E64C8"/>
+                        </marker>
+                        <marker id="arrow-mh2" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+                            <path d="M0,0 L0,8 L8,4 z" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Clinical Example: Cancer Subtype Classification</div>
+                When classifying cancer subtypes from multi-modal data, different attention heads might specialize: Head 1 focuses on immune-related genes, Head 2 identifies tumor morphology patterns, Head 3 examines treatment history, and Head 4 integrates these perspectives. This parallel specialization captures the multi-faceted nature of cancer biology.
+            </div>
+
+            <div class="key-points">
+                <strong>Benefits of Multiple Heads:</strong>
+                <ul>
+                    <li><strong>Diverse perspectives:</strong> Each head can specialize in different relationship types or feature subsets</li>
+                    <li><strong>Robustness:</strong> Multiple representations reduce reliance on any single attention pattern</li>
+                    <li><strong>Richer features:</strong> Concatenated outputs provide more comprehensive representations</li>
+                    <li><strong>Biological alignment:</strong> Different heads often correspond to distinct biological mechanisms</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 4. Hierarchical Attention -->
+        <div class="detail-section">
+            <div class="detail-header">4. Hierarchical Attention</div>
+            
+            <div class="detail-content">
+                <p><strong>Overview:</strong> Hierarchical attention implements attention at multiple levels of granularity, typically combining feature-level attention with sample-level attention. This multi-scale approach mirrors the hierarchical structure of biological systems and clinical decision-making.</p>
+                
+                <p><strong>Core Mechanism:</strong> The hierarchical structure first applies attention at the feature level within each modality, then applies attention at the sample or modality level. This creates a two-stage (or multi-stage) process where fine-grained patterns inform coarse-grained decisions.</p>
+            </div>
+
+            <div class="formula-box">
+                Level 1 (Feature): h_i = ∑_j α_ij · f_j (within modality i)<br>
+                Level 2 (Modality): output = ∑_i β_i · h_i (across modalities)
+            </div>
+
+            <div class="diagram-container">
+                <svg width="700" height="380" viewBox="0 0 700 380">
+                    <!-- Title -->
+                    <text x="350" y="20" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">Hierarchical Attention: Two-Level Structure</text>
+                    
+                    <!-- Level 1: Feature-level attention -->
+                    <g>
+                        <text x="350" y="45" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="700">Level 1: Feature-level Attention (Within Each Modality)</text>
+                        
+                        <!-- Genomics features -->
+                        <g>
+                            <rect x="40" y="60" width="180" height="100" fill="#FFE8E8" stroke="#E74C3C" stroke-width="2" rx="6"/>
+                            <text x="130" y="78" text-anchor="middle" font-size="10" fill="#E74C3C" font-weight="700">Genomics</text>
+                            
+                            <rect x="50" y="85" width="40" height="20" fill="white" stroke="#E74C3C" stroke-width="1" rx="3"/>
+                            <text x="70" y="99" text-anchor="middle" font-size="8" fill="#666">Gene1</text>
+                            
+                            <rect x="95" y="85" width="40" height="20" fill="white" stroke="#E74C3C" stroke-width="1" rx="3"/>
+                            <text x="115" y="99" text-anchor="middle" font-size="8" fill="#666">Gene2</text>
+                            
+                            <rect x="140" y="85" width="40" height="20" fill="white" stroke="#E74C3C" stroke-width="1" rx="3"/>
+                            <text x="160" y="99" text-anchor="middle" font-size="8" fill="#666">Gene3</text>
+                            
+                            <rect x="185" y="85" width="25" height="20" fill="white" stroke="#E74C3C" stroke-width="1" rx="3"/>
+                            <text x="197.5" y="99" text-anchor="middle" font-size="8" fill="#666">...</text>
+                            
+                            <!-- Attention visualization -->
+                            <g transform="translate(50, 110)">
+                                <rect x="0" y="0" width="40" height="8" fill="#E74C3C" opacity="0.8"/>
+                                <text x="20" y="6" text-anchor="middle" font-size="7" fill="white" font-weight="600">α=0.6</text>
+                                
+                                <rect x="45" y="0" width="40" height="8" fill="#E74C3C" opacity="0.3"/>
+                                <text x="65" y="6" text-anchor="middle" font-size="7" fill="#E74C3C" font-weight="600">α=0.2</text>
+                                
+                                <rect x="90" y="0" width="40" height="8" fill="#E74C3C" opacity="0.4"/>
+                                <text x="110" y="6" text-anchor="middle" font-size="7" fill="#E74C3C" font-weight="600">α=0.2</text>
+                            </g>
+                            
+                            <rect x="50" y="130" width="160" height="22" fill="#E74C3C" opacity="0.2" rx="4"/>
+                            <text x="130" y="144" text-anchor="middle" font-size="9" fill="#E74C3C" font-weight="700">h₁ (weighted genomic features)</text>
+                        </g>
+                        
+                        <!-- Imaging features -->
+                        <g>
+                            <rect x="260" y="60" width="180" height="100" fill="#E8F4FF" stroke="#3498DB" stroke-width="2" rx="6"/>
+                            <text x="350" y="78" text-anchor="middle" font-size="10" fill="#3498DB" font-weight="700">Imaging</text>
+                            
+                            <rect x="270" y="85" width="40" height="20" fill="white" stroke="#3498DB" stroke-width="1" rx="3"/>
+                            <text x="290" y="99" text-anchor="middle" font-size="8" fill="#666">Text1</text>
+                            
+                            <rect x="315" y="85" width="40" height="20" fill="white" stroke="#3498DB" stroke-width="1" rx="3"/>
+                            <text x="335" y="99" text-anchor="middle" font-size="8" fill="#666">Text2</text>
+                            
+                            <rect x="360" y="85" width="40" height="20" fill="white" stroke="#3498DB" stroke-width="1" rx="3"/>
+                            <text x="380" y="99" text-anchor="middle" font-size="8" fill="#666">Shape</text>
+                            
+                            <rect x="405" y="85" width="25" height="20" fill="white" stroke="#3498DB" stroke-width="1" rx="3"/>
+                            <text x="417.5" y="99" text-anchor="middle" font-size="8" fill="#666">...</text>
+                            
+                            <!-- Attention visualization -->
+                            <g transform="translate(270, 110)">
+                                <rect x="0" y="0" width="40" height="8" fill="#3498DB" opacity="0.4"/>
+                                <text x="20" y="6" text-anchor="middle" font-size="7" fill="#3498DB" font-weight="600">α=0.3</text>
+                                
+                                <rect x="45" y="0" width="40" height="8" fill="#3498DB" opacity="0.7"/>
+                                <text x="65" y="6" text-anchor="middle" font-size="7" fill="white" font-weight="600">α=0.5</text>
+                                
+                                <rect x="90" y="0" width="40" height="8" fill="#3498DB" opacity="0.3"/>
+                                <text x="110" y="6" text-anchor="middle" font-size="7" fill="#3498DB" font-weight="600">α=0.2</text>
+                            </g>
+                            
+                            <rect x="270" y="130" width="160" height="22" fill="#3498DB" opacity="0.2" rx="4"/>
+                            <text x="350" y="144" text-anchor="middle" font-size="9" fill="#3498DB" font-weight="700">h₂ (weighted imaging features)</text>
+                        </g>
+                        
+                        <!-- Clinical features -->
+                        <g>
+                            <rect x="480" y="60" width="180" height="100" fill="#F0E8FF" stroke="#9B59B6" stroke-width="2" rx="6"/>
+                            <text x="570" y="78" text-anchor="middle" font-size="10" fill="#9B59B6" font-weight="700">Clinical</text>
+                            
+                            <rect x="490" y="85" width="40" height="20" fill="white" stroke="#9B59B6" stroke-width="1" rx="3"/>
+                            <text x="510" y="99" text-anchor="middle" font-size="8" fill="#666">Age</text>
+                            
+                            <rect x="535" y="85" width="40" height="20" fill="white" stroke="#9B59B6" stroke-width="1" rx="3"/>
+                            <text x="555" y="99" text-anchor="middle" font-size="8" fill="#666">Stage</text>
+                            
+                            <rect x="580" y="85" width="40" height="20" fill="white" stroke="#9B59B6" stroke-width="1" rx="3"/>
+                            <text x="600" y="99" text-anchor="middle" font-size="8" fill="#666">Grade</text>
+                            
+                            <rect x="625" y="85" width="25" height="20" fill="white" stroke="#9B59B6" stroke-width="1" rx="3"/>
+                            <text x="637.5" y="99" text-anchor="middle" font-size="8" fill="#666">...</text>
+                            
+                            <!-- Attention visualization -->
+                            <g transform="translate(490, 110)">
+                                <rect x="0" y="0" width="40" height="8" fill="#9B59B6" opacity="0.3"/>
+                                <text x="20" y="6" text-anchor="middle" font-size="7" fill="#9B59B6" font-weight="600">α=0.2</text>
+                                
+                                <rect x="45" y="0" width="40" height="8" fill="#9B59B6" opacity="0.6"/>
+                                <text x="65" y="6" text-anchor="middle" font-size="7" fill="white" font-weight="600">α=0.4</text>
+                                
+                                <rect x="90" y="0" width="40" height="8" fill="#9B59B6" opacity="0.7"/>
+                                <text x="110" y="6" text-anchor="middle" font-size="7" fill="white" font-weight="600">α=0.4</text>
+                            </g>
+                            
+                            <rect x="490" y="130" width="160" height="22" fill="#9B59B6" opacity="0.2" rx="4"/>
+                            <text x="570" y="144" text-anchor="middle" font-size="9" fill="#9B59B6" font-weight="700">h₃ (weighted clinical features)</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Arrows down -->
+                    <path d="M 130 165 L 200 195" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-hier)"/>
+                    <path d="M 350 165 L 350 195" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-hier)"/>
+                    <path d="M 570 165 L 500 195" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-hier)"/>
+                    
+                    <!-- Level 2: Modality-level attention -->
+                    <g>
+                        <text x="350" y="210" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="700">Level 2: Modality-level Attention (Across Modalities)</text>
+                        
+                        <rect x="180" y="220" width="340" height="80" fill="white" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        
+                        <g transform="translate(190, 235)">
+                            <rect x="0" y="0" width="95" height="25" fill="#E74C3C" opacity="0.6" rx="4"/>
+                            <text x="47.5" y="9" text-anchor="middle" font-size="9" fill="white" font-weight="600">Genomics h₁</text>
+                            <text x="47.5" y="20" text-anchor="middle" font-size="8" fill="white">β₁ = 0.5</text>
+                            
+                            <rect x="105" y="0" width="95" height="25" fill="#3498DB" opacity="0.6" rx="4"/>
+                            <text x="152.5" y="9" text-anchor="middle" font-size="9" fill="white" font-weight="600">Imaging h₂</text>
+                            <text x="152.5" y="20" text-anchor="middle" font-size="8" fill="white">β₂ = 0.3</text>
+                            
+                            <rect x="210" y="0" width="95" height="25" fill="#9B59B6" opacity="0.6" rx="4"/>
+                            <text x="257.5" y="9" text-anchor="middle" font-size="9" fill="white" font-weight="600">Clinical h₃</text>
+                            <text x="257.5" y="20" text-anchor="middle" font-size="8" fill="white">β₃ = 0.2</text>
+                        </g>
+                        
+                        <text x="350" y="280" text-anchor="middle" font-size="10" fill="#666" font-style="italic">Modality importance weights (β) determine final contribution</text>
+                    </g>
+                    
+                    <!-- Final output -->
+                    <g>
+                        <path d="M 350 305 L 350 320" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrow-hier2)"/>
+                        
+                        <rect x="240" y="320" width="220" height="35" fill="#1E64C8" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                        <text x="350" y="337" text-anchor="middle" font-size="11" fill="white" font-weight="700">Final Hierarchical Output</text>
+                        <text x="350" y="349" text-anchor="middle" font-size="9" fill="white">output = β₁h₁ + β₂h₂ + β₃h₃</text>
+                    </g>
+                    
+                    <!-- Interpretation box -->
+                    <g>
+                        <rect x="80" y="365" width="540" height="12" fill="#fff4e6" stroke="#F39C12" stroke-width="1" rx="3"/>
+                        <text x="350" y="374" text-anchor="middle" font-size="8" fill="#666">Fine-grained attention (features) informs coarse-grained decisions (modalities)</text>
+                    </g>
+                    
+                    <defs>
+                        <marker id="arrow-hier" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                            <path d="M0,0 L0,6 L7,3 z" fill="#1E64C8"/>
+                        </marker>
+                        <marker id="arrow-hier2" markerWidth="10" markerHeight="10" refX="8" refY="4" orient="auto">
+                            <path d="M0,0 L0,8 L8,4 z" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Clinical Example: Treatment Response Prediction</div>
+                For predicting chemotherapy response, Level 1 attention identifies important genes within genomic data (e.g., DNA repair genes) and critical imaging features (e.g., tumor vascularity). Level 2 attention then determines that genomic features should receive higher weight (β₁=0.6) than imaging (β₂=0.3) for this particular patient, based on their molecular profile.
+            </div>
+
+            <div class="key-points">
+                <strong>Hierarchical Advantages:</strong>
+                <ul>
+                    <li><strong>Multi-scale reasoning:</strong> Captures both fine-grained and coarse-grained patterns in a unified framework</li>
+                    <li><strong>Interpretability:</strong> Two-level structure makes it easier to understand which features and modalities drive predictions</li>
+                    <li><strong>Efficiency:</strong> Can prune less important features early in the hierarchy, reducing computation</li>
+                    <li><strong>Biological plausibility:</strong> Mirrors hierarchical organization of biological systems and medical reasoning</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- 5. Interpretability -->
+        <div class="detail-section">
+            <div class="detail-header">5. Interpretability</div>
+            
+            <div class="detail-content">
+                <p><strong>Overview:</strong> One of the most valuable aspects of attention mechanisms is their inherent interpretability. Attention weights provide direct insight into which features, samples, or modalities the model considers important for its predictions, making the decision-making process more transparent.</p>
+                
+                <p><strong>Clinical Relevance:</strong> In healthcare applications, model interpretability is not just desirable—it's essential. Clinicians need to understand why a model makes specific predictions to trust its recommendations, validate its reasoning against medical knowledge, and identify potential biases or errors.</p>
+            </div>
+
+            <div class="diagram-container">
+                <svg width="700" height="400" viewBox="0 0 700 400">
+                    <!-- Title -->
+                    <text x="350" y="20" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">Attention-based Interpretability in Cancer Diagnosis</text>
+                    
+                    <!-- Patient case -->
+                    <g>
+                        <rect x="20" y="35" width="660" height="30" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        <text x="350" y="53" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Case: 62-year-old patient with suspected lung cancer → Model prediction: High-risk adenocarcinoma (95% confidence)</text>
+                    </g>
+                    
+                    <!-- Feature-level attention -->
+                    <g>
+                        <text x="170" y="85" text-anchor="middle" font-size="12" fill="#E74C3C" font-weight="700">Genomic Features Attention</text>
+                        <rect x="30" y="95" width="280" height="120" fill="#FFE8E8" stroke="#E74C3C" stroke-width="2" rx="6"/>
+                        
+                        <!-- Bar chart style visualization -->
+                        <g transform="translate(40, 105)">
+                            <rect x="0" y="0" width="200" height="18" fill="#E74C3C" opacity="0.9" rx="3"/>
+                            <text x="5" y="13" font-size="9" fill="white" font-weight="600">EGFR mutation</text>
+                            <text x="205" y="13" font-size="9" fill="#E74C3C" font-weight="700">α = 0.42</text>
+                            
+                            <rect x="0" y="23" width="160" height="18" fill="#E74C3C" opacity="0.7" rx="3"/>
+                            <text x="5" y="36" font-size="9" fill="white" font-weight="600">TP53 mutation</text>
+                            <text x="165" y="36" font-size="9" fill="#E74C3C" font-weight="700">α = 0.31</text>
+                            
+                            <rect x="0" y="46" width="80" height="18" fill="#E74C3C" opacity="0.4" rx="3"/>
+                            <text x="5" y="59" font-size="9" fill="#E74C3C" font-weight="600">KRAS mutation</text>
+                            <text x="85" y="59" font-size="9" fill="#E74C3C" font-weight="700">α = 0.15</text>
+                            
+                            <rect x="0" y="69" width="50" height="18" fill="#E74C3C" opacity="0.2" rx="3"/>
+                            <text x="5" y="82" font-size="9" fill="#E74C3C" font-weight="600">ALK fusion</text>
+                            <text x="55" y="82" font-size="9" fill="#E74C3C" font-weight="700">α = 0.08</text>
+                            
+                            <rect x="0" y="92" width="30" height="18" fill="#E74C3C" opacity="0.1" rx="3"/>
+                            <text x="5" y="105" font-size="9" fill="#E74C3C" font-weight="600">Others</text>
+                            <text x="35" y="105" font-size="9" fill="#E74C3C" font-weight="700">α = 0.04</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Imaging attention -->
+                    <g>
+                        <text x="520" y="85" text-anchor="middle" font-size="12" fill="#3498DB" font-weight="700">Imaging Features Attention</text>
+                        <rect x="390" y="95" width="280" height="120" fill="#E8F4FF" stroke="#3498DB" stroke-width="2" rx="6"/>
+                        
+                        <!-- Heatmap style visualization -->
+                        <g transform="translate(400, 105)">
+                            <text x="0" y="12" font-size="9" fill="#666" font-weight="600">CT Scan Regions:</text>
+                            
+                            <rect x="0" y="18" width="180" height="18" fill="#3498DB" opacity="0.85" rx="3"/>
+                            <text x="5" y="31" font-size="9" fill="white" font-weight="600">Upper lobe mass</text>
+                            <text x="185" y="31" font-size="9" fill="#3498DB" font-weight="700">α = 0.48</text>
+                            
+                            <rect x="0" y="41" width="140" height="18" fill="#3498DB" opacity="0.6" rx="3"/>
+                            <text x="5" y="54" font-size="9" fill="white" font-weight="600">Spiculated margins</text>
+                            <text x="145" y="54" font-size="9" fill="#3498DB" font-weight="700">α = 0.28</text>
+                            
+                            <rect x="0" y="64" width="90" height="18" fill="#3498DB" opacity="0.4" rx="3"/>
+                            <text x="5" y="77" font-size="9" fill="#3498DB" font-weight="600">Pleural involvement</text>
+                            <text x="95" y="77" font-size="9" fill="#3498DB" font-weight="700">α = 0.16</text>
+                            
+                            <rect x="0" y="87" width="40" height="18" fill="#3498DB" opacity="0.2" rx="3"/>
+                            <text x="5" y="100" font-size="9" fill="#3498DB" font-weight="600">Other regions</text>
+                            <text x="45" y="100" font-size="9" fill="#3498DB" font-weight="700">α = 0.08</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Modality-level attention -->
+                    <g>
+                        <text x="350" y="235" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="700">Modality-level Attention Weights</text>
+                        <rect x="150" y="245" width="400" height="70" fill="white" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                        
+                        <g transform="translate(160, 255)">
+                            <rect x="0" y="0" width="150" height="50" fill="#E74C3C" opacity="0.7" rx="4"/>
+                            <text x="75" y="18" text-anchor="middle" font-size="10" fill="white" font-weight="700">Genomics</text>
+                            <text x="75" y="32" text-anchor="middle" font-size="12" fill="white" font-weight="700">β = 0.50</text>
+                            <text x="75" y="45" text-anchor="middle" font-size="8" fill="white">Primary driver</text>
+                            
+                            <rect x="160" y="0" width="110" height="50" fill="#3498DB" opacity="0.6" rx="4"/>
+                            <text x="215" y="18" text-anchor="middle" font-size="10" fill="white" font-weight="700">Imaging</text>
+                            <text x="215" y="32" text-anchor="middle" font-size="12" fill="white" font-weight="700">β = 0.35</text>
+                            <text x="215" y="45" text-anchor="middle" font-size="8" fill="white">Supporting</text>
+                            
+                            <rect x="280" y="0" width="90" height="50" fill="#9B59B6" opacity="0.5" rx="4"/>
+                            <text x="325" y="18" text-anchor="middle" font-size="10" fill="white" font-weight="700">Clinical</text>
+                            <text x="325" y="32" text-anchor="middle" font-size="12" fill="white" font-weight="700">β = 0.15</text>
+                            <text x="325" y="45" text-anchor="middle" font-size="8" fill="white">Context</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Clinical interpretation -->
+                    <g>
+                        <rect x="20" y="330" width="660" height="65" fill="#E8FFE8" stroke="#27AE60" stroke-width="2" rx="6"/>
+                        <text x="350" y="348" text-anchor="middle" font-size="11" fill="#27AE60" font-weight="700">Clinical Interpretation & Validation</text>
+                        
+                        <text x="30" y="365" font-size="9" fill="#333">• <tspan font-weight="600">EGFR mutation (42% attention)</tspan> → Aligns with treatment guidelines for targeted therapy</text>
+                        <text x="30" y="378" font-size="9" fill="#333">• <tspan font-weight="600">Upper lobe mass (48% imaging attention)</tspan> → Confirms radiologist's primary concern</text>
+                        <text x="30" y="391" font-size="9" fill="#333">• <tspan font-weight="600">Genomics prioritized (50%)</tspan> → Appropriate for molecular subtyping in adenocarcinoma</text>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Real-world Application: Model Debugging</div>
+                A model for predicting sepsis risk showed high attention to "patient room number" in one deployment. This attention weight visualization immediately revealed a data leakage problem—ICU patients (higher risk) had room numbers in a specific range. Without attention interpretability, this spurious correlation might have gone undetected, leading to poor generalization.
+            </div>
+
+            <div class="key-points">
+                <strong>Interpretability Benefits:</strong>
+                <ul>
+                    <li><strong>Model validation:</strong> Verify that important features align with established medical knowledge</li>
+                    <li><strong>Error diagnosis:</strong> Identify when the model focuses on spurious correlations or irrelevant features</li>
+                    <li><strong>Trust building:</strong> Help clinicians understand and trust model predictions through transparent reasoning</li>
+                    <li><strong>Knowledge discovery:</strong> Reveal novel feature combinations or interactions not previously recognized</li>
+                    <li><strong>Regulatory compliance:</strong> Support model explainability requirements in healthcare AI regulations</li>
+                    <li><strong>Personalized insights:</strong> Show patient-specific factors driving individual predictions</li>
+                </ul>
+            </div>
+
+            <div class="formula-box" style="background: #E8FFE8; border-color: #27AE60;">
+                <span style="color: #27AE60; font-weight: 700;">Best Practice:</span><br>
+                Always visualize attention weights during model development AND deployment<br>
+                Compare attention patterns across patient subgroups to identify biases
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

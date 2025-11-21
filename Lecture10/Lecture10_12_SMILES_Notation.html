@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>SMILES Notation</title>
+    <title>SMILES Notation - Enhanced</title>
     <style>
         * {
             margin: 0;
@@ -13,18 +13,25 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #2c3e50;
+            padding: 40px 20px;
+            margin: 0;
         }
         
-        .container {
+        .slide-container {
             width: 960px;
-            height: 540px;
+            margin: 0 auto;
+            background: white;
+        }
+        
+        .slide {
+            width: 100%;
+            min-height: 540px;
             padding: 40px 60px;
             background: white;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            position: relative;
         }
         
         .title {
@@ -33,6 +40,15 @@
             color: #1E64C8;
             margin-bottom: 20px;
             text-align: center;
+        }
+        
+        .subtitle {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 10px;
         }
         
         .main-visual {
@@ -58,7 +74,6 @@
         
         .content-card:hover {
             background: #e8f2ff;
-            transform: translateX(5px);
             box-shadow: 0 4px 12px rgba(30, 100, 200, 0.15);
         }
         
@@ -73,6 +88,66 @@
             font-size: 14px;
             color: #555;
             font-weight: 400;
+        }
+
+        .detail-content {
+            display: flex;
+            gap: 20px;
+            height: calc(100% - 100px);
+        }
+
+        .visual-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .text-section {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .explanation {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 12px;
+            border-left: 4px solid #1E64C8;
+        }
+
+        .explanation h3 {
+            color: #1E64C8;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+
+        .explanation p {
+            color: #555;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .example-box {
+            background: #e8f4f8;
+            padding: 12px;
+            border-radius: 6px;
+            margin-top: 8px;
+            font-family: monospace;
+            font-size: 14px;
+            color: #1E64C8;
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 10px;
+            right: 20px;
+            color: #95a5a6;
+            font-size: 14px;
+            font-weight: 600;
         }
 
         .smiles-char {
@@ -92,159 +167,737 @@
             0%, 100% { opacity: 0.5; }
             50% { opacity: 1; }
         }
+
+        .code-example {
+            background: #2c3e50;
+            color: #ecf0f1;
+            padding: 12px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            margin-top: 8px;
+            overflow-x: auto;
+        }
+
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 4px solid #f39c12;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+
+        .highlight-box strong {
+            color: #f39c12;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">SMILES Notation</div>
-        
-        <div class="main-visual">
-            <svg width="860" height="220" viewBox="0 0 860 220">
-                <!-- Example 1: Ethanol -->
-                <g transform="translate(40, 20)">
-                    <rect x="0" y="0" width="230" height="180" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="115" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Ethanol</text>
-                    
-                    <!-- Chemical structure -->
-                    <g transform="translate(50, 50)">
-                        <!-- Atoms -->
-                        <circle cx="20" cy="30" r="12" fill="#95a5a6"/>
-                        <text x="20" y="35" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
+    <div class="slide-container">
+        <!-- Slide 1: Overview -->
+        <div class="slide" data-slide="1">
+            <div class="slide-number">Slide 1 of 6</div>
+            <div class="title">SMILES Notation</div>
+            
+            <div class="main-visual">
+                <svg width="860" height="220" viewBox="0 0 860 220">
+                    <!-- Example 1: Ethanol -->
+                    <g transform="translate(40, 20)">
+                        <rect x="0" y="0" width="230" height="180" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="115" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Ethanol</text>
                         
-                        <circle cx="60" cy="30" r="12" fill="#95a5a6"/>
-                        <text x="60" y="35" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
+                        <!-- Chemical structure -->
+                        <g transform="translate(50, 50)">
+                            <!-- Atoms -->
+                            <circle cx="20" cy="30" r="12" fill="#95a5a6"/>
+                            <text x="20" y="35" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
+                            
+                            <circle cx="60" cy="30" r="12" fill="#95a5a6"/>
+                            <text x="60" y="35" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
+                            
+                            <circle cx="100" cy="30" r="12" fill="#e74c3c"/>
+                            <text x="100" y="35" text-anchor="middle" font-size="11" font-weight="600" fill="white">O</text>
+                            
+                            <!-- Bonds -->
+                            <line x1="32" y1="30" x2="48" y2="30" stroke="#2c3e50" stroke-width="3"/>
+                            <line x1="72" y1="30" x2="88" y2="30" stroke="#2c3e50" stroke-width="3"/>
+                            
+                            <!-- Hydrogens -->
+                            <text x="20" y="10" text-anchor="middle" font-size="9" fill="#666">H₃</text>
+                            <text x="60" y="55" text-anchor="middle" font-size="9" fill="#666">H₂</text>
+                            <text x="100" y="10" text-anchor="middle" font-size="9" fill="#666">H</text>
+                        </g>
                         
-                        <circle cx="100" cy="30" r="12" fill="#e74c3c"/>
-                        <text x="100" y="35" text-anchor="middle" font-size="11" font-weight="600" fill="white">O</text>
+                        <!-- Arrow -->
+                        <path d="M 115 95 L 115 110" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow-s)" class="transform-arrow"/>
                         
-                        <!-- Bonds -->
-                        <line x1="32" y1="30" x2="48" y2="30" stroke="#2c3e50" stroke-width="3"/>
-                        <line x1="72" y1="30" x2="88" y2="30" stroke="#2c3e50" stroke-width="3"/>
-                        
-                        <!-- Hydrogens -->
-                        <text x="20" y="10" text-anchor="middle" font-size="9" fill="#666">H₃</text>
-                        <text x="60" y="55" text-anchor="middle" font-size="9" fill="#666">H₂</text>
-                        <text x="100" y="10" text-anchor="middle" font-size="9" fill="#666">H</text>
+                        <!-- SMILES -->
+                        <rect x="30" y="120" width="170" height="45" rx="6" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="115" y="140" text-anchor="middle" font-size="16" font-weight="600" fill="#1E64C8" font-family="monospace">CCO</text>
+                        <text x="115" y="157" text-anchor="middle" font-size="10" fill="#666">SMILES String</text>
                     </g>
-                    
-                    <!-- Arrow -->
-                    <path d="M 115 95 L 115 110" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow-s)" class="transform-arrow"/>
-                    
-                    <!-- SMILES -->
-                    <rect x="30" y="120" width="170" height="45" rx="6" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="115" y="140" text-anchor="middle" font-size="16" font-weight="600" fill="#1E64C8" font-family="monospace">CCO</text>
-                    <text x="115" y="157" text-anchor="middle" font-size="10" fill="#666">SMILES String</text>
-                </g>
 
-                <!-- Example 2: Benzene ring -->
-                <g transform="translate(310, 20)">
-                    <rect x="0" y="0" width="230" height="180" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="115" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Benzene</text>
-                    
-                    <!-- Benzene structure -->
-                    <g transform="translate(70, 50)">
-                        <polygon points="50,10 70,25 70,55 50,70 30,55 30,25" 
-                                 fill="none" stroke="#2c3e50" stroke-width="3"/>
+                    <!-- Example 2: Benzene ring -->
+                    <g transform="translate(310, 20)">
+                        <rect x="0" y="0" width="230" height="180" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="115" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Benzene</text>
                         
-                        <!-- Double bonds -->
-                        <line x1="50" y1="15" x2="67" y2="27" stroke="#2c3e50" stroke-width="2"/>
-                        <line x1="67" y1="52" x2="50" y2="65" stroke="#2c3e50" stroke-width="2"/>
-                        <line x1="33" y1="52" x2="33" y2="28" stroke="#2c3e50" stroke-width="2"/>
+                        <!-- Benzene structure -->
+                        <g transform="translate(70, 50)">
+                            <polygon points="50,10 70,25 70,55 50,70 30,55 30,25" 
+                                     fill="none" stroke="#2c3e50" stroke-width="3"/>
+                            
+                            <!-- Double bonds -->
+                            <line x1="50" y1="15" x2="67" y2="27" stroke="#2c3e50" stroke-width="2"/>
+                            <line x1="67" y1="52" x2="50" y2="65" stroke="#2c3e50" stroke-width="2"/>
+                            <line x1="33" y1="52" x2="33" y2="28" stroke="#2c3e50" stroke-width="2"/>
+                            
+                            <!-- Atoms -->
+                            <circle cx="50" cy="10" r="10" fill="#95a5a6"/>
+                            <circle cx="70" cy="25" r="10" fill="#95a5a6"/>
+                            <circle cx="70" cy="55" r="10" fill="#95a5a6"/>
+                            <circle cx="50" cy="70" r="10" fill="#95a5a6"/>
+                            <circle cx="30" cy="55" r="10" fill="#95a5a6"/>
+                            <circle cx="30" cy="25" r="10" fill="#95a5a6"/>
+                            
+                            <text x="50" y="14" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
+                            <text x="70" y="29" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
+                            <text x="70" y="59" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
+                            <text x="50" y="74" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
+                            <text x="30" y="59" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
+                            <text x="30" y="29" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
+                        </g>
                         
-                        <!-- Atoms -->
-                        <circle cx="50" cy="10" r="10" fill="#95a5a6"/>
-                        <circle cx="70" cy="25" r="10" fill="#95a5a6"/>
-                        <circle cx="70" cy="55" r="10" fill="#95a5a6"/>
-                        <circle cx="50" cy="70" r="10" fill="#95a5a6"/>
-                        <circle cx="30" cy="55" r="10" fill="#95a5a6"/>
-                        <circle cx="30" cy="25" r="10" fill="#95a5a6"/>
+                        <!-- Arrow -->
+                        <path d="M 115 95 L 115 110" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow-s)" class="transform-arrow"/>
                         
-                        <text x="50" y="14" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
-                        <text x="70" y="29" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
-                        <text x="70" y="59" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
-                        <text x="50" y="74" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
-                        <text x="30" y="59" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
-                        <text x="30" y="29" text-anchor="middle" font-size="9" font-weight="600" fill="white">C</text>
+                        <!-- SMILES with ring notation -->
+                        <rect x="30" y="120" width="170" height="45" rx="6" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="115" y="140" text-anchor="middle" font-size="16" font-weight="600" fill="#1E64C8" font-family="monospace">c1ccccc1</text>
+                        <text x="115" y="157" text-anchor="middle" font-size="10" fill="#666">Ring Closure</text>
                     </g>
-                    
-                    <!-- Arrow -->
-                    <path d="M 115 95 L 115 110" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow-s)" class="transform-arrow"/>
-                    
-                    <!-- SMILES with ring notation -->
-                    <rect x="30" y="120" width="170" height="45" rx="6" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="115" y="140" text-anchor="middle" font-size="16" font-weight="600" fill="#1E64C8" font-family="monospace">c1ccccc1</text>
-                    <text x="115" y="157" text-anchor="middle" font-size="10" fill="#666">Ring Closure</text>
-                </g>
 
-                <!-- Example 3: Branching -->
-                <g transform="translate(580, 20)">
-                    <rect x="0" y="0" width="230" height="180" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="115" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Branched</text>
-                    
-                    <!-- Branched structure -->
-                    <g transform="translate(60, 50)">
-                        <!-- Main chain -->
-                        <circle cx="30" cy="40" r="12" fill="#95a5a6"/>
-                        <text x="30" y="45" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
+                    <!-- Example 3: Branching -->
+                    <g transform="translate(580, 20)">
+                        <rect x="0" y="0" width="230" height="180" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="115" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Branched</text>
                         
-                        <circle cx="70" cy="40" r="12" fill="#95a5a6"/>
-                        <text x="70" y="45" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
+                        <!-- Branched structure -->
+                        <g transform="translate(60, 50)">
+                            <!-- Main chain -->
+                            <circle cx="30" cy="40" r="12" fill="#95a5a6"/>
+                            <text x="30" y="45" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
+                            
+                            <circle cx="70" cy="40" r="12" fill="#95a5a6"/>
+                            <text x="70" y="45" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
+                            
+                            <circle cx="110" cy="40" r="12" fill="#95a5a6"/>
+                            <text x="110" y="45" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
+                            
+                            <!-- Branch -->
+                            <circle cx="70" cy="10" r="12" fill="#2ecc71"/>
+                            <text x="70" y="15" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
+                            
+                            <!-- Bonds -->
+                            <line x1="42" y1="40" x2="58" y2="40" stroke="#2c3e50" stroke-width="3"/>
+                            <line x1="82" y1="40" x2="98" y2="40" stroke="#2c3e50" stroke-width="3"/>
+                            <line x1="70" y1="28" x2="70" y2="22" stroke="#2c3e50" stroke-width="3"/>
+                        </g>
                         
-                        <circle cx="110" cy="40" r="12" fill="#95a5a6"/>
-                        <text x="110" y="45" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
+                        <!-- Arrow -->
+                        <path d="M 115 95 L 115 110" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow-s)" class="transform-arrow"/>
                         
-                        <!-- Branch -->
-                        <circle cx="70" cy="10" r="12" fill="#2ecc71"/>
-                        <text x="70" y="15" text-anchor="middle" font-size="11" font-weight="600" fill="white">C</text>
-                        
-                        <!-- Bonds -->
-                        <line x1="42" y1="40" x2="58" y2="40" stroke="#2c3e50" stroke-width="3"/>
-                        <line x1="82" y1="40" x2="98" y2="40" stroke="#2c3e50" stroke-width="3"/>
-                        <line x1="70" y1="28" x2="70" y2="22" stroke="#2c3e50" stroke-width="3"/>
+                        <!-- SMILES with branching -->
+                        <rect x="30" y="120" width="170" height="45" rx="6" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="115" y="140" text-anchor="middle" font-size="16" font-weight="600" font-family="monospace">
+                            <tspan fill="#1E64C8">CC</tspan><tspan fill="#2ecc71">(C)</tspan><tspan fill="#1E64C8">C</tspan>
+                        </text>
+                        <text x="115" y="157" text-anchor="middle" font-size="10" fill="#666">Branching ()</text>
                     </g>
-                    
-                    <!-- Arrow -->
-                    <path d="M 115 95 L 115 110" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow-s)" class="transform-arrow"/>
-                    
-                    <!-- SMILES with branching -->
-                    <rect x="30" y="120" width="170" height="45" rx="6" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="115" y="140" text-anchor="middle" font-size="16" font-weight="600" font-family="monospace">
-                        <tspan fill="#1E64C8">CC</tspan><tspan fill="#2ecc71">(C)</tspan><tspan fill="#1E64C8">C</tspan>
-                    </text>
-                    <text x="115" y="157" text-anchor="middle" font-size="10" fill="#666">Branching ()</text>
-                </g>
 
-                <!-- Arrow marker -->
-                <defs>
-                    <marker id="arrow-s" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
-                    </marker>
-                </defs>
-            </svg>
+                    <!-- Arrow marker -->
+                    <defs>
+                        <marker id="arrow-s" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="content-main">Syntax Rules</div>
+                    <div class="content-desc">String-based molecular encoding</div>
+                </div>
+                <div class="content-card">
+                    <div class="content-main">Canonical SMILES</div>
+                    <div class="content-desc">Unique molecular representation</div>
+                </div>
+                <div class="content-card">
+                    <div class="content-main">SMARTS Patterns</div>
+                    <div class="content-desc">Substructure search patterns</div>
+                </div>
+                <div class="content-card">
+                    <div class="content-main">Tokenization</div>
+                    <div class="content-desc">Breaking into meaningful units</div>
+                </div>
+                <div class="content-card">
+                    <div class="content-main">Augmentation Strategies</div>
+                    <div class="content-desc">Data augmentation techniques</div>
+                </div>
+            </div>
         </div>
-        
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="content-main">Syntax rules</div>
-                <div class="content-desc">String-based molecular encoding</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">Canonical SMILES</div>
-                <div class="content-desc">Unique molecular representation</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">SMARTS patterns</div>
-                <div class="content-desc">Substructure search patterns</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">Tokenization</div>
-                <div class="content-desc">Breaking into meaningful units</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">Augmentation strategies</div>
-                <div class="content-desc">Data augmentation techniques</div>
+
+        <!-- Slide 2: Syntax Rules -->
+        <div class="slide" data-slide="2">
+            <div class="slide-number">Slide 2 of 6</div>
+            <div class="subtitle">Syntax Rules</div>
+            <div class="detail-content">
+                <div class="visual-section">
+                    <svg width="400" height="380" viewBox="0 0 400 380">
+                        <!-- Atoms section -->
+                        <rect x="10" y="10" width="380" height="80" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="200" y="35" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Atoms</text>
+                        <text x="50" y="60" font-size="12" fill="#555">C</text>
+                        <text x="50" y="78" font-size="10" fill="#888">Carbon</text>
+                        <text x="120" y="60" font-size="12" fill="#555">N</text>
+                        <text x="120" y="78" font-size="10" fill="#888">Nitrogen</text>
+                        <text x="190" y="60" font-size="12" fill="#555">O</text>
+                        <text x="190" y="78" font-size="10" fill="#888">Oxygen</text>
+                        <text x="260" y="60" font-size="12" fill="#555">[Cl]</text>
+                        <text x="260" y="78" font-size="10" fill="#888">Chlorine</text>
+                        <text x="330" y="60" font-size="12" fill="#555">[NH3+]</text>
+                        <text x="330" y="78" font-size="10" fill="#888">Ion</text>
+
+                        <!-- Bonds section -->
+                        <rect x="10" y="105" width="380" height="80" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="200" y="130" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Bonds</text>
+                        <text x="50" y="155" font-size="12" fill="#555">CC</text>
+                        <text x="50" y="173" font-size="10" fill="#888">Single (-)</text>
+                        <text x="140" y="155" font-size="12" fill="#555">C=C</text>
+                        <text x="140" y="173" font-size="10" fill="#888">Double (=)</text>
+                        <text x="230" y="155" font-size="12" fill="#555">C#C</text>
+                        <text x="230" y="173" font-size="10" fill="#888">Triple (#)</text>
+                        <text x="320" y="155" font-size="12" fill="#555">c1ccccc1</text>
+                        <text x="320" y="173" font-size="10" fill="#888">Aromatic</text>
+
+                        <!-- Branches section -->
+                        <rect x="10" y="200" width="380" height="80" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="200" y="225" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Branches</text>
+                        
+                        <!-- Branch example visualization -->
+                        <g transform="translate(80, 245)">
+                            <circle cx="0" cy="0" r="8" fill="#95a5a6"/>
+                            <text x="0" y="3" text-anchor="middle" font-size="8" fill="white">C</text>
+                            
+                            <line x1="8" y1="0" x2="20" y2="0" stroke="#2c3e50" stroke-width="2"/>
+                            
+                            <circle cx="28" cy="0" r="8" fill="#95a5a6"/>
+                            <text x="28" y="3" text-anchor="middle" font-size="8" fill="white">C</text>
+                            
+                            <line x1="28" y1="-8" x2="28" y2="-18" stroke="#2c3e50" stroke-width="2"/>
+                            
+                            <circle cx="28" cy="-26" r="8" fill="#2ecc71"/>
+                            <text x="28" y="-23" text-anchor="middle" font-size="8" fill="white">C</text>
+                            
+                            <line x1="36" y1="0" x2="48" y2="0" stroke="#2c3e50" stroke-width="2"/>
+                            
+                            <circle cx="56" cy="0" r="8" fill="#95a5a6"/>
+                            <text x="56" y="3" text-anchor="middle" font-size="8" fill="white">C</text>
+                        </g>
+                        
+                        <text x="200" y="265" text-anchor="middle" font-size="13" font-family="monospace" fill="#1E64C8">CC(C)C</text>
+
+                        <!-- Rings section -->
+                        <rect x="10" y="295" width="380" height="75" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="200" y="320" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Ring Closures</text>
+                        
+                        <!-- Cyclopropane example -->
+                        <g transform="translate(100, 340)">
+                            <polygon points="0,-10 8.66,5 -8.66,5" fill="none" stroke="#2c3e50" stroke-width="2"/>
+                            <circle cx="0" cy="-10" r="6" fill="#95a5a6"/>
+                            <circle cx="8.66" cy="5" r="6" fill="#95a5a6"/>
+                            <circle cx="-8.66" cy="5" r="6" fill="#95a5a6"/>
+                            <text x="0" y="-7" text-anchor="middle" font-size="7" fill="white">C</text>
+                            <text x="8.66" y="8" text-anchor="middle" font-size="7" fill="white">C</text>
+                            <text x="-8.66" y="8" text-anchor="middle" font-size="7" fill="white">C</text>
+                        </g>
+                        <text x="100" y="365" text-anchor="middle" font-size="12" font-family="monospace" fill="#1E64C8">C1CC1</text>
+                        
+                        <!-- Benzene example -->
+                        <g transform="translate(250, 340)">
+                            <polygon points="0,-12 10.4,-6 10.4,6 0,12 -10.4,6 -10.4,-6" 
+                                     fill="none" stroke="#2c3e50" stroke-width="2"/>
+                            <line x1="0" y1="-9" x2="8" y2="-4.5" stroke="#2c3e50" stroke-width="1"/>
+                            <line x1="8" y1="4.5" x2="0" y2="9" stroke="#2c3e50" stroke-width="1"/>
+                            <line x1="-8" y1="4.5" x2="-8" y2="-4.5" stroke="#2c3e50" stroke-width="1"/>
+                        </g>
+                        <text x="250" y="365" text-anchor="middle" font-size="12" font-family="monospace" fill="#1E64C8">c1ccccc1</text>
+                    </svg>
+                </div>
+                
+                <div class="text-section">
+                    <div class="explanation">
+                        <h3>Basic Rules</h3>
+                        <p>SMILES uses a linear text format to represent molecular structures. Atoms are represented by their element symbols, and bonds are either implicit (single bonds) or explicit using special characters.</p>
+                    </div>
+                    
+                    <div class="explanation">
+                        <h3>Atom Representation</h3>
+                        <p>Organic atoms (C, N, O, S, P) can be written without brackets. Other atoms and charged species must be enclosed in square brackets.</p>
+                        <div class="example-box">
+                            CCO → Ethanol<br>
+                            [NH4+] → Ammonium ion
+                        </div>
+                    </div>
+                    
+                    <div class="explanation">
+                        <h3>Bond Types</h3>
+                        <p>Single bonds are implicit. Double (=), triple (#), and aromatic bonds are explicitly denoted. Aromatic atoms use lowercase letters.</p>
+                        <div class="example-box">
+                            C=C → Ethene<br>
+                            C#N → Acetonitrile
+                        </div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>Key Point:</strong> SMILES follows a depth-first tree traversal to encode molecular connectivity.
+                    </div>
+                </div>
             </div>
         </div>
+
+        <!-- Slide 3: Canonical SMILES -->
+        <div class="slide" data-slide="3">
+            <div class="slide-number">Slide 3 of 6</div>
+            <div class="subtitle">Canonical SMILES</div>
+            <div class="detail-content">
+                <div class="visual-section">
+                    <svg width="400" height="380" viewBox="0 0 400 380">
+                        <!-- Same molecule, different SMILES -->
+                        <rect x="10" y="10" width="380" height="160" rx="8" fill="#f8f9fa" stroke="#e74c3c" stroke-width="2"/>
+                        <text x="200" y="35" text-anchor="middle" font-size="14" font-weight="600" fill="#e74c3c">Non-Canonical (Multiple Valid Forms)</text>
+                        
+                        <!-- Butane structure -->
+                        <g transform="translate(90, 60)">
+                            <circle cx="0" cy="0" r="10" fill="#95a5a6"/>
+                            <text x="0" y="4" text-anchor="middle" font-size="9" fill="white">C</text>
+                            
+                            <line x1="10" y1="0" x2="30" y2="0" stroke="#2c3e50" stroke-width="2"/>
+                            
+                            <circle cx="40" cy="0" r="10" fill="#95a5a6"/>
+                            <text x="40" y="4" text-anchor="middle" font-size="9" fill="white">C</text>
+                            
+                            <line x1="50" y1="0" x2="70" y2="0" stroke="#2c3e50" stroke-width="2"/>
+                            
+                            <circle cx="80" cy="0" r="10" fill="#95a5a6"/>
+                            <text x="80" y="4" text-anchor="middle" font-size="9" fill="white">C</text>
+                            
+                            <line x1="90" y1="0" x2="110" y2="0" stroke="#2c3e50" stroke-width="2"/>
+                            
+                            <circle cx="120" cy="0" r="10" fill="#95a5a6"/>
+                            <text x="120" y="4" text-anchor="middle" font-size="9" fill="white">C</text>
+                        </g>
+                        
+                        <text x="200" y="95" text-anchor="middle" font-size="13" font-family="monospace" fill="#555">CCCC</text>
+                        <text x="200" y="115" text-anchor="middle" font-size="13" font-family="monospace" fill="#555">C(CC)C</text>
+                        <text x="200" y="135" text-anchor="middle" font-size="13" font-family="monospace" fill="#555">C(C)CC</text>
+                        <text x="200" y="155" text-anchor="middle" font-size="11" fill="#888">All represent the same molecule!</text>
+
+                        <!-- Arrow -->
+                        <path d="M 200 180 L 200 200" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow-c)"/>
+                        
+                        <!-- Canonical form -->
+                        <rect x="10" y="210" width="380" height="80" rx="8" fill="#e8f4f8" stroke="#1E64C8" stroke-width="3"/>
+                        <text x="200" y="235" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Canonical SMILES (Unique)</text>
+                        <text x="200" y="260" text-anchor="middle" font-size="18" font-family="monospace" font-weight="700" fill="#1E64C8">CCCC</text>
+                        <text x="200" y="280" text-anchor="middle" font-size="11" fill="#666">Generated by standardized algorithm</text>
+
+                        <!-- Algorithm steps -->
+                        <rect x="10" y="305" width="380" height="65" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="200" y="325" text-anchor="middle" font-size="12" font-weight="600" fill="#1E64C8">Canonicalization Steps</text>
+                        <text x="20" y="345" font-size="11" fill="#555">1. Compute atom invariants</text>
+                        <text x="20" y="360" font-size="11" fill="#555">2. Rank atoms by symmetry</text>
+                        <text x="220" y="345" font-size="11" fill="#555">3. Generate canonical traversal</text>
+                        <text x="220" y="360" font-size="11" fill="#555">4. Output unique SMILES</text>
+
+                        <defs>
+                            <marker id="arrow-c" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+                
+                <div class="text-section">
+                    <div class="explanation">
+                        <h3>What is Canonicalization?</h3>
+                        <p>A single molecule can be represented by many different valid SMILES strings. Canonical SMILES ensures that each unique molecule has exactly one standardized representation.</p>
+                    </div>
+                    
+                    <div class="explanation">
+                        <h3>Why is it Important?</h3>
+                        <p>Canonical SMILES enables reliable molecule comparison, database searching, and duplicate detection. Without canonicalization, the same molecule might not be recognized as identical.</p>
+                    </div>
+                    
+                    <div class="explanation">
+                        <h3>Generation Algorithm</h3>
+                        <p>The algorithm computes unique atom invariants based on connectivity, then systematically ranks and orders atoms to produce a consistent traversal path.</p>
+                        <div class="code-example">from rdkit import Chem
+mol = Chem.MolFromSmiles('C(C)CC')
+canonical = Chem.MolToSmiles(mol)
+# Output: 'CCCC'</div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>Applications:</strong> Structure searching, molecular databases, machine learning datasets, quality control in cheminformatics
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: SMARTS Patterns -->
+        <div class="slide" data-slide="4">
+            <div class="slide-number">Slide 4 of 6</div>
+            <div class="subtitle">SMARTS Patterns</div>
+            <div class="detail-content">
+                <div class="visual-section">
+                    <svg width="400" height="380" viewBox="0 0 400 380">
+                        <!-- Header -->
+                        <text x="200" y="25" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Substructure Matching Language</text>
+                        
+                        <!-- Pattern 1: Alcohol -->
+                        <rect x="10" y="40" width="380" height="70" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="20" y="62" font-size="13" font-weight="600" fill="#1E64C8">Alcohol Pattern</text>
+                        <text x="20" y="82" font-size="16" font-family="monospace" fill="#555">[CX4][OX2H]</text>
+                        <text x="20" y="100" font-size="11" fill="#888">Matches: sp³ carbon bonded to OH group</text>
+                        
+                        <!-- Visual representation -->
+                        <g transform="translate(280, 65)">
+                            <circle cx="0" cy="0" r="10" fill="#95a5a6"/>
+                            <text x="0" y="4" text-anchor="middle" font-size="9" fill="white">C</text>
+                            <line x1="10" y1="0" x2="25" y2="0" stroke="#2c3e50" stroke-width="2"/>
+                            <circle cx="35" cy="0" r="10" fill="#e74c3c"/>
+                            <text x="35" y="4" text-anchor="middle" font-size="9" fill="white">O</text>
+                            <line x1="43" y1="-7" x2="50" y2="-12" stroke="#2c3e50" stroke-width="2"/>
+                            <text x="55" y="-8" font-size="9" fill="#666">H</text>
+                        </g>
+
+                        <!-- Pattern 2: Aromatic -->
+                        <rect x="10" y="120" width="380" height="70" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="20" y="142" font-size="13" font-weight="600" fill="#1E64C8">Aromatic Ring</text>
+                        <text x="20" y="162" font-size="16" font-family="monospace" fill="#555">a1aaaaa1</text>
+                        <text x="20" y="180" font-size="11" fill="#888">Matches: any 6-membered aromatic ring</text>
+                        
+                        <g transform="translate(300, 155)">
+                            <polygon points="0,-15 13,-7.5 13,7.5 0,15 -13,7.5 -13,-7.5" 
+                                     fill="none" stroke="#2c3e50" stroke-width="2"/>
+                            <circle cx="0" cy="0" r="18" fill="none" stroke="#f39c12" stroke-width="2" stroke-dasharray="3,3"/>
+                        </g>
+
+                        <!-- Pattern 3: Carboxylic Acid -->
+                        <rect x="10" y="200" width="380" height="70" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="20" y="222" font-size="13" font-weight="600" fill="#1E64C8">Carboxylic Acid</text>
+                        <text x="20" y="242" font-size="16" font-family="monospace" fill="#555">C(=O)[OH]</text>
+                        <text x="20" y="260" font-size="11" fill="#888">Matches: -COOH functional group</text>
+                        
+                        <g transform="translate(270, 230)">
+                            <circle cx="0" cy="0" r="10" fill="#95a5a6"/>
+                            <text x="0" y="4" text-anchor="middle" font-size="9" fill="white">C</text>
+                            
+                            <line x1="0" y1="-10" x2="0" y2="-20" stroke="#2c3e50" stroke-width="3"/>
+                            <line x1="2" y1="-10" x2="2" y2="-20" stroke="#2c3e50" stroke-width="3"/>
+                            <circle cx="0" cy="-28" r="9" fill="#e74c3c"/>
+                            <text x="0" y="-24" text-anchor="middle" font-size="9" fill="white">O</text>
+                            
+                            <line x1="10" y1="0" x2="25" y2="0" stroke="#2c3e50" stroke-width="2"/>
+                            <circle cx="35" cy="0" r="10" fill="#e74c3c"/>
+                            <text x="35" y="4" text-anchor="middle" font-size="9" fill="white">O</text>
+                            <line x1="43" y1="-7" x2="50" y2="-12" stroke="#2c3e50" stroke-width="2"/>
+                            <text x="55" y="-8" font-size="9" fill="#666">H</text>
+                        </g>
+
+                        <!-- Operators -->
+                        <rect x="10" y="280" width="380" height="90" rx="8" fill="#fff3cd" stroke="#f39c12" stroke-width="2"/>
+                        <text x="200" y="300" text-anchor="middle" font-size="13" font-weight="600" fill="#f39c12">Common SMARTS Operators</text>
+                        <text x="20" y="320" font-size="11" fill="#555">[#6] = Carbon atom</text>
+                        <text x="20" y="337" font-size="11" fill="#555">[R] = In ring</text>
+                        <text x="20" y="354" font-size="11" fill="#555">[D3] = 3 connections</text>
+                        <text x="220" y="320" font-size="11" fill="#555">[a] = Aromatic</text>
+                        <text x="220" y="337" font-size="11" fill="#555">[+] = Positive charge</text>
+                        <text x="220" y="354" font-size="11" fill="#555">[!#6] = NOT carbon</text>
+                    </svg>
+                </div>
+                
+                <div class="text-section">
+                    <div class="explanation">
+                        <h3>SMARTS vs SMILES</h3>
+                        <p>SMARTS (SMiles ARbitrary Target Specification) extends SMILES with pattern-matching capabilities. While SMILES describes specific molecules, SMARTS describes molecular patterns for substructure searching.</p>
+                    </div>
+                    
+                    <div class="explanation">
+                        <h3>Pattern Matching Features</h3>
+                        <p>SMARTS supports logical operators (AND, OR, NOT), atom properties (charge, connectivity), and wildcard matching, making it powerful for identifying functional groups and chemical motifs.</p>
+                        <div class="example-box">
+                            [CX4] → sp³ carbon (4 connections)<br>
+                            [OX2H] → OH group<br>
+                            [$([NX3])] → Nitrogen with 3 bonds
+                        </div>
+                    </div>
+                    
+                    <div class="explanation">
+                        <h3>Applications</h3>
+                        <p>Drug discovery, toxicity prediction, reaction site identification, and automated molecular filtering.</p>
+                        <div class="code-example">from rdkit import Chem
+pattern = Chem.MolFromSmarts('[CX4][OX2H]')
+mol = Chem.MolFromSmiles('CCO')
+matches = mol.GetSubstructMatches(pattern)
+# Returns atom indices of matches</div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>Power Tool:</strong> SMARTS enables sophisticated molecular queries impossible with simple text search
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Tokenization -->
+        <div class="slide" data-slide="5">
+            <div class="slide-number">Slide 5 of 6</div>
+            <div class="subtitle">Tokenization</div>
+            <div class="detail-content">
+                <div class="visual-section">
+                    <svg width="400" height="380" viewBox="0 0 400 380">
+                        <!-- Title -->
+                        <text x="200" y="25" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Breaking SMILES into Tokens</text>
+                        
+                        <!-- Example molecule -->
+                        <rect x="20" y="40" width="360" height="45" rx="6" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="200" y="60" text-anchor="middle" font-size="16" font-family="monospace" font-weight="600" fill="#1E64C8">CC(=O)Nc1ccc(O)cc1</text>
+                        <text x="200" y="75" text-anchor="middle" font-size="10" fill="#666">Acetaminophen (Paracetamol)</text>
+
+                        <!-- Arrow -->
+                        <path d="M 200 90 L 200 105" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-t)"/>
+
+                        <!-- Tokenization methods -->
+                        <!-- Atom-level -->
+                        <rect x="20" y="115" width="360" height="75" rx="6" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="200" y="135" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Atom-level Tokenization</text>
+                        <g transform="translate(30, 145)">
+                            <rect x="0" y="0" width="30" height="25" rx="3" fill="#e8f4f8"/>
+                            <text x="15" y="17" text-anchor="middle" font-size="11" font-family="monospace">C</text>
+                            
+                            <rect x="35" y="0" width="30" height="25" rx="3" fill="#e8f4f8"/>
+                            <text x="50" y="17" text-anchor="middle" font-size="11" font-family="monospace">C</text>
+                            
+                            <rect x="70" y="0" width="30" height="25" rx="3" fill="#fff3cd"/>
+                            <text x="85" y="17" text-anchor="middle" font-size="11" font-family="monospace">(</text>
+                            
+                            <rect x="105" y="0" width="30" height="25" rx="3" fill="#e8f4f8"/>
+                            <text x="120" y="17" text-anchor="middle" font-size="11" font-family="monospace">=</text>
+                            
+                            <rect x="140" y="0" width="30" height="25" rx="3" fill="#e8f4f8"/>
+                            <text x="155" y="17" text-anchor="middle" font-size="11" font-family="monospace">O</text>
+                            
+                            <rect x="175" y="0" width="30" height="25" rx="3" fill="#fff3cd"/>
+                            <text x="190" y="17" text-anchor="middle" font-size="11" font-family="monospace">)</text>
+                            
+                            <rect x="210" y="0" width="30" height="25" rx="3" fill="#e8f4f8"/>
+                            <text x="225" y="17" text-anchor="middle" font-size="11" font-family="monospace">N</text>
+                            
+                            <rect x="245" y="0" width="30" height="25" rx="3" fill="#e8f4f8"/>
+                            <text x="260" y="17" text-anchor="middle" font-size="11" font-family="monospace">c</text>
+                            
+                            <rect x="280" y="0" width="30" height="25" rx="3" fill="#fff3cd"/>
+                            <text x="295" y="17" text-anchor="middle" font-size="11" font-family="monospace">1</text>
+                            
+                            <text x="325" y="17" text-anchor="middle" font-size="11" font-family="monospace">...</text>
+                        </g>
+                        <text x="200" y="185" text-anchor="middle" font-size="10" fill="#888">Each character = one token</text>
+
+                        <!-- BPE/WordPiece -->
+                        <rect x="20" y="200" width="360" height="75" rx="6" fill="#f8f9fa" stroke="#2ecc71" stroke-width="2"/>
+                        <text x="200" y="220" text-anchor="middle" font-size="13" font-weight="600" fill="#2ecc71">Subword Tokenization (BPE)</text>
+                        <g transform="translate(30, 230)">
+                            <rect x="0" y="0" width="40" height="25" rx="3" fill="#d5f4e6"/>
+                            <text x="20" y="17" text-anchor="middle" font-size="11" font-family="monospace">CC</text>
+                            
+                            <rect x="45" y="0" width="50" height="25" rx="3" fill="#d5f4e6"/>
+                            <text x="70" y="17" text-anchor="middle" font-size="11" font-family="monospace">(=O)</text>
+                            
+                            <rect x="100" y="0" width="35" height="25" rx="3" fill="#d5f4e6"/>
+                            <text x="117" y="17" text-anchor="middle" font-size="11" font-family="monospace">Nc</text>
+                            
+                            <rect x="140" y="0" width="50" height="25" rx="3" fill="#d5f4e6"/>
+                            <text x="165" y="17" text-anchor="middle" font-size="11" font-family="monospace">1ccc</text>
+                            
+                            <rect x="195" y="0" width="40" height="25" rx="3" fill="#d5f4e6"/>
+                            <text x="215" y="17" text-anchor="middle" font-size="11" font-family="monospace">(O)</text>
+                            
+                            <rect x="240" y="0" width="50" height="25" rx="3" fill="#d5f4e6"/>
+                            <text x="265" y="17" text-anchor="middle" font-size="11" font-family="monospace">cc1</text>
+                        </g>
+                        <text x="200" y="270" text-anchor="middle" font-size="10" fill="#888">Learned frequent substrings</text>
+
+                        <!-- Comparison table -->
+                        <rect x="20" y="285" width="360" height="85" rx="6" fill="#fff3cd" stroke="#f39c12" stroke-width="2"/>
+                        <text x="200" y="305" text-anchor="middle" font-size="13" font-weight="600" fill="#f39c12">Method Comparison</text>
+                        
+                        <text x="30" y="325" font-size="11" font-weight="600" fill="#555">Atom-level:</text>
+                        <text x="30" y="340" font-size="10" fill="#666">✓ Simple, interpretable</text>
+                        <text x="30" y="355" font-size="10" fill="#666">✗ Long sequences</text>
+                        
+                        <text x="220" y="325" font-size="11" font-weight="600" fill="#555">Subword:</text>
+                        <text x="220" y="340" font-size="10" fill="#666">✓ Shorter sequences</text>
+                        <text x="220" y="355" font-size="10" fill="#666">✓ Captures motifs</text>
+
+                        <defs>
+                            <marker id="arrow-t" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                                <polygon points="0 0, 8 3, 0 6" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+                
+                <div class="text-section">
+                    <div class="explanation">
+                        <h3>Why Tokenization Matters</h3>
+                        <p>Machine learning models process sequences of discrete tokens, not raw strings. Tokenization determines how SMILES strings are split into meaningful units for neural networks and transformers.</p>
+                    </div>
+                    
+                    <div class="explanation">
+                        <h3>Tokenization Strategies</h3>
+                        <p><strong>Character-level:</strong> Each atom, bond, and bracket is a token. Simple but creates long sequences.</p>
+                        <p><strong>Subword (BPE/WordPiece):</strong> Learns frequent substrings from data. Captures chemical motifs and reduces sequence length.</p>
+                        <div class="example-box">
+                            Character: ['C', 'C', '(', '=', 'O', ')']<br>
+                            Subword: ['CC', '(=O)']
+                        </div>
+                    </div>
+                    
+                    <div class="explanation">
+                        <h3>Impact on ML Models</h3>
+                        <p>Better tokenization improves model performance, training efficiency, and chemical understanding. Subword methods help models learn functional group patterns naturally.</p>
+                        <div class="code-example">from transformers import AutoTokenizer
+tokenizer = AutoTokenizer.from_pretrained(
+    "seyonec/ChemBERTa-zinc-base-v1"
+)
+tokens = tokenizer.tokenize("CC(=O)O")</div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>Trade-off:</strong> Character-level is interpretable; subword is efficient but requires learned vocabulary
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Augmentation Strategies -->
+        <div class="slide" data-slide="6">
+            <div class="slide-number">Slide 6 of 6</div>
+            <div class="subtitle">Augmentation Strategies</div>
+            <div class="detail-content">
+                <div class="visual-section">
+                    <svg width="400" height="380" viewBox="0 0 400 380">
+                        <!-- Original molecule -->
+                        <rect x="40" y="10" width="320" height="60" rx="6" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="200" y="30" text-anchor="middle" font-size="12" font-weight="600" fill="#1E64C8">Original Molecule</text>
+                        <text x="200" y="50" text-anchor="middle" font-size="15" font-family="monospace" fill="#1E64C8">c1ccccc1O</text>
+                        <text x="200" y="65" text-anchor="middle" font-size="10" fill="#666">Phenol</text>
+
+                        <!-- Augmentation strategies -->
+                        <!-- Strategy 1: SMILES Enumeration -->
+                        <rect x="10" y="85" width="180" height="85" rx="6" fill="#f8f9fa" stroke="#9b59b6" stroke-width="2"/>
+                        <text x="100" y="105" text-anchor="middle" font-size="12" font-weight="600" fill="#9b59b6">SMILES Enumeration</text>
+                        <text x="100" y="125" text-anchor="middle" font-size="11" font-family="monospace" fill="#555">c1ccccc1O</text>
+                        <text x="100" y="142" text-anchor="middle" font-size="11" font-family="monospace" fill="#555">Oc1ccccc1</text>
+                        <text x="100" y="159" text-anchor="middle" font-size="11" font-family="monospace" fill="#555">c1ccc(O)cc1</text>
+                        
+                        <!-- Strategy 2: Atom Reordering -->
+                        <rect x="210" y="85" width="180" height="85" rx="6" fill="#f8f9fa" stroke="#e67e22" stroke-width="2"/>
+                        <text x="300" y="105" text-anchor="middle" font-size="12" font-weight="600" fill="#e67e22">Atom Reordering</text>
+                        <g transform="translate(230, 115)">
+                            <!-- Different numbering visualization -->
+                            <circle cx="20" cy="20" r="8" fill="#9b59b6" opacity="0.6"/>
+                            <text x="20" y="24" text-anchor="middle" font-size="8" fill="white">1</text>
+                            <circle cx="50" cy="20" r="8" fill="#e67e22" opacity="0.6"/>
+                            <text x="50" y="24" text-anchor="middle" font-size="8" fill="white">6</text>
+                            <circle cx="80" cy="20" r="8" fill="#3498db" opacity="0.6"/>
+                            <text x="80" y="24" text-anchor="middle" font-size="8" fill="white">3</text>
+                        </g>
+                        <text x="300" y="150" text-anchor="middle" font-size="10" fill="#666">Random traversal</text>
+                        <text x="300" y="163" text-anchor="middle" font-size="10" fill="#666">starting points</text>
+
+                        <!-- Strategy 3: Stereochemistry -->
+                        <rect x="10" y="180" width="180" height="85" rx="6" fill="#f8f9fa" stroke="#27ae60" stroke-width="2"/>
+                        <text x="100" y="200" text-anchor="middle" font-size="12" font-weight="600" fill="#27ae60">Stereoisomer Gen.</text>
+                        <text x="100" y="220" text-anchor="middle" font-size="11" font-family="monospace" fill="#555">C[C@H](O)CC</text>
+                        <text x="100" y="237" text-anchor="middle" font-size="11" font-family="monospace" fill="#555">C[C@@H](O)CC</text>
+                        <text x="100" y="254" text-anchor="middle" font-size="10" fill="#666">(R) and (S) forms</text>
+
+                        <!-- Strategy 4: Fragment-based -->
+                        <rect x="210" y="180" width="180" height="85" rx="6" fill="#f8f9fa" stroke="#c0392b" stroke-width="2"/>
+                        <text x="300" y="200" text-anchor="middle" font-size="12" font-weight="600" fill="#c0392b">Fragment Masking</text>
+                        <text x="300" y="220" text-anchor="middle" font-size="11" font-family="monospace" fill="#555">c1ccc<tspan fill="#c0392b">[MASK]</tspan>c1</text>
+                        <text x="300" y="237" text-anchor="middle" font-size="11" font-family="monospace" fill="#555">c1<tspan fill="#c0392b">[MASK]</tspan>cccc1O</text>
+                        <text x="300" y="254" text-anchor="middle" font-size="10" fill="#666">For pretraining</text>
+
+                        <!-- Benefits -->
+                        <rect x="10" y="275" width="380" height="95" rx="6" fill="#fff3cd" stroke="#f39c12" stroke-width="2"/>
+                        <text x="200" y="295" text-anchor="middle" font-size="13" font-weight="600" fill="#f39c12">Benefits of Augmentation</text>
+                        
+                        <g transform="translate(20, 305)">
+                            <text x="0" y="0" font-size="11" fill="#555">✓ Increases training data diversity</text>
+                            <text x="0" y="18" font-size="11" fill="#555">✓ Improves model generalization</text>
+                            <text x="0" y="36" font-size="11" fill="#555">✓ Reduces overfitting on specific SMILES forms</text>
+                            <text x="0" y="54" font-size="11" fill="#555">✓ Teaches invariance to representation choices</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="text-section">
+                    <div class="explanation">
+                        <h3>Data Augmentation for SMILES</h3>
+                        <p>Since one molecule can have multiple valid SMILES representations, we can generate augmented training data by creating different valid SMILES strings for the same molecule.</p>
+                    </div>
+                    
+                    <div class="explanation">
+                        <h3>Augmentation Techniques</h3>
+                        <p><strong>SMILES Enumeration:</strong> Generate all valid SMILES by varying atom ordering and ring numbering.</p>
+                        <p><strong>Random Perturbations:</strong> Apply small structural or notation changes while preserving molecular identity.</p>
+                        <p><strong>Fragment Masking:</strong> Randomly mask portions for self-supervised learning tasks.</p>
+                    </div>
+                    
+                    <div class="explanation">
+                        <h3>Implementation Example</h3>
+                        <div class="code-example">from rdkit import Chem
+mol = Chem.MolFromSmiles('c1ccccc1O')
+
+# Generate 5 random SMILES
+augmented = []
+for i in range(5):
+    smi = Chem.MolToSmiles(mol, 
+                           doRandom=True)
+    augmented.append(smi)
+    
+# Result: ['Oc1ccccc1', 'c1ccc(O)cc1', ...]</div>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>Key Insight:</strong> Augmentation teaches models to focus on molecular structure rather than specific notation choices, improving robustness
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </div>
+
+    <script>
+        // Smooth scroll behavior
+        document.querySelectorAll('.content-card').forEach((card, index) => {
+            card.style.cursor = 'default';
+        });
+    </script>
 </body>
 </html>

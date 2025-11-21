@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bioactivity Prediction</title>
+    <title>Bioactivity Prediction - Detailed Guide</title>
     <style>
         * {
             margin: 0;
@@ -12,88 +12,856 @@
         }
         
         body {
-            font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            line-height: 1.6;
         }
         
-        .container {
-            width: 960px;
-            height: 540px;
-            padding: 40px 60px;
+        .main-container {
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
         }
         
-        .title {
-            font-size: 36px;
-            font-weight: 700;
-            color: #1E64C8;
-            margin-bottom: 40px;
+        .header {
+            background: linear-gradient(135deg, #1E64C8 0%, #2E86DE 100%);
+            color: white;
+            padding: 60px 40px;
             text-align: center;
         }
         
-        .content-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 22px;
+        .main-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
         }
         
-        .content-card {
+        .subtitle {
+            font-size: 20px;
+            opacity: 0.95;
+            font-weight: 300;
+        }
+        
+        .overview-section {
+            padding: 40px;
             background: #f8f9fa;
+        }
+        
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .overview-card {
+            background: white;
             border-left: 4px solid #1E64C8;
             border-radius: 8px;
-            padding: 18px 24px;
+            padding: 20px;
             transition: all 0.3s;
+            cursor: pointer;
         }
         
-        .content-card:hover {
-            background: #e8f2ff;
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(30, 100, 200, 0.15);
+        .overview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(30, 100, 200, 0.2);
         }
         
-        .content-main {
-            font-size: 20px;
+        .overview-title {
+            font-size: 18px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         
-        .content-desc {
+        .overview-desc {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .detailed-section {
+            padding: 60px 40px;
+        }
+        
+        .topic-container {
+            margin-bottom: 80px;
+            border-bottom: 2px solid #e0e0e0;
+            padding-bottom: 60px;
+        }
+        
+        .topic-container:last-child {
+            border-bottom: none;
+        }
+        
+        .topic-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+        }
+        
+        .topic-number {
+            background: linear-gradient(135deg, #1E64C8 0%, #2E86DE 100%);
+            color: white;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .topic-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E64C8;
+        }
+        
+        .topic-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        .content-text {
+            padding: 20px;
+        }
+        
+        .section-heading {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 15px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1E64C8;
+        }
+        
+        .description {
             font-size: 16px;
             color: #555;
-            font-weight: 400;
+            margin-bottom: 20px;
+            text-align: justify;
+        }
+        
+        .key-points {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        .key-points h4 {
+            font-size: 18px;
+            color: #1E64C8;
+            margin-bottom: 12px;
+        }
+        
+        .key-points ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .key-points li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #555;
+        }
+        
+        .key-points li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #1E64C8;
+            font-weight: 700;
+        }
+        
+        .diagram-container {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 400px;
+        }
+        
+        .diagram-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        /* SVG Diagram Styles */
+        .molecule {
+            fill: none;
+            stroke: #333;
+            stroke-width: 2;
+        }
+        
+        .molecule-label {
+            font-size: 14px;
+            fill: #333;
+            font-weight: 600;
+        }
+        
+        .activity-high {
+            fill: #4CAF50;
+        }
+        
+        .activity-low {
+            fill: #F44336;
+        }
+        
+        .arrow {
+            fill: none;
+            stroke: #1E64C8;
+            stroke-width: 2;
+            marker-end: url(#arrowhead);
+        }
+        
+        .process-box {
+            fill: #E3F2FD;
+            stroke: #1E64C8;
+            stroke-width: 2;
+            rx: 8;
+        }
+        
+        .process-text {
+            font-size: 13px;
+            fill: #333;
+            text-anchor: middle;
+        }
+        
+        @media (max-width: 968px) {
+            .topic-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .main-title {
+                font-size: 36px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">Bioactivity Prediction</div>
+    <div class="main-container">
+        <div class="header">
+            <h1 class="main-title">Bioactivity Prediction</h1>
+            <p class="subtitle">Advanced Computational Approaches in Drug Discovery</p>
+        </div>
         
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="content-main">Activity cliffs</div>
-                <div class="content-desc">Small structural changes, large activity differences</div>
+        <div class="overview-section">
+            <h2 style="font-size: 28px; color: #1E64C8; margin-bottom: 10px;">Overview</h2>
+            <p style="color: #666; margin-bottom: 20px;">Bioactivity prediction is a critical component of modern drug discovery, combining computational methods with experimental validation to identify promising therapeutic compounds efficiently.</p>
+            
+            <div class="overview-grid">
+                <div class="overview-card">
+                    <div class="overview-title">Activity Cliffs</div>
+                    <div class="overview-desc">Small structural changes, large activity differences</div>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-title">Matched Pairs</div>
+                    <div class="overview-desc">Systematic SAR analysis</div>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-title">Free Energy Perturbation</div>
+                    <div class="overview-desc">Physics-based predictions</div>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-title">Active Learning</div>
+                    <div class="overview-desc">Iterative experiment design</div>
+                </div>
+                <div class="overview-card">
+                    <div class="overview-title">Experimental Validation</div>
+                    <div class="overview-desc">Wet-lab confirmation</div>
+                </div>
             </div>
-            <div class="content-card">
-                <div class="content-main">Matched pairs</div>
-                <div class="content-desc">Systematic SAR analysis</div>
+        </div>
+        
+        <div class="detailed-section">
+            <!-- Topic 1: Activity Cliffs -->
+            <div class="topic-container">
+                <div class="topic-header">
+                    <div class="topic-number">1</div>
+                    <h2 class="topic-title">Activity Cliffs</h2>
+                </div>
+                
+                <div class="topic-content">
+                    <div class="content-text">
+                        <h3 class="section-heading">Definition & Importance</h3>
+                        <p class="description">
+                            Activity cliffs represent pairs or groups of structurally similar compounds that exhibit dramatically different biological activities. These are among the most challenging and informative features in structure-activity relationship (SAR) studies. Understanding activity cliffs is crucial because they reveal sensitive regions in molecular structure where minor modifications can lead to substantial changes in potency, selectivity, or other pharmacological properties.
+                        </p>
+                        
+                        <p class="description">
+                            Activity cliffs challenge traditional medicinal chemistry assumptions and provide valuable insights into binding mechanisms. They often indicate critical interaction points with the target protein, such as key hydrogen bonds, hydrophobic contacts, or specific conformational requirements that are highly sensitive to structural perturbations.
+                        </p>
+                        
+                        <div class="key-points">
+                            <h4>Key Characteristics</h4>
+                            <ul>
+                                <li>High structural similarity (>85% Tanimoto coefficient)</li>
+                                <li>Large activity difference (>100-fold potency change)</li>
+                                <li>Reveal critical SAR features</li>
+                                <li>Guide optimization strategies</li>
+                                <li>Indicate binding mode sensitivities</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="key-points">
+                            <h4>Applications</h4>
+                            <ul>
+                                <li>Lead optimization prioritization</li>
+                                <li>Identification of "hot spots" in molecules</li>
+                                <li>Understanding mechanism of action</li>
+                                <li>Improving predictive models</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="diagram-container">
+                        <div class="diagram-title">Activity Cliff Example: Minor Structural Change, Major Activity Impact</div>
+                        <svg width="100%" height="380" viewBox="0 0 400 380">
+                            <defs>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                                </marker>
+                            </defs>
+                            
+                            <!-- Molecule A (High Activity) -->
+                            <g transform="translate(80, 40)">
+                                <text x="0" y="-10" class="molecule-label" text-anchor="middle">Compound A</text>
+                                <circle cx="0" cy="20" r="25" class="activity-high"/>
+                                <text x="0" y="28" style="fill: white; font-size: 12px; text-anchor: middle; font-weight: bold;">HIGH</text>
+                                
+                                <!-- Hexagonal ring structure -->
+                                <path d="M -10,60 L 10,60 L 20,80 L 10,100 L -10,100 L -20,80 Z" class="molecule" stroke-width="3"/>
+                                
+                                <!-- Side chains -->
+                                <line x1="20" y1="80" x2="45" y2="80" class="molecule" stroke-width="3"/>
+                                <circle cx="50" cy="80" r="8" fill="#4CAF50" stroke="#333" stroke-width="2"/>
+                                <text x="50" y="84" style="font-size: 10px; text-anchor: middle; fill: white; font-weight: bold;">OH</text>
+                                
+                                <line x1="-20" y1="80" x2="-40" y2="80" class="molecule" stroke-width="3"/>
+                                <circle cx="-45" cy="80" r="8" fill="#2196F3" stroke="#333" stroke-width="2"/>
+                                <text x="-45" y="84" style="font-size: 10px; text-anchor: middle; fill: white; font-weight: bold;">N</text>
+                                
+                                <text x="0" y="135" style="font-size: 13px; text-anchor: middle; fill: #4CAF50; font-weight: bold;">IC₅₀ = 5 nM</text>
+                            </g>
+                            
+                            <!-- Arrow indicating similarity -->
+                            <g transform="translate(200, 100)">
+                                <rect x="-50" y="-15" width="100" height="30" fill="#FFF9C4" stroke="#FBC02D" stroke-width="2" rx="5"/>
+                                <text x="0" y="0" style="font-size: 12px; text-anchor: middle; fill: #F57F17; font-weight: bold;">95% Similar</text>
+                                <text x="0" y="15" style="font-size: 11px; text-anchor: middle; fill: #F57F17;">Single atom change</text>
+                            </g>
+                            
+                            <!-- Molecule B (Low Activity) -->
+                            <g transform="translate(320, 40)">
+                                <text x="0" y="-10" class="molecule-label" text-anchor="middle">Compound B</text>
+                                <circle cx="0" cy="20" r="25" class="activity-low"/>
+                                <text x="0" y="28" style="fill: white; font-size: 12px; text-anchor: middle; font-weight: bold;">LOW</text>
+                                
+                                <!-- Hexagonal ring structure -->
+                                <path d="M -10,60 L 10,60 L 20,80 L 10,100 L -10,100 L -20,80 Z" class="molecule" stroke-width="3"/>
+                                
+                                <!-- Side chains - different group -->
+                                <line x1="20" y1="80" x2="45" y2="80" class="molecule" stroke-width="3"/>
+                                <circle cx="50" cy="80" r="8" fill="#FF9800" stroke="#333" stroke-width="2"/>
+                                <text x="50" y="84" style="font-size: 10px; text-anchor: middle; fill: white; font-weight: bold;">CH₃</text>
+                                
+                                <line x1="-20" y1="80" x2="-40" y2="80" class="molecule" stroke-width="3"/>
+                                <circle cx="-45" cy="80" r="8" fill="#2196F3" stroke="#333" stroke-width="2"/>
+                                <text x="-45" y="84" style="font-size: 10px; text-anchor: middle; fill: white; font-weight: bold;">N</text>
+                                
+                                <text x="0" y="135" style="font-size: 13px; text-anchor: middle; fill: #F44336; font-weight: bold;">IC₅₀ = 5000 nM</text>
+                            </g>
+                            
+                            <!-- Impact indicator -->
+                            <g transform="translate(200, 210)">
+                                <rect x="-90" y="0" width="180" height="50" fill="#FFEBEE" stroke="#F44336" stroke-width="2" rx="8"/>
+                                <text x="0" y="20" style="font-size: 14px; text-anchor: middle; fill: #C62828; font-weight: bold;">1000-fold Activity Loss</text>
+                                <text x="0" y="38" style="font-size: 11px; text-anchor: middle; fill: #D32F2F;">OH → CH₃ substitution</text>
+                            </g>
+                            
+                            <!-- Explanation -->
+                            <g transform="translate(200, 290)">
+                                <text x="0" y="0" style="font-size: 12px; text-anchor: middle; fill: #666; font-weight: 600;">Activity Cliff Interpretation:</text>
+                                <text x="0" y="20" style="font-size: 11px; text-anchor: middle; fill: #666;">The hydroxyl group (OH) forms critical hydrogen bond</text>
+                                <text x="0" y="38" style="font-size: 11px; text-anchor: middle; fill: #666;">with target protein. Replacing with methyl (CH₃)</text>
+                                <text x="0" y="56" style="font-size: 11px; text-anchor: middle; fill: #666;">eliminates this interaction, drastically reducing potency.</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
             </div>
-            <div class="content-card">
-                <div class="content-main">Free energy perturbation</div>
-                <div class="content-desc">Physics-based predictions</div>
+            
+            <!-- Topic 2: Matched Pairs -->
+            <div class="topic-container">
+                <div class="topic-header">
+                    <div class="topic-number">2</div>
+                    <h2 class="topic-title">Matched Molecular Pairs (MMP)</h2>
+                </div>
+                
+                <div class="topic-content">
+                    <div class="content-text">
+                        <h3 class="section-heading">Definition & Methodology</h3>
+                        <p class="description">
+                            Matched Molecular Pair (MMP) analysis is a systematic approach to understanding structure-activity relationships by examining pairs of molecules that differ by a single well-defined structural transformation. This method provides a rigorous framework for quantifying the impact of specific chemical modifications on biological activity, ADME properties, or other molecular characteristics.
+                        </p>
+                        
+                        <p class="description">
+                            The power of MMP analysis lies in its ability to isolate the effect of individual structural changes while holding the rest of the molecule constant. By aggregating data from multiple matched pairs across different chemical series, researchers can derive general rules about the effects of specific transformations, such as the addition of a fluorine atom, methylation of a nitrogen, or replacement of a benzene ring with a pyridine.
+                        </p>
+                        
+                        <div class="key-points">
+                            <h4>Core Principles</h4>
+                            <ul>
+                                <li>Single structural transformation between pairs</li>
+                                <li>Systematic SAR knowledge extraction</li>
+                                <li>Context-dependent transformation effects</li>
+                                <li>Statistical aggregation across datasets</li>
+                                <li>Transferable medicinal chemistry insights</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="key-points">
+                            <h4>Applications</h4>
+                            <ul>
+                                <li>Property prediction (logP, solubility, permeability)</li>
+                                <li>Activity optimization strategies</li>
+                                <li>ADME property improvements</li>
+                                <li>Building design rules for medicinal chemistry</li>
+                                <li>Virtual screening prioritization</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="diagram-container">
+                        <div class="diagram-title">Matched Molecular Pair Analysis Workflow</div>
+                        <svg width="100%" height="380" viewBox="0 0 420 380">
+                            <defs>
+                                <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                                </marker>
+                            </defs>
+                            
+                            <!-- Step 1: Data Collection -->
+                            <g transform="translate(210, 30)">
+                                <rect x="-80" y="0" width="160" height="50" class="process-box"/>
+                                <text x="0" y="20" class="process-text" style="font-weight: bold;">1. Data Collection</text>
+                                <text x="0" y="38" class="process-text">Compound library with</text>
+                                <text x="0" y="50" class="process-text" style="font-size: 11px;">activity/property data</text>
+                            </g>
+                            
+                            <line x1="210" y1="80" x2="210" y2="100" class="arrow" marker-end="url(#arrowhead2)"/>
+                            
+                            <!-- Step 2: Pair Identification -->
+                            <g transform="translate(210, 110)">
+                                <rect x="-80" y="0" width="160" height="50" class="process-box"/>
+                                <text x="0" y="20" class="process-text" style="font-weight: bold;">2. Identify Pairs</text>
+                                <text x="0" y="38" class="process-text">Find molecules differing</text>
+                                <text x="0" y="50" class="process-text" style="font-size: 11px;">by single transformation</text>
+                            </g>
+                            
+                            <line x1="210" y1="160" x2="210" y2="180" class="arrow" marker-end="url(#arrowhead2)"/>
+                            
+                            <!-- Example Pairs -->
+                            <g transform="translate(100, 190)">
+                                <rect x="-85" y="0" width="170" height="70" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2" rx="6"/>
+                                <text x="0" y="18" style="font-size: 12px; text-anchor: middle; font-weight: bold; fill: #2E7D32;">Example Pair 1</text>
+                                <text x="0" y="35" style="font-size: 11px; text-anchor: middle; fill: #333;">R = H → R = CH₃</text>
+                                <text x="0" y="52" style="font-size: 11px; text-anchor: middle; fill: #1976D2;">Activity: 50 nM → 25 nM</text>
+                                <text x="0" y="66" style="font-size: 10px; text-anchor: middle; fill: #4CAF50; font-weight: bold;">Δ = 2× improvement</text>
+                            </g>
+                            
+                            <g transform="translate(320, 190)">
+                                <rect x="-85" y="0" width="170" height="70" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2" rx="6"/>
+                                <text x="0" y="18" style="font-size: 12px; text-anchor: middle; font-weight: bold; fill: #2E7D32;">Example Pair 2</text>
+                                <text x="0" y="35" style="font-size: 11px; text-anchor: middle; fill: #333;">R = H → R = CH₃</text>
+                                <text x="0" y="52" style="font-size: 11px; text-anchor: middle; fill: #1976D2;">Activity: 100 nM → 40 nM</text>
+                                <text x="0" y="66" style="font-size: 10px; text-anchor: middle; fill: #4CAF50; font-weight: bold;">Δ = 2.5× improvement</text>
+                            </g>
+                            
+                            <line x1="100" y1="270" x2="100" y2="285" class="arrow" marker-end="url(#arrowhead2)"/>
+                            <line x1="320" y1="270" x2="320" y2="285" class="arrow" marker-end="url(#arrowhead2)"/>
+                            <line x1="100" y1="290" x2="180" y2="290" class="arrow" marker-end="url(#arrowhead2)"/>
+                            <line x1="320" y1="290" x2="240" y2="290" class="arrow" marker-end="url(#arrowhead2)"/>
+                            
+                            <!-- Step 3: Aggregation -->
+                            <g transform="translate(210, 295)">
+                                <rect x="-90" y="0" width="180" height="60" class="process-box"/>
+                                <text x="0" y="20" class="process-text" style="font-weight: bold;">3. Aggregate & Analyze</text>
+                                <text x="0" y="38" class="process-text" style="font-size: 12px;">H → CH₃ transformation:</text>
+                                <text x="0" y="53" class="process-text" style="font-size: 11px; fill: #4CAF50; font-weight: bold;">Average 2.2× activity boost</text>
+                            </g>
+                            
+                            <line x1="210" y1="355" x2="210" y2="368" class="arrow" marker-end="url(#arrowhead2)"/>
+                            
+                            <!-- Insight -->
+                            <text x="210" y="382" style="font-size: 11px; text-anchor: middle; fill: #1E64C8; font-weight: bold;">Apply insight to new molecule designs</text>
+                        </svg>
+                    </div>
+                </div>
             </div>
-            <div class="content-card">
-                <div class="content-main">Active learning</div>
-                <div class="content-desc">Iterative experiment design</div>
+            
+            <!-- Topic 3: Free Energy Perturbation -->
+            <div class="topic-container">
+                <div class="topic-header">
+                    <div class="topic-number">3</div>
+                    <h2 class="topic-title">Free Energy Perturbation (FEP)</h2>
+                </div>
+                
+                <div class="topic-content">
+                    <div class="content-text">
+                        <h3 class="section-heading">Physics-Based Approach</h3>
+                        <p class="description">
+                            Free Energy Perturbation (FEP) is a rigorous computational method rooted in statistical mechanics that predicts binding free energies of molecules to their target proteins. Unlike empirical scoring functions, FEP calculations explicitly account for entropic and enthalpic contributions to binding, providing quantitative predictions of relative binding affinities with chemical accuracy (typically within 1 kcal/mol).
+                        </p>
+                        
+                        <p class="description">
+                            FEP works by computationally "alchemically" transforming one molecule into another while bound to the protein and in solution, calculating the free energy difference between these states. This approach leverages molecular dynamics simulations to sample conformational space and evaluate ensemble averages, making it particularly powerful for comparing closely related analogs where small structural changes need to be accurately assessed.
+                        </p>
+                        
+                        <div class="key-points">
+                            <h4>Technical Features</h4>
+                            <ul>
+                                <li>Alchemical transformation methodology</li>
+                                <li>Explicit solvent molecular dynamics</li>
+                                <li>Thermodynamic cycle calculations</li>
+                                <li>Chemical accuracy (±1 kcal/mol)</li>
+                                <li>Accounts for protein flexibility</li>
+                                <li>Considers entropic contributions</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="key-points">
+                            <h4>Applications & Advantages</h4>
+                            <ul>
+                                <li>Lead optimization prioritization</li>
+                                <li>Rank-ordering compound synthesis</li>
+                                <li>Understanding binding mechanisms</li>
+                                <li>Reducing experimental synthesis burden</li>
+                                <li>Complementary to experimental assays</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="diagram-container">
+                        <div class="diagram-title">Free Energy Perturbation: Thermodynamic Cycle</div>
+                        <svg width="100%" height="380" viewBox="0 0 420 380">
+                            <defs>
+                                <marker id="arrowhead3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                                </marker>
+                            </defs>
+                            
+                            <!-- Thermodynamic Cycle -->
+                            <!-- Top: Bound State -->
+                            <g transform="translate(80, 60)">
+                                <rect x="-60" y="-30" width="120" height="60" fill="#E3F2FD" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                                <text x="0" y="-5" class="process-text" style="font-weight: bold;">Ligand A</text>
+                                <text x="0" y="10" class="process-text" style="font-size: 11px;">Bound to Protein</text>
+                                <circle cx="-20" cy="5" r="8" fill="#4CAF50" opacity="0.7"/>
+                            </g>
+                            
+                            <g transform="translate(340, 60)">
+                                <rect x="-60" y="-30" width="120" height="60" fill="#E3F2FD" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                                <text x="0" y="-5" class="process-text" style="font-weight: bold;">Ligand B</text>
+                                <text x="0" y="10" class="process-text" style="font-size: 11px;">Bound to Protein</text>
+                                <circle cx="-20" cy="5" r="8" fill="#FF9800" opacity="0.7"/>
+                            </g>
+                            
+                            <!-- Horizontal arrow (alchemical transformation - bound) -->
+                            <line x1="140" y1="60" x2="280" y2="60" stroke="#FF5722" stroke-width="3" marker-end="url(#arrowhead3)"/>
+                            <text x="210" y="50" style="font-size: 12px; text-anchor: middle; fill: #D84315; font-weight: bold;">ΔG₁ (bound)</text>
+                            <text x="210" y="80" style="font-size: 10px; text-anchor: middle; fill: #666;">Alchemical transformation</text>
+                            
+                            <!-- Bottom: Unbound State -->
+                            <g transform="translate(80, 260)">
+                                <rect x="-60" y="-30" width="120" height="60" fill="#FFF3E0" stroke="#FF9800" stroke-width="2" rx="8"/>
+                                <text x="0" y="-5" class="process-text" style="font-weight: bold;">Ligand A</text>
+                                <text x="0" y="10" class="process-text" style="font-size: 11px;">Free in Solution</text>
+                                <circle cx="-20" cy="5" r="8" fill="#4CAF50" opacity="0.7"/>
+                            </g>
+                            
+                            <g transform="translate(340, 260)">
+                                <rect x="-60" y="-30" width="120" height="60" fill="#FFF3E0" stroke="#FF9800" stroke-width="2" rx="8"/>
+                                <text x="0" y="-5" class="process-text" style="font-weight: bold;">Ligand B</text>
+                                <text x="0" y="10" class="process-text" style="font-size: 11px;">Free in Solution</text>
+                                <circle cx="-20" cy="5" r="8" fill="#FF9800" opacity="0.7"/>
+                            </g>
+                            
+                            <!-- Horizontal arrow (alchemical transformation - unbound) -->
+                            <line x1="140" y1="260" x2="280" y2="260" stroke="#FF5722" stroke-width="3" marker-end="url(#arrowhead3)"/>
+                            <text x="210" y="250" style="font-size: 12px; text-anchor: middle; fill: #D84315; font-weight: bold;">ΔG₂ (solution)</text>
+                            <text x="210" y="280" style="font-size: 10px; text-anchor: middle; fill: #666;">Alchemical transformation</text>
+                            
+                            <!-- Vertical arrows (binding) -->
+                            <line x1="80" y1="90" x2="80" y2="230" stroke="#4CAF50" stroke-width="3" marker-end="url(#arrowhead3)"/>
+                            <text x="45" y="160" style="font-size: 12px; fill: #2E7D32; font-weight: bold;">ΔG_bind(A)</text>
+                            
+                            <line x1="340" y1="90" x2="340" y2="230" stroke="#4CAF50" stroke-width="3" marker-end="url(#arrowhead3)"/>
+                            <text x="375" y="160" style="font-size: 12px; fill: #2E7D32; font-weight: bold;">ΔG_bind(B)</text>
+                            
+                            <!-- Result box -->
+                            <g transform="translate(210, 330)">
+                                <rect x="-100" y="0" width="200" height="40" fill="#C8E6C9" stroke="#4CAF50" stroke-width="2" rx="6"/>
+                                <text x="0" y="18" style="font-size: 13px; text-anchor: middle; fill: #1B5E20; font-weight: bold;">ΔΔG = ΔG₁ - ΔG₂</text>
+                                <text x="0" y="33" style="font-size: 11px; text-anchor: middle; fill: #2E7D32;">Relative Binding Affinity</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
             </div>
-            <div class="content-card">
-                <div class="content-main">Experimental validation</div>
-                <div class="content-desc">Wet-lab confirmation</div>
+            
+            <!-- Topic 4: Active Learning -->
+            <div class="topic-container">
+                <div class="topic-header">
+                    <div class="topic-number">4</div>
+                    <h2 class="topic-title">Active Learning</h2>
+                </div>
+                
+                <div class="topic-content">
+                    <div class="content-text">
+                        <h3 class="section-heading">Iterative Optimization Strategy</h3>
+                        <p class="description">
+                            Active learning represents a paradigm shift in drug discovery by intelligently selecting which compounds to test next based on their potential to maximize information gain. Rather than randomly screening large libraries or relying solely on chemist intuition, active learning algorithms identify molecules that are most likely to improve our understanding of the structure-activity landscape, reduce model uncertainty, or explore promising but undersampled chemical space.
+                        </p>
+                        
+                        <p class="description">
+                            The approach combines machine learning models with strategic experimental design. After each round of testing, the model is retrained with new data, and its predictions become more accurate. The algorithm then identifies the next batch of compounds to synthesize and test, focusing on areas where the model is most uncertain or where potential for high activity is greatest. This closed-loop approach dramatically reduces the number of experiments needed to identify optimal compounds.
+                        </p>
+                        
+                        <div class="key-points">
+                            <h4>Core Concepts</h4>
+                            <ul>
+                                <li>Exploitation vs. Exploration balance</li>
+                                <li>Uncertainty-based compound selection</li>
+                                <li>Model-driven experimental design</li>
+                                <li>Iterative model refinement</li>
+                                <li>Efficient chemical space navigation</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="key-points">
+                            <h4>Benefits</h4>
+                            <ul>
+                                <li>Reduced experimental costs and time</li>
+                                <li>Faster convergence to optimal compounds</li>
+                                <li>Better exploration of chemical space</li>
+                                <li>Data-efficient optimization</li>
+                                <li>Adaptable to changing objectives</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="diagram-container">
+                        <div class="diagram-title">Active Learning Cycle in Drug Discovery</div>
+                        <svg width="100%" height="380" viewBox="0 0 420 380">
+                            <defs>
+                                <marker id="arrowhead4" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                                </marker>
+                            </defs>
+                            
+                            <!-- Central concept -->
+                            <circle cx="210" cy="190" r="50" fill="#E3F2FD" stroke="#1E64C8" stroke-width="3"/>
+                            <text x="210" y="188" style="font-size: 14px; text-anchor: middle; fill: #1E64C8; font-weight: bold;">Active</text>
+                            <text x="210" y="205" style="font-size: 14px; text-anchor: middle; fill: #1E64C8; font-weight: bold;">Learning</text>
+                            
+                            <!-- Step 1: Initial Data -->
+                            <g transform="translate(210, 50)">
+                                <rect x="-70" y="-25" width="140" height="50" class="process-box"/>
+                                <text x="0" y="-5" class="process-text" style="font-weight: bold;">1. Initial Dataset</text>
+                                <text x="0" y="10" class="process-text" style="font-size: 11px;">Small set of tested</text>
+                                <text x="0" y="23" class="process-text" style="font-size: 11px;">compounds</text>
+                            </g>
+                            <line x1="210" y1="75" x2="210" y2="125" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead4)"/>
+                            <text x="230" y="105" style="font-size: 11px; fill: #666;">Train model</text>
+                            
+                            <!-- Step 2: Model Prediction -->
+                            <g transform="translate(370, 190)">
+                                <rect x="-70" y="-25" width="140" height="50" class="process-box"/>
+                                <text x="0" y="-5" class="process-text" style="font-weight: bold;">2. ML Model</text>
+                                <text x="0" y="10" class="process-text" style="font-size: 11px;">Predict activities &</text>
+                                <text x="0" y="23" class="process-text" style="font-size: 11px;">uncertainties</text>
+                            </g>
+                            <path d="M 260 190 L 300 190" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead4)"/>
+                            
+                            <!-- Step 3: Acquisition Function -->
+                            <g transform="translate(210, 330)">
+                                <rect x="-70" y="-25" width="140" height="50" class="process-box"/>
+                                <text x="0" y="-5" class="process-text" style="font-weight: bold;">3. Select Next</text>
+                                <text x="0" y="10" class="process-text" style="font-size: 11px;">High uncertainty or</text>
+                                <text x="0" y="23" class="process-text" style="font-size: 11px;">high potential</text>
+                            </g>
+                            <path d="M 310 215 Q 340 260 280 315" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead4)"/>
+                            <text x="325" y="270" style="font-size: 11px; fill: #666;">Acquisition</text>
+                            <text x="325" y="283" style="font-size: 11px; fill: #666;">function</text>
+                            
+                            <!-- Step 4: Experimental Testing -->
+                            <g transform="translate(50, 190)">
+                                <rect x="-70" y="-25" width="140" height="50" class="process-box"/>
+                                <text x="0" y="-5" class="process-text" style="font-weight: bold;">4. Experiment</text>
+                                <text x="0" y="10" class="process-text" style="font-size: 11px;">Test selected</text>
+                                <text x="0" y="23" class="process-text" style="font-size: 11px;">compounds</text>
+                            </g>
+                            <path d="M 140 315 Q 80 260 110 215" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead4)"/>
+                            <text x="75" y="270" style="font-size: 11px; fill: #666;">Synthesize &</text>
+                            <text x="75" y="283" style="font-size: 11px; fill: #666;">assay</text>
+                            
+                            <!-- Back to training -->
+                            <path d="M 110 165 Q 80 100 140 65" stroke="#4CAF50" stroke-width="3" marker-end="url(#arrowhead4)"/>
+                            <text x="75" y="115" style="font-size: 12px; fill: #2E7D32; font-weight: bold;">Add new</text>
+                            <text x="75" y="130" style="font-size: 12px; fill: #2E7D32; font-weight: bold;">data</text>
+                            
+                            <!-- Iteration indicator -->
+                            <g transform="translate(210, 370)">
+                                <text x="0" y="0" style="font-size: 13px; text-anchor: middle; fill: #FF5722; font-weight: bold;">Iterate until convergence</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
             </div>
+            
+            <!-- Topic 5: Experimental Validation -->
+            <div class="topic-container">
+                <div class="topic-header">
+                    <div class="topic-number">5</div>
+                    <h2 class="topic-title">Experimental Validation</h2>
+                </div>
+                
+                <div class="topic-content">
+                    <div class="content-text">
+                        <h3 class="section-heading">Wet-Lab Confirmation</h3>
+                        <p class="description">
+                            Experimental validation is the critical final step that bridges computational predictions with biological reality. No matter how sophisticated the computational methods, drug discovery ultimately depends on empirical confirmation through well-designed biochemical and cellular assays. Experimental validation not only confirms predictions but also provides essential feedback to refine computational models and improve future predictions.
+                        </p>
+                        
+                        <p class="description">
+                            A comprehensive validation strategy typically involves multiple tiers of assays, starting with target-based biochemical assays (IC₅₀, Ki), progressing through cell-based phenotypic screens, and ultimately advancing to in vivo studies in animal models. Each tier provides increasingly complex and biologically relevant information, helping to identify not just active compounds but those with the right balance of potency, selectivity, and drug-like properties necessary for therapeutic development.
+                        </p>
+                        
+                        <div class="key-points">
+                            <h4>Validation Hierarchy</h4>
+                            <ul>
+                                <li>Biochemical assays (binding, inhibition)</li>
+                                <li>Cell-based functional assays</li>
+                                <li>ADME profiling (absorption, metabolism, etc.)</li>
+                                <li>Safety and toxicity screening</li>
+                                <li>In vivo efficacy studies</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="key-points">
+                            <h4>Key Considerations</h4>
+                            <ul>
+                                <li>Assay reproducibility and robustness</li>
+                                <li>Appropriate positive/negative controls</li>
+                                <li>Statistical significance assessment</li>
+                                <li>Orthogonal validation methods</li>
+                                <li>Translation to physiological relevance</li>
+                                <li>Feedback loop to computational models</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="diagram-container">
+                        <div class="diagram-title">Experimental Validation Pipeline</div>
+                        <svg width="100%" height="380" viewBox="0 0 420 380">
+                            <defs>
+                                <marker id="arrowhead5" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                                </marker>
+                            </defs>
+                            
+                            <!-- Stage 1: Computational Prediction -->
+                            <g transform="translate(210, 30)">
+                                <rect x="-85" y="0" width="170" height="45" fill="#E3F2FD" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                                <text x="0" y="18" class="process-text" style="font-weight: bold; font-size: 12px;">Computational Prediction</text>
+                                <text x="0" y="35" class="process-text" style="font-size: 11px;">Virtual screening, docking, FEP</text>
+                            </g>
+                            <line x1="210" y1="75" x2="210" y2="95" class="arrow" marker-end="url(#arrowhead5)"/>
+                            <text x="250" y="88" style="font-size: 10px; fill: #666;">Prioritize</text>
+                            
+                            <!-- Stage 2: Biochemical Assays -->
+                            <g transform="translate(210, 100)">
+                                <rect x="-85" y="0" width="170" height="55" fill="#FFF3E0" stroke="#FF9800" stroke-width="2" rx="8"/>
+                                <text x="0" y="18" class="process-text" style="font-weight: bold; font-size: 12px;">Tier 1: Biochemical</text>
+                                <text x="0" y="33" class="process-text" style="font-size: 10px;">IC₅₀, K_d, enzyme inhibition</text>
+                                <text x="0" y="47" class="process-text" style="font-size: 10px;">Target engagement</text>
+                            </g>
+                            
+                            <!-- Decision diamond -->
+                            <g transform="translate(210, 180)">
+                                <path d="M 0,-20 L 25,0 L 0,20 L -25,0 Z" fill="#FFF9C4" stroke="#FBC02D" stroke-width="2"/>
+                                <text x="0" y="5" style="font-size: 10px; text-anchor: middle; fill: #F57F17; font-weight: bold;">Active?</text>
+                            </g>
+                            
+                            <line x1="235" y1="180" x2="320" y2="180" stroke="#F44336" stroke-width="2"/>
+                            <text x="280" y="175" style="font-size: 10px; fill: #C62828; font-weight: bold;">No - Discard</text>
+                            
+                            <line x1="210" y1="200" x2="210" y2="220" stroke="#4CAF50" stroke-width="2" marker-end="url(#arrowhead5)"/>
+                            <text x="230" y="212" style="font-size: 10px; fill: #2E7D32; font-weight: bold;">Yes</text>
+                            
+                            <!-- Stage 3: Cell-Based Assays -->
+                            <g transform="translate(210, 225)">
+                                <rect x="-85" y="0" width="170" height="55" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2" rx="8"/>
+                                <text x="0" y="18" class="process-text" style="font-weight: bold; font-size: 12px;">Tier 2: Cell-Based</text>
+                                <text x="0" y="33" class="process-text" style="font-size: 10px;">Functional assays, phenotype</text>
+                                <text x="0" y="47" class="process-text" style="font-size: 10px;">Cytotoxicity, selectivity</text>
+                            </g>
+                            <line x1="210" y1="280" x2="210" y2="300" class="arrow" marker-end="url(#arrowhead5)"/>
+                            
+                            <!-- Stage 4: In Vivo Studies -->
+                            <g transform="translate(210, 305)">
+                                <rect x="-85" y="0" width="170" height="55" fill="#F3E5F5" stroke="#9C27B0" stroke-width="2" rx="8"/>
+                                <text x="0" y="18" class="process-text" style="font-weight: bold; font-size: 12px;">Tier 3: In Vivo</text>
+                                <text x="0" y="33" class="process-text" style="font-size: 10px;">Animal models, PK/PD</text>
+                                <text x="0" y="47" class="process-text" style="font-size: 10px;">Efficacy, safety</text>
+                            </g>
+                            
+                            <!-- Feedback loop -->
+                            <path d="M 125 340 Q 40 340 40 190 Q 40 80 125 45" stroke="#1E64C8" stroke-width="2" stroke-dasharray="5,5" marker-end="url(#arrowhead5)"/>
+                            <text x="20" y="190" style="font-size: 11px; fill: #1E64C8; font-weight: bold; writing-mode: tb;">Feedback to model</text>
+                            
+                            <!-- Success indicator -->
+                            <g transform="translate(340, 340)">
+                                <circle cx="0" cy="0" r="30" fill="#C8E6C9" stroke="#4CAF50" stroke-width="2"/>
+                                <text x="0" y="-8" style="font-size: 11px; text-anchor: middle; fill: #1B5E20; font-weight: bold;">Lead</text>
+                                <text x="0" y="5" style="font-size: 11px; text-anchor: middle; fill: #1B5E20; font-weight: bold;">Compound</text>
+                                <text x="0" y="18" style="font-size: 10px; text-anchor: middle; fill: #2E7D32;">✓</text>
+                            </g>
+                            <line x1="295" y1="335" x2="310" y2="340" stroke="#4CAF50" stroke-width="2" marker-end="url(#arrowhead5)"/>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Footer -->
+        <div style="background: #f8f9fa; padding: 30px; text-align: center; border-top: 2px solid #e0e0e0;">
+            <p style="color: #666; font-size: 14px; margin-bottom: 10px;">
+                Bioactivity prediction integrates computational and experimental approaches to accelerate drug discovery
+            </p>
+            <p style="color: #999; font-size: 12px;">
+                These methodologies work synergistically to identify and optimize therapeutic candidates efficiently
+            </p>
         </div>
     </div>
 </body>

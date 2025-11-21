@@ -1,70 +1,316 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Biomarker Discovery</title>
+    <title>Biomarker Discovery - Enhanced</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 40px 20px;
         }
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 35px 45px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .title {
-            font-size: 20px;
-            font-weight: 600;
+            font-size: 32px;
+            font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 25px;
+            margin-bottom: 40px;
             text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 15px;
         }
         .content-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 25px;
+            margin-bottom: 50px;
         }
         .content-card {
             background: #f8fbff;
             border-left: 4px solid #1E64C8;
-            padding: 18px 22px;
-            border-radius: 6px;
+            padding: 20px 25px;
+            border-radius: 8px;
             transition: all 0.3s;
         }
         .content-card:hover {
             background: #e8f2ff;
             transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(30, 100, 200, 0.15);
         }
         .card-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .card-content {
             font-size: 16px;
             color: #333;
-            line-height: 1.5;
+            line-height: 1.6;
         }
         .bullet {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         .bullet::before {
             content: "•";
             color: #1E64C8;
             font-weight: bold;
-            margin-right: 8px;
+            margin-right: 10px;
+            font-size: 18px;
+        }
+        
+        /* Detailed Section Styles */
+        .detailed-section {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 2px solid #e0e0e0;
+        }
+        .section-header {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+        .section-number {
+            background: #1E64C8;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        .section-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .description {
+            background: #f9f9f9;
+            padding: 25px;
+            border-radius: 8px;
+            line-height: 1.8;
+            font-size: 15px;
+        }
+        .description h4 {
+            color: #1E64C8;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        .description p {
+            margin-bottom: 12px;
+            color: #444;
+        }
+        .description ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        .description li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+        .visualization {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .viz-title {
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 20px;
             font-size: 16px;
+        }
+        
+        /* Study Design Visualization */
+        .study-design-viz {
+            width: 100%;
+        }
+        .group-container {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .group {
+            text-align: center;
+        }
+        .group-box {
+            width: 120px;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+        .case-group {
+            background: #ffebee;
+            border: 2px solid #e57373;
+        }
+        .control-group {
+            background: #e8f5e9;
+            border: 2px solid #81c784;
+        }
+        .group-label {
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 14px;
+        }
+        .sample-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 5px;
+        }
+        .sample-dot {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: #666;
+        }
+        
+        /* Statistical Analysis Visualization */
+        .stats-viz {
+            width: 100%;
+        }
+        .stats-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .stats-row {
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            padding: 12px;
+            border-radius: 6px;
+            border-left: 4px solid #1E64C8;
+        }
+        .stats-label {
+            flex: 1;
+            font-weight: 600;
+            color: #333;
+            font-size: 14px;
+        }
+        .stats-bar {
+            flex: 2;
+            height: 20px;
+            background: linear-gradient(90deg, #1E64C8, #64b5f6);
+            border-radius: 4px;
+        }
+        
+        /* Validation Visualization */
+        .validation-viz {
+            width: 100%;
+        }
+        .validation-flow {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        .validation-stage {
+            background: #f0f7ff;
+            padding: 15px;
+            border-radius: 8px;
+            border: 2px solid #1E64C8;
+            text-align: center;
+            font-weight: 600;
+            position: relative;
+        }
+        .validation-stage::after {
+            content: '↓';
+            position: absolute;
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+            color: #1E64C8;
+        }
+        .validation-stage:last-child::after {
+            display: none;
+        }
+        
+        /* ROC Curve Visualization */
+        .roc-viz {
+            width: 100%;
+        }
+        .roc-plot {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            border: 2px solid #333;
+            background: white;
+        }
+        .roc-curve {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        .axis-label {
+            position: absolute;
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+        }
+        .x-axis-label {
+            bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
+        }
+        .y-axis-label {
+            top: 50%;
+            left: -40px;
+            transform: translateY(-50%) rotate(-90deg);
+        }
+        .diagonal-line {
+            position: absolute;
+            width: 141%;
+            height: 2px;
+            background: #999;
+            border: 1px dashed #999;
+            transform: rotate(45deg);
+            transform-origin: 0 0;
+            top: 100%;
+            left: 0;
+        }
+        .roc-curve-path {
+            position: absolute;
+            width: 70%;
+            height: 70%;
+            border: 3px solid #1E64C8;
+            border-left: none;
+            border-bottom: none;
+            border-radius: 0 100% 0 0;
+            bottom: 0;
+            left: 0;
+        }
+        .auc-label {
+            position: absolute;
+            top: 40%;
+            right: 20%;
+            background: rgba(30, 100, 200, 0.1);
+            padding: 8px 12px;
+            border-radius: 4px;
+            font-size: 12px;
+            font-weight: 600;
+            color: #1E64C8;
         }
     </style>
 </head>
@@ -108,7 +354,244 @@
                     <div class="bullet">Diagnostic performance evaluation</div>
                 </div>
             </div>
-            
+        </div>
+
+        <!-- Detailed Section 1: Study Design -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                Study Design - Foundation of Biomarker Discovery
+            </div>
+            <div class="section-content">
+                <div class="description">
+                    <h4>Key Principles</h4>
+                    <p><strong>Case-Control Studies:</strong> The most common design for biomarker discovery, comparing individuals with a disease (cases) to healthy individuals (controls). This design enables identification of molecular differences associated with disease states.</p>
+                    
+                    <p><strong>Sample Size Considerations:</strong> Adequate statistical power requires careful calculation based on expected effect size. Generally, 30-50 samples per group minimum for discovery phase, with larger numbers needed for subtle biomarkers.</p>
+                    
+                    <p><strong>Biological Replicates:</strong> Essential for distinguishing true biological variation from technical noise. Each biological sample should be analyzed independently to ensure reproducibility.</p>
+                    
+                    <ul>
+                        <li><strong>Matching criteria:</strong> Age, sex, BMI, ethnicity</li>
+                        <li><strong>Sample collection:</strong> Standardized protocols, time of day, fasting status</li>
+                        <li><strong>Storage conditions:</strong> Temperature, freeze-thaw cycles</li>
+                        <li><strong>Clinical metadata:</strong> Comprehensive phenotypic data collection</li>
+                    </ul>
+                </div>
+                <div class="visualization">
+                    <div class="viz-title">Case-Control Study Design</div>
+                    <div class="study-design-viz">
+                        <div class="group-container">
+                            <div class="group">
+                                <div class="group-box case-group">
+                                    <div class="group-label">Cases (n=50)</div>
+                                    <div class="sample-grid">
+                                        <div class="sample-dot" style="background: #e57373;"></div>
+                                        <div class="sample-dot" style="background: #e57373;"></div>
+                                        <div class="sample-dot" style="background: #e57373;"></div>
+                                        <div class="sample-dot" style="background: #e57373;"></div>
+                                        <div class="sample-dot" style="background: #e57373;"></div>
+                                        <div class="sample-dot" style="background: #e57373;"></div>
+                                    </div>
+                                </div>
+                                <div style="font-size: 12px; color: #666;">Disease Patients</div>
+                            </div>
+                            <div class="group">
+                                <div class="group-box control-group">
+                                    <div class="group-label">Controls (n=50)</div>
+                                    <div class="sample-grid">
+                                        <div class="sample-dot" style="background: #81c784;"></div>
+                                        <div class="sample-dot" style="background: #81c784;"></div>
+                                        <div class="sample-dot" style="background: #81c784;"></div>
+                                        <div class="sample-dot" style="background: #81c784;"></div>
+                                        <div class="sample-dot" style="background: #81c784;"></div>
+                                        <div class="sample-dot" style="background: #81c784;"></div>
+                                    </div>
+                                </div>
+                                <div style="font-size: 12px; color: #666;">Healthy Individuals</div>
+                            </div>
+                        </div>
+                        <div style="text-align: center; margin-top: 20px; padding: 15px; background: #fff3e0; border-radius: 6px;">
+                            <div style="font-weight: 600; margin-bottom: 8px; color: #e65100;">Critical Matching Factors</div>
+                            <div style="font-size: 13px; color: #666;">Age • Sex • BMI • Ethnicity • Comorbidities</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 2: Statistical Analysis -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                Statistical Analysis - Extracting Meaningful Signals
+            </div>
+            <div class="section-content">
+                <div class="description">
+                    <h4>Analytical Approaches</h4>
+                    <p><strong>Univariate Tests:</strong> Individual feature analysis using t-tests for two-group comparisons or ANOVA for multiple groups. Provides fold-change and p-values for each metabolite/protein/gene.</p>
+                    
+                    <p><strong>Multivariate Methods:</strong> Analyze multiple variables simultaneously to identify patterns. PCA (Principal Component Analysis) reduces dimensionality for visualization, while PLS-DA (Partial Least Squares Discriminant Analysis) maximizes group separation.</p>
+                    
+                    <p><strong>Multiple Testing Correction:</strong> Essential when testing thousands of features simultaneously. Methods include:</p>
+                    
+                    <ul>
+                        <li><strong>Bonferroni correction:</strong> Most stringent, controls family-wise error rate</li>
+                        <li><strong>FDR (Benjamini-Hochberg):</strong> Controls false discovery rate, less conservative</li>
+                        <li><strong>Permutation testing:</strong> Empirical p-value assessment</li>
+                        <li><strong>q-values:</strong> Minimum FDR at which a feature is significant</li>
+                    </ul>
+                    
+                    <p>Typical significance threshold: p &lt; 0.05, q &lt; 0.05, fold-change &gt; 1.5</p>
+                </div>
+                <div class="visualization">
+                    <div class="viz-title">Statistical Analysis Workflow</div>
+                    <div class="stats-viz">
+                        <div class="stats-diagram">
+                            <div class="stats-row">
+                                <div class="stats-label">1. Univariate (t-test)</div>
+                                <div class="stats-bar" style="width: 60%;"></div>
+                            </div>
+                            <div style="text-align: center; font-size: 12px; color: #666; margin: -8px 0;">↓</div>
+                            <div class="stats-row">
+                                <div class="stats-label">2. Multivariate (PCA)</div>
+                                <div class="stats-bar" style="width: 75%;"></div>
+                            </div>
+                            <div style="text-align: center; font-size: 12px; color: #666; margin: -8px 0;">↓</div>
+                            <div class="stats-row">
+                                <div class="stats-label">3. PLS-DA Classification</div>
+                                <div class="stats-bar" style="width: 85%;"></div>
+                            </div>
+                            <div style="text-align: center; font-size: 12px; color: #666; margin: -8px 0;">↓</div>
+                            <div class="stats-row">
+                                <div class="stats-label">4. FDR Correction</div>
+                                <div class="stats-bar" style="width: 90%;"></div>
+                            </div>
+                            <div style="text-align: center; font-size: 12px; color: #666; margin: -8px 0;">↓</div>
+                            <div style="background: #e8f5e9; padding: 15px; border-radius: 6px; text-align: center; font-weight: 600; color: #2e7d32; border: 2px solid #81c784;">
+                                Candidate Biomarkers Identified
+                            </div>
+                        </div>
+                        <div style="margin-top: 15px; padding: 12px; background: #f3e5f5; border-radius: 6px; font-size: 12px;">
+                            <strong style="color: #6a1b9a;">Note:</strong> Multiple testing correction reduces false positives when analyzing thousands of features simultaneously
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 3: Validation Cohorts -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                Validation Cohorts - Ensuring Biomarker Robustness
+            </div>
+            <div class="section-content">
+                <div class="description">
+                    <h4>Validation Strategy</h4>
+                    <p><strong>Independent Sample Sets:</strong> Biomarkers must be validated in completely independent cohorts that were not used during discovery. This prevents overfitting and ensures generalizability.</p>
+                    
+                    <p><strong>Cross-Population Validation:</strong> Testing in diverse populations (different ethnicities, geographic locations, clinical sites) ensures biomarker applicability across broad populations and identifies potential confounders.</p>
+                    
+                    <p><strong>Avoiding Overfitting:</strong> The curse of dimensionality in omics data (more features than samples) can lead to spurious correlations. Validation in independent cohorts is the gold standard for confirming true biological signals.</p>
+                    
+                    <ul>
+                        <li><strong>Discovery cohort:</strong> Initial biomarker identification (n=50-100)</li>
+                        <li><strong>Verification cohort:</strong> Targeted validation (n=100-200)</li>
+                        <li><strong>Validation cohort:</strong> Independent confirmation (n=200-500)</li>
+                        <li><strong>Clinical utility:</strong> Prospective testing in clinical settings</li>
+                    </ul>
+                    
+                    <p>Each validation stage increases confidence in biomarker clinical utility.</p>
+                </div>
+                <div class="visualization">
+                    <div class="viz-title">Biomarker Validation Pipeline</div>
+                    <div class="validation-viz">
+                        <div class="validation-flow">
+                            <div class="validation-stage" style="background: #ffebee; border-color: #e57373;">
+                                <strong>Discovery Phase</strong>
+                                <div style="font-size: 12px; margin-top: 5px;">n = 50-100 samples</div>
+                                <div style="font-size: 11px; color: #666;">Identify candidate biomarkers</div>
+                            </div>
+                            
+                            <div class="validation-stage" style="background: #fff3e0; border-color: #ffb74d;">
+                                <strong>Verification Phase</strong>
+                                <div style="font-size: 12px; margin-top: 5px;">n = 100-200 samples</div>
+                                <div style="font-size: 11px; color: #666;">Targeted confirmation</div>
+                            </div>
+                            
+                            <div class="validation-stage" style="background: #e8f5e9; border-color: #81c784;">
+                                <strong>Validation Phase</strong>
+                                <div style="font-size: 12px; margin-top: 5px;">n = 200-500 samples</div>
+                                <div style="font-size: 11px; color: #666;">Independent cohort testing</div>
+                            </div>
+                            
+                            <div class="validation-stage" style="background: #e3f2fd; border-color: #64b5f6;">
+                                <strong>Clinical Utility Phase</strong>
+                                <div style="font-size: 12px; margin-top: 5px;">n = 500+ samples</div>
+                                <div style="font-size: 11px; color: #666;">Prospective clinical testing</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 25px; padding: 12px; background: #fce4ec; border-radius: 6px; font-size: 12px; text-align: center;">
+                            <strong style="color: #c2185b;">Success Rate:</strong> ~5-10% of discovery biomarkers reach clinical validation
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 4: ROC Analysis -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                ROC Analysis - Evaluating Diagnostic Performance
+            </div>
+            <div class="section-content">
+                <div class="description">
+                    <h4>Performance Metrics</h4>
+                    <p><strong>ROC Curve:</strong> Receiver Operating Characteristic curve plots True Positive Rate (sensitivity) vs False Positive Rate (1-specificity) at various threshold settings. Provides visual assessment of biomarker discriminatory ability.</p>
+                    
+                    <p><strong>AUC Interpretation:</strong> Area Under the Curve quantifies overall diagnostic accuracy:</p>
+                    
+                    <ul>
+                        <li><strong>AUC = 1.0:</strong> Perfect classification</li>
+                        <li><strong>AUC = 0.9-1.0:</strong> Excellent diagnostic performance</li>
+                        <li><strong>AUC = 0.8-0.9:</strong> Good diagnostic performance</li>
+                        <li><strong>AUC = 0.7-0.8:</strong> Acceptable performance</li>
+                        <li><strong>AUC = 0.5:</strong> No better than random chance</li>
+                    </ul>
+                    
+                    <p><strong>Clinical Considerations:</strong> Optimal threshold selection depends on clinical context. Screening tests prioritize sensitivity (minimize false negatives), while confirmatory tests prioritize specificity (minimize false positives).</p>
+                    
+                    <p><strong>Additional Metrics:</strong> Positive/negative predictive values, likelihood ratios, and Youden's index help determine clinical utility in specific populations.</p>
+                </div>
+                <div class="visualization">
+                    <div class="viz-title">ROC Curve Analysis</div>
+                    <div class="roc-viz">
+                        <div class="roc-plot">
+                            <div class="diagonal-line"></div>
+                            <div class="roc-curve-path"></div>
+                            <div class="auc-label">AUC = 0.85</div>
+                            <div class="axis-label y-axis-label">True Positive Rate (Sensitivity)</div>
+                            <div class="axis-label x-axis-label">False Positive Rate (1-Specificity)</div>
+                            <div style="position: absolute; top: 5px; left: 5px; font-size: 11px; color: #666;">1.0</div>
+                            <div style="position: absolute; bottom: 5px; left: 5px; font-size: 11px; color: #666;">0.0</div>
+                            <div style="position: absolute; bottom: 5px; right: 5px; font-size: 11px; color: #666;">1.0</div>
+                            <div style="position: absolute; top: 5px; right: 5px; font-size: 11px; color: #666;">0.0</div>
+                        </div>
+                        <div style="margin-top: 35px; padding: 12px; background: #e1f5fe; border-radius: 6px; font-size: 12px;">
+                            <strong style="color: #01579b;">Interpretation:</strong> The blue curve represents biomarker performance. Area under curve (AUC) of 0.85 indicates good diagnostic accuracy. Dashed line represents random chance (AUC = 0.5).
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 50px; padding: 25px; background: #f5f5f5; border-radius: 8px; border-left: 4px solid #1E64C8;">
+            <h3 style="color: #1E64C8; margin-bottom: 15px;">Summary: The Biomarker Discovery Pipeline</h3>
+            <p style="line-height: 1.8; color: #444;">
+                Successful biomarker discovery requires rigorous study design, appropriate statistical methods, independent validation, and thorough performance evaluation. Each stage builds confidence in biomarker clinical utility, with only a small fraction of discovery candidates ultimately reaching clinical implementation. The integration of these four key components ensures that identified biomarkers are reproducible, generalizable, and clinically meaningful for disease diagnosis, prognosis, or treatment monitoring.
+            </p>
         </div>
     </div>
 </body>

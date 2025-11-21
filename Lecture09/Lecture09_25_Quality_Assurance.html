@@ -271,7 +271,385 @@
                 <div class="concept-desc">Iterative model updates. A/B testing of model versions</div>
             </div>
         
+        
+        
+        <!-- DETAILED SECTIONS START HERE -->
+        <div class="section-divider" style="height: 3px; background: linear-gradient(to right, #1E64C8, #66a3ff, #1E64C8); margin: 50px 0 30px 0; border-radius: 2px;"></div>
+
+        <div style="font-size: 22px; font-weight: 700; color: #1E64C8; margin: 30px 0 20px 0; text-align: center;">
+            Detailed Analysis of Quality Assurance Components
         </div>
+
+        <!-- 1. PERFORMANCE MONITORING -->
+        <div style="margin-bottom: 40px;">
+            <div style="font-size: 20px; font-weight: 700; color: #1E64C8; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid #1E64C8;">
+                1. Performance Monitoring - Deep Dive
+            </div>
+            
+            <div style="background: #f8fbff; border-left: 4px solid #1E64C8; padding: 20px; margin-bottom: 20px; border-radius: 5px;">
+                <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 12px;">
+                    What is Performance Monitoring?
+                </div>
+                <div style="font-size: 14px; color: #555; line-height: 1.7; margin-bottom: 15px;">
+                    Performance monitoring is the continuous tracking of AI model behavior in production. It involves measuring key metrics over time, comparing against baselines, and detecting degradation before it impacts patient care. Unlike one-time validation, monitoring provides ongoing surveillance to ensure consistent quality.
+                </div>
+
+                <div style="background: white; border: 2px solid #66a3ff; border-radius: 6px; padding: 15px; margin: 15px 0;">
+                    <div style="font-size: 15px; font-weight: 600; color: #1E64C8; margin-bottom: 10px;">
+                        💡 Real-World Example: Chest X-Ray Pneumonia Detection
+                    </div>
+                    <div style="font-size: 13px; color: #555; line-height: 1.6;">
+                        <strong>Scenario:</strong> Hospital deploys pneumonia detection AI with 96% validation accuracy<br><br>
+                        <strong>Week 1-8:</strong> Stable at 95.5-96.2% accuracy ✓<br>
+                        <strong>Week 9-10:</strong> Drops to 93.8% - warning alert triggered ⚠️<br>
+                        <strong>Week 11:</strong> Falls to 91.2% - critical alert 🚨<br><br>
+                        <strong>Investigation revealed:</strong> New CT scanner produced images with different contrast<br>
+                        <strong>Action taken:</strong> Recalibrated preprocessing, performance recovered to 95.8%<br>
+                        <strong>Impact:</strong> Issue caught before affecting patient care significantly
+                    </div>
+                </div>
+
+                <div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 15px; margin: 15px 0; border-radius: 5px;">
+                    <div style="font-size: 15px; font-weight: 600; color: #f57c00; margin-bottom: 10px;">
+                        🔑 Key Metrics to Monitor
+                    </div>
+                    <ul style="margin-left: 20px; color: #555; font-size: 13px; line-height: 1.8;">
+                        <li><strong>Accuracy:</strong> Overall correctness - primary indicator of model health</li>
+                        <li><strong>Sensitivity (Recall):</strong> Ability to catch positive cases - critical for patient safety</li>
+                        <li><strong>Specificity:</strong> Ability to correctly identify negatives - reduces false alarms</li>
+                        <li><strong>Precision (PPV):</strong> Accuracy of positive predictions - impacts clinician trust</li>
+                        <li><strong>AUC-ROC:</strong> Overall discriminative ability across all thresholds</li>
+                        <li><strong>Inference Latency:</strong> Prediction time - impacts clinical workflow</li>
+                        <li><strong>Confidence Calibration:</strong> Whether predicted probabilities match actual outcomes</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- 2. DRIFT DETECTION -->
+        <div style="margin-bottom: 40px;">
+            <div style="font-size: 20px; font-weight: 700; color: #1E64C8; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid #1E64C8;">
+                2. Drift Detection - Understanding Changes
+            </div>
+            
+            <div style="background: #f8fbff; border-left: 4px solid #1E64C8; padding: 20px; margin-bottom: 20px; border-radius: 5px;">
+                <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 12px;">
+                    Three Types of Drift
+                </div>
+
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; margin: 20px 0;">
+                    <div style="background: white; border: 2px solid #28a745; border-radius: 6px; padding: 12px;">
+                        <div style="font-size: 14px; font-weight: 600; color: #28a745; margin-bottom: 8px;">📊 Input Drift</div>
+                        <div style="font-size: 12px; color: #555; line-height: 1.5;">
+                            <strong>What:</strong> Distribution of input features changes<br>
+                            <strong>Example:</strong> New scanner produces brighter images<br>
+                            <strong>Impact:</strong> Model sees different input than training
+                        </div>
+                    </div>
+                    <div style="background: white; border: 2px solid #ffc107; border-radius: 6px; padding: 12px;">
+                        <div style="font-size: 14px; font-weight: 600; color: #f57c00; margin-bottom: 8px;">🔄 Concept Drift</div>
+                        <div style="font-size: 12px; color: #555; line-height: 1.5;">
+                            <strong>What:</strong> Relationship between features and labels changes<br>
+                            <strong>Example:</strong> New disease variant shows different patterns<br>
+                            <strong>Impact:</strong> What model learned no longer applies
+                        </div>
+                    </div>
+                    <div style="background: white; border: 2px solid #dc3545; border-radius: 6px; padding: 12px;">
+                        <div style="font-size: 14px; font-weight: 600; color: #dc3545; margin-bottom: 8px;">📈 Label Drift</div>
+                        <div style="font-size: 12px; color: #555; line-height: 1.5;">
+                            <strong>What:</strong> Distribution of outcomes changes<br>
+                            <strong>Example:</strong> Flu season increases pneumonia prevalence 67% → 85%<br>
+                            <strong>Impact:</strong> Class imbalance affects predictions
+                        </div>
+                    </div>
+                </div>
+
+                <div style="background: white; border: 2px solid #66a3ff; border-radius: 6px; padding: 15px; margin: 15px 0;">
+                    <div style="font-size: 15px; font-weight: 600; color: #1E64C8; margin-bottom: 10px;">
+                        📋 Case Study: Multi-Site Deployment
+                    </div>
+                    <div style="font-size: 13px; color: #555; line-height: 1.6;">
+                        <strong>Scenario:</strong> Lung nodule detection deployed across 15 hospitals<br><br>
+                        <strong>Site A (GE Scanner):</strong><br>
+                        • Detected: Input drift - slice thickness changed 1mm → 2.5mm<br>
+                        • Action: Recalibrated preprocessing pipeline<br>
+                        • Result: Performance recovered from 87% → 94%<br><br>
+                        <strong>Site B (Teaching Hospital):</strong><br>
+                        • Detected: Concept drift - COVID increased ground-glass opacities<br>
+                        • Action: Collected new training data, retrained model<br>
+                        • Result: Improved detection of evolving pathology patterns<br><br>
+                        <strong>Site C (Cancer Center):</strong><br>
+                        • Detected: Label drift - 85% positive cases vs. 15% in training<br>
+                        • Action: Adjusted decision threshold for prevalence<br>
+                        • Result: Reduced false positive rate by 30%
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 3. ERROR ANALYSIS -->
+        <div style="margin-bottom: 40px;">
+            <div style="font-size: 20px; font-weight: 700; color: #1E64C8; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid #1E64C8;">
+                3. Error Analysis - Learning from Failures
+            </div>
+            
+            <div style="background: #f8fbff; border-left: 4px solid #1E64C8; padding: 20px; margin-bottom: 20px; border-radius: 5px;">
+                <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 12px;">
+                    Systematic Approach to Understanding Model Failures
+                </div>
+
+                <div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 15px; margin: 15px 0; border-radius: 5px;">
+                    <div style="font-size: 15px; font-weight: 600; color: #f57c00; margin-bottom: 10px;">
+                        🎯 Common Error Patterns
+                    </div>
+                    <ul style="margin-left: 20px; color: #555; font-size: 13px; line-height: 1.8;">
+                        <li><strong>Image Quality Issues:</strong> Poor contrast, artifacts, motion blur, noise</li>
+                        <li><strong>Rare Presentations:</strong> Atypical disease manifestations not well-represented in training</li>
+                        <li><strong>Boundary Cases:</strong> Subtle findings near decision threshold</li>
+                        <li><strong>Overlapping Pathologies:</strong> Multiple conditions present simultaneously</li>
+                        <li><strong>Patient Demographics:</strong> Pediatric, elderly, or obese patients with different anatomy</li>
+                        <li><strong>Technical Factors:</strong> Equipment differences, patient positioning, scan timing</li>
+                        <li><strong>Early-Stage Disease:</strong> Minimal visible changes difficult even for experts</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; border: 2px solid #66a3ff; border-radius: 6px; padding: 15px; margin: 15px 0;">
+                    <div style="font-size: 15px; font-weight: 600; color: #1E64C8; margin-bottom: 10px;">
+                        📊 Deep Dive: Diabetic Retinopathy Error Analysis
+                    </div>
+                    <div style="font-size: 13px; color: #555; line-height: 1.6;">
+                        <strong>Initial Performance:</strong> 92% sensitivity, 95% specificity<br>
+                        <strong>500 errors reviewed by ophthalmologists:</strong><br><br>
+                        
+                        <strong style="color: #dc3545;">False Negatives (120 cases) - Most Critical:</strong><br>
+                        • 45% early-stage mild cases with minimal changes<br>
+                        • 30% image quality issues (blur, poor illumination)<br>
+                        • 15% patients with dark fundus pigmentation<br>
+                        • 10% concurrent conditions obscuring view<br><br>
+                        
+                        <strong style="color: #ffc107;">False Positives (380 cases):</strong><br>
+                        • 50% age-related changes misclassified as diabetic changes<br>
+                        • 25% image artifacts mistaken for lesions<br>
+                        • 15% borderline cases near decision threshold<br>
+                        • 10% other retinal conditions with similar appearance<br><br>
+                        
+                        <strong style="color: #28a745;">Improvements Implemented:</strong><br>
+                        1. Added 2,000 early-stage images to training<br>
+                        2. Implemented image quality pre-screening<br>
+                        3. Augmented with dark fundus images<br>
+                        4. Added patient age as model feature<br>
+                        5. Confidence-based referral for borderline cases<br><br>
+                        
+                        <strong>Result:</strong> 96% sensitivity, 97% specificity | 60% reduction in false negatives ✓
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 4. FEEDBACK LOOPS -->
+        <div style="margin-bottom: 40px;">
+            <div style="font-size: 20px; font-weight: 700; color: #1E64C8; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid #1E64C8;">
+                4. Feedback Loops - Continuous Learning
+            </div>
+            
+            <div style="background: #f8fbff; border-left: 4px solid #1E64C8; padding: 20px; margin-bottom: 20px; border-radius: 5px;">
+                <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 12px;">
+                    Leveraging Production Data for Model Improvement
+                </div>
+
+                <div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 15px; margin: 15px 0; border-radius: 5px;">
+                    <div style="font-size: 15px; font-weight: 600; color: #f57c00; margin-bottom: 10px;">
+                        🔄 Active Learning Strategies
+                    </div>
+                    <ul style="margin-left: 20px; color: #555; font-size: 13px; line-height: 1.8;">
+                        <li><strong>Uncertainty Sampling:</strong> Prioritize cases with 45-55% confidence (near decision boundary)</li>
+                        <li><strong>Diversity Sampling:</strong> Select cases from underrepresented regions of feature space</li>
+                        <li><strong>Error-Based Selection:</strong> All false negatives (highest priority), false positives (medium priority)</li>
+                        <li><strong>Representative Sampling:</strong> Include correct predictions to avoid dataset bias</li>
+                        <li><strong>Clinical Flagging:</strong> Cases marked as challenging by radiologists</li>
+                    </ul>
+                </div>
+
+                <div style="background: white; border: 2px solid #66a3ff; border-radius: 6px; padding: 15px; margin: 15px 0;">
+                    <div style="font-size: 15px; font-weight: 600; color: #1E64C8; margin-bottom: 10px;">
+                        🏥 Implementation: Breast Cancer Mammography
+                    </div>
+                    <div style="font-size: 13px; color: #555; line-height: 1.6;">
+                        <strong>System Setup:</strong><br>
+                        • 4 radiologists review 200 AI-flagged cases/week<br>
+                        • Monthly model updates with accumulated feedback<br>
+                        • Active learning prioritizes high-value cases<br><br>
+                        
+                        <strong>6-Month Progress:</strong><br>
+                        • <strong>Month 1:</strong> 92% sens., 88% spec. (baseline)<br>
+                        • <strong>Month 2:</strong> 93.5% sens., 89.2% spec. (+1.5% / +1.2%)<br>
+                        • <strong>Month 3:</strong> 94.2% sens., 90.5% spec. (+0.7% / +1.3%)<br>
+                        • <strong>Month 6:</strong> 96.1% sens., 92.8% spec. (+4.1% / +4.8% total)<br><br>
+                        
+                        <strong>Impact:</strong><br>
+                        • 4,200 new labeled cases incorporated<br>
+                        • False negative rate reduced 65%<br>
+                        • Review time: 2.0min → 1.2min per case<br>
+                        • Radiologists report seeing direct improvements from their input<br>
+                        • Estimated 15-20 additional cancers detected per year
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5. CONTINUOUS IMPROVEMENT -->
+        <div style="margin-bottom: 40px;">
+            <div style="font-size: 20px; font-weight: 700; color: #1E64C8; margin-bottom: 15px; padding-bottom: 8px; border-bottom: 2px solid #1E64C8;">
+                5. Continuous Improvement - Version Management
+            </div>
+            
+            <div style="background: #f8fbff; border-left: 4px solid #1E64C8; padding: 20px; margin-bottom: 20px; border-radius: 5px;">
+                <div style="font-size: 16px; font-weight: 600; color: #333; margin-bottom: 12px;">
+                    Systematic Process for Model Evolution
+                </div>
+
+                <div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 15px; margin: 15px 0; border-radius: 5px;">
+                    <div style="font-size: 15px; font-weight: 600; color: #f57c00; margin-bottom: 10px;">
+                        🚀 Deployment Pipeline (Safety-First Approach)
+                    </div>
+                    <div style="font-size: 13px; color: #555; line-height: 1.8;">
+                        <strong>Stage 1: Development</strong> → Experiment with architectures, train models<br>
+                        <strong>Stage 2: Validation</strong> → Test on held-out data, cross-site validation<br>
+                        <strong>Stage 3: Shadow Mode</strong> → Run in parallel (no clinical impact), compare to current model<br>
+                        <strong>Stage 4: A/B Testing</strong> → 10% traffic, statistical comparison, safety monitoring<br>
+                        <strong>Stage 5: Gradual Rollout</strong> → 50% → 100% with automated rollback capability<br>
+                        <strong>Stage 6: Full Deployment</strong> → All traffic, continuous monitoring
+                    </div>
+                </div>
+
+                <div style="background: white; border: 2px solid #66a3ff; border-radius: 6px; padding: 15px; margin: 15px 0;">
+                    <div style="font-size: 15px; font-weight: 600; color: #1E64C8; margin-bottom: 10px;">
+                        📈 Evolution Example: CT Pulmonary Embolism Detection
+                    </div>
+                    <div style="font-size: 13px; color: #555; line-height: 1.6;">
+                        <strong>v1.0 (Jan 2023):</strong> 89% sens., 92% spec. - Initial deployment<br>
+                        • Known issues: Subsegmental PE, motion artifacts<br><br>
+                        
+                        <strong>v1.1 (Apr 2023):</strong> 91% sens., 93% spec. - First update<br>
+                        • Added 3,000 subsegmental PE cases<br>
+                        • A/B tested with 20% traffic for 2 weeks<br>
+                        • Result: 15% reduction in false negatives ✓<br><br>
+                        
+                        <strong>v1.2 (Jul 2023):</strong> 91.5% sens., 94% spec.<br>
+                        • Motion artifact detection preprocessing<br>
+                        • Result: 25% reduction in motion-related false positives<br><br>
+                        
+                        <strong>v2.0 (Oct 2023):</strong> 94% sens., 95% spec. - Architecture upgrade<br>
+                        • Switched to 3D transformer<br>
+                        • Extended testing: 4 weeks shadow, 6 weeks A/B<br>
+                        • Significant improvement, became new standard<br><br>
+                        
+                        <strong>v2.1 (Jan 2024):</strong> 94.5% sens., 96% spec.<br>
+                        • Multi-site domain adaptation<br>
+                        • Consistent performance across 12 hospitals<br><br>
+                        
+                        <strong>Total Improvement:</strong> +5.5% sensitivity, +4% specificity over 12 months<br>
+                        <strong>Clinical Impact:</strong> ~50 additional PE cases detected annually
+                    </div>
+                </div>
+
+                <div style="background: #fff8e1; border-left: 4px solid #ffc107; padding: 15px; margin: 15px 0; border-radius: 5px;">
+                    <div style="font-size: 15px; font-weight: 600; color: #f57c00; margin-bottom: 10px;">
+                        ✅ Regression Testing Checklist
+                    </div>
+                    <ul style="margin-left: 20px; color: #555; font-size: 13px; line-height: 1.8;">
+                        <li><strong>Performance Tests:</strong> Overall metrics ≥ baseline, subgroup performance maintained</li>
+                        <li><strong>Consistency Tests:</strong> No prediction flip-flops on stable cases</li>
+                        <li><strong>Safety Tests:</strong> Zero increase in critical false negatives</li>
+                        <li><strong>Technical Tests:</strong> Inference latency &lt; threshold, memory requirements</li>
+                        <li><strong>Integration Tests:</strong> API compatibility, deployment infrastructure</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- SUMMARY SECTION -->
+        <div style="height: 3px; background: linear-gradient(to right, #1E64C8, #66a3ff, #1E64C8); margin: 50px 0 30px 0; border-radius: 2px;"></div>
+        
+        <div style="margin-bottom: 40px;">
+            <div style="font-size: 22px; font-weight: 700; color: #1E64C8; margin-bottom: 20px; text-align: center;">
+                Summary: Building Robust QA Systems
+            </div>
+            
+            <div style="background: #e8f5e9; border: 2px solid #28a745; border-radius: 8px; padding: 20px; margin: 20px 0;">
+                <div style="font-size: 16px; font-weight: 600; color: #28a745; margin-bottom: 15px; text-align: center;">
+                    🎯 Key Takeaways for Implementation
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 15px;">
+                    <div style="background: white; border-radius: 6px; padding: 15px;">
+                        <div style="font-size: 14px; font-weight: 600; color: #1E64C8; margin-bottom: 8px;">
+                            💡 Start Simple, Scale Gradually
+                        </div>
+                        <div style="font-size: 13px; color: #555; line-height: 1.6;">
+                            Begin with basic monitoring and error tracking. Add sophisticated drift detection and active learning as system matures.
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; border-radius: 6px; padding: 15px;">
+                        <div style="font-size: 14px; font-weight: 600; color: #1E64C8; margin-bottom: 8px;">
+                            🏗️ Invest in Infrastructure
+                        </div>
+                        <div style="font-size: 13px; color: #555; line-height: 1.6;">
+                            Automated monitoring and dashboards pay for themselves through early problem detection and reduced downtime.
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; border-radius: 6px; padding: 15px;">
+                        <div style="font-size: 14px; font-weight: 600; color: #1E64C8; margin-bottom: 8px;">
+                            🤝 Engage Clinicians
+                        </div>
+                        <div style="font-size: 13px; color: #555; line-height: 1.6;">
+                            Treat clinical staff as partners. Their feedback and domain expertise are invaluable for improvement.
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; border-radius: 6px; padding: 15px;">
+                        <div style="font-size: 14px; font-weight: 600; color: #1E64C8; margin-bottom: 8px;">
+                            📊 Measure What Matters
+                        </div>
+                        <div style="font-size: 13px; color: #555; line-height: 1.6;">
+                            Focus on metrics aligned with patient outcomes and clinical workflow, not just technical performance.
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; border-radius: 6px; padding: 15px;">
+                        <div style="font-size: 14px; font-weight: 600; color: #1E64C8; margin-bottom: 8px;">
+                            🛡️ Build for Safety
+                        </div>
+                        <div style="font-size: 13px; color: #555; line-height: 1.6;">
+                            In medical AI, false negatives are often more critical than false positives. Design QA accordingly.
+                        </div>
+                    </div>
+                    
+                    <div style="background: white; border-radius: 6px; padding: 15px;">
+                        <div style="font-size: 14px; font-weight: 600; color: #1E64C8; margin-bottom: 8px;">
+                            📝 Document Everything
+                        </div>
+                        <div style="font-size: 13px; color: #555; line-height: 1.6;">
+                            Maintain detailed records of versions, changes, and impacts. Critical for compliance and learning.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div style="background: #f0f5fc; border: 2px solid #1E64C8; border-radius: 8px; padding: 20px; margin: 20px 0; text-align: center;">
+                <div style="font-size: 18px; font-weight: 600; color: #1E64C8; margin-bottom: 10px;">
+                    The Five Pillars Work Together
+                </div>
+                <div style="font-size: 14px; color: #555; line-height: 1.8;">
+                    <strong>Performance Monitoring</strong> detects issues → <strong>Drift Detection</strong> identifies root causes → 
+                    <strong>Error Analysis</strong> reveals patterns → <strong>Feedback Loops</strong> enable learning → 
+                    <strong>Continuous Improvement</strong> systematically enhances the model
+                </div>
+            </div>
+        </div>
+</div>
     </div>
 </body>
 </html>

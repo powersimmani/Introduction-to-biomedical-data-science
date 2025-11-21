@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Virtual Screening</title>
+    <title>Virtual Screening - Enhanced</title>
     <style>
         * {
             margin: 0;
@@ -13,18 +13,27 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
+            background: #f0f0f0;
             display: flex;
             justify-content: center;
             align-items: center;
             min-height: 100vh;
+            padding: 20px;
         }
         
-        .container {
+        .slide-container {
+            width: 960px;
+            margin: 0 auto;
+        }
+        
+        .slide {
             width: 960px;
             height: 540px;
             padding: 40px 60px;
             background: white;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+            page-break-after: always;
         }
         
         .title {
@@ -33,6 +42,15 @@
             color: #1E64C8;
             margin-bottom: 25px;
             text-align: center;
+        }
+        
+        .subtitle {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 10px;
         }
         
         .main-visual {
@@ -75,6 +93,102 @@
             font-weight: 400;
         }
 
+        .detail-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 15px;
+        }
+
+        .visual-section {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+
+        .text-section {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .feature-list {
+            list-style: none;
+            padding: 0;
+        }
+
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.5;
+        }
+
+        .feature-list li:before {
+            content: "▸";
+            position: absolute;
+            left: 5px;
+            color: #1E64C8;
+            font-weight: bold;
+        }
+
+        .key-points {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px 20px;
+            margin-top: 15px;
+            border-radius: 5px;
+        }
+
+        .key-points h4 {
+            color: #856404;
+            margin-bottom: 8px;
+            font-size: 15px;
+        }
+
+        .key-points ul {
+            list-style: none;
+            padding-left: 0;
+        }
+
+        .key-points li {
+            padding: 4px 0;
+            padding-left: 20px;
+            position: relative;
+            font-size: 13px;
+            color: #856404;
+        }
+
+        .key-points li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            font-weight: bold;
+        }
+
+        .workflow-box {
+            background: #e3f2fd;
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            padding: 12px;
+            margin: 10px 0;
+            text-align: center;
+        }
+
+        .workflow-box h4 {
+            color: #1E64C8;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .workflow-box p {
+            font-size: 12px;
+            color: #555;
+            line-height: 1.4;
+        }
+
         .molecule-dot {
             animation: fall 4s ease-in infinite;
         }
@@ -100,136 +214,722 @@
         .highlight-stage {
             animation: glow 2s ease-in-out infinite;
         }
+
+        .example-box {
+            background: #f8f9fa;
+            border: 2px dashed #6c757d;
+            border-radius: 8px;
+            padding: 15px;
+            margin-top: 10px;
+        }
+
+        .example-box h4 {
+            color: #495057;
+            font-size: 14px;
+            margin-bottom: 8px;
+        }
+
+        .example-box p {
+            font-size: 12px;
+            color: #6c757d;
+            line-height: 1.4;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .slide {
+                margin-bottom: 0;
+                box-shadow: none;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">Virtual Screening</div>
-        
-        <div class="main-visual">
-            <svg width="860" height="220" viewBox="0 0 860 220">
-                <!-- Funnel visualization -->
-                <!-- Stage 1: Large library -->
-                <g class="funnel-stage">
-                    <path d="M 200 20 L 600 20 L 550 80 L 250 80 Z" fill="#e3f2fd" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="400" y="45" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Compound Library</text>
-                    <text x="400" y="63" text-anchor="middle" font-size="12" fill="#666">10⁶ - 10⁹ compounds</text>
-                </g>
+    <div class="slide-container">
+        <!-- Slide 1: Overview -->
+        <div class="slide">
+            <div class="title">Virtual Screening</div>
+            
+            <div class="main-visual">
+                <svg width="860" height="220" viewBox="0 0 860 220">
+                    <!-- Funnel visualization -->
+                    <!-- Stage 1: Large library -->
+                    <g class="funnel-stage">
+                        <path d="M 200 20 L 600 20 L 550 80 L 250 80 Z" fill="#e3f2fd" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="400" y="45" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Compound Library</text>
+                        <text x="400" y="63" text-anchor="middle" font-size="12" fill="#666">10⁶ - 10⁹ compounds</text>
+                    </g>
 
-                <!-- Arrow 1 -->
-                <path d="M 400 80 L 400 95" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrow)"/>
-                <text x="450" y="92" font-size="11" fill="#f39c12" font-weight="600">Similarity</text>
+                    <!-- Arrow 1 -->
+                    <path d="M 400 80 L 400 95" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrow)"/>
+                    <text x="450" y="92" font-size="11" fill="#f39c12" font-weight="600">Similarity</text>
 
-                <!-- Stage 2: Similarity screening -->
-                <g class="funnel-stage">
-                    <path d="M 250 95 L 550 95 L 510 140 L 290 140 Z" fill="#bbdefb" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="400" y="115" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Similarity Filtering</text>
-                    <text x="400" y="130" text-anchor="middle" font-size="11" fill="#666">10⁴ - 10⁵ compounds</text>
-                </g>
+                    <!-- Stage 2: Similarity screening -->
+                    <g class="funnel-stage">
+                        <path d="M 250 95 L 550 95 L 510 140 L 290 140 Z" fill="#bbdefb" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="400" y="115" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Similarity Filtering</text>
+                        <text x="400" y="130" text-anchor="middle" font-size="11" fill="#666">10⁴ - 10⁵ compounds</text>
+                    </g>
 
-                <!-- Arrow 2 -->
-                <path d="M 400 140 L 400 155" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrow)"/>
-                <text x="455" y="152" font-size="11" fill="#f39c12" font-weight="600">Pharmacophore</text>
+                    <!-- Arrow 2 -->
+                    <path d="M 400 140 L 400 155" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrow)"/>
+                    <text x="455" y="152" font-size="11" fill="#f39c12" font-weight="600">Pharmacophore</text>
 
-                <!-- Stage 3: Pharmacophore modeling -->
-                <g class="funnel-stage">
-                    <path d="M 290 155 L 510 155 L 480 190 L 320 190 Z" fill="#90caf9" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="400" y="171" text-anchor="middle" font-size="12" font-weight="600" fill="#1E64C8">3D Pharmacophore</text>
-                    <text x="400" y="184" text-anchor="middle" font-size="11" fill="#666">10³ - 10⁴</text>
-                </g>
+                    <!-- Stage 3: Pharmacophore modeling -->
+                    <g class="funnel-stage">
+                        <path d="M 290 155 L 510 155 L 480 190 L 320 190 Z" fill="#90caf9" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="400" y="171" text-anchor="middle" font-size="12" font-weight="600" fill="#1E64C8">3D Pharmacophore</text>
+                        <text x="400" y="184" text-anchor="middle" font-size="11" fill="#666">10³ - 10⁴</text>
+                    </g>
 
-                <!-- Arrow 3 -->
-                <path d="M 400 190 L 400 205" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrow)"/>
-                <text x="450" y="202" font-size="11" fill="#f39c12" font-weight="600">Docking</text>
+                    <!-- Arrow 3 -->
+                    <path d="M 400 190 L 400 205" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrow)"/>
+                    <text x="450" y="202" font-size="11" fill="#f39c12" font-weight="600">Docking</text>
 
-                <!-- Stage 4: Docking -->
-                <g class="funnel-stage highlight-stage">
-                    <path d="M 320 205 L 480 205 L 460 230 L 340 230 Z" fill="#64b5f6" stroke="#1E64C8" stroke-width="2.5"/>
-                    <text x="400" y="220" text-anchor="middle" font-size="12" font-weight="600" fill="white">Molecular Docking</text>
-                </g>
+                    <!-- Stage 4: Docking -->
+                    <g class="funnel-stage highlight-stage">
+                        <path d="M 320 205 L 480 205 L 460 230 L 340 230 Z" fill="#64b5f6" stroke="#1E64C8" stroke-width="2.5"/>
+                        <text x="400" y="220" text-anchor="middle" font-size="12" font-weight="600" fill="white">Molecular Docking</text>
+                    </g>
 
-                <!-- Final output -->
-                <circle cx="400" cy="245" r="12" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
-                <text x="400" y="250" text-anchor="middle" font-size="16" fill="white" font-weight="bold">✓</text>
-                <text x="400" y="268" text-anchor="middle" font-size="11" font-weight="600" fill="#2ecc71">Hit Compounds</text>
-                <text x="400" y="282" text-anchor="middle" font-size="10" fill="#666">10¹ - 10²</text>
+                    <!-- Final output -->
+                    <circle cx="400" cy="245" r="12" fill="#2ecc71" stroke="#27ae60" stroke-width="2"/>
+                    <text x="400" y="250" text-anchor="middle" font-size="16" fill="white" font-weight="bold">✓</text>
+                    <text x="400" y="268" text-anchor="middle" font-size="11" font-weight="600" fill="#2ecc71">Hit Compounds</text>
+                    <text x="400" y="282" text-anchor="middle" font-size="10" fill="#666">10¹ - 10²</text>
 
-                <!-- Floating molecules (animated) -->
-                <g class="molecule-dot" style="animation-delay: 0s;">
-                    <circle cx="230" cy="30" r="3" fill="#1E64C8" opacity="0.6"/>
-                </g>
-                <g class="molecule-dot" style="animation-delay: 0.5s;">
-                    <circle cx="300" cy="25" r="3" fill="#1E64C8" opacity="0.6"/>
-                </g>
-                <g class="molecule-dot" style="animation-delay: 1s;">
-                    <circle cx="370" cy="28" r="3" fill="#1E64C8" opacity="0.6"/>
-                </g>
-                <g class="molecule-dot" style="animation-delay: 1.5s;">
-                    <circle cx="440" cy="23" r="3" fill="#1E64C8" opacity="0.6"/>
-                </g>
-                <g class="molecule-dot" style="animation-delay: 2s;">
-                    <circle cx="510" cy="30" r="3" fill="#1E64C8" opacity="0.6"/>
-                </g>
-                <g class="molecule-dot" style="animation-delay: 2.5s;">
-                    <circle cx="570" cy="27" r="3" fill="#1E64C8" opacity="0.6"/>
-                </g>
+                    <!-- Floating molecules (animated) -->
+                    <g class="molecule-dot" style="animation-delay: 0s;">
+                        <circle cx="230" cy="30" r="3" fill="#1E64C8" opacity="0.6"/>
+                    </g>
+                    <g class="molecule-dot" style="animation-delay: 0.5s;">
+                        <circle cx="300" cy="25" r="3" fill="#1E64C8" opacity="0.6"/>
+                    </g>
+                    <g class="molecule-dot" style="animation-delay: 1s;">
+                        <circle cx="370" cy="28" r="3" fill="#1E64C8" opacity="0.6"/>
+                    </g>
+                    <g class="molecule-dot" style="animation-delay: 1.5s;">
+                        <circle cx="440" cy="23" r="3" fill="#1E64C8" opacity="0.6"/>
+                    </g>
+                    <g class="molecule-dot" style="animation-delay: 2s;">
+                        <circle cx="510" cy="30" r="3" fill="#1E64C8" opacity="0.6"/>
+                    </g>
+                    <g class="molecule-dot" style="animation-delay: 2.5s;">
+                        <circle cx="570" cy="27" r="3" fill="#1E64C8" opacity="0.6"/>
+                    </g>
 
-                <!-- ML Scoring box -->
-                <g transform="translate(630, 80)">
-                    <rect x="0" y="0" width="160" height="90" rx="8" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
-                    <text x="80" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#856404">ML Scoring</text>
-                    
-                    <!-- Neural network icon -->
-                    <circle cx="30" cy="55" r="5" fill="#ffc107"/>
-                    <circle cx="80" cy="45" r="5" fill="#ffc107"/>
-                    <circle cx="80" cy="65" r="5" fill="#ffc107"/>
-                    <circle cx="130" cy="55" r="5" fill="#ffc107"/>
-                    
-                    <line x1="35" y1="55" x2="75" y2="45" stroke="#ffc107" stroke-width="1.5"/>
-                    <line x1="35" y1="55" x2="75" y2="65" stroke="#ffc107" stroke-width="1.5"/>
-                    <line x1="85" y1="45" x2="125" y2="55" stroke="#ffc107" stroke-width="1.5"/>
-                    <line x1="85" y1="65" x2="125" y2="55" stroke="#ffc107" stroke-width="1.5"/>
-                    
-                    <text x="80" y="82" text-anchor="middle" font-size="10" fill="#666">Deep Learning</text>
-                </g>
+                    <!-- ML Scoring box -->
+                    <g transform="translate(630, 80)">
+                        <rect x="0" y="0" width="160" height="90" rx="8" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+                        <text x="80" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#856404">ML Scoring</text>
+                        
+                        <!-- Neural network icon -->
+                        <circle cx="30" cy="55" r="5" fill="#ffc107"/>
+                        <circle cx="80" cy="45" r="5" fill="#ffc107"/>
+                        <circle cx="80" cy="65" r="5" fill="#ffc107"/>
+                        <circle cx="130" cy="55" r="5" fill="#ffc107"/>
+                        
+                        <line x1="35" y1="55" x2="75" y2="45" stroke="#ffc107" stroke-width="1.5"/>
+                        <line x1="35" y1="55" x2="75" y2="65" stroke="#ffc107" stroke-width="1.5"/>
+                        <line x1="85" y1="45" x2="125" y2="55" stroke="#ffc107" stroke-width="1.5"/>
+                        <line x1="85" y1="65" x2="125" y2="55" stroke="#ffc107" stroke-width="1.5"/>
+                        
+                        <text x="80" y="82" text-anchor="middle" font-size="10" fill="#666">Deep Learning</text>
+                    </g>
 
-                <!-- Consensus box -->
-                <g transform="translate(630, 180)">
-                    <rect x="0" y="0" width="160" height="70" rx="8" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
-                    <text x="80" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#155724">Consensus</text>
-                    <text x="80" y="42" text-anchor="middle" font-size="11" fill="#155724">Multiple Methods</text>
-                    <text x="80" y="58" text-anchor="middle" font-size="10" fill="#666">↑ Accuracy</text>
-                </g>
+                    <!-- Consensus box -->
+                    <g transform="translate(630, 180)">
+                        <rect x="0" y="0" width="160" height="70" rx="8" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
+                        <text x="80" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#155724">Consensus</text>
+                        <text x="80" y="42" text-anchor="middle" font-size="11" fill="#155724">Multiple Methods</text>
+                        <text x="80" y="58" text-anchor="middle" font-size="10" fill="#666">↑ Accuracy</text>
+                    </g>
 
-                <!-- Arrow marker -->
+                    <!-- Arrow marker -->
+                    <defs>
+                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="content-main">Similarity searching</div>
+                    <div class="content-desc">Finding similar active compounds</div>
+                </div>
+                <div class="content-card">
+                    <div class="content-main">Pharmacophore modeling</div>
+                    <div class="content-desc">3D feature-based screening</div>
+                </div>
+                <div class="content-card">
+                    <div class="content-main">Docking scores</div>
+                    <div class="content-desc">Protein-ligand binding prediction</div>
+                </div>
+                <div class="content-card">
+                    <div class="content-main">ML scoring functions</div>
+                    <div class="content-desc">Learning-based scoring</div>
+                </div>
+                <div class="content-card">
+                    <div class="content-main">Consensus approaches</div>
+                    <div class="content-desc">Combining multiple methods</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 2: Similarity Searching -->
+        <div class="slide">
+            <div class="subtitle">1. Similarity Searching</div>
+            
+            <div class="detail-container">
+                <div class="visual-section">
+                    <svg width="400" height="350" viewBox="0 0 400 350">
+                        <!-- Reference molecule -->
+                        <g transform="translate(200, 50)">
+                            <circle cx="0" cy="0" r="30" fill="#e74c3c" stroke="#c0392b" stroke-width="2"/>
+                            <text x="0" y="5" text-anchor="middle" font-size="12" fill="white" font-weight="600">Active</text>
+                            <text x="0" y="55" text-anchor="middle" font-size="11" fill="#333" font-weight="600">Reference Compound</text>
+                        </g>
+
+                        <!-- Similarity rays -->
+                        <line x1="200" y1="80" x2="80" y2="180" stroke="#3498db" stroke-width="2" stroke-dasharray="5,5"/>
+                        <line x1="200" y1="80" x2="200" y2="180" stroke="#3498db" stroke-width="2" stroke-dasharray="5,5"/>
+                        <line x1="200" y1="80" x2="320" y2="180" stroke="#3498db" stroke-width="2" stroke-dasharray="5,5"/>
+
+                        <!-- Similar compounds -->
+                        <g transform="translate(80, 200)">
+                            <circle cx="0" cy="0" r="22" fill="#27ae60" stroke="#229954" stroke-width="2"/>
+                            <text x="0" y="4" text-anchor="middle" font-size="10" fill="white" font-weight="600">85%</text>
+                            <text x="0" y="35" text-anchor="middle" font-size="9" fill="#27ae60">High similarity</text>
+                        </g>
+
+                        <g transform="translate(200, 200)">
+                            <circle cx="0" cy="0" r="22" fill="#f39c12" stroke="#d68910" stroke-width="2"/>
+                            <text x="0" y="4" text-anchor="middle" font-size="10" fill="white" font-weight="600">65%</text>
+                            <text x="0" y="35" text-anchor="middle" font-size="9" fill="#f39c12">Medium similarity</text>
+                        </g>
+
+                        <g transform="translate(320, 200)">
+                            <circle cx="0" cy="0" r="22" fill="#95a5a6" stroke="#7f8c8d" stroke-width="2"/>
+                            <text x="0" y="4" text-anchor="middle" font-size="10" fill="white" font-weight="600">35%</text>
+                            <text x="0" y="35" text-anchor="middle" font-size="9" fill="#95a5a6">Low similarity</text>
+                        </g>
+
+                        <!-- Fingerprint representation -->
+                        <g transform="translate(50, 280)">
+                            <text x="0" y="0" font-size="11" font-weight="600" fill="#333">Molecular Fingerprints:</text>
+                            <rect x="0" y="8" width="8" height="8" fill="#2ecc71"/>
+                            <rect x="10" y="8" width="8" height="8" fill="#2ecc71"/>
+                            <rect x="20" y="8" width="8" height="8" fill="#e74c3c"/>
+                            <rect x="30" y="8" width="8" height="8" fill="#2ecc71"/>
+                            <rect x="40" y="8" width="8" height="8" fill="#e74c3c"/>
+                            <rect x="50" y="8" width="8" height="8" fill="#2ecc71"/>
+                            <rect x="60" y="8" width="8" height="8" fill="#2ecc71"/>
+                            <rect x="70" y="8" width="8" height="8" fill="#2ecc71"/>
+                            <text x="85" y="15" font-size="9" fill="#666">...1024 bits</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="text-section">
+                    <ul class="feature-list">
+                        <li><strong>Principle:</strong> Compounds with similar structures tend to have similar biological activities (Similar Property Principle)</li>
+                        <li><strong>Method:</strong> Compare molecular fingerprints using Tanimoto coefficient or other similarity metrics</li>
+                        <li><strong>Speed:</strong> Very fast - can screen millions of compounds in minutes</li>
+                        <li><strong>Input required:</strong> One or more known active compounds</li>
+                    </ul>
+
+                    <div class="workflow-box">
+                        <h4>Typical Workflow</h4>
+                        <p>Generate fingerprints → Calculate similarity scores → Rank compounds → Select top candidates (typically Tanimoto > 0.7)</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>Common Fingerprints</h4>
+                        <p>• ECFP (Extended Connectivity Fingerprints)<br>
+                        • MACCS keys (166-bit structural keys)<br>
+                        • Atom pairs and topological torsions</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-points">
+                <h4>Key Advantages & Limitations</h4>
+                <ul>
+                    <li>Pros: Extremely fast, simple to implement, good for scaffold hopping</li>
+                    <li>Cons: 2D only (no 3D conformational info), may miss structurally diverse actives</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 3: Pharmacophore Modeling -->
+        <div class="slide">
+            <div class="subtitle">2. Pharmacophore Modeling</div>
+            
+            <div class="detail-container">
+                <div class="visual-section">
+                    <svg width="400" height="350" viewBox="0 0 400 350">
+                        <!-- Pharmacophore features -->
+                        <g transform="translate(200, 80)">
+                            <!-- Hydrogen bond donor -->
+                            <circle cx="-80" cy="-30" r="20" fill="none" stroke="#3498db" stroke-width="3"/>
+                            <text x="-80" y="-25" text-anchor="middle" font-size="11" fill="#3498db" font-weight="600">H</text>
+                            <text x="-80" y="5" text-anchor="middle" font-size="9" fill="#3498db">Donor</text>
+
+                            <!-- Hydrogen bond acceptor -->
+                            <circle cx="80" cy="-30" r="20" fill="none" stroke="#e74c3c" stroke-width="3"/>
+                            <text x="80" y="-25" text-anchor="middle" font-size="11" fill="#e74c3c" font-weight="600">A</text>
+                            <text x="80" y="5" text-anchor="middle" font-size="9" fill="#e74c3c">Acceptor</text>
+
+                            <!-- Hydrophobic center -->
+                            <circle cx="-40" cy="40" r="20" fill="none" stroke="#f39c12" stroke-width="3"/>
+                            <text x="-40" y="35" text-anchor="middle" font-size="11" fill="#f39c12" font-weight="600">H</text>
+                            <text x="-40" y="70" text-anchor="middle" font-size="9" fill="#f39c12">Hydrophobic</text>
+
+                            <!-- Aromatic ring -->
+                            <circle cx="40" cy="40" r="20" fill="none" stroke="#9b59b6" stroke-width="3"/>
+                            <circle cx="40" cy="40" r="14" fill="none" stroke="#9b59b6" stroke-width="2"/>
+                            <text x="40" y="70" text-anchor="middle" font-size="9" fill="#9b59b6">Aromatic</text>
+
+                            <!-- Positive ionizable -->
+                            <circle cx="0" cy="-10" r="18" fill="none" stroke="#27ae60" stroke-width="3"/>
+                            <text x="0" y="-5" text-anchor="middle" font-size="11" fill="#27ae60" font-weight="600">+</text>
+                            <text x="0" y="20" text-anchor="middle" font-size="9" fill="#27ae60">Positive</text>
+
+                            <!-- Distance constraints -->
+                            <line x1="-80" y1="-30" x2="80" y2="-30" stroke="#95a5a6" stroke-width="1.5" stroke-dasharray="3,3"/>
+                            <text x="0" y="-35" text-anchor="middle" font-size="9" fill="#666">5.5 Å</text>
+
+                            <line x1="-40" y1="40" x2="40" y2="40" stroke="#95a5a6" stroke-width="1.5" stroke-dasharray="3,3"/>
+                            <text x="0" y="55" text-anchor="middle" font-size="9" fill="#666">4.2 Å</text>
+                        </g>
+
+                        <!-- 3D representation indicator -->
+                        <g transform="translate(200, 220)">
+                            <text x="0" y="0" text-anchor="middle" font-size="12" font-weight="600" fill="#333">3D Spatial Arrangement</text>
+                            <path d="M -50 10 L -30 25 L 50 25 L 30 10 Z" fill="#e3f2fd" stroke="#1E64C8" stroke-width="1.5"/>
+                            <path d="M 50 25 L 50 45 L 30 60 L 30 40 Z" fill="#bbdefb" stroke="#1E64C8" stroke-width="1.5"/>
+                            <path d="M -30 25 L -30 45 L 30 60 L 30 40 Z" fill="#90caf9" stroke="#1E64C8" stroke-width="1.5"/>
+                        </g>
+
+                        <!-- Feature legend -->
+                        <g transform="translate(30, 280)">
+                            <text x="0" y="0" font-size="10" font-weight="600" fill="#333">Common Features:</text>
+                            <circle cx="5" cy="12" r="4" fill="none" stroke="#3498db" stroke-width="2"/>
+                            <text x="15" y="15" font-size="9" fill="#666">H-bond donor</text>
+                            
+                            <circle cx="5" cy="27" r="4" fill="none" stroke="#e74c3c" stroke-width="2"/>
+                            <text x="15" y="30" font-size="9" fill="#666">H-bond acceptor</text>
+                            
+                            <circle cx="120" cy="12" r="4" fill="none" stroke="#f39c12" stroke-width="2"/>
+                            <text x="130" y="15" font-size="9" fill="#666">Hydrophobic</text>
+                            
+                            <circle cx="120" cy="27" r="4" fill="none" stroke="#9b59b6" stroke-width="2"/>
+                            <text x="130" y="30" font-size="9" fill="#666">Aromatic</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="text-section">
+                    <ul class="feature-list">
+                        <li><strong>Principle:</strong> Identifies essential 3D chemical features required for biological activity</li>
+                        <li><strong>Generation:</strong> Can be ligand-based (from active compounds) or structure-based (from protein-ligand complex)</li>
+                        <li><strong>Features:</strong> H-bond donors/acceptors, hydrophobic centers, aromatic rings, charged groups</li>
+                        <li><strong>Constraints:</strong> Spatial distances and angles between features</li>
+                    </ul>
+
+                    <div class="workflow-box">
+                        <h4>Screening Process</h4>
+                        <p>Generate conformers → Map features → Check spatial constraints → Score matches → Filter hits</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>Software Tools</h4>
+                        <p>• LigandScout (structure-based)<br>
+                        • Phase (Schrödinger)<br>
+                        • Discovery Studio CATALYST</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-points">
+                <h4>Key Advantages & Limitations</h4>
+                <ul>
+                    <li>Pros: Captures 3D information, allows scaffold hopping, interpretable results</li>
+                    <li>Cons: Computationally intensive, requires conformer generation, sensitive to feature selection</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 4: Molecular Docking -->
+        <div class="slide">
+            <div class="subtitle">3. Molecular Docking</div>
+            
+            <div class="detail-container">
+                <div class="visual-section">
+                    <svg width="400" height="350" viewBox="0 0 400 350">
+                        <!-- Protein binding site -->
+                        <g transform="translate(200, 100)">
+                            <!-- Protein pocket -->
+                            <ellipse cx="0" cy="0" rx="100" ry="80" fill="#d4edda" stroke="#28a745" stroke-width="3"/>
+                            <text x="0" y="-50" text-anchor="middle" font-size="13" font-weight="600" fill="#155724">Protein Binding Site</text>
+                            
+                            <!-- Binding site residues -->
+                            <circle cx="-50" cy="-20" r="8" fill="#3498db"/>
+                            <text x="-50" y="-8" text-anchor="middle" font-size="7" fill="white">Asp</text>
+                            
+                            <circle cx="50" cy="-20" r="8" fill="#e74c3c"/>
+                            <text x="50" y="-8" text-anchor="middle" font-size="7" fill="white">Lys</text>
+                            
+                            <circle cx="-35" cy="20" r="8" fill="#f39c12"/>
+                            <text x="-35" y="32" text-anchor="middle" font-size="7" fill="white">Phe</text>
+                            
+                            <circle cx="35" cy="20" r="8" fill="#9b59b6"/>
+                            <text x="35" y="32" text-anchor="middle" font-size="7" fill="white">Tyr</text>
+                            
+                            <!-- Ligand in binding site -->
+                            <g transform="translate(0, 0)">
+                                <rect x="-20" y="-8" width="40" height="16" rx="3" fill="#1E64C8" stroke="#0d47a1" stroke-width="2"/>
+                                <text x="0" y="2" text-anchor="middle" font-size="10" fill="white" font-weight="600">Ligand</text>
+                            </g>
+                            
+                            <!-- Interaction lines -->
+                            <line x1="-20" y1="-8" x2="-42" y2="-20" stroke="#3498db" stroke-width="2" stroke-dasharray="2,2"/>
+                            <line x1="20" y1="-8" x2="42" y2="-20" stroke="#e74c3c" stroke-width="2" stroke-dasharray="2,2"/>
+                            <line x1="-15" y1="8" x2="-27" y2="20" stroke="#f39c12" stroke-width="2" stroke-dasharray="2,2"/>
+                        </g>
+
+                        <!-- Scoring function visualization -->
+                        <g transform="translate(200, 230)">
+                            <rect x="-90" y="0" width="180" height="80" rx="5" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+                            <text x="0" y="20" text-anchor="middle" font-size="12" font-weight="600" fill="#856404">Scoring Function</text>
+                            
+                            <text x="-70" y="40" font-size="10" fill="#856404">ΔG = ΔG_vdW</text>
+                            <text x="-70" y="53" font-size="10" fill="#856404">      + ΔG_elec</text>
+                            <text x="-70" y="66" font-size="10" fill="#856404">      + ΔG_hbond</text>
+                            
+                            <text x="20" y="40" font-size="9" fill="#666">van der Waals</text>
+                            <text x="20" y="53" font-size="9" fill="#666">Electrostatic</text>
+                            <text x="20" y="66" font-size="9" fill="#666">H-bonding</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="text-section">
+                    <ul class="feature-list">
+                        <li><strong>Principle:</strong> Predicts the binding mode and affinity of small molecules to protein targets</li>
+                        <li><strong>Components:</strong> Search algorithm (pose generation) + Scoring function (affinity estimation)</li>
+                        <li><strong>Search algorithms:</strong> Genetic algorithms, Monte Carlo, incremental construction</li>
+                        <li><strong>Scoring:</strong> Force field-based, empirical, or knowledge-based functions</li>
+                    </ul>
+
+                    <div class="workflow-box">
+                        <h4>Docking Protocol</h4>
+                        <p>Prepare protein & ligands → Define binding site → Generate poses → Score and rank → Analyze interactions</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>Popular Programs</h4>
+                        <p>• AutoDock Vina (open source)<br>
+                        • Glide (Schrödinger)<br>
+                        • GOLD, DOCK, FlexX</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-points">
+                <h4>Key Advantages & Limitations</h4>
+                <ul>
+                    <li>Pros: Structure-based, provides binding mode, widely validated, considers protein flexibility</li>
+                    <li>Cons: Computationally expensive, accuracy depends on scoring function, protein flexibility challenges</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 5: Machine Learning Scoring -->
+        <div class="slide">
+            <div class="subtitle">4. Machine Learning Scoring Functions</div>
+            
+            <div class="detail-container">
+                <div class="visual-section">
+                    <svg width="400" height="350" viewBox="0 0 400 350">
+                        <!-- Neural network architecture -->
+                        <g transform="translate(200, 80)">
+                            <text x="0" y="-35" text-anchor="middle" font-size="13" font-weight="600" fill="#333">Deep Neural Network</text>
+                            
+                            <!-- Input layer -->
+                            <circle cx="-100" cy="0" r="12" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+                            <circle cx="-100" cy="30" r="12" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+                            <circle cx="-100" cy="60" r="12" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+                            <circle cx="-100" cy="90" r="12" fill="#3498db" stroke="#2980b9" stroke-width="2"/>
+                            <text x="-100" y="-20" text-anchor="middle" font-size="10" fill="#333">Input</text>
+                            
+                            <!-- Hidden layer 1 -->
+                            <circle cx="-30" cy="10" r="12" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+                            <circle cx="-30" cy="40" r="12" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+                            <circle cx="-30" cy="70" r="12" fill="#f39c12" stroke="#e67e22" stroke-width="2"/>
+                            <text x="-30" y="-20" text-anchor="middle" font-size="10" fill="#333">Hidden 1</text>
+                            
+                            <!-- Hidden layer 2 -->
+                            <circle cx="40" cy="15" r="12" fill="#9b59b6" stroke="#8e44ad" stroke-width="2"/>
+                            <circle cx="40" cy="45" r="12" fill="#9b59b6" stroke="#8e44ad" stroke-width="2"/>
+                            <circle cx="40" cy="75" r="12" fill="#9b59b6" stroke="#8e44ad" stroke-width="2"/>
+                            <text x="40" y="-20" text-anchor="middle" font-size="10" fill="#333">Hidden 2</text>
+                            
+                            <!-- Output layer -->
+                            <circle cx="100" cy="45" r="15" fill="#27ae60" stroke="#229954" stroke-width="2"/>
+                            <text x="100" y="50" text-anchor="middle" font-size="10" fill="white" font-weight="600">Score</text>
+                            <text x="100" y="-20" text-anchor="middle" font-size="10" fill="#333">Output</text>
+                            
+                            <!-- Connections (sample) -->
+                            <line x1="-88" y1="0" x2="-42" y2="10" stroke="#bdc3c7" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="-88" y1="30" x2="-42" y2="40" stroke="#bdc3c7" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="-88" y1="60" x2="-42" y2="70" stroke="#bdc3c7" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="-18" y1="10" x2="28" y2="15" stroke="#bdc3c7" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="-18" y1="40" x2="28" y2="45" stroke="#bdc3c7" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="-18" y1="70" x2="28" y2="75" stroke="#bdc3c7" stroke-width="1.5" opacity="0.4"/>
+                            <line x1="52" y1="45" x2="85" y2="45" stroke="#bdc3c7" stroke-width="2" opacity="0.6"/>
+                        </g>
+
+                        <!-- Training data representation -->
+                        <g transform="translate(200, 220)">
+                            <rect x="-120" y="0" width="240" height="70" rx="5" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="0" y="20" text-anchor="middle" font-size="11" font-weight="600" fill="#1E64C8">Training Dataset</text>
+                            
+                            <g transform="translate(-80, 30)">
+                                <rect x="0" y="0" width="30" height="25" rx="2" fill="#d4edda" stroke="#28a745" stroke-width="1"/>
+                                <text x="15" y="14" text-anchor="middle" font-size="8" fill="#155724">Active</text>
+                                <text x="15" y="22" text-anchor="middle" font-size="7" fill="#155724">10⁴</text>
+                            </g>
+                            
+                            <g transform="translate(-25, 30)">
+                                <rect x="0" y="0" width="30" height="25" rx="2" fill="#f8d7da" stroke="#dc3545" stroke-width="1"/>
+                                <text x="15" y="14" text-anchor="middle" font-size="8" fill="#721c24">Inactive</text>
+                                <text x="15" y="22" text-anchor="middle" font-size="7" fill="#721c24">10⁵</text>
+                            </g>
+                            
+                            <g transform="translate(30, 30)">
+                                <rect x="0" y="0" width="30" height="25" rx="2" fill="#fff3cd" stroke="#ffc107" stroke-width="1"/>
+                                <text x="15" y="14" text-anchor="middle" font-size="8" fill="#856404">pKi/IC50</text>
+                                <text x="15" y="22" text-anchor="middle" font-size="7" fill="#856404">values</text>
+                            </g>
+                        </g>
+
+                        <!-- Feature representation -->
+                        <g transform="translate(30, 310)">
+                            <text x="0" y="0" font-size="10" font-weight="600" fill="#333">Input Features:</text>
+                            <text x="0" y="15" font-size="9" fill="#666">• Protein-ligand interaction fingerprints</text>
+                            <text x="0" y="28" font-size="9" fill="#666">• 3D molecular descriptors</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="text-section">
+                    <ul class="feature-list">
+                        <li><strong>Principle:</strong> Learn complex patterns from experimental binding data using machine learning models</li>
+                        <li><strong>Architectures:</strong> Random Forest, Gradient Boosting, Deep Neural Networks, Graph Neural Networks</li>
+                        <li><strong>Features:</strong> Molecular descriptors, interaction fingerprints, 3D coordinates, graph representations</li>
+                        <li><strong>Training:</strong> Requires large datasets with binding affinity measurements</li>
+                    </ul>
+
+                    <div class="workflow-box">
+                        <h4>ML Workflow</h4>
+                        <p>Collect data → Extract features → Train model → Validate → Apply to screening → Post-process predictions</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>State-of-the-art Models</h4>
+                        <p>• DeepDTA (binding affinity)<br>
+                        • KDEEP, OnionNet<br>
+                        • Graph neural networks (GAT, GCN)</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-points">
+                <h4>Key Advantages & Limitations</h4>
+                <ul>
+                    <li>Pros: Learns from data, often outperforms classical scoring, can capture complex patterns</li>
+                    <li>Cons: Requires large training datasets, potential overfitting, interpretability challenges</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Slide 6: Consensus Approaches -->
+        <div class="slide">
+            <div class="subtitle">5. Consensus Approaches</div>
+            
+            <div class="detail-container">
+                <div class="visual-section">
+                    <svg width="400" height="350" viewBox="0 0 400 350">
+                        <!-- Multiple methods converging -->
+                        <g transform="translate(70, 60)">
+                            <!-- Method 1: Docking -->
+                            <rect x="0" y="0" width="100" height="50" rx="5" fill="#bbdefb" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="50" y="22" text-anchor="middle" font-size="12" font-weight="600" fill="#0d47a1">Docking</text>
+                            <text x="50" y="37" text-anchor="middle" font-size="10" fill="#1565c0">Score A</text>
+                        </g>
+
+                        <g transform="translate(70, 130)">
+                            <!-- Method 2: Pharmacophore -->
+                            <rect x="0" y="0" width="100" height="50" rx="5" fill="#c5e1a5" stroke="#689f38" stroke-width="2"/>
+                            <text x="50" y="22" text-anchor="middle" font-size="11" font-weight="600" fill="#33691e">Pharmacophore</text>
+                            <text x="50" y="37" text-anchor="middle" font-size="10" fill="#558b2f">Score B</text>
+                        </g>
+
+                        <g transform="translate(70, 200)">
+                            <!-- Method 3: ML Scoring -->
+                            <rect x="0" y="0" width="100" height="50" rx="5" fill="#ffe082" stroke="#f57c00" stroke-width="2"/>
+                            <text x="50" y="22" text-anchor="middle" font-size="12" font-weight="600" fill="#e65100">ML Scoring</text>
+                            <text x="50" y="37" text-anchor="middle" font-size="10" fill="#ef6c00">Score C</text>
+                        </g>
+
+                        <!-- Arrows converging -->
+                        <path d="M 170 35 L 220 130" stroke="#666" stroke-width="2.5" marker-end="url(#arrow2)"/>
+                        <path d="M 170 155 L 220 145" stroke="#666" stroke-width="2.5" marker-end="url(#arrow2)"/>
+                        <path d="M 170 225 L 220 160" stroke="#666" stroke-width="2.5" marker-end="url(#arrow2)"/>
+
+                        <!-- Consensus scoring box -->
+                        <g transform="translate(230, 100)">
+                            <rect x="0" y="0" width="130" height="100" rx="8" fill="#d4edda" stroke="#28a745" stroke-width="3"/>
+                            <text x="65" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#155724">Consensus</text>
+                            <text x="65" y="40" text-anchor="middle" font-size="13" font-weight="600" fill="#155724">Scoring</text>
+                            
+                            <!-- Formula -->
+                            <text x="65" y="60" text-anchor="middle" font-size="11" fill="#155724">Final Score =</text>
+                            <text x="65" y="75" text-anchor="middle" font-size="10" fill="#155724">Σ (weight_i × Score_i)</text>
+                            <text x="65" y="90" text-anchor="middle" font-size="9" fill="#666">or rank aggregation</text>
+                        </g>
+
+                        <!-- Output -->
+                        <circle cx="295" cy="230" r="20" fill="#2ecc71" stroke="#27ae60" stroke-width="3"/>
+                        <text x="295" y="237" text-anchor="middle" font-size="16" fill="white" font-weight="bold">✓</text>
+                        <text x="295" y="260" text-anchor="middle" font-size="11" font-weight="600" fill="#27ae60">Higher</text>
+                        <text x="295" y="273" text-anchor="middle" font-size="11" font-weight="600" fill="#27ae60">Confidence</text>
+
+                        <!-- Venn diagram representation -->
+                        <g transform="translate(40, 280)">
+                            <ellipse cx="20" cy="20" rx="25" ry="20" fill="#3498db" opacity="0.3"/>
+                            <ellipse cx="35" cy="20" rx="25" ry="20" fill="#2ecc71" opacity="0.3"/>
+                            <ellipse cx="27.5" cy="32" rx="25" ry="20" fill="#f39c12" opacity="0.3"/>
+                            <text x="27.5" y="22" text-anchor="middle" font-size="10" font-weight="600" fill="#c0392b">Overlap</text>
+                            <text x="27.5" y="60" text-anchor="middle" font-size="9" fill="#666">Best candidates</text>
+                        </g>
+                    </svg>
+                </div>
+
+                <div class="text-section">
+                    <ul class="feature-list">
+                        <li><strong>Principle:</strong> Combines predictions from multiple independent methods to improve accuracy and reduce false positives</li>
+                        <li><strong>Strategies:</strong> Rank-by-rank, score-by-score, voting schemes, machine learning ensembles</li>
+                        <li><strong>Rationale:</strong> Different methods have complementary strengths and weaknesses</li>
+                        <li><strong>Result:</strong> Higher enrichment of true positives in top-ranked compounds</li>
+                    </ul>
+
+                    <div class="workflow-box">
+                        <h4>Implementation Approaches</h4>
+                        <p>1. Intersection: Select compounds ranked high by ALL methods<br>
+                        2. Weighted scoring: Combine scores with optimized weights<br>
+                        3. Rank aggregation: Merge ranking lists</p>
+                    </div>
+
+                    <div class="example-box">
+                        <h4>Common Combinations</h4>
+                        <p>• Docking + Pharmacophore<br>
+                        • Multiple docking programs<br>
+                        • Classical + ML scoring</p>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-points">
+                <h4>Key Advantages & Limitations</h4>
+                <ul>
+                    <li>Pros: Improved accuracy, reduces method-specific biases, more robust predictions</li>
+                    <li>Cons: Computationally expensive (multiple methods), requires careful weight optimization</li>
+                </ul>
+            </div>
+
+            <!-- Arrow marker for this slide -->
+            <svg width="0" height="0">
                 <defs>
-                    <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                    <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#666"/>
                     </marker>
                 </defs>
             </svg>
         </div>
-        
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="content-main">Similarity searching</div>
-                <div class="content-desc">Finding similar active compounds</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">Pharmacophore modeling</div>
-                <div class="content-desc">3D feature-based screening</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">Docking scores</div>
-                <div class="content-desc">Protein-ligand binding prediction</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">ML scoring functions</div>
-                <div class="content-desc">Learning-based scoring</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">Consensus approaches</div>
-                <div class="content-desc">Combining multiple methods</div>
+
+        <!-- Slide 7: Summary & Best Practices -->
+        <div class="slide">
+            <div class="subtitle">Virtual Screening: Summary & Best Practices</div>
+            
+            <div style="margin-top: 20px;">
+                <svg width="840" height="180" viewBox="0 0 840 180">
+                    <!-- Comparison table visualization -->
+                    <rect x="10" y="10" width="820" height="40" fill="#1E64C8" rx="5"/>
+                    <text x="70" y="35" font-size="13" font-weight="600" fill="white">Method</text>
+                    <text x="220" y="35" font-size="13" font-weight="600" fill="white">Speed</text>
+                    <text x="350" y="35" font-size="13" font-weight="600" fill="white">Accuracy</text>
+                    <text x="500" y="35" font-size="13" font-weight="600" fill="white">3D Info</text>
+                    <text x="650" y="35" font-size="13" font-weight="600" fill="white">Best Use Case</text>
+
+                    <!-- Row 1: Similarity -->
+                    <rect x="10" y="55" width="820" height="35" fill="#f8f9fa"/>
+                    <text x="15" y="77" font-size="12" fill="#333">Similarity</text>
+                    <text x="220" y="77" font-size="12" fill="#27ae60" font-weight="600">★★★★★</text>
+                    <text x="350" y="77" font-size="12" fill="#f39c12" font-weight="600">★★★☆☆</text>
+                    <text x="500" y="77" font-size="12" fill="#e74c3c">✗</text>
+                    <text x="650" y="77" font-size="11" fill="#555">Large library screening</text>
+
+                    <!-- Row 2: Pharmacophore -->
+                    <rect x="10" y="92" width="820" height="35" fill="#ffffff"/>
+                    <text x="15" y="114" font-size="12" fill="#333">Pharmacophore</text>
+                    <text x="220" y="114" font-size="12" fill="#f39c12" font-weight="600">★★★☆☆</text>
+                    <text x="350" y="114" font-size="12" fill="#f39c12" font-weight="600">★★★★☆</text>
+                    <text x="500" y="114" font-size="12" fill="#27ae60" font-weight="600">✓</text>
+                    <text x="650" y="114" font-size="11" fill="#555">Feature-based filtering</text>
+
+                    <!-- Row 3: Docking -->
+                    <rect x="10" y="129" width="820" height="35" fill="#f8f9fa"/>
+                    <text x="15" y="151" font-size="12" fill="#333">Docking</text>
+                    <text x="220" y="151" font-size="12" fill="#e74c3c" font-weight="600">★★☆☆☆</text>
+                    <text x="350" y="151" font-size="12" fill="#27ae60" font-weight="600">★★★★☆</text>
+                    <text x="500" y="151" font-size="12" fill="#27ae60" font-weight="600">✓✓</text>
+                    <text x="650" y="151" font-size="11" fill="#555">Structure-based screening</text>
+                </svg>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-top: 25px;">
+                    <div class="key-points" style="margin: 0;">
+                        <h4>Recommended Workflow</h4>
+                        <ul>
+                            <li>Stage 1: Similarity filtering (fast pre-filter)</li>
+                            <li>Stage 2: Pharmacophore screening (3D constraints)</li>
+                            <li>Stage 3: Molecular docking (binding mode)</li>
+                            <li>Stage 4: Consensus scoring + visual inspection</li>
+                        </ul>
+                    </div>
+
+                    <div class="key-points" style="margin: 0; background: #e8f4f8; border-color: #1E64C8;">
+                        <h4 style="color: #0d47a1;">Critical Success Factors</h4>
+                        <ul style="color: #1565c0;">
+                            <li>Quality of input structures (protein & ligands)</li>
+                            <li>Appropriate method selection for target</li>
+                            <li>Validation with known actives/inactives</li>
+                            <li>Experimental validation of predictions</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="example-box" style="margin-top: 15px;">
+                    <h4>Performance Metrics</h4>
+                    <p><strong>Enrichment Factor (EF):</strong> Measures how well actives are enriched in top-ranked compounds<br>
+                    <strong>ROC-AUC:</strong> Overall discriminatory power between actives and decoys<br>
+                    <strong>Success Rate:</strong> Typical hit rates range from 1-10% depending on target and method</p>
+                </div>
             </div>
         </div>
     </div>

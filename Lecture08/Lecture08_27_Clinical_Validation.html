@@ -1,41 +1,541 @@
 <!DOCTYPE html>
-<html lang="ko">
-<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>Clinical Validation</title>
-<style>* {margin:0;padding:0;box-sizing:border-box;}body {font-family:Aptos,'Segoe UI',sans-serif;background:white;display:flex;justify-content:center;align-items:center;min-height:100vh;}
-.container {width:960px;height:540px;padding:35px 50px;background:white;}.title {font-size:36px;font-weight:700;color:#1E64C8;margin-bottom:25px;text-align:center;}</style>
-</head><body><div class="container">
-        <div class="title">Clinical Validation Framework</div>
-        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:16px;margin-bottom:18px;">
-            <div style="background:linear-gradient(135deg,#e8f2ff 0%,#f8fbff 100%);border:3px solid #1E64C8;border-radius:10px;padding:18px 20px;text-align:center;">
-                <div style="font-size:28px;margin-bottom:8px;">📊</div>
-                <div style="font-size:18px;font-weight:700;color:#1E64C8;margin-bottom:8px;">Internal Validation</div>
-                <div style="font-size:14px;color:#333;line-height:1.4;">
-                    Cross-validation<br>Bootstrap<br>Same institution data
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Clinical Validation Framework</title>
+<style>
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background: #f5f5f5;
+    padding: 20px;
+}
+
+.slide {
+    width: 960px;
+    min-height: 540px;
+    margin: 0 auto 30px;
+    padding: 40px 50px;
+    background: white;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    page-break-after: always;
+}
+
+.title {
+    font-size: 36px;
+    font-weight: 700;
+    color: #1E64C8;
+    margin-bottom: 25px;
+    text-align: center;
+}
+
+.subtitle {
+    font-size: 28px;
+    font-weight: 700;
+    color: #1E64C8;
+    margin-bottom: 20px;
+    border-bottom: 3px solid #1E64C8;
+    padding-bottom: 10px;
+}
+
+.card-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 18px;
+}
+
+.card {
+    background: linear-gradient(135deg, #e8f2ff 0%, #f8fbff 100%);
+    border: 3px solid #1E64C8;
+    border-radius: 10px;
+    padding: 18px 20px;
+    text-align: center;
+}
+
+.card-icon {
+    font-size: 28px;
+    margin-bottom: 8px;
+}
+
+.card-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1E64C8;
+    margin-bottom: 8px;
+}
+
+.card-content {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.4;
+}
+
+.warning-box {
+    background: #fff4e6;
+    border: 3px solid #ffc107;
+    border-radius: 10px;
+    padding: 16px 22px;
+    margin-bottom: 16px;
+}
+
+.info-box {
+    background: #e8f5e9;
+    border-left: 5px solid #28a745;
+    border-radius: 8px;
+    padding: 14px 20px;
+}
+
+.detail-section {
+    margin-top: 25px;
+}
+
+.method-box {
+    background: #f8f9fa;
+    border-left: 4px solid #1E64C8;
+    padding: 15px 20px;
+    margin-bottom: 15px;
+    border-radius: 5px;
+}
+
+.method-title {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1E64C8;
+    margin-bottom: 10px;
+}
+
+.method-description {
+    font-size: 15px;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 8px;
+}
+
+.example-text {
+    font-size: 14px;
+    color: #666;
+    font-style: italic;
+    margin-top: 8px;
+}
+
+.diagram {
+    background: white;
+    border: 2px solid #1E64C8;
+    border-radius: 8px;
+    padding: 20px;
+    margin: 20px 0;
+    text-align: center;
+}
+
+.flow-container {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: 15px 0;
+}
+
+.flow-box {
+    background: #e8f2ff;
+    border: 2px solid #1E64C8;
+    border-radius: 8px;
+    padding: 15px 20px;
+    font-size: 14px;
+    font-weight: 600;
+    color: #1E64C8;
+    min-width: 120px;
+}
+
+.arrow {
+    font-size: 24px;
+    color: #1E64C8;
+    font-weight: bold;
+}
+
+.metrics-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin-top: 15px;
+}
+
+.metric-item {
+    background: #f0f7ff;
+    padding: 10px 15px;
+    border-radius: 6px;
+    border-left: 3px solid #1E64C8;
+}
+
+.metric-label {
+    font-weight: 700;
+    color: #1E64C8;
+    font-size: 14px;
+}
+
+.metric-value {
+    color: #333;
+    font-size: 13px;
+    margin-top: 4px;
+}
+
+.key-points {
+    background: #fff9e6;
+    border-radius: 8px;
+    padding: 15px 20px;
+    margin-top: 15px;
+}
+
+.key-points ul {
+    margin-left: 20px;
+    margin-top: 10px;
+}
+
+.key-points li {
+    font-size: 14px;
+    color: #333;
+    line-height: 1.6;
+    margin-bottom: 6px;
+}
+
+.highlight {
+    background: #ffeb3b;
+    padding: 2px 6px;
+    border-radius: 3px;
+    font-weight: 600;
+}
+</style>
+</head>
+<body>
+
+<!-- Slide 1: Overview -->
+<div class="slide">
+    <div class="title">Clinical Validation Framework</div>
+    <div class="card-grid">
+        <div class="card">
+            <div class="card-icon">📊</div>
+            <div class="card-title">Internal Validation</div>
+            <div class="card-content">
+                Cross-validation<br>Bootstrap<br>Same institution data
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-icon">🌍</div>
+            <div class="card-title">External Validation</div>
+            <div class="card-content">
+                Different hospitals<br>Different populations<br>Geographic diversity
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-icon">🚀</div>
+            <div class="card-title">Prospective Studies</div>
+            <div class="card-content">
+                Real-time predictions<br>Clinical workflow<br>RCT if possible
+            </div>
+        </div>
+    </div>
+    <div class="warning-box">
+        <div style="font-size:18px;font-weight:700;color:#856404;margin-bottom:8px;text-align:center;">⚠️ Real-World Performance</div>
+        <div style="font-size:15px;color:#333;text-align:center;">
+            Models often degrade when deployed - monitor performance continuously!
+        </div>
+    </div>
+    <div class="info-box">
+        <strong style="color:#28a745;font-size:17px;">FDA Requirements for Medical AI: </strong>
+        <span style="font-size:15px;color:#333;">Multi-site validation, diverse populations, clinical outcomes</span>
+    </div>
+</div>
+
+<!-- Slide 2: Internal Validation Details -->
+<div class="slide">
+    <div class="subtitle">📊 Internal Validation: Building Confidence</div>
+    
+    <div class="method-box">
+        <div class="method-title">1. K-Fold Cross-Validation</div>
+        <div class="method-description">
+            Divides the dataset into K equal parts (folds). The model is trained on K-1 folds and validated on the remaining fold. This process repeats K times, with each fold serving as the validation set once.
+        </div>
+        <div class="example-text">
+            Example: 5-fold CV with 1,000 patients → 800 training, 200 validation per fold
+        </div>
+    </div>
+
+    <div class="diagram">
+        <div style="font-weight:700;color:#1E64C8;margin-bottom:15px;">5-Fold Cross-Validation Process</div>
+        <div class="flow-container" style="flex-direction:column;gap:10px;">
+            <div style="display:flex;gap:5px;">
+                <div class="flow-box" style="background:#28a745;color:white;">Fold 1</div>
+                <div class="flow-box">Fold 2</div>
+                <div class="flow-box">Fold 3</div>
+                <div class="flow-box">Fold 4</div>
+                <div class="flow-box">Fold 5</div>
+                <span style="margin-left:10px;font-size:12px;">← Iteration 1</span>
+            </div>
+            <div style="display:flex;gap:5px;">
+                <div class="flow-box">Fold 1</div>
+                <div class="flow-box" style="background:#28a745;color:white;">Fold 2</div>
+                <div class="flow-box">Fold 3</div>
+                <div class="flow-box">Fold 4</div>
+                <div class="flow-box">Fold 5</div>
+                <span style="margin-left:10px;font-size:12px;">← Iteration 2</span>
+            </div>
+            <div style="margin-top:10px;font-size:13px;color:#666;">
+                Green = Validation Set | Blue = Training Set
+            </div>
+        </div>
+    </div>
+
+    <div class="method-box">
+        <div class="method-title">2. Bootstrap Validation</div>
+        <div class="method-description">
+            Random sampling with replacement from the original dataset. Provides robust estimates of model performance and confidence intervals. Typically performed 500-1,000 times.
+        </div>
+        <div class="example-text">
+            Example: From 1,000 samples, create 1,000 bootstrap samples, each with ~632 unique cases
+        </div>
+    </div>
+
+    <div class="key-points">
+        <div style="font-weight:700;color:#1E64C8;margin-bottom:8px;">🎯 Key Advantages:</div>
+        <ul>
+            <li>Maximizes use of limited data</li>
+            <li>Provides confidence intervals for performance metrics</li>
+            <li>Detects overfitting before external testing</li>
+            <li>Cost-effective initial validation step</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Slide 3: External Validation Details -->
+<div class="slide">
+    <div class="subtitle">🌍 External Validation: The Real Test</div>
+    
+    <div class="method-box">
+        <div class="method-title">1. Geographic External Validation</div>
+        <div class="method-description">
+            Testing the model on data from different hospitals, regions, or countries. This addresses variations in patient demographics, disease prevalence, and clinical practices.
+        </div>
+        <div class="example-text">
+            Example: Model trained at US academic center → validated at European community hospital
+        </div>
+    </div>
+
+    <div class="diagram">
+        <div style="font-weight:700;color:#1E64C8;margin-bottom:15px;">Multi-Site Validation Scenario</div>
+        <div style="display:grid;grid-template-columns:1fr 1fr 1fr;gap:15px;margin:15px 0;">
+            <div>
+                <div style="background:#1E64C8;color:white;padding:12px;border-radius:8px;font-weight:700;margin-bottom:8px;">
+                    Site A (Training)
+                </div>
+                <div style="font-size:12px;text-align:left;padding:0 10px;">
+                    • Urban academic center<br>
+                    • 80% training data<br>
+                    • n = 5,000 patients<br>
+                    • AUC: 0.92
                 </div>
             </div>
-            <div style="background:linear-gradient(135deg,#e8f2ff 0%,#f8fbff 100%);border:3px solid #1E64C8;border-radius:10px;padding:18px 20px;text-align:center;">
-                <div style="font-size:28px;margin-bottom:8px;">🌍</div>
-                <div style="font-size:18px;font-weight:700;color:#1E64C8;margin-bottom:8px;">External Validation</div>
-                <div style="font-size:14px;color:#333;line-height:1.4;">
-                    Different hospitals<br>Different populations<br>Geographic diversity
+            <div>
+                <div style="background:#28a745;color:white;padding:12px;border-radius:8px;font-weight:700;margin-bottom:8px;">
+                    Site B (External)
+                </div>
+                <div style="font-size:12px;text-align:left;padding:0 10px;">
+                    • Community hospital<br>
+                    • External validation<br>
+                    • n = 2,000 patients<br>
+                    • AUC: 0.87 ✓
                 </div>
             </div>
-            <div style="background:linear-gradient(135deg,#e8f2ff 0%,#f8fbff 100%);border:3px solid #1E64C8;border-radius:10px;padding:18px 20px;text-align:center;">
-                <div style="font-size:28px;margin-bottom:8px;">🚀</div>
-                <div style="font-size:18px;font-weight:700;color:#1E64C8;margin-bottom:8px;">Prospective Studies</div>
-                <div style="font-size:14px;color:#333;line-height:1.4;">
-                    Real-time predictions<br>Clinical workflow<br>RCT if possible
+            <div>
+                <div style="background:#28a745;color:white;padding:12px;border-radius:8px;font-weight:700;margin-bottom:8px;">
+                    Site C (External)
+                </div>
+                <div style="font-size:12px;text-align:left;padding:0 10px;">
+                    • International site<br>
+                    • Different population<br>
+                    • n = 1,500 patients<br>
+                    • AUC: 0.85 ✓
                 </div>
             </div>
         </div>
-        <div style="background:#fff4e6;border:3px solid #ffc107;border-radius:10px;padding:16px 22px;margin-bottom:16px;">
-            <div style="font-size:18px;font-weight:700;color:#856404;margin-bottom:8px;text-align:center;">⚠️ Real-World Performance</div>
-            <div style="font-size:15px;color:#333;text-align:center;">
-                Models often degrade when deployed - monitor performance continuously!
+    </div>
+
+    <div class="method-box">
+        <div class="method-title">2. Temporal External Validation</div>
+        <div class="method-description">
+            Validating on data collected after the training period. This tests whether the model remains accurate as clinical practices, demographics, and disease patterns evolve over time.
+        </div>
+        <div class="example-text">
+            Example: Train on 2015-2020 data → validate on 2021-2023 data
+        </div>
+    </div>
+
+    <div class="key-points">
+        <div style="font-weight:700;color:#1E64C8;margin-bottom:8px;">⚠️ Common Challenges:</div>
+        <ul>
+            <li><span class="highlight">Domain shift:</span> Different patient populations, equipment, protocols</li>
+            <li><span class="highlight">Data quality:</span> Inconsistent coding, missing values, measurement differences</li>
+            <li><span class="highlight">Performance degradation:</span> Expect 5-15% decrease in accuracy</li>
+            <li><span class="highlight">Calibration issues:</span> Predicted probabilities may not match actual outcomes</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Slide 4: Prospective Studies Details -->
+<div class="slide">
+    <div class="subtitle">🚀 Prospective Studies: Clinical Reality</div>
+    
+    <div class="method-box">
+        <div class="method-title">1. Prospective Observational Study</div>
+        <div class="method-description">
+            The model makes predictions in real-time as new patients are encountered, but clinicians are not required to act on the predictions. This evaluates real-world performance without influencing clinical decisions.
+        </div>
+        <div class="example-text">
+            Example: Silent mode deployment for 6 months, comparing predictions to actual outcomes
+        </div>
+    </div>
+
+    <div class="diagram">
+        <div style="font-weight:700;color:#1E64C8;margin-bottom:15px;">Prospective Study Timeline</div>
+        <div class="flow-container">
+            <div class="flow-box" style="min-width:150px;">Patient Encounter</div>
+            <div class="arrow">→</div>
+            <div class="flow-box" style="min-width:150px;">Real-time Prediction</div>
+            <div class="arrow">→</div>
+            <div class="flow-box" style="min-width:150px;">Clinical Care<br>(Standard)</div>
+            <div class="arrow">→</div>
+            <div class="flow-box" style="min-width:150px;">Outcome<br>Assessment</div>
+        </div>
+        <div style="margin-top:15px;font-size:13px;color:#666;">
+            Model predictions are recorded but not shown to clinicians
+        </div>
+    </div>
+
+    <div class="method-box">
+        <div class="method-title">2. Randomized Controlled Trial (RCT)</div>
+        <div class="method-description">
+            The gold standard for clinical validation. Patients are randomly assigned to receive AI-assisted care or standard care. This directly measures the impact of the AI system on clinical outcomes and decision-making.
+        </div>
+        <div class="example-text">
+            Example: 1,000 patients → 500 with AI alerts, 500 standard care, compare mortality rates
+        </div>
+    </div>
+
+    <div class="metrics-grid">
+        <div class="metric-item">
+            <div class="metric-label">Primary Outcomes</div>
+            <div class="metric-value">Mortality, morbidity, length of stay, readmissions</div>
+        </div>
+        <div class="metric-item">
+            <div class="metric-label">Secondary Outcomes</div>
+            <div class="metric-value">Diagnostic accuracy, treatment appropriateness, cost</div>
+        </div>
+        <div class="metric-item">
+            <div class="metric-label">Process Metrics</div>
+            <div class="metric-value">Time to diagnosis, alert compliance, workflow impact</div>
+        </div>
+        <div class="metric-item">
+            <div class="metric-label">Safety Metrics</div>
+            <div class="metric-value">False alarms, missed cases, adverse events</div>
+        </div>
+    </div>
+
+    <div class="key-points">
+        <div style="font-weight:700;color:#1E64C8;margin-bottom:8px;">✅ Critical Success Factors:</div>
+        <ul>
+            <li>Integration with clinical workflow (minimal disruption)</li>
+            <li>Clinician training and acceptance</li>
+            <li>Continuous monitoring of model performance</li>
+            <li>Clear protocols for alert fatigue management</li>
+            <li>Regulatory compliance and ethical approval</li>
+        </ul>
+    </div>
+</div>
+
+<!-- Slide 5: Comparison Summary -->
+<div class="slide">
+    <div class="subtitle">📋 Validation Hierarchy & Requirements</div>
+    
+    <div style="margin-top:20px;">
+        <table style="width:100%;border-collapse:collapse;">
+            <thead>
+                <tr style="background:#1E64C8;color:white;">
+                    <th style="padding:12px;text-align:left;border:1px solid #ddd;">Validation Type</th>
+                    <th style="padding:12px;text-align:left;border:1px solid #ddd;">Strength of Evidence</th>
+                    <th style="padding:12px;text-align:left;border:1px solid #ddd;">Time & Cost</th>
+                    <th style="padding:12px;text-align:left;border:1px solid #ddd;">Key Limitation</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr style="background:#f8f9fa;">
+                    <td style="padding:12px;border:1px solid #ddd;"><strong>Internal</strong></td>
+                    <td style="padding:12px;border:1px solid #ddd;">⭐ Low</td>
+                    <td style="padding:12px;border:1px solid #ddd;">Days-Weeks / $</td>
+                    <td style="padding:12px;border:1px solid #ddd;">Same data distribution</td>
+                </tr>
+                <tr>
+                    <td style="padding:12px;border:1px solid #ddd;"><strong>External</strong></td>
+                    <td style="padding:12px;border:1px solid #ddd;">⭐⭐⭐ Moderate-High</td>
+                    <td style="padding:12px;border:1px solid #ddd;">Months / $$</td>
+                    <td style="padding:12px;border:1px solid #ddd;">Retrospective bias</td>
+                </tr>
+                <tr style="background:#f8f9fa;">
+                    <td style="padding:12px;border:1px solid #ddd;"><strong>Prospective</strong></td>
+                    <td style="padding:12px;border:1px solid #ddd;">⭐⭐⭐⭐ High</td>
+                    <td style="padding:12px;border:1px solid #ddd;">6-24 Months / $$$</td>
+                    <td style="padding:12px;border:1px solid #ddd;">Time-intensive</td>
+                </tr>
+                <tr>
+                    <td style="padding:12px;border:1px solid #ddd;"><strong>RCT</strong></td>
+                    <td style="padding:12px;border:1px solid #ddd;">⭐⭐⭐⭐⭐ Highest</td>
+                    <td style="padding:12px;border:1px solid #ddd;">1-3 Years / $$$$</td>
+                    <td style="padding:12px;border:1px solid #ddd;">Cost & complexity</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+
+    <div class="diagram" style="margin-top:25px;">
+        <div style="font-weight:700;color:#1E64C8;margin-bottom:15px;">Recommended Validation Pathway</div>
+        <div class="flow-container">
+            <div class="flow-box" style="background:#e3f2fd;">
+                1. Internal<br>Validation
+            </div>
+            <div class="arrow">→</div>
+            <div class="flow-box" style="background:#bbdefb;">
+                2. External<br>Validation
+            </div>
+            <div class="arrow">→</div>
+            <div class="flow-box" style="background:#90caf9;">
+                3. Prospective<br>Study
+            </div>
+            <div class="arrow">→</div>
+            <div class="flow-box" style="background:#1E64C8;color:white;">
+                4. RCT<br>(if warranted)
             </div>
         </div>
-        <div style="background:#e8f5e9;border-left:5px solid #28a745;border-radius:8px;padding:14px 20px;">
-            <strong style="color:#28a745;font-size:17px;">FDA Requirements for Medical AI: </strong>
-            <span style="font-size:15px;color:#333;">Multi-site validation, diverse populations, clinical outcomes</span>
+        <div style="margin-top:15px;font-size:13px;color:#666;">
+            Each step builds evidence for clinical adoption and regulatory approval
         </div>
-    </div></body></html>
+    </div>
+
+    <div class="warning-box" style="margin-top:25px;">
+        <div style="font-weight:700;color:#856404;margin-bottom:10px;">🔄 Post-Deployment Monitoring</div>
+        <div style="font-size:14px;color:#333;line-height:1.6;">
+            <strong>Continuous validation is essential:</strong>
+            <ul style="margin-left:20px;margin-top:8px;">
+                <li>Monitor performance metrics monthly</li>
+                <li>Track data drift and model degradation</li>
+                <li>Update models as clinical practices evolve</li>
+                <li>Maintain audit trails for regulatory compliance</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+</body>
+</html>

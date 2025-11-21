@@ -1,67 +1,646 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Community and Conferences</title>
+    <title>Community and Conferences - Enhanced</title>
     <style>
         * {margin: 0; padding: 0; box-sizing: border-box;}
-        body {font-family: Aptos, 'Segoe UI', sans-serif; background: white; display: flex; justify-content: center; align-items: center; min-height: 100vh;}
-        .container {width: 960px; height: 540px; padding: 40px 50px; background: white;}
-        .title {font-size: 36px; font-weight: 700; color: #1E64C8; margin-bottom: 35px; text-align: center;}
-        .content-section {display: grid; grid-template-columns: 1fr 1fr; gap: 25px;}
-        .info-box {background: #f8f9fb; border-left: 4px solid #1E64C8; padding: 20px 22px; border-radius: 6px; transition: all 0.3s;}
-        .info-box:hover {background: #e8f2ff; transform: translateX(5px);}
-        .info-title {font-size: 19px; font-weight: 600; color: #1E64C8; margin-bottom: 12px;}
-        .info-content {font-size: 16px; color: #333; line-height: 1.7;}
-        .bullet {display: flex; align-items: flex-start; margin-bottom: 8px;}
-        .bullet::before {content: "•"; color: #1E64C8; font-weight: bold; margin-right: 10px; font-size: 18px;}
-        .full-width-box {grid-column: 1 / -1; background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%); color: white; padding: 18px 25px; border-radius: 8px; text-align: center; font-size: 17px; font-weight: 500;}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8eef5 100%);
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.1);
+            overflow: hidden;
+        }
+        
+        /* Header Section */
+        .header-section {
+            padding: 50px;
+            background: linear-gradient(135deg, #1E64C8 0%, #2575e8 100%);
+            color: white;
+        }
+        .title {
+            font-size: 42px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        .subtitle {
+            text-align: center;
+            font-size: 18px;
+            opacity: 0.95;
+        }
+        
+        /* Overview Section */
+        .overview-section {
+            padding: 40px 50px;
+            background: white;
+        }
+        .content-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .info-box {
+            background: #f8f9fb;
+            border-left: 4px solid #1E64C8;
+            padding: 25px;
+            border-radius: 8px;
+            transition: all 0.3s;
+        }
+        .info-box:hover {
+            background: #e8f2ff;
+            transform: translateX(5px);
+            box-shadow: 0 5px 15px rgba(30, 100, 200, 0.1);
+        }
+        .info-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 15px;
+        }
+        .info-content {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.7;
+        }
+        .bullet {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 10px;
+        }
+        .bullet::before {
+            content: "•";
+            color: #1E64C8;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 20px;
+        }
+        .full-width-box {
+            background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 17px;
+            font-weight: 500;
+        }
+        
+        /* Detailed Sections */
+        .detailed-section {
+            padding: 50px;
+            background: #fafbfc;
+            border-top: 3px solid #e8eef5;
+        }
+        .section-header {
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        .section-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 10px;
+        }
+        .section-description {
+            font-size: 18px;
+            color: #666;
+        }
+        
+        /* Category Cards */
+        .category-card {
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+            transition: transform 0.3s;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.12);
+        }
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #1E64C8;
+        }
+        .category-icon {
+            width: 70px;
+            height: 70px;
+            background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 35px;
+            margin-right: 20px;
+            box-shadow: 0 5px 15px rgba(30, 100, 200, 0.3);
+        }
+        .category-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+        }
+        
+        /* Visual Examples Grid */
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        .example-card {
+            background: #f8f9fb;
+            border-radius: 10px;
+            padding: 25px;
+            border: 2px solid #e8eef5;
+            transition: all 0.3s;
+        }
+        .example-card:hover {
+            border-color: #1E64C8;
+            background: #e8f2ff;
+        }
+        .example-visual {
+            width: 100%;
+            height: 180px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 8px;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+        .example-visual::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(255,255,255,0.1) 0%, rgba(255,255,255,0) 100%);
+        }
+        .example-name {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 10px;
+        }
+        .example-description {
+            font-size: 14px;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 12px;
+        }
+        .example-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+        }
+        .tag {
+            background: #1E64C8;
+            color: white;
+            padding: 5px 12px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: 500;
+        }
+        
+        /* Detail Lists */
+        .detail-list {
+            background: #f0f4f8;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+        .detail-list-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 15px;
+        }
+        .detail-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 15px;
+            padding: 12px;
+            background: white;
+            border-radius: 6px;
+        }
+        .detail-item::before {
+            content: "→";
+            color: #1E64C8;
+            font-weight: bold;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+        .detail-item-text {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        /* Color variations for different categories */
+        .category-1 .category-icon {background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);}
+        .category-1 .category-header {border-bottom-color: #667eea;}
+        .category-1 .category-title {color: #667eea;}
+        .category-1 .tag {background: #667eea;}
+        .category-1 .detail-list-title {color: #667eea;}
+        .category-1 .detail-item::before {color: #667eea;}
+        
+        .category-2 .category-icon {background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);}
+        .category-2 .category-header {border-bottom-color: #f093fb;}
+        .category-2 .category-title {color: #f093fb;}
+        .category-2 .tag {background: #f093fb;}
+        .category-2 .detail-list-title {color: #f093fb;}
+        .category-2 .detail-item::before {color: #f093fb;}
+        
+        .category-3 .category-icon {background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);}
+        .category-3 .category-header {border-bottom-color: #4facfe;}
+        .category-3 .category-title {color: #4facfe;}
+        .category-3 .tag {background: #4facfe;}
+        .category-3 .detail-list-title {color: #4facfe;}
+        .category-3 .detail-item::before {color: #4facfe;}
+        
+        .category-4 .category-icon {background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);}
+        .category-4 .category-header {border-bottom-color: #43e97b;}
+        .category-4 .category-title {color: #43e97b;}
+        .category-4 .tag {background: #43e97b;}
+        .category-4 .detail-list-title {color: #43e97b;}
+        .category-4 .detail-item::before {color: #43e97b;}
+        
+        /* Visual gradient variations */
+        .visual-1 {background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);}
+        .visual-2 {background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);}
+        .visual-3 {background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);}
+        .visual-4 {background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);}
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Community and Professional Development</div>
-        <div class="content-section">
-            <div class="info-box">
-                <div class="info-title">Professional Societies</div>
-                <div class="info-content">
-                    <div class="bullet">AMIA (American Medical Informatics)</div>
-                    <div class="bullet">ISCB (Computational Biology)</div>
-                    <div class="bullet">IEEE EMBS</div>
-                    <div class="bullet">ACM SIGHIT</div>
+        <!-- Header Section -->
+        <div class="header-section">
+            <div class="title">Community and Professional Development</div>
+            <div class="subtitle">Building Your Career in Healthcare AI and Biomedical Informatics</div>
+        </div>
+        
+        <!-- Overview Section -->
+        <div class="overview-section">
+            <div class="content-grid">
+                <div class="info-box">
+                    <div class="info-title">Professional Societies</div>
+                    <div class="info-content">
+                        <div class="bullet">AMIA (American Medical Informatics)</div>
+                        <div class="bullet">ISCB (Computational Biology)</div>
+                        <div class="bullet">IEEE EMBS</div>
+                        <div class="bullet">ACM SIGHIT</div>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div class="info-title">Major Conferences</div>
+                    <div class="info-content">
+                        <div class="bullet">NeurIPS, ICML (AI/ML)</div>
+                        <div class="bullet">MICCAI (Medical Imaging)</div>
+                        <div class="bullet">PSB (Pacific Symposium Biocomputing)</div>
+                        <div class="bullet">AMIA Annual Symposium</div>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div class="info-title">Online Communities</div>
+                    <div class="info-content">
+                        <div class="bullet">r/HealthTech, r/MachineLearning</div>
+                        <div class="bullet">Kaggle forums and competitions</div>
+                        <div class="bullet">Papers with Code</div>
+                        <div class="bullet">LinkedIn groups (Healthcare AI)</div>
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div class="info-title">Networking Opportunities</div>
+                    <div class="info-content">
+                        <div class="bullet">Local meetups (Meetup.com)</div>
+                        <div class="bullet">Hackathons (Health 2.0)</div>
+                        <div class="bullet">University career fairs</div>
+                        <div class="bullet">Alumni connections</div>
+                    </div>
                 </div>
             </div>
-            <div class="info-box">
-                <div class="info-title">Major Conferences</div>
-                <div class="info-content">
-                    <div class="bullet">NeurIPS, ICML (AI/ML)</div>
-                    <div class="bullet">MICCAI (Medical Imaging)</div>
-                    <div class="bullet">PSB (Pacific Symposium Biocomputing)</div>
-                    <div class="bullet">AMIA Annual Symposium</div>
-                </div>
-            </div>
-            <div class="info-box">
-                <div class="info-title">Online Communities</div>
-                <div class="info-content">
-                    <div class="bullet">r/HealthTech, r/MachineLearning</div>
-                    <div class="bullet">Kaggle forums and competitions</div>
-                    <div class="bullet">Papers with Code</div>
-                    <div class="bullet">LinkedIn groups (Healthcare AI)</div>
-                </div>
-            </div>
-            <div class="info-box">
-                <div class="info-title">Networking Opportunities</div>
-                <div class="info-content">
-                    <div class="bullet">Local meetups (Meetup.com)</div>
-                    <div class="bullet">Hackathons (Health 2.0)</div>
-                    <div class="bullet">University career fairs</div>
-                    <div class="bullet">Alumni connections</div>
-                </div>
+            <div class="full-width-box">
+                <strong>Continuing Education:</strong> Student membership discounts available for most societies (~$25-50/year)
             </div>
         </div>
-        <div class="full-width-box">
-            <strong>Continuing Education:</strong> Student membership discounts available for most societies (~$25-50/year)
+        
+        <!-- Detailed Sections -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-title">In-Depth Guide to Each Category</div>
+                <div class="section-description">Explore detailed information, examples, and benefits for your professional development</div>
+            </div>
+            
+            <!-- Category 1: Professional Societies -->
+            <div class="category-card category-1">
+                <div class="category-header">
+                    <div class="category-icon">🏛️</div>
+                    <div class="category-title">Professional Societies</div>
+                </div>
+                
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <div class="example-visual visual-1">🏥</div>
+                        <div class="example-name">AMIA</div>
+                        <div class="example-description">American Medical Informatics Association - Leading organization for healthcare informatics professionals, researchers, and students.</div>
+                        <div class="example-tags">
+                            <span class="tag">Clinical Informatics</span>
+                            <span class="tag">Research</span>
+                            <span class="tag">Education</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-visual visual-1">🧬</div>
+                        <div class="example-name">ISCB</div>
+                        <div class="example-description">International Society for Computational Biology - Focused on computational approaches to biological research and bioinformatics.</div>
+                        <div class="example-tags">
+                            <span class="tag">Genomics</span>
+                            <span class="tag">Proteomics</span>
+                            <span class="tag">Systems Biology</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-visual visual-1">⚡</div>
+                        <div class="example-name">IEEE EMBS</div>
+                        <div class="example-description">Engineering in Medicine and Biology Society - Advancing biomedical engineering through technology, research, and innovation.</div>
+                        <div class="example-tags">
+                            <span class="tag">Medical Devices</span>
+                            <span class="tag">Signal Processing</span>
+                            <span class="tag">Imaging</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-visual visual-1">💻</div>
+                        <div class="example-name">ACM SIGHIT</div>
+                        <div class="example-description">Special Interest Group on Health Informatics - Computing professionals focused on health IT and informatics challenges.</div>
+                        <div class="example-tags">
+                            <span class="tag">Health IT</span>
+                            <span class="tag">Data Science</span>
+                            <span class="tag">Innovation</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-list">
+                    <div class="detail-list-title">Benefits of Membership</div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Access to Journals & Publications:</strong> Get exclusive access to peer-reviewed journals, research papers, and industry publications in your field.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Discounted Conference Registration:</strong> Save 30-50% on annual conferences, workshops, and symposiums with member pricing.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Career Development Resources:</strong> Access mentorship programs, career counseling, job boards, and professional development webinars.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Networking Opportunities:</strong> Connect with experts, researchers, and professionals through special interest groups and regional chapters.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Certification Programs:</strong> Pursue professional certifications and credentials to advance your career and demonstrate expertise.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category 2: Major Conferences -->
+            <div class="category-card category-2">
+                <div class="category-header">
+                    <div class="category-icon">🎤</div>
+                    <div class="category-title">Major Conferences</div>
+                </div>
+                
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <div class="example-visual visual-2">🤖</div>
+                        <div class="example-name">NeurIPS & ICML</div>
+                        <div class="example-description">Top-tier AI/ML conferences featuring cutting-edge research in neural networks, deep learning, and machine learning applications.</div>
+                        <div class="example-tags">
+                            <span class="tag">Deep Learning</span>
+                            <span class="tag">AI Research</span>
+                            <span class="tag">December</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-visual visual-2">🔬</div>
+                        <div class="example-name">MICCAI</div>
+                        <div class="example-description">Medical Image Computing and Computer Assisted Intervention - Premier conference for medical imaging, computer vision, and surgical assistance.</div>
+                        <div class="example-tags">
+                            <span class="tag">Medical Imaging</span>
+                            <span class="tag">Computer Vision</span>
+                            <span class="tag">October</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-visual visual-2">🌊</div>
+                        <div class="example-name">PSB</div>
+                        <div class="example-description">Pacific Symposium on Biocomputing - Brings together computational and experimental scientists for biomedical research discussions.</div>
+                        <div class="example-tags">
+                            <span class="tag">Biocomputing</span>
+                            <span class="tag">Genomics</span>
+                            <span class="tag">January</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-visual visual-2">📊</div>
+                        <div class="example-name">AMIA Annual Symposium</div>
+                        <div class="example-description">Largest gathering of informatics professionals showcasing innovations in clinical informatics, research, and health IT implementation.</div>
+                        <div class="example-tags">
+                            <span class="tag">Clinical Informatics</span>
+                            <span class="tag">EHR</span>
+                            <span class="tag">November</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-list">
+                    <div class="detail-list-title">What to Expect at Conferences</div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Keynote Presentations:</strong> Hear from world-renowned researchers and industry leaders about breakthrough discoveries and future directions.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Paper & Poster Sessions:</strong> Present your research, get feedback from peers, and explore hundreds of cutting-edge studies in your field.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Workshops & Tutorials:</strong> Hands-on learning sessions covering new tools, techniques, and methodologies in healthcare AI and informatics.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Networking Events:</strong> Connect with potential collaborators, employers, and mentors during social events, receptions, and coffee breaks.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Exhibition Halls:</strong> Explore the latest technologies, software, and services from leading healthcare IT and AI companies.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category 3: Online Communities -->
+            <div class="category-card category-3">
+                <div class="category-header">
+                    <div class="category-icon">🌐</div>
+                    <div class="category-title">Online Communities</div>
+                </div>
+                
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <div class="example-visual visual-3">💬</div>
+                        <div class="example-name">Reddit Communities</div>
+                        <div class="example-description">r/HealthTech and r/MachineLearning - Active forums for discussions, questions, and sharing the latest news in healthcare technology and ML.</div>
+                        <div class="example-tags">
+                            <span class="tag">Discussion</span>
+                            <span class="tag">News</span>
+                            <span class="tag">Q&A</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-visual visual-3">🏆</div>
+                        <div class="example-name">Kaggle</div>
+                        <div class="example-description">Data science platform with healthcare competitions, tutorials, and a vibrant community for learning and practicing ML skills.</div>
+                        <div class="example-tags">
+                            <span class="tag">Competitions</span>
+                            <span class="tag">Datasets</span>
+                            <span class="tag">Notebooks</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-visual visual-3">📚</div>
+                        <div class="example-name">Papers with Code</div>
+                        <div class="example-description">Repository linking research papers with their implementations, making it easy to reproduce and build upon state-of-the-art research.</div>
+                        <div class="example-tags">
+                            <span class="tag">Research</span>
+                            <span class="tag">Code</span>
+                            <span class="tag">Benchmarks</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-visual visual-3">👔</div>
+                        <div class="example-name">LinkedIn Groups</div>
+                        <div class="example-description">Professional groups focused on Healthcare AI, Digital Health, and Medical Informatics for industry insights and career networking.</div>
+                        <div class="example-tags">
+                            <span class="tag">Professional</span>
+                            <span class="tag">Jobs</span>
+                            <span class="tag">Industry News</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-list">
+                    <div class="detail-list-title">Maximizing Online Community Engagement</div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Ask Thoughtful Questions:</strong> Search existing discussions first, then ask specific, well-researched questions to get quality responses.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Share Your Knowledge:</strong> Answer questions in your area of expertise to build reputation and establish yourself as a helpful community member.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Participate in Challenges:</strong> Join Kaggle competitions or coding challenges to practice skills and benchmark your abilities against others.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Stay Updated:</strong> Follow relevant subreddits, LinkedIn groups, and forums to keep pace with the latest research, tools, and industry trends.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Build Your Portfolio:</strong> Share your projects, blog posts, and code repositories to showcase your skills and attract potential collaborators or employers.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Category 4: Networking Opportunities -->
+            <div class="category-card category-4">
+                <div class="category-header">
+                    <div class="category-icon">🤝</div>
+                    <div class="category-title">Networking Opportunities</div>
+                </div>
+                
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <div class="example-visual visual-4">📍</div>
+                        <div class="example-name">Local Meetups</div>
+                        <div class="example-description">Find and join local meetup groups through Meetup.com focusing on healthcare technology, AI/ML, and biomedical engineering in your area.</div>
+                        <div class="example-tags">
+                            <span class="tag">Local</span>
+                            <span class="tag">Face-to-Face</span>
+                            <span class="tag">Regular Events</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-visual visual-4">⚙️</div>
+                        <div class="example-name">Hackathons</div>
+                        <div class="example-description">Health 2.0 and similar hackathons offer intensive collaborative experiences to build prototypes, meet innovators, and potentially win prizes.</div>
+                        <div class="example-tags">
+                            <span class="tag">Build Projects</span>
+                            <span class="tag">Team Work</span>
+                            <span class="tag">Prizes</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-visual visual-4">🎓</div>
+                        <div class="example-name">University Career Fairs</div>
+                        <div class="example-description">On-campus recruitment events where healthcare companies, tech firms, and research institutions seek talented students and recent graduates.</div>
+                        <div class="example-tags">
+                            <span class="tag">Recruiting</span>
+                            <span class="tag">Internships</span>
+                            <span class="tag">Full-time</span>
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-visual visual-4">🎯</div>
+                        <div class="example-name">Alumni Networks</div>
+                        <div class="example-description">Leverage your university's alumni network for mentorship, job referrals, and insider advice from graduates working in healthcare AI.</div>
+                        <div class="example-tags">
+                            <span class="tag">Mentorship</span>
+                            <span class="tag">Referrals</span>
+                            <span class="tag">Advice</span>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-list">
+                    <div class="detail-list-title">Networking Best Practices</div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Prepare Your Elevator Pitch:</strong> Develop a concise 30-second introduction about your background, interests, and goals that you can adapt to any situation.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Follow Up Promptly:</strong> Send personalized follow-up messages within 24-48 hours after meeting someone to maintain the connection and show genuine interest.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Offer Value First:</strong> Think about how you can help others before asking for favors - share resources, make introductions, or offer your skills.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Maintain Your Network:</strong> Stay in touch with connections through occasional messages, sharing relevant articles, or congratulating them on achievements.</div>
+                    </div>
+                    <div class="detail-item">
+                        <div class="detail-item-text"><strong>Be Authentic:</strong> Focus on building genuine relationships rather than just collecting business cards - quality connections matter more than quantity.</div>
+                    </div>
+                </div>
+            </div>
+            
         </div>
     </div>
 </body>

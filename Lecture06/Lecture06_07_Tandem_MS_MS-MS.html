@@ -1,38 +1,38 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tandem MS (MS-MS)</title>
+    <title>Tandem MS (MS-MS) - Enhanced</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 20px;
         }
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 35px 45px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .title {
-            font-size: 20px;
+            font-size: 32px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 15px;
         }
         .process-diagram {
             display: flex;
             justify-content: center;
             align-items: center;
-            margin-bottom: 25px;
-            padding: 20px;
+            margin-bottom: 40px;
+            padding: 30px;
             background: linear-gradient(to right, #f8fbff, #ffffff, #f8fbff);
             border-radius: 12px;
             position: relative;
@@ -50,15 +50,15 @@
             margin-bottom: 10px;
         }
         .process-label {
-            font-size: 15px;
+            font-size: 16px;
             font-weight: 600;
             color: #1E64C8;
             text-align: center;
         }
         .process-sublabel {
-            font-size: 12px;
+            font-size: 13px;
             color: #666;
-            margin-top: 3px;
+            margin-top: 5px;
         }
         .flow-arrow {
             position: absolute;
@@ -66,21 +66,19 @@
             height: 30px;
             top: 35%;
         }
-        .arrow-1 {
-            left: 27%;
-        }
-        .arrow-2 {
-            right: 27%;
-        }
+        .arrow-1 { left: 27%; }
+        .arrow-2 { right: 27%; }
+        
         .content-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 18px;
+            gap: 20px;
+            margin-bottom: 50px;
         }
         .content-card {
             background: #f8fbff;
             border-left: 4px solid #1E64C8;
-            padding: 16px 20px;
+            padding: 20px;
             border-radius: 6px;
             transition: all 0.3s;
             position: relative;
@@ -98,28 +96,129 @@
             opacity: 0.3;
         }
         .card-title {
-            font-size: 17px;
+            font-size: 18px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         .card-content {
             font-size: 15px;
             color: #333;
-            line-height: 1.5;
+            line-height: 1.6;
         }
         .bullet {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
         }
         .bullet::before {
             content: "•";
             color: #1E64C8;
             font-weight: bold;
             margin-right: 8px;
-            font-size: 15px;
+            font-size: 16px;
         }
+        
+        /* Detailed Sections */
+        .detailed-section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+        }
+        .section-header {
+            font-size: 26px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1E64C8;
+            display: flex;
+            align-items: center;
+        }
+        .section-number {
+            background: #1E64C8;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        .section-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .visual-panel {
+            background: #f8fbff;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .text-panel {
+            padding: 10px;
+        }
+        .subsection-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+        }
+        .subsection-title::before {
+            content: "▸";
+            color: #1E64C8;
+            margin-right: 8px;
+            font-size: 20px;
+        }
+        .description {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #444;
+            margin-bottom: 12px;
+        }
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .highlight-box-blue {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        .feature-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+        }
+        .feature-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
         @keyframes pulse {
             0%, 100% { opacity: 1; }
             50% { opacity: 0.5; }
@@ -127,37 +226,50 @@
         .animated-ion {
             animation: pulse 2s infinite;
         }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .comparison-table th {
+            background: #1E64C8;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .comparison-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .comparison-table tr:hover {
+            background: #f8fbff;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Tandem MS (MS-MS)</div>
+        <div class="title">Tandem Mass Spectrometry (MS/MS)</div>
         
+        <!-- Original Process Diagram -->
         <div class="process-diagram">
             <div class="process-step">
                 <svg class="process-visual" viewBox="0 0 150 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- MS1 Chamber -->
                     <rect x="10" y="20" width="130" height="80" rx="8" fill="#f8fbff" stroke="#1E64C8" stroke-width="2"/>
                     <text x="75" y="15" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="bold">MS1</text>
-                    
-                    <!-- Ion cloud -->
                     <g opacity="0.3">
                         <circle cx="30" cy="50" r="5" fill="#5088d4"/>
                         <circle cx="40" cy="60" r="5" fill="#5088d4"/>
                         <circle cx="35" cy="70" r="5" fill="#5088d4"/>
                     </g>
-                    
-                    <!-- Selected precursor ion -->
                     <circle cx="50" cy="60" r="8" fill="#ff6b6b" class="animated-ion"/>
                     <text x="50" y="64" font-size="10" fill="white" text-anchor="middle" font-weight="bold">m/z</text>
-                    
                     <g opacity="0.3">
                         <circle cx="65" cy="55" r="5" fill="#5088d4"/>
                         <circle cx="70" cy="65" r="5" fill="#5088d4"/>
                         <circle cx="60" cy="75" r="5" fill="#5088d4"/>
                     </g>
-                    
-                    <!-- Selection window -->
                     <rect x="90" y="40" width="40" height="40" rx="4" fill="none" stroke="#ff6b6b" stroke-width="2" stroke-dasharray="4,2"/>
                     <circle cx="110" cy="60" r="7" fill="#ff6b6b"/>
                     <text x="110" y="95" font-size="10" fill="#1E64C8" text-anchor="middle">Isolated</text>
@@ -169,31 +281,20 @@
             
             <div class="process-step">
                 <svg class="process-visual" viewBox="0 0 150 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Collision cell -->
                     <rect x="20" y="25" width="110" height="70" rx="8" fill="#fff5f5" stroke="#ff6b6b" stroke-width="2"/>
                     <text x="75" y="15" font-size="11" fill="#ff6b6b" text-anchor="middle" font-weight="bold">Collision Cell</text>
-                    
-                    <!-- Precursor ion entering -->
                     <circle cx="35" cy="60" r="8" fill="#ff6b6b"/>
                     <text x="35" y="64" font-size="9" fill="white" text-anchor="middle" font-weight="bold">m/z</text>
-                    
-                    <!-- Collision energy -->
                     <path d="M45 60 L55 55 M45 60 L55 60 M45 60 L55 65" stroke="#FF9800" stroke-width="3" stroke-linecap="round"/>
                     <text x="50" y="85" font-size="9" fill="#FF9800" text-anchor="middle" font-weight="bold">CID</text>
-                    
-                    <!-- Fragment ions -->
                     <circle cx="75" cy="45" r="5" fill="#4CAF50"/>
                     <text x="75" y="48" font-size="8" fill="white" text-anchor="middle">b</text>
-                    
                     <circle cx="85" cy="60" r="5" fill="#2196F3"/>
                     <text x="85" y="63" font-size="8" fill="white" text-anchor="middle">y</text>
-                    
                     <circle cx="95" cy="50" r="4" fill="#9C27B0"/>
                     <circle cx="100" cy="70" r="4" fill="#FF9800"/>
                     <circle cx="110" cy="55" r="4" fill="#00BCD4"/>
                     <circle cx="115" cy="65" r="4" fill="#4CAF50"/>
-                    
-                    <!-- Gas molecules -->
                     <g opacity="0.2">
                         <circle cx="50" cy="40" r="3" fill="#666"/>
                         <circle cx="65" cy="75" r="3" fill="#666"/>
@@ -208,34 +309,22 @@
             
             <div class="process-step">
                 <svg class="process-visual" viewBox="0 0 150 120" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- MS2 spectrum -->
                     <rect x="10" y="20" width="130" height="80" rx="8" fill="#f8fbff" stroke="#1E64C8" stroke-width="2"/>
                     <text x="75" y="15" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="bold">MS2</text>
-                    
-                    <!-- Axes -->
                     <line x1="25" y1="85" x2="125" y2="85" stroke="#5088d4" stroke-width="1.5"/>
                     <line x1="25" y1="85" x2="25" y2="30" stroke="#5088d4" stroke-width="1.5"/>
-                    
-                    <!-- Spectrum peaks -->
                     <line x1="35" y1="85" x2="35" y2="65" stroke="#4CAF50" stroke-width="3" stroke-linecap="round"/>
                     <text x="35" y="62" font-size="8" fill="#4CAF50" text-anchor="middle">b₂</text>
-                    
                     <line x1="50" y1="85" x2="50" y2="50" stroke="#2196F3" stroke-width="3" stroke-linecap="round"/>
                     <text x="50" y="47" font-size="8" fill="#2196F3" text-anchor="middle">y₃</text>
-                    
                     <line x1="65" y1="85" x2="65" y2="70" stroke="#9C27B0" stroke-width="3" stroke-linecap="round"/>
                     <text x="65" y="67" font-size="8" fill="#9C27B0" text-anchor="middle">b₃</text>
-                    
                     <line x1="80" y1="85" x2="80" y2="40" stroke="#ff6b6b" stroke-width="3" stroke-linecap="round"/>
                     <text x="80" y="37" font-size="8" fill="#ff6b6b" text-anchor="middle">y₅</text>
-                    
                     <line x1="95" y1="85" x2="95" y2="60" stroke="#FF9800" stroke-width="3" stroke-linecap="round"/>
                     <text x="95" y="57" font-size="8" fill="#FF9800" text-anchor="middle">b₄</text>
-                    
                     <line x1="110" y1="85" x2="110" y2="55" stroke="#00BCD4" stroke-width="3" stroke-linecap="round"/>
                     <text x="110" y="52" font-size="8" fill="#00BCD4" text-anchor="middle">y₇</text>
-                    
-                    <!-- Axis labels -->
                     <text x="75" y="98" font-size="9" fill="#1E64C8" text-anchor="middle">m/z</text>
                     <text x="15" y="55" font-size="9" fill="#1E64C8" text-anchor="middle" transform="rotate(-90, 15, 55)">Intensity</text>
                 </svg>
@@ -244,7 +333,6 @@
                 </div>
             </div>
             
-            <!-- Flow arrows -->
             <svg class="flow-arrow arrow-1" viewBox="0 0 50 30">
                 <defs>
                     <marker id="arrowMS1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
@@ -264,6 +352,7 @@
             </svg>
         </div>
         
+        <!-- Original Content Grid -->
         <div class="content-grid">
             <div class="content-card">
                 <svg class="card-icon" viewBox="0 0 35 35">
@@ -317,6 +406,677 @@
                 </div>
             </div>
         </div>
+
+        <!-- Detailed Section 1: Precursor Selection -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <span class="section-number">1</span>
+                Precursor Selection in Detail
+            </div>
+            
+            <div class="section-content">
+                <div class="visual-panel">
+                    <svg width="400" height="350" viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Full MS1 Spectrum -->
+                        <text x="200" y="20" font-size="16" fill="#1E64C8" text-anchor="middle" font-weight="bold">MS1 Survey Scan</text>
+                        
+                        <!-- Axes -->
+                        <line x1="40" y1="180" x2="360" y2="180" stroke="#333" stroke-width="2"/>
+                        <line x1="40" y1="180" x2="40" y2="50" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Multiple peaks -->
+                        <line x1="80" y1="180" x2="80" y2="140" stroke="#ccc" stroke-width="4"/>
+                        <line x1="120" y1="180" x2="120" y2="100" stroke="#ccc" stroke-width="4"/>
+                        <line x1="160" y1="180" x2="160" y2="60" stroke="#ff6b6b" stroke-width="6"/>
+                        <circle cx="160" cy="55" r="8" fill="#ff6b6b"/>
+                        <text x="160" y="45" font-size="12" fill="#ff6b6b" text-anchor="middle" font-weight="bold">Selected</text>
+                        
+                        <line x1="200" y1="180" x2="200" y2="120" stroke="#ccc" stroke-width="4"/>
+                        <line x1="240" y1="180" x2="240" y2="90" stroke="#ccc" stroke-width="4"/>
+                        <line x1="280" y1="180" x2="280" y2="130" stroke="#ccc" stroke-width="4"/>
+                        <line x1="320" y1="180" x2="320" y2="150" stroke="#ccc" stroke-width="4"/>
+                        
+                        <!-- Isolation window -->
+                        <rect x="145" y="50" width="30" height="135" fill="#ff6b6b" opacity="0.2"/>
+                        <text x="160" y="200" font-size="11" fill="#ff6b6b" text-anchor="middle">m/z 542.3</text>
+                        
+                        <!-- Labels -->
+                        <text x="200" y="210" font-size="13" fill="#333" text-anchor="middle">m/z</text>
+                        <text x="25" y="115" font-size="13" fill="#333" text-anchor="middle" transform="rotate(-90, 25, 115)">Intensity</text>
+                        
+                        <!-- Top-N Selection Diagram -->
+                        <text x="200" y="245" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="bold">Top-N Selection Strategy</text>
+                        
+                        <rect x="50" y="260" width="300" height="70" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                        
+                        <!-- Ranking -->
+                        <text x="60" y="280" font-size="12" fill="#333" font-weight="bold">Rank by Intensity:</text>
+                        <circle cx="70" cy="300" r="6" fill="#ff6b6b"/>
+                        <text x="80" y="305" font-size="11" fill="#333">1st: m/z 542.3 → MS2</text>
+                        
+                        <circle cx="190" cy="300" r="6" fill="#ffa726"/>
+                        <text x="200" y="305" font-size="11" fill="#333">2nd: m/z 623.8 → MS2</text>
+                        
+                        <circle cx="70" cy="318" r="6" fill="#66bb6a"/>
+                        <text x="80" y="323" font-size="11" fill="#333">3rd: m/z 487.2 → MS2</text>
+                        
+                        <text x="270" y="323" font-size="11" fill="#999" font-style="italic">... up to Top-N</text>
+                    </svg>
+                </div>
+                
+                <div class="text-panel">
+                    <div class="description">
+                        <strong>Precursor selection</strong> is the critical first step in tandem MS where specific ions are chosen from the complex mixture for further analysis. This process determines which molecules will be fragmented and sequenced.
+                    </div>
+                    
+                    <div class="subsection-title">Selection Strategies</div>
+                    
+                    <div class="highlight-box">
+                        <strong>Data-Dependent Acquisition (DDA)</strong><br>
+                        The most common approach where the instrument automatically selects the most intense ions in real-time. Typically operates in "Top-N" mode, selecting the N most abundant precursors from each MS1 scan.
+                    </div>
+                    
+                    <ul class="feature-list">
+                        <li><strong>Isolation Window:</strong> Typically 1-3 m/z units wide, ensuring only the target ion enters the collision cell</li>
+                        <li><strong>Dynamic Exclusion:</strong> Prevents reselection of the same ion for a defined time period, increasing proteome coverage</li>
+                        <li><strong>Charge State Selection:</strong> Filters for multiply charged ions (2+, 3+) which fragment more predictably</li>
+                        <li><strong>Intensity Threshold:</strong> Minimum signal required to trigger MS2 acquisition</li>
+                    </ul>
+                    
+                    <div class="subsection-title">Targeted Selection</div>
+                    <div class="description">
+                        In targeted proteomics, specific m/z values are pre-programmed into an inclusion list. This ensures that peptides of interest are always selected for MS2, regardless of their abundance. This approach is essential for:
+                    </div>
+                    <ul class="feature-list">
+                        <li>Quantifying specific proteins (e.g., biomarkers)</li>
+                        <li>Validating protein identifications</li>
+                        <li>Monitoring post-translational modifications</li>
+                        <li>Clinical diagnostic applications</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 2: Fragmentation Methods -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <span class="section-number">2</span>
+                Fragmentation Methods in Detail
+            </div>
+            
+            <div class="section-content">
+                <div class="text-panel">
+                    <div class="description">
+                        <strong>Fragmentation</strong> is the process of breaking peptide bonds to generate sequence-informative ions. Different fragmentation methods cleave peptides at different locations, providing complementary structural information.
+                    </div>
+                    
+                    <div class="subsection-title">Collision-Induced Dissociation (CID)</div>
+                    <div class="description">
+                        CID is the most widely used fragmentation technique. Precursor ions collide with inert gas molecules (typically nitrogen or argon), converting kinetic energy into internal energy that breaks chemical bonds.
+                    </div>
+                    
+                    <div class="highlight-box-blue">
+                        <strong>Mechanism:</strong> Low-energy collisions (10-50 eV) cause vibrational excitation. The peptide backbone preferentially breaks at the amide bond, producing b-ions and y-ions.
+                    </div>
+                    
+                    <ul class="feature-list">
+                        <li><strong>Advantages:</strong> Well-characterized fragmentation patterns, excellent for peptide sequencing</li>
+                        <li><strong>Limitations:</strong> May lose labile modifications (phosphorylation), produces mainly b/y ions</li>
+                        <li><strong>Best for:</strong> Routine peptide identification and database searching</li>
+                    </ul>
+                    
+                    <div class="subsection-title">Higher-Energy Collisional Dissociation (HCD)</div>
+                    <div class="description">
+                        HCD uses higher collision energies in a dedicated collision cell, allowing detection of low m/z fragment ions that are lost in traditional ion trap CID.
+                    </div>
+                    
+                    <ul class="feature-list">
+                        <li><strong>Energy Range:</strong> Higher than CID (up to 200 eV), causing more extensive fragmentation</li>
+                        <li><strong>Key Advantage:</strong> Can detect immonium ions and reporter ions (e.g., TMT tags)</li>
+                        <li><strong>Applications:</strong> Quantitative proteomics with isobaric tags, small molecule analysis</li>
+                    </ul>
+                    
+                    <div class="subsection-title">Electron-Transfer Dissociation (ETD)</div>
+                    <div class="description">
+                        ETD is a radical-driven fragmentation method where electrons are transferred from reagent anions to multiply charged peptide cations, causing cleavage of N-Cα bonds.
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>Unique Feature:</strong> ETD preserves labile post-translational modifications like phosphorylation, glycosylation, and sulfation, making it invaluable for PTM analysis.
+                    </div>
+                    
+                    <ul class="feature-list">
+                        <li><strong>Fragment Ions:</strong> Produces c-ions and z-ions instead of b/y ions</li>
+                        <li><strong>Optimal for:</strong> Highly charged peptides (≥3+), intact protein analysis</li>
+                        <li><strong>Applications:</strong> Top-down proteomics, PTM localization, disulfide bond mapping</li>
+                    </ul>
+                </div>
+                
+                <div class="visual-panel">
+                    <svg width="420" height="650" viewBox="0 0 420 650" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Peptide backbone diagram -->
+                        <text x="210" y="25" font-size="16" fill="#1E64C8" text-anchor="middle" font-weight="bold">Peptide Fragmentation Sites</text>
+                        
+                        <!-- Peptide structure -->
+                        <text x="210" y="55" font-size="14" fill="#333" text-anchor="middle" font-weight="bold">NH₂-Ala-Gly-Ser-Tyr-COOH</text>
+                        
+                        <!-- Backbone representation -->
+                        <g transform="translate(60, 80)">
+                            <!-- Residue 1 -->
+                            <circle cx="40" cy="30" r="25" fill="#e3f2fd" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="40" y="35" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="bold">Ala</text>
+                            
+                            <!-- Bond 1 -->
+                            <line x1="65" y1="30" x2="95" y2="30" stroke="#333" stroke-width="3"/>
+                            <text x="80" y="20" font-size="11" fill="#4CAF50" text-anchor="middle" font-weight="bold">b₁</text>
+                            <text x="80" y="50" font-size="11" fill="#2196F3" text-anchor="middle" font-weight="bold">y₃</text>
+                            
+                            <!-- Residue 2 -->
+                            <circle cx="120" cy="30" r="25" fill="#e3f2fd" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="120" y="35" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="bold">Gly</text>
+                            
+                            <!-- Bond 2 -->
+                            <line x1="145" y1="30" x2="175" y2="30" stroke="#333" stroke-width="3"/>
+                            <text x="160" y="20" font-size="11" fill="#4CAF50" text-anchor="middle" font-weight="bold">b₂</text>
+                            <text x="160" y="50" font-size="11" fill="#2196F3" text-anchor="middle" font-weight="bold">y₂</text>
+                            
+                            <!-- Residue 3 -->
+                            <circle cx="200" cy="30" r="25" fill="#e3f2fd" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="200" y="35" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="bold">Ser</text>
+                            
+                            <!-- Bond 3 -->
+                            <line x1="225" y1="30" x2="255" y2="30" stroke="#333" stroke-width="3"/>
+                            <text x="240" y="20" font-size="11" fill="#4CAF50" text-anchor="middle" font-weight="bold">b₃</text>
+                            <text x="240" y="50" font-size="11" fill="#2196F3" text-anchor="middle" font-weight="bold">y₁</text>
+                            
+                            <!-- Residue 4 -->
+                            <circle cx="280" cy="30" r="25" fill="#e3f2fd" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="280" y="35" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="bold">Tyr</text>
+                        </g>
+                        
+                        <!-- Legend -->
+                        <rect x="30" y="150" width="360" height="70" fill="#f0f0f0" stroke="#999" stroke-width="1" rx="5"/>
+                        <text x="210" y="170" font-size="13" fill="#333" text-anchor="middle" font-weight="bold">Ion Nomenclature</text>
+                        <circle cx="80" cy="195" r="6" fill="#4CAF50"/>
+                        <text x="95" y="200" font-size="12" fill="#333">b-ions: N-terminal fragments (CID/HCD)</text>
+                        <circle cx="80" cy="213" r="6" fill="#2196F3"/>
+                        <text x="95" y="218" font-size="12" fill="#333">y-ions: C-terminal fragments (CID/HCD)</text>
+                        
+                        <!-- CID Example -->
+                        <text x="210" y="260" font-size="15" fill="#1E64C8" text-anchor="middle" font-weight="bold">CID/HCD Fragmentation</text>
+                        
+                        <rect x="30" y="275" width="360" height="110" fill="#fff5f5" stroke="#ff6b6b" stroke-width="2" rx="8"/>
+                        
+                        <g transform="translate(50, 290)">
+                            <circle cx="30" cy="30" r="12" fill="#ff6b6b"/>
+                            <text x="30" y="35" font-size="11" fill="white" text-anchor="middle" font-weight="bold">Ion</text>
+                            
+                            <path d="M45 30 L75 20 M45 30 L75 30 M45 30 L75 40" stroke="#FF9800" stroke-width="3" stroke-linecap="round"/>
+                            
+                            <text x="90" y="25" font-size="12" fill="#333">+ N₂/Ar gas</text>
+                            <text x="90" y="45" font-size="12" fill="#333">Low energy (10-50 eV)</text>
+                            
+                            <line x1="180" y1="30" x2="220" y2="30" stroke="#333" stroke-width="2" marker-end="url(#arrow1)"/>
+                            
+                            <circle cx="250" cy="15" r="8" fill="#4CAF50"/>
+                            <text x="250" y="19" font-size="9" fill="white" text-anchor="middle" font-weight="bold">b</text>
+                            <text x="270" y="19" font-size="11" fill="#333">b-ions</text>
+                            
+                            <circle cx="250" cy="45" r="8" fill="#2196F3"/>
+                            <text x="250" y="49" font-size="9" fill="white" text-anchor="middle" font-weight="bold">y</text>
+                            <text x="270" y="49" font-size="11" fill="#333">y-ions</text>
+                        </g>
+                        
+                        <text x="210" y="373" font-size="11" fill="#666" text-anchor="middle" font-style="italic">Backbone cleavage at amide bonds</text>
+                        
+                        <!-- ETD Example -->
+                        <text x="210" y="420" font-size="15" fill="#1E64C8" text-anchor="middle" font-weight="bold">ETD Fragmentation</text>
+                        
+                        <rect x="30" y="435" width="360" height="130" fill="#f3e5f5" stroke="#9C27B0" stroke-width="2" rx="8"/>
+                        
+                        <g transform="translate(50, 450)">
+                            <circle cx="30" cy="35" r="12" fill="#9C27B0"/>
+                            <text x="30" y="40" font-size="10" fill="white" text-anchor="middle" font-weight="bold">[M+nH]ⁿ⁺</text>
+                            
+                            <circle cx="75" cy="35" r="6" fill="#FF6B6B"/>
+                            <text x="75" y="38" font-size="8" fill="white" text-anchor="middle" font-weight="bold">e⁻</text>
+                            <path d="M68 32 L45 32" stroke="#FF6B6B" stroke-width="2" marker-end="url(#arrow2)"/>
+                            
+                            <text x="90" y="30" font-size="11" fill="#333">Electron transfer</text>
+                            <text x="90" y="47" font-size="11" fill="#333">from reagent anion</text>
+                            
+                            <line x1="180" y1="35" x2="220" y2="35" stroke="#333" stroke-width="2" marker-end="url(#arrow3)"/>
+                            
+                            <circle cx="250" cy="20" r="8" fill="#9C27B0"/>
+                            <text x="250" y="24" font-size="9" fill="white" text-anchor="middle" font-weight="bold">c</text>
+                            <text x="270" y="24" font-size="11" fill="#333">c-ions</text>
+                            
+                            <circle cx="250" cy="50" r="8" fill="#673AB7"/>
+                            <text x="250" y="54" font-size="9" fill="white" text-anchor="middle" font-weight="bold">z</text>
+                            <text x="270" y="54" font-size="11" fill="#333">z-ions</text>
+                        </g>
+                        
+                        <rect x="50" y="510" width="320" height="40" fill="#fffbf0" stroke="#FFC107" stroke-width="2" rx="5"/>
+                        <text x="210" y="528" font-size="12" fill="#333" text-anchor="middle">✓ Preserves labile PTMs (phospho, glyco)</text>
+                        <text x="210" y="544" font-size="12" fill="#333" text-anchor="middle">✓ N-Cα bond cleavage (different from CID)</text>
+                        
+                        <!-- Comparison table -->
+                        <text x="210" y="590" font-size="15" fill="#1E64C8" text-anchor="middle" font-weight="bold">Method Comparison</text>
+                        
+                        <rect x="30" y="600" width="360" height="40" fill="#e8f5e9" rx="4"/>
+                        <text x="100" y="623" font-size="12" fill="#333" text-anchor="middle" font-weight="bold">CID/HCD</text>
+                        <text x="280" y="623" font-size="11" fill="#666" text-anchor="middle">Best for: Routine identification</text>
+                        
+                        <rect x="30" y="645" width="360" height="40" fill="#f3e5f5" rx="4"/>
+                        <text x="100" y="668" font-size="12" fill="#333" text-anchor="middle" font-weight="bold">ETD</text>
+                        <text x="280" y="668" font-size="11" fill="#666" text-anchor="middle">Best for: PTM localization</text>
+                        
+                        <!-- Arrow markers -->
+                        <defs>
+                            <marker id="arrow1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+                            </marker>
+                            <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#FF6B6B"/>
+                            </marker>
+                            <marker id="arrow3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 3: Product Ion Spectra -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <span class="section-number">3</span>
+                Product Ion Spectra Analysis
+            </div>
+            
+            <div class="section-content">
+                <div class="visual-panel">
+                    <svg width="450" height="500" viewBox="0 0 450 500" xmlns="http://www.w3.org/2000/svg">
+                        <!-- MS/MS Spectrum -->
+                        <text x="225" y="25" font-size="16" fill="#1E64C8" text-anchor="middle" font-weight="bold">MS/MS Spectrum Example</text>
+                        <text x="225" y="45" font-size="13" fill="#666" text-anchor="middle">Peptide: GYSLGNWVC (m/z 1021.5, 2+)</text>
+                        
+                        <!-- Spectrum plot -->
+                        <rect x="40" y="60" width="370" height="200" fill="#f8fbff" stroke="#ccc" stroke-width="1" rx="5"/>
+                        
+                        <!-- Axes -->
+                        <line x1="60" y1="240" x2="390" y2="240" stroke="#333" stroke-width="2"/>
+                        <line x1="60" y1="240" x2="60" y2="80" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Spectrum peaks with labels -->
+                        <!-- b-ions (green) -->
+                        <line x1="90" y1="240" x2="90" y2="210" stroke="#4CAF50" stroke-width="5" stroke-linecap="round"/>
+                        <text x="90" y="205" font-size="10" fill="#4CAF50" text-anchor="middle" font-weight="bold">b₂</text>
+                        <text x="90" y="257" font-size="9" fill="#666" text-anchor="middle">222.1</text>
+                        
+                        <line x1="140" y1="240" x2="140" y2="190" stroke="#4CAF50" stroke-width="5" stroke-linecap="round"/>
+                        <text x="140" y="185" font-size="10" fill="#4CAF50" text-anchor="middle" font-weight="bold">b₃</text>
+                        <text x="140" y="257" font-size="9" fill="#666" text-anchor="middle">309.1</text>
+                        
+                        <line x1="210" y1="240" x2="210" y2="170" stroke="#4CAF50" stroke-width="5" stroke-linecap="round"/>
+                        <text x="210" y="165" font-size="10" fill="#4CAF50" text-anchor="middle" font-weight="bold">b₅</text>
+                        <text x="210" y="257" font-size="9" fill="#666" text-anchor="middle">522.2</text>
+                        
+                        <!-- y-ions (blue) -->
+                        <line x1="260" y1="240" x2="260" y2="150" stroke="#2196F3" stroke-width="5" stroke-linecap="round"/>
+                        <text x="260" y="145" font-size="10" fill="#2196F3" text-anchor="middle" font-weight="bold">y₄</text>
+                        <text x="260" y="257" font-size="9" fill="#666" text-anchor="middle">483.2</text>
+                        
+                        <line x1="310" y1="240" x2="310" y2="120" stroke="#2196F3" stroke-width="5" stroke-linecap="round"/>
+                        <text x="310" y="115" font-size="10" fill="#2196F3" text-anchor="middle" font-weight="bold">y₆</text>
+                        <text x="310" y="257" font-size="9" fill="#666" text-anchor="middle">683.3</text>
+                        
+                        <line x1="360" y1="240" x2="360" y2="95" stroke="#2196F3" stroke-width="6" stroke-linecap="round"/>
+                        <text x="360" y="90" font-size="10" fill="#2196F3" text-anchor="middle" font-weight="bold">y₇</text>
+                        <text x="360" y="257" font-size="9" fill="#666" text-anchor="middle">840.4</text>
+                        
+                        <!-- Axis labels -->
+                        <text x="225" y="280" font-size="13" fill="#333" text-anchor="middle" font-weight="bold">m/z</text>
+                        <text x="35" y="165" font-size="13" fill="#333" text-anchor="middle" transform="rotate(-90, 35, 165)" font-weight="bold">Relative Intensity</text>
+                        
+                        <!-- Sequence ladder -->
+                        <text x="225" y="310" font-size="15" fill="#1E64C8" text-anchor="middle" font-weight="bold">Peptide Sequence Reconstruction</text>
+                        
+                        <rect x="40" y="325" width="370" height="150" fill="#fffef0" stroke="#FFC107" stroke-width="2" rx="8"/>
+                        
+                        <!-- Sequence with ion series -->
+                        <g transform="translate(70, 345)">
+                            <text x="0" y="15" font-size="12" fill="#4CAF50" font-weight="bold">b-ions →</text>
+                            
+                            <text x="80" y="15" font-size="13" fill="#333" font-weight="bold">G</text>
+                            <line x1="75" y1="20" x2="75" y2="35" stroke="#4CAF50" stroke-width="2"/>
+                            <text x="75" y="48" font-size="10" fill="#4CAF50">b₁</text>
+                            
+                            <text x="110" y="15" font-size="13" fill="#333" font-weight="bold">Y</text>
+                            <line x1="105" y1="20" x2="105" y2="35" stroke="#4CAF50" stroke-width="2"/>
+                            <text x="105" y="48" font-size="10" fill="#4CAF50">b₂</text>
+                            
+                            <text x="140" y="15" font-size="13" fill="#333" font-weight="bold">S</text>
+                            <line x1="135" y1="20" x2="135" y2="35" stroke="#4CAF50" stroke-width="2"/>
+                            <text x="135" y="48" font-size="10" fill="#4CAF50">b₃</text>
+                            
+                            <text x="170" y="15" font-size="13" fill="#333" font-weight="bold">L</text>
+                            <line x1="165" y1="20" x2="165" y2="35" stroke="#4CAF50" stroke-width="2"/>
+                            <text x="165" y="48" font-size="10" fill="#4CAF50">b₄</text>
+                            
+                            <text x="200" y="15" font-size="13" fill="#333" font-weight="bold">G</text>
+                            <line x1="195" y1="20" x2="195" y2="35" stroke="#4CAF50" stroke-width="2"/>
+                            <text x="195" y="48" font-size="10" fill="#4CAF50">b₅</text>
+                            
+                            <text x="230" y="15" font-size="13" fill="#333" font-weight="bold">N</text>
+                            <text x="260" y="15" font-size="13" fill="#333" font-weight="bold">W</text>
+                            <text x="290" y="15" font-size="13" fill="#333" font-weight="bold">V</text>
+                            <text x="320" y="15" font-size="13" fill="#333" font-weight="bold">C</text>
+                            
+                            <!-- Y-ions from C-terminus -->
+                            <text x="0" y="85" font-size="12" fill="#2196F3" font-weight="bold">← y-ions</text>
+                            
+                            <line x1="325" y1="60" x2="325" y2="75" stroke="#2196F3" stroke-width="2"/>
+                            <text x="325" y="88" font-size="10" fill="#2196F3">y₁</text>
+                            
+                            <line x1="295" y1="60" x2="295" y2="75" stroke="#2196F3" stroke-width="2"/>
+                            <text x="295" y="88" font-size="10" fill="#2196F3">y₂</text>
+                            
+                            <line x1="265" y1="60" x2="265" y2="75" stroke="#2196F3" stroke-width="2"/>
+                            <text x="265" y="88" font-size="10" fill="#2196F3">y₃</text>
+                            
+                            <line x1="235" y1="60" x2="235" y2="75" stroke="#2196F3" stroke-width="2"/>
+                            <text x="235" y="88" font-size="10" fill="#2196F3">y₄</text>
+                            
+                            <line x1="205" y1="60" x2="205" y2="75" stroke="#2196F3" stroke-width="2"/>
+                            <text x="205" y="88" font-size="10" fill="#2196F3">y₅</text>
+                            
+                            <text x="165" y="110" font-size="11" fill="#666" text-anchor="middle" font-style="italic">Mass differences identify amino acids</text>
+                        </g>
+                        
+                        <!-- Info box -->
+                        <rect x="40" y="490" width="370" height="5" fill="#1E64C8" rx="2"/>
+                    </svg>
+                </div>
+                
+                <div class="text-panel">
+                    <div class="description">
+                        <strong>Product ion spectra</strong> (MS/MS or MS2 spectra) contain the fragment ions generated from the selected precursor. By analyzing the mass differences between peaks, we can deduce the amino acid sequence of the peptide.
+                    </div>
+                    
+                    <div class="subsection-title">Ion Series Nomenclature</div>
+                    
+                    <div class="highlight-box-blue">
+                        <strong>Roepstorff-Fohlmann-Biemann Nomenclature:</strong><br>
+                        The standard system for naming peptide fragment ions based on the cleavage site and charge retention.
+                    </div>
+                    
+                    <ul class="feature-list">
+                        <li><strong>b-ions:</strong> N-terminal fragments retaining the charge on the N-terminus</li>
+                        <li><strong>y-ions:</strong> C-terminal fragments retaining the charge on the C-terminus</li>
+                        <li><strong>c-ions & z-ions:</strong> Produced by ETD fragmentation</li>
+                        <li><strong>a-ions:</strong> b-ions minus CO (carbon monoxide)</li>
+                        <li><strong>Immonium ions:</strong> Single amino acid ions, useful for amino acid composition</li>
+                    </ul>
+                    
+                    <div class="subsection-title">Sequence Determination</div>
+                    <div class="description">
+                        The process of peptide sequencing from MS/MS spectra involves:
+                    </div>
+                    
+                    <ol style="padding-left: 20px; line-height: 1.8;">
+                        <li><strong>Peak identification:</strong> Assign observed peaks to theoretical fragment ions</li>
+                        <li><strong>Mass ladder construction:</strong> Build a sequence ladder from consecutive mass differences</li>
+                        <li><strong>Sequence coverage:</strong> Aim for at least 70% sequence coverage with both b and y ions</li>
+                        <li><strong>Validation:</strong> Confirm the sequence matches the precursor mass</li>
+                    </ol>
+                    
+                    <div class="subsection-title">Post-Translational Modification (PTM) Localization</div>
+                    
+                    <div class="highlight-box">
+                        <strong>Critical Application:</strong> MS/MS spectra can precisely localize PTMs by identifying mass shifts in specific fragment ions.
+                    </div>
+                    
+                    <div class="description">
+                        For example, a phosphorylated serine (+80 Da) will cause a mass shift in all fragment ions that contain that residue. By comparing the masses of b and y ions, we can determine exactly which serine is phosphorylated in peptides with multiple potential sites.
+                    </div>
+                    
+                    <ul class="feature-list">
+                        <li><strong>Phosphorylation:</strong> +80 Da (or +98 Da loss of H₃PO₄)</li>
+                        <li><strong>Acetylation:</strong> +42 Da</li>
+                        <li><strong>Methylation:</strong> +14 Da</li>
+                        <li><strong>Ubiquitination:</strong> +114 Da (diglycine remnant)</li>
+                        <li><strong>Glycosylation:</strong> Variable mass depending on glycan structure</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 4: Data Acquisition -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <span class="section-number">4</span>
+                Data Acquisition Strategies
+            </div>
+            
+            <div class="section-content">
+                <div class="text-panel">
+                    <div class="description">
+                        <strong>Data acquisition methods</strong> determine how the mass spectrometer selects precursors and acquires MS/MS spectra. The choice of strategy significantly impacts proteome coverage, quantification accuracy, and reproducibility.
+                    </div>
+                    
+                    <div class="subsection-title">Data-Dependent Acquisition (DDA)</div>
+                    
+                    <div class="highlight-box">
+                        <strong>The Traditional Approach:</strong> DDA automatically selects the most intense ions from each MS1 scan for fragmentation in real-time. This is the most widely used method for discovery proteomics.
+                    </div>
+                    
+                    <div class="description">
+                        <strong>Workflow:</strong>
+                    </div>
+                    <ol style="padding-left: 20px; line-height: 1.8;">
+                        <li>Acquire full MS1 scan (survey scan)</li>
+                        <li>Rank all detected ions by intensity</li>
+                        <li>Select top-N most intense ions (typically N = 10-20)</li>
+                        <li>Isolate each selected ion and perform MS/MS</li>
+                        <li>Add fragmented ions to exclusion list</li>
+                        <li>Return to step 1 for next cycle</li>
+                    </ol>
+                    
+                    <ul class="feature-list">
+                        <li><strong>Advantages:</strong> Simple, effective for abundant proteins, well-established workflows</li>
+                        <li><strong>Limitations:</strong> Stochastic sampling (low reproducibility), bias toward high-abundance proteins, limited dynamic range</li>
+                        <li><strong>Best for:</strong> Initial protein discovery, unknown samples, large-scale identification</li>
+                    </ul>
+                    
+                    <div class="subsection-title">Data-Independent Acquisition (DIA)</div>
+                    
+                    <div class="highlight-box-blue">
+                        <strong>The Modern Alternative:</strong> DIA systematically fragments all ions within sequential m/z windows, providing comprehensive and reproducible data without precursor selection bias.
+                    </div>
+                    
+                    <div class="description">
+                        <strong>How it works:</strong> The entire m/z range (e.g., 400-1200) is divided into windows (e.g., 25 Da wide). All ions within each window are co-isolated and fragmented together, creating highly multiplexed spectra.
+                    </div>
+                    
+                    <ul class="feature-list">
+                        <li><strong>SWATH-MS:</strong> Sequential Window Acquisition of all THeoretical fragment ions - pioneered by the Aebersold lab</li>
+                        <li><strong>Reproducibility:</strong> Same ions analyzed in every run, enabling accurate quantification</li>
+                        <li><strong>Sensitivity:</strong> Can detect low-abundance proteins missed by DDA</li>
+                        <li><strong>Challenge:</strong> Complex data analysis requiring spectral libraries or advanced algorithms</li>
+                    </ul>
+                    
+                    <div class="subsection-title">Parallel Reaction Monitoring (PRM)</div>
+                    
+                    <div class="description">
+                        PRM is a targeted quantitative method that combines the selectivity of selected reaction monitoring (SRM) with the high resolution of modern Orbitrap instruments.
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>Precision Quantification:</strong> PRM monitors all fragment ions from selected precursors, providing both identification confidence and accurate quantification.
+                    </div>
+                    
+                    <ul class="feature-list">
+                        <li><strong>Targeted Analysis:</strong> Pre-defined list of peptides of interest</li>
+                        <li><strong>Full MS/MS Spectra:</strong> Unlike SRM, acquires complete fragment ion spectra</li>
+                        <li><strong>Multiplexing:</strong> Can monitor 50-100 peptides per run</li>
+                        <li><strong>Applications:</strong> Biomarker validation, pathway analysis, clinical diagnostics</li>
+                    </ul>
+                </div>
+                
+                <div class="visual-panel">
+                    <svg width="420" height="650" viewBox="0 0 420 650" xmlns="http://www.w3.org/2000/svg">
+                        <!-- DDA Diagram -->
+                        <text x="210" y="25" font-size="16" fill="#1E64C8" text-anchor="middle" font-weight="bold">Data-Dependent Acquisition (DDA)</text>
+                        
+                        <rect x="30" y="40" width="360" height="140" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                        
+                        <!-- MS1 Scan -->
+                        <rect x="50" y="55" width="100" height="70" fill="white" stroke="#666" stroke-width="1" rx="4"/>
+                        <text x="100" y="75" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="bold">MS1 Scan</text>
+                        
+                        <!-- Peaks -->
+                        <line x1="65" y1="110" x2="65" y2="100" stroke="#ccc" stroke-width="3"/>
+                        <line x1="80" y1="110" x2="80" y2="85" stroke="#ff6b6b" stroke-width="3"/>
+                        <circle cx="80" cy="82" r="4" fill="#ff6b6b"/>
+                        <line x1="95" y1="110" x2="95" y2="95" stroke="#ccc" stroke-width="3"/>
+                        <line x1="110" y1="110" x2="110" y2="90" stroke="#ffa726" stroke-width="3"/>
+                        <circle cx="110" cy="87" r="4" fill="#ffa726"/>
+                        <line x1="125" y1="110" x2="125" y2="105" stroke="#ccc" stroke-width="3"/>
+                        
+                        <text x="100" y="145" font-size="10" fill="#666" text-anchor="middle">Select Top-N</text>
+                        <text x="100" y="160" font-size="10" fill="#666" text-anchor="middle">Most Intense</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M160 90 L230 90" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowDDA)"/>
+                        
+                        <!-- MS2 Scans -->
+                        <g transform="translate(240, 55)">
+                            <rect x="0" y="0" width="70" height="35" fill="white" stroke="#ff6b6b" stroke-width="2" rx="4"/>
+                            <text x="35" y="20" font-size="11" fill="#ff6b6b" text-anchor="middle" font-weight="bold">MS2 #1</text>
+                            
+                            <rect x="0" y="40" width="70" height="35" fill="white" stroke="#ffa726" stroke-width="2" rx="4"/>
+                            <text x="35" y="60" font-size="11" fill="#ffa726" text-anchor="middle" font-weight="bold">MS2 #2</text>
+                            
+                            <rect x="0" y="80" width="70" height="35" fill="white" stroke="#66bb6a" stroke-width="2" rx="4"/>
+                            <text x="35" y="100" font-size="11" fill="#66bb6a" text-anchor="middle" font-weight="bold">MS2 #N</text>
+                        </g>
+                        
+                        <text x="210" y="195" font-size="11" fill="#666" text-anchor="middle" font-style="italic">Stochastic selection • High-abundance bias</text>
+                        
+                        <!-- DIA Diagram -->
+                        <text x="210" y="235" font-size="16" fill="#1E64C8" text-anchor="middle" font-weight="bold">Data-Independent Acquisition (DIA)</text>
+                        
+                        <rect x="30" y="250" width="360" height="170" fill="#f0f8ff" stroke="#2196F3" stroke-width="2" rx="8"/>
+                        
+                        <!-- MS1 -->
+                        <rect x="50" y="265" width="100" height="60" fill="white" stroke="#666" stroke-width="1" rx="4"/>
+                        <text x="100" y="285" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="bold">Full MS1</text>
+                        <text x="100" y="310" font-size="10" fill="#666" text-anchor="middle">m/z 400-1200</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M160 295 L195 295" stroke="#2196F3" stroke-width="2" marker-end="url(#arrowDIA)"/>
+                        
+                        <!-- Sequential windows -->
+                        <text x="285" y="278" font-size="11" fill="#2196F3" text-anchor="middle" font-weight="bold">Sequential Windows</text>
+                        
+                        <rect x="205" y="285" width="160" height="25" fill="#e3f2fd" stroke="#2196F3" stroke-width="1" rx="3"/>
+                        <text x="285" y="302" font-size="10" fill="#333" text-anchor="middle">Window 1: 400-425 m/z</text>
+                        
+                        <rect x="205" y="315" width="160" height="25" fill="#e3f2fd" stroke="#2196F3" stroke-width="1" rx="3"/>
+                        <text x="285" y="332" font-size="10" fill="#333" text-anchor="middle">Window 2: 425-450 m/z</text>
+                        
+                        <text x="285" y="355" font-size="12" fill="#666" text-anchor="middle">⋮</text>
+                        
+                        <rect x="205" y="365" width="160" height="25" fill="#e3f2fd" stroke="#2196F3" stroke-width="1" rx="3"/>
+                        <text x="285" y="382" font-size="10" fill="#333" text-anchor="middle">Window N: 1175-1200 m/z</text>
+                        
+                        <rect x="50" y="395" width="320" height="15" fill="#fff9c4" rx="3"/>
+                        <text x="210" y="406" font-size="10" fill="#666" text-anchor="middle">✓ All ions fragmented • Unbiased • Reproducible</text>
+                        
+                        <!-- PRM Diagram -->
+                        <text x="210" y="450" font-size="16" fill="#1E64C8" text-anchor="middle" font-weight="bold">Parallel Reaction Monitoring (PRM)</text>
+                        
+                        <rect x="30" y="465" width="360" height="170" fill="#f3e5f5" stroke="#9C27B0" stroke-width="2" rx="8"/>
+                        
+                        <!-- Inclusion list -->
+                        <rect x="50" y="480" width="150" height="100" fill="white" stroke="#9C27B0" stroke-width="2" rx="4"/>
+                        <text x="125" y="500" font-size="12" fill="#9C27B0" text-anchor="middle" font-weight="bold">Target List</text>
+                        
+                        <circle cx="70" cy="520" r="5" fill="#9C27B0"/>
+                        <text x="85" y="525" font-size="10" fill="#333">Peptide A (m/z 542.3)</text>
+                        
+                        <circle cx="70" cy="540" r="5" fill="#9C27B0"/>
+                        <text x="85" y="545" font-size="10" fill="#333">Peptide B (m/z 623.8)</text>
+                        
+                        <circle cx="70" cy="560" r="5" fill="#9C27B0"/>
+                        <text x="85" y="565" font-size="10" fill="#333">Peptide C (m/z 487.2)</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M210 530 L245 530" stroke="#9C27B0" stroke-width="2" marker-end="url(#arrowPRM)"/>
+                        
+                        <!-- Targeted MS2 -->
+                        <rect x="255" y="485" width="120" height="90" fill="white" stroke="#9C27B0" stroke-width="2" rx="4"/>
+                        <text x="315" y="505" font-size="12" fill="#9C27B0" text-anchor="middle" font-weight="bold">Full MS/MS</text>
+                        <text x="315" y="525" font-size="10" fill="#333" text-anchor="middle">All fragments</text>
+                        <text x="315" y="540" font-size="10" fill="#333" text-anchor="middle">monitored for</text>
+                        <text x="315" y="555" font-size="10" fill="#333" text-anchor="middle">each target</text>
+                        
+                        <rect x="50" y="605" width="320" height="20" fill="#e1f5fe" rx="3"/>
+                        <text x="210" y="619" font-size="10" fill="#666" text-anchor="middle">✓ High specificity • Accurate quantification • Biomarker validation</text>
+                        
+                        <!-- Comparison table -->
+                        <text x="210" y="655" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="bold">Method Selection Guide</text>
+                        
+                        <defs>
+                            <marker id="arrowDDA" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                            </marker>
+                            <marker id="arrowDIA" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#2196F3"/>
+                            </marker>
+                            <marker id="arrowPRM" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#9C27B0"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- Comparison Table -->
+            <table class="comparison-table">
+                <thead>
+                    <tr>
+                        <th>Method</th>
+                        <th>Coverage</th>
+                        <th>Reproducibility</th>
+                        <th>Best Application</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><strong>DDA</strong></td>
+                        <td>Moderate (stochastic)</td>
+                        <td>Low-Medium (60-70%)</td>
+                        <td>Discovery proteomics, large-scale ID</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DIA</strong></td>
+                        <td>High (comprehensive)</td>
+                        <td>Very High (>95%)</td>
+                        <td>Quantitative studies, clinical samples</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PRM</strong></td>
+                        <td>Targeted only</td>
+                        <td>Excellent (>98%)</td>
+                        <td>Biomarker validation, pathway analysis</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
     </div>
 </body>
 </html>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Enzyme Engineering</title>
+    <title>Enzyme Engineering - Detailed Guide</title>
     <style>
         * {
             margin: 0;
@@ -13,18 +13,20 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
+            background: #f5f5f5;
+            padding: 20px;
+        }
+        
+        .page {
+            width: 960px;
+            margin: 0 auto 30px;
             background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            page-break-after: always;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
             padding: 40px 60px;
-            background: white;
         }
         
         .title {
@@ -37,10 +39,19 @@
             border-bottom: 3px solid #1E64C8;
         }
         
+        .section-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1E64C8;
+        }
+        
         .content-wrapper {
             display: flex;
             gap: 25px;
-            height: 385px;
+            min-height: 385px;
         }
         
         .enzyme-visual {
@@ -82,6 +93,82 @@
             color: #666;
         }
         
+        .detail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 30px;
+        }
+        
+        .visual-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .text-section {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .description-box {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #1E64C8;
+        }
+        
+        .description-box h3 {
+            color: #1E64C8;
+            font-size: 16px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        
+        .description-box p {
+            color: #333;
+            font-size: 13px;
+            line-height: 1.6;
+            margin-bottom: 8px;
+        }
+        
+        .description-box ul {
+            color: #555;
+            font-size: 12px;
+            line-height: 1.7;
+            padding-left: 20px;
+        }
+        
+        .example-box {
+            background: #fff3cd;
+            padding: 12px 15px;
+            border-radius: 6px;
+            border-left: 4px solid #e0a800;
+        }
+        
+        .example-box h4 {
+            color: #e0a800;
+            font-size: 14px;
+            margin-bottom: 6px;
+            font-weight: 600;
+        }
+        
+        .example-box p {
+            color: #555;
+            font-size: 12px;
+            line-height: 1.5;
+        }
+        
+        .highlight {
+            background: #e8f2ff;
+            padding: 10px 12px;
+            border-radius: 5px;
+            font-size: 12px;
+            color: #1E64C8;
+            font-weight: 500;
+        }
+        
         .catalysis-animation {
             animation: catalysisReaction 3s ease-in-out infinite;
         }
@@ -99,193 +186,1100 @@
             0%, 100% { fill: #fff3cd; stroke: #e0a800; }
             50% { fill: #ffe066; stroke: #ff9900; }
         }
+        
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+            }
+            .page {
+                box-shadow: none;
+                margin: 0;
+                page-break-after: always;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">Enzyme Engineering</div>
-        <div class="content-wrapper">
-            <div class="enzyme-visual">
-                <svg width="560" height="385" viewBox="0 0 560 385">
-                    <text x="280" y="20" font-size="15" fill="#333" text-anchor="middle" font-weight="600">Directed Evolution & Rational Design</text>
-                    
-                    <!-- Wild-type Enzyme -->
-                    <g transform="translate(60, 50)">
-                        <text x="40" y="0" font-size="12" fill="#666" font-weight="600">Wild-type</text>
+    <!-- Page 1: Overview -->
+    <div class="page">
+        <div class="container">
+            <div class="title">Enzyme Engineering</div>
+            <div class="content-wrapper">
+                <div class="enzyme-visual">
+                    <svg width="560" height="385" viewBox="0 0 560 385">
+                        <text x="280" y="20" font-size="15" fill="#333" text-anchor="middle" font-weight="600">Directed Evolution & Rational Design</text>
                         
-                        <!-- Enzyme pocket -->
-                        <ellipse cx="40" cy="40" rx="35" ry="30" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
-                        
-                        <!-- Active site -->
-                        <ellipse cx="40" cy="40" rx="18" ry="15" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
-                        <text x="40" y="43" font-size="9" fill="#1E64C8" text-anchor="middle">Active</text>
-                        
-                        <!-- Catalytic residues -->
-                        <circle cx="32" cy="38" r="3" fill="#2874d8"/>
-                        <text x="32" y="33" font-size="7" fill="#333" text-anchor="middle">His</text>
-                        
-                        <circle cx="48" cy="38" r="3" fill="#2874d8"/>
-                        <text x="48" y="33" font-size="7" fill="#333" text-anchor="middle">Ser</text>
-                        
-                        <circle cx="40" cy="48" r="3" fill="#2874d8"/>
-                        <text x="40" y="53" font-size="7" fill="#333" text-anchor="middle">Asp</text>
-                        
-                        <!-- Performance metrics -->
-                        <text x="40" y="80" font-size="9" fill="#666" text-anchor="middle">kcat = 10 s⁻¹</text>
-                        <text x="40" y="92" font-size="9" fill="#666" text-anchor="middle">Tm = 50°C</text>
-                    </g>
-                    
-                    <!-- Directed Evolution Process -->
-                    <g transform="translate(160, 40)">
-                        <rect x="0" y="0" width="240" height="120" rx="6" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
-                        <text x="120" y="18" font-size="11" fill="#e0a800" text-anchor="middle" font-weight="700">Directed Evolution Cycle</text>
-                        
-                        <!-- Cycle steps -->
-                        <g transform="translate(20, 30)">
-                            <!-- Step 1: Mutation -->
-                            <rect x="0" y="0" width="60" height="25" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
-                            <text x="30" y="17" font-size="9" fill="#333" text-anchor="middle">Mutate</text>
+                        <!-- Wild-type Enzyme -->
+                        <g transform="translate(60, 50)">
+                            <text x="40" y="0" font-size="12" fill="#666" font-weight="600">Wild-type</text>
                             
-                            <path d="M 65,12 L 75,12" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#evoArrow)"/>
-                            <defs>
-                                <marker id="evoArrow" markerWidth="6" markerHeight="6" refX="5" refY="2" orient="auto">
-                                    <polygon points="0 0, 6 2, 0 4" fill="#1E64C8"/>
-                                </marker>
-                            </defs>
+                            <!-- Enzyme pocket -->
+                            <ellipse cx="40" cy="40" rx="35" ry="30" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
                             
-                            <!-- Step 2: Express -->
-                            <rect x="80" y="0" width="60" height="25" rx="3" fill="#d4edda" stroke="#1E64C8" stroke-width="1.5"/>
-                            <text x="110" y="17" font-size="9" fill="#333" text-anchor="middle">Express</text>
+                            <!-- Active site -->
+                            <ellipse cx="40" cy="40" rx="18" ry="15" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                            <text x="40" y="43" font-size="9" fill="#1E64C8" text-anchor="middle">Active</text>
                             
-                            <path d="M 145,12 L 155,12" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#evoArrow)"/>
+                            <!-- Catalytic residues -->
+                            <circle cx="32" cy="38" r="3" fill="#2874d8"/>
+                            <text x="32" y="33" font-size="7" fill="#333" text-anchor="middle">His</text>
                             
-                            <!-- Step 3: Screen -->
-                            <rect x="160" y="0" width="60" height="25" rx="3" fill="#ffcccc" stroke="#cc0000" stroke-width="1.5"/>
-                            <text x="190" y="17" font-size="9" fill="#333" text-anchor="middle">Screen</text>
+                            <circle cx="48" cy="38" r="3" fill="#2874d8"/>
+                            <text x="48" y="33" font-size="7" fill="#333" text-anchor="middle">Ser</text>
                             
-                            <!-- Return arrow -->
-                            <path d="M 190,30 C 190,50 110,50 110,30" stroke="#cc0000" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#evoArrow)"/>
+                            <circle cx="40" cy="48" r="3" fill="#2874d8"/>
+                            <text x="40" y="53" font-size="7" fill="#333" text-anchor="middle">Asp</text>
+                            
+                            <!-- Performance metrics -->
+                            <text x="40" y="80" font-size="9" fill="#666" text-anchor="middle">kcat = 10 s⁻¹</text>
+                            <text x="40" y="92" font-size="9" fill="#666" text-anchor="middle">Tm = 50°C</text>
                         </g>
                         
-                        <!-- Iterations counter -->
-                        <text x="120" y="95" font-size="10" fill="#666" text-anchor="middle">5-10 rounds</text>
-                        
-                        <!-- AI enhancement -->
-                        <rect x="60" y="100" width="120" height="15" rx="7" fill="#e0a800" opacity="0.3"/>
-                        <text x="120" y="110" font-size="9" fill="#e0a800" text-anchor="middle" font-weight="600">🤖 ML-guided selection</text>
-                    </g>
-                    
-                    <!-- Engineered Enzyme -->
-                    <g transform="translate(430, 50)">
-                        <text x="40" y="0" font-size="12" fill="#1E64C8" font-weight="700">Engineered</text>
-                        
-                        <!-- Enhanced enzyme pocket -->
-                        <ellipse cx="40" cy="40" rx="38" ry="33" fill="#d4edda" stroke="#1E64C8" stroke-width="3"/>
-                        
-                        <!-- Optimized active site -->
-                        <ellipse cx="40" cy="40" rx="20" ry="17" class="active-site-glow" stroke-width="2"/>
-                        <text x="40" y="43" font-size="9" fill="#333" text-anchor="middle" font-weight="600">Enhanced</text>
-                        
-                        <!-- Improved catalytic residues -->
-                        <circle cx="30" cy="38" r="4" fill="#cc0000"/>
-                        <text x="30" y="33" font-size="7" fill="#333" text-anchor="middle">Tyr</text>
-                        
-                        <circle cx="50" cy="38" r="4" fill="#cc0000"/>
-                        <text x="50" y="33" font-size="7" fill="#333" text-anchor="middle">Cys</text>
-                        
-                        <circle cx="40" cy="50" r="4" fill="#cc0000"/>
-                        <text x="40" y="55" font-size="7" fill="#333" text-anchor="middle">Glu</text>
-                        
-                        <!-- Improved metrics -->
-                        <text x="40" y="80" font-size="9" fill="#1E64C8" text-anchor="middle" font-weight="600">kcat = 500 s⁻¹</text>
-                        <text x="40" y="92" font-size="9" fill="#1E64C8" text-anchor="middle" font-weight="600">Tm = 85°C</text>
-                    </g>
-                    
-                    <!-- Substrate/Product reaction -->
-                    <g transform="translate(180, 190)">
-                        <text x="100" y="0" font-size="12" fill="#666" text-anchor="middle" font-weight="600">Catalytic Reaction</text>
-                        
-                        <!-- Substrate -->
-                        <g class="catalysis-animation">
-                            <circle cx="20" cy="30" r="12" fill="#ffcccc" stroke="#cc0000" stroke-width="2"/>
-                            <text x="20" y="34" font-size="10" fill="#333" text-anchor="middle">S</text>
-                        </g>
-                        
-                        <path d="M 40,30 L 70,30" stroke="#1E64C8" stroke-width="2" marker-end="url(#evoArrow)"/>
-                        <text x="55" y="25" font-size="9" fill="#1E64C8" text-anchor="middle">Enzyme</text>
-                        
-                        <!-- Product -->
-                        <g transform="translate(80, 18)">
-                            <rect x="0" y="0" width="24" height="24" rx="4" fill="#ccffcc" stroke="#00cc00" stroke-width="2"/>
-                            <text x="12" y="16" font-size="10" fill="#333" text-anchor="middle">P</text>
-                        </g>
-                    </g>
-                    
-                    <!-- Application Examples -->
-                    <g transform="translate(60, 260)">
-                        <rect x="0" y="0" width="440" height="105" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="220" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="700">Industrial Applications</text>
-                        
-                        <g transform="translate(20, 35)">
-                            <!-- Biofuel -->
-                            <g transform="translate(0, 0)">
-                                <circle cx="40" cy="20" r="18" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
-                                <text x="40" y="20" font-size="9" fill="#333" text-anchor="middle">Biofuel</text>
-                                <text x="40" y="30" font-size="8" fill="#666" text-anchor="middle">Cellulase</text>
-                                <text x="40" y="50" font-size="8" fill="#666" text-anchor="middle">200% activity</text>
+                        <!-- Directed Evolution Process -->
+                        <g transform="translate(160, 40)">
+                            <rect x="0" y="0" width="240" height="120" rx="6" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                            <text x="120" y="18" font-size="11" fill="#e0a800" text-anchor="middle" font-weight="700">Directed Evolution Cycle</text>
+                            
+                            <!-- Cycle steps -->
+                            <g transform="translate(20, 30)">
+                                <!-- Step 1: Mutation -->
+                                <rect x="0" y="0" width="60" height="25" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <text x="30" y="17" font-size="9" fill="#333" text-anchor="middle">Mutate</text>
+                                
+                                <path d="M 65,12 L 75,12" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#evoArrow)"/>
+                                <defs>
+                                    <marker id="evoArrow" markerWidth="6" markerHeight="6" refX="5" refY="2" orient="auto">
+                                        <polygon points="0 0, 6 2, 0 4" fill="#1E64C8"/>
+                                    </marker>
+                                </defs>
+                                
+                                <!-- Step 2: Express -->
+                                <rect x="80" y="0" width="60" height="25" rx="3" fill="#d4edda" stroke="#1E64C8" stroke-width="1.5"/>
+                                <text x="110" y="17" font-size="9" fill="#333" text-anchor="middle">Express</text>
+                                
+                                <path d="M 145,12 L 155,12" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#evoArrow)"/>
+                                
+                                <!-- Step 3: Screen -->
+                                <rect x="160" y="0" width="60" height="25" rx="3" fill="#ffcccc" stroke="#cc0000" stroke-width="1.5"/>
+                                <text x="190" y="17" font-size="9" fill="#333" text-anchor="middle">Screen</text>
+                                
+                                <!-- Return arrow -->
+                                <path d="M 190,30 C 190,50 110,50 110,30" stroke="#cc0000" stroke-width="1.5" stroke-dasharray="3,3" marker-end="url(#evoArrow)"/>
                             </g>
                             
-                            <!-- Pharma -->
-                            <g transform="translate(100, 0)">
-                                <circle cx="40" cy="20" r="18" fill="#fff3cd" stroke="#e0a800" stroke-width="1.5"/>
-                                <text x="40" y="20" font-size="9" fill="#333" text-anchor="middle">Pharma</text>
-                                <text x="40" y="30" font-size="8" fill="#666" text-anchor="middle">Transaminase</text>
-                                <text x="40" y="50" font-size="8" fill="#666" text-anchor="middle">99% ee</text>
+                            <!-- Iterations counter -->
+                            <text x="120" y="95" font-size="10" fill="#666" text-anchor="middle">5-10 rounds</text>
+                            
+                            <!-- AI enhancement -->
+                            <rect x="60" y="100" width="120" height="15" rx="7" fill="#e0a800" opacity="0.3"/>
+                            <text x="120" y="110" font-size="9" fill="#e0a800" text-anchor="middle" font-weight="600">🤖 ML-guided selection</text>
+                        </g>
+                        
+                        <!-- Engineered Enzyme -->
+                        <g transform="translate(430, 50)">
+                            <text x="40" y="0" font-size="12" fill="#1E64C8" font-weight="700">Engineered</text>
+                            
+                            <!-- Enhanced enzyme pocket -->
+                            <ellipse cx="40" cy="40" rx="38" ry="33" fill="#d4edda" stroke="#1E64C8" stroke-width="3"/>
+                            
+                            <!-- Optimized active site -->
+                            <ellipse cx="40" cy="40" rx="20" ry="17" class="active-site-glow" stroke-width="2"/>
+                            <text x="40" y="43" font-size="9" fill="#333" text-anchor="middle" font-weight="600">Enhanced</text>
+                            
+                            <!-- Improved catalytic residues -->
+                            <circle cx="30" cy="38" r="4" fill="#cc0000"/>
+                            <text x="30" y="33" font-size="7" fill="#333" text-anchor="middle">Tyr</text>
+                            
+                            <circle cx="50" cy="38" r="4" fill="#cc0000"/>
+                            <text x="50" y="33" font-size="7" fill="#333" text-anchor="middle">Cys</text>
+                            
+                            <circle cx="40" cy="50" r="4" fill="#cc0000"/>
+                            <text x="40" y="55" font-size="7" fill="#333" text-anchor="middle">Glu</text>
+                            
+                            <!-- Improved metrics -->
+                            <text x="40" y="80" font-size="9" fill="#1E64C8" text-anchor="middle" font-weight="600">kcat = 500 s⁻¹</text>
+                            <text x="40" y="92" font-size="9" fill="#1E64C8" text-anchor="middle" font-weight="600">Tm = 85°C</text>
+                        </g>
+                        
+                        <!-- Substrate/Product reaction -->
+                        <g transform="translate(180, 190)">
+                            <text x="100" y="0" font-size="12" fill="#666" text-anchor="middle" font-weight="600">Catalytic Reaction</text>
+                            
+                            <!-- Substrate -->
+                            <g class="catalysis-animation">
+                                <circle cx="20" cy="30" r="12" fill="#ffcccc" stroke="#cc0000" stroke-width="2"/>
+                                <text x="20" y="34" font-size="10" fill="#333" text-anchor="middle">S</text>
                             </g>
                             
-                            <!-- Detergent -->
-                            <g transform="translate(200, 0)">
-                                <circle cx="40" cy="20" r="18" fill="#d4edda" stroke="#1E64C8" stroke-width="1.5"/>
-                                <text x="40" y="20" font-size="9" fill="#333" text-anchor="middle">Detergent</text>
-                                <text x="40" y="30" font-size="8" fill="#666" text-anchor="middle">Protease</text>
-                                <text x="40" y="50" font-size="8" fill="#666" text-anchor="middle">pH 10, 60°C</text>
-                            </g>
+                            <path d="M 40,30 L 70,30" stroke="#1E64C8" stroke-width="2" marker-end="url(#evoArrow)"/>
+                            <text x="55" y="25" font-size="9" fill="#1E64C8" text-anchor="middle">Enzyme</text>
                             
-                            <!-- Food -->
-                            <g transform="translate(300, 0)">
-                                <circle cx="40" cy="20" r="18" fill="#e3f2fd" stroke="#2874d8" stroke-width="1.5"/>
-                                <text x="40" y="20" font-size="9" fill="#333" text-anchor="middle">Food</text>
-                                <text x="40" y="30" font-size="8" fill="#666" text-anchor="middle">Amylase</text>
-                                <text x="40" y="50" font-size="8" fill="#666" text-anchor="middle">High temp</text>
+                            <!-- Product -->
+                            <g transform="translate(80, 18)">
+                                <rect x="0" y="0" width="24" height="24" rx="4" fill="#ccffcc" stroke="#00cc00" stroke-width="2"/>
+                                <text x="12" y="16" font-size="10" fill="#333" text-anchor="middle">P</text>
                             </g>
                         </g>
-                    </g>
-                </svg>
-            </div>
-            
-            <div class="engineering-strategies">
-                <div class="strategy-card">
-                    <div class="strategy-title">Activity improvement</div>
-                    <div class="strategy-detail">kcat/Km optimization</div>
+                        
+                        <!-- Application Examples -->
+                        <g transform="translate(60, 260)">
+                            <rect x="0" y="0" width="440" height="105" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="220" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="700">Industrial Applications</text>
+                            
+                            <g transform="translate(20, 35)">
+                                <!-- Biofuel -->
+                                <g transform="translate(0, 0)">
+                                    <circle cx="40" cy="20" r="18" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                    <text x="40" y="20" font-size="9" fill="#333" text-anchor="middle">Biofuel</text>
+                                    <text x="40" y="30" font-size="8" fill="#666" text-anchor="middle">Cellulase</text>
+                                    <text x="40" y="50" font-size="8" fill="#666" text-anchor="middle">200% activity</text>
+                                </g>
+                                
+                                <!-- Pharma -->
+                                <g transform="translate(100, 0)">
+                                    <circle cx="40" cy="20" r="18" fill="#fff3cd" stroke="#e0a800" stroke-width="1.5"/>
+                                    <text x="40" y="20" font-size="9" fill="#333" text-anchor="middle">Pharma</text>
+                                    <text x="40" y="30" font-size="8" fill="#666" text-anchor="middle">Transaminase</text>
+                                    <text x="40" y="50" font-size="8" fill="#666" text-anchor="middle">99% ee</text>
+                                </g>
+                                
+                                <!-- Detergent -->
+                                <g transform="translate(200, 0)">
+                                    <circle cx="40" cy="20" r="18" fill="#d4edda" stroke="#1E64C8" stroke-width="1.5"/>
+                                    <text x="40" y="20" font-size="9" fill="#333" text-anchor="middle">Detergent</text>
+                                    <text x="40" y="30" font-size="8" fill="#666" text-anchor="middle">Protease</text>
+                                    <text x="40" y="50" font-size="8" fill="#666" text-anchor="middle">pH 10, 60°C</text>
+                                </g>
+                                
+                                <!-- Food -->
+                                <g transform="translate(300, 0)">
+                                    <circle cx="40" cy="20" r="18" fill="#e3f2fd" stroke="#2874d8" stroke-width="1.5"/>
+                                    <text x="40" y="20" font-size="9" fill="#333" text-anchor="middle">Food</text>
+                                    <text x="40" y="30" font-size="8" fill="#666" text-anchor="middle">Amylase</text>
+                                    <text x="40" y="50" font-size="8" fill="#666" text-anchor="middle">High temp</text>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
                 </div>
-                <div class="strategy-card">
-                    <div class="strategy-title">Substrate specificity</div>
-                    <div class="strategy-detail">Promiscuity engineering</div>
-                </div>
-                <div class="strategy-card">
-                    <div class="strategy-title">Thermostability</div>
-                    <div class="strategy-detail">High temperature operation</div>
-                </div>
-                <div class="strategy-card">
-                    <div class="strategy-title">Solvent tolerance</div>
-                    <div class="strategy-detail">Organic solvent resistance</div>
-                </div>
-                <div class="strategy-card">
-                    <div class="strategy-title">Directed evolution</div>
-                    <div class="strategy-detail">Iterative improvement cycles</div>
+                
+                <div class="engineering-strategies">
+                    <div class="strategy-card">
+                        <div class="strategy-title">Activity improvement</div>
+                        <div class="strategy-detail">kcat/Km optimization</div>
+                    </div>
+                    <div class="strategy-card">
+                        <div class="strategy-title">Substrate specificity</div>
+                        <div class="strategy-detail">Promiscuity engineering</div>
+                    </div>
+                    <div class="strategy-card">
+                        <div class="strategy-title">Thermostability</div>
+                        <div class="strategy-detail">High temperature operation</div>
+                    </div>
+                    <div class="strategy-card">
+                        <div class="strategy-title">Solvent tolerance</div>
+                        <div class="strategy-detail">Organic solvent resistance</div>
+                    </div>
+                    <div class="strategy-card">
+                        <div class="strategy-title">Directed evolution</div>
+                        <div class="strategy-detail">Iterative improvement cycles</div>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+    <!-- Page 2: Activity Improvement -->
+    <div class="page">
+        <div class="container">
+            <div class="section-title">1. Activity Improvement (kcat/Km Optimization)</div>
+            
+            <div class="detail-content">
+                <div class="visual-section">
+                    <svg width="420" height="450" viewBox="0 0 420 450">
+                        <!-- Title -->
+                        <text x="210" y="25" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="700">Catalytic Efficiency Enhancement</text>
+                        
+                        <!-- Michaelis-Menten comparison -->
+                        <g transform="translate(30, 50)">
+                            <rect x="0" y="0" width="360" height="180" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                            
+                            <!-- Axes -->
+                            <line x1="40" y1="150" x2="320" y2="150" stroke="#333" stroke-width="2"/>
+                            <line x1="40" y1="150" x2="40" y2="30" stroke="#333" stroke-width="2"/>
+                            
+                            <!-- Labels -->
+                            <text x="180" y="175" font-size="11" fill="#333" text-anchor="middle">[Substrate]</text>
+                            <text x="15" y="90" font-size="11" fill="#333" text-anchor="middle" transform="rotate(-90, 15, 90)">Velocity</text>
+                            
+                            <!-- Wild-type curve -->
+                            <path d="M 40,140 Q 100,120 150,80 T 280,50" stroke="#666" stroke-width="2.5" fill="none" stroke-dasharray="5,3"/>
+                            <text x="290" y="55" font-size="10" fill="#666">Wild-type</text>
+                            
+                            <!-- Engineered curve -->
+                            <path d="M 40,140 Q 80,100 120,50 T 280,35" stroke="#cc0000" stroke-width="3" fill="none"/>
+                            <text x="290" y="40" font-size="10" fill="#cc0000" font-weight="600">Engineered</text>
+                            
+                            <!-- Km indicators -->
+                            <line x1="150" y1="150" x2="150" y2="80" stroke="#666" stroke-width="1" stroke-dasharray="2,2"/>
+                            <text x="150" y="165" font-size="9" fill="#666" text-anchor="middle">Km(WT)</text>
+                            
+                            <line x1="80" y1="150" x2="80" y2="100" stroke="#cc0000" stroke-width="1" stroke-dasharray="2,2"/>
+                            <text x="80" y="165" font-size="9" fill="#cc0000" text-anchor="middle">Km(Eng)</text>
+                            
+                            <!-- Vmax indicators -->
+                            <line x1="40" y1="50" x2="280" y2="50" stroke="#666" stroke-width="1" stroke-dasharray="2,2"/>
+                            <text x="325" y="53" font-size="9" fill="#666">Vmax(WT)</text>
+                            
+                            <line x1="40" y1="35" x2="280" y2="35" stroke="#cc0000" stroke-width="1" stroke-dasharray="2,2"/>
+                            <text x="325" y="38" font-size="9" fill="#cc0000" font-weight="600">Vmax(Eng)</text>
+                        </g>
+                        
+                        <!-- Active site comparison -->
+                        <g transform="translate(30, 250)">
+                            <text x="180" y="0" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="600">Active Site Optimization</text>
+                            
+                            <!-- Wild-type active site -->
+                            <g transform="translate(30, 20)">
+                                <rect x="0" y="0" width="150" height="160" fill="#f8f9fa" stroke="#666" stroke-width="2" rx="6"/>
+                                <text x="75" y="20" font-size="11" fill="#666" text-anchor="middle" font-weight="600">Wild-type</text>
+                                
+                                <!-- Enzyme pocket -->
+                                <ellipse cx="75" cy="80" rx="50" ry="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                                
+                                <!-- Substrate (poor fit) -->
+                                <rect x="60" y="70" width="30" height="20" rx="3" fill="#ffcccc" stroke="#cc0000" stroke-width="1.5"/>
+                                <text x="75" y="83" font-size="9" fill="#333" text-anchor="middle">S</text>
+                                
+                                <!-- Catalytic residues -->
+                                <circle cx="50" cy="75" r="4" fill="#2874d8"/>
+                                <text x="50" y="65" font-size="8" fill="#333" text-anchor="middle">His57</text>
+                                
+                                <circle cx="100" cy="75" r="4" fill="#2874d8"/>
+                                <text x="100" y="65" font-size="8" fill="#333" text-anchor="middle">Ser195</text>
+                                
+                                <!-- Distance markers -->
+                                <line x1="50" y1="75" x2="60" y2="75" stroke="#e0a800" stroke-width="1" stroke-dasharray="2,2"/>
+                                <text x="55" y="95" font-size="8" fill="#e0a800" text-anchor="middle">3.5Å</text>
+                                
+                                <!-- Metrics -->
+                                <text x="75" y="130" font-size="10" fill="#666" text-anchor="middle">kcat = 10 s⁻¹</text>
+                                <text x="75" y="145" font-size="10" fill="#666" text-anchor="middle">Km = 100 μM</text>
+                            </g>
+                            
+                            <!-- Engineered active site -->
+                            <g transform="translate(210, 20)">
+                                <rect x="0" y="0" width="150" height="160" fill="#d4edda" stroke="#1E64C8" stroke-width="3" rx="6"/>
+                                <text x="75" y="20" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="700">Engineered</text>
+                                
+                                <!-- Optimized enzyme pocket -->
+                                <ellipse cx="75" cy="80" rx="50" ry="40" fill="#ccffcc" stroke="#00cc00" stroke-width="2"/>
+                                
+                                <!-- Substrate (perfect fit) -->
+                                <rect x="60" y="70" width="30" height="20" rx="3" fill="#cc0000" stroke="#990000" stroke-width="2"/>
+                                <text x="75" y="83" font-size="9" fill="white" text-anchor="middle" font-weight="600">S</text>
+                                
+                                <!-- Optimized catalytic residues -->
+                                <circle cx="50" cy="75" r="4" fill="#cc0000"/>
+                                <text x="50" y="65" font-size="8" fill="#333" text-anchor="middle" font-weight="600">Tyr57</text>
+                                
+                                <circle cx="100" cy="75" r="4" fill="#cc0000"/>
+                                <text x="100" y="65" font-size="8" fill="#333" text-anchor="middle" font-weight="600">Cys195</text>
+                                
+                                <!-- Improved distance markers -->
+                                <line x1="50" y1="75" x2="60" y2="75" stroke="#00cc00" stroke-width="1.5" stroke-dasharray="2,2"/>
+                                <text x="55" y="95" font-size="8" fill="#00cc00" text-anchor="middle" font-weight="600">2.8Å</text>
+                                
+                                <!-- Improved metrics -->
+                                <text x="75" y="130" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">kcat = 500 s⁻¹</text>
+                                <text x="75" y="145" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">Km = 20 μM</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="text-section">
+                    <div class="description-box">
+                        <h3>Objective</h3>
+                        <p>Enhance the catalytic efficiency (kcat/Km) of enzymes to increase reaction rates and substrate binding affinity. This is crucial for industrial processes requiring high throughput.</p>
+                    </div>
+                    
+                    <div class="description-box">
+                        <h3>Key Strategies</h3>
+                        <ul>
+                            <li><strong>Transition state stabilization:</strong> Modify active site residues to better stabilize the transition state</li>
+                            <li><strong>Substrate binding optimization:</strong> Engineer binding pocket geometry for improved substrate fit</li>
+                            <li><strong>Product release enhancement:</strong> Reduce product inhibition by facilitating product dissociation</li>
+                            <li><strong>Catalytic triad engineering:</strong> Optimize spatial arrangement and pKa of catalytic residues</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>Case Study: Subtilisin Protease</h4>
+                        <p><strong>Wild-type:</strong> kcat/Km = 1.0 × 10⁵ M⁻¹s⁻¹</p>
+                        <p><strong>Engineered (N62D/G166D):</strong> kcat/Km = 5.2 × 10⁶ M⁻¹s⁻¹</p>
+                        <p><strong>Improvement:</strong> 52-fold increase in catalytic efficiency through rational design of the oxyanion hole and substrate binding pocket.</p>
+                    </div>
+                    
+                    <div class="highlight">
+                        <strong>Impact:</strong> Activity improvements of 10-1000 fold are achievable through directed evolution combined with computational design, enabling reduced enzyme loading and lower production costs.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 3: Substrate Specificity -->
+    <div class="page">
+        <div class="container">
+            <div class="section-title">2. Substrate Specificity & Promiscuity Engineering</div>
+            
+            <div class="detail-content">
+                <div class="visual-section">
+                    <svg width="420" height="480" viewBox="0 0 420 480">
+                        <!-- Title -->
+                        <text x="210" y="25" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="700">Substrate Recognition Engineering</text>
+                        
+                        <!-- Specificity vs Promiscuity -->
+                        <g transform="translate(20, 50)">
+                            <!-- Narrow specificity -->
+                            <g transform="translate(0, 0)">
+                                <rect x="0" y="0" width="180" height="140" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                                <text x="90" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">Narrow Specificity</text>
+                                
+                                <!-- Enzyme -->
+                                <ellipse cx="90" cy="70" rx="35" ry="30" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                                <path d="M 75,70 L 105,70 M 90,55 L 90,85" stroke="#1E64C8" stroke-width="2"/>
+                                
+                                <!-- Substrates -->
+                                <rect x="75" y="110" width="30" height="15" rx="2" fill="#00cc00" stroke="#009900" stroke-width="1.5"/>
+                                <text x="90" y="121" font-size="9" fill="white" text-anchor="middle">S1 ✓</text>
+                                
+                                <rect x="20" y="110" width="30" height="15" rx="2" fill="#cc0000" stroke="#990000" stroke-width="1.5"/>
+                                <text x="35" y="121" font-size="9" fill="white" text-anchor="middle">S2 ✗</text>
+                                
+                                <rect x="130" y="110" width="30" height="15" rx="2" fill="#cc0000" stroke="#990000" stroke-width="1.5"/>
+                                <text x="145" y="121" font-size="9" fill="white" text-anchor="middle">S3 ✗</text>
+                            </g>
+                            
+                            <!-- Broad promiscuity -->
+                            <g transform="translate(200, 0)">
+                                <rect x="0" y="0" width="180" height="140" fill="#fff3cd" stroke="#e0a800" stroke-width="3" rx="6"/>
+                                <text x="90" y="20" font-size="12" fill="#e0a800" text-anchor="middle" font-weight="700">Broad Promiscuity</text>
+                                
+                                <!-- Enzyme -->
+                                <ellipse cx="90" cy="70" rx="35" ry="30" fill="#ffe066" stroke="#e0a800" stroke-width="2"/>
+                                <path d="M 75,70 L 105,70 M 90,55 L 90,85" stroke="#e0a800" stroke-width="2"/>
+                                
+                                <!-- Multiple substrates accepted -->
+                                <rect x="75" y="110" width="30" height="15" rx="2" fill="#00cc00" stroke="#009900" stroke-width="1.5"/>
+                                <text x="90" y="121" font-size="9" fill="white" text-anchor="middle">S1 ✓</text>
+                                
+                                <rect x="20" y="110" width="30" height="15" rx="2" fill="#00cc00" stroke="#009900" stroke-width="1.5"/>
+                                <text x="35" y="121" font-size="9" fill="white" text-anchor="middle">S2 ✓</text>
+                                
+                                <rect x="130" y="110" width="30" height="15" rx="2" fill="#00cc00" stroke="#009900" stroke-width="1.5"/>
+                                <text x="145" y="121" font-size="9" fill="white" text-anchor="middle">S3 ✓</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Binding pocket engineering -->
+                        <g transform="translate(20, 210)">
+                            <text x="190" y="0" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="600">Binding Pocket Reshaping</text>
+                            
+                            <!-- Small substrate pocket -->
+                            <g transform="translate(20, 20)">
+                                <rect x="0" y="0" width="170" height="120" fill="#f8f9fa" stroke="#666" stroke-width="2" rx="6"/>
+                                <text x="85" y="18" font-size="11" fill="#666" text-anchor="middle" font-weight="600">Natural: Small substrate</text>
+                                
+                                <!-- Tight binding pocket -->
+                                <path d="M 30,50 Q 40,30 85,30 T 140,50 L 140,80 Q 130,95 85,95 T 30,80 Z" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                                
+                                <!-- Key residues -->
+                                <circle cx="50" cy="55" r="5" fill="#2874d8"/>
+                                <text x="50" y="48" font-size="7" fill="#333" text-anchor="middle">Phe</text>
+                                
+                                <circle cx="120" cy="55" r="5" fill="#2874d8"/>
+                                <text x="120" y="48" font-size="7" fill="#333" text-anchor="middle">Trp</text>
+                                
+                                <!-- Small substrate -->
+                                <circle cx="85" cy="63" r="12" fill="#ffcccc" stroke="#cc0000" stroke-width="2"/>
+                                <text x="85" y="67" font-size="10" fill="#333" text-anchor="middle">S</text>
+                                
+                                <text x="85" y="110" font-size="9" fill="#666" text-anchor="middle">Pocket size: 15Å</text>
+                            </g>
+                            
+                            <!-- Enlarged pocket -->
+                            <g transform="translate(210, 20)">
+                                <rect x="0" y="0" width="170" height="120" fill="#d4edda" stroke="#1E64C8" stroke-width="3" rx="6"/>
+                                <text x="85" y="18" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="700">Engineered: Large substrate</text>
+                                
+                                <!-- Enlarged binding pocket -->
+                                <path d="M 20,50 Q 30,25 85,25 T 150,50 L 150,85 Q 140,100 85,100 T 20,85 Z" fill="#ccffcc" stroke="#00cc00" stroke-width="2"/>
+                                
+                                <!-- Modified residues -->
+                                <circle cx="40" cy="55" r="5" fill="#cc0000"/>
+                                <text x="40" y="48" font-size="7" fill="#333" text-anchor="middle" font-weight="600">Ala</text>
+                                
+                                <circle cx="130" cy="55" r="5" fill="#cc0000"/>
+                                <text x="130" y="48" font-size="7" fill="#333" text-anchor="middle" font-weight="600">Gly</text>
+                                
+                                <!-- Large substrate -->
+                                <rect x="70" y="53" width="30" height="22" rx="3" fill="#cc0000" stroke="#990000" stroke-width="2"/>
+                                <text x="85" y="67" font-size="10" fill="white" text-anchor="middle" font-weight="600">S</text>
+                                
+                                <text x="85" y="110" font-size="9" fill="#1E64C8" text-anchor="middle" font-weight="600">Pocket size: 28Å</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Reaction pathways -->
+                        <g transform="translate(20, 360)">
+                            <rect x="0" y="0" width="380" height="100" fill="#fff3cd" stroke="#e0a800" stroke-width="2" rx="8"/>
+                            <text x="190" y="20" font-size="12" fill="#e0a800" text-anchor="middle" font-weight="700">Engineering Applications</text>
+                            
+                            <g transform="translate(15, 35)">
+                                <!-- Stereospecificity -->
+                                <g transform="translate(0, 0)">
+                                    <text x="55" y="5" font-size="10" fill="#333" text-anchor="middle" font-weight="600">Stereospecificity</text>
+                                    <circle cx="30" cy="20" r="8" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                    <text x="30" y="24" font-size="8" fill="#333" text-anchor="middle">R</text>
+                                    <circle cx="80" cy="20" r="8" fill="#ffcccc" stroke="#cc0000" stroke-width="1.5"/>
+                                    <text x="80" y="24" font-size="8" fill="#333" text-anchor="middle">S</text>
+                                    <text x="55" y="42" font-size="8" fill="#666" text-anchor="middle">ee > 99%</text>
+                                </g>
+                                
+                                <!-- Regioselectivity -->
+                                <g transform="translate(120, 0)">
+                                    <text x="55" y="5" font-size="10" fill="#333" text-anchor="middle" font-weight="600">Regioselectivity</text>
+                                    <circle cx="30" cy="20" r="8" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                    <text x="30" y="24" font-size="7" fill="#333" text-anchor="middle">C-2</text>
+                                    <circle cx="80" cy="20" r="8" fill="#ffcccc" stroke="#cc0000" stroke-width="1.5"/>
+                                    <text x="80" y="24" font-size="7" fill="#333" text-anchor="middle">C-4</text>
+                                    <text x="55" y="42" font-size="8" fill="#666" text-anchor="middle">C-2:C-4 = 95:5</text>
+                                </g>
+                                
+                                <!-- New activity -->
+                                <g transform="translate(240, 0)">
+                                    <text x="55" y="5" font-size="10" fill="#333" text-anchor="middle" font-weight="600">New Activity</text>
+                                    <rect x="18" y="12" width="25" height="16" rx="2" fill="#fff3cd" stroke="#e0a800" stroke-width="1.5"/>
+                                    <text x="30" y="23" font-size="8" fill="#333" text-anchor="middle">A→B</text>
+                                    <path d="M 45,20 L 55,20" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrow2)"/>
+                                    <defs>
+                                        <marker id="arrow2" markerWidth="5" markerHeight="5" refX="4" refY="2" orient="auto">
+                                            <polygon points="0 0, 5 2, 0 4" fill="#1E64C8"/>
+                                        </marker>
+                                    </defs>
+                                    <rect x="58" y="12" width="25" height="16" rx="2" fill="#ccffcc" stroke="#00cc00" stroke-width="1.5"/>
+                                    <text x="70" y="23" font-size="8" fill="#333" text-anchor="middle">C→D</text>
+                                    <text x="55" y="42" font-size="8" fill="#666" text-anchor="middle">Novel pathway</text>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="text-section">
+                    <div class="description-box">
+                        <h3>Objective</h3>
+                        <p>Modify substrate binding specificity to either narrow selectivity for a single substrate or broaden promiscuity to accept multiple substrates. This enables enzymes to process non-natural substrates or improve stereoselectivity.</p>
+                    </div>
+                    
+                    <div class="description-box">
+                        <h3>Engineering Approaches</h3>
+                        <ul>
+                            <li><strong>Binding pocket reshaping:</strong> Alter size and geometry through mutations (e.g., Phe→Ala for pocket enlargement)</li>
+                            <li><strong>Electrostatic tuning:</strong> Change charge distribution to favor specific substrate classes</li>
+                            <li><strong>Hydrophobic interactions:</strong> Engineer aromatic residues for π-stacking with substrates</li>
+                            <li><strong>Gatekeeper residue modification:</strong> Control substrate entry and selectivity</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>Case Study: P450 BM3 Hydroxylase</h4>
+                        <p><strong>Wild-type:</strong> Hydroxylates C12-C16 fatty acids</p>
+                        <p><strong>Engineered (9 mutations):</strong> Accepts propane and alkanes (C2-C8)</p>
+                        <p><strong>Achievement:</strong> Complete substrate scope inversion - from long-chain to short-chain hydrocarbons, enabling production of valuable chemical intermediates.</p>
+                    </div>
+                    
+                    <div class="highlight">
+                        <strong>Applications:</strong> Pharmaceutical synthesis (>99% ee), biocatalytic cascades, plastic degradation, and production of non-natural amino acids and chemicals.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 4: Thermostability -->
+    <div class="page">
+        <div class="container">
+            <div class="section-title">3. Thermostability Engineering</div>
+            
+            <div class="detail-content">
+                <div class="visual-section">
+                    <svg width="420" height="480" viewBox="0 0 420 480">
+                        <!-- Title -->
+                        <text x="210" y="25" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="700">Thermal Stability Enhancement</text>
+                        
+                        <!-- Temperature stability curve -->
+                        <g transform="translate(30, 50)">
+                            <rect x="0" y="0" width="360" height="160" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                            
+                            <!-- Axes -->
+                            <line x1="40" y1="130" x2="320" y2="130" stroke="#333" stroke-width="2"/>
+                            <line x1="40" y1="130" x2="40" y2="20" stroke="#333" stroke-width="2"/>
+                            
+                            <!-- Labels -->
+                            <text x="180" y="155" font-size="11" fill="#333" text-anchor="middle">Temperature (°C)</text>
+                            <text x="15" y="75" font-size="11" fill="#333" text-anchor="middle" transform="rotate(-90, 15, 75)">Activity (%)</text>
+                            
+                            <!-- Temperature markers -->
+                            <text x="80" y="145" font-size="9" fill="#333" text-anchor="middle">25</text>
+                            <text x="140" y="145" font-size="9" fill="#333" text-anchor="middle">50</text>
+                            <text x="200" y="145" font-size="9" fill="#333" text-anchor="middle">75</text>
+                            <text x="260" y="145" font-size="9" fill="#333" text-anchor="middle">100</text>
+                            
+                            <!-- Wild-type curve -->
+                            <path d="M 40,50 L 80,45 L 140,50 L 180,80 L 220,120" stroke="#666" stroke-width="3" fill="none" stroke-dasharray="5,3"/>
+                            <text x="230" y="125" font-size="10" fill="#666">Wild-type</text>
+                            <text x="230" y="137" font-size="9" fill="#666">Tm = 50°C</text>
+                            
+                            <!-- Engineered curve -->
+                            <path d="M 40,45 L 80,40 L 140,40 L 200,45 L 260,60 L 300,90" stroke="#cc0000" stroke-width="3.5" fill="none"/>
+                            <text x="280" y="75" font-size="10" fill="#cc0000" font-weight="600">Engineered</text>
+                            <text x="280" y="87" font-size="9" fill="#cc0000" font-weight="600">Tm = 85°C</text>
+                            
+                            <!-- Tm indicators -->
+                            <line x1="140" y1="130" x2="140" y2="50" stroke="#666" stroke-width="1" stroke-dasharray="2,2"/>
+                            <circle cx="140" cy="50" r="3" fill="#666"/>
+                            
+                            <line x1="260" y1="130" x2="260" y2="60" stroke="#cc0000" stroke-width="1" stroke-dasharray="2,2"/>
+                            <circle cx="260" cy="60" r="4" fill="#cc0000"/>
+                        </g>
+                        
+                        <!-- Stabilization strategies -->
+                        <g transform="translate(20, 230)">
+                            <text x="190" y="0" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="600">Molecular Stabilization Mechanisms</text>
+                            
+                            <!-- Disulfide bonds -->
+                            <g transform="translate(0, 25)">
+                                <rect x="0" y="0" width="180" height="100" fill="#fff3cd" stroke="#e0a800" stroke-width="2" rx="6"/>
+                                <text x="90" y="18" font-size="11" fill="#e0a800" text-anchor="middle" font-weight="600">Disulfide Bonds</text>
+                                
+                                <!-- Protein backbone -->
+                                <path d="M 20,40 Q 50,30 90,35 T 160,45" stroke="#1E64C8" stroke-width="3" fill="none"/>
+                                <path d="M 20,70 Q 50,75 90,72 T 160,65" stroke="#1E64C8" stroke-width="3" fill="none"/>
+                                
+                                <!-- Disulfide bridges -->
+                                <line x1="50" y1="35" x2="50" y2="75" stroke="#e0a800" stroke-width="3"/>
+                                <circle cx="50" cy="35" r="4" fill="#e0a800"/>
+                                <circle cx="50" cy="75" r="4" fill="#e0a800"/>
+                                <text x="30" y="58" font-size="8" fill="#e0a800">Cys-Cys</text>
+                                
+                                <line x1="130" y1="40" x2="130" y2="68" stroke="#e0a800" stroke-width="3"/>
+                                <circle cx="130" cy="40" r="4" fill="#e0a800"/>
+                                <circle cx="130" cy="68" r="4" fill="#e0a800"/>
+                                <text x="145" y="58" font-size="8" fill="#e0a800">S-S bond</text>
+                                
+                                <text x="90" y="93" font-size="9" fill="#666" text-anchor="middle">ΔTm = +5-15°C</text>
+                            </g>
+                            
+                            <!-- Salt bridges -->
+                            <g transform="translate(200, 25)">
+                                <rect x="0" y="0" width="180" height="100" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                                <text x="90" y="18" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">Salt Bridges</text>
+                                
+                                <!-- Charged residues -->
+                                <circle cx="50" cy="50" r="15" fill="#ffcccc" stroke="#cc0000" stroke-width="2"/>
+                                <text x="50" y="54" font-size="10" fill="#333" text-anchor="middle" font-weight="600">Arg+</text>
+                                
+                                <circle cx="130" cy="50" r="15" fill="#ccccff" stroke="#0000cc" stroke-width="2"/>
+                                <text x="130" y="54" font-size="10" fill="#333" text-anchor="middle" font-weight="600">Asp-</text>
+                                
+                                <!-- Electrostatic interaction -->
+                                <line x1="65" y1="50" x2="115" y2="50" stroke="#1E64C8" stroke-width="2" stroke-dasharray="4,2"/>
+                                <text x="90" y="45" font-size="9" fill="#1E64C8" text-anchor="middle">Ionic</text>
+                                
+                                <text x="90" y="73" font-size="8" fill="#666" text-anchor="middle">Distance: 2.8Å</text>
+                                <text x="90" y="93" font-size="9" fill="#666" text-anchor="middle">ΔTm = +3-8°C</text>
+                            </g>
+                            
+                            <!-- Core packing -->
+                            <g transform="translate(0, 140)">
+                                <rect x="0" y="0" width="180" height="95" fill="#d4edda" stroke="#00cc00" stroke-width="2" rx="6"/>
+                                <text x="90" y="18" font-size="11" fill="#00cc00" text-anchor="middle" font-weight="600">Hydrophobic Core</text>
+                                
+                                <!-- Loose packing -->
+                                <g transform="translate(15, 30)">
+                                    <text x="30" y="0" font-size="9" fill="#666" text-anchor="middle">Before</text>
+                                    <circle cx="20" cy="20" r="8" fill="#f8f9fa" stroke="#666" stroke-width="1.5"/>
+                                    <circle cx="40" cy="20" r="8" fill="#f8f9fa" stroke="#666" stroke-width="1.5"/>
+                                    <text x="30" y="42" font-size="7" fill="#666" text-anchor="middle">Gly, Ala</text>
+                                </g>
+                                
+                                <!-- Tight packing -->
+                                <g transform="translate(95, 30)">
+                                    <text x="30" y="0" font-size="9" fill="#00cc00" text-anchor="middle" font-weight="600">After</text>
+                                    <circle cx="18" cy="20" r="9" fill="#00cc00" opacity="0.3" stroke="#00cc00" stroke-width="2"/>
+                                    <circle cx="42" cy="20" r="9" fill="#00cc00" opacity="0.3" stroke="#00cc00" stroke-width="2"/>
+                                    <text x="30" y="42" font-size="7" fill="#00cc00" text-anchor="middle" font-weight="600">Leu, Ile, Val</text>
+                                </g>
+                                
+                                <text x="90" y="83" font-size="9" fill="#666" text-anchor="middle">ΔTm = +10-20°C</text>
+                            </g>
+                            
+                            <!-- Rigidification -->
+                            <g transform="translate(200, 140)">
+                                <rect x="0" y="0" width="180" height="95" fill="#ffe6f0" stroke="#cc0066" stroke-width="2" rx="6"/>
+                                <text x="90" y="18" font-size="11" fill="#cc0066" text-anchor="middle" font-weight="600">Proline Substitution</text>
+                                
+                                <!-- Flexible loop -->
+                                <g transform="translate(20, 30)">
+                                    <text x="25" y="0" font-size="9" fill="#666" text-anchor="middle">Flexible</text>
+                                    <path d="M 10,15 Q 20,25 30,20 T 50,15" stroke="#666" stroke-width="2.5" fill="none"/>
+                                    <text x="30" y="40" font-size="7" fill="#666" text-anchor="middle">Gly-Ser loop</text>
+                                </g>
+                                
+                                <!-- Rigid loop -->
+                                <g transform="translate(100, 30)">
+                                    <text x="25" y="0" font-size="9" fill="#cc0066" text-anchor="middle" font-weight="600">Rigid</text>
+                                    <path d="M 10,15 L 30,17 L 50,15" stroke="#cc0066" stroke-width="3" fill="none"/>
+                                    <text x="30" y="40" font-size="7" fill="#cc0066" text-anchor="middle" font-weight="600">Pro insertion</text>
+                                </g>
+                                
+                                <text x="90" y="83" font-size="9" fill="#666" text-anchor="middle">ΔTm = +5-12°C</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="text-section">
+                    <div class="description-box">
+                        <h3>Objective</h3>
+                        <p>Increase enzyme thermal stability (Tm) to enable operation at elevated temperatures, which improves reaction rates, reduces contamination risks, and extends enzyme shelf life in industrial processes.</p>
+                    </div>
+                    
+                    <div class="description-box">
+                        <h3>Stabilization Strategies</h3>
+                        <ul>
+                            <li><strong>Disulfide bonds:</strong> Introduce Cys-Cys bridges to constrain structure (5-15°C increase)</li>
+                            <li><strong>Salt bridges:</strong> Engineer ionic interactions between charged residues (3-8°C increase)</li>
+                            <li><strong>Hydrophobic core packing:</strong> Replace small residues (Gly, Ala) with bulky hydrophobic ones (Leu, Ile, Val) for tighter packing (10-20°C increase)</li>
+                            <li><strong>Proline substitution:</strong> Reduce loop flexibility by inserting proline (5-12°C increase)</li>
+                            <li><strong>N/C-terminal modifications:</strong> Add stabilizing residues or tags</li>
+                            <li><strong>Glycosylation:</strong> Attach sugar moieties for protection</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>Case Study: Bacillus α-Amylase</h4>
+                        <p><strong>Wild-type Tm:</strong> 55°C (half-life: 15 min at 90°C)</p>
+                        <p><strong>Engineered (15 mutations):</strong> Tm = 95°C (half-life: 7 hours at 90°C)</p>
+                        <p><strong>Key mutations:</strong> Introduction of 3 disulfide bonds, 5 salt bridges, and 7 core packing improvements. Now used in high-temperature starch processing.</p>
+                    </div>
+                    
+                    <div class="highlight">
+                        <strong>Industrial Impact:</strong> Thermostable enzymes enable higher process temperatures (70-100°C), reducing viscosity, increasing mass transfer, and preventing microbial contamination without sterilization.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 5: Solvent Tolerance -->
+    <div class="page">
+        <div class="container">
+            <div class="section-title">4. Solvent Tolerance Engineering</div>
+            
+            <div class="detail-content">
+                <div class="visual-section">
+                    <svg width="420" height="480" viewBox="0 0 420 480">
+                        <!-- Title -->
+                        <text x="210" y="25" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="700">Organic Solvent Resistance</text>
+                        
+                        <!-- Solvent effects comparison -->
+                        <g transform="translate(30, 50)">
+                            <!-- Aqueous environment -->
+                            <g transform="translate(0, 0)">
+                                <rect x="0" y="0" width="170" height="140" fill="#e3f2fd" stroke="#2874d8" stroke-width="2" rx="6"/>
+                                <text x="85" y="18" font-size="11" fill="#2874d8" text-anchor="middle" font-weight="600">Aqueous (100% H₂O)</text>
+                                
+                                <!-- Native enzyme -->
+                                <ellipse cx="85" cy="75" rx="40" ry="35" fill="#00cc00" stroke="#009900" stroke-width="3"/>
+                                <text x="85" y="80" font-size="11" fill="white" text-anchor="middle" font-weight="600">Native</text>
+                                
+                                <!-- Water molecules -->
+                                <circle cx="30" cy="50" r="4" fill="#2874d8" opacity="0.5"/>
+                                <circle cx="140" cy="60" r="4" fill="#2874d8" opacity="0.5"/>
+                                <circle cx="35" cy="100" r="4" fill="#2874d8" opacity="0.5"/>
+                                <circle cx="135" cy="95" r="4" fill="#2874d8" opacity="0.5"/>
+                                
+                                <text x="85" y="125" font-size="10" fill="#009900" text-anchor="middle" font-weight="600">Activity: 100%</text>
+                            </g>
+                            
+                            <!-- Organic solvent - wild type -->
+                            <g transform="translate(190, 0)">
+                                <rect x="0" y="0" width="170" height="140" fill="#ffcccc" stroke="#cc0000" stroke-width="2" rx="6"/>
+                                <text x="85" y="18" font-size="11" fill="#cc0000" text-anchor="middle" font-weight="600">50% Organic Solvent</text>
+                                
+                                <!-- Denatured enzyme -->
+                                <path d="M 40,60 Q 60,45 85,55 T 130,70 Q 120,90 85,85 T 50,75" fill="#cc0000" stroke="#990000" stroke-width="3" opacity="0.6"/>
+                                <text x="85" y="80" font-size="11" fill="white" text-anchor="middle" font-weight="600">Denatured</text>
+                                
+                                <!-- Organic solvent molecules -->
+                                <ellipse cx="25" cy="50" rx="6" ry="4" fill="#e0a800" opacity="0.7"/>
+                                <ellipse cx="145" cy="60" rx="6" ry="4" fill="#e0a800" opacity="0.7"/>
+                                <ellipse cx="30" cy="100" rx="6" ry="4" fill="#e0a800" opacity="0.7"/>
+                                <ellipse cx="140" cy="95" rx="6" ry="4" fill="#e0a800" opacity="0.7"/>
+                                
+                                <text x="85" y="125" font-size="10" fill="#cc0000" text-anchor="middle" font-weight="600">Activity: <5%</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Surface hydrophobicity -->
+                        <g transform="translate(30, 210)">
+                            <text x="180" y="0" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="600">Surface Engineering for Solvent Tolerance</text>
+                            
+                            <!-- Wild-type surface -->
+                            <g transform="translate(20, 25)">
+                                <rect x="0" y="0" width="160" height="130" fill="#f8f9fa" stroke="#666" stroke-width="2" rx="6"/>
+                                <text x="80" y="18" font-size="11" fill="#666" text-anchor="middle" font-weight="600">Wild-type Surface</text>
+                                
+                                <!-- Enzyme with hydrophilic patches -->
+                                <circle cx="80" cy="70" r="35" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                                
+                                <!-- Hydrophilic residues -->
+                                <circle cx="60" cy="55" r="6" fill="#2874d8"/>
+                                <text x="60" y="48" font-size="7" fill="#333" text-anchor="middle">Lys</text>
+                                
+                                <circle cx="100" cy="55" r="6" fill="#2874d8"/>
+                                <text x="100" y="48" font-size="7" fill="#333" text-anchor="middle">Glu</text>
+                                
+                                <circle cx="60" cy="85" r="6" fill="#2874d8"/>
+                                <text x="60" y="78" font-size="7" fill="#333" text-anchor="middle">Asp</text>
+                                
+                                <circle cx="100" cy="85" r="6" fill="#2874d8"/>
+                                <text x="100" y="78" font-size="7" fill="#333" text-anchor="middle">Ser</text>
+                                
+                                <text x="80" y="115" font-size="9" fill="#666" text-anchor="middle">Solvent-exposed</text>
+                                <text x="80" y="127" font-size="9" fill="#666" text-anchor="middle">polar residues</text>
+                            </g>
+                            
+                            <!-- Engineered surface -->
+                            <g transform="translate(200, 25)">
+                                <rect x="0" y="0" width="160" height="130" fill="#d4edda" stroke="#00cc00" stroke-width="3" rx="6"/>
+                                <text x="80" y="18" font-size="11" fill="#00cc00" text-anchor="middle" font-weight="700">Engineered Surface</text>
+                                
+                                <!-- Enzyme with hydrophobic surface -->
+                                <circle cx="80" cy="70" r="35" fill="#ccffcc" stroke="#00cc00" stroke-width="2"/>
+                                
+                                <!-- Hydrophobic residues -->
+                                <circle cx="60" cy="55" r="6" fill="#e0a800"/>
+                                <text x="60" y="48" font-size="7" fill="#333" text-anchor="middle">Leu</text>
+                                
+                                <circle cx="100" cy="55" r="6" fill="#e0a800"/>
+                                <text x="100" y="48" font-size="7" fill="#333" text-anchor="middle">Val</text>
+                                
+                                <circle cx="60" cy="85" r="6" fill="#e0a800"/>
+                                <text x="60" y="78" font-size="7" fill="#333" text-anchor="middle">Ala</text>
+                                
+                                <circle cx="100" cy="85" r="6" fill="#e0a800"/>
+                                <text x="100" y="78" font-size="7" fill="#333" text-anchor="middle">Phe</text>
+                                
+                                <text x="80" y="115" font-size="9" fill="#00cc00" text-anchor="middle" font-weight="600">Hydrophobic</text>
+                                <text x="80" y="127" font-size="9" fill="#00cc00" text-anchor="middle" font-weight="600">surface shield</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Solvent compatibility chart -->
+                        <g transform="translate(20, 380)">
+                            <rect x="0" y="0" width="380" height="90" fill="#fff3cd" stroke="#e0a800" stroke-width="2" rx="8"/>
+                            <text x="190" y="20" font-size="12" fill="#e0a800" text-anchor="middle" font-weight="700">Solvent Compatibility Enhancement</text>
+                            
+                            <g transform="translate(20, 35)">
+                                <!-- Solvent types -->
+                                <g transform="translate(0, 0)">
+                                    <rect x="0" y="0" width="75" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5" rx="4"/>
+                                    <text x="37" y="15" font-size="9" fill="#333" text-anchor="middle" font-weight="600">Methanol</text>
+                                    <text x="37" y="27" font-size="8" fill="#666" text-anchor="middle">WT: 2%</text>
+                                    <text x="37" y="37" font-size="8" fill="#1E64C8" text-anchor="middle" font-weight="600">Eng: 65%</text>
+                                </g>
+                                
+                                <g transform="translate(85, 0)">
+                                    <rect x="0" y="0" width="75" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5" rx="4"/>
+                                    <text x="37" y="15" font-size="9" fill="#333" text-anchor="middle" font-weight="600">DMSO</text>
+                                    <text x="37" y="27" font-size="8" fill="#666" text-anchor="middle">WT: <1%</text>
+                                    <text x="37" y="37" font-size="8" fill="#1E64C8" text-anchor="middle" font-weight="600">Eng: 40%</text>
+                                </g>
+                                
+                                <g transform="translate(170, 0)">
+                                    <rect x="0" y="0" width="75" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5" rx="4"/>
+                                    <text x="37" y="15" font-size="9" fill="#333" text-anchor="middle" font-weight="600">Acetonitrile</text>
+                                    <text x="37" y="27" font-size="8" fill="#666" text-anchor="middle">WT: 5%</text>
+                                    <text x="37" y="37" font-size="8" fill="#1E64C8" text-anchor="middle" font-weight="600">Eng: 70%</text>
+                                </g>
+                                
+                                <g transform="translate(255, 0)">
+                                    <rect x="0" y="0" width="75" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5" rx="4"/>
+                                    <text x="37" y="15" font-size="9" fill="#333" text-anchor="middle" font-weight="600">Toluene</text>
+                                    <text x="37" y="27" font-size="8" fill="#666" text-anchor="middle">WT: 0%</text>
+                                    <text x="37" y="37" font-size="8" fill="#1E64C8" text-anchor="middle" font-weight="600">Eng: 35%</text>
+                                </g>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="text-section">
+                    <div class="description-box">
+                        <h3>Objective</h3>
+                        <p>Engineer enzymes to maintain activity and stability in organic solvents, enabling reactions with hydrophobic substrates and products that are poorly soluble in water.</p>
+                    </div>
+                    
+                    <div class="description-box">
+                        <h3>Engineering Strategies</h3>
+                        <ul>
+                            <li><strong>Surface hydrophobicity:</strong> Replace charged surface residues (Lys, Glu, Asp) with hydrophobic ones (Leu, Val, Ala, Phe)</li>
+                            <li><strong>Core stabilization:</strong> Strengthen hydrophobic core to resist solvent penetration</li>
+                            <li><strong>Removal of water-binding sites:</strong> Eliminate surface pockets that trap destabilizing water molecules</li>
+                            <li><strong>Increased rigidity:</strong> Reduce conformational flexibility through proline substitutions and disulfide bonds</li>
+                            <li><strong>Active site protection:</strong> Shield catalytic residues from solvent deactivation</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>Case Study: Candida antarctica Lipase B (CALB)</h4>
+                        <p><strong>Wild-type:</strong> 30% activity in 30% methanol</p>
+                        <p><strong>Engineered (K26L/D223A/E226V):</strong> 85% activity in 70% methanol</p>
+                        <p><strong>Application:</strong> Used in biodiesel production and synthesis of pharmaceutical esters in high solvent concentrations, dramatically improving product yields.</p>
+                    </div>
+                    
+                    <div class="highlight">
+                        <strong>Industrial Benefits:</strong> Enables biphasic reactions, increases substrate/product solubility, reduces water activity for reversing hydrolysis, and facilitates downstream product recovery.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 6: Directed Evolution -->
+    <div class="page">
+        <div class="container">
+            <div class="section-title">5. Directed Evolution Strategy</div>
+            
+            <div class="detail-content">
+                <div class="visual-section">
+                    <svg width="420" height="500" viewBox="0 0 420 500">
+                        <!-- Title -->
+                        <text x="210" y="25" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="700">Iterative Improvement Cycles</text>
+                        
+                        <!-- Evolution cycle flowchart -->
+                        <g transform="translate(30, 50)">
+                            <!-- Round 1 -->
+                            <g transform="translate(0, 0)">
+                                <rect x="0" y="0" width="360" height="80" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                                <text x="180" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="700">Round 1: Gene Diversification</text>
+                                
+                                <!-- Steps -->
+                                <g transform="translate(20, 35)">
+                                    <rect x="0" y="0" width="75" height="30" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5" rx="4"/>
+                                    <text x="37" y="12" font-size="9" fill="#333" text-anchor="middle">Random</text>
+                                    <text x="37" y="23" font-size="9" fill="#333" text-anchor="middle">Mutagenesis</text>
+                                    
+                                    <path d="M 80,15 L 95,15" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow3)"/>
+                                    <defs>
+                                        <marker id="arrow3" markerWidth="6" markerHeight="6" refX="5" refY="2" orient="auto">
+                                            <polygon points="0 0, 6 2, 0 4" fill="#1E64C8"/>
+                                        </marker>
+                                    </defs>
+                                    
+                                    <rect x="100" y="0" width="75" height="30" fill="#d4edda" stroke="#1E64C8" stroke-width="1.5" rx="4"/>
+                                    <text x="137" y="12" font-size="9" fill="#333" text-anchor="middle">Library</text>
+                                    <text x="137" y="23" font-size="9" fill="#333" text-anchor="middle">10³-10⁶ variants</text>
+                                    
+                                    <path d="M 180,15 L 195,15" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow3)"/>
+                                    
+                                    <rect x="200" y="0" width="75" height="30" fill="#fff3cd" stroke="#e0a800" stroke-width="1.5" rx="4"/>
+                                    <text x="237" y="12" font-size="9" fill="#333" text-anchor="middle">Expression</text>
+                                    <text x="237" y="23" font-size="9" fill="#333" text-anchor="middle">E. coli/Yeast</text>
+                                    
+                                    <path d="M 280,15 L 295,15" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow3)"/>
+                                    
+                                    <rect x="300" y="0" width="40" height="30" fill="#ffcccc" stroke="#cc0000" stroke-width="1.5" rx="4"/>
+                                    <text x="320" y="12" font-size="9" fill="#333" text-anchor="middle">HTS</text>
+                                    <text x="320" y="23" font-size="9" fill="#333" text-anchor="middle">Screen</text>
+                                </g>
+                            </g>
+                            
+                            <!-- Screening methods -->
+                            <g transform="translate(0, 100)">
+                                <rect x="0" y="0" width="360" height="90" fill="#fff3cd" stroke="#e0a800" stroke-width="2" rx="8"/>
+                                <text x="180" y="18" font-size="12" fill="#e0a800" text-anchor="middle" font-weight="700">High-Throughput Screening Methods</text>
+                                
+                                <g transform="translate(15, 30)">
+                                    <!-- FACS -->
+                                    <g transform="translate(0, 0)">
+                                        <circle cx="35" cy="20" r="15" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                        <text x="35" y="17" font-size="8" fill="#333" text-anchor="middle">FACS</text>
+                                        <text x="35" y="26" font-size="7" fill="#333" text-anchor="middle">Sorting</text>
+                                        <text x="35" y="45" font-size="8" fill="#666" text-anchor="middle">10⁷/day</text>
+                                    </g>
+                                    
+                                    <!-- Microplate -->
+                                    <g transform="translate(85, 0)">
+                                        <rect x="10" y="5" width="50" height="30" fill="#d4edda" stroke="#00cc00" stroke-width="1.5" rx="3"/>
+                                        <text x="35" y="17" font-size="8" fill="#333" text-anchor="middle">96/384</text>
+                                        <text x="35" y="26" font-size="7" fill="#333" text-anchor="middle">well plates</text>
+                                        <text x="35" y="45" font-size="8" fill="#666" text-anchor="middle">10⁴/day</text>
+                                    </g>
+                                    
+                                    <!-- Microfluidic -->
+                                    <g transform="translate(165, 0)">
+                                        <ellipse cx="35" cy="20" rx="20" ry="15" fill="#ffcccc" stroke="#cc0000" stroke-width="1.5"/>
+                                        <text x="35" y="17" font-size="8" fill="#333" text-anchor="middle">Droplet</text>
+                                        <text x="35" y="26" font-size="7" fill="#333" text-anchor="middle">Microfluidic</text>
+                                        <text x="35" y="45" font-size="8" fill="#666" text-anchor="middle">10⁸/day</text>
+                                    </g>
+                                    
+                                    <!-- Colony screen -->
+                                    <g transform="translate(245, 0)">
+                                        <rect x="10" y="5" width="50" height="30" fill="#e3f2fd" stroke="#2874d8" stroke-width="1.5" rx="3"/>
+                                        <circle cx="25" cy="15" r="3" fill="#2874d8"/>
+                                        <circle cx="35" cy="15" r="3" fill="#2874d8"/>
+                                        <circle cx="45" cy="15" r="3" fill="#2874d8"/>
+                                        <circle cx="30" cy="25" r="3" fill="#2874d8"/>
+                                        <circle cx="40" cy="25" r="3" fill="#2874d8"/>
+                                        <text x="35" y="45" font-size="8" fill="#666" text-anchor="middle">10³/day</text>
+                                    </g>
+                                </g>
+                            </g>
+                            
+                            <!-- Selection and recombination -->
+                            <g transform="translate(0, 210)">
+                                <rect x="0" y="0" width="360" height="75" fill="#d4edda" stroke="#00cc00" stroke-width="2" rx="8"/>
+                                <text x="180" y="18" font-size="12" fill="#00cc00" text-anchor="middle" font-weight="700">Selection & Recombination</text>
+                                
+                                <g transform="translate(20, 30)">
+                                    <!-- Best variants -->
+                                    <g transform="translate(0, 0)">
+                                        <rect x="0" y="0" width="90" height="35" fill="#ccffcc" stroke="#00cc00" stroke-width="1.5" rx="4"/>
+                                        <text x="45" y="13" font-size="9" fill="#333" text-anchor="middle" font-weight="600">Top 1-10</text>
+                                        <text x="45" y="24" font-size="9" fill="#333" text-anchor="middle">variants</text>
+                                        <text x="45" y="33" font-size="8" fill="#666" text-anchor="middle">2-5× improved</text>
+                                    </g>
+                                    
+                                    <path d="M 95,17 L 110,17" stroke="#00cc00" stroke-width="2" marker-end="url(#arrow3)"/>
+                                    
+                                    <!-- DNA shuffling -->
+                                    <g transform="translate(115, 0)">
+                                        <rect x="0" y="0" width="95" height="35" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5" rx="4"/>
+                                        <text x="47" y="13" font-size="9" fill="#333" text-anchor="middle">DNA Shuffling</text>
+                                        <text x="47" y="24" font-size="9" fill="#333" text-anchor="middle">Recombination</text>
+                                        <text x="47" y="33" font-size="8" fill="#1E64C8" text-anchor="middle" font-weight="600">Combine mutations</text>
+                                    </g>
+                                    
+                                    <path d="M 215,17 L 230,17" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow3)"/>
+                                    
+                                    <!-- Next round -->
+                                    <g transform="translate(235, 0)">
+                                        <rect x="0" y="0" width="85" height="35" fill="#ffcccc" stroke="#cc0000" stroke-width="1.5" rx="4"/>
+                                        <text x="42" y="13" font-size="9" fill="#333" text-anchor="middle" font-weight="600">Next Round</text>
+                                        <text x="42" y="24" font-size="9" fill="#333" text-anchor="middle">5-10 cycles</text>
+                                        <text x="42" y="33" font-size="8" fill="#cc0000" text-anchor="middle" font-weight="600">→ 100-1000×</text>
+                                    </g>
+                                </g>
+                            </g>
+                            
+                            <!-- AI/ML integration -->
+                            <g transform="translate(0, 305)">
+                                <rect x="0" y="0" width="360" height="90" fill="#ffe6f0" stroke="#cc0066" stroke-width="3" rx="8"/>
+                                <text x="180" y="20" font-size="13" fill="#cc0066" text-anchor="middle" font-weight="700">🤖 Machine Learning Enhancement</text>
+                                
+                                <g transform="translate(20, 35)">
+                                    <!-- Training data -->
+                                    <g transform="translate(0, 0)">
+                                        <rect x="0" y="0" width="95" height="40" fill="#fff3cd" stroke="#e0a800" stroke-width="1.5" rx="4"/>
+                                        <text x="47" y="13" font-size="9" fill="#333" text-anchor="middle">Sequence-</text>
+                                        <text x="47" y="23" font-size="9" fill="#333" text-anchor="middle">Activity Data</text>
+                                        <text x="47" y="35" font-size="8" fill="#666" text-anchor="middle">10³-10⁵ variants</text>
+                                    </g>
+                                    
+                                    <path d="M 100,20 L 115,20" stroke="#cc0066" stroke-width="2" marker-end="url(#arrow4)"/>
+                                    <defs>
+                                        <marker id="arrow4" markerWidth="6" markerHeight="6" refX="5" refY="2" orient="auto">
+                                            <polygon points="0 0, 6 2, 0 4" fill="#cc0066"/>
+                                        </marker>
+                                    </defs>
+                                    
+                                    <!-- ML model -->
+                                    <g transform="translate(120, 0)">
+                                        <rect x="0" y="0" width="95" height="40" fill="#e3f2fd" stroke="#2874d8" stroke-width="1.5" rx="4"/>
+                                        <text x="47" y="13" font-size="9" fill="#333" text-anchor="middle" font-weight="600">ML Model</text>
+                                        <text x="47" y="23" font-size="8" fill="#333" text-anchor="middle">Neural Network</text>
+                                        <text x="47" y="35" font-size="8" fill="#2874d8" text-anchor="middle" font-weight="600">Predict fitness</text>
+                                    </g>
+                                    
+                                    <path d="M 220,20 L 235,20" stroke="#cc0066" stroke-width="2" marker-end="url(#arrow4)"/>
+                                    
+                                    <!-- Smart library -->
+                                    <g transform="translate(240, 0)">
+                                        <rect x="0" y="0" width="80" height="40" fill="#ccffcc" stroke="#00cc00" stroke-width="2" rx="4"/>
+                                        <text x="40" y="13" font-size="9" fill="#333" text-anchor="middle" font-weight="600">Focused</text>
+                                        <text x="40" y="23" font-size="9" fill="#333" text-anchor="middle" font-weight="600">Library</text>
+                                        <text x="40" y="35" font-size="8" fill="#00cc00" text-anchor="middle" font-weight="600">10× faster!</text>
+                                    </g>
+                                </g>
+                            </g>
+                        </g>
+                        
+                        <!-- Success metrics -->
+                        <g transform="translate(30, 425)">
+                            <rect x="0" y="0" width="360" height="60" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                            <text x="180" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="700">Typical Outcomes</text>
+                            
+                            <g transform="translate(20, 30)">
+                                <text x="0" y="10" font-size="10" fill="#333">• Activity improvement: 10-1000 fold</text>
+                                <text x="0" y="24" font-size="10" fill="#333">• Cycles required: 5-10 rounds (3-12 months)</text>
+                                <text x="200" y="10" font-size="10" fill="#333">• Library size: 10⁴-10⁷ variants</text>
+                                <text x="200" y="24" font-size="10" fill="#333">• Success rate: 60-80%</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="text-section">
+                    <div class="description-box">
+                        <h3>Objective</h3>
+                        <p>Use iterative rounds of random mutagenesis, recombination, and selection to evolve enzymes with desired properties without requiring detailed structural knowledge. This approach mimics natural evolution but accelerated 1000-fold.</p>
+                    </div>
+                    
+                    <div class="description-box">
+                        <h3>Key Components</h3>
+                        <ul>
+                            <li><strong>Mutagenesis methods:</strong> Error-prone PCR (0.1-1% mutation rate), DNA shuffling, saturation mutagenesis</li>
+                            <li><strong>Library construction:</strong> Generate 10³-10⁷ variants with diverse mutations</li>
+                            <li><strong>High-throughput screening:</strong> FACS (10⁷/day), microfluidics (10⁸/day), or plate-based assays (10⁴/day)</li>
+                            <li><strong>Selection criteria:</strong> Activity, stability, specificity, or multiple properties simultaneously</li>
+                            <li><strong>Recombination:</strong> DNA shuffling to combine beneficial mutations from different variants</li>
+                            <li><strong>ML-guidance:</strong> Machine learning models predict promising variants, reducing screening by 10-fold</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-box">
+                        <h4>Nobel Prize Example: Frances Arnold's P450 Evolution</h4>
+                        <p><strong>Goal:</strong> Evolve P450 for propane hydroxylation (non-natural activity)</p>
+                        <p><strong>Starting:</strong> 0% activity on propane</p>
+                        <p><strong>After 5 rounds:</strong> 300,000 turnovers with 98% selectivity</p>
+                        <p><strong>Impact:</strong> Enabled sustainable biocatalytic production of valuable chemicals from cheap alkanes, awarded 2018 Nobel Prize in Chemistry.</p>
+                    </div>
+                    
+                    <div class="highlight">
+                        <strong>Advantages:</strong> No structural knowledge required, can optimize multiple properties simultaneously, discovers unexpected beneficial mutations, and integrates easily with computational design and ML prediction.
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

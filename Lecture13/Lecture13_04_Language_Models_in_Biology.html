@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Language Models in Biology</title>
+    <title>Language Models in Biology - Detailed</title>
     <style>
         * {
             margin: 0;
@@ -14,17 +14,20 @@
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
             background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            padding: 40px 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+        }
+        
+        .main-slide {
+            width: 100%;
             padding: 40px 60px;
             background: white;
+            margin-bottom: 60px;
         }
         
         .title {
@@ -106,89 +109,824 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.7; }
         }
+
+        /* Detailed sections */
+        .detail-section {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+            border-left: 6px solid #1E64C8;
+        }
+
+        .detail-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+        }
+
+        .detail-content {
+            display: flex;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .detail-text {
+            flex: 1;
+        }
+
+        .detail-visual {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .subsection {
+            margin-bottom: 20px;
+        }
+
+        .subsection-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2874d8;
+            margin-bottom: 10px;
+        }
+
+        .subsection-desc {
+            font-size: 15px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 8px;
+        }
+
+        .example-box {
+            background: #e8f2ff;
+            padding: 12px 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            margin-top: 8px;
+            color: #1E64C8;
+        }
+
+        .key-points {
+            background: white;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+        }
+
+        .key-point {
+            display: flex;
+            align-items: start;
+            margin-bottom: 10px;
+        }
+
+        .key-point::before {
+            content: '►';
+            color: #1E64C8;
+            margin-right: 10px;
+            font-size: 12px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Language Models in Biology</div>
-        <div class="content-wrapper">
-            <div class="flow-diagram">
-                <div class="flow-item">
-                    <div class="flow-title">Biological sequences as text</div>
-                    <div class="flow-desc">DNA, RNA, Protein sequences → Text format</div>
+        <!-- Main overview slide -->
+        <div class="main-slide">
+            <div class="title">Language Models in Biology</div>
+            <div class="content-wrapper">
+                <div class="flow-diagram">
+                    <div class="flow-item">
+                        <div class="flow-title">Biological sequences as text</div>
+                        <div class="flow-desc">DNA, RNA, Protein sequences → Text format</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-title">Tokenization strategies</div>
+                        <div class="flow-desc">K-mers, BPE, Character-level encoding</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-title">Pretraining objectives</div>
+                        <div class="flow-desc">Masked LM, Next token prediction, Contrastive</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-title">Scale effects</div>
+                        <div class="flow-desc">Model size vs. performance trade-offs</div>
+                    </div>
+                    <div class="flow-item">
+                        <div class="flow-title">Downstream tasks</div>
+                        <div class="flow-desc">Structure, Function, Design applications</div>
+                    </div>
                 </div>
-                <div class="flow-item">
-                    <div class="flow-title">Tokenization strategies</div>
-                    <div class="flow-desc">K-mers, BPE, Character-level encoding</div>
+                
+                <div class="visual-diagram">
+                    <svg width="400" height="360" viewBox="0 0 400 360">
+                        <!-- DNA Helix -->
+                        <g transform="translate(50, 180)">
+                            <path d="M 0,0 Q 10,-15 20,0 T 40,0 T 60,0" stroke="#1E64C8" stroke-width="3" fill="none"/>
+                            <path d="M 0,0 Q 10,15 20,0 T 40,0 T 60,0" stroke="#2874d8" stroke-width="3" fill="none"/>
+                            <line x1="10" y1="-8" x2="10" y2="8" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="30" y1="-8" x2="30" y2="8" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="50" y1="-8" x2="50" y2="8" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="70" y="5" font-size="14" fill="#333">ATCG...</text>
+                        </g>
+                        
+                        <!-- Arrow -->
+                        <path d="M 140,180 L 180,180" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- Transformer Model -->
+                        <g transform="translate(200, 100)" class="model-icon">
+                            <rect x="0" y="0" width="80" height="25" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="40" y="17" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">Attention</text>
+                            
+                            <rect x="0" y="35" width="80" height="25" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="40" y="52" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">FFN</text>
+                            
+                            <rect x="0" y="70" width="80" height="25" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="40" y="87" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">Attention</text>
+                            
+                            <rect x="0" y="105" width="80" height="25" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="40" y="122" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">FFN</text>
+                            
+                            <text x="40" y="145" font-size="10" fill="#666" text-anchor="middle">×N Layers</text>
+                        </g>
+                        
+                        <!-- Output Arrow -->
+                        <path d="M 290,180 L 330,180" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Output Applications -->
+                        <g transform="translate(330, 140)">
+                            <circle cx="10" cy="10" r="8" fill="#1E64C8" opacity="0.2"/>
+                            <text x="25" y="15" font-size="11" fill="#333">Structure</text>
+                            
+                            <circle cx="10" cy="35" r="8" fill="#1E64C8" opacity="0.2"/>
+                            <text x="25" y="40" font-size="11" fill="#333">Function</text>
+                            
+                            <circle cx="10" cy="60" r="8" fill="#1E64C8" opacity="0.2"/>
+                            <text x="25" y="65" font-size="11" fill="#333">Design</text>
+                        </g>
+                    </svg>
                 </div>
-                <div class="flow-item">
-                    <div class="flow-title">Pretraining objectives</div>
-                    <div class="flow-desc">Masked LM, Next token prediction, Contrastive</div>
-                </div>
-                <div class="flow-item">
-                    <div class="flow-title">Scale effects</div>
-                    <div class="flow-desc">Model size vs. performance trade-offs</div>
-                </div>
-                <div class="flow-item">
-                    <div class="flow-title">Downstream tasks</div>
-                    <div class="flow-desc">Structure, Function, Design applications</div>
-                </div>
-            </div>
-            
-            <div class="visual-diagram">
-                <svg width="400" height="360" viewBox="0 0 400 360">
-                    <!-- DNA Helix -->
-                    <g transform="translate(50, 180)">
-                        <path d="M 0,0 Q 10,-15 20,0 T 40,0 T 60,0" stroke="#1E64C8" stroke-width="3" fill="none"/>
-                        <path d="M 0,0 Q 10,15 20,0 T 40,0 T 60,0" stroke="#2874d8" stroke-width="3" fill="none"/>
-                        <line x1="10" y1="-8" x2="10" y2="8" stroke="#1E64C8" stroke-width="2"/>
-                        <line x1="30" y1="-8" x2="30" y2="8" stroke="#1E64C8" stroke-width="2"/>
-                        <line x1="50" y1="-8" x2="50" y2="8" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="70" y="5" font-size="14" fill="#333">ATCG...</text>
-                    </g>
-                    
-                    <!-- Arrow -->
-                    <path d="M 140,180 L 180,180" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
-                    <defs>
-                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
-                        </marker>
-                    </defs>
-                    
-                    <!-- Transformer Model -->
-                    <g transform="translate(200, 100)" class="model-icon">
-                        <rect x="0" y="0" width="80" height="25" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="40" y="17" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">Attention</text>
-                        
-                        <rect x="0" y="35" width="80" height="25" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="40" y="52" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">FFN</text>
-                        
-                        <rect x="0" y="70" width="80" height="25" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="40" y="87" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">Attention</text>
-                        
-                        <rect x="0" y="105" width="80" height="25" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="40" y="122" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">FFN</text>
-                        
-                        <text x="40" y="145" font-size="10" fill="#666" text-anchor="middle">×N Layers</text>
-                    </g>
-                    
-                    <!-- Output Arrow -->
-                    <path d="M 290,180 L 330,180" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
-                    
-                    <!-- Output Applications -->
-                    <g transform="translate(330, 140)">
-                        <circle cx="10" cy="10" r="8" fill="#1E64C8" opacity="0.2"/>
-                        <text x="25" y="15" font-size="11" fill="#333">Structure</text>
-                        
-                        <circle cx="10" cy="35" r="8" fill="#1E64C8" opacity="0.2"/>
-                        <text x="25" y="40" font-size="11" fill="#333">Function</text>
-                        
-                        <circle cx="10" cy="60" r="8" fill="#1E64C8" opacity="0.2"/>
-                        <text x="25" y="65" font-size="11" fill="#333">Design</text>
-                    </g>
-                </svg>
             </div>
         </div>
+
+        <!-- Detailed Section 1: Biological Sequences as Text -->
+        <div class="detail-section">
+            <div class="detail-title">1. Biological Sequences as Text</div>
+            <div class="detail-content">
+                <div class="detail-text">
+                    <div class="subsection">
+                        <div class="subsection-title">DNA Sequences</div>
+                        <div class="subsection-desc">
+                            DNA consists of four nucleotide bases (A, T, G, C) that can be naturally represented as text strings, making them directly compatible with language model architectures.
+                        </div>
+                        <div class="example-box">
+                            Original: ATCGATCGTAGCTAGCTA<br>
+                            Tokenized: A T C G A T C G T A G C T A G C T A
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Protein Sequences</div>
+                        <div class="subsection-desc">
+                            Proteins use 20 amino acids represented by single-letter codes, creating a natural alphabet for language modeling similar to human language.
+                        </div>
+                        <div class="example-box">
+                            Original: MKTAYIAKQRQISFVKSH<br>
+                            Vocab size: 20 amino acids + special tokens
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">RNA Sequences</div>
+                        <div class="subsection-desc">
+                            RNA sequences (A, U, G, C) can be treated similarly to DNA, with additional structural information from secondary structure annotations.
+                        </div>
+                    </div>
+
+                    <div class="key-points">
+                        <div class="key-point">Fixed vocabulary size makes tokenization straightforward</div>
+                        <div class="key-point">Sequential nature enables transfer of NLP techniques</div>
+                        <div class="key-point">Enables pre-training on massive unlabeled sequence databases</div>
+                    </div>
+                </div>
+
+                <div class="detail-visual">
+                    <svg width="100%" height="400" viewBox="0 0 500 400">
+                        <!-- DNA to Text visualization -->
+                        <text x="250" y="30" text-anchor="middle" font-size="16" font-weight="600" fill="#1E64C8">Sequence Representation</text>
+                        
+                        <!-- DNA strand -->
+                        <g transform="translate(50, 60)">
+                            <text x="0" y="0" font-size="14" font-weight="600" fill="#333">DNA:</text>
+                            <rect x="50" y="-15" width="30" height="30" fill="#4CAF50" rx="4"/>
+                            <text x="65" y="5" text-anchor="middle" fill="white" font-weight="600">A</text>
+                            <rect x="85" y="-15" width="30" height="30" fill="#2196F3" rx="4"/>
+                            <text x="100" y="5" text-anchor="middle" fill="white" font-weight="600">T</text>
+                            <rect x="120" y="-15" width="30" height="30" fill="#FF9800" rx="4"/>
+                            <text x="135" y="5" text-anchor="middle" fill="white" font-weight="600">C</text>
+                            <rect x="155" y="-15" width="30" height="30" fill="#F44336" rx="4"/>
+                            <text x="170" y="5" text-anchor="middle" fill="white" font-weight="600">G</text>
+                            <text x="200" y="5" font-size="16" fill="#666">...</text>
+                        </g>
+
+                        <!-- Arrow -->
+                        <path d="M 250,90 L 250,120" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowdown)"/>
+                        <defs>
+                            <marker id="arrowdown" markerWidth="10" markerHeight="10" refX="5" refY="9" orient="auto">
+                                <polygon points="0 0, 10 0, 5 10" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+
+                        <!-- Protein strand -->
+                        <g transform="translate(50, 150)">
+                            <text x="0" y="0" font-size="14" font-weight="600" fill="#333">Protein:</text>
+                            <rect x="70" y="-15" width="25" height="30" fill="#9C27B0" rx="4"/>
+                            <text x="82.5" y="5" text-anchor="middle" fill="white" font-size="12" font-weight="600">M</text>
+                            <rect x="100" y="-15" width="25" height="30" fill="#9C27B0" rx="4"/>
+                            <text x="112.5" y="5" text-anchor="middle" fill="white" font-size="12" font-weight="600">K</text>
+                            <rect x="130" y="-15" width="25" height="30" fill="#9C27B0" rx="4"/>
+                            <text x="142.5" y="5" text-anchor="middle" fill="white" font-size="12" font-weight="600">T</text>
+                            <rect x="160" y="-15" width="25" height="30" fill="#9C27B0" rx="4"/>
+                            <text x="172.5" y="5" text-anchor="middle" fill="white" font-size="12" font-weight="600">A</text>
+                            <text x="195" y="5" font-size="16" fill="#666">...</text>
+                        </g>
+
+                        <!-- Text format -->
+                        <g transform="translate(50, 230)">
+                            <text x="0" y="0" font-size="14" font-weight="600" fill="#333">Text Format:</text>
+                            <rect x="0" y="10" width="400" height="100" fill="white" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                            <text x="10" y="35" font-family="Courier New" font-size="13" fill="#1E64C8">
+                                DNA: "ATCGATCGTAGCTA..."
+                            </text>
+                            <text x="10" y="60" font-family="Courier New" font-size="13" fill="#9C27B0">
+                                Protein: "MKTAYIAKQRQI..."
+                            </text>
+                            <text x="10" y="85" font-family="Courier New" font-size="13" fill="#F44336">
+                                RNA: "AUCGAUCGUAGCUA..."
+                            </text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 2: Tokenization Strategies -->
+        <div class="detail-section">
+            <div class="detail-title">2. Tokenization Strategies</div>
+            <div class="detail-content">
+                <div class="detail-text">
+                    <div class="subsection">
+                        <div class="subsection-title">Character-level Encoding</div>
+                        <div class="subsection-desc">
+                            Each nucleotide or amino acid is treated as a single token. Simple and direct, but may miss important patterns spanning multiple positions.
+                        </div>
+                        <div class="example-box">
+                            Input: ATCGATCG<br>
+                            Tokens: [A][T][C][G][A][T][C][G]
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">K-mer Tokenization</div>
+                        <div class="subsection-desc">
+                            Sequences are split into overlapping or non-overlapping subsequences of length k. Captures local patterns and motifs effectively.
+                        </div>
+                        <div class="example-box">
+                            Input: ATCGATCG (k=3)<br>
+                            Tokens: [ATC][TCG][CGA][GAT][ATC][TCG]
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Byte Pair Encoding (BPE)</div>
+                        <div class="subsection-desc">
+                            Data-driven approach that learns common subword units from the training corpus. Balances vocabulary size with sequence length.
+                        </div>
+                        <div class="example-box">
+                            Learns frequent patterns:<br>
+                            "ATG" → start codon<br>
+                            "TAA" → stop codon
+                        </div>
+                    </div>
+
+                    <div class="key-points">
+                        <div class="key-point">Choice affects model's ability to capture biological motifs</div>
+                        <div class="key-point">K-mer size impacts computational efficiency and context</div>
+                        <div class="key-point">BPE can discover biologically meaningful units</div>
+                    </div>
+                </div>
+
+                <div class="detail-visual">
+                    <svg width="100%" height="450" viewBox="0 0 500 450">
+                        <text x="250" y="30" text-anchor="middle" font-size="16" font-weight="600" fill="#1E64C8">Tokenization Comparison</text>
+                        
+                        <!-- Original sequence -->
+                        <g transform="translate(50, 60)">
+                            <text x="0" y="0" font-size="13" font-weight="600" fill="#333">Original Sequence:</text>
+                            <rect x="0" y="10" width="400" height="35" fill="#e8f2ff" rx="4"/>
+                            <text x="10" y="32" font-family="Courier New" font-size="14" fill="#1E64C8" font-weight="600">
+                                A T C G A T C G T A G C
+                            </text>
+                        </g>
+
+                        <!-- Character-level -->
+                        <g transform="translate(50, 130)">
+                            <text x="0" y="0" font-size="13" font-weight="600" fill="#333">Character-level (k=1):</text>
+                            <rect x="10" y="10" width="25" height="30" fill="#4CAF50" rx="3"/>
+                            <text x="22.5" y="30" text-anchor="middle" fill="white" font-size="11">A</text>
+                            <rect x="40" y="10" width="25" height="30" fill="#4CAF50" rx="3"/>
+                            <text x="52.5" y="30" text-anchor="middle" fill="white" font-size="11">T</text>
+                            <rect x="70" y="10" width="25" height="30" fill="#4CAF50" rx="3"/>
+                            <text x="82.5" y="30" text-anchor="middle" fill="white" font-size="11">C</text>
+                            <rect x="100" y="10" width="25" height="30" fill="#4CAF50" rx="3"/>
+                            <text x="112.5" y="30" text-anchor="middle" fill="white" font-size="11">G</text>
+                            <rect x="130" y="10" width="25" height="30" fill="#4CAF50" rx="3"/>
+                            <text x="142.5" y="30" text-anchor="middle" fill="white" font-size="11">A</text>
+                            <rect x="160" y="10" width="25" height="30" fill="#4CAF50" rx="3"/>
+                            <text x="172.5" y="30" text-anchor="middle" fill="white" font-size="11">T</text>
+                            <text x="195" y="30" font-size="14" fill="#666">...</text>
+                            <text x="220" y="30" font-size="11" fill="#666">Tokens: 12</text>
+                        </g>
+
+                        <!-- K-mer (k=3) -->
+                        <g transform="translate(50, 200)">
+                            <text x="0" y="0" font-size="13" font-weight="600" fill="#333">K-mer (k=3):</text>
+                            <rect x="10" y="10" width="45" height="30" fill="#2196F3" rx="3"/>
+                            <text x="32.5" y="30" text-anchor="middle" fill="white" font-size="11">ATC</text>
+                            <rect x="60" y="10" width="45" height="30" fill="#2196F3" rx="3"/>
+                            <text x="82.5" y="30" text-anchor="middle" fill="white" font-size="11">TCG</text>
+                            <rect x="110" y="10" width="45" height="30" fill="#2196F3" rx="3"/>
+                            <text x="132.5" y="30" text-anchor="middle" fill="white" font-size="11">CGA</text>
+                            <rect x="160" y="10" width="45" height="30" fill="#2196F3" rx="3"/>
+                            <text x="182.5" y="30" text-anchor="middle" fill="white" font-size="11">GAT</text>
+                            <text x="215" y="30" font-size="14" fill="#666">...</text>
+                            <text x="240" y="30" font-size="11" fill="#666">Tokens: 10</text>
+                        </g>
+
+                        <!-- K-mer (k=6) -->
+                        <g transform="translate(50, 270)">
+                            <text x="0" y="0" font-size="13" font-weight="600" fill="#333">K-mer (k=6):</text>
+                            <rect x="10" y="10" width="85" height="30" fill="#FF9800" rx="3"/>
+                            <text x="52.5" y="30" text-anchor="middle" fill="white" font-size="11">ATCGAT</text>
+                            <rect x="100" y="10" width="85" height="30" fill="#FF9800" rx="3"/>
+                            <text x="142.5" y="30" text-anchor="middle" fill="white" font-size="11">TCGATC</text>
+                            <text x="195" y="30" font-size="14" fill="#666">...</text>
+                            <text x="220" y="30" font-size="11" fill="#666">Tokens: 7</text>
+                        </g>
+
+                        <!-- BPE -->
+                        <g transform="translate(50, 340)">
+                            <text x="0" y="0" font-size="13" font-weight="600" fill="#333">BPE (learned):</text>
+                            <rect x="10" y="10" width="50" height="30" fill="#9C27B0" rx="3"/>
+                            <text x="35" y="30" text-anchor="middle" fill="white" font-size="10">ATCG</text>
+                            <rect x="65" y="10" width="35" height="30" fill="#9C27B0" rx="3"/>
+                            <text x="82.5" y="30" text-anchor="middle" fill="white" font-size="10">AT</text>
+                            <rect x="105" y="10" width="50" height="30" fill="#9C27B0" rx="3"/>
+                            <text x="130" y="30" text-anchor="middle" fill="white" font-size="10">CGTA</text>
+                            <rect x="160" y="10" width="35" height="30" fill="#9C27B0" rx="3"/>
+                            <text x="177.5" y="30" text-anchor="middle" fill="white" font-size="10">GC</text>
+                            <text x="205" y="30" font-size="14" fill="#666">...</text>
+                            <text x="230" y="30" font-size="11" fill="#666">Tokens: 4</text>
+                        </g>
+
+                        <!-- Comparison note -->
+                        <g transform="translate(50, 410)">
+                            <text x="0" y="0" font-size="12" fill="#666" font-style="italic">
+                                * Longer k-mers capture more context but increase vocab size
+                            </text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 3: Pretraining Objectives -->
+        <div class="detail-section">
+            <div class="detail-title">3. Pretraining Objectives</div>
+            <div class="detail-content">
+                <div class="detail-text">
+                    <div class="subsection">
+                        <div class="subsection-title">Masked Language Modeling (MLM)</div>
+                        <div class="subsection-desc">
+                            Random tokens are masked, and the model learns to predict them using bidirectional context. Similar to BERT, enables learning rich representations.
+                        </div>
+                        <div class="example-box">
+                            Input: ATCG[MASK]TCGTA<br>
+                            Target: Predict 'A' using context<br>
+                            Model: ESM, ProtBERT
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Next Token Prediction</div>
+                        <div class="subsection-desc">
+                            Autoregressive training where the model predicts the next token given all previous tokens. Similar to GPT architecture, useful for generation tasks.
+                        </div>
+                        <div class="example-box">
+                            Input: ATCGATCG<br>
+                            Target: Predict next 'T'<br>
+                            Model: ProGen, ProtGPT2
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Contrastive Learning</div>
+                        <div class="subsection-desc">
+                            Learns by contrasting positive pairs (e.g., sequence and structure) against negative pairs. Effective for multimodal alignment.
+                        </div>
+                        <div class="example-box">
+                            Positive: (Sequence, Structure)<br>
+                            Negative: (Sequence, Random Structure)<br>
+                            Model: ESM-IF, ProteinCLIP
+                        </div>
+                    </div>
+
+                    <div class="key-points">
+                        <div class="key-point">MLM: Best for understanding tasks (classification, prediction)</div>
+                        <div class="key-point">Next token: Best for generation and design tasks</div>
+                        <div class="key-point">Contrastive: Best for multimodal tasks and alignment</div>
+                    </div>
+                </div>
+
+                <div class="detail-visual">
+                    <svg width="100%" height="500" viewBox="0 0 500 500">
+                        <text x="250" y="30" text-anchor="middle" font-size="16" font-weight="600" fill="#1E64C8">Pretraining Objectives</text>
+                        
+                        <!-- MLM -->
+                        <g transform="translate(50, 60)">
+                            <text x="0" y="0" font-size="14" font-weight="600" fill="#333">Masked Language Modeling:</text>
+                            <rect x="0" y="15" width="400" height="90" fill="white" stroke="#4CAF50" stroke-width="2" rx="6"/>
+                            
+                            <!-- Input sequence with mask -->
+                            <g transform="translate(20, 35)">
+                                <rect x="0" y="0" width="30" height="25" fill="#4CAF50" rx="3"/>
+                                <text x="15" y="17" text-anchor="middle" fill="white" font-size="11">A</text>
+                                <rect x="35" y="0" width="30" height="25" fill="#4CAF50" rx="3"/>
+                                <text x="50" y="17" text-anchor="middle" fill="white" font-size="11">T</text>
+                                <rect x="70" y="0" width="30" height="25" fill="#4CAF50" rx="3"/>
+                                <text x="85" y="17" text-anchor="middle" fill="white" font-size="11">C</text>
+                                <rect x="105" y="0" width="50" height="25" fill="#FFD700" rx="3"/>
+                                <text x="130" y="17" text-anchor="middle" fill="#333" font-size="10" font-weight="600">[MASK]</text>
+                                <rect x="160" y="0" width="30" height="25" fill="#4CAF50" rx="3"/>
+                                <text x="175" y="17" text-anchor="middle" fill="white" font-size="11">T</text>
+                                <rect x="195" y="0" width="30" height="25" fill="#4CAF50" rx="3"/>
+                                <text x="210" y="17" text-anchor="middle" fill="white" font-size="11">A</text>
+                            </g>
+                            
+                            <path d="M 150,75 L 150,65" stroke="#4CAF50" stroke-width="2" marker-end="url(#arrowup)"/>
+                            <defs>
+                                <marker id="arrowup" markerWidth="10" markerHeight="10" refX="5" refY="0" orient="auto">
+                                    <polygon points="0 10, 10 10, 5 0" fill="#4CAF50"/>
+                                </marker>
+                            </defs>
+                            <text x="150" y="95" text-anchor="middle" font-size="11" fill="#4CAF50" font-weight="600">Predict: G</text>
+                        </g>
+
+                        <!-- Next Token Prediction -->
+                        <g transform="translate(50, 180)">
+                            <text x="0" y="0" font-size="14" font-weight="600" fill="#333">Next Token Prediction:</text>
+                            <rect x="0" y="15" width="400" height="90" fill="white" stroke="#2196F3" stroke-width="2" rx="6"/>
+                            
+                            <!-- Input sequence -->
+                            <g transform="translate(20, 35)">
+                                <rect x="0" y="0" width="30" height="25" fill="#2196F3" rx="3"/>
+                                <text x="15" y="17" text-anchor="middle" fill="white" font-size="11">A</text>
+                                <rect x="35" y="0" width="30" height="25" fill="#2196F3" rx="3"/>
+                                <text x="50" y="17" text-anchor="middle" fill="white" font-size="11">T</text>
+                                <rect x="70" y="0" width="30" height="25" fill="#2196F3" rx="3"/>
+                                <text x="85" y="17" text-anchor="middle" fill="white" font-size="11">C</text>
+                                <rect x="105" y="0" width="30" height="25" fill="#2196F3" rx="3"/>
+                                <text x="120" y="17" text-anchor="middle" fill="white" font-size="11">G</text>
+                                <rect x="140" y="0" width="30" height="25" fill="#2196F3" rx="3"/>
+                                <text x="155" y="17" text-anchor="middle" fill="white" font-size="11">A</text>
+                                
+                                <text x="185" y="17" font-size="20" fill="#2196F3" font-weight="600">→</text>
+                                
+                                <rect x="210" y="0" width="30" height="25" fill="#FFD700" rx="3"/>
+                                <text x="225" y="17" text-anchor="middle" fill="#333" font-size="11" font-weight="600">?</text>
+                            </g>
+                            
+                            <text x="250" y="85" text-anchor="middle" font-size="11" fill="#2196F3" font-weight="600">Predict: T</text>
+                        </g>
+
+                        <!-- Contrastive Learning -->
+                        <g transform="translate(50, 300)">
+                            <text x="0" y="0" font-size="14" font-weight="600" fill="#333">Contrastive Learning:</text>
+                            <rect x="0" y="15" width="400" height="140" fill="white" stroke="#9C27B0" stroke-width="2" rx="6"/>
+                            
+                            <!-- Positive pair -->
+                            <g transform="translate(40, 35)">
+                                <text x="0" y="0" font-size="11" fill="#4CAF50" font-weight="600">Positive Pair ✓</text>
+                                <rect x="0" y="10" width="120" height="30" fill="#e8f2ff" rx="4"/>
+                                <text x="60" y="30" text-anchor="middle" font-size="10" fill="#333">ATCGAT...</text>
+                                <path d="M 130,25 L 150,25" stroke="#4CAF50" stroke-width="2"/>
+                                <!-- Simple protein structure -->
+                                <path d="M 160,15 Q 170,10 180,15 T 200,15 Q 210,20 210,30" stroke="#4CAF50" stroke-width="3" fill="none"/>
+                            </g>
+                            
+                            <!-- Negative pair -->
+                            <g transform="translate(40, 95)">
+                                <text x="0" y="0" font-size="11" fill="#F44336" font-weight="600">Negative Pair ✗</text>
+                                <rect x="0" y="10" width="120" height="30" fill="#e8f2ff" rx="4"/>
+                                <text x="60" y="30" text-anchor="middle" font-size="10" fill="#333">ATCGAT...</text>
+                                <path d="M 130,25 L 150,25" stroke="#F44336" stroke-width="2" stroke-dasharray="4"/>
+                                <!-- Different structure -->
+                                <circle cx="180" cy="25" r="15" stroke="#F44336" stroke-width="3" fill="none"/>
+                            </g>
+                        </g>
+
+                        <!-- Summary -->
+                        <g transform="translate(50, 470)">
+                            <text x="0" y="0" font-size="11" fill="#666" font-style="italic">
+                                * All objectives learn from unlabeled sequence data at scale
+                            </text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 4: Scale Effects -->
+        <div class="detail-section">
+            <div class="detail-title">4. Scale Effects</div>
+            <div class="detail-content">
+                <div class="detail-text">
+                    <div class="subsection">
+                        <div class="subsection-title">Model Size Scaling</div>
+                        <div class="subsection-desc">
+                            Larger models (more parameters) generally achieve better performance on downstream tasks, following similar scaling laws as in natural language models.
+                        </div>
+                        <div class="example-box">
+                            ESM-2: 8M → 150M → 650M → 3B → 15B params<br>
+                            Performance improves consistently with size
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Data Scaling</div>
+                        <div class="subsection-desc">
+                            Training on larger sequence databases (UniProt, GenBank) provides richer representations. Models benefit from evolutionary diversity in training data.
+                        </div>
+                        <div class="example-box">
+                            ESM-2: Trained on 250M+ sequences<br>
+                            ProtT5: Trained on UniRef50 (45M sequences)
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Compute-Performance Trade-offs</div>
+                        <div class="subsection-desc">
+                            Larger models require more computational resources but provide diminishing returns. Need to balance accuracy gains with practical deployment constraints.
+                        </div>
+                        <div class="example-box">
+                            15B model: 100x compute of 150M model<br>
+                            Performance gain: ~15-20% on benchmarks
+                        </div>
+                    </div>
+
+                    <div class="key-points">
+                        <div class="key-point">Scaling laws similar to NLP models apply to biological sequences</div>
+                        <div class="key-point">Emergent capabilities appear at certain scale thresholds</div>
+                        <div class="key-point">Model selection depends on task complexity and resources</div>
+                    </div>
+                </div>
+
+                <div class="detail-visual">
+                    <svg width="100%" height="450" viewBox="0 0 500 450">
+                        <text x="250" y="30" text-anchor="middle" font-size="16" font-weight="600" fill="#1E64C8">Scaling Effects</text>
+                        
+                        <!-- Performance vs Size graph -->
+                        <g transform="translate(50, 60)">
+                            <text x="150" y="0" text-anchor="middle" font-size="13" font-weight="600" fill="#333">Performance vs Model Size</text>
+                            
+                            <!-- Axes -->
+                            <line x1="30" y1="200" x2="30" y2="20" stroke="#333" stroke-width="2"/>
+                            <line x1="30" y1="200" x2="370" y2="200" stroke="#333" stroke-width="2"/>
+                            
+                            <!-- Y-axis label -->
+                            <text x="10" y="110" font-size="11" fill="#333" transform="rotate(-90 10 110)">Performance</text>
+                            
+                            <!-- X-axis label -->
+                            <text x="200" y="230" text-anchor="middle" font-size="11" fill="#333">Model Parameters</text>
+                            
+                            <!-- Performance curve -->
+                            <path d="M 30,190 Q 100,150 150,90 T 280,40 T 370,30" 
+                                  stroke="#1E64C8" stroke-width="3" fill="none"/>
+                            
+                            <!-- Data points -->
+                            <circle cx="60" cy="170" r="5" fill="#4CAF50"/>
+                            <text x="60" y="190" text-anchor="middle" font-size="9" fill="#666">8M</text>
+                            
+                            <circle cx="120" cy="130" r="5" fill="#4CAF50"/>
+                            <text x="120" y="150" text-anchor="middle" font-size="9" fill="#666">150M</text>
+                            
+                            <circle cx="200" cy="80" r="5" fill="#4CAF50"/>
+                            <text x="200" y="100" text-anchor="middle" font-size="9" fill="#666">650M</text>
+                            
+                            <circle cx="280" cy="50" r="5" fill="#4CAF50"/>
+                            <text x="280" y="70" text-anchor="middle" font-size="9" fill="#666">3B</text>
+                            
+                            <circle cx="350" cy="35" r="5" fill="#F44336"/>
+                            <text x="350" y="55" text-anchor="middle" font-size="9" fill="#666">15B</text>
+                            
+                            <!-- Diminishing returns annotation -->
+                            <path d="M 310,45 L 340,20" stroke="#F44336" stroke-width="1" stroke-dasharray="3"/>
+                            <text x="260" y="15" font-size="9" fill="#F44336">Diminishing returns</text>
+                        </g>
+
+                        <!-- Trade-off visualization -->
+                        <g transform="translate(50, 280)">
+                            <text x="150" y="0" text-anchor="middle" font-size="13" font-weight="600" fill="#333">Compute-Performance Trade-off</text>
+                            
+                            <rect x="30" y="20" width="340" height="120" fill="white" stroke="#ddd" stroke-width="1" rx="4"/>
+                            
+                            <!-- Small model -->
+                            <g transform="translate(60, 45)">
+                                <rect x="0" y="0" width="60" height="30" fill="#4CAF50" rx="3"/>
+                                <text x="30" y="20" text-anchor="middle" fill="white" font-size="10" font-weight="600">150M</text>
+                                <text x="30" y="45" text-anchor="middle" font-size="9" fill="#333">Fast</text>
+                                <text x="30" y="60" text-anchor="middle" font-size="9" fill="#333">Low compute</text>
+                                <text x="30" y="75" text-anchor="middle" font-size="9" fill="#4CAF50" font-weight="600">Good perf</text>
+                            </g>
+                            
+                            <!-- Medium model -->
+                            <g transform="translate(150, 45)">
+                                <rect x="0" y="0" width="60" height="30" fill="#FF9800" rx="3"/>
+                                <text x="30" y="20" text-anchor="middle" fill="white" font-size="10" font-weight="600">3B</text>
+                                <text x="30" y="45" text-anchor="middle" font-size="9" fill="#333">Moderate</text>
+                                <text x="30" y="60" text-anchor="middle" font-size="9" fill="#333">Med compute</text>
+                                <text x="30" y="75" text-anchor="middle" font-size="9" fill="#FF9800" font-weight="600">Better perf</text>
+                            </g>
+                            
+                            <!-- Large model -->
+                            <g transform="translate(240, 45)">
+                                <rect x="0" y="0" width="60" height="30" fill="#F44336" rx="3"/>
+                                <text x="30" y="20" text-anchor="middle" fill="white" font-size="10" font-weight="600">15B</text>
+                                <text x="30" y="45" text-anchor="middle" font-size="9" fill="#333">Slow</text>
+                                <text x="30" y="60" text-anchor="middle" font-size="9" fill="#333">High compute</text>
+                                <text x="30" y="75" text-anchor="middle" font-size="9" fill="#F44336" font-weight="600">Best perf</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 5: Downstream Tasks -->
+        <div class="detail-section">
+            <div class="detail-title">5. Downstream Tasks</div>
+            <div class="detail-content">
+                <div class="detail-text">
+                    <div class="subsection">
+                        <div class="subsection-title">Structure Prediction</div>
+                        <div class="subsection-desc">
+                            Predicting 3D protein structures from sequences. Models learn structural constraints from sequence patterns. AlphaFold2 and ESMFold achieve near-experimental accuracy.
+                        </div>
+                        <div class="example-box">
+                            Input: Protein sequence<br>
+                            Output: 3D coordinates of all atoms<br>
+                            Applications: Drug design, protein engineering
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Function Prediction</div>
+                        <div class="subsection-desc">
+                            Predicting protein functions, subcellular localization, interactions, and enzymatic activity from sequence representations.
+                        </div>
+                        <div class="example-box">
+                            Tasks: GO term prediction, EC number<br>
+                            Active site identification<br>
+                            Protein-protein interaction prediction
+                        </div>
+                    </div>
+
+                    <div class="subsection">
+                        <div class="subsection-title">Protein Design</div>
+                        <div class="subsection-desc">
+                            Generating novel sequences with desired properties. Includes de novo design, optimization of existing proteins, and inverse folding (structure to sequence).
+                        </div>
+                        <div class="example-box">
+                            Input: Desired function/structure<br>
+                            Output: Novel protein sequence<br>
+                            Models: ProteinMPNN, ESM-IF, RFDiffusion
+                        </div>
+                    </div>
+
+                    <div class="key-points">
+                        <div class="key-point">Fine-tuning pretrained models dramatically improves performance</div>
+                        <div class="key-point">Zero-shot capabilities emerge from large-scale pretraining</div>
+                        <div class="key-point">Multimodal models combine sequence, structure, and function</div>
+                    </div>
+                </div>
+
+                <div class="detail-visual">
+                    <svg width="100%" height="500" viewBox="0 0 500 500">
+                        <text x="250" y="30" text-anchor="middle" font-size="16" font-weight="600" fill="#1E64C8">Downstream Applications</text>
+                        
+                        <!-- Structure Prediction -->
+                        <g transform="translate(50, 60)">
+                            <text x="0" y="0" font-size="13" font-weight="600" fill="#333">Structure Prediction:</text>
+                            <rect x="0" y="15" width="400" height="100" fill="white" stroke="#4CAF50" stroke-width="2" rx="6"/>
+                            
+                            <!-- Sequence -->
+                            <g transform="translate(20, 35)">
+                                <text x="0" y="0" font-size="10" fill="#666">Sequence:</text>
+                                <rect x="0" y="5" width="160" height="25" fill="#e8f2ff" rx="3"/>
+                                <text x="80" y="22" text-anchor="middle" font-size="10" fill="#1E64C8">MKTAYIAKQRQI...</text>
+                            </g>
+                            
+                            <text x="190" y="55" font-size="18" fill="#4CAF50">→</text>
+                            
+                            <!-- 3D Structure representation -->
+                            <g transform="translate(230, 35)">
+                                <text x="0" y="0" font-size="10" fill="#666">3D Structure:</text>
+                                <!-- Alpha helix -->
+                                <path d="M 10,15 Q 20,10 30,15 Q 40,20 50,15 Q 60,10 70,15" 
+                                      stroke="#4CAF50" stroke-width="4" fill="none" stroke-linecap="round"/>
+                                <!-- Beta sheet -->
+                                <rect x="80" y="10" width="8" height="20" fill="#4CAF50"/>
+                                <rect x="92" y="10" width="8" height="20" fill="#4CAF50"/>
+                                <rect x="104" y="10" width="8" height="20" fill="#4CAF50"/>
+                            </g>
+                            
+                            <text x="200" y="95" text-anchor="middle" font-size="9" fill="#666">ESMFold, AlphaFold2</text>
+                        </g>
+
+                        <!-- Function Prediction -->
+                        <g transform="translate(50, 190)">
+                            <text x="0" y="0" font-size="13" font-weight="600" fill="#333">Function Prediction:</text>
+                            <rect x="0" y="15" width="400" height="120" fill="white" stroke="#2196F3" stroke-width="2" rx="6"/>
+                            
+                            <!-- Sequence -->
+                            <g transform="translate(20, 35)">
+                                <rect x="0" y="0" width="160" height="30" fill="#e8f2ff" rx="3"/>
+                                <text x="80" y="20" text-anchor="middle" font-size="10" fill="#1E64C8">Protein Sequence</text>
+                            </g>
+                            
+                            <text x="190" y="55" font-size="18" fill="#2196F3">→</text>
+                            
+                            <!-- Functions -->
+                            <g transform="translate(230, 30)">
+                                <rect x="0" y="0" width="140" height="20" fill="#2196F3" fill-opacity="0.2" rx="3"/>
+                                <text x="70" y="14" text-anchor="middle" font-size="9" fill="#333">GO: DNA binding</text>
+                                
+                                <rect x="0" y="25" width="140" height="20" fill="#2196F3" fill-opacity="0.2" rx="3"/>
+                                <text x="70" y="39" text-anchor="middle" font-size="9" fill="#333">Location: Nucleus</text>
+                                
+                                <rect x="0" y="50" width="140" height="20" fill="#2196F3" fill-opacity="0.2" rx="3"/>
+                                <text x="70" y="64" text-anchor="middle" font-size="9" fill="#333">EC: 2.7.11.1 (kinase)</text>
+                            </g>
+                            
+                            <text x="200" y="115" text-anchor="middle" font-size="9" fill="#666">ProteinBERT, ESM-2</text>
+                        </g>
+
+                        <!-- Protein Design -->
+                        <g transform="translate(50, 340)">
+                            <text x="0" y="0" font-size="13" font-weight="600" fill="#333">Protein Design:</text>
+                            <rect x="0" y="15" width="400" height="120" fill="white" stroke="#9C27B0" stroke-width="2" rx="6"/>
+                            
+                            <!-- Design specs -->
+                            <g transform="translate(20, 35)">
+                                <text x="0" y="0" font-size="10" fill="#666">Design Target:</text>
+                                <rect x="0" y="5" width="140" height="22" fill="#f3e5f5" rx="3"/>
+                                <text x="70" y="21" text-anchor="middle" font-size="9" fill="#333">Bind to protein X</text>
+                                
+                                <rect x="0" y="32" width="140" height="22" fill="#f3e5f5" rx="3"/>
+                                <text x="70" y="48" text-anchor="middle" font-size="9" fill="#333">Stable at 37°C</text>
+                                
+                                <rect x="0" y="59" width="140" height="22" fill="#f3e5f5" rx="3"/>
+                                <text x="70" y="75" text-anchor="middle" font-size="9" fill="#333">Size: ~150 AA</text>
+                            </g>
+                            
+                            <text x="170" y="65" font-size="18" fill="#9C27B0">→</text>
+                            
+                            <!-- Generated sequence -->
+                            <g transform="translate(200, 35)">
+                                <text x="0" y="0" font-size="10" fill="#666">Novel Sequence:</text>
+                                <rect x="0" y="5" width="170" height="80" fill="#e8f2ff" rx="3"/>
+                                <text x="85" y="25" text-anchor="middle" font-size="9" fill="#1E64C8">MKLAVGDEEKST...</text>
+                                <text x="85" y="40" text-anchor="middle" font-size="9" fill="#1E64C8">VQPALMKQDEF...</text>
+                                <text x="85" y="55" text-anchor="middle" font-size="9" fill="#1E64C8">IAWQGRSTVEP...</text>
+                                <text x="85" y="70" text-anchor="middle" font-size="8" fill="#666" font-style="italic">Designed sequence</text>
+                            </g>
+                            
+                            <text x="200" y="115" text-anchor="middle" font-size="9" fill="#666">ProteinMPNN, ProGen, RFDiffusion</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

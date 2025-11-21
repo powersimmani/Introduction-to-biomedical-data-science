@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Augmentation</title>
+    <title>Class Activation Maps (CAM) - Comprehensive Guide</title>
     <style>
         * {
             margin: 0;
@@ -35,7 +35,7 @@
             text-align: center;
         }
         
-        .augmentation-demo {
+        .cam-process {
             background: #f8fbff;
             border: 2.5px solid #1E64C8;
             border-radius: 10px;
@@ -43,7 +43,7 @@
             margin-bottom: 20px;
         }
         
-        .demo-title {
+        .process-title {
             font-size: 18px;
             font-weight: 700;
             color: #1E64C8;
@@ -55,6 +55,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
+            margin-bottom: 40px;
         }
         
         .concept-card {
@@ -84,217 +85,351 @@
             color: #333;
             line-height: 1.5;
         }
+        
+        .detailed-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 3px solid #1E64C8;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .method-detail {
+            background: #f8fbff;
+            border: 2.5px solid #1E64C8;
+            border-radius: 15px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        
+        .method-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1E64C8;
+        }
+        
+        .subsection-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c5aa0;
+            margin-top: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .text-content {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .formula-box {
+            background: white;
+            border: 2px solid #4d88ff;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        
+        .formula {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            font-family: 'Courier New', monospace;
+        }
+        
+        .key-points {
+            background: #e6f3ff;
+            border-left: 4px solid #1E64C8;
+            padding: 15px 20px;
+            margin: 15px 0;
+        }
+        
+        .key-points-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 10px;
+        }
+        
+        .key-points ul {
+            list-style-type: none;
+            padding-left: 0;
+        }
+        
+        .key-points li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .key-points li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+        }
+        
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .pros, .cons {
+            padding: 15px;
+            border-radius: 8px;
+        }
+        
+        .pros {
+            background: #e6f9f0;
+            border: 2px solid #28a745;
+        }
+        
+        .cons {
+            background: #ffe6e6;
+            border: 2px solid #dc3545;
+        }
+        
+        .pros h4, .cons h4 {
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .pros h4 {
+            color: #28a745;
+        }
+        
+        .cons h4 {
+            color: #dc3545;
+        }
+        
+        .example-images {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .image-placeholder {
+            aspect-ratio: 1;
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background: white;
+            padding: 10px;
+        }
+        
+        .image-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #1E64C8;
+            text-align: center;
+            margin-top: 10px;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .comparison-table th,
+        .comparison-table td {
+            border: 2px solid #1E64C8;
+            padding: 12px;
+            text-align: left;
+        }
+        
+        .comparison-table th {
+            background: #1E64C8;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f8fbff;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Data Augmentation</div>
+        <div class="title">Class Activation Maps (CAM) - Comprehensive Guide</div>
         
-        <div class="augmentation-demo">
-            <div class="demo-title">Medical Image Augmentation Techniques</div>
-            <svg width="880" height="300" viewBox="0 0 880 300">
-                <!-- Original Image -->
-                <g transform="translate(30, 20)">
-                    <text x="60" y="0" font-size="13" fill="#1E64C8" font-weight="700" text-anchor="middle">Original</text>
-                    <rect x="0" y="10" width="120" height="120" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2.5"/>
+        <div class="cam-process">
+            <div class="process-title">CAM Generation Pipeline: From CNN to Heatmap</div>
+            <svg width="880" height="280" viewBox="0 0 880 280">
+                <!-- Input Image -->
+                <g transform="translate(30, 60)">
+                    <text x="50" y="-10" font-size="12" fill="#1E64C8" font-weight="700" text-anchor="middle">Input Image</text>
+                    <rect x="0" y="0" width="100" height="100" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2.5"/>
                     
                     <!-- Chest X-ray representation -->
-                    <ellipse cx="60" cy="70" rx="35" ry="45" fill="white" stroke="#1E64C8" stroke-width="2" opacity="0.7"/>
-                    <ellipse cx="45" cy="60" rx="12" ry="15" fill="#d4e7ff" stroke="#1E64C8" stroke-width="1"/>
-                    <ellipse cx="75" cy="60" rx="12" ry="15" fill="#d4e7ff" stroke="#1E64C8" stroke-width="1"/>
-                    <rect x="55" y="50" width="10" height="40" fill="#b3d7ff" opacity="0.5"/>
-                    
-                    <text x="60" y="145" font-size="10" fill="#666" text-anchor="middle">Chest X-ray</text>
+                    <ellipse cx="50" cy="50" rx="30" ry="38" fill="white" stroke="#1E64C8" stroke-width="1.5" opacity="0.7"/>
+                    <ellipse cx="35" cy="40" rx="10" ry="12" fill="#d4e7ff" stroke="#1E64C8" stroke-width="1"/>
+                    <ellipse cx="65" cy="40" rx="10" ry="12" fill="#d4e7ff" stroke="#1E64C8" stroke-width="1"/>
+                    <rect x="45" y="35" width="10" height="30" fill="#b3d7ff" opacity="0.5"/>
+                    <!-- Lesion indicator -->
+                    <circle cx="65" cy="55" r="8" fill="#ff6b6b" opacity="0.5" stroke="#dc3545" stroke-width="1.5"/>
                 </g>
                 
-                <!-- Geometric Transforms -->
-                <g transform="translate(180, 10)">
-                    <text x="320" y="0" font-size="12" fill="#1E64C8" font-weight="700" text-anchor="middle">Geometric Transforms</text>
+                <!-- CNN Feature Extraction -->
+                <g transform="translate(180, 30)">
+                    <text x="80" y="-10" font-size="12" fill="#1E64C8" font-weight="700" text-anchor="middle">CNN Backbone</text>
                     
-                    <!-- Rotation -->
-                    <g transform="translate(0, 20)">
-                        <rect x="0" y="0" width="90" height="90" fill="#fff9e6" stroke="#1E64C8" stroke-width="2"/>
-                        <g transform="translate(45, 45) rotate(15)">
-                            <ellipse cx="0" cy="0" rx="25" ry="32" fill="white" stroke="#1E64C8" stroke-width="1.5" opacity="0.7"/>
-                            <ellipse cx="-10" cy="-8" rx="8" ry="10" fill="#d4e7ff" stroke="#1E64C8" stroke-width="0.8"/>
-                            <ellipse cx="10" cy="-8" rx="8" ry="10" fill="#d4e7ff" stroke="#1E64C8" stroke-width="0.8"/>
-                            <rect x="-5" y="-15" width="10" height="28" fill="#b3d7ff" opacity="0.5"/>
-                        </g>
-                        <text x="45" y="105" font-size="9" fill="#666" text-anchor="middle">Rotation ±15°</text>
-                    </g>
+                    <!-- Conv layers visualization -->
+                    <rect x="0" y="10" width="25" height="120" fill="#b3d7ff" stroke="#1E64C8" stroke-width="1.5" opacity="0.9"/>
+                    <text x="12.5" y="70" font-size="8" fill="white" font-weight="600" text-anchor="middle" transform="rotate(-90 12.5 70)">Conv1</text>
                     
-                    <!-- Flip -->
-                    <g transform="translate(110, 20)">
-                        <rect x="0" y="0" width="90" height="90" fill="#fff9e6" stroke="#1E64C8" stroke-width="2"/>
-                        <g transform="translate(45, 45) scale(-1, 1)">
-                            <ellipse cx="0" cy="0" rx="25" ry="32" fill="white" stroke="#1E64C8" stroke-width="1.5" opacity="0.7"/>
-                            <ellipse cx="-10" cy="-8" rx="8" ry="10" fill="#d4e7ff" stroke="#1E64C8" stroke-width="0.8"/>
-                            <ellipse cx="10" cy="-8" rx="8" ry="10" fill="#d4e7ff" stroke="#1E64C8" stroke-width="0.8"/>
-                            <rect x="-5" y="-15" width="10" height="28" fill="#b3d7ff" opacity="0.5"/>
-                        </g>
-                        <text x="45" y="105" font-size="9" fill="#666" text-anchor="middle">H-Flip</text>
-                    </g>
+                    <rect x="30" y="20" width="25" height="100" fill="#9ec5ff" stroke="#1E64C8" stroke-width="1.5" opacity="0.8"/>
+                    <text x="42.5" y="70" font-size="8" fill="white" font-weight="600" text-anchor="middle" transform="rotate(-90 42.5 70)">Conv2</text>
                     
-                    <!-- Scale -->
-                    <g transform="translate(220, 20)">
-                        <rect x="0" y="0" width="90" height="90" fill="#fff9e6" stroke="#1E64C8" stroke-width="2"/>
-                        <g transform="translate(45, 45) scale(1.2, 1.2)">
-                            <ellipse cx="0" cy="0" rx="25" ry="32" fill="white" stroke="#1E64C8" stroke-width="1.5" opacity="0.7"/>
-                            <ellipse cx="-10" cy="-8" rx="8" ry="10" fill="#d4e7ff" stroke="#1E64C8" stroke-width="0.8"/>
-                            <ellipse cx="10" cy="-8" rx="8" ry="10" fill="#d4e7ff" stroke="#1E64C8" stroke-width="0.8"/>
-                            <rect x="-5" y="-15" width="10" height="28" fill="#b3d7ff" opacity="0.5"/>
-                        </g>
-                        <text x="45" y="105" font-size="9" fill="#666" text-anchor="middle">Scale 0.8-1.2×</text>
-                    </g>
+                    <rect x="60" y="30" width="25" height="80" fill="#80b3ff" stroke="#1E64C8" stroke-width="1.5" opacity="0.7"/>
+                    <text x="72.5" y="70" font-size="8" fill="white" font-weight="600" text-anchor="middle" transform="rotate(-90 72.5 70)">Conv3</text>
                     
-                    <!-- Elastic -->
-                    <g transform="translate(330, 20)">
-                        <rect x="0" y="0" width="90" height="90" fill="#fff9e6" stroke="#1E64C8" stroke-width="2"/>
-                        <path d="M 20 45 Q 35 35, 45 45 T 70 45" fill="none" stroke="#1E64C8" stroke-width="1.5" opacity="0.7"/>
-                        <path d="M 25 30 Q 40 40, 50 30 T 65 35" fill="none" stroke="#1E64C8" stroke-width="1.5" opacity="0.7"/>
-                        <path d="M 25 60 Q 40 50, 50 60 T 65 55" fill="none" stroke="#1E64C8" stroke-width="1.5" opacity="0.7"/>
-                        <ellipse cx="30" cy="35" rx="6" ry="8" fill="#d4e7ff" stroke="#1E64C8" stroke-width="0.8"/>
-                        <ellipse cx="60" cy="35" rx="7" ry="9" fill="#d4e7ff" stroke="#1E64C8" stroke-width="0.8"/>
-                        <text x="45" y="105" font-size="9" fill="#666" text-anchor="middle">Elastic</text>
-                    </g>
+                    <rect x="90" y="40" width="25" height="60" fill="#6699ff" stroke="#1E64C8" stroke-width="1.5" opacity="0.6"/>
+                    <text x="102.5" y="70" font-size="8" fill="white" font-weight="600" text-anchor="middle" transform="rotate(-90 102.5 70)">Conv4</text>
+                    
+                    <rect x="120" y="50" width="25" height="40" fill="#4d88ff" stroke="#1E64C8" stroke-width="1.5" opacity="0.5"/>
+                    <text x="132.5" y="70" font-size="8" fill="white" font-weight="600" text-anchor="middle" transform="rotate(-90 132.5 70)">Conv5</text>
                 </g>
                 
-                <!-- Intensity Transforms -->
-                <g transform="translate(180, 140)">
-                    <text x="210" y="0" font-size="12" fill="#1E64C8" font-weight="700" text-anchor="middle">Intensity Transforms</text>
+                <!-- Feature Maps -->
+                <g transform="translate(360, 50)">
+                    <text x="50" y="-10" font-size="12" fill="#1E64C8" font-weight="700" text-anchor="middle">Feature Maps</text>
                     
-                    <!-- Brightness -->
-                    <g transform="translate(0, 20)">
-                        <rect x="0" y="0" width="90" height="90" fill="#e6f3ff" stroke="#1E64C8" stroke-width="2"/>
-                        <ellipse cx="45" cy="45" rx="25" ry="32" fill="white" stroke="#1E64C8" stroke-width="1.5" opacity="0.9"/>
-                        <ellipse cx="35" cy="37" rx="8" ry="10" fill="#e8f2ff" stroke="#1E64C8" stroke-width="0.8"/>
-                        <ellipse cx="55" cy="37" rx="8" ry="10" fill="#e8f2ff" stroke="#1E64C8" stroke-width="0.8"/>
-                        <rect x="40" y="27" width="10" height="28" fill="#d4e7ff" opacity="0.3"/>
-                        <text x="45" y="105" font-size="9" fill="#666" text-anchor="middle">Brightness ±20%</text>
-                    </g>
+                    <!-- Multiple feature maps stacked -->
+                    <rect x="0" y="5" width="40" height="40" fill="#ffe6e6" stroke="#1E64C8" stroke-width="1" opacity="0.4"/>
+                    <rect x="5" y="10" width="40" height="40" fill="#fff0e6" stroke="#1E64C8" stroke-width="1" opacity="0.5"/>
+                    <rect x="10" y="15" width="40" height="40" fill="#fff9e6" stroke="#1E64C8" stroke-width="1" opacity="0.6"/>
+                    <rect x="15" y="20" width="40" height="40" fill="#e6ffe6" stroke="#1E64C8" stroke-width="1" opacity="0.7"/>
+                    <rect x="20" y="25" width="40" height="40" fill="#e6f3ff" stroke="#1E64C8" stroke-width="1.5" opacity="0.8"/>
                     
-                    <!-- Contrast -->
-                    <g transform="translate(110, 20)">
-                        <rect x="0" y="0" width="90" height="90" fill="#e6f3ff" stroke="#1E64C8" stroke-width="2"/>
-                        <ellipse cx="45" cy="45" rx="25" ry="32" fill="white" stroke="#1E64C8" stroke-width="2" opacity="0.7"/>
-                        <ellipse cx="35" cy="37" rx="8" ry="10" fill="#1E64C8" stroke="#1E64C8" stroke-width="1" opacity="0.9"/>
-                        <ellipse cx="55" cy="37" rx="8" ry="10" fill="#1E64C8" stroke="#1E64C8" stroke-width="1" opacity="0.9"/>
-                        <rect x="40" y="27" width="10" height="28" fill="#1E64C8" opacity="0.7"/>
-                        <text x="45" y="105" font-size="9" fill="#666" text-anchor="middle">Contrast ±30%</text>
-                    </g>
-                    
-                    <!-- Gamma -->
-                    <g transform="translate(220, 20)">
-                        <rect x="0" y="0" width="90" height="90" fill="#e6f3ff" stroke="#1E64C8" stroke-width="2"/>
-                        <defs>
-                            <radialGradient id="gammaGrad">
-                                <stop offset="0%" style="stop-color:white;stop-opacity:1" />
-                                <stop offset="100%" style="stop-color:#1E64C8;stop-opacity:0.3" />
-                            </radialGradient>
-                        </defs>
-                        <ellipse cx="45" cy="45" rx="25" ry="32" fill="url(#gammaGrad)" stroke="#1E64C8" stroke-width="1.5"/>
-                        <ellipse cx="35" cy="37" rx="8" ry="10" fill="#b3d7ff" stroke="#1E64C8" stroke-width="0.8"/>
-                        <ellipse cx="55" cy="37" rx="8" ry="10" fill="#b3d7ff" stroke="#1E64C8" stroke-width="0.8"/>
-                        <text x="45" y="105" font-size="9" fill="#666" text-anchor="middle">Gamma 0.8-1.2</text>
-                    </g>
-                    
-                    <!-- Noise -->
-                    <g transform="translate(330, 20)">
-                        <rect x="0" y="0" width="90" height="90" fill="#e6f3ff" stroke="#1E64C8" stroke-width="2"/>
-                        <ellipse cx="45" cy="45" rx="25" ry="32" fill="white" stroke="#1E64C8" stroke-width="1.5" opacity="0.7"/>
-                        <ellipse cx="35" cy="37" rx="8" ry="10" fill="#d4e7ff" stroke="#1E64C8" stroke-width="0.8"/>
-                        <ellipse cx="55" cy="37" rx="8" ry="10" fill="#d4e7ff" stroke="#1E64C8" stroke-width="0.8"/>
-                        <rect x="40" y="27" width="10" height="28" fill="#b3d7ff" opacity="0.5"/>
-                        <!-- Noise dots -->
-                        <circle cx="30" cy="30" r="1" fill="#666" opacity="0.5"/>
-                        <circle cx="50" cy="25" r="1" fill="#666" opacity="0.5"/>
-                        <circle cx="60" cy="50" r="1" fill="#666" opacity="0.5"/>
-                        <circle cx="35" cy="55" r="1" fill="#666" opacity="0.5"/>
-                        <circle cx="55" cy="60" r="1" fill="#666" opacity="0.5"/>
-                        <circle cx="40" cy="65" r="1" fill="#666" opacity="0.5"/>
-                        <text x="45" y="105" font-size="9" fill="#666" text-anchor="middle">Gaussian Noise</text>
-                    </g>
+                    <text x="40" y="48" font-size="9" fill="#666" text-anchor="middle">N channels</text>
+                    <text x="40" y="70" font-size="8" fill="#999" text-anchor="middle">(e.g., 512×7×7)</text>
                 </g>
                 
-                <!-- Advanced Augmentations -->
-                <g transform="translate(660, 20)">
-                    <text x="100" y="0" font-size="12" fill="#1E64C8" font-weight="700" text-anchor="middle">Advanced</text>
-                    
-                    <!-- MixUp -->
-                    <g transform="translate(10, 20)">
-                        <rect x="0" y="0" width="180" height="80" rx="8" fill="#ffe6f0" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="90" y="18" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">MixUp</text>
-                        
-                        <!-- Image 1 -->
-                        <rect x="15" y="25" width="40" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1" opacity="0.7"/>
-                        <text x="35" y="47" font-size="8" fill="#666" text-anchor="middle">λ=0.7</text>
-                        
-                        <text x="65" y="47" font-size="14" fill="#1E64C8">+</text>
-                        
-                        <!-- Image 2 -->
-                        <rect x="75" y="25" width="40" height="40" fill="#d4e7ff" stroke="#1E64C8" stroke-width="1" opacity="0.3"/>
-                        <text x="95" y="47" font-size="8" fill="#666" text-anchor="middle">λ=0.3</text>
-                        
-                        <text x="125" y="47" font-size="14" fill="#1E64C8">=</text>
-                        
-                        <!-- Mixed -->
-                        <rect x="135" y="25" width="40" height="40" fill="#b3d7ff" stroke="#1E64C8" stroke-width="1.5"/>
-                        <text x="155" y="47" font-size="8" fill="#333" text-anchor="middle">Mixed</text>
-                        
-                        <text x="90" y="78" font-size="8" fill="#666" text-anchor="middle">Linear interpolation of samples</text>
-                    </g>
-                    
-                    <!-- CutMix -->
-                    <g transform="translate(10, 110)">
-                        <rect x="0" y="0" width="180" height="80" rx="8" fill="#e6ffe6" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="90" y="18" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">CutMix</text>
-                        
-                        <!-- Image with patch -->
-                        <rect x="15" y="25" width="40" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1"/>
-                        <rect x="25" y="35" width="20" height="20" fill="#ffc107" stroke="#1E64C8" stroke-width="1"/>
-                        
-                        <text x="65" y="47" font-size="14" fill="#1E64C8">+</text>
-                        
-                        <!-- Patch source -->
-                        <rect x="75" y="25" width="40" height="40" fill="#d4e7ff" stroke="#1E64C8" stroke-width="1"/>
-                        <rect x="85" y="35" width="20" height="20" fill="#ffc107" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="2,2"/>
-                        
-                        <text x="125" y="47" font-size="14" fill="#1E64C8">=</text>
-                        
-                        <!-- Result -->
-                        <rect x="135" y="25" width="40" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
-                        <rect x="145" y="35" width="20" height="20" fill="#d4e7ff" stroke="#1E64C8" stroke-width="1"/>
-                        
-                        <text x="90" y="78" font-size="8" fill="#666" text-anchor="middle">Patch replacement strategy</text>
-                    </g>
-                    
-                    <!-- Test-Time Augmentation -->
-                    <g transform="translate(10, 200)">
-                        <rect x="0" y="0" width="180" height="75" rx="8" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="90" y="18" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">Test-Time Augmentation</text>
-                        
-                        <!-- Multiple predictions -->
-                        <rect x="15" y="28" width="25" height="25" fill="#e8f2ff" stroke="#1E64C8" stroke-width="0.8"/>
-                        <rect x="45" y="28" width="25" height="25" fill="#d4e7ff" stroke="#1E64C8" stroke-width="0.8"/>
-                        <rect x="75" y="28" width="25" height="25" fill="#b3d7ff" stroke="#1E64C8" stroke-width="0.8"/>
-                        <rect x="105" y="28" width="25" height="25" fill="#9ec5ff" stroke="#1E64C8" stroke-width="0.8"/>
-                        
-                        <path d="M 72.5 55 L 72.5 62" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-                        
-                        <rect x="135" y="28" width="35" height="25" rx="5" fill="#28a745" opacity="0.3" stroke="#1E64C8" stroke-width="1.5"/>
-                        <text x="152.5" y="44" font-size="9" fill="#333" text-anchor="middle">Avg</text>
-                        
-                        <text x="90" y="67" font-size="8" fill="#666" text-anchor="middle">Multiple augmented predictions → Ensemble</text>
-                    </g>
+                <!-- GAP -->
+                <g transform="translate(480, 50)">
+                    <rect x="0" y="20" width="70" height="60" rx="8" fill="#fff9e6" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="35" y="15" font-size="10" fill="#1E64C8" font-weight="700" text-anchor="middle">GAP</text>
+                    <text x="35" y="42" font-size="9" fill="#666" text-anchor="middle">Global Avg</text>
+                    <text x="35" y="55" font-size="9" fill="#666" text-anchor="middle">Pooling</text>
+                    <text x="35" y="70" font-size="8" fill="#333" text-anchor="middle">→ 512×1</text>
                 </g>
                 
-                <!-- Arrows showing data flow -->
-                <path d="M 150 70 L 180 70" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
-                <path d="M 150 70 L 180 190" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <!-- FC Layer -->
+                <g transform="translate(590, 50)">
+                    <rect x="0" y="20" width="80" height="60" rx="8" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="40" y="15" font-size="10" fill="#1E64C8" font-weight="700" text-anchor="middle">FC Layer</text>
+                    <text x="40" y="42" font-size="9" fill="#666" text-anchor="middle">Class Weights</text>
+                    <text x="40" y="55" font-size="9" fill="#666" text-anchor="middle">W_c</text>
+                    
+                    <!-- Weight visualization -->
+                    <rect x="15" y="62" width="50" height="10" fill="#28a745" opacity="0.7"/>
+                    <text x="40" y="70" font-size="7" fill="white" text-anchor="middle">Pneumonia: 0.92</text>
+                </g>
+                
+                <!-- CAM Generation Process -->
+                <g transform="translate(360, 150)">
+                    <text x="150" y="0" font-size="12" fill="#1E64C8" font-weight="700" text-anchor="middle">CAM Computation</text>
+                    
+                    <!-- Formula -->
+                    <rect x="0" y="10" width="300" height="40" rx="8" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="150" y="28" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">CAM = Σ(w_k × f_k)</text>
+                    <text x="150" y="42" font-size="9" fill="#666" text-anchor="middle">w_k: weight for feature k, f_k: activation of feature map k</text>
+                </g>
+                
+                <!-- Result Heatmap -->
+                <g transform="translate(30, 180)">
+                    <text x="50" y="-5" font-size="12" fill="#1E64C8" font-weight="700" text-anchor="middle">Result</text>
+                    <rect x="0" y="5" width="100" height="80" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2.5"/>
+                    
+                    <!-- Original image with heatmap overlay -->
+                    <ellipse cx="50" cy="45" rx="30" ry="38" fill="white" stroke="#1E64C8" stroke-width="1.5" opacity="0.3"/>
+                    <ellipse cx="35" cy="35" rx="10" ry="12" fill="#d4e7ff" stroke="#1E64C8" stroke-width="1" opacity="0.3"/>
+                    <ellipse cx="65" cy="35" rx="10" ry="12" fill="#d4e7ff" stroke="#1E64C8" stroke-width="1" opacity="0.3"/>
+                    
+                    <!-- Heatmap overlay -->
+                    <defs>
+                        <radialGradient id="heatmap">
+                            <stop offset="0%" style="stop-color:#ff0000;stop-opacity:0.8" />
+                            <stop offset="50%" style="stop-color:#ff6600;stop-opacity:0.5" />
+                            <stop offset="100%" style="stop-color:#ffff00;stop-opacity:0.1" />
+                        </radialGradient>
+                    </defs>
+                    <ellipse cx="65" cy="50" rx="20" ry="25" fill="url(#heatmap)"/>
+                    
+                    <text x="50" y="98" font-size="9" fill="#666" text-anchor="middle">Attention Heatmap</text>
+                </g>
+                
+                <!-- Grad-CAM Variant -->
+                <g transform="translate(700, 20)">
+                    <rect x="0" y="0" width="160" height="240" rx="10" fill="#ffe6f0" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="80" y="20" font-size="12" fill="#1E64C8" font-weight="700" text-anchor="middle">Grad-CAM</text>
+                    
+                    <text x="80" y="40" font-size="9" fill="#666" text-anchor="middle">Gradient-based</text>
+                    
+                    <!-- Process steps -->
+                    <g transform="translate(15, 50)">
+                        <rect x="0" y="0" width="130" height="30" rx="5" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                        <text x="65" y="12" font-size="9" fill="#666" text-anchor="middle">1. Forward pass</text>
+                        <text x="65" y="23" font-size="8" fill="#333" text-anchor="middle">Get prediction</text>
+                        
+                        <path d="M 65 30 L 65 40" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                        
+                        <rect x="0" y="40" width="130" height="30" rx="5" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                        <text x="65" y="52" font-size="9" fill="#666" text-anchor="middle">2. Backprop gradients</text>
+                        <text x="65" y="63" font-size="8" fill="#333" text-anchor="middle">∂y_c/∂A_k</text>
+                        
+                        <path d="M 65 70 L 65 80" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                        
+                        <rect x="0" y="80" width="130" height="30" rx="5" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                        <text x="65" y="92" font-size="9" fill="#666" text-anchor="middle">3. Global average</text>
+                        <text x="65" y="103" font-size="8" fill="#333" text-anchor="middle">α_k = GAP(gradients)</text>
+                        
+                        <path d="M 65 110 L 65 120" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                        
+                        <rect x="0" y="120" width="130" height="30" rx="5" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                        <text x="65" y="132" font-size="9" fill="#666" text-anchor="middle">4. Weighted sum</text>
+                        <text x="65" y="143" font-size="8" fill="#333" text-anchor="middle">L = ReLU(Σα_k A_k)</text>
+                    </g>
+                    
+                    <text x="80" y="220" font-size="9" fill="#28a745" font-weight="600" text-anchor="middle">✓ Works with any CNN</text>
+                    <text x="80" y="232" font-size="9" fill="#28a745" font-weight="600" text-anchor="middle">✓ No re-training needed</text>
+                </g>
+                
+                <!-- Arrows -->
+                <path d="M 130 110 L 180 90" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <path d="M 325 90 L 360 85" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <path d="M 420 80 L 480 80" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                <path d="M 550 80 L 590 80" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                
+                <!-- Backward arrow for CAM -->
+                <path d="M 630 90 Q 630 120, 510 120 Q 400 120, 400 100" stroke="#dc3545" stroke-width="2" stroke-dasharray="4,3" marker-end="url(#arrowhead-red)"/>
+                <text x="515" y="135" font-size="9" fill="#dc3545" font-weight="600" text-anchor="middle">Apply weights</text>
                 
                 <defs>
                     <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
                         <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                    </marker>
+                    <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#dc3545" />
                     </marker>
                 </defs>
             </svg>
@@ -302,30 +437,875 @@
         
         <div class="concept-grid">
             <div class="concept-card">
-                <div class="concept-name">Geometric Transforms</div>
-                <div class="concept-desc">Rotation, flipping, scaling, elastic deformations. Must respect anatomical constraints</div>
+                <div class="concept-name">CAM Principles</div>
+                <div class="concept-desc">Visualize important regions for classification. Linear combination of feature maps weighted by class weights</div>
             </div>
         
             <div class="concept-card">
-                <div class="concept-name">Intensity Transforms</div>
-                <div class="concept-desc">Contrast adjustment, brightness, gamma correction. Simulates different scanner protocols</div>
+                <div class="concept-name">Grad-CAM</div>
+                <div class="concept-desc">Gradient-based localization. Works with any CNN architecture without modification</div>
             </div>
         
             <div class="concept-card">
-                <div class="concept-name">MixUp/CutMix</div>
-                <div class="concept-desc">Mixing training examples. Creates synthetic samples for better generalization</div>
+                <div class="concept-name">Grad-CAM++</div>
+                <div class="concept-desc">Improved weighted combination. Better localization for multiple objects and weak activations</div>
             </div>
         
             <div class="concept-card">
-                <div class="concept-name">Medical-Specific</div>
-                <div class="concept-desc">Domain knowledge augmentation: simulating pathology, artifacts, different imaging protocols</div>
+                <div class="concept-name">Score-CAM</div>
+                <div class="concept-desc">Gradient-free approach using forward passes. More stable and cleaner visualizations</div>
             </div>
         
             <div class="concept-card">
-                <div class="concept-name">Test-Time Augmentation</div>
-                <div class="concept-desc">Multiple predictions on augmented test images. Ensemble for improved robustness</div>
+                <div class="concept-name">Clinical Interpretation</div>
+                <div class="concept-desc">Essential for model validation and trust building. Helps radiologists understand AI decisions</div>
             </div>
         
+        </div>
+        
+        <!-- DETAILED SECTIONS START HERE -->
+        <div class="detailed-section">
+            <div class="section-title">Detailed Explanations and Examples</div>
+            
+            <!-- 1. CAM PRINCIPLES -->
+            <div class="method-detail">
+                <div class="method-title">1. CAM Principles: Foundation of Visual Interpretability</div>
+                
+                <div class="text-content">
+                    Class Activation Mapping (CAM) is a technique that produces visual explanations for decisions made by Convolutional Neural Networks (CNNs). The fundamental principle is to identify which regions of an input image are most important for the network's prediction by creating a heatmap that highlights discriminative regions.
+                </div>
+                
+                <div class="subsection-title">Core Concept</div>
+                <div class="text-content">
+                    CAM leverages the spatial information preserved in convolutional layers before Global Average Pooling (GAP). The key insight is that the final convolutional layer's feature maps retain spatial information about object locations, and the weights learned in the fully connected layer for each class indicate the importance of each feature map for that class.
+                </div>
+                
+                <div class="formula-box">
+                    <div class="formula">CAM_c(x, y) = Σ(w_k^c × f_k(x, y))</div>
+                    <div class="text-content" style="margin-top: 10px; font-size: 13px;">
+                        where w_k^c is the weight for class c and feature map k, and f_k(x,y) is the activation at spatial location (x,y)
+                    </div>
+                </div>
+                
+                <div class="subsection-title">How It Works: Step by Step</div>
+                <div class="key-points">
+                    <ul>
+                        <li><strong>Feature Extraction:</strong> Input image passes through CNN layers, producing feature maps at the last convolutional layer (e.g., 512 channels of 7×7 spatial dimensions)</li>
+                        <li><strong>Global Average Pooling:</strong> Each feature map is averaged spatially, producing a single value per channel (512 values)</li>
+                        <li><strong>Classification:</strong> These values are multiplied by learned weights in the fully connected layer to produce class scores</li>
+                        <li><strong>CAM Generation:</strong> To create the heatmap, we project these weights back onto the feature maps, creating a weighted sum that highlights important regions</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection-title">Visual Example: Pneumonia Detection</div>
+                <div class="example-images">
+                    <div class="image-placeholder">
+                        <svg width="100%" height="80%" viewBox="0 0 200 200">
+                            <!-- Original X-ray -->
+                            <rect x="0" y="0" width="200" height="200" fill="#e8f2ff"/>
+                            <ellipse cx="100" cy="100" rx="60" ry="80" fill="white" stroke="#333" stroke-width="2" opacity="0.7"/>
+                            <ellipse cx="70" cy="80" rx="20" ry="25" fill="#d4e7ff" stroke="#333" stroke-width="1.5"/>
+                            <ellipse cx="130" cy="80" rx="20" ry="25" fill="#d4e7ff" stroke="#333" stroke-width="1.5"/>
+                            <rect x="90" y="75" width="20" height="60" fill="#b3d7ff" opacity="0.5"/>
+                            <!-- Pneumonia infiltrate -->
+                            <ellipse cx="130" cy="120" rx="25" ry="30" fill="#aaa" opacity="0.4"/>
+                        </svg>
+                        <div class="image-label">Original Chest X-ray</div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <svg width="100%" height="80%" viewBox="0 0 200 200">
+                            <!-- Feature maps representation -->
+                            <rect x="20" y="20" width="40" height="40" fill="#ffe6e6" stroke="#333" stroke-width="1"/>
+                            <rect x="30" y="30" width="40" height="40" fill="#fff0e6" stroke="#333" stroke-width="1"/>
+                            <rect x="40" y="40" width="40" height="40" fill="#fff9e6" stroke="#333" stroke-width="1"/>
+                            <rect x="50" y="50" width="40" height="40" fill="#e6ffe6" stroke="#333" stroke-width="1"/>
+                            <rect x="60" y="60" width="40" height="40" fill="#e6f3ff" stroke="#333" stroke-width="1.5"/>
+                            <text x="100" y="130" font-size="14" fill="#333" text-anchor="middle">512 Feature</text>
+                            <text x="100" y="145" font-size="14" fill="#333" text-anchor="middle">Maps</text>
+                            <text x="100" y="165" font-size="12" fill="#666" text-anchor="middle">(7×7 each)</text>
+                        </svg>
+                        <div class="image-label">Extracted Feature Maps</div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <svg width="100%" height="80%" viewBox="0 0 200 200">
+                            <!-- CAM heatmap -->
+                            <rect x="0" y="0" width="200" height="200" fill="#e8f2ff"/>
+                            <ellipse cx="100" cy="100" rx="60" ry="80" fill="white" stroke="#333" stroke-width="2" opacity="0.3"/>
+                            <defs>
+                                <radialGradient id="cam-heat">
+                                    <stop offset="0%" style="stop-color:#ff0000;stop-opacity:0.9" />
+                                    <stop offset="40%" style="stop-color:#ff6600;stop-opacity:0.6" />
+                                    <stop offset="70%" style="stop-color:#ffaa00;stop-opacity:0.3" />
+                                    <stop offset="100%" style="stop-color:#ffff00;stop-opacity:0.1" />
+                                </radialGradient>
+                            </defs>
+                            <ellipse cx="130" cy="120" rx="35" ry="45" fill="url(#cam-heat)"/>
+                            <text x="100" y="190" font-size="11" fill="#dc3545" font-weight="600" text-anchor="middle">High activation area</text>
+                        </svg>
+                        <div class="image-label">CAM Heatmap Result</div>
+                    </div>
+                </div>
+                
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✓ Advantages</h4>
+                        <ul style="padding-left: 20px; font-size: 14px;">
+                            <li>Simple and intuitive interpretation</li>
+                            <li>Computationally efficient</li>
+                            <li>Provides class-specific visualizations</li>
+                            <li>Well-established theoretical foundation</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>✗ Limitations</h4>
+                        <ul style="padding-left: 20px; font-size: 14px;">
+                            <li>Requires network architecture modification</li>
+                            <li>Needs Global Average Pooling layer</li>
+                            <li>Limited to networks trained specifically for CAM</li>
+                            <li>Cannot be applied to pre-trained models directly</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 2. GRAD-CAM -->
+            <div class="method-detail">
+                <div class="method-title">2. Grad-CAM: Gradient-Weighted Class Activation Mapping</div>
+                
+                <div class="text-content">
+                    Gradient-weighted Class Activation Mapping (Grad-CAM) is a generalization of CAM that removes the architectural constraints. Instead of relying on specific network structures, Grad-CAM uses gradient information flowing into the final convolutional layer to understand the importance of each feature map for a particular decision.
+                </div>
+                
+                <div class="subsection-title">Innovation: Gradient-Based Weighting</div>
+                <div class="text-content">
+                    The key innovation of Grad-CAM is using gradients of the target class score with respect to feature maps as importance weights. This eliminates the need for Global Average Pooling and allows application to any CNN architecture, including networks already trained without CAM in mind.
+                </div>
+                
+                <div class="formula-box">
+                    <div class="formula">α_k^c = (1/Z) Σ Σ (∂y^c / ∂A_k^{i,j})</div>
+                    <div class="formula" style="margin-top: 10px;">L_Grad-CAM^c = ReLU(Σ α_k^c A_k)</div>
+                    <div class="text-content" style="margin-top: 10px; font-size: 13px;">
+                        α_k^c: importance weight computed via global average pooling of gradients<br>
+                        A_k: activation of feature map k at position (i,j)
+                    </div>
+                </div>
+                
+                <div class="subsection-title">Algorithm Workflow</div>
+                <div class="key-points">
+                    <div class="key-points-title">Four-Step Process:</div>
+                    <ul>
+                        <li><strong>Forward Pass:</strong> Feed input image through network and obtain prediction for target class c</li>
+                        <li><strong>Backward Pass:</strong> Compute gradients of class score y^c with respect to feature maps A_k of target layer</li>
+                        <li><strong>Weight Calculation:</strong> Global average pooling of gradients produces importance weight α_k^c for each feature map</li>
+                        <li><strong>Weighted Combination:</strong> Perform weighted sum of feature maps and apply ReLU to focus on positive influences</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection-title">Visual Comparison: CAM vs Grad-CAM</div>
+                <div class="example-images">
+                    <div class="image-placeholder">
+                        <svg width="100%" height="80%" viewBox="0 0 200 200">
+                            <!-- Network diagram for CAM -->
+                            <rect x="30" y="50" width="30" height="80" fill="#b3d7ff" stroke="#333" stroke-width="2"/>
+                            <text x="45" y="95" font-size="10" fill="#333" text-anchor="middle" transform="rotate(-90 45 95)">CNN</text>
+                            <rect x="70" y="70" width="30" height="40" fill="#fff9e6" stroke="#333" stroke-width="2"/>
+                            <text x="85" y="93" font-size="8" fill="#333" text-anchor="middle">GAP</text>
+                            <rect x="110" y="80" width="30" height="20" fill="#d4e7ff" stroke="#333" stroke-width="2"/>
+                            <text x="125" y="93" font-size="8" fill="#333" text-anchor="middle">FC</text>
+                            <text x="100" y="165" font-size="12" fill="#dc3545" font-weight="600" text-anchor="middle">Requires GAP</text>
+                        </svg>
+                        <div class="image-label">CAM Architecture</div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <svg width="100%" height="80%" viewBox="0 0 200 200">
+                            <!-- Network diagram for Grad-CAM -->
+                            <rect x="30" y="50" width="30" height="80" fill="#b3d7ff" stroke="#333" stroke-width="2"/>
+                            <text x="45" y="95" font-size="10" fill="#333" text-anchor="middle" transform="rotate(-90 45 95)">CNN</text>
+                            <rect x="70" y="60" width="30" height="60" fill="#ffe6f0" stroke="#333" stroke-width="2"/>
+                            <text x="85" y="93" font-size="8" fill="#333" text-anchor="middle">Any</text>
+                            <text x="85" y="103" font-size="8" fill="#333" text-anchor="middle">Layer</text>
+                            <path d="M 100 90 L 140 60" stroke="#dc3545" stroke-width="2" marker-end="url(#arrow-grad)"/>
+                            <text x="120" y="55" font-size="9" fill="#dc3545" font-weight="600">Gradients</text>
+                            <text x="100" y="165" font-size="12" fill="#28a745" font-weight="600" text-anchor="middle">Any Architecture</text>
+                            <defs>
+                                <marker id="arrow-grad" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#dc3545" />
+                                </marker>
+                            </defs>
+                        </svg>
+                        <div class="image-label">Grad-CAM Flexibility</div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <svg width="100%" height="80%" viewBox="0 0 200 200">
+                            <!-- Grad-CAM result -->
+                            <rect x="0" y="0" width="200" height="200" fill="#e8f2ff"/>
+                            <ellipse cx="100" cy="100" rx="60" ry="80" fill="white" stroke="#333" stroke-width="2" opacity="0.3"/>
+                            <defs>
+                                <radialGradient id="gradcam-heat">
+                                    <stop offset="0%" style="stop-color:#ff0000;stop-opacity:0.85" />
+                                    <stop offset="50%" style="stop-color:#ff8800;stop-opacity:0.5" />
+                                    <stop offset="100%" style="stop-color:#ffff00;stop-opacity:0.1" />
+                                </radialGradient>
+                            </defs>
+                            <ellipse cx="130" cy="120" rx="40" ry="50" fill="url(#gradcam-heat)"/>
+                            <text x="100" y="25" font-size="11" fill="#28a745" font-weight="600" text-anchor="middle">ResNet-50</text>
+                            <text x="100" y="38" font-size="10" fill="#666" text-anchor="middle">(Pre-trained)</text>
+                        </svg>
+                        <div class="image-label">Grad-CAM on Any Model</div>
+                    </div>
+                </div>
+                
+                <div class="key-points">
+                    <div class="key-points-title">Key Advantages Over Original CAM:</div>
+                    <ul>
+                        <li>Works with any CNN architecture (ResNet, VGG, DenseNet, etc.)</li>
+                        <li>No modification needed to network structure</li>
+                        <li>Can be applied to pre-trained models</li>
+                        <li>Applicable to multiple layers for different abstraction levels</li>
+                        <li>Supports various tasks: classification, captioning, VQA</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection-title">Medical Imaging Application Example</div>
+                <div class="text-content">
+                    In chest X-ray analysis, Grad-CAM helps clinicians understand which anatomical regions influenced the model's diagnosis. For pneumonia detection, the heatmap typically highlights areas of lung infiltration. For COVID-19 classification, it may emphasize ground-glass opacities in peripheral lung regions, correlating with known pathological patterns.
+                </div>
+                
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✓ Advantages</h4>
+                        <ul style="padding-left: 20px; font-size: 14px;">
+                            <li>Architecture-agnostic approach</li>
+                            <li>No retraining required</li>
+                            <li>Applicable to various computer vision tasks</li>
+                            <li>Minimal computational overhead</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>✗ Limitations</h4>
+                        <ul style="padding-left: 20px; font-size: 14px;">
+                            <li>May produce coarse localization</li>
+                            <li>Gradient saturation can affect quality</li>
+                            <li>Less effective for multiple small objects</li>
+                            <li>Sensitive to gradient noise</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 3. GRAD-CAM++ -->
+            <div class="method-detail">
+                <div class="method-title">3. Grad-CAM++: Enhanced Localization with Weighted Gradients</div>
+                
+                <div class="text-content">
+                    Grad-CAM++ is an improved version of Grad-CAM that provides better visual explanations, especially for images containing multiple instances of the same class or when objects have weak activations. It achieves this through a more sophisticated weighting scheme that considers pixel-wise gradient information.
+                </div>
+                
+                <div class="subsection-title">Key Innovation: Pixel-wise Weighting</div>
+                <div class="text-content">
+                    While Grad-CAM uses global average pooling of gradients, Grad-CAM++ computes pixel-wise weights for each location in the feature maps. This provides a more nuanced understanding of which spatial locations are important for the classification decision, leading to better localization, especially for multiple objects.
+                </div>
+                
+                <div class="formula-box">
+                    <div class="formula">α_k^{c,i,j} = (∂²y^c / ∂A_k^{i,j,2}) / (2(∂²y^c / ∂A_k^{i,j,2}) + Σ A_k^{i,j} (∂³y^c / ∂A_k^{i,j,3}))</div>
+                    <div class="formula" style="margin-top: 10px;">L_Grad-CAM++^c = ReLU(Σ_k Σ_{i,j} α_k^{c,i,j} · ReLU(∂y^c / ∂A_k^{i,j}) · A_k^{i,j})</div>
+                    <div class="text-content" style="margin-top: 10px; font-size: 13px;">
+                        Uses 2nd and 3rd order derivatives for more precise pixel-wise importance weights
+                    </div>
+                </div>
+                
+                <div class="subsection-title">Improvement Over Grad-CAM</div>
+                <div class="example-images">
+                    <div class="image-placeholder">
+                        <svg width="100%" height="80%" viewBox="0 0 200 200">
+                            <!-- Multiple objects scene -->
+                            <rect x="0" y="0" width="200" height="200" fill="#f0f5fc"/>
+                            <circle cx="60" cy="70" r="25" fill="#ffcccc" stroke="#333" stroke-width="2"/>
+                            <circle cx="140" cy="70" r="25" fill="#ffcccc" stroke="#333" stroke-width="2"/>
+                            <circle cx="100" cy="130" r="25" fill="#ffcccc" stroke="#333" stroke-width="2"/>
+                            <text x="100" y="180" font-size="11" fill="#333" font-weight="600" text-anchor="middle">3 Tumors</text>
+                        </svg>
+                        <div class="image-label">Original: Multiple Lesions</div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <svg width="100%" height="80%" viewBox="0 0 200 200">
+                            <!-- Grad-CAM result (coarse) -->
+                            <rect x="0" y="0" width="200" height="200" fill="#f0f5fc"/>
+                            <defs>
+                                <radialGradient id="gradcam-coarse">
+                                    <stop offset="0%" style="stop-color:#ff4444;stop-opacity:0.7" />
+                                    <stop offset="100%" style="stop-color:#ffaa00;stop-opacity:0.1" />
+                                </radialGradient>
+                            </defs>
+                            <ellipse cx="100" cy="100" rx="70" ry="60" fill="url(#gradcam-coarse)"/>
+                            <circle cx="60" cy="70" r="25" fill="none" stroke="#333" stroke-width="1" opacity="0.3"/>
+                            <circle cx="140" cy="70" r="25" fill="none" stroke="#333" stroke-width="1" opacity="0.3"/>
+                            <circle cx="100" cy="130" r="25" fill="none" stroke="#333" stroke-width="1" opacity="0.3"/>
+                            <text x="100" y="180" font-size="11" fill="#dc3545" font-weight="600" text-anchor="middle">Broad activation</text>
+                        </svg>
+                        <div class="image-label">Grad-CAM (Less Precise)</div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <svg width="100%" height="80%" viewBox="0 0 200 200">
+                            <!-- Grad-CAM++ result (precise) -->
+                            <rect x="0" y="0" width="200" height="200" fill="#f0f5fc"/>
+                            <defs>
+                                <radialGradient id="gradcampp-1">
+                                    <stop offset="0%" style="stop-color:#ff0000;stop-opacity:0.9" />
+                                    <stop offset="100%" style="stop-color:#ff8800;stop-opacity:0.2" />
+                                </radialGradient>
+                                <radialGradient id="gradcampp-2">
+                                    <stop offset="0%" style="stop-color:#ff0000;stop-opacity:0.9" />
+                                    <stop offset="100%" style="stop-color:#ff8800;stop-opacity:0.2" />
+                                </radialGradient>
+                                <radialGradient id="gradcampp-3">
+                                    <stop offset="0%" style="stop-color:#ff0000;stop-opacity:0.9" />
+                                    <stop offset="100%" style="stop-color:#ff8800;stop-opacity:0.2" />
+                                </radialGradient>
+                            </defs>
+                            <circle cx="60" cy="70" r="28" fill="url(#gradcampp-1)"/>
+                            <circle cx="140" cy="70" r="28" fill="url(#gradcampp-2)"/>
+                            <circle cx="100" cy="130" r="28" fill="url(#gradcampp-3)"/>
+                            <text x="100" y="180" font-size="11" fill="#28a745" font-weight="600" text-anchor="middle">Precise localization</text>
+                        </svg>
+                        <div class="image-label">Grad-CAM++ (Precise)</div>
+                    </div>
+                </div>
+                
+                <div class="subsection-title">Technical Improvements</div>
+                <div class="key-points">
+                    <ul>
+                        <li><strong>Better Object Coverage:</strong> More complete highlighting of object extent, capturing full boundaries rather than just centers</li>
+                        <li><strong>Multiple Instance Handling:</strong> Accurately localizes all instances when multiple objects of same class are present</li>
+                        <li><strong>Weak Activation Robustness:</strong> Performs better when network has lower confidence or weaker activations</li>
+                        <li><strong>Pixel-wise Weighting:</strong> Each pixel's contribution is weighted individually based on higher-order gradient information</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection-title">Clinical Application: Multi-Lesion Detection</div>
+                <div class="text-content">
+                    In scenarios where multiple abnormalities exist (e.g., multiple pulmonary nodules in CT scans or several tumors in mammography), Grad-CAM++ excels by providing distinct, well-localized heatmaps for each lesion. This is crucial for ensuring that AI systems don't miss secondary findings and helps radiologists verify that the model is considering all relevant pathology.
+                </div>
+                
+                <div class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Aspect</th>
+                            <th>Grad-CAM</th>
+                            <th>Grad-CAM++</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Weighting Method</td>
+                            <td>Global Average Pooling</td>
+                            <td>Pixel-wise weights</td>
+                        </tr>
+                        <tr>
+                            <td>Gradient Order</td>
+                            <td>First-order</td>
+                            <td>Second and third-order</td>
+                        </tr>
+                        <tr>
+                            <td>Multiple Objects</td>
+                            <td>May merge activations</td>
+                            <td>Distinct localization</td>
+                        </tr>
+                        <tr>
+                            <td>Object Coverage</td>
+                            <td>Focuses on center</td>
+                            <td>Complete object extent</td>
+                        </tr>
+                        <tr>
+                            <td>Computation Cost</td>
+                            <td>Lower</td>
+                            <td>Slightly higher</td>
+                        </tr>
+                    </tbody>
+                </div>
+                
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✓ Advantages</h4>
+                        <ul style="padding-left: 20px; font-size: 14px;">
+                            <li>Superior localization for multiple objects</li>
+                            <li>Better object boundary coverage</li>
+                            <li>More robust to weak activations</li>
+                            <li>Maintains Grad-CAM's flexibility</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>✗ Limitations</h4>
+                        <ul style="padding-left: 20px; font-size: 14px;">
+                            <li>Slightly higher computational cost</li>
+                            <li>More complex implementation</li>
+                            <li>Requires stable gradient computation</li>
+                            <li>May be overkill for single-object scenarios</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 4. SCORE-CAM -->
+            <div class="method-detail">
+                <div class="method-title">4. Score-CAM: Gradient-Free Activation Mapping</div>
+                
+                <div class="text-content">
+                    Score-CAM eliminates the dependency on gradients entirely, instead using forward-passing score increases to determine feature map importance. This gradient-free approach provides more stable and cleaner visualizations, especially in scenarios where gradient computation may be unreliable or noisy.
+                </div>
+                
+                <div class="subsection-title">Core Principle: Perturbation-Based Scoring</div>
+                <div class="text-content">
+                    Score-CAM uses each feature map as a mask to weight the input image, then measures how much each masked version increases the target class score. Feature maps that lead to higher scores when used as masks are considered more important. This approach directly measures the causal effect of each feature map on the model's output.
+                </div>
+                
+                <div class="formula-box">
+                    <div class="formula">α_k^c = Y_c(X ⊙ A_k) - Y_c(baseline)</div>
+                    <div class="formula" style="margin-top: 10px;">L_Score-CAM^c = ReLU(Σ α_k^c · A_k)</div>
+                    <div class="text-content" style="margin-top: 10px; font-size: 13px;">
+                        Y_c: class score, X: input image, A_k: upsampled feature map k used as mask<br>
+                        ⊙: element-wise multiplication (masking operation)
+                    </div>
+                </div>
+                
+                <div class="subsection-title">Algorithm Workflow</div>
+                <div class="key-points">
+                    <div class="key-points-title">Score-CAM Process:</div>
+                    <ul>
+                        <li><strong>Extract Feature Maps:</strong> Obtain activation maps A_k from target convolutional layer</li>
+                        <li><strong>Normalize and Upsample:</strong> Each feature map is normalized to [0,1] and upsampled to input image size</li>
+                        <li><strong>Masked Forward Pass:</strong> For each feature map, create masked input: X_k = X ⊙ A_k, then compute forward pass</li>
+                        <li><strong>Score Calculation:</strong> Measure increase in target class score: α_k = Y_c(X_k) - Y_c(baseline)</li>
+                        <li><strong>Weighted Combination:</strong> Create final visualization: L = ReLU(Σ α_k · A_k)</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection-title">Visual Comparison: Gradient-based vs Score-CAM</div>
+                <div class="example-images">
+                    <div class="image-placeholder">
+                        <svg width="100%" height="80%" viewBox="0 0 200 200">
+                            <!-- Grad-CAM with noise -->
+                            <rect x="0" y="0" width="200" height="200" fill="#f0f5fc"/>
+                            <ellipse cx="100" cy="100" rx="60" ry="80" fill="white" stroke="#333" stroke-width="2" opacity="0.3"/>
+                            <defs>
+                                <radialGradient id="gradcam-noisy">
+                                    <stop offset="0%" style="stop-color:#ff0000;stop-opacity:0.7" />
+                                    <stop offset="50%" style="stop-color:#ff8800;stop-opacity:0.4" />
+                                    <stop offset="100%" style="stop-color:#ffff00;stop-opacity:0.1" />
+                                </radialGradient>
+                            </defs>
+                            <ellipse cx="120" cy="110" rx="35" ry="45" fill="url(#gradcam-noisy)"/>
+                            <!-- Noise patches -->
+                            <circle cx="60" cy="60" r="8" fill="#ff6666" opacity="0.5"/>
+                            <circle cx="140" cy="70" r="6" fill="#ff6666" opacity="0.4"/>
+                            <circle cx="80" cy="140" r="7" fill="#ff6666" opacity="0.5"/>
+                            <text x="100" y="190" font-size="11" fill="#dc3545" font-weight="600" text-anchor="middle">Noisy gradient</text>
+                        </svg>
+                        <div class="image-label">Grad-CAM (with noise)</div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <svg width="100%" height="80%" viewBox="0 0 200 200">
+                            <!-- Score-CAM clean -->
+                            <rect x="0" y="0" width="200" height="200" fill="#f0f5fc"/>
+                            <ellipse cx="100" cy="100" rx="60" ry="80" fill="white" stroke="#333" stroke-width="2" opacity="0.3"/>
+                            <defs>
+                                <radialGradient id="scorecam-clean">
+                                    <stop offset="0%" style="stop-color:#ff0000;stop-opacity:0.9" />
+                                    <stop offset="50%" style="stop-color:#ff8800;stop-opacity:0.5" />
+                                    <stop offset="100%" style="stop-color:#ffdd00;stop-opacity:0.1" />
+                                </radialGradient>
+                            </defs>
+                            <ellipse cx="120" cy="110" rx="38" ry="48" fill="url(#scorecam-clean)"/>
+                            <text x="100" y="190" font-size="11" fill="#28a745" font-weight="600" text-anchor="middle">Clean & stable</text>
+                        </svg>
+                        <div class="image-label">Score-CAM (cleaner)</div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <svg width="100%" height="80%" viewBox="0 0 200 200">
+                            <!-- Process diagram -->
+                            <rect x="20" y="30" width="160" height="140" fill="white" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                            <text x="100" y="55" font-size="13" fill="#1E64C8" font-weight="600" text-anchor="middle">Score-CAM Process</text>
+                            
+                            <rect x="35" y="70" width="60" height="25" fill="#d4e7ff" stroke="#333" stroke-width="1" rx="4"/>
+                            <text x="65" y="86" font-size="10" fill="#333" text-anchor="middle">Feature Map</text>
+                            
+                            <path d="M 95 82 L 105 82" stroke="#333" stroke-width="2" marker-end="url(#arrow-score)"/>
+                            
+                            <rect x="105" y="70" width="60" height="25" fill="#ffe6f0" stroke="#333" stroke-width="1" rx="4"/>
+                            <text x="135" y="86" font-size="10" fill="#333" text-anchor="middle">Mask Input</text>
+                            
+                            <path d="M 135 95 L 135 105" stroke="#333" stroke-width="2" marker-end="url(#arrow-score)"/>
+                            
+                            <rect x="105" y="105" width="60" height="25" fill="#e6ffe6" stroke="#333" stroke-width="1" rx="4"/>
+                            <text x="135" y="121" font-size="10" fill="#333" text-anchor="middle">Forward Pass</text>
+                            
+                            <path d="M 135 130 L 135 140" stroke="#333" stroke-width="2" marker-end="url(#arrow-score)"/>
+                            
+                            <rect x="75" y="140" width="50" height="20" fill="#fff9e6" stroke="#333" stroke-width="1" rx="4"/>
+                            <text x="100" y="154" font-size="9" fill="#333" text-anchor="middle">Score α_k</text>
+                            
+                            <defs>
+                                <marker id="arrow-score" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#333" />
+                                </marker>
+                            </defs>
+                        </svg>
+                        <div class="image-label">Forward-Pass Based</div>
+                    </div>
+                </div>
+                
+                <div class="subsection-title">Key Advantages</div>
+                <div class="key-points">
+                    <ul>
+                        <li><strong>Gradient Independence:</strong> No reliance on backpropagation, avoiding gradient saturation and vanishing gradient problems</li>
+                        <li><strong>Stability:</strong> More consistent visualizations across different network architectures and training states</li>
+                        <li><strong>Interpretability:</strong> Direct causal interpretation - each weight represents actual contribution to class score</li>
+                        <li><strong>Robustness:</strong> Less sensitive to model artifacts, adversarial perturbations, and numerical instabilities</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection-title">Medical Imaging Applications</div>
+                <div class="text-content">
+                    Score-CAM is particularly valuable in medical imaging where model reliability and interpretability are critical. For diagnostic AI systems, Score-CAM provides cleaner visualizations that radiologists can more confidently use to verify model behavior. In safety-critical applications like autonomous cancer detection, the gradient-free approach reduces the risk of misleading visualizations caused by gradient artifacts.
+                </div>
+                
+                <div class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>Gradient-based Methods</th>
+                            <th>Score-CAM</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Computation Method</td>
+                            <td>Backpropagation</td>
+                            <td>Forward passes</td>
+                        </tr>
+                        <tr>
+                            <td>Visualization Quality</td>
+                            <td>Can be noisy</td>
+                            <td>Cleaner, more stable</td>
+                        </tr>
+                        <tr>
+                            <td>Gradient Saturation</td>
+                            <td>Affected</td>
+                            <td>Not affected</td>
+                        </tr>
+                        <tr>
+                            <td>Computation Time</td>
+                            <td>Fast (one backward pass)</td>
+                            <td>Slower (N forward passes)</td>
+                        </tr>
+                        <tr>
+                            <td>Interpretability</td>
+                            <td>Indirect via gradients</td>
+                            <td>Direct causal effect</td>
+                        </tr>
+                    </tbody>
+                </div>
+                
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✓ Advantages</h4>
+                        <ul style="padding-left: 20px; font-size: 14px;">
+                            <li>No gradient computation required</li>
+                            <li>More stable and cleaner visualizations</li>
+                            <li>Direct causal interpretation</li>
+                            <li>Robust to gradient-related issues</li>
+                            <li>Works with any differentiable model</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>✗ Limitations</h4>
+                        <ul style="padding-left: 20px; font-size: 14px;">
+                            <li>Computationally expensive (multiple forward passes)</li>
+                            <li>Slower than gradient-based methods</li>
+                            <li>May not scale well for real-time applications</li>
+                            <li>Requires careful baseline selection</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 5. CLINICAL INTERPRETATION -->
+            <div class="method-detail">
+                <div class="method-title">5. Clinical Interpretation: Bridging AI and Medical Practice</div>
+                
+                <div class="text-content">
+                    Clinical interpretation of Class Activation Maps is essential for translating AI model outputs into actionable medical insights. CAM visualizations serve as a critical bridge between complex deep learning models and clinical decision-making, enabling radiologists and clinicians to validate, trust, and effectively utilize AI systems in healthcare settings.
+                </div>
+                
+                <div class="subsection-title">Importance in Medical AI</div>
+                <div class="text-content">
+                    In medical imaging, "black box" AI systems are insufficient regardless of accuracy. Clinicians need to understand not just what the model predicts, but why it makes specific decisions. CAM techniques provide this transparency by revealing which anatomical regions or imaging features drive the model's predictions, allowing medical professionals to verify that the AI is focusing on clinically relevant patterns.
+                </div>
+                
+                <div class="key-points">
+                    <div class="key-points-title">Core Clinical Applications:</div>
+                    <ul>
+                        <li><strong>Model Validation:</strong> Verify that AI focuses on medically relevant regions rather than artifacts or spurious correlations</li>
+                        <li><strong>Trust Building:</strong> Increase clinician confidence by demonstrating alignment with medical knowledge</li>
+                        <li><strong>Error Detection:</strong> Identify when models rely on incorrect features or imaging artifacts</li>
+                        <li><strong>Educational Tool:</strong> Help train radiologists by highlighting diagnostic features</li>
+                        <li><strong>Regulatory Compliance:</strong> Meet explainability requirements for medical device approval</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection-title">Real-World Clinical Scenarios</div>
+                <div class="example-images">
+                    <div class="image-placeholder">
+                        <svg width="100%" height="80%" viewBox="0 0 200 200">
+                            <!-- Correct localization -->
+                            <rect x="0" y="0" width="200" height="200" fill="#e6f9f0"/>
+                            <ellipse cx="100" cy="100" rx="60" ry="80" fill="white" stroke="#333" stroke-width="2" opacity="0.5"/>
+                            <!-- Lung infiltrate -->
+                            <ellipse cx="120" cy="110" rx="25" ry="30" fill="#ccc" opacity="0.6"/>
+                            <!-- Correct heatmap -->
+                            <defs>
+                                <radialGradient id="correct-heat">
+                                    <stop offset="0%" style="stop-color:#00ff00;stop-opacity:0.7" />
+                                    <stop offset="50%" style="stop-color:#88ff00;stop-opacity:0.4" />
+                                    <stop offset="100%" style="stop-color:#ffff00;stop-opacity:0.1" />
+                                </radialGradient>
+                            </defs>
+                            <ellipse cx="120" cy="110" rx="28" ry="33" fill="url(#correct-heat)"/>
+                            <text x="100" y="25" font-size="12" fill="#28a745" font-weight="600" text-anchor="middle">✓ Valid</text>
+                            <text x="100" y="190" font-size="10" fill="#28a745" text-anchor="middle">Focuses on pathology</text>
+                        </svg>
+                        <div class="image-label">Correct Localization</div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <svg width="100%" height="80%" viewBox="0 0 200 200">
+                            <!-- Artifact dependency -->
+                            <rect x="0" y="0" width="200" height="200" fill="#ffe6e6"/>
+                            <ellipse cx="100" cy="100" rx="60" ry="80" fill="white" stroke="#333" stroke-width="2" opacity="0.5"/>
+                            <!-- Medical device artifact -->
+                            <rect x="160" y="20" width="30" height="160" fill="#666" opacity="0.7"/>
+                            <text x="175" y="105" font-size="9" fill="white" font-weight="600" text-anchor="middle" transform="rotate(-90 175 105)">Medical Device</text>
+                            <!-- Wrong heatmap on device -->
+                            <defs>
+                                <radialGradient id="wrong-heat">
+                                    <stop offset="0%" style="stop-color:#ff0000;stop-opacity:0.8" />
+                                    <stop offset="100%" style="stop-color:#ffaa00;stop-opacity:0.2" />
+                                </radialGradient>
+                            </defs>
+                            <ellipse cx="165" cy="100" rx="25" ry="50" fill="url(#wrong-heat)"/>
+                            <text x="100" y="25" font-size="12" fill="#dc3545" font-weight="600" text-anchor="middle">✗ Invalid</text>
+                            <text x="100" y="190" font-size="10" fill="#dc3545" text-anchor="middle">Focuses on artifact</text>
+                        </svg>
+                        <div class="image-label">Artifact Detection</div>
+                    </div>
+                    
+                    <div class="image-placeholder">
+                        <svg width="100%" height="80%" viewBox="0 0 200 200">
+                            <!-- Clinical-AI alignment -->
+                            <rect x="0" y="0" width="200" height="200" fill="#e6f3ff"/>
+                            <text x="100" y="30" font-size="13" fill="#1E64C8" font-weight="600" text-anchor="middle">Clinical Workflow</text>
+                            
+                            <rect x="30" y="50" width="140" height="30" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="100" y="70" font-size="11" fill="#333" text-anchor="middle">AI Prediction + CAM</text>
+                            
+                            <path d="M 100 80 L 100 90" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-clinical)"/>
+                            
+                            <rect x="30" y="90" width="140" height="30" fill="#fff9e6" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="100" y="110" font-size="11" fill="#333" text-anchor="middle">Radiologist Review</text>
+                            
+                            <path d="M 100 120 L 100 130" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-clinical)"/>
+                            
+                            <rect x="30" y="130" width="140" height="30" fill="#e6f9f0" stroke="#28a745" stroke-width="2" rx="5"/>
+                            <text x="100" y="150" font-size="11" fill="#333" text-anchor="middle">Validated Diagnosis</text>
+                            
+                            <text x="100" y="180" font-size="10" fill="#666" text-anchor="middle">Human-AI collaboration</text>
+                            
+                            <defs>
+                                <marker id="arrow-clinical" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                                </marker>
+                            </defs>
+                        </svg>
+                        <div class="image-label">Clinical Integration</div>
+                    </div>
+                </div>
+                
+                <div class="subsection-title">Best Practices for Clinical Use</div>
+                <div class="key-points">
+                    <div class="key-points-title">Implementation Guidelines:</div>
+                    <ul>
+                        <li><strong>Multiple Visualization Methods:</strong> Use combination of CAM variants (Grad-CAM, Grad-CAM++, Score-CAM) for comprehensive assessment</li>
+                        <li><strong>Overlay Transparency:</strong> Adjust heatmap opacity (typically 30-50%) to maintain visibility of underlying anatomy</li>
+                        <li><strong>Color Schemes:</strong> Use colorblind-friendly palettes; red-yellow scales are conventional but may not suit all users</li>
+                        <li><strong>Quantitative Metrics:</strong> Complement visualizations with numerical confidence scores and region-of-interest measurements</li>
+                        <li><strong>Longitudinal Comparison:</strong> Enable comparison of CAMs across serial studies for monitoring disease progression</li>
+                        <li><strong>Documentation:</strong> Save CAM visualizations with diagnostic reports for audit trails and quality assurance</li>
+                    </ul>
+                </div>
+                
+                <div class="subsection-title">Clinical Validation Criteria</div>
+                <div class="text-content">
+                    For medical AI systems to be clinically useful, CAM visualizations should meet specific validation criteria. The heatmaps must consistently highlight anatomically plausible regions, align with known disease patterns, remain stable across similar cases, and be interpretable by radiologists without extensive technical training. Systems should also provide uncertainty quantification alongside visualizations.
+                </div>
+                
+                <div class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Evaluation Aspect</th>
+                            <th>What to Check</th>
+                            <th>Red Flags</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Anatomical Plausibility</td>
+                            <td>Focus on relevant organs/tissues</td>
+                            <td>Highlighting non-anatomical regions</td>
+                        </tr>
+                        <tr>
+                            <td>Clinical Correlation</td>
+                            <td>Match known pathology patterns</td>
+                            <td>Inconsistent with medical knowledge</td>
+                        </tr>
+                        <tr>
+                            <td>Artifact Sensitivity</td>
+                            <td>Ignore technical artifacts</td>
+                            <td>Focus on image quality issues</td>
+                        </tr>
+                        <tr>
+                            <td>Consistency</td>
+                            <td>Similar cases → similar heatmaps</td>
+                            <td>High variability without cause</td>
+                        </tr>
+                        <tr>
+                            <td>Multi-finding Cases</td>
+                            <td>Identify all relevant abnormalities</td>
+                            <td>Missing secondary findings</td>
+                        </tr>
+                    </tbody>
+                </div>
+                
+                <div class="subsection-title">Case Studies and Examples</div>
+                
+                <div class="text-content" style="margin-top: 15px;">
+                    <strong>Example 1: COVID-19 Detection</strong><br>
+                    CAM successfully identified ground-glass opacities in peripheral lung regions, matching the typical COVID-19 presentation. The model demonstrated appropriate attention to bilateral lower lobe involvement, correlating with radiological findings. This validation increased clinician trust in the system's diagnostic capabilities.
+                </div>
+                
+                <div class="text-content" style="margin-top: 15px;">
+                    <strong>Example 2: Tumor Boundary Delineation</strong><br>
+                    Grad-CAM++ provided precise localization of tumor margins in MRI scans, assisting surgeons in pre-operative planning. The detailed heatmaps helped identify infiltrative edges that were subtle on visual inspection, improving surgical outcomes and reducing positive margin rates.
+                </div>
+                
+                <div class="text-content" style="margin-top: 15px;">
+                    <strong>Example 3: False Positive Detection</strong><br>
+                    CAM revealed that a model with high accuracy was actually focusing on imaging artifacts (chest tubes, pacemakers) rather than pathology. This discovery led to model retraining with artifact-balanced datasets, significantly improving real-world performance and preventing potential misdiagnoses.
+                </div>
+                
+                <div class="subsection-title">Regulatory and Ethical Considerations</div>
+                <div class="text-content">
+                    FDA and other regulatory bodies increasingly require explainability features in medical AI devices. CAM techniques help meet these requirements by providing interpretable visualizations. However, it's crucial to communicate that CAMs are explanatory tools, not ground truth annotations. They should augment, not replace, clinical judgment. Proper training in CAM interpretation is essential for all clinical users.
+                </div>
+                
+                <div class="key-points">
+                    <div class="key-points-title">Future Directions:</div>
+                    <ul>
+                        <li>Integration with electronic health records (EHR) for seamless clinical workflows</li>
+                        <li>Real-time CAM generation during image acquisition</li>
+                        <li>3D visualization techniques for volumetric medical imaging (CT, MRI)</li>
+                        <li>Patient-facing explanations derived from clinical CAM interpretations</li>
+                        <li>Standardized CAM quality metrics for regulatory submissions</li>
+                    </ul>
+                </div>
+                
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✓ Clinical Benefits</h4>
+                        <ul style="padding-left: 20px; font-size: 14px;">
+                            <li>Increases trust and adoption of AI systems</li>
+                            <li>Enables validation of model behavior</li>
+                            <li>Facilitates error detection and correction</li>
+                            <li>Supports regulatory compliance</li>
+                            <li>Enhances radiologist education and training</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>✗ Clinical Challenges</h4>
+                        <ul style="padding-left: 20px; font-size: 14px;">
+                            <li>Requires training for proper interpretation</li>
+                            <li>May be misinterpreted as ground truth</li>
+                            <li>Can add to radiologist workload</li>
+                            <li>Quality varies across CAM methods</li>
+                            <li>Not standardized across vendors</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- SUMMARY COMPARISON TABLE -->
+            <div class="method-detail" style="margin-top: 40px;">
+                <div class="method-title">Summary: Comprehensive Method Comparison</div>
+                
+                <div class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Key Innovation</th>
+                            <th>Best Use Case</th>
+                            <th>Main Limitation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>CAM</strong></td>
+                            <td>Linear combination of feature maps with class weights</td>
+                            <td>Networks specifically designed with GAP</td>
+                            <td>Requires architecture modification</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Grad-CAM</strong></td>
+                            <td>Gradient-based weighting, architecture agnostic</td>
+                            <td>General purpose, pre-trained models</td>
+                            <td>Gradient noise and saturation issues</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Grad-CAM++</strong></td>
+                            <td>Pixel-wise weights using higher-order derivatives</td>
+                            <td>Multiple objects, precise localization</td>
+                            <td>Slightly higher computational cost</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Score-CAM</strong></td>
+                            <td>Gradient-free, perturbation-based scoring</td>
+                            <td>High-reliability applications, cleaner visualizations</td>
+                            <td>Computationally expensive (multiple forward passes)</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Clinical Use</strong></td>
+                            <td>Bridge between AI and medical practice</td>
+                            <td>Model validation, trust building, diagnosis support</td>
+                            <td>Requires proper training and interpretation</td>
+                        </tr>
+                    </tbody>
+                </div>
+                
+                <div class="subsection-title" style="margin-top: 30px;">Selection Guidelines</div>
+                <div class="text-content">
+                    <strong>Choose CAM when:</strong> You're designing a new network and can incorporate GAP architecture from the start.<br><br>
+                    <strong>Choose Grad-CAM when:</strong> You need to explain predictions from existing pre-trained models with minimal computational overhead.<br><br>
+                    <strong>Choose Grad-CAM++ when:</strong> Your application involves multiple objects or requires precise boundary localization.<br><br>
+                    <strong>Choose Score-CAM when:</strong> Visualization quality and stability are critical, and you can afford longer computation time.<br><br>
+                    <strong>For Clinical Deployment:</strong> Consider using multiple methods in combination, with proper validation against radiologist annotations and established medical knowledge.
+                </div>
+            </div>
         </div>
     </div>
 </body>

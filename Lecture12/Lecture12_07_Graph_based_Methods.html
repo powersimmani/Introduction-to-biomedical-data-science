@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graph-based Integration</title>
+    <title>Graph-based Integration - Detailed</title>
     <style>
         * {
             margin: 0;
@@ -49,6 +49,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
+            margin-bottom: 40px;
         }
         
         .feature-card {
@@ -75,6 +76,92 @@
             font-size: 16px;
             color: #333;
             line-height: 1.5;
+        }
+        
+        /* Detailed sections */
+        .detail-section {
+            margin-top: 50px;
+            padding: 30px;
+            background: #f8fbff;
+            border-radius: 15px;
+            border: 2px solid #1E64C8;
+            margin-bottom: 30px;
+        }
+        
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1E64C8;
+        }
+        
+        .section-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .content-text {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.8;
+        }
+        
+        .content-text h3 {
+            font-size: 17px;
+            color: #1E64C8;
+            margin-bottom: 10px;
+            margin-top: 15px;
+        }
+        
+        .content-text ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .content-text li {
+            margin-bottom: 8px;
+        }
+        
+        .diagram-container {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background: white;
+            border-radius: 10px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .key-points {
+            background: #fff4e6;
+            padding: 15px 20px;
+            border-radius: 10px;
+            margin-top: 15px;
+            border-left: 4px solid #1E64C8;
+        }
+        
+        .key-points h4 {
+            color: #1E64C8;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .key-points ul {
+            margin-left: 20px;
+        }
+        
+        .key-points li {
+            color: #333;
+            font-size: 14px;
+            margin-bottom: 6px;
+        }
+
+        .full-width {
+            grid-column: 1 / -1;
         }
     </style>
 </head>
@@ -243,6 +330,707 @@
             </div>
         
         </div>
+
+        <!-- Detailed Section 1: Similarity Networks -->
+        <div class="detail-section">
+            <div class="section-title">1. Similarity Networks</div>
+            <div class="section-content">
+                <div class="content-text">
+                    <h3>Overview</h3>
+                    <p>Similarity networks represent relationships between patients or features based on their shared characteristics across omics datasets. Each node represents a sample (patient) or feature (gene, protein), and edges represent similarity scores.</p>
+                    
+                    <h3>Construction Methods</h3>
+                    <ul>
+                        <li><strong>K-Nearest Neighbors (KNN):</strong> Connect each node to its k most similar neighbors</li>
+                        <li><strong>Gaussian Kernel:</strong> Weight edges using exponential decay based on distance</li>
+                        <li><strong>Correlation-based:</strong> Use Pearson or Spearman correlation coefficients</li>
+                    </ul>
+                    
+                    <h3>Applications</h3>
+                    <ul>
+                        <li>Patient stratification and subtype discovery</li>
+                        <li>Feature selection and biomarker identification</li>
+                        <li>Disease trajectory modeling</li>
+                    </ul>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg width="380" height="320" viewBox="0 0 380 320">
+                        <!-- Title -->
+                        <text x="190" y="20" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">Patient Similarity Network Construction</text>
+                        
+                        <!-- Data Matrix -->
+                        <g>
+                            <text x="80" y="50" text-anchor="middle" font-size="11" fill="#333" font-weight="600">Gene Expression Data</text>
+                            <rect x="20" y="60" width="120" height="80" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <!-- Matrix cells -->
+                            <line x1="20" y1="80" x2="140" y2="80" stroke="#1E64C8" stroke-width="1"/>
+                            <line x1="20" y1="100" x2="140" y2="100" stroke="#1E64C8" stroke-width="1"/>
+                            <line x1="20" y1="120" x2="140" y2="120" stroke="#1E64C8" stroke-width="1"/>
+                            
+                            <line x1="50" y1="60" x2="50" y2="140" stroke="#1E64C8" stroke-width="1"/>
+                            <line x1="80" y1="60" x2="80" y2="140" stroke="#1E64C8" stroke-width="1"/>
+                            <line x1="110" y1="60" x2="110" y2="140" stroke="#1E64C8" stroke-width="1"/>
+                            
+                            <text x="35" y="74" text-anchor="middle" font-size="9" fill="#1E64C8">P1</text>
+                            <text x="65" y="74" text-anchor="middle" font-size="9" fill="#1E64C8">P2</text>
+                            <text x="95" y="74" text-anchor="middle" font-size="9" fill="#1E64C8">P3</text>
+                            <text x="125" y="74" text-anchor="middle" font-size="9" fill="#1E64C8">P4</text>
+                        </g>
+                        
+                        <!-- Arrow -->
+                        <path d="M 80 150 L 80 170" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrow1)"/>
+                        <text x="100" y="163" font-size="10" fill="#1E64C8" font-weight="600">Calculate Similarity</text>
+                        
+                        <defs>
+                            <marker id="arrow1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- Similarity Matrix -->
+                        <g>
+                            <text x="80" y="195" text-anchor="middle" font-size="11" fill="#333" font-weight="600">Similarity Matrix</text>
+                            <rect x="20" y="205" width="120" height="80" fill="#fff4e6" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <!-- Matrix grid -->
+                            <line x1="20" y1="225" x2="140" y2="225" stroke="#1E64C8" stroke-width="1"/>
+                            <line x1="20" y1="245" x2="140" y2="245" stroke="#1E64C8" stroke-width="1"/>
+                            <line x1="20" y1="265" x2="140" y2="265" stroke="#1E64C8" stroke-width="1"/>
+                            
+                            <line x1="50" y1="205" x2="50" y2="285" stroke="#1E64C8" stroke-width="1"/>
+                            <line x1="80" y1="205" x2="80" y2="285" stroke="#1E64C8" stroke-width="1"/>
+                            <line x1="110" y1="205" x2="110" y2="285" stroke="#1E64C8" stroke-width="1"/>
+                            
+                            <!-- Values -->
+                            <text x="35" y="220" text-anchor="middle" font-size="8" fill="#666">1.0</text>
+                            <text x="65" y="220" text-anchor="middle" font-size="8" fill="#666">0.8</text>
+                            <text x="95" y="220" text-anchor="middle" font-size="8" fill="#666">0.3</text>
+                            <text x="125" y="220" text-anchor="middle" font-size="8" fill="#666">0.5</text>
+                            
+                            <text x="35" y="240" text-anchor="middle" font-size="8" fill="#666">0.8</text>
+                            <text x="65" y="240" text-anchor="middle" font-size="8" fill="#666">1.0</text>
+                            <text x="95" y="240" text-anchor="middle" font-size="8" fill="#666">0.4</text>
+                            <text x="125" y="240" text-anchor="middle" font-size="8" fill="#666">0.6</text>
+                        </g>
+                        
+                        <!-- Arrow to network -->
+                        <path d="M 150 245 L 190 245" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
+                        <text x="170" y="238" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Build</text>
+                        <text x="170" y="258" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Network</text>
+                        
+                        <defs>
+                            <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- Network Graph -->
+                        <g>
+                            <text x="280" y="195" text-anchor="middle" font-size="11" fill="#333" font-weight="600">Similarity Network</text>
+                            
+                            <!-- Nodes -->
+                            <circle cx="250" cy="225" r="15" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2.5"/>
+                            <text x="250" y="230" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="700">P1</text>
+                            
+                            <circle cx="310" cy="225" r="15" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2.5"/>
+                            <text x="310" y="230" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="700">P2</text>
+                            
+                            <circle cx="250" cy="285" r="15" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2.5"/>
+                            <text x="250" y="290" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="700">P3</text>
+                            
+                            <circle cx="310" cy="285" r="15" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2.5"/>
+                            <text x="310" y="290" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="700">P4</text>
+                            
+                            <!-- Edges with weights -->
+                            <line x1="265" y1="225" x2="295" y2="225" stroke="#1E64C8" stroke-width="4" opacity="0.8"/>
+                            <text x="280" y="220" text-anchor="middle" font-size="8" fill="#1E64C8" font-weight="600">0.8</text>
+                            
+                            <line x1="265" y1="235" x2="295" y2="275" stroke="#1E64C8" stroke-width="2" opacity="0.4"/>
+                            <text x="290" y="258" text-anchor="middle" font-size="8" fill="#666">0.4</text>
+                            
+                            <line x1="250" y1="240" x2="250" y2="270" stroke="#1E64C8" stroke-width="1.5" opacity="0.3"/>
+                            <text x="238" y="258" text-anchor="middle" font-size="8" fill="#666">0.3</text>
+                            
+                            <line x1="265" y1="230" x2="295" y2="280" stroke="#1E64C8" stroke-width="3" opacity="0.6"/>
+                            <text x="288" y="268" text-anchor="middle" font-size="8" fill="#666">0.6</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>Key Points:</h4>
+                <ul>
+                    <li>Edge weights represent similarity strength between patients</li>
+                    <li>Thresholding removes weak connections for clearer network structure</li>
+                    <li>Multiple similarity metrics can be combined for robust networks</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Detailed Section 2: Network Fusion -->
+        <div class="detail-section">
+            <div class="section-title">2. Network Fusion (SNF)</div>
+            <div class="section-content">
+                <div class="content-text">
+                    <h3>Similarity Network Fusion Algorithm</h3>
+                    <p>SNF integrates multiple patient similarity networks by iteratively updating each network using information from other networks. This cross-network information exchange creates a unified representation that captures complementary information.</p>
+                    
+                    <h3>Algorithm Steps</h3>
+                    <ul>
+                        <li><strong>Step 1:</strong> Construct individual similarity networks for each data type</li>
+                        <li><strong>Step 2:</strong> Normalize networks to make them comparable</li>
+                        <li><strong>Step 3:</strong> Iteratively update each network using local and global information</li>
+                        <li><strong>Step 4:</strong> Converge to a fused network representation</li>
+                    </ul>
+                    
+                    <h3>Advantages</h3>
+                    <ul>
+                        <li>Handles incomplete data naturally</li>
+                        <li>Emphasizes concordant patterns across data types</li>
+                        <li>No feature-level alignment required</li>
+                    </ul>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg width="380" height="320" viewBox="0 0 380 320">
+                        <text x="190" y="20" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">SNF Iterative Process</text>
+                        
+                        <!-- Iteration 0 -->
+                        <g>
+                            <text x="190" y="50" text-anchor="middle" font-size="11" fill="#333" font-weight="600">Initial State (t=0)</text>
+                            
+                            <!-- Network A -->
+                            <rect x="40" y="60" width="100" height="60" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="90" y="78" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">Network A</text>
+                            <text x="90" y="92" text-anchor="middle" font-size="9" fill="#666">(Genomics)</text>
+                            <circle cx="70" cy="105" r="5" fill="#1E64C8"/>
+                            <circle cx="90" cy="105" r="5" fill="#1E64C8"/>
+                            <circle cx="110" cy="105" r="5" fill="#1E64C8"/>
+                            
+                            <!-- Network B -->
+                            <rect x="240" y="60" width="100" height="60" fill="#fff4e6" stroke="#FF8C42" stroke-width="2" rx="5"/>
+                            <text x="290" y="78" text-anchor="middle" font-size="10" fill="#FF8C42" font-weight="600">Network B</text>
+                            <text x="290" y="92" text-anchor="middle" font-size="9" fill="#666">(Proteomics)</text>
+                            <circle cx="270" cy="105" r="5" fill="#FF8C42"/>
+                            <circle cx="290" cy="105" r="5" fill="#FF8C42"/>
+                            <circle cx="310" cy="105" r="5" fill="#FF8C42"/>
+                        </g>
+                        
+                        <!-- Down arrow -->
+                        <path d="M 190 130 L 190 155" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow3)"/>
+                        <text x="210" y="145" font-size="9" fill="#1E64C8" font-weight="600">Fusion Step</text>
+                        
+                        <defs>
+                            <marker id="arrow3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- Iteration t -->
+                        <g>
+                            <text x="190" y="175" text-anchor="middle" font-size="11" fill="#333" font-weight="600">Iteration (t=1,2,...)</text>
+                            
+                            <!-- Exchange illustration -->
+                            <rect x="80" y="185" width="220" height="50" fill="white" stroke="#1E64C8" stroke-width="2" stroke-dasharray="5,5" rx="5"/>
+                            
+                            <text x="190" y="203" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">Information Exchange</text>
+                            
+                            <!-- Bidirectional arrows -->
+                            <path d="M 140 215 L 170 215" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow4)"/>
+                            <path d="M 240 220 L 210 220" stroke="#FF8C42" stroke-width="2" marker-end="url(#arrow5)"/>
+                            
+                            <defs>
+                                <marker id="arrow4" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                                    <path d="M0,0 L0,6 L7,3 z" fill="#1E64C8"/>
+                                </marker>
+                                <marker id="arrow5" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                                    <path d="M0,0 L0,6 L7,3 z" fill="#FF8C42"/>
+                                </marker>
+                            </defs>
+                            
+                            <circle cx="120" cy="215" r="8" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="120" y="218" text-anchor="middle" font-size="7" fill="#1E64C8">A</text>
+                            
+                            <circle cx="260" cy="220" r="8" fill="#fff4e6" stroke="#FF8C42" stroke-width="2"/>
+                            <text x="260" y="223" text-anchor="middle" font-size="7" fill="#FF8C42">B</text>
+                            
+                            <text x="190" y="228" text-anchor="middle" font-size="8" fill="#666">Cross-network updates</text>
+                        </g>
+                        
+                        <!-- Down arrow -->
+                        <path d="M 190 245 L 190 270" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow6)"/>
+                        <text x="220" y="260" font-size="9" fill="#1E64C8" font-weight="600">Convergence</text>
+                        
+                        <defs>
+                            <marker id="arrow6" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- Final fused network -->
+                        <g>
+                            <text x="190" y="290" text-anchor="middle" font-size="11" fill="#333" font-weight="600">Fused Network</text>
+                            
+                            <defs>
+                                <linearGradient id="fusedGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                                    <stop offset="0%" style="stop-color:#1E64C8;stop-opacity:1" />
+                                    <stop offset="100%" style="stop-color:#FF8C42;stop-opacity:1" />
+                                </linearGradient>
+                            </defs>
+                            
+                            <rect x="120" y="295" width="140" height="20" fill="url(#fusedGrad)" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="190" y="309" text-anchor="middle" font-size="10" fill="white" font-weight="700">Integrated Similarity</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>Mathematical Formulation:</h4>
+                <ul>
+                    <li>P(t+1) = S × [P(t) + Σ(P_k(t))] / (m-1) × S^T</li>
+                    <li>S: Local similarity matrix (KNN structure)</li>
+                    <li>P: Full similarity matrix being updated</li>
+                    <li>Converges typically within 10-20 iterations</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Detailed Section 3: Random Walk -->
+        <div class="detail-section">
+            <div class="section-title">3. Random Walk with Restart (RWR)</div>
+            <div class="section-content">
+                <div class="content-text">
+                    <h3>Concept</h3>
+                    <p>Random walk algorithms simulate a particle moving randomly across network edges, with a probability of restarting at seed nodes. This diffusion process captures both direct and indirect relationships in the network.</p>
+                    
+                    <h3>Algorithm</h3>
+                    <ul>
+                        <li><strong>Initialization:</strong> Start at seed node(s) representing genes, patients, or features of interest</li>
+                        <li><strong>Walk:</strong> Move to neighboring nodes with probability proportional to edge weights</li>
+                        <li><strong>Restart:</strong> With probability α (typically 0.7), return to seed nodes</li>
+                        <li><strong>Convergence:</strong> Iterate until steady-state probabilities stabilize</li>
+                    </ul>
+                    
+                    <h3>Applications in Multi-Omics</h3>
+                    <ul>
+                        <li>Disease gene prioritization across omics layers</li>
+                        <li>Drug-target prediction in biological networks</li>
+                        <li>Pathway enrichment analysis</li>
+                    </ul>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg width="380" height="320" viewBox="0 0 380 320">
+                        <text x="190" y="20" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">Random Walk with Restart</text>
+                        
+                        <!-- Network -->
+                        <g>
+                            <!-- Nodes -->
+                            <circle cx="100" cy="80" r="18" fill="#FF6B6B" stroke="#1E64C8" stroke-width="3"/>
+                            <text x="100" y="85" text-anchor="middle" font-size="11" fill="white" font-weight="700">Seed</text>
+                            
+                            <circle cx="200" cy="60" r="15" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="200" y="64" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">A</text>
+                            
+                            <circle cx="280" cy="80" r="15" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="280" y="84" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">B</text>
+                            
+                            <circle cx="200" cy="140" r="15" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="200" y="144" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">C</text>
+                            
+                            <circle cx="280" cy="140" r="15" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="280" y="144" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">D</text>
+                            
+                            <circle cx="350" cy="110" r="15" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="350" y="114" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">E</text>
+                            
+                            <!-- Edges -->
+                            <line x1="118" y1="80" x2="182" y2="65" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="115" y1="90" x2="188" y2="130" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="215" y1="60" x2="265" y2="80" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="200" y1="75" x2="200" y2="125" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="215" y1="140" x2="265" y2="140" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="295" y1="85" x2="335" y2="105" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="295" y1="135" x2="335" y2="115" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <!-- Walk path animation illustration -->
+                            <path d="M 100 80 Q 150 70 200 60" stroke="#FF6B6B" stroke-width="3" fill="none" stroke-dasharray="5,5" opacity="0.7"/>
+                            <path d="M 200 60 L 280 80" stroke="#FF6B6B" stroke-width="3" fill="none" stroke-dasharray="5,5" opacity="0.7"/>
+                            <path d="M 280 80 L 350 110" stroke="#FF6B6B" stroke-width="3" fill="none" stroke-dasharray="5,5" opacity="0.7"/>
+                            
+                            <!-- Restart arrow -->
+                            <path d="M 110 95 Q 80 120 95 75" stroke="#FF6B6B" stroke-width="2.5" fill="none" marker-end="url(#arrowRestart)" stroke-dasharray="3,3"/>
+                            <text x="65" y="110" font-size="9" fill="#FF6B6B" font-weight="600">Restart</text>
+                            <text x="62" y="122" font-size="8" fill="#FF6B6B">α = 0.7</text>
+                            
+                            <defs>
+                                <marker id="arrowRestart" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                                    <path d="M0,0 L0,6 L7,3 z" fill="#FF6B6B"/>
+                                </marker>
+                            </defs>
+                        </g>
+                        
+                        <!-- Probability distribution -->
+                        <g>
+                            <text x="190" y="190" text-anchor="middle" font-size="12" fill="#333" font-weight="600">Steady-State Probability</text>
+                            
+                            <rect x="50" y="200" width="280" height="100" fill="white" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            
+                            <!-- Bars -->
+                            <rect x="70" y="260" width="30" height="30" fill="#FF6B6B" opacity="0.8"/>
+                            <text x="85" y="297" text-anchor="middle" font-size="9" fill="#333">Seed</text>
+                            
+                            <rect x="120" y="240" width="30" height="50" fill="#4ECDC4" opacity="0.7"/>
+                            <text x="135" y="297" text-anchor="middle" font-size="9" fill="#333">A</text>
+                            
+                            <rect x="170" y="220" width="30" height="70" fill="#4ECDC4" opacity="0.7"/>
+                            <text x="185" y="297" text-anchor="middle" font-size="9" fill="#333">B</text>
+                            
+                            <rect x="220" y="250" width="30" height="40" fill="#95E1D3" opacity="0.6"/>
+                            <text x="235" y="297" text-anchor="middle" font-size="9" fill="#333">C</text>
+                            
+                            <rect x="270" y="255" width="30" height="35" fill="#95E1D3" opacity="0.6"/>
+                            <text x="285" y="297" text-anchor="middle" font-size="9" fill="#333">D</text>
+                            
+                            <!-- Y-axis -->
+                            <line x1="60" y1="215" x2="60" y2="290" stroke="#333" stroke-width="1.5"/>
+                            <text x="45" y="215" font-size="8" fill="#333">High</text>
+                            <text x="45" y="290" font-size="8" fill="#333">Low</text>
+                            <text x="25" y="255" font-size="9" fill="#333" transform="rotate(-90 25 255)">Relevance</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>Key Advantages:</h4>
+                <ul>
+                    <li>Captures global network topology, not just local neighborhoods</li>
+                    <li>Naturally handles heterogeneous networks with multiple node types</li>
+                    <li>Robust to noise and missing edges in biological networks</li>
+                    <li>Steady-state probabilities provide quantitative ranking of nodes</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Detailed Section 4: Graph Neural Networks -->
+        <div class="detail-section">
+            <div class="section-title">4. Graph Neural Networks (GNNs)</div>
+            <div class="section-content">
+                <div class="content-text">
+                    <h3>Overview</h3>
+                    <p>Graph Neural Networks extend deep learning to graph-structured data, learning node representations by aggregating information from neighboring nodes. GNNs are particularly powerful for multi-omics integration as they can model complex relationships.</p>
+                    
+                    <h3>Key Architectures</h3>
+                    <ul>
+                        <li><strong>Graph Convolutional Networks (GCN):</strong> Aggregate neighbor features using spectral convolutions</li>
+                        <li><strong>Graph Attention Networks (GAT):</strong> Learn importance weights for each neighbor</li>
+                        <li><strong>GraphSAGE:</strong> Sample and aggregate from fixed-size neighborhoods</li>
+                        <li><strong>Message Passing Neural Networks:</strong> Generalized framework for node updates</li>
+                    </ul>
+                    
+                    <h3>Multi-Omics Applications</h3>
+                    <ul>
+                        <li>Patient outcome prediction using heterogeneous networks</li>
+                        <li>Drug response modeling with gene-gene interactions</li>
+                        <li>Biological pathway discovery</li>
+                    </ul>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg width="380" height="340" viewBox="0 0 380 340">
+                        <text x="190" y="20" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">Graph Neural Network Architecture</text>
+                        
+                        <!-- Input Layer -->
+                        <g>
+                            <text x="70" y="50" text-anchor="middle" font-size="11" fill="#333" font-weight="600">Input Graph</text>
+                            <text x="70" y="63" text-anchor="middle" font-size="9" fill="#666">(Multi-omics features)</text>
+                            
+                            <!-- Nodes with features -->
+                            <circle cx="50" cy="90" r="12" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
+                            <rect x="45" y="105" width="10" height="3" fill="#4ECDC4"/>
+                            <rect x="45" y="109" width="10" height="3" fill="#95E1D3"/>
+                            
+                            <circle cx="90" cy="90" r="12" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
+                            <rect x="85" y="105" width="10" height="3" fill="#FF6B6B"/>
+                            <rect x="85" y="109" width="10" height="3" fill="#FFD93D"/>
+                            
+                            <circle cx="70" cy="130" r="12" fill="#E8F2FF" stroke="#1E64C8" stroke-width="2"/>
+                            <rect x="65" y="145" width="10" height="3" fill="#6C5CE7"/>
+                            <rect x="65" y="149" width="10" height="3" fill="#A29BFE"/>
+                            
+                            <!-- Edges -->
+                            <line x1="60" y1="95" x2="80" y2="95" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="57" y1="100" x2="75" y2="122" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="83" y1="100" x2="75" y2="120" stroke="#1E64C8" stroke-width="2"/>
+                        </g>
+                        
+                        <!-- Arrow -->
+                        <path d="M 110 110 L 140 110" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow7)"/>
+                        <text x="125" y="105" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">Message</text>
+                        <text x="125" y="125" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">Passing</text>
+                        
+                        <defs>
+                            <marker id="arrow7" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- Hidden Layer -->
+                        <g>
+                            <text x="190" y="50" text-anchor="middle" font-size="11" fill="#333" font-weight="600">Hidden Layer</text>
+                            <text x="190" y="63" text-anchor="middle" font-size="9" fill="#666">(Aggregated features)</text>
+                            
+                            <!-- Nodes with updated features -->
+                            <circle cx="170" cy="90" r="14" fill="url(#grad1)" stroke="#1E64C8" stroke-width="2.5"/>
+                            <text x="170" y="94" text-anchor="middle" font-size="8" fill="white" font-weight="600">h₁</text>
+                            
+                            <circle cx="210" cy="90" r="14" fill="url(#grad1)" stroke="#1E64C8" stroke-width="2.5"/>
+                            <text x="210" y="94" text-anchor="middle" font-size="8" fill="white" font-weight="600">h₂</text>
+                            
+                            <circle cx="190" cy="130" r="14" fill="url(#grad1)" stroke="#1E64C8" stroke-width="2.5"/>
+                            <text x="190" y="134" text-anchor="middle" font-size="8" fill="white" font-weight="600">h₃</text>
+                            
+                            <!-- Edges -->
+                            <line x1="182" y1="95" x2="198" y2="95" stroke="#1E64C8" stroke-width="2.5"/>
+                            <line x1="177" y1="102" x2="193" y2="122" stroke="#1E64C8" stroke-width="2.5"/>
+                            <line x1="203" y1="102" x2="193" y2="118" stroke="#1E64C8" stroke-width="2.5"/>
+                        </g>
+                        
+                        <!-- Arrow -->
+                        <path d="M 230 110 L 260 110" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow8)"/>
+                        <text x="245" y="105" text-anchor="middle" font-size="9" fill="#1E64C8" font-weight="600">Readout</text>
+                        
+                        <defs>
+                            <marker id="arrow8" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- Output Layer -->
+                        <g>
+                            <text x="310" y="50" text-anchor="middle" font-size="11" fill="#333" font-weight="600">Output</text>
+                            <text x="310" y="63" text-anchor="middle" font-size="9" fill="#666">(Prediction)</text>
+                            
+                            <circle cx="310" cy="110" r="16" fill="#FF6B6B" stroke="#1E64C8" stroke-width="2.5"/>
+                            <text x="310" y="114" text-anchor="middle" font-size="9" fill="white" font-weight="700">ŷ</text>
+                        </g>
+                        
+                        <!-- Message passing detail -->
+                        <g>
+                            <rect x="30" y="175" width="320" height="150" fill="white" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                            <text x="190" y="195" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="700">Message Passing Mechanism</text>
+                            
+                            <!-- Step 1 -->
+                            <rect x="45" y="205" width="90" height="50" fill="#f0f8ff" stroke="#1E64C8" stroke-width="1.5" rx="5"/>
+                            <text x="90" y="220" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">1. Aggregate</text>
+                            <text x="90" y="235" text-anchor="middle" font-size="8" fill="#666">Collect neighbor</text>
+                            <text x="90" y="247" text-anchor="middle" font-size="8" fill="#666">features</text>
+                            
+                            <!-- Arrow -->
+                            <path d="M 135 230 L 150 230" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrow9)"/>
+                            <defs>
+                                <marker id="arrow9" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                                    <path d="M0,0 L0,6 L7,3 z" fill="#1E64C8"/>
+                                </marker>
+                            </defs>
+                            
+                            <!-- Step 2 -->
+                            <rect x="155" y="205" width="90" height="50" fill="#f0f8ff" stroke="#1E64C8" stroke-width="1.5" rx="5"/>
+                            <text x="200" y="220" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">2. Combine</text>
+                            <text x="200" y="235" text-anchor="middle" font-size="8" fill="#666">Mix with own</text>
+                            <text x="200" y="247" text-anchor="middle" font-size="8" fill="#666">features</text>
+                            
+                            <!-- Arrow -->
+                            <path d="M 245 230 L 260 230" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrow10)"/>
+                            <defs>
+                                <marker id="arrow10" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                                    <path d="M0,0 L0,6 L7,3 z" fill="#1E64C8"/>
+                                </marker>
+                            </defs>
+                            
+                            <!-- Step 3 -->
+                            <rect x="265" y="205" width="75" height="50" fill="#f0f8ff" stroke="#1E64C8" stroke-width="1.5" rx="5"/>
+                            <text x="302" y="220" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">3. Update</text>
+                            <text x="302" y="235" text-anchor="middle" font-size="8" fill="#666">Apply neural</text>
+                            <text x="302" y="247" text-anchor="middle" font-size="8" fill="#666">network</text>
+                            
+                            <!-- Formula -->
+                            <text x="190" y="275" text-anchor="middle" font-size="11" fill="#333" font-weight="600">Mathematical Form:</text>
+                            <rect x="50" y="280" width="280" height="35" fill="#fff4e6" stroke="#1E64C8" stroke-width="1" rx="5"/>
+                            <text x="190" y="298" text-anchor="middle" font-size="10" fill="#333" font-family="monospace">h'ᵢ = σ(W · Σⱼ(aᵢⱼ · hⱼ) + b)</text>
+                            <text x="190" y="310" text-anchor="middle" font-size="8" fill="#666">aᵢⱼ: attention weight, σ: activation function</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>GNN Advantages for Multi-Omics:</h4>
+                <ul>
+                    <li>End-to-end learning of representations from raw data</li>
+                    <li>Automatic feature extraction from graph structure</li>
+                    <li>Can handle heterogeneous node and edge types</li>
+                    <li>Scalable to large biological networks</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Detailed Section 5: Multiplex Networks -->
+        <div class="detail-section">
+            <div class="section-title">5. Multiplex Networks</div>
+            <div class="section-content">
+                <div class="content-text">
+                    <h3>Concept</h3>
+                    <p>Multiplex networks represent multi-omics data as multiple layers where each layer corresponds to a different data type or interaction type. Nodes are shared across layers, but edges differ, capturing complementary relationships.</p>
+                    
+                    <h3>Layer Types in Multi-Omics</h3>
+                    <ul>
+                        <li><strong>Genomic Layer:</strong> Gene-gene interactions, co-expression</li>
+                        <li><strong>Protein Layer:</strong> Protein-protein interactions</li>
+                        <li><strong>Metabolic Layer:</strong> Metabolite-metabolite relationships</li>
+                        <li><strong>Regulatory Layer:</strong> TF-gene, miRNA-gene interactions</li>
+                    </ul>
+                    
+                    <h3>Analysis Methods</h3>
+                    <ul>
+                        <li>Multi-layer centrality measures</li>
+                        <li>Cross-layer community detection</li>
+                        <li>Multiplex random walks</li>
+                        <li>Layer coupling analysis</li>
+                    </ul>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg width="380" height="340" viewBox="0 0 380 340">
+                        <text x="190" y="20" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="700">Multiplex Network Structure</text>
+                        
+                        <!-- Layer 1: Genomic -->
+                        <g>
+                            <text x="190" y="50" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Layer 1: Genomic Interactions</text>
+                            <rect x="80" y="55" width="220" height="55" fill="#E8F4FF" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            
+                            <!-- Nodes -->
+                            <circle cx="120" cy="80" r="10" fill="#4A90E2" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="120" y="84" text-anchor="middle" font-size="8" fill="white" font-weight="600">G1</text>
+                            
+                            <circle cx="180" cy="80" r="10" fill="#4A90E2" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="180" y="84" text-anchor="middle" font-size="8" fill="white" font-weight="600">G2</text>
+                            
+                            <circle cx="240" cy="80" r="10" fill="#4A90E2" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="240" y="84" text-anchor="middle" font-size="8" fill="white" font-weight="600">G3</text>
+                            
+                            <circle cx="260" cy="80" r="10" fill="#4A90E2" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="260" y="84" text-anchor="middle" font-size="8" fill="white" font-weight="600">G4</text>
+                            
+                            <!-- Edges -->
+                            <line x1="130" y1="80" x2="170" y2="80" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="190" y1="80" x2="230" y2="80" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="135" y1="85" x2="175" y2="85" stroke="#1E64C8" stroke-width="2"/>
+                        </g>
+                        
+                        <!-- Layer 2: Protein -->
+                        <g>
+                            <text x="190" y="130" text-anchor="middle" font-size="11" fill="#FF8C42" font-weight="700">Layer 2: Protein Interactions</text>
+                            <rect x="80" y="135" width="220" height="55" fill="#FFF4E6" stroke="#FF8C42" stroke-width="2" rx="5"/>
+                            
+                            <!-- Nodes -->
+                            <circle cx="120" cy="160" r="10" fill="#FF8C42" stroke="#FF8C42" stroke-width="2"/>
+                            <text x="120" y="164" text-anchor="middle" font-size="8" fill="white" font-weight="600">P1</text>
+                            
+                            <circle cx="180" cy="160" r="10" fill="#FF8C42" stroke="#FF8C42" stroke-width="2"/>
+                            <text x="180" y="164" text-anchor="middle" font-size="8" fill="white" font-weight="600">P2</text>
+                            
+                            <circle cx="240" cy="160" r="10" fill="#FF8C42" stroke="#FF8C42" stroke-width="2"/>
+                            <text x="240" y="164" text-anchor="middle" font-size="8" fill="white" font-weight="600">P3</text>
+                            
+                            <circle cx="260" cy="160" r="10" fill="#FF8C42" stroke="#FF8C42" stroke-width="2"/>
+                            <text x="260" y="164" text-anchor="middle" font-size="8" fill="white" font-weight="600">P4</text>
+                            
+                            <!-- Different edges -->
+                            <line x1="130" y1="160" x2="170" y2="160" stroke="#FF8C42" stroke-width="2"/>
+                            <line x1="125" y1="170" x2="175" y2="150" stroke="#FF8C42" stroke-width="2"/>
+                            <line x1="190" y1="160" x2="230" y2="160" stroke="#FF8C42" stroke-width="2"/>
+                            <line x1="250" y1="160" x2="230" y2="160" stroke="#FF8C42" stroke-width="2"/>
+                        </g>
+                        
+                        <!-- Layer 3: Metabolic -->
+                        <g>
+                            <text x="190" y="210" text-anchor="middle" font-size="11" fill="#6C5CE7" font-weight="700">Layer 3: Metabolic Pathways</text>
+                            <rect x="80" y="215" width="220" height="55" fill="#F0EBFF" stroke="#6C5CE7" stroke-width="2" rx="5"/>
+                            
+                            <!-- Nodes -->
+                            <circle cx="120" cy="240" r="10" fill="#6C5CE7" stroke="#6C5CE7" stroke-width="2"/>
+                            <text x="120" y="244" text-anchor="middle" font-size="8" fill="white" font-weight="600">M1</text>
+                            
+                            <circle cx="180" cy="240" r="10" fill="#6C5CE7" stroke="#6C5CE7" stroke-width="2"/>
+                            <text x="180" y="244" text-anchor="middle" font-size="8" fill="white" font-weight="600">M2</text>
+                            
+                            <circle cx="240" cy="240" r="10" fill="#6C5CE7" stroke="#6C5CE7" stroke-width="2"/>
+                            <text x="240" y="244" text-anchor="middle" font-size="8" fill="white" font-weight="600">M3</text>
+                            
+                            <circle cx="260" cy="240" r="10" fill="#6C5CE7" stroke="#6C5CE7" stroke-width="2"/>
+                            <text x="260" y="244" text-anchor="middle" font-size="8" fill="white" font-weight="600">M4</text>
+                            
+                            <!-- Different edges -->
+                            <line x1="130" y1="240" x2="170" y2="240" stroke="#6C5CE7" stroke-width="2"/>
+                            <line x1="190" y1="240" x2="230" y2="240" stroke="#6C5CE7" stroke-width="2"/>
+                            <line x1="250" y1="240" x2="230" y2="240" stroke="#6C5CE7" stroke-width="2"/>
+                            <line x1="125" y1="235" x2="235" y2="245" stroke="#6C5CE7" stroke-width="2" stroke-dasharray="2,2"/>
+                        </g>
+                        
+                        <!-- Inter-layer connections -->
+                        <g>
+                            <!-- Vertical connections between same nodes -->
+                            <line x1="120" y1="90" x2="120" y2="150" stroke="#999" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
+                            <line x1="180" y1="90" x2="180" y2="150" stroke="#999" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
+                            <line x1="240" y1="90" x2="240" y2="150" stroke="#999" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
+                            
+                            <line x1="120" y1="170" x2="120" y2="230" stroke="#999" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
+                            <line x1="180" y1="170" x2="180" y2="230" stroke="#999" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
+                            <line x1="240" y1="170" x2="240" y2="230" stroke="#999" stroke-width="2" stroke-dasharray="5,5" opacity="0.5"/>
+                        </g>
+                        
+                        <!-- Analysis output -->
+                        <g>
+                            <rect x="40" y="285" width="300" height="45" fill="white" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                            <text x="190" y="303" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="700">Integrated Analysis Output</text>
+                            
+                            <rect x="60" y="310" width="80" height="15" fill="#4ECDC4" opacity="0.7" rx="3"/>
+                            <text x="100" y="320" text-anchor="middle" font-size="9" fill="white" font-weight="600">Community 1</text>
+                            
+                            <rect x="150" y="310" width="80" height="15" fill="#FF6B6B" opacity="0.7" rx="3"/>
+                            <text x="190" y="320" text-anchor="middle" font-size="9" fill="white" font-weight="600">Community 2</text>
+                            
+                            <rect x="240" y="310" width="80" height="15" fill="#FFD93D" opacity="0.7" rx="3"/>
+                            <text x="280" y="320" text-anchor="middle" font-size="9" fill="white" font-weight="600">Community 3</text>
+                        </g>
+                        
+                        <!-- Legend -->
+                        <g>
+                            <text x="40" y="125" font-size="8" fill="#999">Inter-layer</text>
+                            <line x1="75" y1="122" x2="95" y2="122" stroke="#999" stroke-width="2" stroke-dasharray="5,5"/>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>Key Features of Multiplex Networks:</h4>
+                <ul>
+                    <li>Each layer captures a different biological relationship type</li>
+                    <li>Nodes represent the same biological entities across layers</li>
+                    <li>Inter-layer connections represent cross-omics relationships</li>
+                    <li>Enables discovery of layer-specific and cross-layer patterns</li>
+                    <li>Useful for identifying versatile biomarkers active across multiple omics layers</li>
+                </ul>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

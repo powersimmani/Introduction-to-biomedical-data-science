@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Antibody Design</title>
+    <title>Antibody Design - Detailed Guide</title>
     <style>
         * {
             margin: 0;
@@ -13,34 +13,43 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 40px 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 40px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 60px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         
         .title {
-            font-size: 32px;
+            font-size: 42px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-align: center;
-            padding-bottom: 15px;
-            border-bottom: 3px solid #1E64C8;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .overview-section {
+            margin-bottom: 60px;
         }
         
         .content-list {
             display: flex;
             flex-direction: column;
-            gap: 20px;
+            gap: 15px;
+            margin-bottom: 60px;
         }
         
         .content-item {
@@ -54,6 +63,7 @@
             transition: all 0.3s ease;
             font-size: 19px;
             color: #333;
+            cursor: pointer;
         }
         
         .content-item:hover {
@@ -68,13 +78,612 @@
             border-radius: 50%;
             flex-shrink: 0;
         }
+        
+        .detail-section {
+            margin-bottom: 80px;
+            padding: 40px;
+            background: #f9fafb;
+            border-radius: 12px;
+            border: 2px solid #e5e7eb;
+        }
+        
+        .detail-section:last-child {
+            margin-bottom: 0;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .section-number {
+            width: 50px;
+            height: 50px;
+            background: linear-gradient(135deg, #1E64C8, #2E7DD8);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            flex-shrink: 0;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+        }
+        
+        .section-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        .text-content {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .description {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        .key-points {
+            background: white;
+            padding: 25px;
+            border-radius: 8px;
+            border-left: 4px solid #1E64C8;
+        }
+        
+        .key-points-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 15px;
+        }
+        
+        .key-points ul {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        
+        .key-points li {
+            padding-left: 25px;
+            position: relative;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        .key-points li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #1E64C8;
+            font-weight: 700;
+        }
+        
+        .visual-content {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .diagram {
+            width: 100%;
+            height: auto;
+            min-height: 300px;
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f2ff 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .diagram-content {
+            text-align: center;
+            z-index: 1;
+        }
+        
+        /* CDR Optimization Diagram */
+        .cdr-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            width: 100%;
+        }
+        
+        .antibody-structure {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+        }
+        
+        .chain {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .chain-label {
+            font-weight: 600;
+            color: #1E64C8;
+            font-size: 14px;
+        }
+        
+        .cdr-regions {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        
+        .cdr-box {
+            padding: 12px 20px;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 600;
+            text-align: center;
+            color: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        
+        .cdr1 { background: linear-gradient(135deg, #FF6B6B, #EE5A6F); }
+        .cdr2 { background: linear-gradient(135deg, #4ECDC4, #44A8A0); }
+        .cdr3 { background: linear-gradient(135deg, #FFA07A, #FF8C66); }
+        
+        /* Humanization Diagram */
+        .humanization-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .antibody-type {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .antibody-visual {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 40px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+        
+        .mouse-ab { background: linear-gradient(135deg, #95a5a6, #7f8c8d); }
+        .human-ab { background: linear-gradient(135deg, #3498db, #2980b9); }
+        
+        .arrow {
+            font-size: 36px;
+            color: #1E64C8;
+            font-weight: 700;
+        }
+        
+        .type-label {
+            font-weight: 600;
+            color: #333;
+            text-align: center;
+        }
+        
+        /* Affinity Maturation Diagram */
+        .affinity-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 25px;
+            width: 100%;
+        }
+        
+        .affinity-stages {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .affinity-stage {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 10px;
+            flex: 1;
+        }
+        
+        .affinity-circle {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: white;
+            box-shadow: 0 3px 8px rgba(0,0,0,0.2);
+        }
+        
+        .kd-weak { background: linear-gradient(135deg, #e74c3c, #c0392b); font-size: 16px; }
+        .kd-medium { background: linear-gradient(135deg, #f39c12, #d68910); font-size: 16px; }
+        .kd-strong { background: linear-gradient(135deg, #27ae60, #229954); font-size: 16px; }
+        
+        .stage-arrow {
+            font-size: 24px;
+            color: #1E64C8;
+        }
+        
+        /* Specificity Diagram */
+        .specificity-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            align-items: center;
+            width: 100%;
+        }
+        
+        .target-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            width: 100%;
+        }
+        
+        .target-box {
+            padding: 20px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+        }
+        
+        .target-on { 
+            background: linear-gradient(135deg, #2ecc71, #27ae60);
+            color: white;
+        }
+        
+        .target-off { 
+            background: linear-gradient(135deg, #e0e0e0, #bdbdbd);
+            color: #666;
+        }
+        
+        /* Developability Diagram */
+        .developability-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+        
+        .property-bar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .property-label {
+            width: 120px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .progress-bar {
+            flex: 1;
+            height: 24px;
+            background: #e0e0e0;
+            border-radius: 12px;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #1E64C8, #2E7DD8);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: flex-end;
+            padding-right: 10px;
+            color: white;
+            font-size: 11px;
+            font-weight: 600;
+        }
+        
+        .diagram-caption {
+            font-size: 14px;
+            color: #666;
+            text-align: center;
+            font-style: italic;
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 968px) {
+            .section-content {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Antibody Design</div>
-        <div class="content-list">
-            <div class="content-item"><div class="bullet"></div><div>CDR optimization</div></div><div class="content-item"><div class="bullet"></div><div>Humanization</div></div><div class="content-item"><div class="bullet"></div><div>Affinity maturation</div></div><div class="content-item"><div class="bullet"></div><div>Specificity engineering</div></div><div class="content-item"><div class="bullet"></div><div>Developability</div></div>
+        <div class="overview-section">
+            <div class="title">Antibody Design</div>
+            <div class="subtitle">Comprehensive Guide to Therapeutic Antibody Engineering</div>
+            
+            <div class="content-list">
+                <div class="content-item"><div class="bullet"></div><div>CDR Optimization</div></div>
+                <div class="content-item"><div class="bullet"></div><div>Humanization</div></div>
+                <div class="content-item"><div class="bullet"></div><div>Affinity Maturation</div></div>
+                <div class="content-item"><div class="bullet"></div><div>Specificity Engineering</div></div>
+                <div class="content-item"><div class="bullet"></div><div>Developability</div></div>
+            </div>
+        </div>
+
+        <!-- CDR Optimization -->
+        <div class="detail-section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <div class="section-title">CDR Optimization</div>
+            </div>
+            <div class="section-content">
+                <div class="text-content">
+                    <div class="description">
+                        Complementarity-Determining Regions (CDRs) are the hypervariable loops within the antibody variable domains that directly interact with the antigen. CDR optimization focuses on modifying these critical regions to enhance binding properties, reduce immunogenicity, and improve overall antibody performance. The three CDR loops in both heavy and light chains (CDR-H1, CDR-H2, CDR-H3, CDR-L1, CDR-L2, CDR-L3) form the antigen-binding site.
+                    </div>
+                    <div class="key-points">
+                        <div class="key-points-title">Key Approaches:</div>
+                        <ul>
+                            <li>Rational design based on structural analysis of antibody-antigen complexes</li>
+                            <li>Computational modeling to predict favorable mutations</li>
+                            <li>Focused mutagenesis libraries targeting hotspot residues</li>
+                            <li>Structure-guided optimization using crystallography or cryo-EM data</li>
+                            <li>Conservation of framework integrity while modifying CDR loops</li>
+                            <li>Balancing affinity improvements with stability maintenance</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <div class="diagram">
+                        <div class="cdr-diagram">
+                            <div class="antibody-structure">
+                                <div class="chain">
+                                    <div class="chain-label">Heavy Chain</div>
+                                    <div class="cdr-regions">
+                                        <div class="cdr-box cdr1">CDR-H1</div>
+                                        <div class="cdr-box cdr2">CDR-H2</div>
+                                        <div class="cdr-box cdr3">CDR-H3</div>
+                                    </div>
+                                </div>
+                                <div class="chain">
+                                    <div class="chain-label">Light Chain</div>
+                                    <div class="cdr-regions">
+                                        <div class="cdr-box cdr1">CDR-L1</div>
+                                        <div class="cdr-box cdr2">CDR-L2</div>
+                                        <div class="cdr-box cdr3">CDR-L3</div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="diagram-caption">Six CDR loops form the antigen-binding site</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Humanization -->
+        <div class="detail-section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <div class="section-title">Humanization</div>
+            </div>
+            <div class="section-content">
+                <div class="text-content">
+                    <div class="description">
+                        Humanization is the process of converting non-human antibodies (typically from mice or other rodents) into forms that closely resemble human antibodies. This critical step reduces immunogenicity in patients, minimizing the risk of anti-drug antibodies (ADAs) that can neutralize therapeutic efficacy or cause adverse reactions. The goal is to maintain the antigen-binding properties while replacing most of the antibody sequence with human-derived sequences.
+                    </div>
+                    <div class="key-points">
+                        <div class="key-points-title">Key Methods:</div>
+                        <ul>
+                            <li>CDR grafting: Transfer CDRs from mouse antibody to human framework</li>
+                            <li>Framework region selection from human germline sequences</li>
+                            <li>Back-mutation of key residues to restore binding affinity</li>
+                            <li>Vernier zone optimization to support CDR conformation</li>
+                            <li>Computational tools for identifying critical residues</li>
+                            <li>Validation of reduced immunogenicity through T-cell epitope prediction</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <div class="diagram">
+                        <div class="humanization-diagram">
+                            <div class="antibody-type">
+                                <div class="antibody-visual mouse-ab">🐭</div>
+                                <div class="type-label">Mouse<br>Antibody</div>
+                            </div>
+                            <div class="arrow">→</div>
+                            <div class="antibody-type">
+                                <div class="antibody-visual human-ab">👤</div>
+                                <div class="type-label">Humanized<br>Antibody</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="diagram-caption">Conversion from murine to human-compatible format</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Affinity Maturation -->
+        <div class="detail-section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <div class="section-title">Affinity Maturation</div>
+            </div>
+            <div class="section-content">
+                <div class="text-content">
+                    <div class="description">
+                        Affinity maturation is the process of improving antibody binding strength to its target antigen. This mimics the natural immune process where B cells undergo somatic hypermutation to produce higher-affinity antibodies. In therapeutic development, artificial affinity maturation enhances antibody potency, potentially reducing required doses and improving efficacy. The goal is to achieve low nanomolar to picomolar binding affinities (Kd values).
+                    </div>
+                    <div class="key-points">
+                        <div class="key-points-title">Key Strategies:</div>
+                        <ul>
+                            <li>Random mutagenesis followed by high-throughput screening</li>
+                            <li>Site-directed mutagenesis at hotspot positions</li>
+                            <li>Display technologies (phage, yeast, ribosome display)</li>
+                            <li>Error-prone PCR to generate diversity libraries</li>
+                            <li>Computational design using molecular dynamics simulations</li>
+                            <li>Iterative rounds of mutation and selection for incremental improvements</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <div class="diagram">
+                        <div class="affinity-diagram">
+                            <div class="affinity-stages">
+                                <div class="affinity-stage">
+                                    <div class="affinity-circle kd-weak">Kd 100 nM</div>
+                                    <div class="type-label">Initial</div>
+                                </div>
+                                <div class="stage-arrow">→</div>
+                                <div class="affinity-stage">
+                                    <div class="affinity-circle kd-medium">Kd 10 nM</div>
+                                    <div class="type-label">Optimized</div>
+                                </div>
+                                <div class="stage-arrow">→</div>
+                                <div class="affinity-stage">
+                                    <div class="affinity-circle kd-strong">Kd 1 nM</div>
+                                    <div class="type-label">Matured</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="diagram-caption">Progressive improvement in binding affinity (lower Kd = stronger binding)</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Specificity Engineering -->
+        <div class="detail-section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <div class="section-title">Specificity Engineering</div>
+            </div>
+            <div class="section-content">
+                <div class="text-content">
+                    <div class="description">
+                        Specificity engineering ensures that antibodies recognize and bind exclusively to their intended target while avoiding off-target interactions. High specificity is crucial for therapeutic safety, preventing adverse effects from cross-reactivity with similar proteins or unintended tissues. This involves careful selection and engineering to discriminate between highly similar molecules, including closely related family members or post-translational variants.
+                    </div>
+                    <div class="key-points">
+                        <div class="key-points-title">Key Considerations:</div>
+                        <ul>
+                            <li>Differential screening against related proteins and homologs</li>
+                            <li>Epitope mapping to identify unique binding sites</li>
+                            <li>Cross-reactivity testing across species and protein variants</li>
+                            <li>Negative selection to eliminate polyreactive clones</li>
+                            <li>Engineering selectivity for specific conformational states</li>
+                            <li>Computational analysis of potential off-target binding</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <div class="diagram">
+                        <div class="specificity-diagram">
+                            <div class="target-grid">
+                                <div class="target-box target-on">✓ Target<br>Antigen</div>
+                                <div class="target-box target-off">✗ Off-Target 1</div>
+                                <div class="target-box target-off">✗ Off-Target 2</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="diagram-caption">Selective binding to intended target only</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Developability -->
+        <div class="detail-section">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <div class="section-title">Developability</div>
+            </div>
+            <div class="section-content">
+                <div class="text-content">
+                    <div class="description">
+                        Developability refers to the pharmaceutical and biophysical properties that enable an antibody to be successfully manufactured, formulated, and administered as a drug product. Even highly potent and specific antibodies can fail in development due to poor biophysical properties. Developability assessment evaluates stability, solubility, aggregation propensity, viscosity, and manufacturing efficiency to ensure the molecule can progress through clinical development.
+                    </div>
+                    <div class="key-points">
+                        <div class="key-points-title">Critical Parameters:</div>
+                        <ul>
+                            <li>Thermal stability (Tm, Tagg) for storage and handling</li>
+                            <li>High-concentration formulation capability (>100 mg/mL)</li>
+                            <li>Low aggregation tendency and colloidal stability</li>
+                            <li>Acceptable viscosity for subcutaneous administration</li>
+                            <li>Chemical stability against degradation pathways</li>
+                            <li>Expression yield in manufacturing cell lines (CHO, HEK293)</li>
+                            <li>Post-translational modification profiles</li>
+                            <li>Absence of self-association or polyreactivity</li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="visual-content">
+                    <div class="diagram">
+                        <div class="developability-diagram">
+                            <div class="property-bar">
+                                <div class="property-label">Stability</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 85%;">Excellent</div>
+                                </div>
+                            </div>
+                            <div class="property-bar">
+                                <div class="property-label">Solubility</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 90%;">High</div>
+                                </div>
+                            </div>
+                            <div class="property-bar">
+                                <div class="property-label">Low Aggregation</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 80%;">Good</div>
+                                </div>
+                            </div>
+                            <div class="property-bar">
+                                <div class="property-label">Expression Yield</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 75%;">Good</div>
+                                </div>
+                            </div>
+                            <div class="property-bar">
+                                <div class="property-label">Low Viscosity</div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 88%;">Excellent</div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="diagram-caption">Key biophysical properties for successful development</div>
+                </div>
+            </div>
         </div>
     </div>
 </body>

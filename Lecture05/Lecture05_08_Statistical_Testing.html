@@ -1,53 +1,174 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Statistical Testing</title>
+    <title>Statistical Testing - Detailed Guide</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f8f9fa;
+            padding: 20px;
         }
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 30px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .title {
-            font-size: 28px;
-            font-weight: 600;
+            font-size: 32px;
+            font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 15px;
         }
         .visual-comparison {
             width: 100%;
-            height: 430px;
+            margin-bottom: 40px;
         }
         .note-box {
             background: #f0f5fc;
             border-left: 4px solid #1E64C8;
             border-radius: 6px;
-            padding: 12px 18px;
-            margin-top: 10px;
+            padding: 15px 20px;
+            margin: 20px 0;
         }
         .note-text {
             font-size: 16px;
             color: #333;
             font-weight: 600;
         }
+        .method-section {
+            margin: 50px 0;
+            padding: 30px;
+            border-radius: 10px;
+        }
+        .deseq2-section {
+            background: linear-gradient(135deg, #E3F2FD 0%, #BBDEFB 100%);
+            border: 2px solid #1976D2;
+        }
+        .edger-section {
+            background: linear-gradient(135deg, #FFF3E0 0%, #FFE0B2 100%);
+            border: 2px solid #F57C00;
+        }
+        .limma-section {
+            background: linear-gradient(135deg, #E8F5E9 0%, #C8E6C9 100%);
+            border: 2px solid #388E3C;
+        }
+        .method-title {
+            font-size: 28px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .deseq2-section .method-title { color: #0D47A1; }
+        .edger-section .method-title { color: #E65100; }
+        .limma-section .method-title { color: #1B5E20; }
+        .subsection {
+            background: white;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .subsection-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .description {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 15px;
+        }
+        .feature-list {
+            margin: 15px 0;
+        }
+        .feature-item {
+            display: flex;
+            align-items: start;
+            margin: 10px 0;
+            padding: 10px;
+            background: #f8f9fa;
+            border-radius: 5px;
+        }
+        .feature-bullet {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            margin-right: 12px;
+            margin-top: 6px;
+            flex-shrink: 0;
+        }
+        .deseq2-section .feature-bullet { background: #1976D2; }
+        .edger-section .feature-bullet { background: #F57C00; }
+        .limma-section .feature-bullet { background: #388E3C; }
+        .feature-text {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .diagram-container {
+            margin: 20px 0;
+            padding: 15px;
+            background: white;
+            border-radius: 8px;
+        }
+        .code-example {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        .code-comment {
+            color: #75715e;
+        }
+        .code-function {
+            color: #66d9ef;
+        }
+        .code-string {
+            color: #e6db74;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+            background: white;
+        }
+        .comparison-table th {
+            background: #1E64C8;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        .comparison-table tr:hover {
+            background: #f5f5f5;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Statistical Testing</div>
+        <div class="title">Statistical Testing in RNA-seq Analysis</div>
+        
+        <!-- Original Comparison -->
         <div class="visual-comparison">
             <svg width="100%" height="100%" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
                 <!-- Method Comparison Framework -->
@@ -58,11 +179,9 @@
                     <rect x="20" y="50" width="270" height="340" rx="10" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
                     <text x="155" y="75" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#0D47A1" text-anchor="middle">DESeq2</text>
                     
-                    <!-- Model equation -->
                     <rect x="35" y="90" width="240" height="40" rx="5" fill="white" stroke="#1976D2" stroke-width="1"/>
                     <text x="155" y="115" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">Y ~ NB(μ, α)</text>
                     
-                    <!-- Features -->
                     <text x="35" y="150" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#1976D2">Key Features:</text>
                     
                     <circle cx="45" cy="170" r="3" fill="#1976D2"/>
@@ -74,15 +193,12 @@
                     <circle cx="45" cy="210" r="3" fill="#1976D2"/>
                     <text x="55" y="214" font-family="Aptos, sans-serif" font-size="11" fill="#333">Wald test / LRT</text>
                     
-                    <!-- Visualization -->
                     <rect x="35" y="230" width="240" height="140" rx="5" fill="white" stroke="#1976D2" stroke-width="1"/>
                     <text x="155" y="250" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#666" text-anchor="middle">Dispersion Shrinkage</text>
                     
-                    <!-- Dispersion plot -->
                     <line x1="60" y1="340" x2="250" y2="340" stroke="#999" stroke-width="1"/>
                     <line x1="60" y1="340" x2="60" y2="270" stroke="#999" stroke-width="1"/>
                     
-                    <!-- Points before shrinkage -->
                     <circle cx="80" cy="280" r="2" fill="#FFB74D" opacity="0.5"/>
                     <circle cx="100" cy="290" r="2" fill="#FFB74D" opacity="0.5"/>
                     <circle cx="120" cy="275" r="2" fill="#FFB74D" opacity="0.5"/>
@@ -92,10 +208,8 @@
                     <circle cx="200" cy="310" r="2" fill="#FFB74D" opacity="0.5"/>
                     <circle cx="220" cy="320" r="2" fill="#FFB74D" opacity="0.5"/>
                     
-                    <!-- Fitted line -->
                     <path d="M 60 330 Q 155 290, 250 280" stroke="#1976D2" stroke-width="2" fill="none"/>
                     
-                    <!-- Points after shrinkage -->
                     <circle cx="80" cy="310" r="2" fill="#1976D2"/>
                     <circle cx="100" cy="305" r="2" fill="#1976D2"/>
                     <circle cx="120" cy="300" r="2" fill="#1976D2"/>
@@ -113,11 +227,9 @@
                     <rect x="315" y="50" width="270" height="340" rx="10" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
                     <text x="450" y="75" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#E65100" text-anchor="middle">edgeR</text>
                     
-                    <!-- Model equation -->
                     <rect x="330" y="90" width="240" height="40" rx="5" fill="white" stroke="#F57C00" stroke-width="1"/>
                     <text x="450" y="115" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">Y ~ NB(μ, φ)</text>
                     
-                    <!-- Features -->
                     <text x="330" y="150" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#E65100">Key Features:</text>
                     
                     <circle cx="340" cy="170" r="3" fill="#F57C00"/>
@@ -129,18 +241,14 @@
                     <circle cx="340" cy="210" r="3" fill="#F57C00"/>
                     <text x="350" y="214" font-family="Aptos, sans-serif" font-size="11" fill="#333">Quasi-likelihood F-test</text>
                     
-                    <!-- Visualization -->
                     <rect x="330" y="230" width="240" height="140" rx="5" fill="white" stroke="#F57C00" stroke-width="1"/>
                     <text x="450" y="250" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#666" text-anchor="middle">BCV Plot</text>
                     
-                    <!-- BCV plot -->
                     <line x1="355" y1="340" x2="545" y2="340" stroke="#999" stroke-width="1"/>
                     <line x1="355" y1="340" x2="355" y2="270" stroke="#999" stroke-width="1"/>
                     
-                    <!-- Common dispersion line -->
                     <line x1="355" y1="310" x2="545" y2="310" stroke="#F57C00" stroke-width="2" stroke-dasharray="5,5"/>
                     
-                    <!-- Tagwise dispersions -->
                     <circle cx="375" cy="315" r="2" fill="#FFB74D"/>
                     <circle cx="395" cy="305" r="2" fill="#FFB74D"/>
                     <circle cx="415" cy="320" r="2" fill="#FFB74D"/>
@@ -150,7 +258,6 @@
                     <circle cx="495" cy="306" r="2" fill="#FFB74D"/>
                     <circle cx="515" cy="314" r="2" fill="#FFB74D"/>
                     
-                    <!-- Trended dispersion -->
                     <path d="M 355 320 Q 450 305, 545 300" stroke="#E65100" stroke-width="2" fill="none"/>
                     
                     <text x="450" y="360" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Average LogCPM</text>
@@ -161,11 +268,9 @@
                     <rect x="610" y="50" width="270" height="340" rx="10" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
                     <text x="745" y="75" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#1B5E20" text-anchor="middle">limma-voom</text>
                     
-                    <!-- Model equation -->
                     <rect x="625" y="90" width="240" height="40" rx="5" fill="white" stroke="#388E3C" stroke-width="1"/>
                     <text x="745" y="115" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">log(Y) ~ N(μ, σ²)</text>
                     
-                    <!-- Features -->
                     <text x="625" y="150" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#388E3C">Key Features:</text>
                     
                     <circle cx="635" cy="170" r="3" fill="#388E3C"/>
@@ -177,15 +282,12 @@
                     <circle cx="635" cy="210" r="3" fill="#388E3C"/>
                     <text x="645" y="214" font-family="Aptos, sans-serif" font-size="11" fill="#333">Linear modeling</text>
                     
-                    <!-- Visualization -->
                     <rect x="625" y="230" width="240" height="140" rx="5" fill="white" stroke="#388E3C" stroke-width="1"/>
                     <text x="745" y="250" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#666" text-anchor="middle">Mean-Variance Trend</text>
                     
-                    <!-- Mean-variance plot -->
                     <line x1="650" y1="340" x2="840" y2="340" stroke="#999" stroke-width="1"/>
                     <line x1="650" y1="340" x2="650" y2="270" stroke="#999" stroke-width="1"/>
                     
-                    <!-- Data points -->
                     <circle cx="670" cy="320" r="2" fill="#81C784" opacity="0.6"/>
                     <circle cx="690" cy="315" r="2" fill="#81C784" opacity="0.6"/>
                     <circle cx="710" cy="310" r="2" fill="#81C784" opacity="0.6"/>
@@ -195,19 +297,868 @@
                     <circle cx="790" cy="290" r="2" fill="#81C784" opacity="0.6"/>
                     <circle cx="810" cy="285" r="2" fill="#81C784" opacity="0.6"/>
                     
-                    <!-- Fitted trend -->
                     <path d="M 650 325 Q 745 295, 840 280" stroke="#388E3C" stroke-width="2" fill="none"/>
                     
                     <text x="745" y="360" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Mean Expression</text>
                 </g>
                 
-                <!-- Comparison Summary -->
                 <rect x="20" y="400" width="860" height="15" rx="5" fill="#f0f5fc"/>
                 <text x="450" y="411" font-family="Aptos, sans-serif" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">Performance: All methods perform similarly with proper use • Choose based on experimental design and analysis goals</text>
             </svg>
         </div>
+        
         <div class="note-box">
             <div class="note-text">💡 DESeq2 and edgeR are most widely used and well-validated</div>
+        </div>
+
+        <!-- ==================== DESeq2 DETAILED SECTION ==================== -->
+        <div class="method-section deseq2-section">
+            <div class="method-title">
+                📊 DESeq2 - Detailed Analysis
+            </div>
+
+            <!-- Overview -->
+            <div class="subsection">
+                <div class="subsection-title">Overview</div>
+                <div class="description">
+                    DESeq2 is a statistical method for differential gene expression analysis based on the negative binomial distribution. It uses shrinkage estimation to improve dispersion estimates, especially for genes with low counts or small sample sizes. DESeq2 is particularly robust for experiments with small sample sizes (3-5 replicates per condition).
+                </div>
+            </div>
+
+            <!-- Statistical Model -->
+            <div class="subsection">
+                <div class="subsection-title">Statistical Model</div>
+                <div class="description">
+                    DESeq2 models RNA-seq count data using a negative binomial (NB) distribution:
+                </div>
+                <div class="diagram-container">
+                    <svg width="100%" height="200" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Model equation -->
+                        <rect x="50" y="30" width="700" height="60" rx="10" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                        <text x="400" y="60" font-family="Aptos, sans-serif" font-size="18" fill="#0D47A1" text-anchor="middle" font-weight="700">K ~ NB(μ, α)</text>
+                        
+                        <!-- Explanations -->
+                        <text x="80" y="120" font-family="Aptos, sans-serif" font-size="14" fill="#333">K = Read counts for a gene</text>
+                        <text x="80" y="145" font-family="Aptos, sans-serif" font-size="14" fill="#333">μ = Mean expression level (affected by sequencing depth and biological condition)</text>
+                        <text x="80" y="170" font-family="Aptos, sans-serif" font-size="14" fill="#333">α = Dispersion parameter (controls variance beyond mean)</text>
+                        
+                        <!-- Visual representation -->
+                        <circle cx="680" cy="60" r="25" fill="#1976D2" opacity="0.3"/>
+                        <text x="680" y="65" font-family="Aptos, sans-serif" font-size="12" fill="#0D47A1" text-anchor="middle" font-weight="700">NB</text>
+                    </svg>
+                </div>
+                <div class="description">
+                    The mean μ is modeled as: <strong>μ = s × q</strong>, where s is the size factor (normalization) and q is the expected count related to the biological condition.
+                </div>
+            </div>
+
+            <!-- Workflow -->
+            <div class="subsection">
+                <div class="subsection-title">Analysis Workflow</div>
+                <div class="diagram-container">
+                    <svg width="100%" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Step 1 -->
+                        <rect x="50" y="20" width="700" height="60" rx="8" fill="#BBDEFB" stroke="#1976D2" stroke-width="2"/>
+                        <text x="400" y="45" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#0D47A1" text-anchor="middle">1. Size Factor Normalization</text>
+                        <text x="400" y="65" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">Median of ratios method - accounts for sequencing depth differences</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 80 L 400 100" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowblue)"/>
+                        
+                        <!-- Step 2 -->
+                        <rect x="50" y="100" width="700" height="60" rx="8" fill="#BBDEFB" stroke="#1976D2" stroke-width="2"/>
+                        <text x="400" y="125" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#0D47A1" text-anchor="middle">2. Dispersion Estimation</text>
+                        <text x="400" y="145" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">Gene-wise → fitted trend → shrinkage toward trend</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 160 L 400 180" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowblue)"/>
+                        
+                        <!-- Step 3 -->
+                        <rect x="50" y="180" width="700" height="60" rx="8" fill="#BBDEFB" stroke="#1976D2" stroke-width="2"/>
+                        <text x="400" y="205" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#0D47A1" text-anchor="middle">3. Negative Binomial GLM Fitting</text>
+                        <text x="400" y="225" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">Fit model for each gene using estimated dispersions</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 240 L 400 260" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowblue)"/>
+                        
+                        <!-- Step 4 -->
+                        <rect x="50" y="260" width="700" height="60" rx="8" fill="#BBDEFB" stroke="#1976D2" stroke-width="2"/>
+                        <text x="400" y="285" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#0D47A1" text-anchor="middle">4. Statistical Testing</text>
+                        <text x="400" y="305" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">Wald test for pairwise comparisons / LRT for multiple conditions</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 320 L 400 340" stroke="#1976D2" stroke-width="2" marker-end="url(#arrowblue)"/>
+                        
+                        <!-- Step 5 -->
+                        <rect x="50" y="340" width="700" height="45" rx="8" fill="#1976D2" stroke="#0D47A1" stroke-width="2"/>
+                        <text x="400" y="365" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="white" text-anchor="middle">5. Multiple Testing Correction (Benjamini-Hochberg)</text>
+                        
+                        <!-- Arrow marker definition -->
+                        <defs>
+                            <marker id="arrowblue" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#1976D2"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Key Features -->
+            <div class="subsection">
+                <div class="subsection-title">Key Features & Advantages</div>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feature-bullet"></div>
+                        <div class="feature-text">
+                            <strong>Shrinkage Estimation:</strong> Borrows information across genes to improve dispersion estimates, particularly beneficial for genes with low counts. This reduces false positives while maintaining sensitivity.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-bullet"></div>
+                        <div class="feature-text">
+                            <strong>Size Factor Normalization:</strong> Uses geometric mean of ratios method, which is robust to outliers and doesn't assume most genes are unchanged between conditions.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-bullet"></div>
+                        <div class="feature-text">
+                            <strong>Small Sample Performance:</strong> Performs well with as few as 2-3 replicates per condition, though 3-5 is recommended for reliable results.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-bullet"></div>
+                        <div class="feature-text">
+                            <strong>Independent Filtering:</strong> Automatically filters out low-count genes to increase statistical power for detecting truly differentially expressed genes.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Example -->
+            <div class="subsection">
+                <div class="subsection-title">Example R Code</div>
+                <div class="code-example">
+<span class="code-comment"># Load library</span>
+<span class="code-function">library</span>(DESeq2)
+
+<span class="code-comment"># Create DESeq2 dataset</span>
+dds <- <span class="code-function">DESeqDataSetFromMatrix</span>(
+    countData = counts,
+    colData = metadata,
+    design = ~ condition
+)
+
+<span class="code-comment"># Run DESeq2 analysis (all steps in one)</span>
+dds <- <span class="code-function">DESeq</span>(dds)
+
+<span class="code-comment"># Extract results</span>
+results <- <span class="code-function">results</span>(dds, contrast = <span class="code-function">c</span>(<span class="code-string">"condition"</span>, <span class="code-string">"treated"</span>, <span class="code-string">"control"</span>))
+
+<span class="code-comment"># Apply shrinkage to log2 fold changes</span>
+resultsLFC <- <span class="code-function">lfcShrink</span>(dds, coef = <span class="code-string">"condition_treated_vs_control"</span>, type = <span class="code-string">"apeglm"</span>)
+
+<span class="code-comment"># View summary</span>
+<span class="code-function">summary</span>(results)
+                </div>
+            </div>
+
+            <!-- Dispersion Plot Explanation -->
+            <div class="subsection">
+                <div class="subsection-title">Understanding Dispersion Shrinkage</div>
+                <div class="diagram-container">
+                    <svg width="100%" height="300" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Title -->
+                        <text x="400" y="25" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#0D47A1" text-anchor="middle">Dispersion Plot: Before and After Shrinkage</text>
+                        
+                        <!-- Axes -->
+                        <line x1="80" y1="250" x2="720" y2="250" stroke="#333" stroke-width="2"/>
+                        <line x1="80" y1="250" x2="80" y2="60" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Axis labels -->
+                        <text x="400" y="280" font-family="Aptos, sans-serif" font-size="13" fill="#333" text-anchor="middle">Mean of Normalized Counts (log scale)</text>
+                        <text x="30" y="155" font-family="Aptos, sans-serif" font-size="13" fill="#333" text-anchor="middle" transform="rotate(-90 30 155)">Dispersion (log scale)</text>
+                        
+                        <!-- Gene-wise estimates (scattered) -->
+                        <circle cx="120" cy="100" r="4" fill="#FFB74D" opacity="0.6"/>
+                        <circle cx="160" cy="140" r="4" fill="#FFB74D" opacity="0.6"/>
+                        <circle cx="200" cy="110" r="4" fill="#FFB74D" opacity="0.6"/>
+                        <circle cx="240" cy="160" r="4" fill="#FFB74D" opacity="0.6"/>
+                        <circle cx="280" cy="130" r="4" fill="#FFB74D" opacity="0.6"/>
+                        <circle cx="320" cy="170" r="4" fill="#FFB74D" opacity="0.6"/>
+                        <circle cx="360" cy="150" r="4" fill="#FFB74D" opacity="0.6"/>
+                        <circle cx="400" cy="180" r="4" fill="#FFB74D" opacity="0.6"/>
+                        <circle cx="440" cy="165" r="4" fill="#FFB74D" opacity="0.6"/>
+                        <circle cx="480" cy="190" r="4" fill="#FFB74D" opacity="0.6"/>
+                        <circle cx="520" cy="175" r="4" fill="#FFB74D" opacity="0.6"/>
+                        <circle cx="560" cy="200" r="4" fill="#FFB74D" opacity="0.6"/>
+                        <circle cx="600" cy="185" r="4" fill="#FFB74D" opacity="0.6"/>
+                        <circle cx="640" cy="210" r="4" fill="#FFB74D" opacity="0.6"/>
+                        <circle cx="680" cy="195" r="4" fill="#FFB74D" opacity="0.6"/>
+                        
+                        <!-- Fitted trend line -->
+                        <path d="M 80 120 Q 400 160 720 200" stroke="#E65100" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+                        
+                        <!-- Final MAP estimates (on trend) -->
+                        <circle cx="120" cy="125" r="4" fill="#1976D2"/>
+                        <circle cx="200" cy="135" r="4" fill="#1976D2"/>
+                        <circle cx="280" cy="145" r="4" fill="#1976D2"/>
+                        <circle cx="360" cy="155" r="4" fill="#1976D2"/>
+                        <circle cx="440" cy="165" r="4" fill="#1976D2"/>
+                        <circle cx="520" cy="175" r="4" fill="#1976D2"/>
+                        <circle cx="600" cy="185" r="4" fill="#1976D2"/>
+                        <circle cx="680" cy="195" r="4" fill="#1976D2"/>
+                        
+                        <!-- Legend -->
+                        <circle cx="550" cy="85" r="4" fill="#FFB74D" opacity="0.6"/>
+                        <text x="560" y="89" font-family="Aptos, sans-serif" font-size="11" fill="#333">Gene-wise estimates</text>
+                        
+                        <line x1="545" y1="105" x2="555" y2="105" stroke="#E65100" stroke-width="2" stroke-dasharray="3,3"/>
+                        <text x="560" y="109" font-family="Aptos, sans-serif" font-size="11" fill="#333">Fitted trend</text>
+                        
+                        <circle cx="550" cy="125" r="4" fill="#1976D2"/>
+                        <text x="560" y="129" font-family="Aptos, sans-serif" font-size="11" fill="#333">Final MAP estimates</text>
+                    </svg>
+                </div>
+                <div class="description">
+                    <strong>Orange points</strong> represent initial gene-wise dispersion estimates (noisy, especially for low-count genes). <strong>Red dashed line</strong> shows the fitted trend across all genes. <strong>Blue points</strong> are the final maximum a posteriori (MAP) estimates after shrinkage toward the trend, providing more stable estimates.
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== edgeR DETAILED SECTION ==================== -->
+        <div class="method-section edger-section">
+            <div class="method-title">
+                📈 edgeR - Detailed Analysis
+            </div>
+
+            <!-- Overview -->
+            <div class="subsection">
+                <div class="subsection-title">Overview</div>
+                <div class="description">
+                    edgeR (empirical analysis of digital gene expression data in R) uses empirical Bayes methods to estimate biological variability. It's particularly well-suited for experiments with multiple factors and complex experimental designs. edgeR is known for its speed and flexibility in handling various study designs.
+                </div>
+            </div>
+
+            <!-- Statistical Model -->
+            <div class="subsection">
+                <div class="subsection-title">Statistical Model</div>
+                <div class="description">
+                    edgeR also uses the negative binomial distribution but parameterizes it slightly differently:
+                </div>
+                <div class="diagram-container">
+                    <svg width="100%" height="200" viewBox="0 0 800 200" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Model equation -->
+                        <rect x="50" y="30" width="700" height="60" rx="10" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+                        <text x="400" y="60" font-family="Aptos, sans-serif" font-size="18" fill="#E65100" text-anchor="middle" font-weight="700">Y ~ NB(μ, φ)</text>
+                        
+                        <!-- Explanations -->
+                        <text x="80" y="120" font-family="Aptos, sans-serif" font-size="14" fill="#333">Y = Read counts for a gene</text>
+                        <text x="80" y="145" font-family="Aptos, sans-serif" font-size="14" fill="#333">μ = Mean expression level</text>
+                        <text x="80" y="170" font-family="Aptos, sans-serif" font-size="14" fill="#333">φ = Dispersion parameter (Variance = μ + φμ²)</text>
+                        
+                        <!-- Visual representation -->
+                        <circle cx="680" cy="60" r="25" fill="#F57C00" opacity="0.3"/>
+                        <text x="680" y="65" font-family="Aptos, sans-serif" font-size="12" fill="#E65100" text-anchor="middle" font-weight="700">NB</text>
+                    </svg>
+                </div>
+                <div class="description">
+                    edgeR models dispersion as a combination of common, trended, and tagwise (gene-specific) components, providing flexibility in capturing biological variability.
+                </div>
+            </div>
+
+            <!-- Workflow -->
+            <div class="subsection">
+                <div class="subsection-title">Analysis Workflow</div>
+                <div class="diagram-container">
+                    <svg width="100%" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Step 1 -->
+                        <rect x="50" y="20" width="700" height="60" rx="8" fill="#FFE0B2" stroke="#F57C00" stroke-width="2"/>
+                        <text x="400" y="45" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#E65100" text-anchor="middle">1. TMM Normalization</text>
+                        <text x="400" y="65" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">Trimmed Mean of M-values - robust to extreme gene expression</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 80 L 400 100" stroke="#F57C00" stroke-width="2" marker-end="url(#arroworange)"/>
+                        
+                        <!-- Step 2 -->
+                        <rect x="50" y="100" width="700" height="60" rx="8" fill="#FFE0B2" stroke="#F57C00" stroke-width="2"/>
+                        <text x="400" y="125" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#E65100" text-anchor="middle">2. Dispersion Estimation</text>
+                        <text x="400" y="145" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">Common → Trended → Tagwise dispersions using empirical Bayes</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 160 L 400 180" stroke="#F57C00" stroke-width="2" marker-end="url(#arroworange)"/>
+                        
+                        <!-- Step 3 -->
+                        <rect x="50" y="180" width="700" height="60" rx="8" fill="#FFE0B2" stroke="#F57C00" stroke-width="2"/>
+                        <text x="400" y="205" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#E65100" text-anchor="middle">3. GLM Fitting</text>
+                        <text x="400" y="225" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">Fit negative binomial GLM for each gene</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 240 L 400 260" stroke="#F57C00" stroke-width="2" marker-end="url(#arroworange)"/>
+                        
+                        <!-- Step 4 -->
+                        <rect x="50" y="260" width="700" height="60" rx="8" fill="#FFE0B2" stroke="#F57C00" stroke-width="2"/>
+                        <text x="400" y="285" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#E65100" text-anchor="middle">4. Statistical Testing</text>
+                        <text x="400" y="305" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">Exact test / Likelihood ratio test / Quasi-likelihood F-test</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 320 L 400 340" stroke="#F57C00" stroke-width="2" marker-end="url(#arroworange)"/>
+                        
+                        <!-- Step 5 -->
+                        <rect x="50" y="340" width="700" height="45" rx="8" fill="#F57C00" stroke="#E65100" stroke-width="2"/>
+                        <text x="400" y="365" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="white" text-anchor="middle">5. Multiple Testing Correction (Benjamini-Hochberg/Benjamini-Yekutieli)</text>
+                        
+                        <!-- Arrow marker definition -->
+                        <defs>
+                            <marker id="arroworange" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#F57C00"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Key Features -->
+            <div class="subsection">
+                <div class="subsection-title">Key Features & Advantages</div>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feature-bullet"></div>
+                        <div class="feature-text">
+                            <strong>TMM Normalization:</strong> Trimmed Mean of M-values is particularly robust when a small proportion of genes are very highly expressed or when there are compositional differences between samples.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-bullet"></div>
+                        <div class="feature-text">
+                            <strong>Flexible Dispersion Estimation:</strong> Three-tier approach (common, trended, tagwise) allows capturing different levels of biological variability across genes.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-bullet"></div>
+                        <div class="feature-text">
+                            <strong>Quasi-likelihood Framework:</strong> The QL F-test provides better type I error control than likelihood ratio tests, especially for small sample sizes.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-bullet"></div>
+                        <div class="feature-text">
+                            <strong>Exact Test:</strong> For simple two-group comparisons, edgeR offers an exact test analogous to Fisher's exact test, which doesn't require asymptotic approximations.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-bullet"></div>
+                        <div class="feature-text">
+                            <strong>Complex Design Support:</strong> Excellent support for multi-factor experiments, paired designs, and batch effect correction through its GLM framework.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Example -->
+            <div class="subsection">
+                <div class="subsection-title">Example R Code</div>
+                <div class="code-example">
+<span class="code-comment"># Load library</span>
+<span class="code-function">library</span>(edgeR)
+
+<span class="code-comment"># Create DGEList object</span>
+y <- <span class="code-function">DGEList</span>(counts = counts, group = group)
+
+<span class="code-comment"># TMM normalization</span>
+y <- <span class="code-function">calcNormFactors</span>(y, method = <span class="code-string">"TMM"</span>)
+
+<span class="code-comment"># Design matrix</span>
+design <- <span class="code-function">model.matrix</span>(~ group)
+
+<span class="code-comment"># Estimate dispersions</span>
+y <- <span class="code-function">estimateDisp</span>(y, design)
+
+<span class="code-comment"># Fit GLM</span>
+fit <- <span class="code-function">glmQLFit</span>(y, design)
+
+<span class="code-comment"># Conduct quasi-likelihood F-test</span>
+qlf <- <span class="code-function">glmQLFTest</span>(fit, coef = 2)
+
+<span class="code-comment"># Extract results</span>
+results <- <span class="code-function">topTags</span>(qlf, n = <span class="code-function">Inf</span>)
+                </div>
+            </div>
+
+            <!-- BCV Plot Explanation -->
+            <div class="subsection">
+                <div class="subsection-title">Understanding BCV (Biological Coefficient of Variation)</div>
+                <div class="diagram-container">
+                    <svg width="100%" height="300" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Title -->
+                        <text x="400" y="25" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#E65100" text-anchor="middle">BCV Plot: Dispersion Components</text>
+                        
+                        <!-- Axes -->
+                        <line x1="80" y1="250" x2="720" y2="250" stroke="#333" stroke-width="2"/>
+                        <line x1="80" y1="250" x2="80" y2="60" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Axis labels -->
+                        <text x="400" y="280" font-family="Aptos, sans-serif" font-size="13" fill="#333" text-anchor="middle">Average Log CPM</text>
+                        <text x="30" y="155" font-family="Aptos, sans-serif" font-size="13" fill="#333" text-anchor="middle" transform="rotate(-90 30 155)">Biological Coefficient of Variation</text>
+                        
+                        <!-- Common dispersion (horizontal line) -->
+                        <line x1="80" y1="150" x2="720" y2="150" stroke="#E65100" stroke-width="2" stroke-dasharray="8,4"/>
+                        
+                        <!-- Trended dispersion -->
+                        <path d="M 80 140 Q 400 160 720 170" stroke="#F57C00" stroke-width="3" fill="none"/>
+                        
+                        <!-- Tagwise dispersions (scattered around trend) -->
+                        <circle cx="150" cy="135" r="3" fill="#FFB74D"/>
+                        <circle cx="200" cy="155" r="3" fill="#FFB74D"/>
+                        <circle cx="250" cy="145" r="3" fill="#FFB74D"/>
+                        <circle cx="300" cy="165" r="3" fill="#FFB74D"/>
+                        <circle cx="350" cy="158" r="3" fill="#FFB74D"/>
+                        <circle cx="400" cy="162" r="3" fill="#FFB74D"/>
+                        <circle cx="450" cy="167" r="3" fill="#FFB74D"/>
+                        <circle cx="500" cy="163" r="3" fill="#FFB74D"/>
+                        <circle cx="550" cy="172" r="3" fill="#FFB74D"/>
+                        <circle cx="600" cy="168" r="3" fill="#FFB74D"/>
+                        <circle cx="650" cy="175" r="3" fill="#FFB74D"/>
+                        
+                        <!-- Legend -->
+                        <line x1="540" y1="85" x2="555" y2="85" stroke="#E65100" stroke-width="2" stroke-dasharray="5,3"/>
+                        <text x="560" y="89" font-family="Aptos, sans-serif" font-size="11" fill="#333">Common dispersion</text>
+                        
+                        <line x1="540" y1="105" x2="555" y2="105" stroke="#F57C00" stroke-width="3"/>
+                        <text x="560" y="109" font-family="Aptos, sans-serif" font-size="11" fill="#333">Trended dispersion</text>
+                        
+                        <circle cx="547" cy="125" r="3" fill="#FFB74D"/>
+                        <text x="560" y="129" font-family="Aptos, sans-serif" font-size="11" fill="#333">Tagwise dispersions</text>
+                    </svg>
+                </div>
+                <div class="description">
+                    <strong>Red dashed line</strong> represents common dispersion (average across all genes). <strong>Orange curve</strong> shows trended dispersion (expression-dependent). <strong>Orange points</strong> are tagwise (gene-specific) dispersions that are moderated toward the trend using empirical Bayes.
+                </div>
+            </div>
+
+            <!-- TMM Visualization -->
+            <div class="subsection">
+                <div class="subsection-title">TMM Normalization Principle</div>
+                <div class="diagram-container">
+                    <svg width="100%" height="250" viewBox="0 0 800 250" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Title -->
+                        <text x="400" y="25" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#E65100" text-anchor="middle">MA Plot: Identifying Reference Genes</text>
+                        
+                        <!-- Axes -->
+                        <line x1="80" y1="200" x2="720" y2="200" stroke="#333" stroke-width="2"/>
+                        <line x1="400" y1="200" x2="400" y2="50" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Axis labels -->
+                        <text x="400" y="230" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">A (Average log expression)</text>
+                        <text x="30" y="125" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle" transform="rotate(-90 30 125)">M (Log fold change)</text>
+                        
+                        <!-- Trimmed region (middle 70% of M values, middle 90% of A values) -->
+                        <rect x="140" y="120" width="520" height="80" fill="#FFE0B2" opacity="0.5" stroke="#F57C00" stroke-dasharray="3,3"/>
+                        <text x="400" y="115" font-family="Aptos, sans-serif" font-size="10" fill="#E65100" text-anchor="middle">Trimmed region (stable genes)</text>
+                        
+                        <!-- Gene points -->
+                        <circle cx="200" cy="160" r="3" fill="#F57C00"/>
+                        <circle cx="250" cy="155" r="3" fill="#F57C00"/>
+                        <circle cx="300" cy="165" r="3" fill="#F57C00"/>
+                        <circle cx="350" cy="158" r="3" fill="#F57C00"/>
+                        <circle cx="400" cy="162" r="3" fill="#F57C00"/>
+                        <circle cx="450" cy="157" r="3" fill="#F57C00"/>
+                        <circle cx="500" cy="163" r="3" fill="#F57C00"/>
+                        <circle cx="550" cy="160" r="3" fill="#F57C00"/>
+                        <circle cx="600" cy="165" r="3" fill="#F57C00"/>
+                        
+                        <!-- Extreme genes (excluded from trimming) -->
+                        <circle cx="150" cy="90" r="3" fill="#999" opacity="0.5"/>
+                        <circle cx="180" cy="210" r="3" fill="#999" opacity="0.5"/>
+                        <circle cx="620" cy="85" r="3" fill="#999" opacity="0.5"/>
+                        <circle cx="650" cy="215" r="3" fill="#999" opacity="0.5"/>
+                        
+                        <!-- Reference line -->
+                        <line x1="80" y1="160" x2="720" y2="160" stroke="#E65100" stroke-width="2"/>
+                        <text x="730" y="164" font-family="Aptos, sans-serif" font-size="10" fill="#E65100">M = 0</text>
+                    </svg>
+                </div>
+                <div class="description">
+                    TMM trims extreme M-values and A-values (typically 30% and 10% respectively) before calculating the normalization factor. This makes it robust to genes with very high expression or extreme differential expression that could bias the normalization.
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== limma-voom DETAILED SECTION ==================== -->
+        <div class="method-section limma-section">
+            <div class="method-title">
+                📉 limma-voom - Detailed Analysis
+            </div>
+
+            <!-- Overview -->
+            <div class="subsection">
+                <div class="subsection-title">Overview</div>
+                <div class="description">
+                    limma-voom transforms RNA-seq count data to log-counts per million (log-CPM) with associated precision weights. This allows the use of limma's linear modeling framework, which was originally developed for microarray data. The voom transformation estimates the mean-variance relationship and computes precision weights for each observation.
+                </div>
+            </div>
+
+            <!-- Statistical Model -->
+            <div class="subsection">
+                <div class="subsection-title">Statistical Model</div>
+                <div class="description">
+                    Unlike DESeq2 and edgeR, limma-voom operates in log-space with a normal distribution:
+                </div>
+                <div class="diagram-container">
+                    <svg width="100%" height="240" viewBox="0 0 800 240" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Model equation -->
+                        <rect x="50" y="30" width="700" height="60" rx="10" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+                        <text x="400" y="60" font-family="Aptos, sans-serif" font-size="18" fill="#1B5E20" text-anchor="middle" font-weight="700">log₂(CPM + 0.5) ~ N(μ, σ²ᵢ)</text>
+                        
+                        <!-- Explanations -->
+                        <text x="80" y="120" font-family="Aptos, sans-serif" font-size="14" fill="#333">CPM = Counts per million (normalized counts)</text>
+                        <text x="80" y="145" font-family="Aptos, sans-serif" font-size="14" fill="#333">μ = Mean log-expression for the gene</text>
+                        <text x="80" y="170" font-family="Aptos, sans-serif" font-size="14" fill="#333">σ²ᵢ = Variance for observation i (varies by expression level)</text>
+                        <text x="80" y="195" font-family="Aptos, sans-serif" font-size="14" fill="#333" font-style="italic">Precision weights wᵢ = 1/σ²ᵢ capture mean-variance relationship</text>
+                        
+                        <!-- Visual representation -->
+                        <circle cx="680" cy="60" r="25" fill="#388E3C" opacity="0.3"/>
+                        <text x="680" y="65" font-family="Aptos, sans-serif" font-size="12" fill="#1B5E20" text-anchor="middle" font-weight="700">N</text>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Workflow -->
+            <div class="subsection">
+                <div class="subsection-title">Analysis Workflow</div>
+                <div class="diagram-container">
+                    <svg width="100%" height="400" viewBox="0 0 800 400" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Step 1 -->
+                        <rect x="50" y="20" width="700" height="60" rx="8" fill="#C8E6C9" stroke="#388E3C" stroke-width="2"/>
+                        <text x="400" y="45" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#1B5E20" text-anchor="middle">1. Normalization</text>
+                        <text x="400" y="65" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">Calculate normalization factors (TMM or other methods)</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 80 L 400 100" stroke="#388E3C" stroke-width="2" marker-end="url(#arrowgreen)"/>
+                        
+                        <!-- Step 2 -->
+                        <rect x="50" y="100" width="700" height="60" rx="8" fill="#C8E6C9" stroke="#388E3C" stroke-width="2"/>
+                        <text x="400" y="125" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#1B5E20" text-anchor="middle">2. Voom Transformation</text>
+                        <text x="400" y="145" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">Transform to log-CPM and compute precision weights</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 160 L 400 180" stroke="#388E3C" stroke-width="2" marker-end="url(#arrowgreen)"/>
+                        
+                        <!-- Step 3 -->
+                        <rect x="50" y="180" width="700" height="60" rx="8" fill="#C8E6C9" stroke="#388E3C" stroke-width="2"/>
+                        <text x="400" y="205" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#1B5E20" text-anchor="middle">3. Linear Model Fitting</text>
+                        <text x="400" y="225" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">Fit linear model using precision weights</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 240 L 400 260" stroke="#388E3C" stroke-width="2" marker-end="url(#arrowgreen)"/>
+                        
+                        <!-- Step 4 -->
+                        <rect x="50" y="260" width="700" height="60" rx="8" fill="#C8E6C9" stroke="#388E3C" stroke-width="2"/>
+                        <text x="400" y="285" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#1B5E20" text-anchor="middle">4. Empirical Bayes Moderation</text>
+                        <text x="400" y="305" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">Moderate t-statistics by shrinking gene-wise variances</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 400 320 L 400 340" stroke="#388E3C" stroke-width="2" marker-end="url(#arrowgreen)"/>
+                        
+                        <!-- Step 5 -->
+                        <rect x="50" y="340" width="700" height="45" rx="8" fill="#388E3C" stroke="#1B5E20" stroke-width="2"/>
+                        <text x="400" y="365" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="white" text-anchor="middle">5. Statistical Testing & Multiple Testing Correction</text>
+                        
+                        <!-- Arrow marker definition -->
+                        <defs>
+                            <marker id="arrowgreen" markerWidth="10" markerHeight="10" refX="5" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#388E3C"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+
+            <!-- Key Features -->
+            <div class="subsection">
+                <div class="subsection-title">Key Features & Advantages</div>
+                <div class="feature-list">
+                    <div class="feature-item">
+                        <div class="feature-bullet"></div>
+                        <div class="feature-text">
+                            <strong>Log-space Analysis:</strong> Working in log-space makes the data more normally distributed and allows using the mature statistical framework of linear models.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-bullet"></div>
+                        <div class="feature-text">
+                            <strong>Precision Weights:</strong> voom accurately models the mean-variance relationship by computing observation-specific precision weights, addressing heteroscedasticity in the log-transformed data.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-bullet"></div>
+                        <div class="feature-text">
+                            <strong>Speed:</strong> Linear modeling is computationally faster than iterative GLM fitting, making limma-voom particularly efficient for large datasets.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-bullet"></div>
+                        <div class="feature-text">
+                            <strong>Empirical Bayes Moderation:</strong> Borrows information across genes to moderate standard errors, improving statistical power especially with small sample sizes.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-bullet"></div>
+                        <div class="feature-text">
+                            <strong>Flexible Contrasts:</strong> Easy specification of complex contrasts and multiple comparisons within a single modeling framework.
+                        </div>
+                    </div>
+                    <div class="feature-item">
+                        <div class="feature-bullet"></div>
+                        <div class="feature-text">
+                            <strong>Quality Weights:</strong> Can incorporate sample-level quality weights (voomWithQualityWeights) to down-weight poor-quality samples automatically.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Code Example -->
+            <div class="subsection">
+                <div class="subsection-title">Example R Code</div>
+                <div class="code-example">
+<span class="code-comment"># Load libraries</span>
+<span class="code-function">library</span>(limma)
+<span class="code-function">library</span>(edgeR)
+
+<span class="code-comment"># Create DGEList and normalize</span>
+dge <- <span class="code-function">DGEList</span>(counts = counts)
+dge <- <span class="code-function">calcNormFactors</span>(dge, method = <span class="code-string">"TMM"</span>)
+
+<span class="code-comment"># Design matrix</span>
+design <- <span class="code-function">model.matrix</span>(~ group)
+
+<span class="code-comment"># Voom transformation</span>
+v <- <span class="code-function">voom</span>(dge, design, plot = <span class="code-function">TRUE</span>)
+
+<span class="code-comment"># Fit linear model</span>
+fit <- <span class="code-function">lmFit</span>(v, design)
+
+<span class="code-comment"># Empirical Bayes moderation</span>
+fit <- <span class="code-function">eBayes</span>(fit)
+
+<span class="code-comment"># Extract results</span>
+results <- <span class="code-function">topTable</span>(fit, coef = 2, number = <span class="code-function">Inf</span>)
+                </div>
+            </div>
+
+            <!-- Voom Plot Explanation -->
+            <div class="subsection">
+                <div class="subsection-title">Understanding the Voom Mean-Variance Trend</div>
+                <div class="diagram-container">
+                    <svg width="100%" height="300" viewBox="0 0 800 300" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Title -->
+                        <text x="400" y="25" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#1B5E20" text-anchor="middle">Voom: Mean-Variance Relationship</text>
+                        
+                        <!-- Axes -->
+                        <line x1="80" y1="250" x2="720" y2="250" stroke="#333" stroke-width="2"/>
+                        <line x1="80" y1="250" x2="80" y2="60" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Axis labels -->
+                        <text x="400" y="280" font-family="Aptos, sans-serif" font-size="13" fill="#333" text-anchor="middle">log₂(count size + 0.5)</text>
+                        <text x="30" y="155" font-family="Aptos, sans-serif" font-size="13" fill="#333" text-anchor="middle" transform="rotate(-90 30 155)">√(residual standard deviation)</text>
+                        
+                        <!-- Data points (heteroscedastic) -->
+                        <circle cx="150" cy="100" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="170" cy="110" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="190" cy="95" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="210" cy="120" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="230" cy="105" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="250" cy="130" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="270" cy="115" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="290" cy="140" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="310" cy="125" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="330" cy="145" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="350" cy="135" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="370" cy="155" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="390" cy="145" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="410" cy="165" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="430" cy="155" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="450" cy="170" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="470" cy="162" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="490" cy="178" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="510" cy="170" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="530" cy="185" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="550" cy="177" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="570" cy="190" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="590" cy="182" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="610" cy="195" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="630" cy="188" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="650" cy="200" r="2" fill="#81C784" opacity="0.4"/>
+                        <circle cx="670" cy="193" r="2" fill="#81C784" opacity="0.4"/>
+                        
+                        <!-- Fitted smooth trend -->
+                        <path d="M 80 85 Q 400 150 720 195" stroke="#388E3C" stroke-width="3" fill="none"/>
+                        
+                        <!-- Annotation for low expression -->
+                        <text x="150" y="85" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">High variance</text>
+                        <text x="150" y="98" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">(low counts)</text>
+                        
+                        <!-- Annotation for high expression -->
+                        <text x="650" y="210" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">Lower variance</text>
+                        <text x="650" y="223" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">(high counts)</text>
+                        
+                        <!-- Legend -->
+                        <circle cx="550" cy="85" r="2" fill="#81C784" opacity="0.4"/>
+                        <text x="560" y="89" font-family="Aptos, sans-serif" font-size="11" fill="#333">Observation-level residuals</text>
+                        
+                        <line x1="545" y1="105" x2="555" y2="105" stroke="#388E3C" stroke-width="3"/>
+                        <text x="560" y="109" font-family="Aptos, sans-serif" font-size="11" fill="#333">Fitted trend (lowess)</text>
+                    </svg>
+                </div>
+                <div class="description">
+                    The voom plot shows the square root of residual standard deviation versus average log₂ count. The trend captures the mean-variance relationship, which is then used to calculate precision weights. <strong>Low-count genes</strong> (left) have higher variance and lower weights, while <strong>high-count genes</strong> (right) have lower variance and higher weights in the analysis.
+                </div>
+            </div>
+
+            <!-- Precision Weights Explanation -->
+            <div class="subsection">
+                <div class="subsection-title">How Precision Weights Work</div>
+                <div class="diagram-container">
+                    <svg width="100%" height="280" viewBox="0 0 800 280" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Three examples -->
+                        <!-- Low expression -->
+                        <rect x="30" y="30" width="220" height="220" rx="8" fill="#f5f5f5" stroke="#388E3C"/>
+                        <text x="140" y="55" font-family="Aptos, sans-serif" font-size="13" font-weight="700" fill="#1B5E20" text-anchor="middle">Low Expression Gene</text>
+                        
+                        <circle cx="140" cy="130" r="40" fill="#FFCCBC" stroke="#E64A19" stroke-width="2"/>
+                        <text x="140" y="135" font-family="Aptos, sans-serif" font-size="16" fill="#333" text-anchor="middle">High σ²</text>
+                        
+                        <text x="140" y="190" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">↓</text>
+                        <text x="140" y="210" font-family="Aptos, sans-serif" font-size="13" font-weight="700" fill="#E64A19" text-anchor="middle">Low Weight (w)</text>
+                        <text x="140" y="230" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">Less reliable</text>
+                        
+                        <!-- Medium expression -->
+                        <rect x="290" y="30" width="220" height="220" rx="8" fill="#f5f5f5" stroke="#388E3C"/>
+                        <text x="400" y="55" font-family="Aptos, sans-serif" font-size="13" font-weight="700" fill="#1B5E20" text-anchor="middle">Medium Expression Gene</text>
+                        
+                        <circle cx="400" cy="130" r="30" fill="#FFE082" stroke="#F57C00" stroke-width="2"/>
+                        <text x="400" y="135" font-family="Aptos, sans-serif" font-size="16" fill="#333" text-anchor="middle">Med σ²</text>
+                        
+                        <text x="400" y="190" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">↓</text>
+                        <text x="400" y="210" font-family="Aptos, sans-serif" font-size="13" font-weight="700" fill="#F57C00" text-anchor="middle">Medium Weight (w)</text>
+                        <text x="400" y="230" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">Moderately reliable</text>
+                        
+                        <!-- High expression -->
+                        <rect x="550" y="30" width="220" height="220" rx="8" fill="#f5f5f5" stroke="#388E3C"/>
+                        <text x="660" y="55" font-family="Aptos, sans-serif" font-size="13" font-weight="700" fill="#1B5E20" text-anchor="middle">High Expression Gene</text>
+                        
+                        <circle cx="660" cy="130" r="20" fill="#C8E6C9" stroke="#388E3C" stroke-width="2"/>
+                        <text x="660" y="135" font-family="Aptos, sans-serif" font-size="14" fill="#333" text-anchor="middle">Low σ²</text>
+                        
+                        <text x="660" y="190" font-family="Aptos, sans-serif" font-size="12" fill="#333" text-anchor="middle">↓</text>
+                        <text x="660" y="210" font-family="Aptos, sans-serif" font-size="13" font-weight="700" fill="#388E3C" text-anchor="middle">High Weight (w)</text>
+                        <text x="660" y="230" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">Most reliable</text>
+                    </svg>
+                </div>
+                <div class="description">
+                    Precision weight w = 1/σ². Genes with low expression have high variance (large circle) and receive low weights, meaning they contribute less to the statistical inference. High-expression genes have low variance (small circle) and receive high weights, making them more influential in the analysis. This appropriately accounts for the different reliability of measurements across the expression range.
+                </div>
+            </div>
+        </div>
+
+        <!-- ==================== COMPARISON TABLE ==================== -->
+        <div class="note-box" style="margin-top: 50px;">
+            <div class="note-text" style="font-size: 20px; margin-bottom: 15px;">📋 Method Comparison Summary</div>
+        </div>
+
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>DESeq2</th>
+                    <th>edgeR</th>
+                    <th>limma-voom</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Statistical Model</strong></td>
+                    <td>Negative Binomial GLM</td>
+                    <td>Negative Binomial GLM</td>
+                    <td>Linear model (log-space)</td>
+                </tr>
+                <tr>
+                    <td><strong>Normalization</strong></td>
+                    <td>Size factors (geometric mean)</td>
+                    <td>TMM (Trimmed Mean of M-values)</td>
+                    <td>TMM or other methods</td>
+                </tr>
+                <tr>
+                    <td><strong>Dispersion Estimation</strong></td>
+                    <td>Shrinkage toward fitted trend</td>
+                    <td>Common, trended, tagwise</td>
+                    <td>Precision weights from mean-variance</td>
+                </tr>
+                <tr>
+                    <td><strong>Statistical Test</strong></td>
+                    <td>Wald test / LRT</td>
+                    <td>Exact test / LRT / QL F-test</td>
+                    <td>Moderated t-test</td>
+                </tr>
+                <tr>
+                    <td><strong>Best For</strong></td>
+                    <td>Small sample sizes (2-5 per group)</td>
+                    <td>Complex designs, many samples</td>
+                    <td>Large datasets, speed priority</td>
+                </tr>
+                <tr>
+                    <td><strong>Computation Speed</strong></td>
+                    <td>Moderate</td>
+                    <td>Moderate</td>
+                    <td>Fast</td>
+                </tr>
+                <tr>
+                    <td><strong>Memory Usage</strong></td>
+                    <td>Moderate</td>
+                    <td>Low-Moderate</td>
+                    <td>Low</td>
+                </tr>
+                <tr>
+                    <td><strong>Handling of Low Counts</strong></td>
+                    <td>Excellent (shrinkage)</td>
+                    <td>Very good (empirical Bayes)</td>
+                    <td>Good (precision weights)</td>
+                </tr>
+                <tr>
+                    <td><strong>Complex Designs</strong></td>
+                    <td>Good</td>
+                    <td>Excellent</td>
+                    <td>Excellent</td>
+                </tr>
+                <tr>
+                    <td><strong>Documentation</strong></td>
+                    <td>Extensive</td>
+                    <td>Extensive</td>
+                    <td>Extensive</td>
+                </tr>
+                <tr>
+                    <td><strong>Typical Use Case</strong></td>
+                    <td>Standard DE analysis, medical research</td>
+                    <td>Multi-factor experiments, large studies</td>
+                    <td>Large-scale screens, time-course</td>
+                </tr>
+            </tbody>
+        </table>
+
+        <!-- ==================== RECOMMENDATIONS ==================== -->
+        <div class="note-box" style="margin-top: 30px; background: linear-gradient(135deg, #E3F2FD 0%, #E8F5E9 100%);">
+            <div class="note-text" style="font-size: 18px; margin-bottom: 15px;">💡 Choosing the Right Method</div>
+            <div style="font-size: 14px; font-weight: normal; line-height: 1.8; color: #555;">
+                <strong>Use DESeq2 if:</strong> You have small sample sizes (2-5 replicates), prioritize conservative estimates, or are following standard genomics workflows.<br><br>
+                <strong>Use edgeR if:</strong> You have complex experimental designs with multiple factors, need flexible statistical tests, or want the most established NB-based approach.<br><br>
+                <strong>Use limma-voom if:</strong> You have large datasets requiring fast computation, are comfortable with log-transformation assumptions, or want easy integration with microarray analysis pipelines.<br><br>
+                <strong>General advice:</strong> All three methods produce similar results when used appropriately. The most important factors are proper experimental design, adequate biological replicates (≥3 per group), and appropriate quality control. Choose based on your specific needs and computational resources.
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="margin-top: 50px; padding-top: 20px; border-top: 2px solid #1E64C8; text-align: center; color: #666;">
+            <p style="font-size: 14px;">These methods are continuously updated. Always refer to the official documentation and recent literature for the latest recommendations.</p>
+            <p style="font-size: 12px; margin-top: 10px;">Key References: Love et al. (2014) - DESeq2 | Robinson et al. (2010) - edgeR | Law et al. (2014) - limma-voom</p>
         </div>
     </div>
 </body>

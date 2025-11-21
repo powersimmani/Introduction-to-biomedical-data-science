@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Neuromorphic Computing</title>
+    <title>Neuromorphic Computing - Detailed Presentation</title>
     <style>
         * {
             margin: 0;
@@ -13,45 +13,68 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f0f0f0;
+            padding: 20px;
         }
         
-        .container {
-            width: 960px;
-            height: 540px;
-            padding: 40px 50px;
+        .slide-container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .slide {
+            width: 100%;
             background: white;
+            margin-bottom: 30px;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+            page-break-after: always;
         }
         
         .title {
-            font-size: 36px;
+            font-size: 42px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .subtitle {
+            font-size: 32px;
             font-weight: 700;
             color: #1E64C8;
             margin-bottom: 25px;
-            text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 10px;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-top: 25px;
+            margin-bottom: 15px;
         }
         
         .visual-section {
             background: #f8f9fb;
-            padding: 20px;
-            border-radius: 8px;
-            margin-bottom: 15px;
+            padding: 25px;
+            border-radius: 10px;
+            margin-bottom: 20px;
         }
         
         .content-section {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 25px;
+            margin-top: 20px;
         }
         
         .info-box {
             background: #f8f9fb;
             border-left: 4px solid #1E64C8;
-            padding: 18px 20px;
+            padding: 20px 22px;
             border-radius: 6px;
             transition: all 0.3s;
         }
@@ -62,41 +85,93 @@
         }
         
         .info-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         
         .info-content {
-            font-size: 15px;
+            font-size: 16px;
             color: #333;
-            line-height: 1.6;
+            line-height: 1.8;
         }
         
         .bullet {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         
         .bullet::before {
             content: "•";
             color: #1E64C8;
             font-weight: bold;
-            margin-right: 8px;
-            font-size: 16px;
+            margin-right: 10px;
+            font-size: 18px;
         }
         
         .feature-box {
             grid-column: 1 / -1;
             background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
             color: white;
-            padding: 15px 22px;
+            padding: 18px 25px;
             border-radius: 8px;
             text-align: center;
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 500;
+        }
+        
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .diagram-container {
+            background: #f8f9fb;
+            padding: 20px;
+            border-radius: 8px;
+            min-height: 250px;
+        }
+        
+        .explanation-box {
+            background: #fff;
+            border: 2px solid #1E64C8;
+            padding: 20px;
+            border-radius: 8px;
+        }
+        
+        .key-point {
+            background: #e8f2ff;
+            padding: 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            border-left: 4px solid #1E64C8;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .comparison-table th {
+            background: #1E64C8;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 12px;
+            border-bottom: 1px solid #ddd;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f8f9fb;
         }
         
         @keyframes neuronPulse {
@@ -116,140 +191,733 @@
         .spike {
             animation: spikeTravel 1.5s linear infinite;
         }
+        
+        @keyframes signalFlow {
+            0% { opacity: 0; transform: translateX(0); }
+            50% { opacity: 1; }
+            100% { opacity: 0; transform: translateX(50px); }
+        }
+        
+        .signal {
+            animation: signalFlow 2s ease-in-out infinite;
+        }
+
+        @media print {
+            .slide {
+                page-break-after: always;
+                box-shadow: none;
+                margin-bottom: 0;
+            }
+            body {
+                background: white;
+            }
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">Neuromorphic Computing</div>
-        
-        <div class="visual-section">
-            <svg width="100%" height="150" viewBox="0 0 850 150">
-                <!-- Traditional Computing -->
-                <g transform="translate(50, 30)">
-                    <rect x="0" y="0" width="120" height="90" rx="6" fill="#e0e0e0" stroke="#999" stroke-width="2"/>
-                    <text x="60" y="20" font-size="12" font-weight="600" fill="#666" text-anchor="middle">Traditional CPU</text>
-                    
-                    <!-- Sequential boxes -->
-                    <rect x="10" y="30" width="100" height="12" rx="2" fill="#999"/>
-                    <rect x="10" y="48" width="100" height="12" rx="2" fill="#999"/>
-                    <rect x="10" y="66" width="100" height="12" rx="2" fill="#999"/>
-                    
-                    <text x="60" y="95" font-size="9" fill="#666" text-anchor="middle">Sequential</text>
-                    <text x="60" y="107" font-size="9" fill="#666" text-anchor="middle">High Power</text>
-                </g>
-                
-                <!-- VS -->
-                <text x="230" y="80" font-size="16" font-weight="700" fill="#1E64C8">VS</text>
-                
-                <!-- Neuromorphic Architecture -->
-                <g transform="translate(280, 20)">
-                    <rect x="0" y="0" width="200" height="110" rx="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="100" y="20" font-size="12" font-weight="700" fill="#1E64C8" text-anchor="middle">Neuromorphic Chip</text>
-                    
-                    <!-- Neural Network Structure -->
-                    <!-- Layer 1 neurons -->
-                    <circle cx="30" cy="50" r="5" class="neuron" style="animation-delay: 0s"/>
-                    <circle cx="30" cy="70" r="5" class="neuron" style="animation-delay: 0.3s"/>
-                    <circle cx="30" cy="90" r="5" class="neuron" style="animation-delay: 0.6s"/>
-                    
-                    <!-- Layer 2 neurons -->
-                    <circle cx="80" cy="40" r="5" class="neuron" style="animation-delay: 0.2s"/>
-                    <circle cx="80" cy="60" r="5" class="neuron" style="animation-delay: 0.5s"/>
-                    <circle cx="80" cy="80" r="5" class="neuron" style="animation-delay: 0.8s"/>
-                    <circle cx="80" cy="100" r="5" class="neuron" style="animation-delay: 1.1s"/>
-                    
-                    <!-- Layer 3 neurons -->
-                    <circle cx="130" cy="50" r="5" class="neuron" style="animation-delay: 0.4s"/>
-                    <circle cx="130" cy="70" r="5" class="neuron" style="animation-delay: 0.7s"/>
-                    <circle cx="130" cy="90" r="5" class="neuron" style="animation-delay: 1.0s"/>
-                    
-                    <!-- Output neurons -->
-                    <circle cx="170" cy="60" r="5" class="neuron" style="animation-delay: 0.6s"/>
-                    <circle cx="170" cy="80" r="5" class="neuron" style="animation-delay: 0.9s"/>
-                    
-                    <!-- Connections (synapses) -->
-                    <path d="M 35 50 L 75 40" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="50" class="spike"/>
-                    <path d="M 35 70 L 75 60" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="50" class="spike" style="animation-delay: 0.5s"/>
-                    <path d="M 85 60 L 125 70" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="50" class="spike" style="animation-delay: 1s"/>
-                    <path d="M 135 70 L 165 70" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="50" class="spike" style="animation-delay: 1.5s"/>
-                    
-                    <text x="100" y="125" font-size="9" font-weight="600" fill="#1E64C8" text-anchor="middle">Parallel · Event-Driven · Low Power</text>
-                </g>
-                
-                <!-- Applications -->
-                <g transform="translate(520, 35)">
-                    <text x="0" y="0" font-size="13" font-weight="700" fill="#1E64C8">Medical Applications</text>
-                    
-                    <g transform="translate(0, 15)">
-                        <rect x="0" y="0" width="140" height="25" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1"/>
-                        <text x="70" y="12" font-size="10" fill="#1E64C8" text-anchor="middle">🧠 Brain-Computer</text>
-                        <text x="70" y="22" font-size="10" fill="#1E64C8" text-anchor="middle">Interface</text>
+    <div class="slide-container">
+        <!-- Slide 1: Overview -->
+        <div class="slide">
+            <div class="title">Neuromorphic Computing</div>
+            
+            <div class="visual-section">
+                <svg width="100%" height="180" viewBox="0 0 1100 180">
+                    <!-- Traditional Computing -->
+                    <g transform="translate(50, 30)">
+                        <rect x="0" y="0" width="140" height="110" rx="6" fill="#e0e0e0" stroke="#999" stroke-width="2"/>
+                        <text x="70" y="25" font-size="14" font-weight="600" fill="#666" text-anchor="middle">Traditional CPU</text>
+                        
+                        <!-- Sequential boxes -->
+                        <rect x="15" y="40" width="110" height="14" rx="2" fill="#999"/>
+                        <rect x="15" y="60" width="110" height="14" rx="2" fill="#999"/>
+                        <rect x="15" y="80" width="110" height="14" rx="2" fill="#999"/>
+                        
+                        <text x="70" y="105" font-size="10" fill="#666" text-anchor="middle">Sequential Processing</text>
                     </g>
                     
-                    <g transform="translate(0, 45)">
-                        <rect x="0" y="0" width="140" height="25" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1"/>
-                        <text x="70" y="12" font-size="10" fill="#1E64C8" text-anchor="middle">🦾 Prosthetic</text>
-                        <text x="70" y="22" font-size="10" fill="#1E64C8" text-anchor="middle">Control</text>
+                    <!-- VS -->
+                    <text x="240" y="90" font-size="20" font-weight="700" fill="#1E64C8">VS</text>
+                    
+                    <!-- Neuromorphic Architecture -->
+                    <g transform="translate(320, 20)">
+                        <rect x="0" y="0" width="240" height="130" rx="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="120" y="25" font-size="14" font-weight="700" fill="#1E64C8" text-anchor="middle">Neuromorphic Chip</text>
+                        
+                        <!-- Layer 1 neurons -->
+                        <circle cx="35" cy="55" r="5" class="neuron" style="animation-delay: 0s"/>
+                        <circle cx="35" cy="75" r="5" class="neuron" style="animation-delay: 0.3s"/>
+                        <circle cx="35" cy="95" r="5" class="neuron" style="animation-delay: 0.6s"/>
+                        
+                        <!-- Layer 2 neurons -->
+                        <circle cx="90" cy="45" r="5" class="neuron" style="animation-delay: 0.2s"/>
+                        <circle cx="90" cy="65" r="5" class="neuron" style="animation-delay: 0.5s"/>
+                        <circle cx="90" cy="85" r="5" class="neuron" style="animation-delay: 0.8s"/>
+                        <circle cx="90" cy="105" r="5" class="neuron" style="animation-delay: 1.1s"/>
+                        
+                        <!-- Layer 3 neurons -->
+                        <circle cx="150" cy="55" r="5" class="neuron" style="animation-delay: 0.4s"/>
+                        <circle cx="150" cy="75" r="5" class="neuron" style="animation-delay: 0.7s"/>
+                        <circle cx="150" cy="95" r="5" class="neuron" style="animation-delay: 1.0s"/>
+                        
+                        <!-- Output neurons -->
+                        <circle cx="205" cy="65" r="5" class="neuron" style="animation-delay: 0.6s"/>
+                        <circle cx="205" cy="85" r="5" class="neuron" style="animation-delay: 0.9s"/>
+                        
+                        <!-- Connections -->
+                        <path d="M 40 55 L 85 45" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="50" class="spike"/>
+                        <path d="M 40 75 L 85 65" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="50" class="spike" style="animation-delay: 0.5s"/>
+                        <path d="M 95 65 L 145 75" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="50" class="spike" style="animation-delay: 1s"/>
+                        <path d="M 155 75 L 200 75" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="50" class="spike" style="animation-delay: 1.5s"/>
+                        
+                        <text x="120" y="125" font-size="10" font-weight="600" fill="#1E64C8" text-anchor="middle">Parallel · Event-Driven · Low Power</text>
                     </g>
                     
-                    <g transform="translate(0, 75)">
-                        <rect x="0" y="0" width="140" height="25" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1"/>
-                        <text x="70" y="12" font-size="10" fill="#1E64C8" text-anchor="middle">💊 Implantable</text>
-                        <text x="70" y="22" font-size="10" fill="#1E64C8" text-anchor="middle">Devices</text>
+                    <!-- Applications -->
+                    <g transform="translate(620, 35)">
+                        <text x="0" y="0" font-size="15" font-weight="700" fill="#1E64C8">Medical Applications</text>
+                        
+                        <g transform="translate(0, 20)">
+                            <rect x="0" y="0" width="160" height="28" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1"/>
+                            <text x="80" y="13" font-size="11" fill="#1E64C8" text-anchor="middle">🧠 Brain-Computer</text>
+                            <text x="80" y="24" font-size="11" fill="#1E64C8" text-anchor="middle">Interface</text>
+                        </g>
+                        
+                        <g transform="translate(0, 53)">
+                            <rect x="0" y="0" width="160" height="28" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1"/>
+                            <text x="80" y="13" font-size="11" fill="#1E64C8" text-anchor="middle">🦾 Prosthetic</text>
+                            <text x="80" y="24" font-size="11" fill="#1E64C8" text-anchor="middle">Control</text>
+                        </g>
+                        
+                        <g transform="translate(0, 86)">
+                            <rect x="0" y="0" width="160" height="28" rx="4" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1"/>
+                            <text x="80" y="13" font-size="11" fill="#1E64C8" text-anchor="middle">💊 Implantable</text>
+                            <text x="80" y="24" font-size="11" fill="#1E64C8" text-anchor="middle">Devices</text>
+                        </g>
                     </g>
-                </g>
+                    
+                    <!-- Power comparison -->
+                    <g transform="translate(840, 60)">
+                        <rect x="-10" y="-15" width="80" height="70" rx="6" fill="#e8f2ff" stroke="#4CAF50" stroke-width="2"/>
+                        <text x="30" y="5" font-size="18" font-weight="700" fill="#4CAF50" text-anchor="middle">1000x</text>
+                        <text x="30" y="20" font-size="11" fill="#666" text-anchor="middle">Lower</text>
+                        <text x="30" y="33" font-size="11" fill="#666" text-anchor="middle">Power</text>
+                        <text x="30" y="50" font-size="24" text-anchor="middle">🔋</text>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="content-section">
+                <div class="info-box">
+                    <div class="info-title">Brain-Inspired Hardware</div>
+                    <div class="info-content">
+                        <div class="bullet">Spiking neural networks</div>
+                        <div class="bullet">Event-driven processing</div>
+                        <div class="bullet">Analog computation paradigm</div>
+                    </div>
+                </div>
                 
-                <!-- Power comparison -->
-                <g transform="translate(700, 50)">
-                    <text x="0" y="0" font-size="11" font-weight="600" fill="#4CAF50">1000x</text>
-                    <text x="0" y="12" font-size="9" fill="#666">Lower</text>
-                    <text x="0" y="23" font-size="9" fill="#666">Power</text>
-                    <text x="20" y="35" font-size="20">🔋</text>
-                </g>
-            </svg>
+                <div class="info-box">
+                    <div class="info-title">Energy Efficiency</div>
+                    <div class="info-content">
+                        <div class="bullet">1000x lower power consumption</div>
+                        <div class="bullet">Ideal for wearable devices</div>
+                        <div class="bullet">Sustainable AI solutions</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">Real-Time Processing</div>
+                    <div class="info-content">
+                        <div class="bullet">Ultra-low latency inference</div>
+                        <div class="bullet">Continuous monitoring</div>
+                        <div class="bullet">Adaptive learning</div>
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">Medical Applications</div>
+                    <div class="info-content">
+                        <div class="bullet">Implantable medical devices</div>
+                        <div class="bullet">Brain-computer interfaces</div>
+                        <div class="bullet">Prosthetic control systems</div>
+                    </div>
+                </div>
+                
+                <div class="feature-box">
+                    <strong>Edge Deployment:</strong> Perfect for decentralized health monitoring and point-of-care diagnostics
+                </div>
+            </div>
         </div>
-        
-        <div class="content-section">
-            <div class="info-box">
-                <div class="info-title">Brain-Inspired Hardware</div>
-                <div class="info-content">
-                    <div class="bullet">Spiking neural networks</div>
-                    <div class="bullet">Event-driven processing</div>
-                    <div class="bullet">Analog computation paradigm</div>
+
+        <!-- Slide 2: Brain-Inspired Hardware -->
+        <div class="slide">
+            <div class="subtitle">1. Brain-Inspired Hardware</div>
+            
+            <div class="detail-grid">
+                <div class="diagram-container">
+                    <h3 style="color: #1E64C8; margin-bottom: 15px;">Spiking Neural Network Architecture</h3>
+                    <svg width="100%" height="280" viewBox="0 0 450 280">
+                        <!-- Input Layer -->
+                        <text x="30" y="20" font-size="12" font-weight="600" fill="#666">Input Layer</text>
+                        <circle cx="50" cy="60" r="8" fill="#1E64C8" opacity="0.8"/>
+                        <circle cx="50" cy="100" r="8" fill="#1E64C8" opacity="0.8"/>
+                        <circle cx="50" cy="140" r="8" fill="#1E64C8" opacity="0.8"/>
+                        <circle cx="50" cy="180" r="8" fill="#1E64C8" opacity="0.8"/>
+                        <text x="50" y="205" font-size="9" fill="#666" text-anchor="middle">Sensors</text>
+                        
+                        <!-- Hidden Layer 1 -->
+                        <text x="160" y="20" font-size="12" font-weight="600" fill="#666">Hidden Layer</text>
+                        <circle cx="180" cy="50" r="8" class="neuron" style="animation-delay: 0.2s"/>
+                        <circle cx="180" cy="90" r="8" class="neuron" style="animation-delay: 0.4s"/>
+                        <circle cx="180" cy="130" r="8" class="neuron" style="animation-delay: 0.6s"/>
+                        <circle cx="180" cy="170" r="8" class="neuron" style="animation-delay: 0.8s"/>
+                        <circle cx="180" cy="210" r="8" class="neuron" style="animation-delay: 1.0s"/>
+                        
+                        <!-- Hidden Layer 2 -->
+                        <circle cx="280" cy="70" r="8" class="neuron" style="animation-delay: 0.5s"/>
+                        <circle cx="280" cy="110" r="8" class="neuron" style="animation-delay: 0.7s"/>
+                        <circle cx="280" cy="150" r="8" class="neuron" style="animation-delay: 0.9s"/>
+                        <circle cx="280" cy="190" r="8" class="neuron" style="animation-delay: 1.1s"/>
+                        
+                        <!-- Output Layer -->
+                        <text x="360" y="20" font-size="12" font-weight="600" fill="#666">Output Layer</text>
+                        <circle cx="380" cy="90" r="8" class="neuron" style="animation-delay: 1.0s"/>
+                        <circle cx="380" cy="140" r="8" class="neuron" style="animation-delay: 1.2s"/>
+                        <text x="380" y="175" font-size="9" fill="#666" text-anchor="middle">Action</text>
+                        
+                        <!-- Synaptic Connections -->
+                        <path d="M 58 60 L 172 50" stroke="#5088d4" stroke-width="2" stroke-dasharray="100" class="spike"/>
+                        <path d="M 58 100 L 172 90" stroke="#5088d4" stroke-width="2" stroke-dasharray="100" class="spike" style="animation-delay: 0.3s"/>
+                        <path d="M 58 140 L 172 130" stroke="#5088d4" stroke-width="2" stroke-dasharray="100" class="spike" style="animation-delay: 0.6s"/>
+                        <path d="M 188 90 L 272 110" stroke="#5088d4" stroke-width="2" stroke-dasharray="100" class="spike" style="animation-delay: 0.9s"/>
+                        <path d="M 188 130 L 272 150" stroke="#5088d4" stroke-width="2" stroke-dasharray="100" class="spike" style="animation-delay: 1.2s"/>
+                        <path d="M 288 110 L 372 140" stroke="#5088d4" stroke-width="2" stroke-dasharray="100" class="spike" style="animation-delay: 1.5s"/>
+                        
+                        <!-- Spike Train Visualization -->
+                        <g transform="translate(50, 230)">
+                            <text x="0" y="0" font-size="10" font-weight="600" fill="#1E64C8">Spike Train:</text>
+                            <rect x="0" y="5" width="350" height="30" fill="#f8f9fb" stroke="#1E64C8" stroke-width="1" rx="3"/>
+                            <!-- Spike pulses -->
+                            <line x1="30" y1="10" x2="30" y2="30" stroke="#1E64C8" stroke-width="2" class="signal"/>
+                            <line x1="80" y1="10" x2="80" y2="30" stroke="#1E64C8" stroke-width="2" class="signal" style="animation-delay: 0.5s"/>
+                            <line x1="150" y1="10" x2="150" y2="30" stroke="#1E64C8" stroke-width="2" class="signal" style="animation-delay: 1s"/>
+                            <line x1="220" y1="10" x2="220" y2="30" stroke="#1E64C8" stroke-width="2" class="signal" style="animation-delay: 1.5s"/>
+                            <line x1="300" y1="10" x2="300" y2="30" stroke="#1E64C8" stroke-width="2" class="signal" style="animation-delay: 2s"/>
+                            <text x="175" y="50" font-size="9" fill="#666" text-anchor="middle">Event-Based Communication</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="explanation-box">
+                    <h3 style="color: #1E64C8; margin-bottom: 15px;">Key Features</h3>
+                    
+                    <div class="key-point">
+                        <strong>Spiking Neural Networks (SNNs)</strong>
+                        <p style="margin-top: 8px; line-height: 1.6;">Unlike traditional artificial neural networks that use continuous activation functions, SNNs communicate through discrete spikes or pulses, mimicking biological neurons. This temporal coding allows for more efficient information processing.</p>
+                    </div>
+                    
+                    <div class="key-point">
+                        <strong>Event-Driven Processing</strong>
+                        <p style="margin-top: 8px; line-height: 1.6;">Computation occurs only when spikes are present, eliminating wasteful continuous calculations. This asynchronous operation dramatically reduces power consumption and increases efficiency.</p>
+                    </div>
+                    
+                    <div class="key-point">
+                        <strong>Analog Computation</strong>
+                        <p style="margin-top: 8px; line-height: 1.6;">Neuromorphic chips use analog circuits to perform computations, leveraging physical properties like capacitance and resistance to naturally model neural dynamics without digital conversion overhead.</p>
+                    </div>
+                    
+                    <div class="key-point">
+                        <strong>Co-located Memory & Processing</strong>
+                        <p style="margin-top: 8px; line-height: 1.6;">Breaking the von Neumann bottleneck, neuromorphic systems integrate memory and computation in the same location, eliminating costly data transfers and enabling faster, more efficient operations.</p>
+                    </div>
                 </div>
             </div>
             
-            <div class="info-box">
-                <div class="info-title">Energy Efficiency</div>
-                <div class="info-content">
-                    <div class="bullet">1000x lower power consumption</div>
-                    <div class="bullet">Ideal for wearable devices</div>
-                    <div class="bullet">Sustainable AI solutions</div>
+            <div class="section-title" style="margin-top: 30px;">Hardware Implementations</div>
+            <table class="comparison-table">
+                <tr>
+                    <th>Platform</th>
+                    <th>Architecture</th>
+                    <th>Key Feature</th>
+                </tr>
+                <tr>
+                    <td><strong>Intel Loihi 2</strong></td>
+                    <td>128 neuromorphic cores, 1M neurons</td>
+                    <td>Programmable synaptic plasticity, on-chip learning</td>
+                </tr>
+                <tr>
+                    <td><strong>IBM TrueNorth</strong></td>
+                    <td>4,096 cores, 1M neurons, 256M synapses</td>
+                    <td>Ultra-low power (70mW), real-time operation</td>
+                </tr>
+                <tr>
+                    <td><strong>BrainScaleS</strong></td>
+                    <td>Mixed-signal analog-digital system</td>
+                    <td>10,000x faster than biological real-time</td>
+                </tr>
+                <tr>
+                    <td><strong>SpiNNaker</strong></td>
+                    <td>1M ARM cores, digital architecture</td>
+                    <td>Massive parallelism, biological-scale modeling</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Slide 3: Energy Efficiency -->
+        <div class="slide">
+            <div class="subtitle">2. Energy Efficiency</div>
+            
+            <div class="detail-grid">
+                <div class="diagram-container">
+                    <h3 style="color: #1E64C8; margin-bottom: 15px;">Power Consumption Comparison</h3>
+                    <svg width="100%" height="320" viewBox="0 0 450 320">
+                        <!-- Y-axis -->
+                        <line x1="50" y1="30" x2="50" y2="250" stroke="#333" stroke-width="2"/>
+                        <text x="20" y="35" font-size="10" fill="#666" transform="rotate(-90 20 35)">Power (Watts)</text>
+                        
+                        <!-- X-axis -->
+                        <line x1="50" y1="250" x2="420" y2="250" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Grid lines -->
+                        <line x1="50" y1="200" x2="420" y2="200" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5"/>
+                        <line x1="50" y1="150" x2="420" y2="150" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5"/>
+                        <line x1="50" y1="100" x2="420" y2="100" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5"/>
+                        <line x1="50" y1="50" x2="420" y2="50" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5"/>
+                        
+                        <!-- Y-axis labels -->
+                        <text x="45" y="254" font-size="10" fill="#666" text-anchor="end">0</text>
+                        <text x="45" y="204" font-size="10" fill="#666" text-anchor="end">50</text>
+                        <text x="45" y="154" font-size="10" fill="#666" text-anchor="end">100</text>
+                        <text x="45" y="104" font-size="10" fill="#666" text-anchor="end">150</text>
+                        <text x="45" y="54" font-size="10" fill="#666" text-anchor="end">200</text>
+                        
+                        <!-- Traditional CPU Bar -->
+                        <rect x="80" y="50" width="60" height="200" fill="#999" opacity="0.8"/>
+                        <text x="110" y="265" font-size="11" fill="#666" text-anchor="middle">Traditional</text>
+                        <text x="110" y="278" font-size="11" fill="#666" text-anchor="middle">CPU</text>
+                        <text x="110" y="40" font-size="12" font-weight="700" fill="#666" text-anchor="middle">~200W</text>
+                        
+                        <!-- GPU Bar -->
+                        <rect x="170" y="30" width="60" height="220" fill="#ff9800" opacity="0.8"/>
+                        <text x="200" y="265" font-size="11" fill="#666" text-anchor="middle">GPU</text>
+                        <text x="200" y="278" font-size="11" fill="#666" text-anchor="middle">(AI Tasks)</text>
+                        <text x="200" y="20" font-size="12" font-weight="700" fill="#ff9800" text-anchor="middle">~250W</text>
+                        
+                        <!-- Neuromorphic Bar -->
+                        <rect x="260" y="245" width="60" height="5" fill="#4CAF50" opacity="0.8"/>
+                        <text x="290" y="265" font-size="11" fill="#666" text-anchor="middle">Neuromorphic</text>
+                        <text x="290" y="278" font-size="11" fill="#666" text-anchor="middle">Chip</text>
+                        <text x="290" y="235" font-size="12" font-weight="700" fill="#4CAF50" text-anchor="middle">~0.2W</text>
+                        
+                        <!-- Human Brain Reference -->
+                        <rect x="350" y="230" width="60" height="20" fill="#1E64C8" opacity="0.8"/>
+                        <text x="380" y="265" font-size="11" fill="#666" text-anchor="middle">Human</text>
+                        <text x="380" y="278" font-size="11" fill="#666" text-anchor="middle">Brain</text>
+                        <text x="380" y="220" font-size="12" font-weight="700" fill="#1E64C8" text-anchor="middle">~20W</text>
+                        
+                        <!-- Annotation -->
+                        <text x="235" y="305" font-size="13" font-weight="600" fill="#4CAF50" text-anchor="middle">1000x Power Reduction</text>
+                    </svg>
+                </div>
+                
+                <div class="explanation-box">
+                    <h3 style="color: #1E64C8; margin-bottom: 15px;">Why So Efficient?</h3>
+                    
+                    <div class="key-point">
+                        <strong>Sparse Activity</strong>
+                        <p style="margin-top: 8px; line-height: 1.6;">In biological and neuromorphic systems, only about 1-5% of neurons are active at any given time. This sparsity means most of the chip remains dormant, consuming minimal power while still maintaining full computational capability.</p>
+                    </div>
+                    
+                    <div class="key-point">
+                        <strong>Event-Driven Architecture</strong>
+                        <p style="margin-top: 8px; line-height: 1.6;">Traditional computers continuously process data at fixed clock rates. Neuromorphic chips only perform computations when events (spikes) occur, eliminating idle power consumption. No events = no power waste.</p>
+                    </div>
+                    
+                    <div class="key-point">
+                        <strong>In-Memory Computing</strong>
+                        <p style="margin-top: 8px; line-height: 1.6;">The most power-hungry operation in traditional computing is moving data between memory and processor. Neuromorphic systems eliminate this by performing computation where data resides, saving up to 90% of energy.</p>
+                    </div>
+                    
+                    <div class="key-point">
+                        <strong>Analog Efficiency</strong>
+                        <p style="margin-top: 8px; line-height: 1.6;">Digital circuits waste energy converting between analog and digital domains. Neuromorphic analog circuits naturally represent continuous values using physical properties, requiring far less energy per operation.</p>
+                    </div>
                 </div>
             </div>
             
-            <div class="info-box">
-                <div class="info-title">Real-Time Processing</div>
-                <div class="info-content">
-                    <div class="bullet">Ultra-low latency inference</div>
-                    <div class="bullet">Continuous monitoring</div>
-                    <div class="bullet">Adaptive learning</div>
+            <div class="section-title" style="margin-top: 30px;">Application Impact</div>
+            <div class="content-section">
+                <div class="info-box">
+                    <div class="info-title">🔋 Battery-Powered Devices</div>
+                    <div class="info-content">
+                        Wearable health monitors can operate for months on a single charge. Implantable devices can function for years without battery replacement, reducing surgical interventions and improving patient comfort.
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">🌍 Environmental Sustainability</div>
+                    <div class="info-content">
+                        With AI's carbon footprint growing exponentially, neuromorphic computing offers a sustainable path forward. A neuromorphic data center could reduce energy consumption by 1000x compared to traditional GPU farms.
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">💰 Cost Reduction</div>
+                    <div class="info-content">
+                        Lower power requirements translate to reduced cooling infrastructure, smaller power supplies, and decreased operational costs. This makes advanced AI accessible to resource-constrained healthcare settings.
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">📱 Edge AI Deployment</div>
+                    <div class="info-content">
+                        Ultra-low power enables sophisticated AI processing directly on edge devices without cloud connectivity. This ensures data privacy, eliminates latency, and enables autonomous operation in remote locations.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Real-Time Processing -->
+        <div class="slide">
+            <div class="subtitle">3. Real-Time Processing</div>
+            
+            <div class="detail-grid">
+                <div class="diagram-container">
+                    <h3 style="color: #1E64C8; margin-bottom: 15px;">Latency Comparison</h3>
+                    <svg width="100%" height="300" viewBox="0 0 450 300">
+                        <!-- Timeline -->
+                        <line x1="50" y1="150" x2="400" y2="150" stroke="#333" stroke-width="2"/>
+                        <text x="225" y="20" font-size="14" font-weight="600" fill="#1E64C8" text-anchor="middle">Response Time Comparison</text>
+                        
+                        <!-- Cloud Processing -->
+                        <g transform="translate(50, 50)">
+                            <circle cx="0" cy="100" r="6" fill="#ff5722"/>
+                            <rect x="-40" y="90" width="350" height="8" fill="#ff5722" opacity="0.3" rx="4"/>
+                            <circle cx="350" cy="100" r="6" fill="#ff5722"/>
+                            <text x="175" y="85" font-size="11" fill="#ff5722" text-anchor="middle">Cloud Processing: 100-500ms</text>
+                            <text x="-45" y="105" font-size="9" fill="#666" text-anchor="end">Request</text>
+                            <text x="395" y="105" font-size="9" fill="#666">Response</text>
+                        </g>
+                        
+                        <!-- Edge CPU Processing -->
+                        <g transform="translate(50, 80)">
+                            <circle cx="0" cy="100" r="6" fill="#ff9800"/>
+                            <rect x="-30" y="90" width="120" height="8" fill="#ff9800" opacity="0.3" rx="4"/>
+                            <circle cx="120" cy="100" r="6" fill="#ff9800"/>
+                            <text x="60" y="115" font-size="11" fill="#ff9800" text-anchor="middle">Edge CPU: 10-50ms</text>
+                        </g>
+                        
+                        <!-- Neuromorphic Processing -->
+                        <g transform="translate(50, 110)">
+                            <circle cx="0" cy="100" r="6" fill="#4CAF50"/>
+                            <rect x="-5" y="90" width="15" height="8" fill="#4CAF50" opacity="0.3" rx="4"/>
+                            <circle cx="15" cy="100" r="6" fill="#4CAF50"/>
+                            <text x="7" y="125" font-size="11" font-weight="600" fill="#4CAF50" text-anchor="middle">Neuromorphic: <1ms</text>
+                            <path d="M 20 100 L 35 90" stroke="#4CAF50" stroke-width="1.5"/>
+                            <text x="40" y="87" font-size="10" font-weight="600" fill="#4CAF50">Ultra-low latency!</text>
+                        </g>
+                        
+                        <!-- Real-time requirement indicator -->
+                        <line x1="80" y1="180" x2="80" y2="220" stroke="#1E64C8" stroke-width="2" stroke-dasharray="5,5"/>
+                        <text x="85" y="200" font-size="10" fill="#1E64C8">Real-time threshold</text>
+                        <text x="85" y="212" font-size="10" fill="#1E64C8">for medical applications</text>
+                        
+                        <!-- Time scale -->
+                        <text x="50" y="245" font-size="9" fill="#666">0ms</text>
+                        <text x="150" y="245" font-size="9" fill="#666">100ms</text>
+                        <text x="250" y="245" font-size="9" fill="#666">200ms</text>
+                        <text x="350" y="245" font-size="9" fill="#666">300ms</text>
+                        
+                        <!-- Continuous Monitoring Visualization -->
+                        <g transform="translate(50, 260)">
+                            <text x="0" y="0" font-size="11" font-weight="600" fill="#1E64C8">Continuous Monitoring:</text>
+                            <path d="M 0 10 Q 20 0, 40 10 T 80 10 T 120 10 T 160 10 T 200 10 T 240 10 T 280 10 T 320 10" 
+                                  stroke="#4CAF50" stroke-width="2" fill="none"/>
+                            <circle cx="20" cy="5" r="3" fill="#4CAF50" class="signal"/>
+                            <circle cx="60" cy="5" r="3" fill="#4CAF50" class="signal" style="animation-delay: 0.3s"/>
+                            <circle cx="100" cy="5" r="3" fill="#4CAF50" class="signal" style="animation-delay: 0.6s"/>
+                            <circle cx="140" cy="5" r="3" fill="#4CAF50" class="signal" style="animation-delay: 0.9s"/>
+                            <text x="160" y="30" font-size="9" fill="#666">Always-on, event-driven processing</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="explanation-box">
+                    <h3 style="color: #1E64C8; margin-bottom: 15px;">Real-Time Capabilities</h3>
+                    
+                    <div class="key-point">
+                        <strong>Ultra-Low Latency Inference</strong>
+                        <p style="margin-top: 8px; line-height: 1.6;">Neuromorphic systems process information as it arrives, with latencies below 1 millisecond. This is crucial for time-critical medical applications like seizure detection, cardiac arrhythmia monitoring, and prosthetic control where delays can be life-threatening.</p>
+                    </div>
+                    
+                    <div class="key-point">
+                        <strong>Continuous Monitoring</strong>
+                        <p style="margin-top: 8px; line-height: 1.6;">Unlike batch-processing systems that sample data periodically, neuromorphic chips provide truly continuous monitoring. Every input event is processed immediately, ensuring no critical medical events are missed between sampling intervals.</p>
+                    </div>
+                    
+                    <div class="key-point">
+                        <strong>Adaptive Learning</strong>
+                        <p style="margin-top: 8px; line-height: 1.6;">On-chip learning allows systems to adapt to individual patient characteristics in real-time without cloud updates. Spike-timing-dependent plasticity (STDP) enables continuous refinement of neural connections based on temporal patterns in the data.</p>
+                    </div>
+                    
+                    <div class="key-point">
+                        <strong>Temporal Processing</strong>
+                        <p style="margin-top: 8px; line-height: 1.6;">The temporal nature of spikes enables natural processing of time-series data. Neuromorphic systems excel at recognizing patterns over time, making them ideal for ECG analysis, gait monitoring, and other sequential medical signals.</p>
+                    </div>
                 </div>
             </div>
             
-            <div class="info-box">
-                <div class="info-title">Medical Applications</div>
-                <div class="info-content">
-                    <div class="bullet">Implantable medical devices</div>
-                    <div class="bullet">Brain-computer interfaces</div>
-                    <div class="bullet">Prosthetic control systems</div>
+            <div class="section-title" style="margin-top: 30px;">Clinical Use Cases</div>
+            <div class="content-section">
+                <div class="info-box">
+                    <div class="info-title">⚡ Seizure Detection</div>
+                    <div class="info-content">
+                        Real-time EEG analysis can detect seizure onset within milliseconds, enabling immediate intervention through responsive neurostimulation. Neuromorphic systems can identify pre-seizure patterns and trigger preventive measures before symptoms begin.
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">❤️ Cardiac Monitoring</div>
+                    <div class="info-content">
+                        Continuous ECG analysis detects arrhythmias, ischemic events, and other cardiac abnormalities instantly. Ultra-low latency ensures life-saving alerts reach medical personnel before critical events escalate.
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">🧠 Neural Decoding</div>
+                    <div class="info-content">
+                        Brain-computer interfaces require real-time decoding of neural signals to control prosthetics or assistive devices. Sub-millisecond latency provides natural, responsive control that feels intuitive to users.
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">🏃 Gait Analysis</div>
+                    <div class="info-content">
+                        Real-time processing of sensor data enables immediate feedback for rehabilitation and fall prevention. Adaptive algorithms adjust assistance levels dynamically based on user movement patterns and environmental context.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 5: Medical Applications -->
+        <div class="slide">
+            <div class="subtitle">4. Medical Applications</div>
+            
+            <div class="detail-grid">
+                <div class="diagram-container">
+                    <h3 style="color: #1E64C8; margin-bottom: 15px;">Medical Application Ecosystem</h3>
+                    <svg width="100%" height="330" viewBox="0 0 450 330">
+                        <!-- Central Neuromorphic Chip -->
+                        <circle cx="225" cy="165" r="45" fill="#1E64C8" opacity="0.9"/>
+                        <text x="225" y="160" font-size="11" font-weight="700" fill="white" text-anchor="middle">Neuromorphic</text>
+                        <text x="225" y="173" font-size="11" font-weight="700" fill="white" text-anchor="middle">Computing</text>
+                        
+                        <!-- Brain-Computer Interface -->
+                        <g transform="translate(100, 30)">
+                            <rect x="0" y="0" width="100" height="60" rx="8" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="50" y="20" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">Brain-Computer</text>
+                            <text x="50" y="33" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">Interface (BCI)</text>
+                            <text x="50" y="50" font-size="16" text-anchor="middle">🧠</text>
+                            <line x1="50" y1="60" x2="180" y2="130" stroke="#1E64C8" stroke-width="2"/>
+                            <circle cx="180" cy="130" r="4" fill="#1E64C8"/>
+                        </g>
+                        
+                        <!-- Prosthetic Control -->
+                        <g transform="translate(310, 30)">
+                            <rect x="0" y="0" width="100" height="60" rx="8" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="50" y="20" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">Prosthetic</text>
+                            <text x="50" y="33" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">Control</text>
+                            <text x="50" y="50" font-size="16" text-anchor="middle">🦾</text>
+                            <line x1="50" y1="60" x2="270" y2="130" stroke="#1E64C8" stroke-width="2"/>
+                            <circle cx="270" cy="130" r="4" fill="#1E64C8"/>
+                        </g>
+                        
+                        <!-- Implantable Devices -->
+                        <g transform="translate(310, 240)">
+                            <rect x="0" y="0" width="100" height="60" rx="8" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="50" y="20" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">Implantable</text>
+                            <text x="50" y="33" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">Devices</text>
+                            <text x="50" y="50" font-size="16" text-anchor="middle">💊</text>
+                            <line x1="50" y1="0" x2="270" y2="200" stroke="#1E64C8" stroke-width="2"/>
+                            <circle cx="270" cy="200" r="4" fill="#1E64C8"/>
+                        </g>
+                        
+                        <!-- Wearable Sensors -->
+                        <g transform="translate(100, 240)">
+                            <rect x="0" y="0" width="100" height="60" rx="8" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="50" y="20" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">Wearable</text>
+                            <text x="50" y="33" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">Sensors</text>
+                            <text x="50" y="50" font-size="16" text-anchor="middle">⌚</text>
+                            <line x1="50" y1="0" x2="180" y2="200" stroke="#1E64C8" stroke-width="2"/>
+                            <circle cx="180" cy="200" r="4" fill="#1E64C8"/>
+                        </g>
+                        
+                        <!-- Benefits around -->
+                        <text x="40" y="165" font-size="9" font-weight="600" fill="#4CAF50">Low Power</text>
+                        <text x="380" y="165" font-size="9" font-weight="600" fill="#4CAF50">Real-time</text>
+                        <text x="220" y="50" font-size="9" font-weight="600" fill="#4CAF50" text-anchor="middle">Adaptive</text>
+                        <text x="220" y="290" font-size="9" font-weight="600" fill="#4CAF50" text-anchor="middle">Privacy-First</text>
+                    </svg>
+                </div>
+                
+                <div class="explanation-box">
+                    <h3 style="color: #1E64C8; margin-bottom: 15px;">Transformative Applications</h3>
+                    
+                    <div class="key-point">
+                        <strong>🧠 Brain-Computer Interfaces</strong>
+                        <p style="margin-top: 8px; line-height: 1.6;">Neural implants decode brain signals in real-time, enabling paralyzed patients to control computers, wheelchairs, or robotic arms with thoughts. Neuromorphic processing provides the low latency and power efficiency needed for fully implantable, wireless systems.</p>
+                    </div>
+                    
+                    <div class="key-point">
+                        <strong>🦾 Advanced Prosthetics</strong>
+                        <p style="margin-top: 8px; line-height: 1.6;">Natural, intuitive control of prosthetic limbs through real-time processing of neural or muscular signals. Sensory feedback from artificial limbs is encoded as neural spikes and transmitted to the nervous system, restoring sense of touch.</p>
+                    </div>
+                    
+                    <div class="key-point">
+                        <strong>💊 Smart Implantable Devices</strong>
+                        <p style="margin-top: 8px; line-height: 1.6;">Cardiac pacemakers, insulin pumps, and neurostimulators with intelligent, adaptive control. These devices learn patient-specific patterns and adjust therapy parameters automatically, operating for years on tiny batteries.</p>
+                    </div>
+                    
+                    <div class="key-point">
+                        <strong>⌚ Medical Wearables</strong>
+                        <p style="margin-top: 8px; line-height: 1.6;">Continuous health monitoring with sophisticated on-device AI. Detect early warning signs of stroke, heart attack, or sepsis without cloud connectivity, ensuring privacy and enabling immediate local alerts.</p>
+                    </div>
                 </div>
             </div>
             
-            <div class="feature-box">
-                <strong>Edge Deployment:</strong> Perfect for decentralized health monitoring and point-of-care diagnostics
+            <div class="section-title" style="margin-top: 30px;">Clinical Impact</div>
+            <table class="comparison-table">
+                <tr>
+                    <th>Application</th>
+                    <th>Neuromorphic Advantage</th>
+                    <th>Patient Benefit</th>
+                </tr>
+                <tr>
+                    <td><strong>Epilepsy Management</strong></td>
+                    <td>Real-time seizure detection and prevention via responsive neurostimulation</td>
+                    <td>Reduced seizure frequency, improved quality of life</td>
+                </tr>
+                <tr>
+                    <td><strong>Parkinson's Disease</strong></td>
+                    <td>Adaptive deep brain stimulation based on neural feedback</td>
+                    <td>Better symptom control with fewer side effects</td>
+                </tr>
+                <tr>
+                    <td><strong>Spinal Cord Injury</strong></td>
+                    <td>Neural bypass systems enabling voluntary movement</td>
+                    <td>Restored mobility and independence</td>
+                </tr>
+                <tr>
+                    <td><strong>Cardiac Care</strong></td>
+                    <td>Continuous arrhythmia detection with ultra-low power</td>
+                    <td>Early intervention, reduced hospitalizations</td>
+                </tr>
+                <tr>
+                    <td><strong>Diabetes Management</strong></td>
+                    <td>Closed-loop insulin delivery with predictive algorithms</td>
+                    <td>Better glucose control, reduced complications</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Slide 6: Future Outlook -->
+        <div class="slide">
+            <div class="subtitle">Future Outlook & Challenges</div>
+            
+            <div class="section-title">Emerging Opportunities</div>
+            <div class="content-section">
+                <div class="info-box">
+                    <div class="info-title">🔬 Personalized Medicine</div>
+                    <div class="info-content">
+                        Neuromorphic systems that learn individual patient physiology and adapt treatment in real-time. Digital twins of patients running on ultra-efficient hardware enable continuous optimization of therapy parameters.
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">🌐 Distributed Healthcare</div>
+                    <div class="info-content">
+                        Edge AI deployment in remote and underserved areas. Low-power requirements enable sophisticated diagnostic capabilities without reliable electricity infrastructure, democratizing access to advanced healthcare.
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">🧬 Multi-Modal Integration</div>
+                    <div class="info-content">
+                        Fusion of diverse sensor inputs (EEG, ECG, motion, biochemical) for holistic health assessment. Neuromorphic architectures naturally handle asynchronous, multi-modal data streams for comprehensive patient monitoring.
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">🤖 Human Augmentation</div>
+                    <div class="info-content">
+                        Beyond restoration to enhancement. Neural interfaces that augment human capabilities, from memory support to sensory expansion, opening new frontiers in human-machine symbiosis.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="section-title" style="margin-top: 30px;">Technical Challenges</div>
+            <div class="content-section">
+                <div class="info-box">
+                    <div class="info-title">⚙️ Programming Complexity</div>
+                    <div class="info-content">
+                        Developing software for neuromorphic hardware requires new programming paradigms. Limited toolchains and lack of standardization hinder widespread adoption. Need for user-friendly development frameworks.
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">📊 Training Challenges</div>
+                    <div class="info-content">
+                        Spiking neural networks are harder to train than conventional ANNs. Backpropagation doesn't directly apply to temporal spike-based learning. Novel training algorithms and conversion methods still evolving.
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">🏭 Manufacturing Scale</div>
+                    <div class="info-content">
+                        Analog/mixed-signal circuits have higher variability than digital circuits. Scaling production while maintaining precision remains challenging. Need for robust designs tolerant to device mismatch.
+                    </div>
+                </div>
+                
+                <div class="info-box">
+                    <div class="info-title">📋 Regulatory Pathway</div>
+                    <div class="info-content">
+                        Medical device regulations weren't designed for adaptive, learning systems. Unclear pathways for FDA approval of devices with on-chip learning. Need for new validation and safety frameworks.
+                    </div>
+                </div>
+            </div>
+            
+            <div class="feature-box" style="margin-top: 30px;">
+                <strong>The Path Forward:</strong> Neuromorphic computing represents a paradigm shift toward energy-efficient, real-time AI that mimics biological intelligence. As hardware matures and algorithms improve, we'll see transformative impact across medical diagnostics, treatment, and human augmentation.
+            </div>
+            
+            <div style="margin-top: 30px; padding: 20px; background: #f8f9fb; border-radius: 8px;">
+                <h3 style="color: #1E64C8; margin-bottom: 15px;">Key Takeaways</h3>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px;">
+                    <div style="padding: 12px; background: white; border-radius: 6px;">
+                        <strong>✅ Energy Efficiency:</strong> 1000x power reduction enables long-term implantable and wearable devices
+                    </div>
+                    <div style="padding: 12px; background: white; border-radius: 6px;">
+                        <strong>✅ Real-Time Processing:</strong> Sub-millisecond latency critical for time-sensitive medical applications
+                    </div>
+                    <div style="padding: 12px; background: white; border-radius: 6px;">
+                        <strong>✅ Brain-Inspired Design:</strong> Spiking networks and event-driven processing match biological efficiency
+                    </div>
+                    <div style="padding: 12px; background: white; border-radius: 6px;">
+                        <strong>✅ Medical Innovation:</strong> Enabling next-generation BCIs, prosthetics, and smart implants
+                    </div>
+                </div>
             </div>
         </div>
     </div>
+    
+    <script>
+        // Add smooth scrolling between slides
+        document.addEventListener('DOMContentLoaded', function() {
+            const slides = document.querySelectorAll('.slide');
+            slides.forEach((slide, index) => {
+                slide.style.animationDelay = `${index * 0.1}s`;
+            });
+        });
+    </script>
 </body>
 </html>

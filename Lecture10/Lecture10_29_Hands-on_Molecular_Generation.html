@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Molecular Generation</title>
+    <title>RDKit and DeepChem - Comprehensive Tutorial</title>
     <style>
         * {
             margin: 0;
@@ -12,123 +12,1050 @@
         }
         
         body {
-            font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
         }
         
-        .container {
-            width: 960px;
-            height: 540px;
-            padding: 40px 60px;
+        .page {
+            max-width: 1200px;
+            margin: 0 auto 40px;
             background: white;
+            border-radius: 15px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.3);
+            overflow: hidden;
         }
         
-        .title {
-            font-size: 28px;
-            font-weight: 700;
-            color: #1E64C8;
-            margin-bottom: 25px;
+        .title-page {
+            padding: 60px;
             text-align: center;
-            padding-bottom: 12px;
-            border-bottom: 3px solid #1E64C8;
+            background: linear-gradient(135deg, #1E64C8 0%, #2980b9 100%);
+            color: white;
         }
         
         .hands-on-badge {
             background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
             color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 16px;
-            font-weight: 600;
+            padding: 12px 30px;
+            border-radius: 30px;
+            font-size: 20px;
+            font-weight: 700;
             display: inline-block;
+            margin-bottom: 30px;
+            box-shadow: 0 4px 15px rgba(40, 167, 69, 0.4);
+        }
+        
+        .main-title {
+            font-size: 48px;
+            font-weight: 700;
             margin-bottom: 20px;
         }
         
-        .content-section {
-            display: flex;
-            flex-direction: column;
-            gap: 14px;
+        .subtitle {
+            font-size: 22px;
+            opacity: 0.9;
         }
         
-        .content-box {
-            background: #f8f9fa;
-            border-left: 5px solid #28a745;
-            border-radius: 8px;
-            padding: 14px 20px;
-            transition: all 0.3s ease;
+        .content-page {
+            padding: 50px 60px;
         }
         
-        .content-box:hover {
-            background: #e8fff0;
-            transform: translateX(8px);
+        .page-title {
+            font-size: 36px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 4px solid #28a745;
         }
         
-        .content-title {
-            font-size: 18px;
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-header {
+            font-size: 24px;
             font-weight: 600;
             color: #28a745;
-            margin-bottom: 6px;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
         
-        .content-text {
-            font-size: 16px;
+        .section-number {
+            background: #28a745;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .description {
+            font-size: 18px;
+            line-height: 1.8;
             color: #333;
-            line-height: 1.5;
+            margin-bottom: 20px;
         }
         
-        .code-snippet {
+        .visual-box {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .molecule-structure {
+            background: white;
+            border: 2px solid #28a745;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            margin: 15px 0;
+        }
+        
+        .molecule-svg {
+            font-size: 48px;
+            margin: 10px 0;
+        }
+        
+        .code-block {
             background: #263238;
             color: #aed581;
-            padding: 12px 16px;
-            border-radius: 6px;
+            padding: 20px;
+            border-radius: 8px;
             font-family: 'Courier New', monospace;
             font-size: 14px;
-            margin-top: 15px;
-            border-left: 4px solid #28a745;
+            margin: 15px 0;
+            border-left: 5px solid #28a745;
+            overflow-x: auto;
+        }
+        
+        .code-comment {
+            color: #78909c;
+        }
+        
+        .code-keyword {
+            color: #c792ea;
+        }
+        
+        .code-string {
+            color: #c3e88d;
+        }
+        
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .feature-card {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+        }
+        
+        .feature-card h4 {
+            font-size: 18px;
+            margin-bottom: 10px;
+        }
+        
+        .feature-card p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .metric-box {
+            display: inline-block;
+            background: #e8f5e9;
+            border: 2px solid #28a745;
+            border-radius: 8px;
+            padding: 15px 25px;
+            margin: 10px 10px 10px 0;
+            font-weight: 600;
+        }
+        
+        .metric-label {
+            font-size: 14px;
+            color: #666;
+        }
+        
+        .metric-value {
+            font-size: 24px;
+            color: #28a745;
+        }
+        
+        .workflow-diagram {
+            background: linear-gradient(to right, #e8f5e9, #c8e6c9);
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            margin: 15px 0;
+        }
+        
+        .workflow-arrow {
+            font-size: 24px;
+            color: #28a745;
+            margin: 0 15px;
+        }
+        
+        .workflow-item {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border: 2px solid #28a745;
+            flex: 1;
+            font-weight: 600;
+        }
+        
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 5px solid #ffc107;
+            padding: 15px 20px;
+            border-radius: 5px;
+            margin: 15px 0;
+        }
+        
+        .scaffold-visual {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            margin: 15px 0;
+        }
+        
+        .scaffold-group {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .scaffold-icon {
+            font-size: 60px;
+            margin-bottom: 10px;
+        }
+        
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        
+        th {
+            background: #28a745;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        td {
+            padding: 12px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        tr:hover {
+            background: #f8f9fa;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">
-            <span class="hands-on-badge">💻 HANDS-ON</span><br>
-            Molecular Generation
+    <!-- Title Page -->
+    <div class="page title-page">
+        <div class="hands-on-badge">💻 HANDS-ON TUTORIAL</div>
+        <h1 class="main-title">RDKit and DeepChem</h1>
+        <p class="subtitle">Comprehensive Guide to Cheminformatics and Machine Learning for Drug Discovery</p>
+    </div>
+
+    <!-- Page 1: Molecule Manipulation -->
+    <div class="page content-page">
+        <h2 class="page-title">1. Molecule Manipulation</h2>
+        
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <span>Overview</span>
+            </div>
+            <p class="description">
+                Molecule manipulation is the foundation of computational chemistry. RDKit provides powerful tools for loading, parsing, and modifying molecular structures from various formats including SMILES, SDF, and MOL files. This enables researchers to programmatically work with chemical structures, perform substructure searches, and modify molecules for drug design.
+            </p>
         </div>
-        <div class="content-section">
-            <div class="content-box">
-                <div class="content-title">SMILES RNN</div>
-                <div class="content-text">Recurrent neural networks for sequential generation</div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <span>Key Operations</span>
             </div>
-            <div class="content-box">
-                <div class="content-title">Graph VAE</div>
-                <div class="content-text">Variational autoencoders for graph-based generation</div>
-            </div>
-            <div class="content-box">
-                <div class="content-title">Reinforcement learning</div>
-                <div class="content-text">Policy-based optimization for desired properties</div>
-            </div>
-            <div class="content-box">
-                <div class="content-title">Property optimization</div>
-                <div class="content-text">Guiding generation toward specific target profiles</div>
-            </div>
-            <div class="content-box">
-                <div class="content-title">Diversity analysis</div>
-                <div class="content-text">Measuring chemical diversity in generated libraries</div>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📥 Loading Molecules</h4>
+                    <p>Read molecular structures from SMILES strings, SDF files, or chemical databases</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔍 Structure Analysis</h4>
+                    <p>Identify functional groups, ring systems, and chemical properties</p>
+                </div>
+                <div class="feature-card">
+                    <h4>✏️ Modification</h4>
+                    <p>Add/remove atoms, modify bonds, and perform chemical transformations</p>
+                </div>
+                <div class="feature-card">
+                    <h4>✅ Validation</h4>
+                    <p>Check molecular validity, sanitize structures, and ensure chemical correctness</p>
+                </div>
             </div>
         </div>
-        <div class="code-snippet">
-# Example: Generative model workflow<br>
-from rdkit import Chem<br>
-import torch<br>
-<br>
-# Load pre-trained generative model<br>
-model = MolecularRNN.load('pretrained_model.pt')<br>
-generated_smiles = model.sample(n_molecules=100)
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <span>Visual Example</span>
+            </div>
+            
+            <div class="molecule-structure">
+                <h3 style="color: #28a745; margin-bottom: 15px;">Aspirin (Acetylsalicylic Acid)</h3>
+                <div class="molecule-svg">
+                    <svg width="300" height="200" viewBox="0 0 300 200">
+                        <!-- Benzene ring -->
+                        <polygon points="150,50 180,65 180,95 150,110 120,95 120,65" 
+                                 fill="none" stroke="#333" stroke-width="2"/>
+                        <!-- Double bonds in benzene -->
+                        <line x1="150" y1="50" x2="180" y2="65" stroke="#333" stroke-width="2"/>
+                        <line x1="180" y1="95" x2="150" y2="110" stroke="#333" stroke-width="2"/>
+                        <line x1="120" y1="65" x2="120" y2="95" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Carboxyl group -->
+                        <line x1="180" y1="95" x2="220" y2="95" stroke="#333" stroke-width="2"/>
+                        <circle cx="220" cy="95" r="8" fill="#e74c3c"/>
+                        <text x="228" y="100" font-size="14" fill="#e74c3c">O</text>
+                        <line x1="220" y1="95" x2="235" y2="120" stroke="#333" stroke-width="2"/>
+                        <circle cx="235" cy="120" r="8" fill="#e74c3c"/>
+                        <text x="243" y="125" font-size="14" fill="#e74c3c">OH</text>
+                        
+                        <!-- Acetyl group -->
+                        <line x1="120" y1="95" x2="90" y2="110" stroke="#333" stroke-width="2"/>
+                        <circle cx="90" cy="110" r="8" fill="#3498db"/>
+                        <text x="82" y="115" font-size="14" fill="#3498db">O</text>
+                        <line x1="90" y1="110" x2="70" y2="140" stroke="#333" stroke-width="2"/>
+                        <circle cx="70" cy="140" r="8" fill="#2ecc71"/>
+                        <text x="55" y="145" font-size="14" fill="#2ecc71">C=O</text>
+                        <line x1="70" y1="140" x2="50" y2="165" stroke="#333" stroke-width="2"/>
+                        <text x="35" y="175" font-size="14" fill="#333">CH₃</text>
+                    </svg>
+                </div>
+                <p style="color: #666; margin-top: 15px;">SMILES: CC(=O)Oc1ccccc1C(=O)O</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <span>Code Example</span>
+            </div>
+            
+            <div class="code-block">
+<span class="code-comment"># Import RDKit library</span>
+<span class="code-keyword">from</span> rdkit <span class="code-keyword">import</span> Chem
+<span class="code-keyword">from</span> rdkit.Chem <span class="code-keyword">import</span> Descriptors, AllChem
+
+<span class="code-comment"># Load a molecule from SMILES</span>
+smiles = <span class="code-string">'CC(=O)Oc1ccccc1C(=O)O'</span>  <span class="code-comment"># Aspirin</span>
+mol = Chem.MolFromSmiles(smiles)
+
+<span class="code-comment"># Validate and sanitize the molecule</span>
+<span class="code-keyword">if</span> mol <span class="code-keyword">is not</span> None:
+    Chem.SanitizeMol(mol)
+    
+    <span class="code-comment"># Add explicit hydrogens</span>
+    mol_h = Chem.AddHs(mol)
+    
+    <span class="code-comment"># Generate 3D coordinates</span>
+    AllChem.EmbedMolecule(mol_h)
+    AllChem.MMFFOptimizeMolecule(mol_h)
+    
+    <span class="code-comment"># Get molecular formula</span>
+    formula = Chem.rdMolDescriptors.CalcMolFormula(mol)
+    print(<span class="code-string">f"Molecular Formula: {formula}"</span>)  <span class="code-comment"># C9H8O4</span>
+    
+    <span class="code-comment"># Count atoms and bonds</span>
+    num_atoms = mol.GetNumAtoms()
+    num_bonds = mol.GetNumBonds()
+    print(<span class="code-string">f"Atoms: {num_atoms}, Bonds: {num_bonds}"</span>)
+            </div>
         </div>
     </div>
+
+    <!-- Page 2: Descriptor Calculation -->
+    <div class="page content-page">
+        <h2 class="page-title">2. Descriptor Calculation</h2>
+        
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <span>Overview</span>
+            </div>
+            <p class="description">
+                Molecular descriptors are numerical values that characterize chemical structures and their properties. These descriptors encode information about molecular size, shape, polarity, electronic properties, and more. They serve as input features for machine learning models in drug discovery, enabling quantitative structure-activity relationship (QSAR) studies.
+            </p>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <span>Types of Descriptors</span>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Descriptor Type</th>
+                            <th>Description</th>
+                            <th>Examples</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Physicochemical</strong></td>
+                            <td>Basic molecular properties</td>
+                            <td>MW, LogP, TPSA, HBD/HBA</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Topological</strong></td>
+                            <td>Graph-based properties</td>
+                            <td>Connectivity indices, Wiener index</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Fingerprints</strong></td>
+                            <td>Structural bit/count vectors</td>
+                            <td>ECFP, MACCS keys, Morgan FP</td>
+                        </tr>
+                        <tr>
+                            <td><strong>3D Descriptors</strong></td>
+                            <td>Geometry-dependent properties</td>
+                            <td>PMI, Asphericity, Shape indices</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <span>Visual Example: Molecular Fingerprints</span>
+            </div>
+            
+            <div class="visual-box">
+                <h4 style="margin-bottom: 15px;">Circular Fingerprint (ECFP/Morgan) Generation</h4>
+                <div class="workflow-diagram">
+                    <div class="workflow-step">
+                        <div class="workflow-item">🔹 Start from each atom</div>
+                        <div class="workflow-arrow">→</div>
+                        <div class="workflow-item">🔸 Expand to neighbors</div>
+                        <div class="workflow-arrow">→</div>
+                        <div class="workflow-item">🔹 Hash substructures</div>
+                        <div class="workflow-arrow">→</div>
+                        <div class="workflow-item">🔸 Create bit vector</div>
+                    </div>
+                </div>
+                <p style="margin-top: 15px; color: #666;">
+                    Morgan fingerprints encode molecular structure as fixed-length binary vectors (e.g., 2048 bits). Each bit represents the presence or absence of specific substructural features, enabling rapid similarity searches.
+                </p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <span>Example Calculations</span>
+            </div>
+            
+            <div class="code-block">
+<span class="code-comment"># Calculate various molecular descriptors</span>
+<span class="code-keyword">from</span> rdkit <span class="code-keyword">import</span> Chem
+<span class="code-keyword">from</span> rdkit.Chem <span class="code-keyword">import</span> Descriptors, AllChem
+
+smiles = <span class="code-string">'CC(=O)Oc1ccccc1C(=O)O'</span>
+mol = Chem.MolFromSmiles(smiles)
+
+<span class="code-comment"># Physicochemical descriptors</span>
+mw = Descriptors.MolWt(mol)                    <span class="code-comment"># Molecular weight</span>
+logp = Descriptors.MolLogP(mol)                <span class="code-comment"># Lipophilicity</span>
+tpsa = Descriptors.TPSA(mol)                   <span class="code-comment"># Topological polar surface area</span>
+hbd = Descriptors.NumHDonors(mol)              <span class="code-comment"># H-bond donors</span>
+hba = Descriptors.NumHAcceptors(mol)           <span class="code-comment"># H-bond acceptors</span>
+rotatable = Descriptors.NumRotatableBonds(mol) <span class="code-comment"># Rotatable bonds</span>
+
+print(<span class="code-string">f"MW: {mw:.2f}, LogP: {logp:.2f}, TPSA: {tpsa:.2f}"</span>)
+print(<span class="code-string">f"HBD: {hbd}, HBA: {hba}, RotBonds: {rotatable}"</span>)
+
+<span class="code-comment"># Generate Morgan fingerprint (2048 bits, radius 2)</span>
+fp = AllChem.GetMorganFingerprintAsBitVect(mol, radius=2, nBits=2048)
+print(<span class="code-string">f"Fingerprint: {fp.ToBitString()[:50]}..."</span>)
+
+<span class="code-comment"># Calculate molecular similarity using Tanimoto coefficient</span>
+smiles2 = <span class="code-string">'CC(C)Cc1ccc(cc1)C(C)C(=O)O'</span>  <span class="code-comment"># Ibuprofen</span>
+mol2 = Chem.MolFromSmiles(smiles2)
+fp2 = AllChem.GetMorganFingerprintAsBitVect(mol2, radius=2, nBits=2048)
+similarity = DataStructs.TanimotoSimilarity(fp, fp2)
+print(<span class="code-string">f"Tanimoto Similarity: {similarity:.3f}"</span>)
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <strong>💡 Lipinski's Rule of Five:</strong> Drug-like molecules typically have MW < 500, LogP < 5, HBD ≤ 5, HBA ≤ 10. These descriptors help filter compound libraries for oral bioavailability.
+        </div>
+    </div>
+
+    <!-- Page 3: Model Training -->
+    <div class="page content-page">
+        <h2 class="page-title">3. Model Training with DeepChem</h2>
+        
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <span>Overview</span>
+            </div>
+            <p class="description">
+                DeepChem is a powerful framework for building machine learning models in drug discovery. It provides pre-built architectures including graph convolutional networks (GCNs), message passing neural networks (MPNNs), and traditional ML models. DeepChem handles featurization, model training, and evaluation with minimal code, making it ideal for cheminformatics applications.
+            </p>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <span>Available Model Architectures</span>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>🧠 Graph Convolutional Networks</h4>
+                    <p>Learn from molecular graph structure directly without handcrafted features</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔄 Message Passing Networks</h4>
+                    <p>Aggregate information from neighboring atoms through iterative message passing</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🌲 Random Forest</h4>
+                    <p>Ensemble of decision trees, robust and interpretable for QSAR</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎯 Multi-Task Networks</h4>
+                    <p>Simultaneously predict multiple molecular properties with shared representations</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <span>Training Pipeline</span>
+            </div>
+            
+            <div class="workflow-diagram">
+                <div class="workflow-step">
+                    <div class="workflow-item">📊 Load Data</div>
+                    <div class="workflow-arrow">↓</div>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-item">🔧 Featurize Molecules</div>
+                    <div class="workflow-arrow">↓</div>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-item">✂️ Split Dataset</div>
+                    <div class="workflow-arrow">↓</div>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-item">🎓 Train Model</div>
+                    <div class="workflow-arrow">↓</div>
+                </div>
+                <div class="workflow-step">
+                    <div class="workflow-item">📈 Evaluate Performance</div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <span>Code Example</span>
+            </div>
+            
+            <div class="code-block">
+<span class="code-comment"># Complete model training example with DeepChem</span>
+<span class="code-keyword">import</span> deepchem <span class="code-keyword">as</span> dc
+<span class="code-keyword">from</span> deepchem.models <span class="code-keyword">import</span> GraphConvModel
+<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+<span class="code-comment"># 1. Load and featurize dataset</span>
+tasks = [<span class="code-string">'activity'</span>]
+featurizer = dc.feat.ConvMolFeaturizer()  <span class="code-comment"># Graph-based features</span>
+loader = dc.data.CSVLoader(
+    tasks=tasks,
+    feature_field=<span class="code-string">'smiles'</span>,
+    featurizer=featurizer
+)
+dataset = loader.create_dataset(<span class="code-string">'molecules.csv'</span>)
+
+<span class="code-comment"># 2. Split into train/validation/test sets</span>
+splitter = dc.splits.RandomSplitter()
+train_dataset, valid_dataset, test_dataset = splitter.train_valid_test_split(
+    dataset, 
+    frac_train=0.8, 
+    frac_valid=0.1, 
+    frac_test=0.1
+)
+
+<span class="code-comment"># 3. Initialize and train model</span>
+model = GraphConvModel(
+    n_tasks=len(tasks),
+    mode=<span class="code-string">'classification'</span>,
+    batch_size=64,
+    learning_rate=0.001
+)
+
+<span class="code-comment"># Train for 50 epochs</span>
+model.fit(train_dataset, nb_epoch=50)
+
+<span class="code-comment"># 4. Evaluate model performance</span>
+metric = dc.metrics.Metric(dc.metrics.roc_auc_score)
+train_score = model.evaluate(train_dataset, [metric])
+valid_score = model.evaluate(valid_dataset, [metric])
+test_score = model.evaluate(test_dataset, [metric])
+
+print(<span class="code-string">f"Training ROC-AUC: {train_score['roc_auc_score']:.3f}"</span>)
+print(<span class="code-string">f"Validation ROC-AUC: {valid_score['roc_auc_score']:.3f}"</span>)
+print(<span class="code-string">f"Test ROC-AUC: {test_score['roc_auc_score']:.3f}"</span>)
+
+<span class="code-comment"># 5. Make predictions on new molecules</span>
+predictions = model.predict(test_dataset)
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 4: Scaffold Splitting -->
+    <div class="page content-page">
+        <h2 class="page-title">4. Scaffold Splitting Strategy</h2>
+        
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <span>Overview</span>
+            </div>
+            <p class="description">
+                Scaffold splitting is a crucial technique for creating realistic train/test splits in drug discovery. Unlike random splitting, scaffold splitting ensures that molecules with the same core structure (Bemis-Murcko scaffold) are grouped together. This prevents data leakage and provides a more rigorous test of a model's ability to generalize to novel chemical scaffolds, simulating real-world drug discovery scenarios.
+            </p>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <span>Why Scaffold Splitting Matters</span>
+            </div>
+            
+            <div class="visual-box">
+                <h4 style="margin-bottom: 15px; color: #e74c3c;">❌ Problem with Random Splitting</h4>
+                <p style="margin-bottom: 15px;">Random splitting can place similar molecules in both training and test sets, leading to overestimated model performance. The model may memorize structural patterns rather than learning generalizable chemical relationships.</p>
+                
+                <h4 style="margin-top: 25px; margin-bottom: 15px; color: #28a745;">✅ Advantage of Scaffold Splitting</h4>
+                <p>Scaffold splitting ensures that test set molecules have different core structures from training molecules, providing a realistic evaluation of model generalization to novel chemical space.</p>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <span>Visual Example</span>
+            </div>
+            
+            <div class="scaffold-visual" style="border: 2px solid #28a745; padding: 30px;">
+                <div class="scaffold-group">
+                    <div class="scaffold-icon">🔷</div>
+                    <h4 style="color: #1E64C8;">Scaffold A</h4>
+                    <p style="margin-top: 10px; font-size: 14px;">Benzene-based<br>compounds</p>
+                    <div style="margin-top: 10px; padding: 10px; background: #e3f2fd; border-radius: 5px;">
+                        <strong>Training Set</strong>
+                    </div>
+                </div>
+                
+                <div class="scaffold-group">
+                    <div class="scaffold-icon">🔶</div>
+                    <h4 style="color: #ff9800;">Scaffold B</h4>
+                    <p style="margin-top: 10px; font-size: 14px;">Pyridine-based<br>compounds</p>
+                    <div style="margin-top: 10px; padding: 10px; background: #fff3e0; border-radius: 5px;">
+                        <strong>Validation Set</strong>
+                    </div>
+                </div>
+                
+                <div class="scaffold-group">
+                    <div class="scaffold-icon">🔺</div>
+                    <h4 style="color: #e91e63;">Scaffold C</h4>
+                    <p style="margin-top: 10px; font-size: 14px;">Indole-based<br>compounds</p>
+                    <div style="margin-top: 10px; padding: 10px; background: #fce4ec; border-radius: 5px;">
+                        <strong>Test Set</strong>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <span>Implementation</span>
+            </div>
+            
+            <div class="code-block">
+<span class="code-comment"># Implement scaffold splitting with DeepChem</span>
+<span class="code-keyword">import</span> deepchem <span class="code-keyword">as</span> dc
+<span class="code-keyword">from</span> rdkit <span class="code-keyword">import</span> Chem
+<span class="code-keyword">from</span> rdkit.Chem.Scaffolds <span class="code-keyword">import</span> MurckoScaffold
+
+<span class="code-comment"># Load dataset</span>
+tasks = [<span class="code-string">'activity'</span>]
+featurizer = dc.feat.CircularFingerprint(size=2048)
+loader = dc.data.CSVLoader(
+    tasks=tasks,
+    feature_field=<span class="code-string">'smiles'</span>,
+    featurizer=featurizer
+)
+dataset = loader.create_dataset(<span class="code-string">'compounds.csv'</span>)
+
+<span class="code-comment"># Apply scaffold splitting</span>
+scaffoldsplitter = dc.splits.ScaffoldSplitter()
+train, valid, test = scaffoldsplitter.train_valid_test_split(
+    dataset,
+    frac_train=0.8,
+    frac_valid=0.1,
+    frac_test=0.1
+)
+
+print(<span class="code-string">f"Training set: {len(train)} molecules"</span>)
+print(<span class="code-string">f"Validation set: {len(valid)} molecules"</span>)
+print(<span class="code-string">f"Test set: {len(test)} molecules"</span>)
+
+<span class="code-comment"># Example: Extract Bemis-Murcko scaffold from a molecule</span>
+smiles = <span class="code-string">'CCc1ccc(cc1)C(C)C(=O)O'</span>
+mol = Chem.MolFromSmiles(smiles)
+scaffold = MurckoScaffold.GetScaffoldForMol(mol)
+scaffold_smiles = Chem.MolToSmiles(scaffold)
+print(<span class="code-string">f"Original SMILES: {smiles}"</span>)
+print(<span class="code-string">f"Scaffold SMILES: {scaffold_smiles}"</span>)
+
+<span class="code-comment"># Compare with random splitting</span>
+randomsplitter = dc.splits.RandomSplitter()
+train_rand, valid_rand, test_rand = randomsplitter.train_valid_test_split(
+    dataset,
+    frac_train=0.8,
+    frac_valid=0.1,
+    frac_test=0.1
+)
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <strong>⚠️ Important:</strong> Models trained with scaffold splitting typically show lower test performance than those with random splitting. This is expected and reflects the true generalization capability to novel chemical structures.
+        </div>
+    </div>
+
+    <!-- Page 5: Performance Evaluation -->
+    <div class="page content-page">
+        <h2 class="page-title">5. Performance Evaluation</h2>
+        
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <span>Overview</span>
+            </div>
+            <p class="description">
+                Proper model evaluation is critical in drug discovery to ensure reliable predictions. Different metrics are appropriate for different tasks: classification (active/inactive compounds), regression (binding affinity, IC50 values), or multi-task predictions. Selecting the right metrics and understanding their implications helps researchers make informed decisions about model deployment.
+            </p>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <span>Key Metrics for Different Tasks</span>
+            </div>
+            
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Task Type</th>
+                            <th>Recommended Metrics</th>
+                            <th>Interpretation</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Classification</strong></td>
+                            <td>ROC-AUC, Precision, Recall, F1-Score</td>
+                            <td>Ability to distinguish active vs inactive compounds</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Regression</strong></td>
+                            <td>RMSE, MAE, R², Pearson Correlation</td>
+                            <td>Accuracy of continuous property prediction</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ranking</strong></td>
+                            <td>Enrichment Factor, BEDROC</td>
+                            <td>Early recognition of active compounds</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Imbalanced Data</strong></td>
+                            <td>Balanced Accuracy, MCC, PR-AUC</td>
+                            <td>Performance when classes are unequal</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <span>Example Performance Dashboard</span>
+            </div>
+            
+            <div class="visual-box">
+                <h4 style="margin-bottom: 20px; text-align: center;">Model Performance Summary</h4>
+                <div style="text-align: center;">
+                    <div class="metric-box">
+                        <div class="metric-label">ROC-AUC Score</div>
+                        <div class="metric-value">0.87</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Accuracy</div>
+                        <div class="metric-value">82%</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Precision</div>
+                        <div class="metric-value">0.79</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">Recall</div>
+                        <div class="metric-value">0.85</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">F1-Score</div>
+                        <div class="metric-value">0.82</div>
+                    </div>
+                    <div class="metric-box">
+                        <div class="metric-label">MCC</div>
+                        <div class="metric-value">0.64</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <span>Evaluation Code</span>
+            </div>
+            
+            <div class="code-block">
+<span class="code-comment"># Comprehensive model evaluation with multiple metrics</span>
+<span class="code-keyword">import</span> deepchem <span class="code-keyword">as</span> dc
+<span class="code-keyword">from</span> sklearn.metrics <span class="code-keyword">import</span> (
+    roc_auc_score, accuracy_score, precision_score, 
+    recall_score, f1_score, matthews_corrcoef, 
+    confusion_matrix, classification_report
+)
+<span class="code-keyword">import</span> numpy <span class="code-keyword">as</span> np
+
+<span class="code-comment"># Assume model and test_dataset are already defined</span>
+
+<span class="code-comment"># 1. Get predictions</span>
+y_pred_proba = model.predict(test_dataset)
+y_pred = (y_pred_proba > 0.5).astype(int)
+y_true = test_dataset.y
+
+<span class="code-comment"># 2. Calculate classification metrics</span>
+roc_auc = roc_auc_score(y_true, y_pred_proba)
+accuracy = accuracy_score(y_true, y_pred)
+precision = precision_score(y_true, y_pred)
+recall = recall_score(y_true, y_pred)
+f1 = f1_score(y_true, y_pred)
+mcc = matthews_corrcoef(y_true, y_pred)
+
+print(<span class="code-string">"=== Classification Performance ==="</span>)
+print(<span class="code-string">f"ROC-AUC Score: {roc_auc:.3f}"</span>)
+print(<span class="code-string">f"Accuracy: {accuracy:.3f}"</span>)
+print(<span class="code-string">f"Precision: {precision:.3f}"</span>)
+print(<span class="code-string">f"Recall: {recall:.3f}"</span>)
+print(<span class="code-string">f"F1-Score: {f1:.3f}"</span>)
+print(<span class="code-string">f"MCC: {mcc:.3f}"</span>)
+
+<span class="code-comment"># 3. Confusion matrix</span>
+cm = confusion_matrix(y_true, y_pred)
+print(<span class="code-string">"\n=== Confusion Matrix ==="</span>)
+print(<span class="code-string">f"True Negatives: {cm[0,0]}"</span>)
+print(<span class="code-string">f"False Positives: {cm[0,1]}"</span>)
+print(<span class="code-string">f"False Negatives: {cm[1,0]}"</span>)
+print(<span class="code-string">f"True Positives: {cm[1,1]}"</span>)
+
+<span class="code-comment"># 4. Detailed classification report</span>
+print(<span class="code-string">"\n=== Detailed Report ==="</span>)
+print(classification_report(y_true, y_pred, 
+                          target_names=[<span class="code-string">'Inactive'</span>, <span class="code-string">'Active'</span>]))
+
+<span class="code-comment"># 5. For regression tasks</span>
+<span class="code-keyword">from</span> sklearn.metrics <span class="code-keyword">import</span> mean_squared_error, mean_absolute_error, r2_score
+
+<span class="code-comment"># If predicting continuous values (e.g., IC50, binding affinity)</span>
+<span class="code-comment"># rmse = np.sqrt(mean_squared_error(y_true, y_pred))</span>
+<span class="code-comment"># mae = mean_absolute_error(y_true, y_pred)</span>
+<span class="code-comment"># r2 = r2_score(y_true, y_pred)</span>
+
+<span class="code-comment"># 6. Cross-validation for robust evaluation</span>
+<span class="code-keyword">from</span> sklearn.model_selection <span class="code-keyword">import</span> cross_val_score
+<span class="code-comment"># cv_scores = cross_val_score(model, X, y, cv=5, scoring='roc_auc')</span>
+<span class="code-comment"># print(f"CV ROC-AUC: {cv_scores.mean():.3f} (+/- {cv_scores.std():.3f})")</span>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <span>Interpretation Guidelines</span>
+            </div>
+            
+            <div class="feature-grid">
+                <div class="feature-card">
+                    <h4>📊 ROC-AUC > 0.8</h4>
+                    <p>Excellent discrimination between active and inactive compounds</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🎯 High Precision</h4>
+                    <p>Few false positives - important for reducing experimental cost</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔍 High Recall</h4>
+                    <p>Few false negatives - important for not missing active compounds</p>
+                </div>
+                <div class="feature-card">
+                    <h4>⚖️ MCC > 0.5</h4>
+                    <p>Good balance, especially valuable for imbalanced datasets</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="highlight-box">
+            <strong>💡 Best Practice:</strong> Always evaluate models on multiple metrics and compare performance across different splitting strategies (random vs scaffold). Report confidence intervals using cross-validation or bootstrap resampling.
+        </div>
+    </div>
+
+    <!-- Summary Page -->
+    <div class="page content-page">
+        <h2 class="page-title">🎓 Summary and Best Practices</h2>
+        
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <span>Complete Workflow Integration</span>
+            </div>
+            
+            <div class="workflow-diagram">
+                <div class="workflow-step">
+                    <div class="workflow-item">1️⃣ Molecule Manipulation<br><small>Load & validate structures</small></div>
+                </div>
+                <div style="text-align: center; font-size: 24px; color: #28a745; margin: 10px 0;">↓</div>
+                <div class="workflow-step">
+                    <div class="workflow-item">2️⃣ Descriptor Calculation<br><small>Compute features & fingerprints</small></div>
+                </div>
+                <div style="text-align: center; font-size: 24px; color: #28a745; margin: 10px 0;">↓</div>
+                <div class="workflow-step">
+                    <div class="workflow-item">3️⃣ Model Training<br><small>Build ML/DL models</small></div>
+                </div>
+                <div style="text-align: center; font-size: 24px; color: #28a745; margin: 10px 0;">↓</div>
+                <div class="workflow-step">
+                    <div class="workflow-item">4️⃣ Scaffold Splitting<br><small>Create realistic test sets</small></div>
+                </div>
+                <div style="text-align: center; font-size: 24px; color: #28a745; margin: 10px 0;">↓</div>
+                <div class="workflow-step">
+                    <div class="workflow-item">5️⃣ Performance Evaluation<br><small>Validate & interpret results</small></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <span>Key Takeaways</span>
+            </div>
+            
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin: 20px 0;">
+                <div style="background: #e8f5e9; padding: 20px; border-radius: 10px; border-left: 5px solid #28a745;">
+                    <h4 style="color: #28a745; margin-bottom: 10px;">✅ Do's</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 8px 0;">✓ Sanitize molecules before analysis</li>
+                        <li style="margin: 8px 0;">✓ Use scaffold splitting for evaluation</li>
+                        <li style="margin: 8px 0;">✓ Calculate multiple descriptors</li>
+                        <li style="margin: 8px 0;">✓ Report multiple evaluation metrics</li>
+                        <li style="margin: 8px 0;">✓ Validate with cross-validation</li>
+                    </ul>
+                </div>
+                <div style="background: #ffebee; padding: 20px; border-radius: 10px; border-left: 5px solid #e74c3c;">
+                    <h4 style="color: #e74c3c; margin-bottom: 10px;">❌ Don'ts</h4>
+                    <ul style="list-style: none; padding: 0;">
+                        <li style="margin: 8px 0;">✗ Rely only on random splitting</li>
+                        <li style="margin: 8px 0;">✗ Use single metric for evaluation</li>
+                        <li style="margin: 8px 0;">✗ Ignore data imbalance issues</li>
+                        <li style="margin: 8px 0;">✗ Skip molecule validation steps</li>
+                        <li style="margin: 8px 0;">✗ Overfit to training data</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <span>Additional Resources</span>
+            </div>
+            
+            <div class="visual-box">
+                <h4 style="margin-bottom: 15px;">📚 Recommended Learning Materials</h4>
+                <ul style="line-height: 2;">
+                    <li><strong>RDKit Documentation:</strong> rdkit.org/docs - Comprehensive API reference</li>
+                    <li><strong>DeepChem Tutorials:</strong> deepchem.io/tutorials - Hands-on examples</li>
+                    <li><strong>MoleculeNet:</strong> Large-scale benchmark datasets for molecular ML</li>
+                    <li><strong>Papers:</strong> "Molecular graph convolutions" (Duvenaud et al., 2015)</li>
+                    <li><strong>Community:</strong> RDKit mailing list and DeepChem forum</li>
+                </ul>
+            </div>
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); border-radius: 10px; color: white;">
+            <h3 style="font-size: 28px; margin-bottom: 15px;">🎉 Ready to Start Your Drug Discovery Journey!</h3>
+            <p style="font-size: 18px;">Combine RDKit's molecular manipulation with DeepChem's machine learning capabilities to accelerate your research</p>
+        </div>
+    </div>
+
 </body>
 </html>

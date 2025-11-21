@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Detection Tasks</title>
+    <title>Detection Tasks - Detailed Guide</title>
     <style>
         * {
             margin: 0;
@@ -13,32 +13,33 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
             padding: 40px 20px;
         }
         
         .container {
-            width: 960px;
-            padding: 35px 45px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 45px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         .title {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 15px;
         }
         
         .concept-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
+            margin-bottom: 60px;
         }
         
         .concept-card {
@@ -68,14 +69,107 @@
             color: #333;
             line-height: 1.5;
         }
+
+        .detailed-section {
+            margin-bottom: 50px;
+            border-left: 4px solid #1E64C8;
+            padding-left: 25px;
+        }
+
+        .section-title {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+        }
+
+        .section-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .text-content {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #333;
+        }
+
+        .text-content h4 {
+            color: #1E64C8;
+            font-size: 18px;
+            margin: 20px 0 10px 0;
+            font-weight: 600;
+        }
+
+        .text-content ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .text-content li {
+            margin-bottom: 8px;
+        }
+
+        .visual-content {
+            background: #f8f9fa;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            min-height: 300px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .diagram {
+            width: 100%;
+            height: auto;
+            margin-bottom: 10px;
+        }
+
+        .diagram-label {
+            font-size: 13px;
+            color: #666;
+            text-align: center;
+            font-style: italic;
+        }
+
+        .code-block {
+            background: #f4f4f4;
+            border-left: 3px solid #1E64C8;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            overflow-x: auto;
+        }
+
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+
+        @media (max-width: 768px) {
+            .concept-grid {
+                grid-template-columns: 1fr;
+            }
+            .section-content {
+                grid-template-columns: 1fr;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Detection Tasks</div>
+        <div class="title">Detection Tasks in Medical Imaging</div>
         
+        <!-- Overview Cards -->
         <div class="concept-grid">
-
             <div class="concept-card">
                 <div class="concept-name">Object Detection Basics</div>
                 <div class="concept-desc">Localizing and classifying objects. Bounding boxes around lesions, nodules, fractures</div>
@@ -100,8 +194,575 @@
                 <div class="concept-name">3D Detection</div>
                 <div class="concept-desc">Extending to volumetric data. 3D bounding boxes for CT/MRI lesions</div>
             </div>
-        
         </div>
+
+        <!-- Detailed Section 1: Object Detection Basics -->
+        <div class="detailed-section">
+            <div class="section-title">1. Object Detection Basics</div>
+            <div class="section-content">
+                <div class="text-content">
+                    <p>Object detection is a fundamental computer vision task that combines <span class="highlight">classification</span> and <span class="highlight">localization</span>. In medical imaging, it identifies and locates anatomical structures or abnormalities.</p>
+                    
+                    <h4>Key Components:</h4>
+                    <ul>
+                        <li><strong>Classification:</strong> What is the object? (e.g., tumor, nodule, fracture)</li>
+                        <li><strong>Localization:</strong> Where is it located? (bounding box coordinates)</li>
+                        <li><strong>Confidence Score:</strong> How certain is the prediction?</li>
+                    </ul>
+
+                    <h4>Medical Applications:</h4>
+                    <ul>
+                        <li>Lung nodule detection in chest X-rays and CT scans</li>
+                        <li>Tumor localization in brain MRI</li>
+                        <li>Fracture detection in bone radiographs</li>
+                        <li>Organ localization for surgical planning</li>
+                    </ul>
+
+                    <h4>Output Format:</h4>
+                    <div class="code-block">
+Detection Output:
+{
+  "class": "nodule",
+  "bbox": [x, y, width, height],
+  "confidence": 0.92
+}
+                    </div>
+                </div>
+
+                <div class="visual-content">
+                    <svg class="diagram" viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Background image representation -->
+                        <rect x="20" y="20" width="360" height="270" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="200" y="45" text-anchor="middle" font-size="14" fill="#666">Medical Image (e.g., Chest X-ray)</text>
+                        
+                        <!-- Detected objects with bounding boxes -->
+                        <rect x="80" y="80" width="100" height="80" fill="none" stroke="#ff4444" stroke-width="3" stroke-dasharray="5,5"/>
+                        <text x="130" y="70" text-anchor="middle" font-size="12" fill="#ff4444" font-weight="bold">Nodule (0.92)</text>
+                        
+                        <rect x="220" y="140" width="120" height="100" fill="none" stroke="#44ff44" stroke-width="3" stroke-dasharray="5,5"/>
+                        <text x="280" y="130" text-anchor="middle" font-size="12" fill="#228822" font-weight="bold">Lesion (0.87)</text>
+                        
+                        <!-- Arrow pointing to detection -->
+                        <path d="M 200 310 L 200 330" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                    <div class="diagram-label">Figure 1: Object detection identifies and localizes multiple objects with bounding boxes and confidence scores</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 2: YOLO for Medical -->
+        <div class="detailed-section">
+            <div class="section-title">2. YOLO for Medical Imaging</div>
+            <div class="section-content">
+                <div class="text-content">
+                    <p>YOLO (You Only Look Once) is a <span class="highlight">single-stage</span> detector that processes the entire image in one pass, making it extremely fast for real-time applications.</p>
+                    
+                    <h4>Architecture Features:</h4>
+                    <ul>
+                        <li><strong>Single Forward Pass:</strong> Entire image processed at once</li>
+                        <li><strong>Grid-based Prediction:</strong> Image divided into SxS grid</li>
+                        <li><strong>Speed:</strong> 30-45 FPS for real-time detection</li>
+                        <li><strong>Trade-off:</strong> Speed vs. accuracy (slightly lower than two-stage)</li>
+                    </ul>
+
+                    <h4>Medical Use Cases:</h4>
+                    <ul>
+                        <li>Real-time ultrasound guidance during procedures</li>
+                        <li>Processing large 3D CT/MRI volumes efficiently</li>
+                        <li>Video endoscopy for polyp detection</li>
+                        <li>Screening large datasets quickly</li>
+                    </ul>
+
+                    <h4>Implementation Example:</h4>
+                    <div class="code-block">
+from ultralytics import YOLO
+
+# Load pretrained model
+model = YOLO('yolov8n.pt')
+
+# Train on medical data
+model.train(
+    data='medical_dataset.yaml',
+    epochs=100,
+    imgsz=640
+)
+
+# Inference
+results = model('chest_xray.jpg')
+                    </div>
+                </div>
+
+                <div class="visual-content">
+                    <svg class="diagram" viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Input image -->
+                        <rect x="20" y="50" width="80" height="80" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="60" y="25" text-anchor="middle" font-size="12" fill="#333">Input Image</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 100 90 L 130 90" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow2)"/>
+                        <defs>
+                            <marker id="arrow2" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- YOLO Network -->
+                        <rect x="130" y="40" width="140" height="100" fill="#1E64C8" opacity="0.1" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="200" y="70" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="bold">YOLO Network</text>
+                        <text x="200" y="90" text-anchor="middle" font-size="11" fill="#333">(Single Pass)</text>
+                        <text x="200" y="110" text-anchor="middle" font-size="11" fill="#333">Backbone + Neck + Head</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 270 90 L 300 90" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow3)"/>
+                        <defs>
+                            <marker id="arrow3" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- Output -->
+                        <rect x="300" y="50" width="80" height="80" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="310" y="65" width="30" height="25" fill="none" stroke="#ff4444" stroke-width="2"/>
+                        <rect x="320" y="95" width="40" height="25" fill="none" stroke="#44ff44" stroke-width="2"/>
+                        <text x="340" y="25" text-anchor="middle" font-size="12" fill="#333">Detections</text>
+                        
+                        <!-- Speed indicator -->
+                        <text x="200" y="180" text-anchor="middle" font-size="16" fill="#ff4444" font-weight="bold">⚡ Fast: 30-45 FPS</text>
+                        
+                        <!-- Grid visualization -->
+                        <text x="200" y="220" text-anchor="middle" font-size="13" fill="#333" font-weight="bold">Grid-based Detection:</text>
+                        <g transform="translate(140, 230)">
+                            <rect width="120" height="90" fill="#f0f0f0" stroke="#666" stroke-width="1"/>
+                            <!-- Grid lines -->
+                            <line x1="40" y1="0" x2="40" y2="90" stroke="#999" stroke-width="1"/>
+                            <line x1="80" y1="0" x2="80" y2="90" stroke="#999" stroke-width="1"/>
+                            <line x1="0" y1="30" x2="120" y2="30" stroke="#999" stroke-width="1"/>
+                            <line x1="0" y1="60" x2="120" y2="60" stroke="#999" stroke-width="1"/>
+                            <!-- Detection point -->
+                            <circle cx="60" cy="45" r="8" fill="#ff4444" opacity="0.7"/>
+                        </g>
+                    </svg>
+                    <div class="diagram-label">Figure 2: YOLO processes the entire image in a single forward pass, dividing it into a grid for fast detection</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 3: Faster R-CNN -->
+        <div class="detailed-section">
+            <div class="section-title">3. Faster R-CNN</div>
+            <div class="section-content">
+                <div class="text-content">
+                    <p>Faster R-CNN is a <span class="highlight">two-stage detector</span> that first proposes regions of interest (ROIs), then classifies and refines them. It offers higher accuracy, making it popular in medical imaging where precision is critical.</p>
+                    
+                    <h4>Two-Stage Architecture:</h4>
+                    <ul>
+                        <li><strong>Stage 1 - RPN:</strong> Region Proposal Network generates candidate regions</li>
+                        <li><strong>Stage 2 - Detection:</strong> Classification and bounding box refinement</li>
+                        <li><strong>ROI Pooling:</strong> Extracts features from proposed regions</li>
+                    </ul>
+
+                    <h4>Advantages in Medical Imaging:</h4>
+                    <ul>
+                        <li>Higher accuracy for small lesions and nodules</li>
+                        <li>Better localization precision</li>
+                        <li>Handles varying object scales well</li>
+                        <li>Widely validated in clinical research</li>
+                    </ul>
+
+                    <h4>Performance Characteristics:</h4>
+                    <div class="code-block">
+Faster R-CNN Performance:
+- Accuracy: High (AP 85-95%)
+- Speed: Moderate (5-10 FPS)
+- Use Case: High-precision diagnosis
+- Best for: CT lung nodules, 
+          mammography masses,
+          brain tumor detection
+                    </div>
+                </div>
+
+                <div class="visual-content">
+                    <svg class="diagram" viewBox="0 0 400 380" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Input -->
+                        <rect x="20" y="40" width="60" height="60" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="50" y="25" text-anchor="middle" font-size="11" fill="#333">Input</text>
+                        
+                        <!-- Arrow to CNN -->
+                        <path d="M 80 70 L 110 70" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow4)"/>
+                        
+                        <!-- CNN Feature Extractor -->
+                        <rect x="110" y="40" width="70" height="60" fill="#1E64C8" opacity="0.1" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="145" y="65" text-anchor="middle" font-size="10" fill="#333">CNN</text>
+                        <text x="145" y="80" text-anchor="middle" font-size="10" fill="#333">Features</text>
+                        
+                        <!-- Arrow split -->
+                        <path d="M 180 70 L 210 70" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow5)"/>
+                        
+                        <!-- Stage 1: RPN -->
+                        <rect x="210" y="20" width="90" height="50" fill="#ffebcc" stroke="#ff9900" stroke-width="2"/>
+                        <text x="255" y="40" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">Stage 1: RPN</text>
+                        <text x="255" y="55" text-anchor="middle" font-size="9" fill="#666">Region Proposals</text>
+                        
+                        <!-- Arrow down -->
+                        <path d="M 255 70 L 255 110" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow6)"/>
+                        
+                        <!-- Stage 2: Detection -->
+                        <rect x="210" y="110" width="90" height="70" fill="#ccf0ff" stroke="#0099ff" stroke-width="2"/>
+                        <text x="255" y="130" text-anchor="middle" font-size="11" fill="#333" font-weight="bold">Stage 2</text>
+                        <text x="255" y="145" text-anchor="middle" font-size="9" fill="#666">ROI Pooling</text>
+                        <text x="255" y="160" text-anchor="middle" font-size="9" fill="#666">Classification</text>
+                        <text x="255" y="175" text-anchor="middle" font-size="9" fill="#666">Box Refinement</text>
+                        
+                        <!-- Arrow to output -->
+                        <path d="M 300 145 L 330 145" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow7)"/>
+                        
+                        <!-- Output -->
+                        <rect x="330" y="120" width="60" height="50" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="360" y="105" text-anchor="middle" font-size="11" fill="#333">Output</text>
+                        <rect x="340" y="130" width="20" height="15" fill="none" stroke="#ff4444" stroke-width="2"/>
+                        <rect x="345" y="150" width="25" height="15" fill="none" stroke="#44ff44" stroke-width="2"/>
+                        
+                        <!-- Comparison box -->
+                        <rect x="40" y="220" width="320" height="140" fill="#f9f9f9" stroke="#666" stroke-width="1" rx="5"/>
+                        <text x="200" y="245" text-anchor="middle" font-size="13" fill="#333" font-weight="bold">YOLO vs Faster R-CNN</text>
+                        
+                        <!-- Table headers -->
+                        <text x="80" y="270" font-size="11" fill="#666" font-weight="bold">Aspect</text>
+                        <text x="180" y="270" font-size="11" fill="#ff4444" font-weight="bold">YOLO</text>
+                        <text x="280" y="270" font-size="11" fill="#0099ff" font-weight="bold">Faster R-CNN</text>
+                        
+                        <!-- Rows -->
+                        <text x="80" y="290" font-size="10" fill="#333">Speed</text>
+                        <text x="180" y="290" font-size="10" fill="#333">Fast (30 FPS)</text>
+                        <text x="280" y="290" font-size="10" fill="#333">Moderate (5 FPS)</text>
+                        
+                        <text x="80" y="310" font-size="10" fill="#333">Accuracy</text>
+                        <text x="180" y="310" font-size="10" fill="#333">Good</text>
+                        <text x="280" y="310" font-size="10" fill="#333">High</text>
+                        
+                        <text x="80" y="330" font-size="10" fill="#333">Stages</text>
+                        <text x="180" y="330" font-size="10" fill="#333">One</text>
+                        <text x="280" y="330" font-size="10" fill="#333">Two</text>
+                        
+                        <text x="80" y="350" font-size="10" fill="#333">Use Case</text>
+                        <text x="180" y="350" font-size="9" fill="#333">Real-time</text>
+                        <text x="280" y="350" font-size="9" fill="#333">High precision</text>
+                        
+                        <defs>
+                            <marker id="arrow4" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                            <marker id="arrow5" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                            <marker id="arrow6" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                            <marker id="arrow7" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                    <div class="diagram-label">Figure 3: Faster R-CNN two-stage architecture with RPN for proposals and detection head for classification</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 4: Anchor-Free Methods -->
+        <div class="detailed-section">
+            <div class="section-title">4. Anchor-Free Methods</div>
+            <div class="section-content">
+                <div class="text-content">
+                    <p>Anchor-free detectors like <span class="highlight">FCOS</span> (Fully Convolutional One-Stage) and <span class="highlight">CenterNet</span> eliminate the need for predefined anchor boxes, simplifying the detection pipeline and improving flexibility.</p>
+                    
+                    <h4>Key Innovations:</h4>
+                    <ul>
+                        <li><strong>No Anchors:</strong> Direct prediction without anchor box design</li>
+                        <li><strong>Center-based:</strong> Detect objects by their center points</li>
+                        <li><strong>Simpler Pipeline:</strong> Fewer hyperparameters to tune</li>
+                        <li><strong>Better for Varying Scales:</strong> Natural handling of different sizes</li>
+                    </ul>
+
+                    <h4>FCOS Approach:</h4>
+                    <ul>
+                        <li>Predicts distances from each pixel to object boundaries</li>
+                        <li>Uses centerness to suppress low-quality detections</li>
+                        <li>Multi-level feature pyramid for scale invariance</li>
+                    </ul>
+
+                    <h4>CenterNet Approach:</h4>
+                    <ul>
+                        <li>Detects object centers as keypoints</li>
+                        <li>Regresses width and height from center</li>
+                        <li>Single network without NMS post-processing</li>
+                    </ul>
+
+                    <h4>Medical Imaging Benefits:</h4>
+                    <div class="code-block">
+Advantages:
+✓ Better for irregular shapes
+✓ Fewer hyperparameters
+✓ Good for lesions of varying sizes
+✓ Simplified training process
+✓ Competitive accuracy
+                    </div>
+                </div>
+
+                <div class="visual-content">
+                    <svg class="diagram" viewBox="0 0 400 380" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Title -->
+                        <text x="200" y="25" text-anchor="middle" font-size="14" fill="#333" font-weight="bold">Anchor-based vs Anchor-free</text>
+                        
+                        <!-- Left side: Anchor-based -->
+                        <rect x="20" y="40" width="170" height="150" fill="#fff5f5" stroke="#ff4444" stroke-width="2" rx="5"/>
+                        <text x="105" y="60" text-anchor="middle" font-size="12" fill="#ff4444" font-weight="bold">Anchor-based (Traditional)</text>
+                        
+                        <!-- Grid with multiple anchors -->
+                        <g transform="translate(50, 70)">
+                            <rect width="110" height="110" fill="#f0f0f0" stroke="#666" stroke-width="1"/>
+                            <!-- Multiple anchor boxes -->
+                            <rect x="10" y="10" width="30" height="20" fill="none" stroke="#ff4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+                            <rect x="15" y="15" width="40" height="40" fill="none" stroke="#ff4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+                            <rect x="60" y="50" width="35" height="25" fill="none" stroke="#ff4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+                            <rect x="55" y="45" width="25" height="35" fill="none" stroke="#ff4444" stroke-width="1.5" stroke-dasharray="3,2"/>
+                            <text x="55" y="105" text-anchor="middle" font-size="9" fill="#666">Many anchors</text>
+                        </g>
+                        
+                        <!-- Right side: Anchor-free -->
+                        <rect x="210" y="40" width="170" height="150" fill="#f5fff5" stroke="#44ff44" stroke-width="2" rx="5"/>
+                        <text x="295" y="60" text-anchor="middle" font-size="12" fill="#228822" font-weight="bold">Anchor-free (FCOS/CenterNet)</text>
+                        
+                        <!-- Direct detection from center -->
+                        <g transform="translate(240, 70)">
+                            <rect width="110" height="110" fill="#f0f0f0" stroke="#666" stroke-width="1"/>
+                            <!-- Center points -->
+                            <circle cx="35" cy="40" r="5" fill="#44ff44"/>
+                            <line x1="35" y1="40" x2="15" y2="40" stroke="#44ff44" stroke-width="2"/>
+                            <line x1="35" y1="40" x2="55" y2="40" stroke="#44ff44" stroke-width="2"/>
+                            <line x1="35" y1="40" x2="35" y2="20" stroke="#44ff44" stroke-width="2"/>
+                            <line x1="35" y1="40" x2="35" y2="60" stroke="#44ff44" stroke-width="2"/>
+                            <rect x="15" y="20" width="40" height="40" fill="none" stroke="#44ff44" stroke-width="2"/>
+                            
+                            <circle cx="75" cy="70" r="5" fill="#44ff44"/>
+                            <rect x="60" y="55" width="30" height="30" fill="none" stroke="#44ff44" stroke-width="2"/>
+                            <text x="55" y="105" text-anchor="middle" font-size="9" fill="#666">Center-based</text>
+                        </g>
+                        
+                        <!-- FCOS pipeline -->
+                        <text x="200" y="220" text-anchor="middle" font-size="13" fill="#333" font-weight="bold">FCOS Detection Process:</text>
+                        
+                        <g transform="translate(20, 230)">
+                            <!-- Input -->
+                            <rect x="0" y="0" width="60" height="50" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                            <text x="30" y="28" text-anchor="middle" font-size="10" fill="#333">Feature</text>
+                            <text x="30" y="40" text-anchor="middle" font-size="10" fill="#333">Map</text>
+                            
+                            <!-- Arrow -->
+                            <path d="M 60 25 L 85 25" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow8)"/>
+                            
+                            <!-- Per-pixel prediction -->
+                            <rect x="85" y="0" width="80" height="50" fill="#ccf0ff" stroke="#0099ff" stroke-width="2" rx="3"/>
+                            <text x="125" y="20" text-anchor="middle" font-size="9" fill="#333">Per-pixel</text>
+                            <text x="125" y="32" text-anchor="middle" font-size="9" fill="#333">prediction:</text>
+                            <text x="125" y="44" text-anchor="middle" font-size="8" fill="#666">l, t, r, b</text>
+                            
+                            <!-- Arrow -->
+                            <path d="M 165 25 L 190 25" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow9)"/>
+                            
+                            <!-- Centerness -->
+                            <rect x="190" y="0" width="80" height="50" fill="#fff5cc" stroke="#ffaa00" stroke-width="2" rx="3"/>
+                            <text x="230" y="20" text-anchor="middle" font-size="9" fill="#333">Centerness</text>
+                            <text x="230" y="32" text-anchor="middle" font-size="9" fill="#333">Score</text>
+                            
+                            <!-- Arrow -->
+                            <path d="M 270 25 L 295 25" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow10)"/>
+                            
+                            <!-- Output -->
+                            <rect x="295" y="0" width="65" height="50" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                            <text x="327" y="20" text-anchor="middle" font-size="9" fill="#333">Final</text>
+                            <text x="327" y="32" text-anchor="middle" font-size="9" fill="#333">Bounding</text>
+                            <text x="327" y="44" text-anchor="middle" font-size="9" fill="#333">Box</text>
+                        </g>
+                        
+                        <!-- Advantages -->
+                        <rect x="40" y="310" width="320" height="50" fill="#f0f8ff" stroke="#1E64C8" stroke-width="1" rx="5"/>
+                        <text x="200" y="330" text-anchor="middle" font-size="11" fill="#333">✓ No anchor design   ✓ Simpler pipeline   ✓ Better flexibility</text>
+                        <text x="200" y="348" text-anchor="middle" font-size="11" fill="#333">✓ Good for irregular medical structures</text>
+                        
+                        <defs>
+                            <marker id="arrow8" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                            <marker id="arrow9" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                            <marker id="arrow10" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                    <div class="diagram-label">Figure 4: Anchor-free methods eliminate predefined anchors, detecting objects directly from center points</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 5: 3D Detection -->
+        <div class="detailed-section">
+            <div class="section-title">5. 3D Detection for Volumetric Medical Data</div>
+            <div class="section-content">
+                <div class="text-content">
+                    <p>3D object detection extends 2D methods to volumetric medical imaging data (CT, MRI), enabling detection of lesions, tumors, and anatomical structures in three-dimensional space.</p>
+                    
+                    <h4>Key Differences from 2D:</h4>
+                    <ul>
+                        <li><strong>3D Convolutions:</strong> Process volumetric data directly</li>
+                        <li><strong>3D Bounding Boxes:</strong> (x, y, z, w, h, d) coordinates</li>
+                        <li><strong>Higher Computation:</strong> Significantly more parameters</li>
+                        <li><strong>Context:</strong> Better spatial understanding of anatomy</li>
+                    </ul>
+
+                    <h4>Common Architectures:</h4>
+                    <ul>
+                        <li><strong>3D Faster R-CNN:</strong> Two-stage detector for volumes</li>
+                        <li><strong>3D YOLO variants:</strong> Fast 3D detection</li>
+                        <li><strong>nnDetection:</strong> Specialized for medical 3D detection</li>
+                        <li><strong>V-Net based:</strong> Encoder-decoder with detection heads</li>
+                    </ul>
+
+                    <h4>Medical Applications:</h4>
+                    <ul>
+                        <li>Lung nodule detection in chest CT</li>
+                        <li>Brain tumor localization in MRI</li>
+                        <li>Liver lesion detection</li>
+                        <li>Vertebrae localization for spine analysis</li>
+                        <li>Lymph node detection</li>
+                    </ul>
+
+                    <h4>Implementation Considerations:</h4>
+                    <div class="code-block">
+Challenges:
+• Memory constraints (GPU RAM)
+• Longer training time
+• Data augmentation in 3D
+• Annotation effort
+
+Solutions:
+• Patch-based processing
+• Mixed precision training
+• Transfer from 2D models
+• Sparse 3D convolutions
+                    </div>
+                </div>
+
+                <div class="visual-content">
+                    <svg class="diagram" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Title -->
+                        <text x="200" y="25" text-anchor="middle" font-size="14" fill="#333" font-weight="bold">2D vs 3D Detection</text>
+                        
+                        <!-- 2D Detection -->
+                        <g transform="translate(30, 40)">
+                            <text x="80" y="0" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="bold">2D Detection</text>
+                            <!-- Single slice -->
+                            <rect x="10" y="15" width="140" height="100" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="80" y="30" text-anchor="middle" font-size="10" fill="#666">Single Slice</text>
+                            <!-- 2D bounding box -->
+                            <rect x="50" y="50" width="60" height="40" fill="none" stroke="#ff4444" stroke-width="3"/>
+                            <text x="80" y="125" text-anchor="middle" font-size="9" fill="#333">Box: (x, y, w, h)</text>
+                        </g>
+                        
+                        <!-- 3D Detection -->
+                        <g transform="translate(230, 40)">
+                            <text x="80" y="0" text-anchor="middle" font-size="12" fill="#228822" font-weight="bold">3D Detection</text>
+                            <!-- 3D volume representation -->
+                            <g transform="translate(20, 15)">
+                                <!-- Back face -->
+                                <rect x="20" y="0" width="120" height="90" fill="#d0e8ff" stroke="#0099ff" stroke-width="2" opacity="0.5"/>
+                                <!-- Front face -->
+                                <rect x="0" y="20" width="120" height="90" fill="#e8f4f8" stroke="#0099ff" stroke-width="2"/>
+                                <!-- Connect corners -->
+                                <line x1="0" y1="20" x2="20" y2="0" stroke="#0099ff" stroke-width="1"/>
+                                <line x1="120" y1="20" x2="140" y2="0" stroke="#0099ff" stroke-width="1"/>
+                                <line x1="0" y1="110" x2="20" y2="90" stroke="#0099ff" stroke-width="1"/>
+                                <line x1="120" y1="110" x2="140" y2="90" stroke="#0099ff" stroke-width="1"/>
+                                
+                                <!-- 3D bounding box -->
+                                <rect x="30" y="40" width="50" height="35" fill="none" stroke="#44ff44" stroke-width="2.5"/>
+                                <rect x="45" y="30" width="50" height="35" fill="none" stroke="#44ff44" stroke-width="2.5" opacity="0.7"/>
+                                <line x1="30" y1="40" x2="45" y2="30" stroke="#44ff44" stroke-width="2"/>
+                                <line x1="80" y1="40" x2="95" y2="30" stroke="#44ff44" stroke-width="2"/>
+                                <line x1="30" y1="75" x2="45" y2="65" stroke="#44ff44" stroke-width="2"/>
+                                <line x1="80" y1="75" x2="95" y2="65" stroke="#44ff44" stroke-width="2"/>
+                            </g>
+                            <text x="80" y="125" text-anchor="middle" font-size="9" fill="#333">Box: (x, y, z, w, h, d)</text>
+                        </g>
+                        
+                        <!-- Architecture diagram -->
+                        <text x="200" y="195" text-anchor="middle" font-size="13" fill="#333" font-weight="bold">3D Detection Pipeline:</text>
+                        
+                        <g transform="translate(20, 210)">
+                            <!-- Input volume -->
+                            <rect x="0" y="10" width="65" height="60" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                            <text x="32" y="30" text-anchor="middle" font-size="10" fill="#333">3D CT/MRI</text>
+                            <text x="32" y="45" text-anchor="middle" font-size="9" fill="#666">Volume</text>
+                            <text x="32" y="58" text-anchor="middle" font-size="8" fill="#666">(H×W×D)</text>
+                            
+                            <!-- Arrow -->
+                            <path d="M 65 40 L 90 40" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow11)"/>
+                            
+                            <!-- 3D CNN -->
+                            <rect x="90" y="10" width="75" height="60" fill="#ccf0ff" stroke="#0099ff" stroke-width="2" rx="3"/>
+                            <text x="127" y="30" text-anchor="middle" font-size="10" fill="#333">3D CNN</text>
+                            <text x="127" y="43" text-anchor="middle" font-size="9" fill="#666">Backbone</text>
+                            <text x="127" y="56" text-anchor="middle" font-size="8" fill="#666">3D Conv layers</text>
+                            
+                            <!-- Arrow -->
+                            <path d="M 165 40 L 190 40" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow12)"/>
+                            
+                            <!-- Detection Head -->
+                            <rect x="190" y="10" width="85" height="60" fill="#fff5cc" stroke="#ffaa00" stroke-width="2" rx="3"/>
+                            <text x="232" y="28" text-anchor="middle" font-size="10" fill="#333">Detection</text>
+                            <text x="232" y="41" text-anchor="middle" font-size="10" fill="#333">Head</text>
+                            <text x="232" y="56" text-anchor="middle" font-size="8" fill="#666">RPN + Classifier</text>
+                            
+                            <!-- Arrow -->
+                            <path d="M 275 40 L 300 40" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow13)"/>
+                            
+                            <!-- Output -->
+                            <rect x="300" y="10" width="60" height="60" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                            <text x="330" y="30" text-anchor="middle" font-size="10" fill="#333">3D Boxes</text>
+                            <text x="330" y="43" text-anchor="middle" font-size="9" fill="#666">+ Classes</text>
+                            <text x="330" y="56" text-anchor="middle" font-size="9" fill="#666">+ Scores</text>
+                        </g>
+                        
+                        <!-- Example applications -->
+                        <rect x="40" y="305" width="320" height="80" fill="#f0f8ff" stroke="#1E64C8" stroke-width="1" rx="5"/>
+                        <text x="200" y="325" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">Medical 3D Detection Applications:</text>
+                        <text x="200" y="345" text-anchor="middle" font-size="10" fill="#333">🫁 Lung nodules in chest CT  •  🧠 Brain tumors in MRI</text>
+                        <text x="200" y="363" text-anchor="middle" font-size="10" fill="#333">🦴 Vertebrae in spine CT  •  💚 Liver lesions  •  🔬 Lymph nodes</text>
+                        <text x="200" y="378" text-anchor="middle" font-size="9" fill="#666" font-style="italic">Better spatial context than 2D slice-by-slice analysis</text>
+                        
+                        <defs>
+                            <marker id="arrow11" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                            <marker id="arrow12" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                            <marker id="arrow13" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                    <div class="diagram-label">Figure 5: 3D detection processes volumetric data to detect objects in three-dimensional space with 3D bounding boxes</div>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

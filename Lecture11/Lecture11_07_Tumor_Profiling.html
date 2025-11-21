@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tumor Profiling</title>
+    <title>Tumor Profiling - Detailed Guide</title>
     <style>
         * {
             margin: 0;
@@ -13,39 +13,40 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         
         .title {
-            font-size: 28px;
+            font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 15px;
         }
         
         .content-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 20px;
+            gap: 25px;
+            margin-bottom: 50px;
         }
         
         .content-card {
             background: #f8f9fb;
             border-left: 5px solid #1E64C8;
-            padding: 20px;
+            padding: 25px;
             border-radius: 8px;
             transition: all 0.3s;
         }
@@ -53,10 +54,11 @@
         .content-card:hover {
             background: #e8f2ff;
             transform: translateX(5px);
+            box-shadow: 0 4px 12px rgba(30, 100, 200, 0.2);
         }
         
         .card-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
             color: #1E64C8;
             margin-bottom: 12px;
@@ -71,18 +73,312 @@
         .highlight-box {
             background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
             color: white;
+            padding: 25px;
+            border-radius: 10px;
+            text-align: center;
+            font-size: 18px;
+            font-weight: 500;
+            line-height: 1.6;
+            margin-bottom: 50px;
+        }
+        
+        .detailed-section {
+            margin-bottom: 50px;
+        }
+        
+        .section-header {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            padding: 15px;
+            background: linear-gradient(to right, #e8f2ff 0%, white 100%);
+            border-left: 5px solid #1E64C8;
+            border-radius: 5px;
+        }
+        
+        .detail-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .detail-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .detail-title::before {
+            content: '▶';
+            color: #1E64C8;
+        }
+        
+        .visual-container {
+            background: #f8f9fb;
+            border-radius: 10px;
+            padding: 30px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        
+        .diagram {
+            width: 100%;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .explanation {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        
+        .key-points {
+            background: #fff8e1;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .key-points-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #f57c00;
+            margin-bottom: 12px;
+        }
+        
+        .key-points ul {
+            margin-left: 20px;
+            line-height: 1.8;
+        }
+        
+        .key-points li {
+            margin-bottom: 8px;
+            color: #333;
+        }
+        
+        .clinical-significance {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .clinical-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #2e7d32;
+            margin-bottom: 12px;
+        }
+        
+        .seq-box {
+            display: inline-block;
+            padding: 8px 15px;
+            margin: 5px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            font-weight: 600;
+        }
+        
+        .seq-normal {
+            background: #c8e6c9;
+            color: #1b5e20;
+        }
+        
+        .seq-mutant {
+            background: #ffcdd2;
+            color: #b71c1c;
+        }
+        
+        .tmb-scale {
+            display: flex;
+            height: 40px;
+            border-radius: 10px;
+            overflow: hidden;
+            margin: 20px 0;
+        }
+        
+        .tmb-low {
+            background: #4caf50;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .tmb-medium {
+            background: #ff9800;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .tmb-high {
+            background: #f44336;
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .msi-comparison {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+        
+        .msi-box {
             padding: 20px;
             border-radius: 10px;
             text-align: center;
-            font-size: 17px;
-            font-weight: 500;
-            line-height: 1.6;
+        }
+        
+        .msi-stable {
+            background: #e3f2fd;
+            border: 3px solid #1976d2;
+        }
+        
+        .msi-unstable {
+            background: #fce4ec;
+            border: 3px solid #c2185b;
+        }
+        
+        .msi-box-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+        
+        .microsatellite {
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            margin: 10px 0;
+        }
+        
+        .dna-strand {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            margin: 20px 0;
+            gap: 10px;
+        }
+        
+        .strand-segment {
+            width: 60px;
+            height: 30px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 12px;
+        }
+        
+        .strand-normal {
+            background: #81c784;
+            color: white;
+        }
+        
+        .strand-break {
+            background: #e57373;
+            color: white;
+            border: 2px dashed #c62828;
+        }
+        
+        .pathway-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .pathway-box {
+            padding: 15px 25px;
+            border-radius: 8px;
+            font-weight: 600;
+            background: #bbdefb;
+            color: #0d47a1;
+            border: 2px solid #1976d2;
+        }
+        
+        .arrow {
+            font-size: 24px;
+            color: #1976d2;
+            font-weight: 700;
+        }
+        
+        .pdl1-scale {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        
+        .pdl1-bar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .pdl1-label {
+            width: 150px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .pdl1-bar-fill {
+            flex: 1;
+            height: 30px;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            padding-left: 15px;
+            color: white;
+            font-weight: 600;
+        }
+        
+        .pdl1-negative {
+            background: #e0e0e0;
+            color: #666;
+        }
+        
+        .pdl1-low {
+            background: linear-gradient(to right, #fff9c4, #ffeb3b);
+            color: #333;
+        }
+        
+        .pdl1-high {
+            background: linear-gradient(to right, #ff6f00, #e65100);
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Tumor Profiling</div>
+        <div class="title">Tumor Profiling: Comprehensive Guide</div>
         
         <div class="content-grid">
             <div class="content-card">
@@ -116,6 +412,300 @@
         
         <div class="highlight-box">
             PD-L1 Expression: Key biomarker for immune checkpoint inhibitor therapy eligibility
+        </div>
+
+        <!-- Detailed Sections -->
+        <div class="section-header">Detailed Analysis of Tumor Profiling Methods</div>
+
+        <!-- NGS Panels -->
+        <div class="detail-card">
+            <div class="detail-title">1. NGS Panels (Next-Generation Sequencing)</div>
+            
+            <div class="explanation">
+                Next-generation sequencing panels enable simultaneous analysis of multiple genes, providing comprehensive genomic profiling of tumors. This technology has revolutionized precision oncology by identifying actionable mutations that guide targeted therapy selection.
+            </div>
+
+            <div class="visual-container">
+                <h4 style="color: #1E64C8; margin-bottom: 20px;">DNA Sequencing Process</h4>
+                <div class="pathway-flow">
+                    <div class="pathway-box">Tumor Sample</div>
+                    <div class="arrow">→</div>
+                    <div class="pathway-box">DNA Extraction</div>
+                    <div class="arrow">→</div>
+                    <div class="pathway-box">Library Prep</div>
+                    <div class="arrow">→</div>
+                    <div class="pathway-box">Sequencing</div>
+                    <div class="arrow">→</div>
+                    <div class="pathway-box">Analysis</div>
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <p style="font-weight: 600; margin-bottom: 15px;">Example: Point Mutation Detection</p>
+                    <div>
+                        <span class="seq-box seq-normal">ATGC GCTA ATGC</span>
+                        <span style="font-size: 20px;">→</span>
+                        <span class="seq-box seq-mutant">ATGC GTTA ATGC</span>
+                    </div>
+                    <p style="margin-top: 10px; color: #666;">Normal DNA → Mutated DNA (C→T mutation)</p>
+                </div>
+            </div>
+
+            <div class="key-points">
+                <div class="key-points-title">Key Features:</div>
+                <ul>
+                    <li><strong>Multi-gene analysis:</strong> Simultaneous testing of 50-500+ genes</li>
+                    <li><strong>Mutation types detected:</strong> SNVs, indels, CNVs, fusions</li>
+                    <li><strong>Applications:</strong> Targeted therapy selection, clinical trial matching</li>
+                    <li><strong>Turnaround time:</strong> Typically 7-14 days</li>
+                    <li><strong>Sample requirements:</strong> FFPE tissue or liquid biopsy (ctDNA)</li>
+                </ul>
+            </div>
+
+            <div class="clinical-significance">
+                <div class="clinical-title">Clinical Significance:</div>
+                <p>NGS panels identify actionable mutations in genes such as EGFR, ALK, BRAF, KRAS, and HER2, enabling precision medicine approaches. For example, EGFR mutations in lung cancer predict response to tyrosine kinase inhibitors like erlotinib and osimertinib.</p>
+            </div>
+        </div>
+
+        <!-- TMB Assessment -->
+        <div class="detail-card">
+            <div class="detail-title">2. TMB Assessment (Tumor Mutational Burden)</div>
+            
+            <div class="explanation">
+                Tumor Mutational Burden quantifies the total number of somatic mutations per megabase of DNA. High TMB tumors generate more neoantigens, making them more immunogenic and likely to respond to immune checkpoint inhibitors.
+            </div>
+
+            <div class="visual-container">
+                <h4 style="color: #1E64C8; margin-bottom: 20px;">TMB Classification Scale</h4>
+                <div class="tmb-scale">
+                    <div class="tmb-low">Low TMB<br>&lt;6 mut/Mb</div>
+                    <div class="tmb-medium">Intermediate<br>6-19 mut/Mb</div>
+                    <div class="tmb-high">High TMB<br>≥20 mut/Mb</div>
+                </div>
+                
+                <div style="margin-top: 30px; text-align: left;">
+                    <p style="font-weight: 600; margin-bottom: 10px;">Mutation Load Visualization:</p>
+                    <div style="display: flex; flex-direction: column; gap: 10px;">
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="width: 120px;">Low TMB:</span>
+                            <div style="background: #4caf50; height: 20px; width: 100px; border-radius: 3px;"></div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="width: 120px;">Medium TMB:</span>
+                            <div style="background: #ff9800; height: 20px; width: 250px; border-radius: 3px;"></div>
+                        </div>
+                        <div style="display: flex; align-items: center; gap: 10px;">
+                            <span style="width: 120px;">High TMB:</span>
+                            <div style="background: #f44336; height: 20px; width: 400px; border-radius: 3px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-points">
+                <div class="key-points-title">Key Features:</div>
+                <ul>
+                    <li><strong>Measurement:</strong> Number of mutations per megabase (mut/Mb)</li>
+                    <li><strong>Cutoff values:</strong> TMB-High typically defined as ≥10-20 mut/Mb</li>
+                    <li><strong>Cancer types with high TMB:</strong> Melanoma, NSCLC, bladder cancer, MSI-H tumors</li>
+                    <li><strong>Mechanism:</strong> More mutations → more neoantigens → enhanced immune recognition</li>
+                    <li><strong>FDA approval:</strong> Pembrolizumab approved for TMB-H tumors (≥10 mut/Mb)</li>
+                </ul>
+            </div>
+
+            <div class="clinical-significance">
+                <div class="clinical-title">Clinical Significance:</div>
+                <p>High TMB predicts improved response to immune checkpoint inhibitors across multiple cancer types. Studies show that patients with TMB-H tumors have higher response rates (29-50%) to immunotherapy compared to TMB-low tumors (10-20%). However, TMB should be interpreted in context with other biomarkers like PD-L1 expression and MSI status.</p>
+            </div>
+        </div>
+
+        <!-- MSI Status -->
+        <div class="detail-card">
+            <div class="detail-title">3. MSI Status (Microsatellite Instability)</div>
+            
+            <div class="explanation">
+                Microsatellites are repetitive DNA sequences that are prone to replication errors. MSI occurs when mismatch repair (MMR) genes are deficient, leading to accumulation of mutations in these regions. MSI-High tumors are highly responsive to immunotherapy.
+            </div>
+
+            <div class="visual-container">
+                <h4 style="color: #1E64C8; margin-bottom: 20px;">MSI Comparison</h4>
+                <div class="msi-comparison">
+                    <div class="msi-box msi-stable">
+                        <div class="msi-box-title" style="color: #1565c0;">MSI-Stable (MSS)</div>
+                        <div class="microsatellite">
+                            Normal: (CA)<sub>15</sub><br>
+                            Tumor: (CA)<sub>15</sub><br>
+                            <strong>No length change</strong>
+                        </div>
+                        <p style="margin-top: 10px;">Intact MMR system</p>
+                    </div>
+                    
+                    <div class="msi-box msi-unstable">
+                        <div class="msi-box-title" style="color: #ad1457;">MSI-High</div>
+                        <div class="microsatellite">
+                            Normal: (CA)<sub>15</sub><br>
+                            Tumor: (CA)<sub>22</sub><br>
+                            <strong>Length variation</strong>
+                        </div>
+                        <p style="margin-top: 10px;">Deficient MMR (dMMR)</p>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <p style="font-weight: 600; margin-bottom: 15px;">MMR Gene Deficiency Cascade:</p>
+                    <div class="pathway-flow">
+                        <div class="pathway-box">MMR Loss</div>
+                        <div class="arrow">→</div>
+                        <div class="pathway-box">Replication Errors</div>
+                        <div class="arrow">→</div>
+                        <div class="pathway-box">MSI</div>
+                        <div class="arrow">→</div>
+                        <div class="pathway-box">High Mutation Load</div>
+                        <div class="arrow">→</div>
+                        <div class="pathway-box">Immunogenicity</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-points">
+                <div class="key-points-title">Key Features:</div>
+                <ul>
+                    <li><strong>Classification:</strong> MSI-High (MSI-H), MSI-Low (MSI-L), Microsatellite Stable (MSS)</li>
+                    <li><strong>MMR genes:</strong> MLH1, MSH2, MSH6, PMS2</li>
+                    <li><strong>Detection methods:</strong> PCR-based assay, NGS, IHC for MMR proteins</li>
+                    <li><strong>Common cancers:</strong> Colorectal (15%), endometrial (30%), gastric (20%)</li>
+                    <li><strong>Lynch syndrome:</strong> Hereditary MSI-H due to germline MMR mutations</li>
+                </ul>
+            </div>
+
+            <div class="clinical-significance">
+                <div class="clinical-title">Clinical Significance:</div>
+                <p>MSI-H/dMMR tumors are highly responsive to immune checkpoint inhibitors regardless of tumor type. FDA has granted tissue-agnostic approvals for pembrolizumab and nivolumab in MSI-H cancers. Response rates exceed 50% in MSI-H tumors compared to <10% in MSS tumors. MSI-H colorectal cancer also has better prognosis and may not benefit from 5-FU chemotherapy.</p>
+            </div>
+        </div>
+
+        <!-- HRD Testing -->
+        <div class="detail-card">
+            <div class="detail-title">4. HRD Testing (Homologous Recombination Deficiency)</div>
+            
+            <div class="explanation">
+                Homologous Recombination is a crucial DNA repair pathway for double-strand breaks. Deficiency in this pathway (HRD) makes cancer cells vulnerable to PARP inhibitors, which block an alternative DNA repair mechanism, leading to synthetic lethality.
+            </div>
+
+            <div class="visual-container">
+                <h4 style="color: #1E64C8; margin-bottom: 20px;">DNA Double-Strand Break Repair</h4>
+                <div style="margin-bottom: 30px;">
+                    <p style="font-weight: 600; margin-bottom: 15px;">Normal Homologous Recombination:</p>
+                    <div class="dna-strand">
+                        <div class="strand-segment strand-normal">DNA</div>
+                        <div class="strand-segment strand-break">BREAK</div>
+                        <div class="strand-segment strand-normal">DNA</div>
+                        <span class="arrow">→</span>
+                        <div class="strand-segment" style="background: #4caf50; color: white;">BRCA1/2</div>
+                        <span class="arrow">→</span>
+                        <div class="strand-segment strand-normal">REPAIRED</div>
+                    </div>
+                </div>
+                
+                <div>
+                    <p style="font-weight: 600; margin-bottom: 15px;">HRD + PARP Inhibition = Cell Death:</p>
+                    <div class="pathway-flow">
+                        <div class="pathway-box" style="background: #ffcdd2; border-color: #c62828;">HRD Tumor</div>
+                        <div class="arrow">+</div>
+                        <div class="pathway-box" style="background: #fff9c4; color: #333; border-color: #f57f17;">PARP Inhibitor</div>
+                        <div class="arrow">→</div>
+                        <div class="pathway-box" style="background: #c8e6c9; border-color: #2e7d32;">No DNA Repair</div>
+                        <div class="arrow">→</div>
+                        <div class="pathway-box" style="background: #e1bee7; border-color: #6a1b9a;">Synthetic Lethality</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-points">
+                <div class="key-points-title">Key Features:</div>
+                <ul>
+                    <li><strong>Key genes:</strong> BRCA1, BRCA2, RAD51, PALB2, ATM, CHEK2</li>
+                    <li><strong>HRD score:</strong> Composite measure of genomic instability (LOH, TAI, LST)</li>
+                    <li><strong>Testing methods:</strong> Germline/somatic sequencing, HRD genomic scar analysis</li>
+                    <li><strong>Primary cancers:</strong> Ovarian (50%), breast (20%), prostate, pancreatic</li>
+                    <li><strong>PARP inhibitors:</strong> Olaparib, rucaparib, niraparib, talazoparib</li>
+                </ul>
+            </div>
+
+            <div class="clinical-significance">
+                <div class="clinical-title">Clinical Significance:</div>
+                <p>HRD testing identifies patients who will benefit from PARP inhibitors. FDA-approved indications include BRCA-mutated ovarian, breast, pancreatic, and prostate cancers. HRD-positive tumors show response rates of 50-80% to PARP inhibitors with significant progression-free survival benefits. Beyond BRCA mutations, broader HRD testing captures additional patients with genomic scars who may respond to treatment.</p>
+            </div>
+        </div>
+
+        <!-- PD-L1 Expression Detail -->
+        <div class="detail-card">
+            <div class="detail-title">5. PD-L1 Expression Analysis</div>
+            
+            <div class="explanation">
+                PD-L1 (Programmed Death-Ligand 1) is a protein expressed on tumor and immune cells that suppresses T-cell activation. PD-L1 expression levels help predict response to immune checkpoint inhibitors targeting the PD-1/PD-L1 pathway.
+            </div>
+
+            <div class="visual-container">
+                <h4 style="color: #1E64C8; margin-bottom: 20px;">PD-L1 Expression Levels</h4>
+                <div class="pdl1-scale">
+                    <div class="pdl1-bar">
+                        <div class="pdl1-label">Negative (&lt;1%)</div>
+                        <div class="pdl1-bar-fill pdl1-negative" style="width: 10%;">0%</div>
+                    </div>
+                    <div class="pdl1-bar">
+                        <div class="pdl1-label">Low (1-49%)</div>
+                        <div class="pdl1-bar-fill pdl1-low" style="width: 40%;">25%</div>
+                    </div>
+                    <div class="pdl1-bar">
+                        <div class="pdl1-label">High (≥50%)</div>
+                        <div class="pdl1-bar-fill pdl1-high" style="width: 70%;">75%</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px;">
+                    <p style="font-weight: 600; margin-bottom: 15px;">Checkpoint Inhibitor Mechanism:</p>
+                    <div class="pathway-flow">
+                        <div class="pathway-box">PD-L1 on Tumor</div>
+                        <div class="arrow">+</div>
+                        <div class="pathway-box">PD-1 on T-cell</div>
+                        <div class="arrow">→</div>
+                        <div class="pathway-box" style="background: #ffcdd2; border-color: #c62828;">Immune Evasion</div>
+                    </div>
+                    <div style="margin: 15px 0; font-size: 24px; color: #1E64C8;">⬇ Anti-PD-1/PD-L1 Therapy</div>
+                    <div class="pathway-flow">
+                        <div class="pathway-box">Blocked Interaction</div>
+                        <div class="arrow">→</div>
+                        <div class="pathway-box">T-cell Activation</div>
+                        <div class="arrow">→</div>
+                        <div class="pathway-box" style="background: #c8e6c9; border-color: #2e7d32;">Tumor Killing</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-points">
+                <div class="key-points-title">Key Features:</div>
+                <ul>
+                    <li><strong>Testing method:</strong> Immunohistochemistry (IHC) on tumor tissue</li>
+                    <li><strong>Scoring systems:</strong> TPS (Tumor Proportion Score), CPS (Combined Positive Score)</li>
+                    <li><strong>Cutoffs vary by cancer:</strong> NSCLC (≥50% for first-line), head/neck (≥1%)</li>
+                    <li><strong>Checkpoint inhibitors:</strong> Pembrolizumab, nivolumab, atezolizumab, durvalumab</li>
+                    <li><strong>Limitations:</strong> Dynamic expression, intratumoral heterogeneity, assay variability</li>
+                </ul>
+            </div>
+
+            <div class="clinical-significance">
+                <div class="clinical-title">Clinical Significance:</div>
+                <p>PD-L1 expression is a companion or complementary diagnostic for multiple checkpoint inhibitors. In NSCLC, PD-L1 ≥50% predicts superior outcomes with pembrolizumab monotherapy versus chemotherapy. However, PD-L1 is not a perfect biomarker—responses can occur in PD-L1 negative tumors, and some PD-L1 positive tumors don't respond. Integration with TMB and MSI status improves patient selection.</p>
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        <div style="background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%); padding: 30px; border-radius: 10px; margin-top: 40px;">
+            <h3 style="color: #0d47a1; margin-bottom: 20px; text-align: center;">Integrated Biomarker Approach</h3>
+            <p style="line-height: 1.8; color: #333; text-align: center; font-size: 16px;">
+                Modern precision oncology relies on comprehensive tumor profiling combining NGS panels, TMB, MSI, HRD, and PD-L1 testing. This integrated approach maximizes therapeutic opportunities by identifying patients for targeted therapies, immunotherapy, and DNA damage repair inhibitors. Multi-biomarker testing ensures optimal treatment selection and improves patient outcomes across diverse cancer types.
+            </p>
         </div>
     </div>
 </body>

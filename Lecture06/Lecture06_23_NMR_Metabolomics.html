@@ -1,70 +1,261 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMR Metabolomics</title>
+    <title>NMR Metabolomics - Enhanced</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 20px;
         }
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 35px 45px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .title {
-            font-size: 20px;
-            font-weight: 600;
+            font-size: 32px;
+            font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 25px;
+            margin-bottom: 40px;
             text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 15px;
         }
         .content-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 30px;
+            margin-bottom: 50px;
         }
         .content-card {
             background: #f8fbff;
-            border-left: 4px solid #1E64C8;
-            padding: 18px 22px;
-            border-radius: 6px;
+            border-left: 5px solid #1E64C8;
+            padding: 20px 25px;
+            border-radius: 8px;
             transition: all 0.3s;
+            cursor: pointer;
         }
         .content-card:hover {
             background: #e8f2ff;
             transform: translateX(5px);
+            box-shadow: 0 4px 8px rgba(30,100,200,0.2);
         }
         .card-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .card-content {
             font-size: 16px;
             color: #333;
-            line-height: 1.5;
+            line-height: 1.6;
         }
         .bullet {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 6px;
+            margin-bottom: 8px;
         }
         .bullet::before {
             content: "•";
             color: #1E64C8;
             font-weight: bold;
-            margin-right: 8px;
+            margin-right: 10px;
             font-size: 16px;
+        }
+        
+        /* Detailed sections */
+        .detailed-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+        .section-header {
+            font-size: 26px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+        .section-number {
+            background: #1E64C8;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        .detail-content {
+            background: #fafafa;
+            padding: 25px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .detail-subsection {
+            margin-bottom: 20px;
+        }
+        .subsection-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 12px;
+            padding-left: 10px;
+            border-left: 3px solid #1E64C8;
+        }
+        .detail-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #444;
+            margin-bottom: 15px;
+        }
+        .detail-list {
+            margin-left: 20px;
+        }
+        .detail-list li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+            color: #555;
+        }
+        
+        /* Visual representations */
+        .visual-box {
+            background: white;
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .spectrum-visual {
+            height: 150px;
+            background: linear-gradient(to bottom, #f0f8ff 0%, #e8f2ff 100%);
+            border-radius: 5px;
+            position: relative;
+            margin: 15px 0;
+            border: 1px solid #ccc;
+        }
+        .peak {
+            position: absolute;
+            bottom: 0;
+            width: 3px;
+            background: #1E64C8;
+        }
+        .peak-1 { left: 15%; height: 60%; }
+        .peak-2 { left: 25%; height: 85%; }
+        .peak-3 { left: 40%; height: 45%; }
+        .peak-4 { left: 55%; height: 70%; }
+        .peak-5 { left: 70%; height: 55%; }
+        .peak-6 { left: 85%; height: 40%; }
+        
+        .spectrum-label {
+            position: absolute;
+            bottom: -25px;
+            font-size: 12px;
+            color: #666;
+        }
+        .label-left { left: 0; }
+        .label-right { right: 0; }
+        
+        .grid-2d {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to right, #f0f8ff 0%, #e8f2ff 50%, #d0e8ff 100%);
+            border-radius: 5px;
+            position: relative;
+            border: 1px solid #ccc;
+        }
+        .correlation-spot {
+            position: absolute;
+            width: 12px;
+            height: 12px;
+            background: #1E64C8;
+            border-radius: 50%;
+            opacity: 0.7;
+        }
+        .spot-1 { left: 30%; top: 40%; }
+        .spot-2 { left: 50%; top: 60%; }
+        .spot-3 { left: 70%; top: 30%; }
+        .spot-4 { left: 45%; top: 75%; }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .comparison-table th,
+        .comparison-table td {
+            padding: 12px;
+            text-align: left;
+            border: 1px solid #ddd;
+        }
+        .comparison-table th {
+            background: #1E64C8;
+            color: white;
+            font-weight: 600;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f8fbff;
+        }
+        
+        .highlight-box {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .highlight-title {
+            font-weight: 600;
+            color: #f57c00;
+            margin-bottom: 8px;
+        }
+        
+        .workflow-diagram {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        .workflow-step {
+            background: #1E64C8;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            margin: 10px;
+            min-width: 150px;
+            text-align: center;
+            position: relative;
+        }
+        .workflow-step:not(:last-child)::after {
+            content: "→";
+            position: absolute;
+            right: -25px;
+            color: #1E64C8;
+            font-size: 24px;
+        }
+        
+        @media (max-width: 768px) {
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            .workflow-step:not(:last-child)::after {
+                content: "↓";
+                right: auto;
+                bottom: -25px;
+            }
         }
     </style>
 </head>
@@ -72,6 +263,7 @@
     <div class="container">
         <div class="title">NMR Metabolomics</div>
         
+        <!-- Overview Cards -->
         <div class="content-grid">
             <div class="content-card">
                 <div class="card-title">1H NMR Profiling</div>
@@ -108,7 +300,349 @@
                     <div class="bullet">Lower sensitivity</div>
                 </div>
             </div>
+        </div>
+
+        <!-- Detailed Section 1: 1H NMR Profiling -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <span>1H NMR Profiling in Detail</span>
+            </div>
             
+            <div class="detail-content">
+                <div class="detail-subsection">
+                    <div class="subsection-title">Non-Destructive Analysis</div>
+                    <div class="detail-text">
+                        One of the most significant advantages of NMR spectroscopy is its non-destructive nature. Unlike mass spectrometry, samples can be recovered after analysis and used for additional experiments or stored for future reference. This is particularly valuable when working with limited biological samples or precious compounds.
+                    </div>
+                    <div class="highlight-box">
+                        <div class="highlight-title">Key Benefit:</div>
+                        Samples remain intact and can be subjected to repeated measurements or different experimental conditions without degradation.
+                    </div>
+                </div>
+
+                <div class="detail-subsection">
+                    <div class="subsection-title">Comprehensive Metabolite Detection</div>
+                    <div class="detail-text">
+                        1H NMR can detect virtually all proton-containing metabolites in a single experiment, providing a holistic view of the metabolome. This includes:
+                    </div>
+                    <ul class="detail-list">
+                        <li><strong>Amino acids:</strong> Leucine, valine, alanine, glutamine</li>
+                        <li><strong>Organic acids:</strong> Lactate, citrate, acetate, formate</li>
+                        <li><strong>Sugars:</strong> Glucose, fructose, sucrose</li>
+                        <li><strong>Lipids:</strong> Fatty acids, cholesterol, phospholipids</li>
+                        <li><strong>Nucleotides:</strong> ATP, ADP, NAD+</li>
+                    </ul>
+                </div>
+
+                <div class="visual-box">
+                    <h4 style="color: #1E64C8; margin-bottom: 15px;">Typical 1H NMR Spectrum</h4>
+                    <div class="spectrum-visual">
+                        <div class="peak peak-1"></div>
+                        <div class="peak peak-2"></div>
+                        <div class="peak peak-3"></div>
+                        <div class="peak peak-4"></div>
+                        <div class="peak peak-5"></div>
+                        <div class="peak peak-6"></div>
+                        <div class="spectrum-label label-left">10 ppm</div>
+                        <div class="spectrum-label label-right">0 ppm</div>
+                    </div>
+                    <p style="font-size: 14px; color: #666; margin-top: 30px; text-align: center;">
+                        Each peak represents different proton environments in various metabolites
+                    </p>
+                </div>
+
+                <div class="detail-subsection">
+                    <div class="subsection-title">Quantitative Capabilities</div>
+                    <div class="detail-text">
+                        The peak area in NMR is directly proportional to the number of nuclei contributing to that signal. This inherent quantitative nature means that:
+                    </div>
+                    <ul class="detail-list">
+                        <li>No response factors or calibration curves are needed for individual metabolites</li>
+                        <li>Multiple metabolites can be quantified simultaneously</li>
+                        <li>The relationship between signal and concentration is linear over a wide dynamic range</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 2: 2D NMR Experiments -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <span>2D NMR Experiments</span>
+            </div>
+            
+            <div class="detail-content">
+                <div class="detail-subsection">
+                    <div class="subsection-title">Types of 2D NMR Experiments</div>
+                    
+                    <div class="detail-text">
+                        <strong>COSY (Correlation Spectroscopy):</strong> Reveals connectivity between protons that are coupled through chemical bonds, typically 2-3 bonds apart. Essential for identifying spin systems within molecules.
+                    </div>
+                    
+                    <div class="detail-text">
+                        <strong>TOCSY (Total Correlation Spectroscopy):</strong> Shows correlations between all protons within a spin system, regardless of the number of bonds. Particularly useful for identifying complete amino acid side chains or sugar ring systems.
+                    </div>
+                    
+                    <div class="detail-text">
+                        <strong>HSQC (Heteronuclear Single Quantum Coherence):</strong> Correlates protons with directly attached carbons (13C). Provides excellent resolution and is the most sensitive method for detecting 13C-1H correlations.
+                    </div>
+                </div>
+
+                <div class="visual-box">
+                    <h4 style="color: #1E64C8; margin-bottom: 15px;">2D NMR Spectrum Representation</h4>
+                    <div class="grid-2d">
+                        <div class="correlation-spot spot-1"></div>
+                        <div class="correlation-spot spot-2"></div>
+                        <div class="correlation-spot spot-3"></div>
+                        <div class="correlation-spot spot-4"></div>
+                    </div>
+                    <p style="font-size: 14px; color: #666; margin-top: 15px; text-align: center;">
+                        Cross-peaks indicate correlations between different nuclei
+                    </p>
+                </div>
+
+                <div class="detail-subsection">
+                    <div class="subsection-title">Enhanced Resolution</div>
+                    <div class="detail-text">
+                        2D NMR spreads overlapping signals across a second dimension, effectively resolving complex mixtures that would be impossible to analyze using 1D NMR alone. This is critical in metabolomics where:
+                    </div>
+                    <ul class="detail-list">
+                        <li>Hundreds of metabolites may be present simultaneously</li>
+                        <li>Many metabolites have similar chemical shifts</li>
+                        <li>Low-concentration metabolites may be hidden under major peaks in 1D spectra</li>
+                    </ul>
+                </div>
+
+                <div class="detail-subsection">
+                    <div class="subsection-title">Structure Elucidation</div>
+                    <div class="detail-text">
+                        2D NMR is indispensable for identifying unknown metabolites by providing information about:
+                    </div>
+                    <ul class="detail-list">
+                        <li>Molecular connectivity and topology</li>
+                        <li>Stereochemistry and spatial relationships</li>
+                        <li>Functional group identification</li>
+                        <li>Confirmation of proposed structures</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 3: Quantification -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <span>Quantification Methods</span>
+            </div>
+            
+            <div class="detail-content">
+                <div class="detail-subsection">
+                    <div class="subsection-title">Direct Concentration Measurement</div>
+                    <div class="detail-text">
+                        NMR quantification is based on the fundamental principle that the integrated peak area is directly proportional to the number of nuclei. The concentration can be calculated using:
+                    </div>
+                    <div style="background: white; padding: 15px; border-radius: 5px; margin: 15px 0; text-align: center; font-family: 'Courier New', monospace;">
+                        [Metabolite] = (I<sub>metabolite</sub> / I<sub>standard</sub>) × [Standard] × (N<sub>standard</sub> / N<sub>metabolite</sub>)
+                    </div>
+                    <div class="detail-text">
+                        Where I is the integrated intensity and N is the number of protons.
+                    </div>
+                </div>
+
+                <div class="detail-subsection">
+                    <div class="subsection-title">Internal Standards</div>
+                    
+                    <div class="detail-text">
+                        <strong>TSP (Trimethylsilylpropanoic acid):</strong> Most commonly used for aqueous samples. Provides a sharp singlet at 0 ppm, well separated from most metabolite signals. Water-soluble and chemically stable.
+                    </div>
+                    
+                    <div class="detail-text">
+                        <strong>DSS (4,4-dimethyl-4-silapentane-1-sulfonic acid):</strong> Preferred for biological samples at physiological pH. More stable than TSP across a wider pH range and doesn't bind to proteins.
+                    </div>
+
+                    <div class="workflow-diagram">
+                        <div class="workflow-step">Add Internal Standard</div>
+                        <div class="workflow-step">Acquire Spectrum</div>
+                        <div class="workflow-step">Integrate Peaks</div>
+                        <div class="workflow-step">Calculate Concentration</div>
+                    </div>
+                </div>
+
+                <div class="detail-subsection">
+                    <div class="subsection-title">No Ionization Bias</div>
+                    <div class="detail-text">
+                        Unlike mass spectrometry, NMR quantification is independent of:
+                    </div>
+                    <ul class="detail-list">
+                        <li><strong>Chemical structure:</strong> All protons contribute equally regardless of the molecule they're in</li>
+                        <li><strong>Ionization efficiency:</strong> No ionization step means no matrix effects</li>
+                        <li><strong>Detector response:</strong> Signal is proportional to concentration, not ionization capability</li>
+                        <li><strong>Chemical derivatization:</strong> Samples can be analyzed in their native state</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">Major Advantage:</div>
+                        This makes NMR the gold standard for absolute quantification in metabolomics, particularly useful for validating results from other analytical platforms.
+                    </div>
+                </div>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Feature</th>
+                            <th>NMR Quantification</th>
+                            <th>MS Quantification</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Calibration needed</td>
+                            <td>Single internal standard</td>
+                            <td>Individual standards for each metabolite</td>
+                        </tr>
+                        <tr>
+                            <td>Ionization effects</td>
+                            <td>None</td>
+                            <td>Significant</td>
+                        </tr>
+                        <tr>
+                            <td>Linear range</td>
+                            <td>Very wide (5-6 orders)</td>
+                            <td>Limited (2-3 orders)</td>
+                        </tr>
+                        <tr>
+                            <td>Matrix effects</td>
+                            <td>Minimal</td>
+                            <td>Substantial</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Detailed Section 4: Sample Requirements -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <span>Sample Requirements and Considerations</span>
+            </div>
+            
+            <div class="detail-content">
+                <div class="detail-subsection">
+                    <div class="subsection-title">Sample Volume Requirements</div>
+                    <div class="detail-text">
+                        NMR requires larger sample volumes compared to mass spectrometry due to its inherently lower sensitivity:
+                    </div>
+                    <ul class="detail-list">
+                        <li><strong>Standard NMR tubes (5mm):</strong> 500-600 μL minimum volume</li>
+                        <li><strong>High-sensitivity microprobes (1.7mm):</strong> 30-40 μL minimum volume</li>
+                        <li><strong>Cryoprobes:</strong> Can reduce required concentration by 4-fold</li>
+                        <li><strong>Typical detection limit:</strong> 1-10 μM for small molecules</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">Practical Consideration:</div>
+                        While MS can work with nanoliters, NMR typically requires hundreds of microliters. This can be limiting when working with precious samples like CSF, tissue biopsies, or rare biological specimens.
+                    </div>
+                </div>
+
+                <div class="detail-subsection">
+                    <div class="subsection-title">Buffer Composition and pH Control</div>
+                    <div class="detail-text">
+                        Buffer selection is critical in NMR metabolomics because:
+                    </div>
+                    <ul class="detail-list">
+                        <li><strong>pH stability:</strong> Chemical shifts are pH-dependent; phosphate buffers (pH 7.4) are commonly used</li>
+                        <li><strong>Deuterated solvents:</strong> D2O is required for field-frequency lock (typically 10% final concentration)</li>
+                        <li><strong>Buffer interference:</strong> Avoid buffers with proton-containing groups (e.g., Tris) that can obscure metabolite signals</li>
+                        <li><strong>Ionic strength:</strong> Maintain consistent salt concentration to ensure reproducible chemical shifts</li>
+                    </ul>
+                </div>
+
+                <div class="visual-box">
+                    <h4 style="color: #1E64C8; margin-bottom: 15px;">Sample Preparation Workflow</h4>
+                    <div class="workflow-diagram" style="flex-direction: column;">
+                        <div class="workflow-step" style="width: 80%;">Biological Sample Collection</div>
+                        <div class="workflow-step" style="width: 80%;">Metabolite Extraction / Protein Precipitation</div>
+                        <div class="workflow-step" style="width: 80%;">Buffer Exchange (Phosphate buffer + D2O)</div>
+                        <div class="workflow-step" style="width: 80%;">Add Internal Standard (TSP/DSS)</div>
+                        <div class="workflow-step" style="width: 80%;">Transfer to NMR tube</div>
+                        <div class="workflow-step" style="width: 80%;">NMR Acquisition</div>
+                    </div>
+                </div>
+
+                <div class="detail-subsection">
+                    <div class="subsection-title">Sensitivity Limitations</div>
+                    <div class="detail-text">
+                        NMR's lower sensitivity compared to MS means:
+                    </div>
+                    <ul class="detail-list">
+                        <li><strong>Detection limits:</strong> Typically 1-10 μM vs. nM-pM for MS</li>
+                        <li><strong>Low-abundance metabolites:</strong> May not be detected without enrichment</li>
+                        <li><strong>Acquisition time:</strong> Can require minutes to hours for high-quality spectra</li>
+                        <li><strong>Metabolome coverage:</strong> Typically 50-100 metabolites vs. 500-1000+ for MS</li>
+                    </ul>
+                    
+                    <div class="detail-text">
+                        <strong>Technological advances improving sensitivity:</strong>
+                    </div>
+                    <ul class="detail-list">
+                        <li>Cryogenic probes: 4-fold sensitivity increase</li>
+                        <li>Higher field strengths: 800-1000 MHz spectrometers</li>
+                        <li>Dynamic nuclear polarization (DNP): >10,000-fold enhancement</li>
+                        <li>Microcoil probes: Better mass sensitivity for limited samples</li>
+                    </ul>
+                </div>
+
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Parameter</th>
+                            <th>NMR</th>
+                            <th>MS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Sample volume</td>
+                            <td>30-600 μL</td>
+                            <td>1-10 μL</td>
+                        </tr>
+                        <tr>
+                            <td>Sensitivity</td>
+                            <td>1-10 μM</td>
+                            <td>nM-pM</td>
+                        </tr>
+                        <tr>
+                            <td>Metabolite coverage</td>
+                            <td>50-100</td>
+                            <td>500-1000+</td>
+                        </tr>
+                        <tr>
+                            <td>Acquisition time</td>
+                            <td>5-30 min</td>
+                            <td>10-30 min</td>
+                        </tr>
+                        <tr>
+                            <td>Sample preparation</td>
+                            <td>Simple</td>
+                            <td>More complex</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Conclusion -->
+        <div class="detailed-section">
+            <div class="detail-content" style="background: #e8f2ff; border-left: 5px solid #1E64C8;">
+                <div class="subsection-title" style="color: #1E64C8; font-size: 20px;">Summary</div>
+                <div class="detail-text">
+                    NMR metabolomics provides a robust, quantitative, and reproducible platform for metabolic profiling. While it has limitations in sensitivity compared to mass spectrometry, its non-destructive nature, unbiased quantification, and structural information capabilities make it an indispensable tool in metabolomics research. The combination of 1D and 2D NMR techniques enables comprehensive metabolite identification and quantification, particularly when integrated with complementary analytical platforms like MS.
+                </div>
+            </div>
         </div>
     </div>
 </body>

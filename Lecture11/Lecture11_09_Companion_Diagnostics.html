@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Companion Diagnostics</title>
+    <title>Companion Diagnostics - Enhanced</title>
     <style>
         * {
             margin: 0;
@@ -13,39 +13,40 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 40px 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         .title {
-            font-size: 28px;
+            font-size: 36px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
             text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 20px;
         }
         
         .content-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-            margin-bottom: 20px;
+            gap: 25px;
+            margin-bottom: 40px;
         }
         
         .content-card {
             background: #f8f9fb;
             border-left: 5px solid #1E64C8;
-            padding: 20px;
+            padding: 25px;
             border-radius: 8px;
             transition: all 0.3s;
         }
@@ -56,7 +57,7 @@
         }
         
         .card-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
             color: #1E64C8;
             margin-bottom: 12px;
@@ -71,12 +72,280 @@
         .highlight-box {
             background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
             color: white;
-            padding: 20px;
+            padding: 25px;
             border-radius: 10px;
             text-align: center;
-            font-size: 17px;
+            font-size: 18px;
             font-weight: 500;
             line-height: 1.6;
+            margin-bottom: 50px;
+        }
+        
+        /* Detailed Sections */
+        .detailed-section {
+            margin-bottom: 60px;
+            padding: 30px;
+            background: #fafbfc;
+            border-radius: 12px;
+            border: 2px solid #e1e8ed;
+        }
+        
+        .section-header {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-number {
+            background: #1E64C8;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        
+        .section-description {
+            font-size: 17px;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 25px;
+        }
+        
+        .diagram-container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin: 25px 0;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .diagram-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        /* FDA Co-development Diagram */
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            padding: 20px 0;
+        }
+        
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #1E64C8 0%, #5088d4 100%);
+            z-index: 1;
+        }
+        
+        .timeline-item {
+            position: relative;
+            z-index: 2;
+            text-align: center;
+            flex: 1;
+        }
+        
+        .timeline-icon {
+            width: 60px;
+            height: 60px;
+            background: white;
+            border: 4px solid #1E64C8;
+            border-radius: 50%;
+            margin: 0 auto 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            color: #1E64C8;
+            font-size: 14px;
+        }
+        
+        .timeline-label {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        /* Test Validation Diagram */
+        .validation-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+        }
+        
+        .validation-box {
+            background: linear-gradient(135deg, #f0f7ff 0%, #e8f2ff 100%);
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #1E64C8;
+        }
+        
+        .validation-box h4 {
+            color: #1E64C8;
+            font-size: 18px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        
+        .validation-box ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .validation-box li {
+            padding: 8px 0;
+            color: #333;
+            font-size: 15px;
+            position: relative;
+            padding-left: 25px;
+        }
+        
+        .validation-box li::before {
+            content: '✓';
+            position: absolute;
+            left: 0;
+            color: #1E64C8;
+            font-weight: 700;
+            font-size: 18px;
+        }
+        
+        /* Labeling Requirements Diagram */
+        .labeling-flow {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 20px;
+        }
+        
+        .labeling-element {
+            background: white;
+            border: 3px solid #1E64C8;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            flex: 1;
+            margin: 0 10px;
+            position: relative;
+        }
+        
+        .labeling-element::after {
+            content: '→';
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 30px;
+            color: #1E64C8;
+            font-weight: 700;
+        }
+        
+        .labeling-element:last-child::after {
+            display: none;
+        }
+        
+        .labeling-element h4 {
+            color: #1E64C8;
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .labeling-element p {
+            color: #666;
+            font-size: 14px;
+        }
+        
+        /* Market Examples Diagram */
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+        }
+        
+        .example-card {
+            background: white;
+            border: 3px solid #1E64C8;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(30, 100, 200, 0.3);
+        }
+        
+        .example-icon {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .example-card h4 {
+            color: #1E64C8;
+            font-size: 18px;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+        
+        .example-card .drug-name {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 8px;
+            font-style: italic;
+        }
+        
+        .example-card .description {
+            color: #333;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+        
+        .key-points {
+            background: #fff9e6;
+            border-left: 5px solid #ffa500;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .key-points h4 {
+            color: #ffa500;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+        
+        .key-points ul {
+            list-style-position: inside;
+            color: #333;
+            font-size: 15px;
+            line-height: 1.8;
         }
     </style>
 </head>
@@ -116,6 +385,202 @@
         
         <div class="highlight-box">
             Future Trends: Multi-gene panels and liquid biopsy-based companion diagnostics
+        </div>
+        
+        <!-- Detailed Section 1: FDA Co-development -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                FDA Co-development Process
+            </div>
+            
+            <div class="section-description">
+                The FDA co-development approach requires pharmaceutical companies and diagnostic manufacturers to work together from the earliest stages of drug development. This parallel development ensures that the diagnostic test is ready for approval simultaneously with the therapeutic drug, enabling immediate patient stratification and personalized treatment decisions.
+            </div>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">Co-development Timeline</div>
+                <div class="timeline">
+                    <div class="timeline-item">
+                        <div class="timeline-icon">Phase I</div>
+                        <div class="timeline-label">Biomarker Discovery</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon">Phase II</div>
+                        <div class="timeline-label">Test Development</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon">Phase III</div>
+                        <div class="timeline-label">Clinical Validation</div>
+                    </div>
+                    <div class="timeline-item">
+                        <div class="timeline-icon">FDA Review</div>
+                        <div class="timeline-label">Simultaneous Approval</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>Key Requirements:</h4>
+                <ul>
+                    <li>Early engagement with FDA through Pre-Submission meetings</li>
+                    <li>Coordinated review of drug and diagnostic submissions</li>
+                    <li>Shared clinical trial data demonstrating test utility</li>
+                    <li>Alignment of drug and test labeling requirements</li>
+                    <li>Post-market surveillance and quality control plans</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Detailed Section 2: Test Validation -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                Test Validation Requirements
+            </div>
+            
+            <div class="section-description">
+                Companion diagnostic tests must undergo rigorous analytical and clinical validation to ensure they accurately identify patients who will benefit from the targeted therapy. This two-tier validation process ensures both technical performance and clinical utility of the diagnostic test.
+            </div>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">Validation Framework</div>
+                <div class="validation-grid">
+                    <div class="validation-box">
+                        <h4>Analytical Validation</h4>
+                        <ul>
+                            <li>Accuracy: Correct detection of biomarker</li>
+                            <li>Precision: Reproducible results</li>
+                            <li>Sensitivity: Detecting true positives</li>
+                            <li>Specificity: Avoiding false positives</li>
+                            <li>Limit of Detection (LOD)</li>
+                            <li>Robustness across samples</li>
+                        </ul>
+                    </div>
+                    <div class="validation-box">
+                        <h4>Clinical Validation</h4>
+                        <ul>
+                            <li>Clinical Sensitivity: Patient response prediction</li>
+                            <li>Clinical Specificity: Non-responder identification</li>
+                            <li>Positive Predictive Value (PPV)</li>
+                            <li>Negative Predictive Value (NPV)</li>
+                            <li>Safety and efficacy correlation</li>
+                            <li>Real-world clinical utility</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>Validation Standards:</h4>
+                <ul>
+                    <li>Performance evaluated in prospective clinical trials</li>
+                    <li>Sample size must be statistically adequate for conclusions</li>
+                    <li>Inter-laboratory reproducibility studies required</li>
+                    <li>Quality control procedures established and documented</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Detailed Section 3: Labeling Requirements -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                Labeling Requirements
+            </div>
+            
+            <div class="section-description">
+                FDA requires that both the drug and the companion diagnostic have coordinated labeling that clearly describes their relationship. The drug label must specify the companion diagnostic test required for patient selection, while the test label must identify the specific therapeutic drug it is intended to be used with.
+            </div>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">Labeling Integration Flow</div>
+                <div class="labeling-flow">
+                    <div class="labeling-element">
+                        <h4>Drug Label</h4>
+                        <p>Specifies required companion diagnostic test</p>
+                    </div>
+                    <div class="labeling-element">
+                        <h4>Test Label</h4>
+                        <p>Identifies paired therapeutic drug</p>
+                    </div>
+                    <div class="labeling-element">
+                        <h4>Clinical Use</h4>
+                        <p>Guides treatment decisions</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>Essential Labeling Elements:</h4>
+                <ul>
+                    <li><strong>Indication Statement:</strong> Clear description of test purpose and patient population</li>
+                    <li><strong>Intended Use:</strong> Specific biomarker detection and clinical application</li>
+                    <li><strong>Limitations:</strong> Known test limitations and contraindications</li>
+                    <li><strong>Performance Characteristics:</strong> Sensitivity, specificity, and predictive values</li>
+                    <li><strong>Interpretation Guidelines:</strong> How to use test results for treatment decisions</li>
+                    <li><strong>Quality Control:</strong> Required procedures and acceptance criteria</li>
+                </ul>
+            </div>
+        </div>
+        
+        <!-- Detailed Section 4: Market Examples -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                Clinical Market Examples
+            </div>
+            
+            <div class="section-description">
+                Companion diagnostics have revolutionized cancer treatment by enabling precision medicine approaches. These FDA-approved test-drug pairs demonstrate the clinical value of molecular diagnostics in improving patient outcomes and reducing unnecessary treatments.
+            </div>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">Major Companion Diagnostic Examples</div>
+                <div class="examples-grid">
+                    <div class="example-card">
+                        <div class="example-icon">HER2</div>
+                        <h4>HER2 Testing</h4>
+                        <div class="drug-name">Herceptin (Trastuzumab)</div>
+                        <div class="description">
+                            IHC and FISH tests detect HER2 protein overexpression or gene amplification in breast cancer patients to guide anti-HER2 therapy
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-icon">EGFR</div>
+                        <h4>EGFR Mutations</h4>
+                        <div class="drug-name">Iressa (Gefitinib), Tarceva (Erlotinib)</div>
+                        <div class="description">
+                            PCR-based tests identify activating EGFR mutations in non-small cell lung cancer for EGFR TKI therapy selection
+                        </div>
+                    </div>
+                    
+                    <div class="example-card">
+                        <div class="example-icon">ALK</div>
+                        <h4>ALK Rearrangements</h4>
+                        <div class="drug-name">Xalkori (Crizotinib)</div>
+                        <div class="description">
+                            FISH or IHC tests detect ALK gene rearrangements in NSCLC patients eligible for ALK inhibitor treatment
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>Additional Notable Examples:</h4>
+                <ul>
+                    <li><strong>KRAS Mutations:</strong> Predict resistance to EGFR-targeted therapies in colorectal cancer</li>
+                    <li><strong>BRAF V600E:</strong> Identifies melanoma patients for BRAF inhibitor therapy (Zelboraf, Tafinlar)</li>
+                    <li><strong>PD-L1 Expression:</strong> Guides immunotherapy selection with checkpoint inhibitors</li>
+                    <li><strong>BRCA1/2 Mutations:</strong> Determines eligibility for PARP inhibitors in ovarian cancer</li>
+                    <li><strong>BCR-ABL:</strong> Monitors chronic myeloid leukemia treatment with tyrosine kinase inhibitors</li>
+                </ul>
+            </div>
+            
+            <div class="section-description" style="margin-top: 25px;">
+                <strong>Clinical Impact:</strong> These companion diagnostics have demonstrated significant improvements in response rates (often 50-70% in biomarker-positive patients vs. 10-20% in unselected populations), reduced adverse events in non-responders, and more cost-effective healthcare delivery through targeted patient selection.
+            </div>
         </div>
     </div>
 </body>

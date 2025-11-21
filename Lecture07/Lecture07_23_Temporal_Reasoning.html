@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -47,6 +47,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 20px;
+            margin-bottom: 50px;
         }
         
         .content-card {
@@ -90,11 +91,127 @@
             font-size: 18px;
             flex-shrink: 0;
         }
+        
+        /* Detailed Section Styles */
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(to right, #1E64C8, #4a90e2, #1E64C8);
+            margin: 50px 0 40px 0;
+            border-radius: 2px;
+        }
+        
+        .detailed-section {
+            margin-bottom: 50px;
+        }
+        
+        .section-header {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1E64C8;
+        }
+        
+        .section-intro {
+            font-size: 17px;
+            color: #444;
+            line-height: 1.8;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f0f5fc;
+            border-left: 4px solid #1E64C8;
+            border-radius: 5px;
+        }
+        
+        .example-box {
+            background: white;
+            border: 2px solid #1E64C8;
+            border-radius: 10px;
+            padding: 25px;
+            margin-bottom: 25px;
+        }
+        
+        .example-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 15px;
+        }
+        
+        .example-content {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        .example-item {
+            margin-bottom: 12px;
+            padding-left: 20px;
+        }
+        
+        .example-label {
+            font-weight: 600;
+            color: #1E64C8;
+            display: inline-block;
+            min-width: 150px;
+        }
+        
+        .code-example {
+            background: #f5f5f5;
+            border-left: 4px solid #4caf50;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            color: #333;
+            border-radius: 5px;
+        }
+        
+        .visual-diagram {
+            background: #f8fbff;
+            border: 2px solid #1E64C8;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .key-points {
+            background: #fff9e6;
+            border: 2px solid #ffc107;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .key-points-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f57c00;
+            margin-bottom: 10px;
+        }
+        
+        .key-point {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 8px;
+            font-size: 15px;
+            color: #333;
+        }
+        
+        .key-point::before {
+            content: "✓";
+            color: #4caf50;
+            font-weight: bold;
+            margin-right: 10px;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Temporal Reasoning</div>
+        <div class="title">Temporal Reasoning in Clinical NLP</div>
         
         <!-- Patient Timeline Visualization -->
         <div class="temporal-diagram">
@@ -253,6 +370,723 @@
                 </div>
             </div>
         </div>
+
+        <!-- Section Divider -->
+        <div class="section-divider"></div>
+
+        <!-- SECTION 1: TIME EXPRESSIONS -->
+        <div class="detailed-section">
+            <div class="section-header">📅 1. Time Expressions in Clinical Text</div>
+            
+            <div class="section-intro">
+                Time expressions are linguistic elements that convey temporal information in clinical documentation. They are essential for understanding when events occurred, how long they lasted, and how frequently they happen. Accurate extraction and normalization of time expressions enable chronological reasoning and support clinical decision-making.
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Types of Time Expressions with Clinical Examples</div>
+                <div class="example-content">
+                    <div class="example-item">
+                        <span class="example-label">Absolute Dates:</span>
+                        Fixed calendar dates or timestamps
+                        <div class="code-example">
+"Patient diagnosed with hypertension on January 15, 2024"
+"Lab results from 03/22/2024 showed elevated liver enzymes"
+"Surgery scheduled for 2024-06-10 at 08:00 AM"</div>
+                    </div>
+                    
+                    <div class="example-item">
+                        <span class="example-label">Relative Dates:</span>
+                        Time expressions relative to document creation time or other events
+                        <div class="code-example">
+"Patient reported chest pain 3 days ago"
+"Started antibiotics yesterday evening"
+"Follow-up appointment in 2 weeks"
+"Symptoms began last Tuesday"</div>
+                    </div>
+                    
+                    <div class="example-item">
+                        <span class="example-label">Durations:</span>
+                        Length of time an event or condition persists
+                        <div class="code-example">
+"Persistent cough for 2 weeks"
+"Pain lasted approximately 4 hours"
+"Treatment course of 10 days"
+"Hospitalization for 5 days"</div>
+                    </div>
+                    
+                    <div class="example-item">
+                        <span class="example-label">Frequencies:</span>
+                        How often events occur
+                        <div class="code-example">
+"Take medication twice daily (BID)"
+"Episodes occur every 3-4 hours"
+"Weekly physical therapy sessions"
+"PRN (as needed) for breakthrough pain"</div>
+                    </div>
+                    
+                    <div class="example-item">
+                        <span class="example-label">Anchored Times:</span>
+                        Time expressions relative to significant clinical events
+                        <div class="code-example">
+"Since the diagnosis of diabetes"
+"Post-operative day 3"
+"Two months after transplant"
+"Pre-treatment baseline values"</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-diagram">
+                <svg width="100%" height="280" viewBox="0 0 870 280">
+                    <text x="435" y="25" text-anchor="middle" fill="#1E64C8" font-size="18" font-weight="bold">Time Expression Normalization Process</text>
+                    
+                    <!-- Process flow -->
+                    <rect x="50" y="50" width="160" height="60" fill="#ff6b6b" rx="8"/>
+                    <text x="130" y="75" text-anchor="middle" fill="white" font-size="13" font-weight="bold">Raw Text</text>
+                    <text x="130" y="92" text-anchor="middle" fill="white" font-size="11">"3 days ago"</text>
+                    <text x="130" y="105" text-anchor="middle" fill="white" font-size="11">"last Tuesday"</text>
+                    
+                    <path d="M 210 80 L 270 80" stroke="#1E64C8" stroke-width="3" fill="none" marker-end="url(#arrow5)"/>
+                    <text x="240" y="70" text-anchor="middle" fill="#1E64C8" font-size="10" font-weight="600">Extract</text>
+                    
+                    <rect x="270" y="50" width="160" height="60" fill="#2196f3" rx="8"/>
+                    <text x="350" y="75" text-anchor="middle" fill="white" font-size="13" font-weight="bold">Recognition</text>
+                    <text x="350" y="92" text-anchor="middle" fill="white" font-size="11">TIMEX3 tagging</text>
+                    <text x="350" y="105" text-anchor="middle" fill="white" font-size="11">Type classification</text>
+                    
+                    <path d="M 430 80 L 490 80" stroke="#1E64C8" stroke-width="3" fill="none" marker-end="url(#arrow5)"/>
+                    <text x="460" y="70" text-anchor="middle" fill="#1E64C8" font-size="10" font-weight="600">Normalize</text>
+                    
+                    <rect x="490" y="50" width="160" height="60" fill="#4caf50" rx="8"/>
+                    <text x="570" y="75" text-anchor="middle" fill="white" font-size="13" font-weight="bold">ISO 8601 Format</text>
+                    <text x="570" y="92" text-anchor="middle" fill="white" font-size="11">2024-11-17</text>
+                    <text x="570" y="105" text-anchor="middle" fill="white" font-size="11">2024-11-12</text>
+                    
+                    <path d="M 650 80 L 710 80" stroke="#1E64C8" stroke-width="3" fill="none" marker-end="url(#arrow5)"/>
+                    <text x="680" y="70" text-anchor="middle" fill="#1E64C8" font-size="10" font-weight="600">Store</text>
+                    
+                    <rect x="710" y="50" width="110" height="60" fill="#9c27b0" rx="8"/>
+                    <text x="765" y="75" text-anchor="middle" fill="white" font-size="13" font-weight="bold">Timeline</text>
+                    <text x="765" y="92" text-anchor="middle" fill="white" font-size="11">Database</text>
+                    
+                    <!-- Example annotations -->
+                    <rect x="50" y="140" width="770" height="130" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                    <text x="60" y="165" fill="#1E64C8" font-size="14" font-weight="bold">Normalization Examples:</text>
+                    
+                    <text x="70" y="190" fill="#333" font-size="12" font-weight="600">Input: "Patient seen 3 days ago" (Document date: 2024-11-20)</text>
+                    <text x="70" y="208" fill="#666" font-size="11">Output: DATE = 2024-11-17, TYPE = DATE, VALUE = "3 days ago"</text>
+                    
+                    <text x="70" y="230" fill="#333" font-size="12" font-weight="600">Input: "Symptoms for 2 weeks"</text>
+                    <text x="70" y="248" fill="#666" font-size="11">Output: DURATION = P2W (ISO 8601), TYPE = DURATION, VALUE = "2 weeks"</text>
+                </svg>
+            </div>
+
+            <div class="key-points">
+                <div class="key-points-title">Key Challenges in Time Expression Processing</div>
+                <div class="key-point">Ambiguous expressions: "last week" could mean previous 7 days or the most recent Monday-Sunday</div>
+                <div class="key-point">Context dependency: "now" requires document creation time or reference point</div>
+                <div class="key-point">Implicit references: "postoperative fever" implies timing relative to surgery without explicit date</div>
+                <div class="key-point">Vague quantifiers: "several weeks", "recently", "chronic" lack precise temporal bounds</div>
+                <div class="key-point">Medical abbreviations: "qd", "BID", "PRN" require domain knowledge for interpretation</div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: EVENT ORDERING -->
+        <div class="detailed-section">
+            <div class="section-header">🔗 2. Event Ordering and Temporal Relations</div>
+            
+            <div class="section-intro">
+                Event ordering establishes the temporal relationships between clinical events, such as diagnoses, procedures, medications, and symptoms. Understanding these relationships is crucial for causal reasoning, treatment planning, and identifying temporal patterns in disease progression. The field uses Allen's interval algebra as a formal framework for representing these relationships.
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Allen's Temporal Relations in Clinical Context</div>
+                <div class="example-content">
+                    <div class="example-item">
+                        <span class="example-label">BEFORE / AFTER:</span>
+                        Events occur sequentially without overlap
+                        <div class="code-example">
+"Diagnosis of diabetes (Jan 10) BEFORE initiation of metformin (Jan 15)"
+"Surgery (Mar 5) BEFORE post-op infection (Mar 12)"
+"CT scan (Feb 1) AFTER onset of symptoms (Jan 28)"</div>
+                    </div>
+                    
+                    <div class="example-item">
+                        <span class="example-label">OVERLAPS:</span>
+                        Events share some temporal extent
+                        <div class="code-example">
+"Antibiotic treatment (Days 1-10) OVERLAPS hospital stay (Days 3-8)"
+"Physical therapy (Weeks 2-6) OVERLAPS pain management (Weeks 1-5)"</div>
+                    </div>
+                    
+                    <div class="example-item">
+                        <span class="example-label">DURING:</span>
+                        One event occurs entirely within another
+                        <div class="code-example">
+"Fever episode DURING hospitalization"
+"Nausea DURING chemotherapy cycle"
+"Bradycardia DURING anesthesia"</div>
+                    </div>
+                    
+                    <div class="example-item">
+                        <span class="example-label">STARTS / FINISHES:</span>
+                        Events share a common start or end point
+                        <div class="code-example">
+"Medication A STARTS same day as Medication B"
+"Symptoms FINISH when treatment FINISHES"</div>
+                    </div>
+                    
+                    <div class="example-item">
+                        <span class="example-label">MEETS:</span>
+                        One event immediately follows another
+                        <div class="code-example">
+"Emergency admission MEETS ICU transfer (no gap)"
+"Pre-op evaluation MEETS surgical procedure"</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-diagram">
+                <svg width="100%" height="450" viewBox="0 0 870 450">
+                    <text x="435" y="25" text-anchor="middle" fill="#1E64C8" font-size="18" font-weight="bold">Allen's Interval Relations Visualized</text>
+                    
+                    <!-- Legend -->
+                    <rect x="50" y="40" width="15" height="15" fill="#ff6b6b"/>
+                    <text x="70" y="52" fill="#333" font-size="12">Event A</text>
+                    <rect x="150" y="40" width="15" height="15" fill="#4caf50"/>
+                    <text x="170" y="52" fill="#333" font-size="12">Event B</text>
+                    
+                    <!-- BEFORE -->
+                    <text x="50" y="85" fill="#1E64C8" font-size="13" font-weight="bold">BEFORE:</text>
+                    <rect x="200" y="72" width="100" height="20" fill="#ff6b6b" rx="3"/>
+                    <rect x="350" y="72" width="100" height="20" fill="#4caf50" rx="3"/>
+                    <text x="600" y="85" fill="#666" font-size="11">A ends before B starts</text>
+                    
+                    <!-- MEETS -->
+                    <text x="50" y="120" fill="#1E64C8" font-size="13" font-weight="bold">MEETS:</text>
+                    <rect x="200" y="107" width="100" height="20" fill="#ff6b6b" rx="3"/>
+                    <rect x="300" y="107" width="100" height="20" fill="#4caf50" rx="3"/>
+                    <text x="600" y="120" fill="#666" font-size="11">A ends exactly when B starts</text>
+                    
+                    <!-- OVERLAPS -->
+                    <text x="50" y="155" fill="#1E64C8" font-size="13" font-weight="bold">OVERLAPS:</text>
+                    <rect x="200" y="142" width="150" height="20" fill="#ff6b6b" rx="3"/>
+                    <rect x="300" y="142" width="150" height="20" fill="#4caf50" opacity="0.7" rx="3"/>
+                    <text x="600" y="155" fill="#666" font-size="11">A starts before B, ends during B</text>
+                    
+                    <!-- DURING -->
+                    <text x="50" y="190" fill="#1E64C8" font-size="13" font-weight="bold">DURING:</text>
+                    <rect x="200" y="177" width="200" height="20" fill="#4caf50" rx="3"/>
+                    <rect x="250" y="177" width="80" height="20" fill="#ff6b6b" rx="3"/>
+                    <text x="600" y="190" fill="#666" font-size="11">A occurs entirely within B</text>
+                    
+                    <!-- STARTS -->
+                    <text x="50" y="225" fill="#1E64C8" font-size="13" font-weight="bold">STARTS:</text>
+                    <rect x="200" y="212" width="120" height="20" fill="#ff6b6b" rx="3"/>
+                    <rect x="200" y="212" width="180" height="20" fill="#4caf50" opacity="0.5" rx="3"/>
+                    <text x="600" y="225" fill="#666" font-size="11">A and B start together, A ends first</text>
+                    
+                    <!-- FINISHES -->
+                    <text x="50" y="260" fill="#1E64C8" font-size="13" font-weight="bold">FINISHES:</text>
+                    <rect x="280" y="247" width="120" height="20" fill="#ff6b6b" rx="3"/>
+                    <rect x="220" y="247" width="180" height="20" fill="#4caf50" opacity="0.5" rx="3"/>
+                    <text x="600" y="260" fill="#666" font-size="11">A and B end together, B starts first</text>
+                    
+                    <!-- EQUALS -->
+                    <text x="50" y="295" fill="#1E64C8" font-size="13" font-weight="bold">EQUALS:</text>
+                    <rect x="200" y="282" width="150" height="20" fill="#ff6b6b" rx="3"/>
+                    <rect x="200" y="282" width="150" height="20" fill="#4caf50" opacity="0.5" rx="3"/>
+                    <text x="600" y="295" fill="#666" font-size="11">A and B have same start and end</text>
+                    
+                    <!-- Clinical Example -->
+                    <rect x="50" y="330" width="770" height="110" fill="#fff9e6" stroke="#ffc107" stroke-width="2" rx="8"/>
+                    <text x="60" y="355" fill="#f57c00" font-size="14" font-weight="bold">Clinical Reasoning Example:</text>
+                    <text x="70" y="378" fill="#333" font-size="12">Given: "Patient developed rash during antibiotic treatment"</text>
+                    <text x="70" y="398" fill="#333" font-size="12">Relation: Rash DURING Antibiotic_Treatment</text>
+                    <text x="70" y="418" fill="#333" font-size="12">Clinical Inference: Possible drug reaction → Consider antibiotic as causal agent</text>
+                </svg>
+            </div>
+
+            <div class="key-points">
+                <div class="key-points-title">Applications of Event Ordering in Clinical Practice</div>
+                <div class="key-point">Adverse event detection: Identifying temporal associations between medications and symptoms</div>
+                <div class="key-point">Treatment efficacy: Measuring time from intervention to outcome improvement</div>
+                <div class="key-point">Disease progression: Tracking sequence of symptoms, diagnoses, and complications</div>
+                <div class="key-point">Care quality metrics: Evaluating adherence to time-based clinical guidelines</div>
+                <div class="key-point">Causal inference: Establishing temporal precedence for potential cause-effect relationships</div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: TIMELINE CONSTRUCTION -->
+        <div class="detailed-section">
+            <div class="section-header">📊 3. Timeline Construction and Integration</div>
+            
+            <div class="section-intro">
+                Timeline construction involves aggregating temporal information from multiple heterogeneous clinical data sources to create a comprehensive, chronologically ordered representation of a patient's medical history. This process faces challenges including data fragmentation, conflicting timestamps, missing temporal information, and varying levels of temporal granularity across different documentation systems.
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Multi-Source Data Integration Process</div>
+                <div class="example-content">
+                    <div class="example-item">
+                        <span class="example-label">Data Sources:</span>
+                        Various clinical documentation systems
+                        <div class="code-example">
+• EHR Clinical Notes: Free-text physician narratives
+• Laboratory Systems: Structured test results with timestamps
+• Medication Records: Prescription and administration logs
+• Radiology Reports: Imaging studies and findings
+• Billing Records: ICD codes with service dates
+• Nursing Documentation: Vital signs and assessments</div>
+                    </div>
+                    
+                    <div class="example-item">
+                        <span class="example-label">Integration Steps:</span>
+                        <div style="margin-top: 10px;">
+                            <strong>1. Data Extraction:</strong> Parse temporal expressions from each source
+                            <div class="code-example">
+Clinical Note: "Patient complained of chest pain yesterday"
+Lab Result: "Troponin test performed 2024-11-18 14:30"
+Medication: "Aspirin started 11/18/2024"</div>
+                            
+                            <strong>2. Temporal Normalization:</strong> Convert to standardized format
+                            <div class="code-example">
+All timestamps → ISO 8601 format
+Document creation times → Reference points for relative dates
+Partial dates → Handled with appropriate granularity</div>
+                            
+                            <strong>3. Conflict Resolution:</strong> Handle contradictory information
+                            <div class="code-example">
+Priority rules: Lab timestamps > Clinical note mentions
+Most recent documentation preferred when conflicts arise
+Uncertainty markers for ambiguous temporal information</div>
+                            
+                            <strong>4. Timeline Assembly:</strong> Create unified chronological view
+                            <div class="code-example">
+Sort all events by normalized timestamps
+Group simultaneous or near-simultaneous events
+Establish temporal relations between events</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-diagram">
+                <svg width="100%" height="500" viewBox="0 0 870 500">
+                    <text x="435" y="25" text-anchor="middle" fill="#1E64C8" font-size="18" font-weight="bold">Timeline Construction Architecture</text>
+                    
+                    <!-- Data Sources Layer -->
+                    <text x="50" y="60" fill="#1E64C8" font-size="13" font-weight="bold">Data Sources:</text>
+                    
+                    <rect x="50" y="70" width="120" height="50" fill="#ff6b6b" rx="5"/>
+                    <text x="110" y="90" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Clinical Notes</text>
+                    <text x="110" y="105" text-anchor="middle" fill="white" font-size="9">Free text</text>
+                    
+                    <rect x="190" y="70" width="120" height="50" fill="#2196f3" rx="5"/>
+                    <text x="250" y="90" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Lab Results</text>
+                    <text x="250" y="105" text-anchor="middle" fill="white" font-size="9">Structured data</text>
+                    
+                    <rect x="330" y="70" width="120" height="50" fill="#4caf50" rx="5"/>
+                    <text x="390" y="90" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Medications</text>
+                    <text x="390" y="105" text-anchor="middle" fill="white" font-size="9">RxNorm codes</text>
+                    
+                    <rect x="470" y="70" width="120" height="50" fill="#ff9800" rx="5"/>
+                    <text x="530" y="90" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Radiology</text>
+                    <text x="530" y="105" text-anchor="middle" fill="white" font-size="9">Images + reports</text>
+                    
+                    <rect x="610" y="70" width="120" height="50" fill="#9c27b0" rx="5"/>
+                    <text x="670" y="90" text-anchor="middle" fill="white" font-size="11" font-weight="bold">Vital Signs</text>
+                    <text x="670" y="105" text-anchor="middle" fill="white" font-size="9">Time series</text>
+                    
+                    <!-- Arrows down -->
+                    <path d="M 110 120 L 110 150" stroke="#666" stroke-width="2" marker-end="url(#arrow5)"/>
+                    <path d="M 250 120 L 250 150" stroke="#666" stroke-width="2" marker-end="url(#arrow5)"/>
+                    <path d="M 390 120 L 390 150" stroke="#666" stroke-width="2" marker-end="url(#arrow5)"/>
+                    <path d="M 530 120 L 530 150" stroke="#666" stroke-width="2" marker-end="url(#arrow5)"/>
+                    <path d="M 670 120 L 670 150" stroke="#666" stroke-width="2" marker-end="url(#arrow5)"/>
+                    
+                    <!-- Processing Layer -->
+                    <text x="50" y="175" fill="#1E64C8" font-size="13" font-weight="bold">Processing:</text>
+                    
+                    <rect x="50" y="185" width="680" height="80" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                    
+                    <rect x="70" y="200" width="140" height="50" fill="#e3f2fd" stroke="#2196f3" stroke-width="1" rx="5"/>
+                    <text x="140" y="218" text-anchor="middle" fill="#1E64C8" font-size="10" font-weight="bold">Temporal</text>
+                    <text x="140" y="231" text-anchor="middle" fill="#1E64C8" font-size="10" font-weight="bold">Extraction</text>
+                    <text x="140" y="244" text-anchor="middle" fill="#666" font-size="9">NLP, Regex</text>
+                    
+                    <rect x="230" y="200" width="140" height="50" fill="#e3f2fd" stroke="#2196f3" stroke-width="1" rx="5"/>
+                    <text x="300" y="218" text-anchor="middle" fill="#1E64C8" font-size="10" font-weight="bold">Normalization</text>
+                    <text x="300" y="234" text-anchor="middle" fill="#666" font-size="9">ISO 8601</text>
+                    <text x="300" y="246" text-anchor="middle" fill="#666" font-size="9">TimeML</text>
+                    
+                    <rect x="390" y="200" width="140" height="50" fill="#e3f2fd" stroke="#2196f3" stroke-width="1" rx="5"/>
+                    <text x="460" y="218" text-anchor="middle" fill="#1E64C8" font-size="10" font-weight="bold">Conflict</text>
+                    <text x="460" y="231" text-anchor="middle" fill="#1E64C8" font-size="10" font-weight="bold">Resolution</text>
+                    <text x="460" y="244" text-anchor="middle" fill="#666" font-size="9">Rule engine</text>
+                    
+                    <rect x="550" y="200" width="140" height="50" fill="#e3f2fd" stroke="#2196f3" stroke-width="1" rx="5"/>
+                    <text x="620" y="218" text-anchor="middle" fill="#1E64C8" font-size="10" font-weight="bold">Uncertainty</text>
+                    <text x="620" y="231" text-anchor="middle" fill="#1E64C8" font-size="10" font-weight="bold">Handling</text>
+                    <text x="620" y="244" text-anchor="middle" fill="#666" font-size="9">Fuzzy logic</text>
+                    
+                    <!-- Arrow down -->
+                    <path d="M 390 265 L 390 295" stroke="#666" stroke-width="3" marker-end="url(#arrow5)"/>
+                    
+                    <!-- Timeline Layer -->
+                    <text x="50" y="320" fill="#1E64C8" font-size="13" font-weight="bold">Unified Timeline:</text>
+                    
+                    <rect x="50" y="330" width="680" height="90" fill="#e8f5e9" stroke="#4caf50" stroke-width="2" rx="8"/>
+                    
+                    <!-- Timeline visualization -->
+                    <line x1="80" y1="375" x2="700" y2="375" stroke="#4caf50" stroke-width="3"/>
+                    
+                    <circle cx="120" cy="375" r="6" fill="#ff6b6b"/>
+                    <text x="120" y="360" text-anchor="middle" fill="#666" font-size="9">11/15</text>
+                    <text x="120" y="395" text-anchor="middle" fill="#666" font-size="8">Admit</text>
+                    
+                    <circle cx="230" cy="375" r="6" fill="#2196f3"/>
+                    <text x="230" y="360" text-anchor="middle" fill="#666" font-size="9">11/16</text>
+                    <text x="230" y="395" text-anchor="middle" fill="#666" font-size="8">Lab</text>
+                    
+                    <circle cx="340" cy="375" r="6" fill="#4caf50"/>
+                    <text x="340" y="360" text-anchor="middle" fill="#666" font-size="9">11/17</text>
+                    <text x="340" y="395" text-anchor="middle" fill="#666" font-size="8">Med</text>
+                    
+                    <circle cx="450" cy="375" r="6" fill="#ff9800"/>
+                    <text x="450" y="360" text-anchor="middle" fill="#666" font-size="9">11/18</text>
+                    <text x="450" y="395" text-anchor="middle" fill="#666" font-size="8">Imaging</text>
+                    
+                    <circle cx="560" cy="375" r="6" fill="#9c27b0"/>
+                    <text x="560" y="360" text-anchor="middle" fill="#666" font-size="9">11/19</text>
+                    <text x="560" y="395" text-anchor="middle" fill="#666" font-size="8">Follow-up</text>
+                    
+                    <circle cx="670" cy="375" r="6" fill="#66bb6a"/>
+                    <text x="670" y="360" text-anchor="middle" fill="#666" font-size="9">11/20</text>
+                    <text x="670" y="395" text-anchor="middle" fill="#666" font-size="8">Discharge</text>
+                    
+                    <!-- Output Layer -->
+                    <text x="50" y="450" fill="#1E64C8" font-size="13" font-weight="bold">Applications:</text>
+                    
+                    <rect x="80" y="460" width="120" height="30" fill="#1E64C8" opacity="0.8" rx="5"/>
+                    <text x="140" y="480" text-anchor="middle" fill="white" font-size="10">Clinical Summary</text>
+                    
+                    <rect x="220" y="460" width="120" height="30" fill="#1E64C8" opacity="0.8" rx="5"/>
+                    <text x="280" y="480" text-anchor="middle" fill="white" font-size="10">Risk Prediction</text>
+                    
+                    <rect x="360" y="460" width="120" height="30" fill="#1E64C8" opacity="0.8" rx="5"/>
+                    <text x="420" y="480" text-anchor="middle" fill="white" font-size="10">QA Analysis</text>
+                    
+                    <rect x="500" y="460" width="120" height="30" fill="#1E64C8" opacity="0.8" rx="5"/>
+                    <text x="560" y="480" text-anchor="middle" fill="white" font-size="10">Research Cohort</text>
+                </svg>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Handling Missing and Uncertain Temporal Information</div>
+                <div class="example-content">
+                    <div class="example-item">
+                        <span class="example-label">Missing Timestamps:</span>
+                        <div class="code-example">
+Problem: "Patient has history of hypertension" (no date specified)
+Solution: Use document date as upper bound, mark as approximate
+Representation: {event: "hypertension", date: "BEFORE 2024-11-20", confidence: "low"}</div>
+                    </div>
+                    
+                    <div class="example-item">
+                        <span class="example-label">Partial Dates:</span>
+                        <div class="code-example">
+Problem: "Surgery in March 2024" (day unknown)
+Solution: Represent with appropriate granularity
+Representation: {event: "surgery", date: "2024-03-XX", granularity: "month"}</div>
+                    </div>
+                    
+                    <div class="example-item">
+                        <span class="example-label">Conflicting Information:</span>
+                        <div class="code-example">
+Conflict: Note says "started metformin yesterday" (11/19) but pharmacy record shows 11/17
+Resolution: Prioritize structured pharmacy data, annotate discrepancy
+Final: {event: "metformin_start", date: "2024-11-17", source: "pharmacy", note: "conflict_resolved"}</div>
+                    </div>
+                    
+                    <div class="example-item">
+                        <span class="example-label">Imprecise Durations:</span>
+                        <div class="code-example">
+Problem: "Chronic back pain" (how long is chronic?)
+Solution: Use domain knowledge and context
+Representation: {condition: "back_pain", duration: ">3 months", start: "approximate"}</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-points">
+                <div class="key-points-title">Best Practices for Timeline Construction</div>
+                <div class="key-point">Maintain data provenance: Track source and confidence for each temporal assertion</div>
+                <div class="key-point">Preserve uncertainty: Don't artificially force precision on imprecise temporal data</div>
+                <div class="key-point">Use domain knowledge: Apply clinical guidelines for default durations and sequences</div>
+                <div class="key-point">Version control: Track timeline updates as new information becomes available</div>
+                <div class="key-point">Validate consistency: Check for impossible or highly unlikely temporal patterns</div>
+            </div>
+        </div>
+
+        <!-- SECTION 4: CLINICAL APPLICATIONS -->
+        <div class="detailed-section">
+            <div class="section-header">🎯 4. Clinical Applications of Temporal Reasoning</div>
+            
+            <div class="section-intro">
+                Temporal reasoning enables a wide range of clinical applications that leverage longitudinal patient data to improve care quality, support decision-making, and advance medical research. These applications demonstrate the practical value of accurately capturing and reasoning about temporal information in healthcare.
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Disease Progression Tracking</div>
+                <div class="example-content">
+                    <div class="example-item">
+                        <span class="example-label">Chronic Disease Management:</span>
+                        <div class="code-example">
+Use Case: Diabetes progression monitoring
+Timeline Events:
+• 2023-01-15: Initial diagnosis (HbA1c: 8.2%)
+• 2023-02-01: Metformin 500mg BID started
+• 2023-05-10: HbA1c: 7.4% (improving)
+• 2023-08-15: HbA1c: 7.8% (plateau)
+• 2023-09-01: Metformin increased to 1000mg BID
+• 2023-12-10: HbA1c: 6.9% (target achieved)
+
+Clinical Insights:
+✓ Time to initial response: 3 months
+✓ Time to treatment adjustment: 7 months
+✓ Time to goal: 11 months
+✓ Treatment trajectory: Gradual improvement with one adjustment</div>
+                    </div>
+                    
+                    <div class="example-item">
+                        <span class="example-label">Cancer Staging Progression:</span>
+                        <div class="code-example">
+Use Case: Breast cancer treatment monitoring
+2024-03-01: Initial diagnosis - Stage IIA (T2N0M0)
+2024-03-15: Neoadjuvant chemotherapy started
+2024-06-20: Partial response on imaging
+2024-07-10: Surgery performed (lumpectomy)
+2024-07-25: Pathology - Complete pathologic response
+2024-08-01: Adjuvant radiation started
+2024-10-15: First surveillance visit - No evidence of disease
+
+Temporal Insights: Treatment response timeline, optimal surveillance intervals</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Treatment Response and Adverse Event Detection</div>
+                <div class="example-content">
+                    <div class="example-item">
+                        <span class="example-label">Medication Effectiveness:</span>
+                        <div class="code-example">
+Question: How quickly does Drug X reduce symptom Y?
+
+Analysis:
+• Extract all Drug X start dates
+• Extract all Symptom Y severity measurements
+• Calculate time delta between drug initiation and symptom improvement
+• Stratify by patient demographics and comorbidities
+
+Results:
+- Median time to 50% symptom reduction: 14 days (IQR: 10-21)
+- 80% of patients respond within 30 days
+- Non-responders at 6 weeks unlikely to benefit</div>
+                    </div>
+                    
+                    <div class="example-item">
+                        <span class="example-label">Adverse Event Detection:</span>
+                        <div class="code-example">
+Scenario: Detecting drug-induced liver injury
+
+Temporal Pattern Recognition:
+1. New medication started
+2. Within 3-90 days: Elevated liver enzymes (ALT/AST)
+3. No pre-existing liver disease
+4. No other obvious causes in same timeframe
+
+Example Detection:
+2024-09-01: Statin initiated
+2024-09-22: ALT 120 U/L (normal: <40) [21 days after]
+2024-09-23: Statin discontinued
+2024-10-15: ALT 45 U/L (normalized) [22 days after discontinuation]
+
+Temporal Signature: Onset 3 weeks post-initiation, resolution 3 weeks post-cessation
+→ Strong temporal association suggests drug-induced injury</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="visual-diagram">
+                <svg width="100%" height="400" viewBox="0 0 870 400">
+                    <text x="435" y="25" text-anchor="middle" fill="#1E64C8" font-size="18" font-weight="bold">Readmission Prediction Using Temporal Features</text>
+                    
+                    <!-- Patient timeline -->
+                    <rect x="50" y="50" width="770" height="120" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                    <text x="60" y="70" fill="#1E64C8" font-size="13" font-weight="bold">Index Admission Timeline:</text>
+                    
+                    <line x1="80" y1="110" x2="780" y2="110" stroke="#1E64C8" stroke-width="2"/>
+                    
+                    <!-- Events -->
+                    <circle cx="100" cy="110" r="8" fill="#ff6b6b"/>
+                    <text x="100" y="95" text-anchor="middle" fill="#666" font-size="10">Day 0</text>
+                    <text x="100" y="135" text-anchor="middle" fill="#666" font-size="9">Admit</text>
+                    <text x="100" y="147" text-anchor="middle" fill="#666" font-size="9">CHF</text>
+                    
+                    <circle cx="220" cy="110" r="6" fill="#2196f3"/>
+                    <text x="220" y="95" text-anchor="middle" fill="#666" font-size="10">Day 1</text>
+                    <text x="220" y="135" text-anchor="middle" fill="#666" font-size="9">Labs</text>
+                    
+                    <circle cx="340" cy="110" r="6" fill="#4caf50"/>
+                    <text x="340" y="95" text-anchor="middle" fill="#666" font-size="10">Day 2</text>
+                    <text x="340" y="135" text-anchor="middle" fill="#666" font-size="9">Diuresis</text>
+                    
+                    <circle cx="460" cy="110" r="6" fill="#ff9800"/>
+                    <text x="460" y="95" text-anchor="middle" fill="#666" font-size="10">Day 4</text>
+                    <text x="460" y="135" text-anchor="middle" fill="#666" font-size="9">Stable</text>
+                    
+                    <circle cx="580" cy="110" r="8" fill="#66bb6a"/>
+                    <text x="580" y="95" text-anchor="middle" fill="#666" font-size="10">Day 5</text>
+                    <text x="580" y="135" text-anchor="middle" fill="#666" font-size="9">Discharge</text>
+                    
+                    <circle cx="730" cy="110" r="8" fill="#e53935"/>
+                    <text x="730" y="95" text-anchor="middle" fill="#666" font-size="10">Day 20</text>
+                    <text x="730" y="135" text-anchor="middle" fill="#666" font-size="9">Readmit</text>
+                    
+                    <rect x="580" y="105" width="150" height="10" fill="#ffeb3b" opacity="0.5"/>
+                    <text x="655" y="160" text-anchor="middle" fill="#f57c00" font-size="10" font-weight="600">High-risk period</text>
+                    
+                    <!-- Temporal Features -->
+                    <rect x="50" y="200" width="770" height="190" fill="#fff9e6" stroke="#ffc107" stroke-width="2" rx="8"/>
+                    <text x="60" y="225" fill="#f57c00" font-size="14" font-weight="bold">Temporal Risk Features for Readmission Prediction:</text>
+                    
+                    <text x="70" y="250" fill="#333" font-size="12" font-weight="600">📊 Historical Patterns:</text>
+                    <text x="90" y="268" fill="#666" font-size="11">• Number of hospitalizations in past 6 months</text>
+                    <text x="90" y="283" fill="#666" font-size="11">• Time since last admission (recency effect)</text>
+                    <text x="90" y="298" fill="#666" font-size="11">• Trend in admission frequency (accelerating vs. stable)</text>
+                    
+                    <text x="450" y="250" fill="#333" font-size="12" font-weight="600">⏱️ Current Stay Features:</text>
+                    <text x="470" y="268" fill="#666" font-size="11">• Length of stay (very short = high risk)</text>
+                    <text x="470" y="283" fill="#666" font-size="11">• Time to clinical stability</text>
+                    <text x="470" y="298" fill="#666" font-size="11">• Medication changes during stay</text>
+                    
+                    <text x="70" y="325" fill="#333" font-size="12" font-weight="600">🔮 Post-Discharge Factors:</text>
+                    <text x="90" y="343" fill="#666" font-size="11">• Days to follow-up appointment scheduled</text>
+                    <text x="90" y="358" fill="#666" font-size="11">• Season and day of week of discharge</text>
+                    <text x="90" y="373" fill="#666" font-size="11">• Medication refill patterns post-discharge</text>
+                    
+                    <text x="450" y="325" fill="#333" font-size="12" font-weight="600">🎯 Model Output:</text>
+                    <text x="470" y="343" fill="#666" font-size="11">• Risk score: 0.72 (High risk)</text>
+                    <text x="470" y="358" fill="#666" font-size="11">• Peak risk period: Days 7-21</text>
+                    <text x="470" y="373" fill="#666" font-size="11">• Recommendation: Early follow-up</text>
+                </svg>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Research Applications and Cohort Selection</div>
+                <div class="example-content">
+                    <div class="example-item">
+                        <span class="example-label">Clinical Trial Eligibility:</span>
+                        <div class="code-example">
+Research Question: Identify patients for diabetes prevention trial
+
+Temporal Inclusion Criteria:
+• Prediabetes diagnosis within past 12 months
+• No history of diabetes medication
+• BMI ≥25 documented in past 6 months
+• At least 2 clinic visits in past year
+• No hospitalizations in past 90 days
+
+Temporal Query:
+SELECT patients WHERE
+  prediabetes_dx BETWEEN [now - 12 months, now] AND
+  NOT EXISTS (diabetes_med BEFORE now) AND
+  BMI >= 25 BETWEEN [now - 6 months, now] AND
+  COUNT(clinic_visits) >= 2 IN [now - 12 months, now] AND
+  NOT EXISTS (hospitalization BETWEEN [now - 90 days, now])</div>
+                    </div>
+                    
+                    <div class="example-item">
+                        <span class="example-label">Comparative Effectiveness Research:</span>
+                        <div class="code-example">
+Study: Comparing two anticoagulants for stroke prevention in atrial fibrillation
+
+Temporal Matching Criteria:
+• Index date: First prescription of study drug
+• Washout period: No anticoagulants 90 days prior
+• Follow-up: Minimum 12 months post-index
+• Baseline window: Covariates measured 365 days pre-index
+
+Outcomes Timeline:
+• Primary: Stroke within 24 months
+• Secondary: Bleeding events within 24 months
+• Time-to-event analysis with censoring at death or loss to follow-up</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Quality Improvement and Guideline Adherence</div>
+                <div class="example-content">
+                    <div class="example-item">
+                        <span class="example-label">Time-Based Quality Metrics:</span>
+                        <div class="code-example">
+Sepsis Bundle Compliance:
+
+Required Actions (within specified timeframes):
+1. Blood cultures drawn BEFORE antibiotics (always)
+2. Antibiotics administered within 1 hour of sepsis recognition
+3. Lactate measured within 1 hour
+4. Repeat lactate within 4 hours if initially elevated
+5. 30 mL/kg crystalloid within 3 hours
+
+Temporal Validation:
+• Extract timestamps for each action
+• Calculate deltas from recognition time
+• Flag compliance violations
+• Generate real-time alerts for pending deadlines
+
+Example Result:
+Recognition: 14:22
+Blood cultures: 14:25 ✓ (3 min before antibiotics)
+Antibiotics: 14:35 ✓ (13 minutes - compliant)
+Initial lactate: 14:28 ✓ (6 minutes)
+Fluids started: 15:45 ✗ (83 minutes - outside 3-hour window)</div>
+                    </div>
+                    
+                    <div class="example-item">
+                        <span class="example-label">Preventive Care Gaps:</span>
+                        <div class="code-example">
+Use Case: Identifying overdue cancer screenings
+
+Temporal Logic:
+• Mammogram: Due if age 40+ AND no mammogram in past 24 months
+• Colonoscopy: Due if age 45+ AND no colonoscopy in past 10 years
+• Cervical cancer: Due if age 21-65 AND no Pap in past 3 years
+
+Alert Generation:
+Patient: Female, age 52
+Last mammogram: 2022-03-15 (32 months ago) → OVERDUE
+Last colonoscopy: 2019-06-20 (65 months ago) → DUE SOON
+Last Pap smear: 2023-01-10 (22 months ago) → COMPLIANT
+
+Action: Generate outreach for mammogram, schedule colonoscopy discussion</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-points">
+                <div class="key-points-title">Future Directions in Clinical Temporal Reasoning</div>
+                <div class="key-point">Deep learning models for end-to-end temporal relation extraction from clinical text</div>
+                <div class="key-point">Real-time temporal reasoning for clinical decision support at point of care</div>
+                <div class="key-point">Integration with wearable devices for continuous temporal monitoring</div>
+                <div class="key-point">Probabilistic temporal reasoning to handle uncertainty in longitudinal data</div>
+                <div class="key-point">Cross-institutional temporal data harmonization for population health</div>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

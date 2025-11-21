@@ -1,31 +1,32 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Clustering Methods</title>
+    <title>Clustering Methods - Detailed</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 20px;
         }
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 30px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .title {
-            font-size: 28px;
+            font-size: 32px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 15px;
         }
         .content-grid {
             display: grid;
@@ -72,11 +73,117 @@
             margin-top: 20px;
             text-align: center;
         }
+        
+        /* Detailed sections */
+        .detailed-section {
+            margin-top: 50px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+        .section-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        .method-detail {
+            background: #ffffff;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 30px;
+            transition: all 0.3s;
+        }
+        .method-detail:hover {
+            border-color: #1E64C8;
+            box-shadow: 0 4px 15px rgba(30, 100, 200, 0.15);
+        }
+        .method-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1E64C8;
+        }
+        .method-number {
+            width: 50px;
+            height: 50px;
+            background: #1E64C8;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin-right: 15px;
+            flex-shrink: 0;
+        }
+        .method-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E64C8;
+        }
+        .method-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .method-description {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+        }
+        .method-description h4 {
+            color: #1E64C8;
+            font-size: 18px;
+            margin: 15px 0 10px 0;
+            font-weight: 600;
+        }
+        .method-description ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        .method-description li {
+            margin-bottom: 8px;
+            line-height: 1.6;
+        }
+        .method-visual {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        .highlight-box {
+            background: #fff8e1;
+            border-left: 4px solid #ffa726;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        .highlight-box strong {
+            color: #f57c00;
+        }
+        .code-box {
+            background: #f5f5f5;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 15px 0;
+            overflow-x: auto;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Clustering Methods</div>
+        <div class="title">Clustering Methods in Single-Cell Analysis</div>
+        
         <div class="content-grid">
             <div class="content-card">
                 <div class="card-title">Graph-based Clustering</div>
@@ -98,8 +205,8 @@
                 <div class="card-title">Stability Analysis</div>
                 <div class="card-desc">Bootstrap to assess cluster robustness</div>
             </div>
-
         </div>
+        
         <div class="note-box">
             <div class="note-text">💡 No single correct clustering - depends on biological question</div>
         </div>
@@ -111,7 +218,6 @@
                     <rect x="10" y="10" width="200" height="95" rx="6" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
                     <text x="110" y="25" font-family="Aptos, sans-serif" font-size="12" font-weight="700" fill="#0D47A1" text-anchor="middle">1. Build kNN Graph</text>
                     
-                    <!-- Nodes representing cells -->
                     <circle cx="50" cy="50" r="5" fill="#2196F3" stroke="#1565C0" stroke-width="2"/>
                     <circle cx="80" cy="45" r="5" fill="#2196F3" stroke="#1565C0" stroke-width="2"/>
                     <circle cx="70" cy="70" r="5" fill="#2196F3" stroke="#1565C0" stroke-width="2"/>
@@ -122,7 +228,6 @@
                     <circle cx="150" cy="75" r="5" fill="#4CAF50" stroke="#2E7D32" stroke-width="2"/>
                     <circle cx="180" cy="65" r="5" fill="#4CAF50" stroke="#2E7D32" stroke-width="2"/>
                     
-                    <!-- Edges (connections) -->
                     <line x1="50" y1="50" x2="80" y2="45" stroke="#1976D2" stroke-width="1.5" opacity="0.6"/>
                     <line x1="50" y1="50" x2="70" y2="70" stroke="#1976D2" stroke-width="1.5" opacity="0.6"/>
                     <line x1="80" y1="45" x2="100" y2="60" stroke="#1976D2" stroke-width="1.5" opacity="0.6"/>
@@ -133,13 +238,11 @@
                     <line x1="160" y1="55" x2="180" y2="65" stroke="#388E3C" stroke-width="1.5" opacity="0.6"/>
                     <line x1="150" y1="75" x2="180" y2="65" stroke="#388E3C" stroke-width="1.5" opacity="0.6"/>
                     
-                    <!-- Weak connection between groups -->
                     <line x1="100" y1="60" x2="140" y2="50" stroke="#999" stroke-width="1" stroke-dasharray="2,2" opacity="0.4"/>
                     
                     <text x="110" y="95" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">k neighbors per cell</text>
                 </g>
                 
-                <!-- Arrow -->
                 <path d="M 215 52 L 250 52" stroke="#1E64C8" stroke-width="3" fill="none"/>
                 <polygon points="250,52 243,48 243,56" fill="#1E64C8"/>
                 
@@ -148,7 +251,6 @@
                     <rect x="255" y="10" width="200" height="95" rx="6" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
                     <text x="355" y="25" font-family="Aptos, sans-serif" font-size="12" font-weight="700" fill="#1B5E20" text-anchor="middle">2. Find Communities</text>
                     
-                    <!-- Cluster 1 -->
                     <ellipse cx="305" cy="60" rx="35" ry="30" fill="#2196F3" opacity="0.2" stroke="#1976D2" stroke-width="2"/>
                     <circle cx="290" cy="50" r="4" fill="#2196F3"/>
                     <circle cx="310" cy="48" r="4" fill="#2196F3"/>
@@ -156,7 +258,6 @@
                     <circle cx="320" cy="62" r="4" fill="#2196F3"/>
                     <text x="305" y="85" font-family="Aptos, sans-serif" font-size="9" font-weight="600" fill="#1976D2" text-anchor="middle">Cluster 1</text>
                     
-                    <!-- Cluster 2 -->
                     <ellipse cx="390" cy="60" rx="35" ry="30" fill="#4CAF50" opacity="0.2" stroke="#388E3C" stroke-width="2"/>
                     <circle cx="375" cy="52" r="4" fill="#4CAF50"/>
                     <circle cx="395" cy="55" r="4" fill="#4CAF50"/>
@@ -167,7 +268,6 @@
                     <text x="355" y="98" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Louvain/Leiden</text>
                 </g>
                 
-                <!-- Arrow -->
                 <path d="M 460 52 L 495 52" stroke="#1E64C8" stroke-width="3" fill="none"/>
                 <polygon points="495,52 488,48 488,56" fill="#1E64C8"/>
                 
@@ -176,7 +276,6 @@
                     <rect x="500" y="10" width="350" height="95" rx="6" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
                     <text x="675" y="25" font-family="Aptos, sans-serif" font-size="12" font-weight="700" fill="#E65100" text-anchor="middle">3. Resolution Parameter</text>
                     
-                    <!-- Low resolution -->
                     <g transform="translate(520, 35)">
                         <text x="0" y="0" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#FF5722">Low (0.4)</text>
                         <ellipse cx="50" cy="20" rx="40" ry="25" fill="#FF9800" opacity="0.3" stroke="#F57C00" stroke-width="2"/>
@@ -188,7 +287,6 @@
                         <text x="50" y="52" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">Few large clusters</text>
                     </g>
                     
-                    <!-- Medium resolution -->
                     <g transform="translate(640, 35)">
                         <text x="0" y="0" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#1976D2">Med (0.8)</text>
                         <ellipse cx="25" cy="15" rx="20" ry="15" fill="#2196F3" opacity="0.3" stroke="#1976D2" stroke-width="1.5"/>
@@ -201,7 +299,6 @@
                         <text x="45" y="52" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">Balanced</text>
                     </g>
                     
-                    <!-- High resolution -->
                     <g transform="translate(760, 35)">
                         <text x="0" y="0" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#7B1FA2">High (1.2)</text>
                         <ellipse cx="15" cy="12" rx="12" ry="10" fill="#9C27B0" opacity="0.3" stroke="#7B1FA2" stroke-width="1.5"/>
@@ -223,6 +320,846 @@
                 </g>
             </svg>
         </div>
+
+        <!-- DETAILED SECTIONS START HERE -->
+        <div class="detailed-section">
+            <div class="section-title">Detailed Method Explanations</div>
+
+            <!-- Method 1: Graph-based Clustering -->
+            <div class="method-detail">
+                <div class="method-header">
+                    <div class="method-number">1</div>
+                    <div class="method-title">Graph-based Clustering</div>
+                </div>
+                <div class="method-content">
+                    <div class="method-description">
+                        <p>Graph-based clustering represents cells as nodes in a network where edges connect similar cells. This approach naturally captures the manifold structure of single-cell data.</p>
+                        
+                        <h4>Key Steps:</h4>
+                        <ul>
+                            <li><strong>Graph Construction:</strong> Build a k-nearest neighbor (kNN) graph where each cell is connected to its k most similar cells based on gene expression distances</li>
+                            <li><strong>Edge Weighting:</strong> Edges are weighted by similarity (e.g., Euclidean distance in PCA space or cosine similarity)</li>
+                            <li><strong>Community Detection:</strong> Apply algorithms like Louvain or Leiden to identify densely connected groups (communities)</li>
+                        </ul>
+
+                        <h4>Advantages:</h4>
+                        <ul>
+                            <li>Handles complex, non-convex cluster shapes naturally</li>
+                            <li>Computationally efficient for large datasets</li>
+                            <li>Robust to noise and outliers</li>
+                            <li>Standard approach in Seurat and Scanpy</li>
+                        </ul>
+
+                        <div class="highlight-box">
+                            <strong>Typical Parameter:</strong> k = 10-30 neighbors is common for most scRNA-seq datasets. Higher k creates more connections but may merge distinct populations.
+                        </div>
+                    </div>
+                    <div class="method-visual">
+                        <svg width="400" height="350" viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Title -->
+                            <text x="200" y="20" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#1E64C8" text-anchor="middle">kNN Graph Construction</text>
+                            
+                            <!-- Step 1: Raw cells -->
+                            <g transform="translate(50, 50)">
+                                <text x="0" y="0" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#333">Step 1: Cell positions</text>
+                                <rect x="0" y="10" width="120" height="100" rx="4" fill="#f5f5f5" stroke="#999" stroke-width="1"/>
+                                
+                                <!-- Cluster 1 cells (blue) -->
+                                <circle cx="25" cy="35" r="5" fill="#2196F3" opacity="0.8"/>
+                                <circle cx="35" cy="45" r="5" fill="#2196F3" opacity="0.8"/>
+                                <circle cx="45" cy="38" r="5" fill="#2196F3" opacity="0.8"/>
+                                <circle cx="40" cy="55" r="5" fill="#2196F3" opacity="0.8"/>
+                                
+                                <!-- Cluster 2 cells (green) -->
+                                <circle cx="75" cy="40" r="5" fill="#4CAF50" opacity="0.8"/>
+                                <circle cx="85" cy="50" r="5" fill="#4CAF50" opacity="0.8"/>
+                                <circle cx="95" cy="45" r="5" fill="#4CAF50" opacity="0.8"/>
+                                <circle cx="88" cy="65" r="5" fill="#4CAF50" opacity="0.8"/>
+                                
+                                <!-- Cluster 3 cells (purple) -->
+                                <circle cx="60" cy="80" r="5" fill="#9C27B0" opacity="0.8"/>
+                                <circle cx="70" cy="90" r="5" fill="#9C27B0" opacity="0.8"/>
+                                <circle cx="50" cy="85" r="5" fill="#9C27B0" opacity="0.8"/>
+                            </g>
+
+                            <!-- Arrow -->
+                            <path d="M 185 95 L 215 95" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                            <polygon points="215,95 210,92 210,98" fill="#1E64C8"/>
+                            
+                            <!-- Step 2: kNN connections -->
+                            <g transform="translate(230, 50)">
+                                <text x="0" y="0" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#333">Step 2: Connect k neighbors</text>
+                                <rect x="0" y="10" width="120" height="100" rx="4" fill="#f5f5f5" stroke="#999" stroke-width="1"/>
+                                
+                                <!-- Edges within cluster 1 -->
+                                <line x1="25" y1="35" x2="35" y2="45" stroke="#2196F3" stroke-width="2" opacity="0.5"/>
+                                <line x1="25" y1="35" x2="45" y2="38" stroke="#2196F3" stroke-width="2" opacity="0.5"/>
+                                <line x1="35" y1="45" x2="45" y2="38" stroke="#2196F3" stroke-width="2" opacity="0.5"/>
+                                <line x1="35" y1="45" x2="40" y2="55" stroke="#2196F3" stroke-width="2" opacity="0.5"/>
+                                <line x1="45" y1="38" x2="40" y2="55" stroke="#2196F3" stroke-width="2" opacity="0.5"/>
+                                
+                                <!-- Edges within cluster 2 -->
+                                <line x1="75" y1="40" x2="85" y2="50" stroke="#4CAF50" stroke-width="2" opacity="0.5"/>
+                                <line x1="75" y1="40" x2="95" y2="45" stroke="#4CAF50" stroke-width="2" opacity="0.5"/>
+                                <line x1="85" y1="50" x2="95" y2="45" stroke="#4CAF50" stroke-width="2" opacity="0.5"/>
+                                <line x1="85" y1="50" x2="88" y2="65" stroke="#4CAF50" stroke-width="2" opacity="0.5"/>
+                                <line x1="95" y1="45" x2="88" y2="65" stroke="#4CAF50" stroke-width="2" opacity="0.5"/>
+                                
+                                <!-- Edges within cluster 3 -->
+                                <line x1="60" y1="80" x2="70" y2="90" stroke="#9C27B0" stroke-width="2" opacity="0.5"/>
+                                <line x1="60" y1="80" x2="50" y2="85" stroke="#9C27B0" stroke-width="2" opacity="0.5"/>
+                                <line x1="70" y1="90" x2="50" y2="85" stroke="#9C27B0" stroke-width="2" opacity="0.5"/>
+                                
+                                <!-- Weak inter-cluster edges -->
+                                <line x1="40" y1="55" x2="60" y2="80" stroke="#999" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
+                                <line x1="88" y1="65" x2="70" y2="90" stroke="#999" stroke-width="1" stroke-dasharray="3,3" opacity="0.3"/>
+                                
+                                <!-- Cells -->
+                                <circle cx="25" cy="35" r="5" fill="#2196F3" opacity="0.8"/>
+                                <circle cx="35" cy="45" r="5" fill="#2196F3" opacity="0.8"/>
+                                <circle cx="45" cy="38" r="5" fill="#2196F3" opacity="0.8"/>
+                                <circle cx="40" cy="55" r="5" fill="#2196F3" opacity="0.8"/>
+                                <circle cx="75" cy="40" r="5" fill="#4CAF50" opacity="0.8"/>
+                                <circle cx="85" cy="50" r="5" fill="#4CAF50" opacity="0.8"/>
+                                <circle cx="95" cy="45" r="5" fill="#4CAF50" opacity="0.8"/>
+                                <circle cx="88" cy="65" r="5" fill="#4CAF50" opacity="0.8"/>
+                                <circle cx="60" cy="80" r="5" fill="#9C27B0" opacity="0.8"/>
+                                <circle cx="70" cy="90" r="5" fill="#9C27B0" opacity="0.8"/>
+                                <circle cx="50" cy="85" r="5" fill="#9C27B0" opacity="0.8"/>
+                            </g>
+
+                            <!-- Step 3: Communities -->
+                            <g transform="translate(140, 200)">
+                                <text x="0" y="0" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#333">Step 3: Detect communities</text>
+                                <rect x="0" y="10" width="120" height="100" rx="4" fill="#f5f5f5" stroke="#999" stroke-width="1"/>
+                                
+                                <!-- Community boundaries -->
+                                <ellipse cx="35" cy="48" rx="28" ry="25" fill="none" stroke="#2196F3" stroke-width="3" stroke-dasharray="5,3"/>
+                                <ellipse cx="85" cy="50" rx="28" ry="25" fill="none" stroke="#4CAF50" stroke-width="3" stroke-dasharray="5,3"/>
+                                <ellipse cx="60" cy="85" rx="25" ry="18" fill="none" stroke="#9C27B0" stroke-width="3" stroke-dasharray="5,3"/>
+                                
+                                <!-- Cells with labels -->
+                                <circle cx="25" cy="35" r="5" fill="#2196F3" opacity="0.8"/>
+                                <circle cx="35" cy="45" r="5" fill="#2196F3" opacity="0.8"/>
+                                <circle cx="45" cy="38" r="5" fill="#2196F3" opacity="0.8"/>
+                                <circle cx="40" cy="55" r="5" fill="#2196F3" opacity="0.8"/>
+                                
+                                <circle cx="75" cy="40" r="5" fill="#4CAF50" opacity="0.8"/>
+                                <circle cx="85" cy="50" r="5" fill="#4CAF50" opacity="0.8"/>
+                                <circle cx="95" cy="45" r="5" fill="#4CAF50" opacity="0.8"/>
+                                <circle cx="88" cy="65" r="5" fill="#4CAF50" opacity="0.8"/>
+                                
+                                <circle cx="60" cy="80" r="5" fill="#9C27B0" opacity="0.8"/>
+                                <circle cx="70" cy="90" r="5" fill="#9C27B0" opacity="0.8"/>
+                                <circle cx="50" cy="85" r="5" fill="#9C27B0" opacity="0.8"/>
+                                
+                                <!-- Labels -->
+                                <text x="35" y="72" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#2196F3" text-anchor="middle">C1</text>
+                                <text x="85" y="78" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#4CAF50" text-anchor="middle">C2</text>
+                                <text x="60" y="103" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#9C27B0" text-anchor="middle">C3</text>
+                            </g>
+
+                            <!-- Legend -->
+                            <g transform="translate(20, 320)">
+                                <text x="0" y="0" font-family="Aptos, sans-serif" font-size="11" fill="#666">
+                                    <tspan font-weight="600">Note:</tspan> Cells connected to their k=3 nearest neighbors. Communities emerge from dense connections.
+                                </text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Method 2: Leiden Algorithm -->
+            <div class="method-detail">
+                <div class="method-header">
+                    <div class="method-number">2</div>
+                    <div class="method-title">Leiden Algorithm</div>
+                </div>
+                <div class="method-content">
+                    <div class="method-description">
+                        <p>The Leiden algorithm is an improved community detection method that addresses key limitations of the popular Louvain algorithm, particularly ensuring well-connected communities.</p>
+                        
+                        <h4>Improvements over Louvain:</h4>
+                        <ul>
+                            <li><strong>Guarantees Connectivity:</strong> Ensures communities are internally connected, preventing poorly connected subcommunities</li>
+                            <li><strong>Faster Convergence:</strong> Typically requires fewer iterations to reach optimal partitioning</li>
+                            <li><strong>Quality Function:</strong> Optimizes modularity while maintaining community quality</li>
+                            <li><strong>Refinement Phase:</strong> Includes additional refinement step to split disconnected parts</li>
+                        </ul>
+
+                        <h4>Algorithm Phases:</h4>
+                        <ul>
+                            <li><strong>Local Moving:</strong> Move nodes between communities to increase modularity</li>
+                            <li><strong>Refinement:</strong> Split weakly connected subcommunities</li>
+                            <li><strong>Aggregation:</strong> Collapse communities into supernodes</li>
+                            <li><strong>Repeat:</strong> Iterate until no improvement</li>
+                        </ul>
+
+                        <div class="highlight-box">
+                            <strong>Why it matters:</strong> Leiden is the recommended algorithm in Scanpy and provides more reliable clustering results, especially for complex datasets with hierarchical structure.
+                        </div>
+
+                        <div class="code-box">
+# Python (Scanpy)<br/>
+sc.tl.leiden(adata, resolution=0.8)<br/>
+<br/>
+# R (Seurat) - uses Louvain by default<br/>
+adata <- FindClusters(adata, resolution=0.8,<br/>
+                      algorithm=4)  # 4 = Leiden
+                        </div>
+                    </div>
+                    <div class="method-visual">
+                        <svg width="400" height="350" viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg">
+                            <text x="200" y="20" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#1E64C8" text-anchor="middle">Leiden vs Louvain</text>
+                            
+                            <!-- Louvain problem example -->
+                            <g transform="translate(50, 50)">
+                                <text x="60" y="0" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#D32F2F" text-anchor="middle">Louvain Issue</text>
+                                <rect x="0" y="10" width="120" height="130" rx="4" fill="#ffebee" stroke="#D32F2F" stroke-width="2"/>
+                                
+                                <!-- Main cluster boundary -->
+                                <ellipse cx="60" cy="75" rx="50" ry="50" fill="none" stroke="#FF5722" stroke-width="2" stroke-dasharray="4,2"/>
+                                
+                                <!-- Densely connected subgroup -->
+                                <circle cx="40" cy="60" r="6" fill="#FF5722"/>
+                                <circle cx="50" cy="55" r="6" fill="#FF5722"/>
+                                <circle cx="55" cy="65" r="6" fill="#FF5722"/>
+                                <circle cx="45" cy="70" r="6" fill="#FF5722"/>
+                                <line x1="40" y1="60" x2="50" y2="55" stroke="#D32F2F" stroke-width="2"/>
+                                <line x1="50" y1="55" x2="55" y2="65" stroke="#D32F2F" stroke-width="2"/>
+                                <line x1="55" y1="65" x2="45" y2="70" stroke="#D32F2F" stroke-width="2"/>
+                                <line x1="45" y1="70" x2="40" y2="60" stroke="#D32F2F" stroke-width="2"/>
+                                
+                                <!-- Weakly connected subgroup -->
+                                <circle cx="70" cy="90" r="6" fill="#FF5722"/>
+                                <circle cx="80" cy="95" r="6" fill="#FF5722"/>
+                                <circle cx="75" cy="105" r="6" fill="#FF5722"/>
+                                <line x1="70" y1="90" x2="80" y2="95" stroke="#D32F2F" stroke-width="1" opacity="0.3"/>
+                                <line x1="80" y1="95" x2="75" y2="105" stroke="#D32F2F" stroke-width="1" opacity="0.3"/>
+                                
+                                <!-- Weak bridge -->
+                                <line x1="55" y1="65" x2="70" y2="90" stroke="#999" stroke-width="1" stroke-dasharray="2,2" opacity="0.4"/>
+                                
+                                <text x="60" y="128" font-family="Aptos, sans-serif" font-size="9" fill="#D32F2F" text-anchor="middle">Poorly connected parts</text>
+                                <text x="60" y="138" font-family="Aptos, sans-serif" font-size="9" fill="#D32F2F" text-anchor="middle">in same cluster</text>
+                            </g>
+
+                            <!-- Leiden solution -->
+                            <g transform="translate(230, 50)">
+                                <text x="60" y="0" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#388E3C" text-anchor="middle">Leiden Solution</text>
+                                <rect x="0" y="10" width="120" height="130" rx="4" fill="#e8f5e9" stroke="#388E3C" stroke-width="2"/>
+                                
+                                <!-- Cluster 1 boundary -->
+                                <ellipse cx="48" cy="62" rx="25" ry="22" fill="none" stroke="#2196F3" stroke-width="2" stroke-dasharray="4,2"/>
+                                
+                                <!-- Cluster 1 -->
+                                <circle cx="40" cy="60" r="6" fill="#2196F3"/>
+                                <circle cx="50" cy="55" r="6" fill="#2196F3"/>
+                                <circle cx="55" cy="65" r="6" fill="#2196F3"/>
+                                <circle cx="45" cy="70" r="6" fill="#2196F3"/>
+                                <line x1="40" y1="60" x2="50" y2="55" stroke="#1976D2" stroke-width="2"/>
+                                <line x1="50" y1="55" x2="55" y2="65" stroke="#1976D2" stroke-width="2"/>
+                                <line x1="55" y1="65" x2="45" y2="70" stroke="#1976D2" stroke-width="2"/>
+                                <line x1="45" y1="70" x2="40" y2="60" stroke="#1976D2" stroke-width="2"/>
+                                
+                                <!-- Cluster 2 boundary -->
+                                <ellipse cx="75" cy="97" rx="22" ry="20" fill="none" stroke="#4CAF50" stroke-width="2" stroke-dasharray="4,2"/>
+                                
+                                <!-- Cluster 2 -->
+                                <circle cx="70" cy="90" r="6" fill="#4CAF50"/>
+                                <circle cx="80" cy="95" r="6" fill="#4CAF50"/>
+                                <circle cx="75" cy="105" r="6" fill="#4CAF50"/>
+                                <line x1="70" y1="90" x2="80" y2="95" stroke="#388E3C" stroke-width="2"/>
+                                <line x1="80" y1="95" x2="75" y2="105" stroke="#388E3C" stroke-width="2"/>
+                                <line x1="75" y1="105" x2="70" y2="90" stroke="#388E3C" stroke-width="2"/>
+                                
+                                <!-- Labels -->
+                                <text x="48" y="88" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#2196F3">C1</text>
+                                <text x="75" y="123" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#4CAF50">C2</text>
+                                
+                                <text x="60" y="138" font-family="Aptos, sans-serif" font-size="9" fill="#388E3C" text-anchor="middle" font-weight="600">Properly separated!</text>
+                            </g>
+
+                            <!-- Algorithm steps -->
+                            <g transform="translate(20, 210)">
+                                <text x="0" y="0" font-family="Aptos, sans-serif" font-size="13" font-weight="700" fill="#1E64C8">Leiden Algorithm Steps:</text>
+                                
+                                <!-- Step boxes -->
+                                <g transform="translate(0, 15)">
+                                    <rect x="0" y="0" width="85" height="50" rx="4" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                                    <text x="42" y="18" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#0D47A1" text-anchor="middle">1. Local Move</text>
+                                    <text x="42" y="32" font-family="Aptos, sans-serif" font-size="9" fill="#333" text-anchor="middle">Optimize node</text>
+                                    <text x="42" y="43" font-family="Aptos, sans-serif" font-size="9" fill="#333" text-anchor="middle">placement</text>
+                                </g>
+                                
+                                <path d="M 90 37 L 102 37" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                                <polygon points="102,37 97,34 97,40" fill="#1E64C8"/>
+                                
+                                <g transform="translate(107, 15)">
+                                    <rect x="0" y="0" width="85" height="50" rx="4" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+                                    <text x="42" y="18" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#1B5E20" text-anchor="middle">2. Refine</text>
+                                    <text x="42" y="32" font-family="Aptos, sans-serif" font-size="9" fill="#333" text-anchor="middle">Split poorly</text>
+                                    <text x="42" y="43" font-family="Aptos, sans-serif" font-size="9" fill="#333" text-anchor="middle">connected parts</text>
+                                </g>
+                                
+                                <path d="M 197 37 L 209 37" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                                <polygon points="209,37 204,34 204,40" fill="#1E64C8"/>
+                                
+                                <g transform="translate(214, 15)">
+                                    <rect x="0" y="0" width="85" height="50" rx="4" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+                                    <text x="42" y="18" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#E65100" text-anchor="middle">3. Aggregate</text>
+                                    <text x="42" y="32" font-family="Aptos, sans-serif" font-size="9" fill="#333" text-anchor="middle">Merge to</text>
+                                    <text x="42" y="43" font-family="Aptos, sans-serif" font-size="9" fill="#333" text-anchor="middle">supernodes</text>
+                                </g>
+                                
+                                <path d="M 304 37 L 316 37" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                                <polygon points="316,37 311,34 311,40" fill="#1E64C8"/>
+                                
+                                <g transform="translate(321, 15)">
+                                    <rect x="0" y="0" width="60" height="50" rx="4" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2"/>
+                                    <text x="30" y="18" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#4A148C" text-anchor="middle">Repeat</text>
+                                    <text x="30" y="32" font-family="Aptos, sans-serif" font-size="9" fill="#333" text-anchor="middle">Until</text>
+                                    <text x="30" y="43" font-family="Aptos, sans-serif" font-size="9" fill="#333" text-anchor="middle">converged</text>
+                                </g>
+                            </g>
+
+                            <!-- Key advantage note -->
+                            <g transform="translate(20, 295)">
+                                <rect x="0" y="0" width="360" height="35" rx="4" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+                                <text x="180" y="15" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#1B5E20" text-anchor="middle">✓ Key Advantage: Guarantees well-connected communities</text>
+                                <text x="180" y="28" font-family="Aptos, sans-serif" font-size="10" fill="#2E7D32" text-anchor="middle">Prevents arbitrary merging of distant subclusters</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Method 3: K-means Adaptations -->
+            <div class="method-detail">
+                <div class="method-header">
+                    <div class="method-number">3</div>
+                    <div class="method-title">K-means Adaptations (SC3)</div>
+                </div>
+                <div class="method-content">
+                    <div class="method-description">
+                        <p>SC3 (Single-Cell Consensus Clustering) adapts k-means clustering for single-cell data through consensus approaches and careful parameter selection.</p>
+                        
+                        <h4>SC3 Methodology:</h4>
+                        <ul>
+                            <li><strong>Multiple Transformations:</strong> Apply different distance metrics and dimensionality reductions</li>
+                            <li><strong>Consensus Clustering:</strong> Run k-means multiple times with different initializations</li>
+                            <li><strong>Similarity Matrix:</strong> Build consensus across multiple runs to stabilize results</li>
+                            <li><strong>Optimal k Selection:</strong> Uses silhouette width and other metrics to estimate cluster number</li>
+                        </ul>
+
+                        <h4>Why Consensus?</h4>
+                        <ul>
+                            <li>K-means is sensitive to initialization (local minima problem)</li>
+                            <li>Different random starts can produce different results</li>
+                            <li>Consensus approach averages over many runs for stability</li>
+                            <li>Identifies core cluster memberships that persist across runs</li>
+                        </ul>
+
+                        <h4>Limitations:</h4>
+                        <ul>
+                            <li>Assumes spherical clusters (unlike graph-based methods)</li>
+                            <li>Requires specifying k (number of clusters) in advance</li>
+                            <li>Computationally intensive for large datasets</li>
+                            <li>Less popular than graph-based methods for scRNA-seq</li>
+                        </ul>
+
+                        <div class="highlight-box">
+                            <strong>When to use:</strong> SC3 is useful for smaller datasets where you want robust cluster number estimation and are willing to invest computational time.
+                        </div>
+                    </div>
+                    <div class="method-visual">
+                        <svg width="400" height="380" viewBox="0 0 400 380" xmlns="http://www.w3.org/2000/svg">
+                            <text x="200" y="20" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#1E64C8" text-anchor="middle">SC3 Consensus Clustering</text>
+                            
+                            <!-- Multiple k-means runs -->
+                            <text x="200" y="45" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#666">Multiple k-means runs with different initializations</text>
+                            
+                            <!-- Run 1 -->
+                            <g transform="translate(30, 60)">
+                                <text x="45" y="0" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#1976D2">Run 1</text>
+                                <rect x="0" y="5" width="90" height="80" rx="4" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                                
+                                <!-- Cluster assignments -->
+                                <circle cx="20" cy="30" r="4" fill="#2196F3"/>
+                                <circle cx="30" cy="35" r="4" fill="#2196F3"/>
+                                <circle cx="25" cy="45" r="4" fill="#2196F3"/>
+                                
+                                <circle cx="50" cy="32" r="4" fill="#4CAF50"/>
+                                <circle cx="60" cy="38" r="4" fill="#4CAF50"/>
+                                <circle cx="55" cy="48" r="4" fill="#4CAF50"/>
+                                
+                                <circle cx="35" cy="65" r="4" fill="#FF9800"/>
+                                <circle cx="45" cy="70" r="4" fill="#FF9800"/>
+                                
+                                <text x="45" y="90" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Init seed 1</text>
+                            </g>
+
+                            <!-- Run 2 -->
+                            <g transform="translate(155, 60)">
+                                <text x="45" y="0" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#1976D2">Run 2</text>
+                                <rect x="0" y="5" width="90" height="80" rx="4" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                                
+                                <!-- Different assignments -->
+                                <circle cx="20" cy="30" r="4" fill="#2196F3"/>
+                                <circle cx="30" cy="35" r="4" fill="#2196F3"/>
+                                <circle cx="25" cy="45" r="4" fill="#4CAF50"/>
+                                
+                                <circle cx="50" cy="32" r="4" fill="#4CAF50"/>
+                                <circle cx="60" cy="38" r="4" fill="#4CAF50"/>
+                                <circle cx="55" cy="48" r="4" fill="#4CAF50"/>
+                                
+                                <circle cx="35" cy="65" r="4" fill="#FF9800"/>
+                                <circle cx="45" cy="70" r="4" fill="#FF9800"/>
+                                
+                                <text x="45" y="90" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Init seed 2</text>
+                            </g>
+
+                            <!-- Run 3 -->
+                            <g transform="translate(280, 60)">
+                                <text x="45" y="0" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#1976D2">Run 3</text>
+                                <rect x="0" y="5" width="90" height="80" rx="4" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                                
+                                <circle cx="20" cy="30" r="4" fill="#2196F3"/>
+                                <circle cx="30" cy="35" r="4" fill="#2196F3"/>
+                                <circle cx="25" cy="45" r="4" fill="#2196F3"/>
+                                
+                                <circle cx="50" cy="32" r="4" fill="#4CAF50"/>
+                                <circle cx="60" cy="38" r="4" fill="#4CAF50"/>
+                                <circle cx="55" cy="48" r="4" fill="#FF9800"/>
+                                
+                                <circle cx="35" cy="65" r="4" fill="#FF9800"/>
+                                <circle cx="45" cy="70" r="4" fill="#FF9800"/>
+                                
+                                <text x="45" y="90" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Init seed 3</text>
+                            </g>
+
+                            <!-- Arrow down -->
+                            <path d="M 200 165 L 200 185" stroke="#1E64C8" stroke-width="3" fill="none"/>
+                            <polygon points="200,185 197,178 203,178" fill="#1E64C8"/>
+
+                            <!-- Consensus matrix -->
+                            <g transform="translate(100, 195)">
+                                <text x="100" y="0" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#333" text-anchor="middle">Consensus Co-clustering Matrix</text>
+                                <rect x="0" y="10" width="200" height="90" rx="4" fill="white" stroke="#1E64C8" stroke-width="2"/>
+                                
+                                <!-- Heatmap-like representation -->
+                                <text x="15" y="25" font-family="Aptos, sans-serif" font-size="9" fill="#666">Cells →</text>
+                                <text x="-25" y="65" font-family="Aptos, sans-serif" font-size="9" fill="#666" transform="rotate(-90 -25 65)">Cells →</text>
+                                
+                                <!-- Consensus blocks (high co-clustering) -->
+                                <rect x="40" y="30" width="50" height="50" fill="#1976D2" opacity="0.8"/>
+                                <rect x="95" y="30" width="45" height="50" fill="#4CAF50" opacity="0.8"/>
+                                <rect x="145" y="30" width="40" height="50" fill="#FF9800" opacity="0.8"/>
+                                
+                                <!-- Low co-clustering -->
+                                <rect x="40" y="83" width="50" height="10" fill="#E0E0E0" opacity="0.5"/>
+                                <rect x="95" y="83" width="45" height="10" fill="#E0E0E0" opacity="0.5"/>
+                                <rect x="145" y="83" width="40" height="10" fill="#E0E0E0" opacity="0.5"/>
+                                
+                                <!-- Labels -->
+                                <text x="65" y="112" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#1976D2">C1</text>
+                                <text x="117" y="112" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#4CAF50">C2</text>
+                                <text x="165" y="112" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#FF9800">C3</text>
+                                
+                                <!-- Legend -->
+                                <g transform="translate(210, 35)">
+                                    <rect x="0" y="0" width="15" height="10" fill="#1976D2" opacity="0.8"/>
+                                    <text x="20" y="9" font-family="Aptos, sans-serif" font-size="8" fill="#333">High</text>
+                                    
+                                    <rect x="0" y="15" width="15" height="10" fill="#E0E0E0" opacity="0.5"/>
+                                    <text x="20" y="24" font-family="Aptos, sans-serif" font-size="8" fill="#333">Low</text>
+                                </g>
+                            </g>
+
+                            <!-- Final result -->
+                            <path d="M 200 305 L 200 320" stroke="#1E64C8" stroke-width="3" fill="none"/>
+                            <polygon points="200,320 197,313 203,313" fill="#1E64C8"/>
+
+                            <g transform="translate(75, 325)">
+                                <rect x="0" y="0" width="250" height="45" rx="6" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+                                <text x="125" y="18" font-family="Aptos, sans-serif" font-size="12" font-weight="700" fill="#1B5E20" text-anchor="middle">Stable Consensus Clusters</text>
+                                <text x="125" y="33" font-family="Aptos, sans-serif" font-size="10" fill="#2E7D32" text-anchor="middle">Cells consistently grouped together across runs</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Method 4: Resolution Selection -->
+            <div class="method-detail">
+                <div class="method-header">
+                    <div class="method-number">4</div>
+                    <div class="method-title">Resolution Parameter Selection</div>
+                </div>
+                <div class="method-content">
+                    <div class="method-description">
+                        <p>The resolution parameter controls the granularity of clustering in community detection algorithms. This is one of the most important tuning parameters in single-cell clustering.</p>
+                        
+                        <h4>How Resolution Works:</h4>
+                        <ul>
+                            <li><strong>Low Resolution (0.1-0.5):</strong> Favors larger communities, merges similar populations</li>
+                            <li><strong>Medium Resolution (0.6-1.0):</strong> Balanced granularity, commonly used default</li>
+                            <li><strong>High Resolution (1.0-2.0+):</strong> Produces more fine-grained clusters, separates subtle differences</li>
+                        </ul>
+
+                        <h4>Biological Interpretation:</h4>
+                        <ul>
+                            <li><strong>Cell Type Level:</strong> Lower resolution (0.4-0.6) for major cell types (T cells, B cells, monocytes)</li>
+                            <li><strong>Subtype Level:</strong> Medium resolution (0.8-1.2) for cell subtypes (CD4+ T cells, CD8+ T cells)</li>
+                            <li><strong>State Level:</strong> Higher resolution (1.5-2.0) for cell states (activated, resting, proliferating)</li>
+                        </ul>
+
+                        <h4>Selection Strategies:</h4>
+                        <ul>
+                            <li>Start with default (0.8-1.0) and adjust based on results</li>
+                            <li>Use multiple resolutions and compare with biological knowledge</li>
+                            <li>Check cluster stability at each resolution</li>
+                            <li>Consider the biological question being asked</li>
+                        </ul>
+
+                        <div class="highlight-box">
+                            <strong>Important:</strong> There is no "correct" resolution - it depends on your research question. Are you interested in broad cell types or fine-grained states?
+                        </div>
+                    </div>
+                    <div class="method-visual">
+                        <svg width="400" height="400" viewBox="0 0 400 400" xmlns="http://www.w3.org/2000/svg">
+                            <text x="200" y="20" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#1E64C8" text-anchor="middle">Resolution Parameter Effect</text>
+                            
+                            <!-- UMAP representation at different resolutions -->
+                            
+                            <!-- Low Resolution -->
+                            <g transform="translate(20, 40)">
+                                <text x="55" y="0" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#FF5722">Low (res = 0.4)</text>
+                                <rect x="0" y="5" width="110" height="100" rx="4" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+                                
+                                <!-- Large merged cluster -->
+                                <ellipse cx="35" cy="45" rx="25" ry="25" fill="#FF9800" opacity="0.3" stroke="#F57C00" stroke-width="2"/>
+                                <circle cx="25" cy="35" r="3" fill="#FF9800"/>
+                                <circle cx="35" cy="40" r="3" fill="#FF9800"/>
+                                <circle cx="30" cy="50" r="3" fill="#FF9800"/>
+                                <circle cx="40" cy="48" r="3" fill="#FF9800"/>
+                                <circle cx="45" cy="40" r="3" fill="#FF9800"/>
+                                
+                                <ellipse cx="75" cy="70" rx="25" ry="22" fill="#FF9800" opacity="0.3" stroke="#F57C00" stroke-width="2"/>
+                                <circle cx="65" cy="62" r="3" fill="#FF9800"/>
+                                <circle cx="75" cy="68" r="3" fill="#FF9800"/>
+                                <circle cx="70" cy="78" r="3" fill="#FF9800"/>
+                                <circle cx="82" cy="73" r="3" fill="#FF9800"/>
+                                
+                                <text x="55" y="110" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">2 major clusters</text>
+                                <text x="55" y="120" font-family="Aptos, sans-serif" font-size="8" fill="#E65100" text-anchor="middle" font-style="italic">Broad cell types</text>
+                            </g>
+
+                            <!-- Medium Resolution -->
+                            <g transform="translate(145, 40)">
+                                <text x="55" y="0" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#1976D2">Medium (res = 0.8)</text>
+                                <rect x="0" y="5" width="110" height="100" rx="4" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                                
+                                <!-- Split into more clusters -->
+                                <ellipse cx="30" cy="38" rx="18" ry="16" fill="#2196F3" opacity="0.3" stroke="#1976D2" stroke-width="2"/>
+                                <circle cx="25" cy="32" r="3" fill="#2196F3"/>
+                                <circle cx="30" cy="38" r="3" fill="#2196F3"/>
+                                <circle cx="35" cy="43" r="3" fill="#2196F3"/>
+                                
+                                <ellipse cx="65" cy="40" rx="18" ry="16" fill="#4CAF50" opacity="0.3" stroke="#388E3C" stroke-width="2"/>
+                                <circle cx="60" cy="35" r="3" fill="#4CAF50"/>
+                                <circle cx="67" cy="41" r="3" fill="#4CAF50"/>
+                                <circle cx="70" cy="46" r="3" fill="#4CAF50"/>
+                                
+                                <ellipse cx="35" cy="75" rx="18" ry="14" fill="#9C27B0" opacity="0.3" stroke="#7B1FA2" stroke-width="2"/>
+                                <circle cx="30" cy="70" r="3" fill="#9C27B0"/>
+                                <circle cx="37" cy="76" r="3" fill="#9C27B0"/>
+                                <circle cx="40" cy="82" r="3" fill="#9C27B0"/>
+                                
+                                <ellipse cx="75" cy="75" rx="18" ry="14" fill="#FF9800" opacity="0.3" stroke="#F57C00" stroke-width="2"/>
+                                <circle cx="70" cy="70" r="3" fill="#FF9800"/>
+                                <circle cx="77" cy="76" r="3" fill="#FF9800"/>
+                                <circle cx="80" cy="81" r="3" fill="#FF9800"/>
+                                
+                                <text x="55" y="110" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">4 clusters</text>
+                                <text x="55" y="120" font-family="Aptos, sans-serif" font-size="8" fill="#1565C0" text-anchor="middle" font-style="italic">Cell subtypes</text>
+                            </g>
+
+                            <!-- High Resolution -->
+                            <g transform="translate(270, 40)">
+                                <text x="55" y="0" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#7B1FA2">High (res = 1.5)</text>
+                                <rect x="0" y="5" width="110" height="100" rx="4" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2"/>
+                                
+                                <!-- Many small clusters -->
+                                <ellipse cx="22" cy="30" rx="12" ry="10" fill="#2196F3" opacity="0.3" stroke="#1976D2" stroke-width="1.5"/>
+                                <circle cx="20" cy="28" r="2.5" fill="#2196F3"/>
+                                <circle cx="25" cy="32" r="2.5" fill="#2196F3"/>
+                                
+                                <ellipse cx="48" cy="28" rx="12" ry="10" fill="#4CAF50" opacity="0.3" stroke="#388E3C" stroke-width="1.5"/>
+                                <circle cx="45" cy="26" r="2.5" fill="#4CAF50"/>
+                                <circle cx="51" cy="30" r="2.5" fill="#4CAF50"/>
+                                
+                                <ellipse cx="75" cy="32" rx="12" ry="10" fill="#FF9800" opacity="0.3" stroke="#F57C00" stroke-width="1.5"/>
+                                <circle cx="72" cy="30" r="2.5" fill="#FF9800"/>
+                                <circle cx="78" cy="34" r="2.5" fill="#FF9800"/>
+                                
+                                <ellipse cx="22" cy="60" rx="12" ry="10" fill="#9C27B0" opacity="0.3" stroke="#7B1FA2" stroke-width="1.5"/>
+                                <circle cx="20" cy="58" r="2.5" fill="#9C27B0"/>
+                                <circle cx="25" cy="62" r="2.5" fill="#9C27B0"/>
+                                
+                                <ellipse cx="48" cy="62" rx="12" ry="10" fill="#E91E63" opacity="0.3" stroke="#C2185B" stroke-width="1.5"/>
+                                <circle cx="45" cy="60" r="2.5" fill="#E91E63"/>
+                                <circle cx="51" cy="64" r="2.5" fill="#E91E63"/>
+                                
+                                <ellipse cx="75" cy="65" rx="12" ry="10" fill="#00BCD4" opacity="0.3" stroke="#0097A7" stroke-width="1.5"/>
+                                <circle cx="72" cy="63" r="2.5" fill="#00BCD4"/>
+                                <circle cx="78" cy="67" r="2.5" fill="#00BCD4"/>
+                                
+                                <ellipse cx="35" cy="85" rx="12" ry="10" fill="#FFC107" opacity="0.3" stroke="#FFA000" stroke-width="1.5"/>
+                                <circle cx="33" cy="83" r="2.5" fill="#FFC107"/>
+                                <circle cx="38" cy="87" r="2.5" fill="#FFC107"/>
+                                
+                                <ellipse cx="65" cy="88" rx="12" ry="10" fill="#795548" opacity="0.3" stroke="#5D4037" stroke-width="1.5"/>
+                                <circle cx="63" cy="86" r="2.5" fill="#795548"/>
+                                <circle cx="68" cy="90" r="2.5" fill="#795548"/>
+                                
+                                <text x="55" y="110" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">8 clusters</text>
+                                <text x="55" y="120" font-family="Aptos, sans-serif" font-size="8" fill="#6A1B9A" text-anchor="middle" font-style="italic">Cell states</text>
+                            </g>
+
+                            <!-- Modularity curve -->
+                            <g transform="translate(20, 180)">
+                                <text x="180" y="0" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#333" text-anchor="middle">Resolution vs Number of Clusters</text>
+                                
+                                <!-- Axes -->
+                                <line x1="40" y1="140" x2="40" y2="20" stroke="#333" stroke-width="2"/>
+                                <line x1="40" y1="140" x2="340" y2="140" stroke="#333" stroke-width="2"/>
+                                
+                                <!-- Y axis label -->
+                                <text x="-85" y="35" font-family="Aptos, sans-serif" font-size="11" fill="#333" transform="rotate(-90 -85 35)">Number of Clusters</text>
+                                
+                                <!-- X axis label -->
+                                <text x="190" y="165" font-family="Aptos, sans-serif" font-size="11" fill="#333" text-anchor="middle">Resolution Parameter</text>
+                                
+                                <!-- Curve showing relationship -->
+                                <path d="M 50 135 Q 100 120, 150 80 Q 200 50, 250 35 Q 280 25, 320 22" 
+                                      stroke="#1E64C8" stroke-width="3" fill="none"/>
+                                
+                                <!-- Data points -->
+                                <circle cx="80" cy="125" r="5" fill="#FF9800"/>
+                                <circle cx="150" cy="80" r="5" fill="#2196F3"/>
+                                <circle cx="240" cy="40" r="5" fill="#9C27B0"/>
+                                
+                                <!-- Labels on curve -->
+                                <text x="80" y="145" font-family="Aptos, sans-serif" font-size="9" fill="#FF5722" text-anchor="middle">0.4</text>
+                                <text x="150" y="95" font-family="Aptos, sans-serif" font-size="9" fill="#1976D2" text-anchor="middle">0.8</text>
+                                <text x="240" y="30" font-family="Aptos, sans-serif" font-size="9" fill="#7B1FA2" text-anchor="middle">1.5</text>
+                                
+                                <!-- Y axis ticks -->
+                                <line x1="35" y1="135" x2="40" y2="135" stroke="#333" stroke-width="1"/>
+                                <text x="28" y="138" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="end">2</text>
+                                
+                                <line x1="35" y1="80" x2="40" y2="80" stroke="#333" stroke-width="1"/>
+                                <text x="28" y="83" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="end">5</text>
+                                
+                                <line x1="35" y1="35" x2="40" y2="35" stroke="#333" stroke-width="1"/>
+                                <text x="28" y="38" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="end">10</text>
+                            </g>
+
+                            <!-- Recommendation box -->
+                            <g transform="translate(20, 360)">
+                                <rect x="0" y="0" width="360" height="30" rx="4" fill="#FFF8E1" stroke="#FFA726" stroke-width="2"/>
+                                <text x="180" y="20" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#E65100" text-anchor="middle">💡 Tip: Try multiple resolutions and validate with marker genes!</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Method 5: Stability Analysis -->
+            <div class="method-detail">
+                <div class="method-header">
+                    <div class="method-number">5</div>
+                    <div class="method-title">Cluster Stability Analysis</div>
+                </div>
+                <div class="method-content">
+                    <div class="method-description">
+                        <p>Stability analysis assesses how robust clustering results are to perturbations in the data. This helps identify reliable clusters versus those that may be artifacts.</p>
+                        
+                        <h4>Bootstrap Resampling:</h4>
+                        <ul>
+                            <li><strong>Process:</strong> Randomly sample cells with replacement, recluster multiple times</li>
+                            <li><strong>Stability Score:</strong> Measure how often cells cluster together across bootstrap runs</li>
+                            <li><strong>Interpretation:</strong> High stability (>0.8) indicates robust clusters; low stability suggests uncertain boundaries</li>
+                        </ul>
+
+                        <h4>Subsampling Analysis:</h4>
+                        <ul>
+                            <li>Remove random subsets of cells and recluster</li>
+                            <li>Check if major clusters persist</li>
+                            <li>Identifies clusters dependent on specific cells</li>
+                        </ul>
+
+                        <h4>Metrics for Stability:</h4>
+                        <ul>
+                            <li><strong>Adjusted Rand Index (ARI):</strong> Measures agreement between clusterings (0=random, 1=perfect)</li>
+                            <li><strong>Jaccard Index:</strong> Overlap between cluster memberships</li>
+                            <li><strong>Co-clustering Frequency:</strong> How often cell pairs are grouped together</li>
+                        </ul>
+
+                        <h4>Practical Applications:</h4>
+                        <ul>
+                            <li>Identify stable core clusters to report in publications</li>
+                            <li>Flag uncertain cells at cluster boundaries</li>
+                            <li>Compare stability across different resolutions</li>
+                            <li>Validate that biological conclusions don't depend on unstable clusters</li>
+                        </ul>
+
+                        <div class="highlight-box">
+                            <strong>Best Practice:</strong> Always perform stability analysis before biological interpretation. Don't over-interpret unstable clusters!
+                        </div>
+
+                        <div class="code-box">
+# Python example with clustree-like approach<br/>
+for i in range(100):  # 100 bootstrap runs<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;subsample = adata[np.random.choice(adata.n_obs, <br/>
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;size=adata.n_obs, replace=True)]<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;sc.tl.leiden(subsample, resolution=0.8)<br/>
+&nbsp;&nbsp;&nbsp;&nbsp;# Calculate co-clustering matrix<br/>
+                        </div>
+                    </div>
+                    <div class="method-visual">
+                        <svg width="400" height="420" viewBox="0 0 400 420" xmlns="http://www.w3.org/2000/svg">
+                            <text x="200" y="20" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#1E64C8" text-anchor="middle">Cluster Stability Analysis</text>
+                            
+                            <!-- Original clustering -->
+                            <g transform="translate(30, 40)">
+                                <text x="75" y="0" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#333">Original Clustering</text>
+                                <rect x="0" y="10" width="150" height="110" rx="4" fill="#F5F5F5" stroke="#999" stroke-width="2"/>
+                                
+                                <!-- Cluster 1 (stable) -->
+                                <ellipse cx="40" cy="50" rx="25" ry="22" fill="#2196F3" opacity="0.3" stroke="#1976D2" stroke-width="2"/>
+                                <circle cx="30" cy="42" r="4" fill="#2196F3"/>
+                                <circle cx="40" cy="48" r="4" fill="#2196F3"/>
+                                <circle cx="35" cy="58" r="4" fill="#2196F3"/>
+                                <circle cx="48" cy="52" r="4" fill="#2196F3"/>
+                                <text x="40" y="78" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#1976D2">C1</text>
+                                
+                                <!-- Cluster 2 (stable) -->
+                                <ellipse cx="110" cy="50" rx="25" ry="22" fill="#4CAF50" opacity="0.3" stroke="#388E3C" stroke-width="2"/>
+                                <circle cx="100" cy="42" r="4" fill="#4CAF50"/>
+                                <circle cx="110" cy="48" r="4" fill="#4CAF50"/>
+                                <circle cx="105" cy="58" r="4" fill="#4CAF50"/>
+                                <circle cx="118" cy="52" r="4" fill="#4CAF50"/>
+                                <text x="110" y="78" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#388E3C">C2</text>
+                                
+                                <!-- Cluster 3 (unstable) -->
+                                <ellipse cx="75" cy="95" rx="22" ry="16" fill="#FF9800" opacity="0.3" stroke="#F57C00" stroke-width="2" stroke-dasharray="3,2"/>
+                                <circle cx="65" cy="90" r="4" fill="#FF9800"/>
+                                <circle cx="75" cy="95" r="4" fill="#FF9800"/>
+                                <circle cx="85" cy="98" r="4" fill="#FF9800"/>
+                                <text x="75" y="113" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#F57C00">C3</text>
+                            </g>
+
+                            <!-- Bootstrap iterations -->
+                            <g transform="translate(220, 40)">
+                                <text x="80" y="0" font-family="Aptos, sans-serif" font-size="12" font-weight="600" fill="#333">Bootstrap Runs</text>
+                                
+                                <!-- Run 1 -->
+                                <g>
+                                    <rect x="0" y="10" width="160" height="30" rx="3" fill="#E3F2FD" stroke="#1976D2" stroke-width="1"/>
+                                    <text x="5" y="27" font-family="Aptos, sans-serif" font-size="9" font-weight="600" fill="#0D47A1">Run 1:</text>
+                                    <circle cx="50" cy="23" r="3" fill="#2196F3"/>
+                                    <circle cx="60" cy="23" r="3" fill="#2196F3"/>
+                                    <circle cx="70" cy="23" r="3" fill="#2196F3"/>
+                                    <circle cx="80" cy="23" r="3" fill="#2196F3"/>
+                                    <circle cx="100" cy="23" r="3" fill="#4CAF50"/>
+                                    <circle cx="110" cy="23" r="3" fill="#4CAF50"/>
+                                    <circle cx="120" cy="23" r="3" fill="#4CAF50"/>
+                                    <circle cx="130" cy="23" r="3" fill="#9C27B0"/>
+                                    <circle cx="140" cy="23" r="3" fill="#9C27B0"/>
+                                    <circle cx="150" cy="23" r="3" fill="#9C27B0"/>
+                                </g>
+                                
+                                <!-- Run 2 -->
+                                <g transform="translate(0, 35)">
+                                    <rect x="0" y="10" width="160" height="30" rx="3" fill="#E3F2FD" stroke="#1976D2" stroke-width="1"/>
+                                    <text x="5" y="27" font-family="Aptos, sans-serif" font-size="9" font-weight="600" fill="#0D47A1">Run 2:</text>
+                                    <circle cx="50" cy="23" r="3" fill="#2196F3"/>
+                                    <circle cx="60" cy="23" r="3" fill="#2196F3"/>
+                                    <circle cx="70" cy="23" r="3" fill="#2196F3"/>
+                                    <circle cx="80" cy="23" r="3" fill="#2196F3"/>
+                                    <circle cx="100" cy="23" r="3" fill="#4CAF50"/>
+                                    <circle cx="110" cy="23" r="3" fill="#4CAF50"/>
+                                    <circle cx="120" cy="23" r="3" fill="#4CAF50"/>
+                                    <circle cx="130" cy="23" r="3" fill="#FF9800"/>
+                                    <circle cx="140" cy="23" r="3" fill="#E91E63"/>
+                                    <circle cx="150" cy="23" r="3" fill="#FF9800"/>
+                                </g>
+                                
+                                <!-- Run 3 -->
+                                <g transform="translate(0, 70)">
+                                    <rect x="0" y="10" width="160" height="30" rx="3" fill="#E3F2FD" stroke="#1976D2" stroke-width="1"/>
+                                    <text x="5" y="27" font-family="Aptos, sans-serif" font-size="9" font-weight="600" fill="#0D47A1">Run 3:</text>
+                                    <circle cx="50" cy="23" r="3" fill="#2196F3"/>
+                                    <circle cx="60" cy="23" r="3" fill="#2196F3"/>
+                                    <circle cx="70" cy="23" r="3" fill="#2196F3"/>
+                                    <circle cx="80" cy="23" r="3" fill="#2196F3"/>
+                                    <circle cx="100" cy="23" r="3" fill="#4CAF50"/>
+                                    <circle cx="110" cy="23" r="3" fill="#4CAF50"/>
+                                    <circle cx="120" cy="23" r="3" fill="#4CAF50"/>
+                                    <circle cx="130" cy="23" r="3" fill="#E91E63"/>
+                                    <circle cx="140" cy="23" r="3" fill="#9C27B0"/>
+                                    <circle cx="150" cy="23" r="3" fill="#E91E63"/>
+                                </g>
+                            </g>
+
+                            <!-- Stability scores -->
+                            <g transform="translate(50, 190)">
+                                <text x="150" y="0" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#333" text-anchor="middle">Stability Scores</text>
+                                
+                                <rect x="0" y="10" width="300" height="140" rx="4" fill="#F9F9F9" stroke="#DDD" stroke-width="2"/>
+                                
+                                <!-- Cluster 1 - High stability -->
+                                <g transform="translate(20, 30)">
+                                    <text x="0" y="0" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#1976D2">Cluster 1</text>
+                                    <rect x="0" y="5" width="260" height="25" rx="3" fill="#E3F2FD" stroke="#1976D2" stroke-width="1"/>
+                                    <rect x="0" y="5" width="234" height="25" rx="3" fill="#2196F3" opacity="0.7"/>
+                                    <text x="130" y="22" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="white" text-anchor="middle">Stability: 0.95 (Excellent)</text>
+                                </g>
+                                
+                                <!-- Cluster 2 - High stability -->
+                                <g transform="translate(20, 70)">
+                                    <text x="0" y="0" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#388E3C">Cluster 2</text>
+                                    <rect x="0" y="5" width="260" height="25" rx="3" fill="#E8F5E9" stroke="#388E3C" stroke-width="1"/>
+                                    <rect x="0" y="5" width="221" height="25" rx="3" fill="#4CAF50" opacity="0.7"/>
+                                    <text x="130" y="22" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="white" text-anchor="middle">Stability: 0.92 (Excellent)</text>
+                                </g>
+                                
+                                <!-- Cluster 3 - Low stability -->
+                                <g transform="translate(20, 110)">
+                                    <text x="0" y="0" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#F57C00">Cluster 3</text>
+                                    <rect x="0" y="5" width="260" height="25" rx="3" fill="#FFF3E0" stroke="#F57C00" stroke-width="1"/>
+                                    <rect x="0" y="5" width="104" height="25" rx="3" fill="#FF9800" opacity="0.7"/>
+                                    <text x="130" y="22" font-family="Aptos, sans-serif" font-size="10" font-weight="600" fill="#666" text-anchor="middle">Stability: 0.48 (Poor - Unreliable)</text>
+                                </g>
+                            </g>
+
+                            <!-- Interpretation -->
+                            <g transform="translate(20, 360)">
+                                <rect x="0" y="0" width="360" height="50" rx="6" fill="#E8F5E9" stroke="#4CAF50" stroke-width="2"/>
+                                <text x="180" y="18" font-family="Aptos, sans-serif" font-size="12" font-weight="700" fill="#1B5E20" text-anchor="middle">Interpretation</text>
+                                <text x="180" y="35" font-family="Aptos, sans-serif" font-size="10" fill="#2E7D32" text-anchor="middle">Clusters 1 &amp; 2: Robust, report confidently</text>
+                                <text x="180" y="47" font-family="Aptos, sans-serif" font-size="10" fill="#E65100" text-anchor="middle">Cluster 3: Unstable, may be batch effect or transitional state</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
     </div>
 </body>
 </html>

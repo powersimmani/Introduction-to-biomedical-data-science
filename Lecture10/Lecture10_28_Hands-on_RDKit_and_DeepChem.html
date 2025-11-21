@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RDKit and DeepChem</title>
+    <title>Hands-on: RDKit and DeepChem - Detailed Guide</title>
     <style>
         * {
             margin: 0;
@@ -13,121 +13,769 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 40px 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 40px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 2px 20px rgba(0,0,0,0.1);
         }
         
-        .title {
-            font-size: 28px;
+        .main-title {
+            font-size: 42px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 25px;
-            text-align: center;
-            padding-bottom: 12px;
-            border-bottom: 3px solid #1E64C8;
-        }
-        
-        .hands-on-badge {
-            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
-            color: white;
-            padding: 8px 20px;
-            border-radius: 20px;
-            font-size: 16px;
-            font-weight: 600;
-            display: inline-block;
             margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 20px;
         }
         
-        .content-section {
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 50px;
+        }
+        
+        .overview-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
+        }
+        
+        .overview-card {
+            background: linear-gradient(135deg, #1E64C8 0%, #2A7DE1 100%);
+            border-radius: 10px;
+            padding: 25px;
+            color: white;
+            text-align: center;
+            transition: transform 0.3s;
+            cursor: pointer;
+        }
+        
+        .overview-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(30, 100, 200, 0.3);
+        }
+        
+        .overview-card h3 {
+            font-size: 18px;
+            margin-bottom: 8px;
+        }
+        
+        .overview-card p {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .section {
+            margin-bottom: 70px;
+            page-break-inside: avoid;
+        }
+        
+        .section-header {
             display: flex;
-            flex-direction: column;
-            gap: 14px;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1E64C8;
         }
         
-        .content-box {
+        .section-number {
+            font-size: 48px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-right: 20px;
+            line-height: 1;
+        }
+        
+        .section-title {
+            flex: 1;
+        }
+        
+        .section-title h2 {
+            font-size: 32px;
+            color: #1E64C8;
+            margin-bottom: 5px;
+        }
+        
+        .section-title p {
+            font-size: 16px;
+            color: #666;
+        }
+        
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+        
+        .diagram {
             background: #f8f9fa;
-            border-left: 5px solid #28a745;
-            border-radius: 8px;
-            padding: 14px 20px;
-            transition: all 0.3s ease;
+            border-radius: 10px;
+            padding: 30px;
+            border: 2px solid #e0e0e0;
         }
         
-        .content-box:hover {
-            background: #e8fff0;
-            transform: translateX(8px);
-        }
-        
-        .content-title {
+        .diagram-title {
             font-size: 18px;
             font-weight: 600;
-            color: #28a745;
-            margin-bottom: 6px;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            text-align: center;
         }
         
-        .content-text {
-            font-size: 16px;
+        .svg-container {
+            width: 100%;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .description {
+            padding: 20px;
+        }
+        
+        .description h3 {
+            font-size: 22px;
             color: #333;
-            line-height: 1.5;
+            margin-bottom: 15px;
         }
         
-        .code-snippet {
-            background: #263238;
-            color: #aed581;
-            padding: 12px 16px;
-            border-radius: 6px;
+        .description p {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.8;
+            margin-bottom: 15px;
+        }
+        
+        .key-points {
+            background: #f0f7ff;
+            border-left: 4px solid #1E64C8;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 5px;
+        }
+        
+        .key-points h4 {
+            font-size: 18px;
+            color: #1E64C8;
+            margin-bottom: 12px;
+        }
+        
+        .key-points ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .key-points li {
+            font-size: 15px;
+            color: #555;
+            margin-bottom: 8px;
+            padding-left: 25px;
+            position: relative;
+        }
+        
+        .key-points li:before {
+            content: "▸";
+            color: #1E64C8;
+            font-weight: bold;
+            position: absolute;
+            left: 0;
+        }
+        
+        .code-example {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
             font-family: 'Courier New', monospace;
             font-size: 14px;
-            margin-top: 15px;
-            border-left: 4px solid #28a745;
+            overflow-x: auto;
+        }
+        
+        .code-example pre {
+            margin: 0;
+        }
+        
+        .molecule-structure {
+            stroke: #333;
+            fill: none;
+            stroke-width: 2;
+        }
+        
+        .atom-label {
+            font-size: 14px;
+            fill: #333;
+            font-weight: 600;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .section {
+                page-break-inside: avoid;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">
-            <span class="hands-on-badge">💻 HANDS-ON</span><br>
-            RDKit and DeepChem
+        <div class="main-title">Hands-on: RDKit and DeepChem</div>
+        <div class="subtitle">A Comprehensive Guide to Molecular Informatics and Machine Learning</div>
+        
+        <div class="overview-grid">
+            <div class="overview-card">
+                <h3>Molecule Manipulation</h3>
+                <p>Structure I/O Operations</p>
+            </div>
+            <div class="overview-card">
+                <h3>Descriptor Calculation</h3>
+                <p>Feature Engineering</p>
+            </div>
+            <div class="overview-card">
+                <h3>Model Training</h3>
+                <p>Predictive Analytics</p>
+            </div>
+            <div class="overview-card">
+                <h3>Scaffold Splitting</h3>
+                <p>Data Partitioning</p>
+            </div>
+            <div class="overview-card">
+                <h3>Performance Evaluation</h3>
+                <p>Validation Metrics</p>
+            </div>
         </div>
-        <div class="content-section">
-            <div class="content-box">
-                <div class="content-title">Molecule manipulation</div>
-                <div class="content-text">Loading, parsing, and modifying molecular structures</div>
+
+        <!-- Section 1: Molecule Manipulation -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">01</div>
+                <div class="section-title">
+                    <h2>Molecule Manipulation</h2>
+                    <p>Reading and writing molecular structures</p>
+                </div>
             </div>
-            <div class="content-box">
-                <div class="content-title">Descriptor calculation</div>
-                <div class="content-text">Computing physicochemical properties and fingerprints</div>
+            
+            <div class="content-wrapper">
+                <div class="diagram">
+                    <div class="diagram-title">Molecular Structure Workflow</div>
+                    <div class="svg-container">
+                        <svg width="100%" height="280" viewBox="0 0 400 280">
+                            <!-- SMILES Input -->
+                            <rect x="20" y="20" width="360" height="50" fill="#e3f2fd" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="200" y="50" text-anchor="middle" font-size="16" fill="#333" font-weight="600">SMILES: CC(=O)Oc1ccccc1C(=O)O</text>
+                            
+                            <!-- Arrow -->
+                            <path d="M 200 70 L 200 100" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                            
+                            <!-- RDKit Processing -->
+                            <rect x="100" y="100" width="200" height="40" fill="#1E64C8" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="200" y="125" text-anchor="middle" font-size="14" fill="white" font-weight="600">RDKit Mol Object</text>
+                            
+                            <!-- Arrow -->
+                            <path d="M 200 140 L 200 170" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                            
+                            <!-- Molecule Structure -->
+                            <rect x="60" y="170" width="280" height="90" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <!-- Benzene ring -->
+                            <path d="M 150 200 L 170 210 L 170 230 L 150 240 L 130 230 L 130 210 Z" class="molecule-structure"/>
+                            <!-- Side chains -->
+                            <path d="M 150 200 L 150 185" class="molecule-structure"/>
+                            <path d="M 170 230 L 185 240" class="molecule-structure"/>
+                            <!-- Labels -->
+                            <text x="150" y="180" text-anchor="middle" class="atom-label">O</text>
+                            <text x="195" y="245" text-anchor="middle" class="atom-label">COOH</text>
+                            
+                            <!-- Output formats -->
+                            <text x="230" y="200" font-size="12" fill="#555">→ SDF File</text>
+                            <text x="230" y="220" font-size="12" fill="#555">→ MOL File</text>
+                            <text x="230" y="240" font-size="12" fill="#555">→ InChI</text>
+                            
+                            <!-- Arrow definition -->
+                            <defs>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                    <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="description">
+                    <h3>Overview</h3>
+                    <p>Molecule manipulation is the foundation of cheminformatics workflows. RDKit provides powerful tools for reading, writing, and transforming molecular structures across various file formats.</p>
+                    
+                    <p>The library supports multiple molecular representations including SMILES (Simplified Molecular Input Line Entry System), InChI (International Chemical Identifier), and structure files like SDF and MOL formats.</p>
+                    
+                    <div class="key-points">
+                        <h4>Key Capabilities:</h4>
+                        <ul>
+                            <li>Parse SMILES strings into molecule objects</li>
+                            <li>Read and write SDF, MOL, and MOL2 files</li>
+                            <li>Convert between different molecular representations</li>
+                            <li>Generate 2D and 3D conformations</li>
+                            <li>Handle large molecular databases efficiently</li>
+                            <li>Validate molecular structures and fix common errors</li>
+                        </ul>
+                    </div>
+                </div>
             </div>
-            <div class="content-box">
-                <div class="content-title">Model training</div>
-                <div class="content-text">Building predictive models with DeepChem framework</div>
-            </div>
-            <div class="content-box">
-                <div class="content-title">Scaffold splitting</div>
-                <div class="content-text">Creating train/test splits based on molecular scaffolds</div>
-            </div>
-            <div class="content-box">
-                <div class="content-title">Performance evaluation</div>
-                <div class="content-text">Assessing model accuracy using appropriate metrics</div>
+            
+            <div class="code-example">
+                <pre>from rdkit import Chem
+
+# Reading SMILES
+mol = Chem.MolFromSmiles('CC(=O)Oc1ccccc1C(=O)O')  # Aspirin
+
+# Reading from file
+suppl = Chem.SDMolSupplier('molecules.sdf')
+for mol in suppl:
+    print(Chem.MolToSmiles(mol))
+
+# Writing to file
+writer = Chem.SDWriter('output.sdf')
+writer.write(mol)
+writer.close()</pre>
             </div>
         </div>
-        <div class="code-snippet">
-# Example: RDKit & DeepChem workflow<br>
-from rdkit import Chem<br>
-import deepchem as dc<br>
-<br>
-# Load molecules and compute descriptors<br>
-featurizer = dc.feat.CircularFingerprint()<br>
-loader = dc.data.CSVLoader(tasks=['activity'], featurizer=featurizer)
+
+        <!-- Section 2: Descriptor Calculation -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">02</div>
+                <div class="section-title">
+                    <h2>Descriptor Calculation</h2>
+                    <p>Computing molecular features and properties</p>
+                </div>
+            </div>
+            
+            <div class="content-wrapper">
+                <div class="diagram">
+                    <div class="diagram-title">Feature Extraction Pipeline</div>
+                    <div class="svg-container">
+                        <svg width="100%" height="300" viewBox="0 0 400 300">
+                            <!-- Molecule Input -->
+                            <circle cx="200" cy="40" r="30" fill="#e3f2fd" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="200" y="48" text-anchor="middle" font-size="14" fill="#333" font-weight="600">Molecule</text>
+                            
+                            <!-- Arrows to descriptors -->
+                            <path d="M 200 70 L 80 120" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <path d="M 200 70 L 200 120" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <path d="M 200 70 L 320 120" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            
+                            <!-- Descriptor boxes -->
+                            <rect x="20" y="120" width="120" height="60" fill="#bbdefb" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="80" y="145" text-anchor="middle" font-size="13" fill="#333" font-weight="600">Physical</text>
+                            <text x="80" y="165" text-anchor="middle" font-size="11" fill="#555">MW: 180.16</text>
+                            
+                            <rect x="160" y="120" width="120" height="60" fill="#bbdefb" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="220" y="145" text-anchor="middle" font-size="13" fill="#333" font-weight="600">Topological</text>
+                            <text x="220" y="165" text-anchor="middle" font-size="11" fill="#555">nAtoms: 21</text>
+                            
+                            <rect x="300" y="120" width="120" height="60" fill="#bbdefb" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="360" y="145" text-anchor="middle" font-size="13" fill="#333" font-weight="600">Electronic</text>
+                            <text x="360" y="165" text-anchor="middle" font-size="11" fill="#555">LogP: 1.19</text>
+                            
+                            <!-- Convergence arrows -->
+                            <path d="M 80 180 L 150 230" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <path d="M 220 180 L 200 230" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <path d="M 360 180 L 250 230" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            
+                            <!-- Feature Vector -->
+                            <rect x="100" y="230" width="200" height="50" fill="#1E64C8" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="200" y="250" text-anchor="middle" font-size="14" fill="white" font-weight="600">Feature Vector</text>
+                            <text x="200" y="268" text-anchor="middle" font-size="11" fill="white">[180.16, 21, 1.19, ...]</text>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="description">
+                    <h3>Overview</h3>
+                    <p>Molecular descriptors are numerical values that characterize the properties of molecules. These features are essential for building quantitative structure-activity relationship (QSAR) models and machine learning applications.</p>
+                    
+                    <p>RDKit provides an extensive library of over 200 descriptors covering physical, topological, electronic, and geometric properties. These descriptors serve as the bridge between molecular structures and predictive models.</p>
+                    
+                    <div class="key-points">
+                        <h4>Descriptor Categories:</h4>
+                        <ul>
+                            <li>Molecular weight, exact mass, and formula</li>
+                            <li>Lipophilicity (LogP) and solubility</li>
+                            <li>Topological indices (Wiener, Zagreb)</li>
+                            <li>Electrotopological state descriptors</li>
+                            <li>Molecular fingerprints (ECFP, MACCS)</li>
+                            <li>3D descriptors (surface area, volume)</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="code-example">
+                <pre>from rdkit import Chem
+from rdkit.Chem import Descriptors, Lipinski
+
+mol = Chem.MolFromSmiles('CC(=O)Oc1ccccc1C(=O)O')
+
+# Calculate descriptors
+mw = Descriptors.MolWt(mol)
+logp = Descriptors.MolLogP(mol)
+hbd = Descriptors.NumHDonors(mol)
+hba = Descriptors.NumHAcceptors(mol)
+
+print(f"Molecular Weight: {mw:.2f}")
+print(f"LogP: {logp:.2f}")
+print(f"H-Bond Donors: {hbd}")
+print(f"H-Bond Acceptors: {hba}")</pre>
+            </div>
+        </div>
+
+        <!-- Section 3: Model Training -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">03</div>
+                <div class="section-title">
+                    <h2>Model Training</h2>
+                    <p>Building predictive models with DeepChem</p>
+                </div>
+            </div>
+            
+            <div class="content-wrapper">
+                <div class="diagram">
+                    <div class="diagram-title">Machine Learning Workflow</div>
+                    <div class="svg-container">
+                        <svg width="100%" height="320" viewBox="0 0 400 320">
+                            <!-- Data -->
+                            <rect x="20" y="20" width="100" height="60" fill="#e3f2fd" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="70" y="45" text-anchor="middle" font-size="13" fill="#333" font-weight="600">Training</text>
+                            <text x="70" y="62" text-anchor="middle" font-size="13" fill="#333" font-weight="600">Data</text>
+                            
+                            <!-- Arrow -->
+                            <path d="M 120 50 L 160 50" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            
+                            <!-- Featurization -->
+                            <rect x="160" y="20" width="100" height="60" fill="#90caf9" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="210" y="45" text-anchor="middle" font-size="13" fill="#333" font-weight="600">Feature</text>
+                            <text x="210" y="62" text-anchor="middle" font-size="13" fill="#333" font-weight="600">Extraction</text>
+                            
+                            <!-- Arrow -->
+                            <path d="M 260 50 L 300 50" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            
+                            <!-- Model -->
+                            <rect x="300" y="20" width="100" height="60" fill="#1E64C8" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="350" y="45" text-anchor="middle" font-size="13" fill="white" font-weight="600">Model</text>
+                            <text x="350" y="62" text-anchor="middle" font-size="13" fill="white" font-weight="600">Training</text>
+                            
+                            <!-- Model types -->
+                            <rect x="30" y="120" width="340" height="180" fill="#f8f9fa" stroke="#e0e0e0" stroke-width="2" rx="5"/>
+                            <text x="200" y="145" text-anchor="middle" font-size="15" fill="#1E64C8" font-weight="600">Available Models</text>
+                            
+                            <!-- Model grid -->
+                            <rect x="50" y="160" width="140" height="50" fill="#bbdefb" stroke="#1E64C8" stroke-width="1" rx="3"/>
+                            <text x="120" y="180" text-anchor="middle" font-size="12" fill="#333" font-weight="600">Random Forest</text>
+                            <text x="120" y="197" text-anchor="middle" font-size="10" fill="#555">Ensemble Method</text>
+                            
+                            <rect x="210" y="160" width="140" height="50" fill="#bbdefb" stroke="#1E64C8" stroke-width="1" rx="3"/>
+                            <text x="280" y="180" text-anchor="middle" font-size="12" fill="#333" font-weight="600">Graph Conv</text>
+                            <text x="280" y="197" text-anchor="middle" font-size="10" fill="#555">Neural Network</text>
+                            
+                            <rect x="50" y="230" width="140" height="50" fill="#bbdefb" stroke="#1E64C8" stroke-width="1" rx="3"/>
+                            <text x="120" y="250" text-anchor="middle" font-size="12" fill="#333" font-weight="600">XGBoost</text>
+                            <text x="120" y="267" text-anchor="middle" font-size="10" fill="#555">Gradient Boosting</text>
+                            
+                            <rect x="210" y="230" width="140" height="50" fill="#bbdefb" stroke="#1E64C8" stroke-width="1" rx="3"/>
+                            <text x="280" y="250" text-anchor="middle" font-size="12" fill="#333" font-weight="600">Multitask</text>
+                            <text x="280" y="267" text-anchor="middle" font-size="10" fill="#555">Deep Learning</text>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="description">
+                    <h3>Overview</h3>
+                    <p>DeepChem provides a comprehensive suite of machine learning models specifically designed for molecular property prediction, drug discovery, and materials science applications.</p>
+                    
+                    <p>The framework supports both traditional machine learning algorithms (random forests, gradient boosting) and state-of-the-art deep learning architectures (graph convolutional networks, transformers), making it suitable for various problem types and dataset sizes.</p>
+                    
+                    <div class="key-points">
+                        <h4>Model Types:</h4>
+                        <ul>
+                            <li>Random Forest and XGBoost for tabular data</li>
+                            <li>Graph Convolutional Networks for molecular graphs</li>
+                            <li>Multitask Deep Neural Networks</li>
+                            <li>Attention-based transformer models</li>
+                            <li>Message Passing Neural Networks</li>
+                            <li>Custom model architectures with TensorFlow/PyTorch</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="code-example">
+                <pre>import deepchem as dc
+from deepchem.models import GraphConvModel
+
+# Load dataset
+tasks, datasets, transformers = dc.molnet.load_tox21()
+train, valid, test = datasets
+
+# Create model
+model = GraphConvModel(
+    n_tasks=len(tasks),
+    mode='classification',
+    dropout=0.2
+)
+
+# Train model
+model.fit(train, nb_epoch=50)
+
+# Evaluate
+metric = dc.metrics.Metric(dc.metrics.roc_auc_score)
+train_score = model.evaluate(train, [metric])
+test_score = model.evaluate(test, [metric])</pre>
+            </div>
+        </div>
+
+        <!-- Section 4: Scaffold Splitting -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">04</div>
+                <div class="section-title">
+                    <h2>Scaffold Splitting</h2>
+                    <p>Dataset partitioning strategies for robust validation</p>
+                </div>
+            </div>
+            
+            <div class="content-wrapper">
+                <div class="diagram">
+                    <div class="diagram-title">Scaffold-Based Data Split</div>
+                    <div class="svg-container">
+                        <svg width="100%" height="300" viewBox="0 0 400 300">
+                            <!-- Original Dataset -->
+                            <rect x="130" y="20" width="140" height="50" fill="#e3f2fd" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="200" y="45" text-anchor="middle" font-size="14" fill="#333" font-weight="600">Complete Dataset</text>
+                            <text x="200" y="62" text-anchor="middle" font-size="11" fill="#555">1000 molecules</text>
+                            
+                            <!-- Scaffold Analysis -->
+                            <path d="M 200 70 L 200 100" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <rect x="120" y="100" width="160" height="35" fill="#90caf9" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="200" y="123" text-anchor="middle" font-size="12" fill="#333" font-weight="600">Scaffold Identification</text>
+                            
+                            <!-- Split arrows -->
+                            <path d="M 160 135 L 100 170" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <path d="M 200 135 L 200 170" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            <path d="M 240 135 L 300 170" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
+                            
+                            <!-- Training Set -->
+                            <rect x="30" y="170" width="120" height="110" fill="#c8e6c9" stroke="#2e7d32" stroke-width="2" rx="5"/>
+                            <text x="90" y="195" text-anchor="middle" font-size="13" fill="#2e7d32" font-weight="600">Training Set</text>
+                            <text x="90" y="215" text-anchor="middle" font-size="11" fill="#555">70% (700)</text>
+                            <circle cx="70" cy="235" r="15" fill="#81c784" stroke="#2e7d32"/>
+                            <circle cx="110" cy="235" r="15" fill="#81c784" stroke="#2e7d32"/>
+                            <circle cx="70" cy="260" r="15" fill="#81c784" stroke="#2e7d32"/>
+                            <circle cx="110" cy="260" r="15" fill="#81c784" stroke="#2e7d32"/>
+                            
+                            <!-- Validation Set -->
+                            <rect x="170" y="170" width="120" height="110" fill="#fff9c4" stroke="#f57f17" stroke-width="2" rx="5"/>
+                            <text x="230" y="195" text-anchor="middle" font-size="13" fill="#f57f17" font-weight="600">Validation Set</text>
+                            <text x="230" y="215" text-anchor="middle" font-size="11" fill="#555">15% (150)</text>
+                            <circle cx="210" cy="240" r="15" fill="#fff59d" stroke="#f57f17"/>
+                            <circle cx="250" cy="240" r="15" fill="#fff59d" stroke="#f57f17"/>
+                            <circle cx="230" cy="260" r="15" fill="#fff59d" stroke="#f57f17"/>
+                            
+                            <!-- Test Set -->
+                            <rect x="310" y="170" width="120" height="110" fill="#ffccbc" stroke="#d84315" stroke-width="2" rx="5"/>
+                            <text x="370" y="195" text-anchor="middle" font-size="13" fill="#d84315" font-weight="600">Test Set</text>
+                            <text x="370" y="215" text-anchor="middle" font-size="11" fill="#555">15% (150)</text>
+                            <circle cx="350" cy="240" r="15" fill="#ff8a65" stroke="#d84315"/>
+                            <circle cx="390" cy="240" r="15" fill="#ff8a65" stroke="#d84315"/>
+                            <circle cx="370" cy="260" r="15" fill="#ff8a65" stroke="#d84315"/>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="description">
+                    <h3>Overview</h3>
+                    <p>Scaffold splitting is a crucial data partitioning strategy that ensures molecules with similar core structures are grouped together. This approach provides more realistic evaluation of model generalization to novel chemical scaffolds.</p>
+                    
+                    <p>Unlike random splitting, scaffold-based splitting prevents data leakage where structurally similar molecules appear in both training and test sets, leading to overly optimistic performance estimates. This method better simulates real-world scenarios where models must predict properties of molecules with new scaffolds.</p>
+                    
+                    <div class="key-points">
+                        <h4>Key Advantages:</h4>
+                        <ul>
+                            <li>Prevents data leakage from similar structures</li>
+                            <li>Tests generalization to novel scaffolds</li>
+                            <li>Mimics real drug discovery workflows</li>
+                            <li>Identifies model limitations early</li>
+                            <li>Produces more reliable performance metrics</li>
+                            <li>Industry-standard validation approach</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="code-example">
+                <pre>import deepchem as dc
+
+# Load dataset
+tasks, datasets, transformers = dc.molnet.load_bace_classification()
+
+# Apply scaffold splitting
+splitter = dc.splits.ScaffoldSplitter()
+train, valid, test = splitter.train_valid_test_split(
+    dataset=datasets[0],
+    frac_train=0.7,
+    frac_valid=0.15,
+    frac_test=0.15
+)
+
+print(f"Training set: {len(train)} molecules")
+print(f"Validation set: {len(valid)} molecules")
+print(f"Test set: {len(test)} molecules")</pre>
+            </div>
+        </div>
+
+        <!-- Section 5: Performance Evaluation -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">05</div>
+                <div class="section-title">
+                    <h2>Performance Evaluation</h2>
+                    <p>Metrics and validation strategies</p>
+                </div>
+            </div>
+            
+            <div class="content-wrapper">
+                <div class="diagram">
+                    <div class="diagram-title">Evaluation Metrics Dashboard</div>
+                    <div class="svg-container">
+                        <svg width="100%" height="300" viewBox="0 0 400 300">
+                            <!-- Classification Metrics -->
+                            <rect x="20" y="20" width="170" height="130" fill="#e8f5e9" stroke="#2e7d32" stroke-width="2" rx="5"/>
+                            <text x="105" y="45" text-anchor="middle" font-size="14" fill="#2e7d32" font-weight="600">Classification</text>
+                            
+                            <text x="35" y="70" font-size="12" fill="#333">ROC-AUC:</text>
+                            <rect x="100" y="58" width="70" height="18" fill="#81c784" rx="2"/>
+                            <text x="135" y="71" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">0.89</text>
+                            
+                            <text x="35" y="95" font-size="12" fill="#333">Accuracy:</text>
+                            <rect x="100" y="83" width="70" height="18" fill="#66bb6a" rx="2"/>
+                            <text x="135" y="96" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">0.85</text>
+                            
+                            <text x="35" y="120" font-size="12" fill="#333">F1-Score:</text>
+                            <rect x="100" y="108" width="70" height="18" fill="#4caf50" rx="2"/>
+                            <text x="135" y="121" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">0.83</text>
+                            
+                            <text x="35" y="140" font-size="12" fill="#333">Precision:</text>
+                            <rect x="100" y="128" width="70" height="18" fill="#388e3c" rx="2"/>
+                            <text x="135" y="141" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">0.87</text>
+                            
+                            <!-- Regression Metrics -->
+                            <rect x="210" y="20" width="170" height="130" fill="#e3f2fd" stroke="#1976d2" stroke-width="2" rx="5"/>
+                            <text x="295" y="45" text-anchor="middle" font-size="14" fill="#1976d2" font-weight="600">Regression</text>
+                            
+                            <text x="225" y="70" font-size="12" fill="#333">RMSE:</text>
+                            <rect x="285" y="58" width="70" height="18" fill="#64b5f6" rx="2"/>
+                            <text x="320" y="71" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">0.34</text>
+                            
+                            <text x="225" y="95" font-size="12" fill="#333">MAE:</text>
+                            <rect x="285" y="83" width="70" height="18" fill="#42a5f5" rx="2"/>
+                            <text x="320" y="96" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">0.28</text>
+                            
+                            <text x="225" y="120" font-size="12" fill="#333">R²:</text>
+                            <rect x="285" y="108" width="70" height="18" fill="#2196f3" rx="2"/>
+                            <text x="320" y="121" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">0.82</text>
+                            
+                            <text x="225" y="140" font-size="12" fill="#333">Pearson r:</text>
+                            <rect x="285" y="128" width="70" height="18" fill="#1976d2" rx="2"/>
+                            <text x="320" y="141" text-anchor="middle" font-size="11" fill="#fff" font-weight="600">0.91</text>
+                            
+                            <!-- Cross-validation -->
+                            <rect x="70" y="170" width="260" height="110" fill="#fff3e0" stroke="#e65100" stroke-width="2" rx="5"/>
+                            <text x="200" y="195" text-anchor="middle" font-size="14" fill="#e65100" font-weight="600">Cross-Validation Strategy</text>
+                            
+                            <!-- Folds visualization -->
+                            <rect x="85" y="210" width="40" height="50" fill="#ffb74d" stroke="#e65100" rx="3"/>
+                            <text x="105" y="240" text-anchor="middle" font-size="11" fill="#333">Fold 1</text>
+                            
+                            <rect x="135" y="210" width="40" height="50" fill="#ff9800" stroke="#e65100" rx="3"/>
+                            <text x="155" y="240" text-anchor="middle" font-size="11" fill="#fff">Fold 2</text>
+                            
+                            <rect x="185" y="210" width="40" height="50" fill="#fb8c00" stroke="#e65100" rx="3"/>
+                            <text x="205" y="240" text-anchor="middle" font-size="11" fill="#fff">Fold 3</text>
+                            
+                            <rect x="235" y="210" width="40" height="50" fill="#f57c00" stroke="#e65100" rx="3"/>
+                            <text x="255" y="240" text-anchor="middle" font-size="11" fill="#fff">Fold 4</text>
+                            
+                            <rect x="285" y="210" width="40" height="50" fill="#ef6c00" stroke="#e65100" rx="3"/>
+                            <text x="305" y="240" text-anchor="middle" font-size="11" fill="#fff">Fold 5</text>
+                        </svg>
+                    </div>
+                </div>
+                
+                <div class="description">
+                    <h3>Overview</h3>
+                    <p>Performance evaluation is critical for assessing model quality and ensuring reliable predictions. Different metrics are appropriate for classification versus regression tasks, and proper validation strategies prevent overfitting.</p>
+                    
+                    <p>DeepChem provides comprehensive evaluation tools including ROC-AUC for classification, RMSE for regression, and cross-validation frameworks. These metrics help researchers understand model strengths, weaknesses, and applicability domains.</p>
+                    
+                    <div class="key-points">
+                        <h4>Evaluation Best Practices:</h4>
+                        <ul>
+                            <li>Use multiple complementary metrics</li>
+                            <li>Perform k-fold cross-validation (k=5 or 10)</li>
+                            <li>Report confidence intervals for metrics</li>
+                            <li>Compare against baseline models</li>
+                            <li>Analyze prediction errors and outliers</li>
+                            <li>Consider domain-specific requirements</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="code-example">
+                <pre>import deepchem as dc
+from sklearn.metrics import roc_auc_score, mean_squared_error
+
+# Classification metrics
+classification_metric = dc.metrics.Metric(
+    dc.metrics.roc_auc_score
+)
+auc_score = model.evaluate(test, [classification_metric])
+
+# Regression metrics
+regression_metrics = [
+    dc.metrics.Metric(dc.metrics.mae_score),
+    dc.metrics.Metric(dc.metrics.rms_score),
+    dc.metrics.Metric(dc.metrics.r2_score)
+]
+scores = model.evaluate(test, regression_metrics)
+
+# Cross-validation
+from sklearn.model_selection import cross_val_score
+cv_scores = cross_val_score(model, X, y, cv=5)
+print(f"CV Mean: {cv_scores.mean():.3f} (+/- {cv_scores.std():.3f})")</pre>
+            </div>
+        </div>
+
+        <!-- Summary -->
+        <div style="background: linear-gradient(135deg, #1E64C8 0%, #2A7DE1 100%); padding: 40px; border-radius: 10px; color: white; margin-top: 40px;">
+            <h2 style="font-size: 28px; margin-bottom: 20px; text-align: center;">Summary</h2>
+            <p style="font-size: 16px; line-height: 1.8; text-align: center; margin-bottom: 20px;">
+                This comprehensive guide covers the essential components of molecular machine learning workflows using RDKit and DeepChem. From basic molecule manipulation to advanced model evaluation, these tools provide a complete ecosystem for drug discovery and cheminformatics applications.
+            </p>
+            <p style="font-size: 16px; line-height: 1.8; text-align: center;">
+                By mastering these five core areas, researchers can build robust predictive models for molecular property prediction, optimize drug candidates, and accelerate the discovery of novel compounds.
+            </p>
         </div>
     </div>
 </body>

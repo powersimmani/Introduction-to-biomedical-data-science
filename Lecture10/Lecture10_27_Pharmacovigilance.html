@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pharmacovigilance</title>
+    <title>Pharmacovigilance - Detailed Overview</title>
     <style>
         * {
             margin: 0;
@@ -13,88 +13,731 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 40px 60px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            box-shadow: 0 0 20px rgba(0,0,0,0.1);
         }
         
-        .title {
-            font-size: 36px;
-            font-weight: 700;
-            color: #1E64C8;
-            margin-bottom: 40px;
+        .header {
+            background: linear-gradient(135deg, #1E64C8 0%, #2980b9 100%);
+            color: white;
+            padding: 60px 40px;
             text-align: center;
         }
         
-        .content-grid {
-            display: flex;
-            flex-direction: column;
-            gap: 22px;
+        .main-title {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 20px;
         }
         
-        .content-card {
+        .subtitle {
+            font-size: 20px;
+            font-weight: 300;
+            opacity: 0.9;
+        }
+        
+        .overview {
+            padding: 40px;
             background: #f8f9fa;
-            border-left: 4px solid #1E64C8;
+            border-bottom: 3px solid #1E64C8;
+        }
+        
+        .overview-text {
+            font-size: 18px;
+            line-height: 1.8;
+            color: #333;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+        
+        .section {
+            padding: 60px 40px;
+            border-bottom: 1px solid #e0e0e0;
+        }
+        
+        .section:nth-child(even) {
+            background: #fafafa;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #1E64C8;
+        }
+        
+        .section-number {
+            width: 60px;
+            height: 60px;
+            background: #1E64C8;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin-right: 20px;
+            flex-shrink: 0;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E64C8;
+        }
+        
+        .section-subtitle {
+            font-size: 18px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        
+        .description {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #444;
+        }
+        
+        .description h3 {
+            font-size: 20px;
+            color: #1E64C8;
+            margin: 20px 0 10px 0;
+        }
+        
+        .description ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+        
+        .description li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+        
+        .visual {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 12px;
+            padding: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+        }
+        
+        .visual-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .diagram {
+            width: 100%;
+            height: auto;
+        }
+        
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            width: 100%;
+        }
+        
+        .flow-item {
+            background: #e8f2ff;
+            border: 2px solid #1E64C8;
             border-radius: 8px;
-            padding: 18px 24px;
+            padding: 15px;
+            text-align: center;
+            font-weight: 600;
+            color: #1E64C8;
+            position: relative;
+        }
+        
+        .flow-item:not(:last-child)::after {
+            content: '↓';
+            position: absolute;
+            bottom: -23px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+            color: #1E64C8;
+        }
+        
+        .grid-diagram {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            width: 100%;
+        }
+        
+        .grid-item {
+            background: #f0f7ff;
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 600;
+            color: #1E64C8;
             transition: all 0.3s;
         }
         
-        .content-card:hover {
-            background: #e8f2ff;
-            transform: translateX(5px);
-            box-shadow: 0 4px 12px rgba(30, 100, 200, 0.15);
+        .grid-item:hover {
+            background: #1E64C8;
+            color: white;
+            transform: scale(1.05);
         }
         
-        .content-main {
-            font-size: 20px;
+        .cycle-diagram {
+            width: 100%;
+            position: relative;
+            padding: 20px;
+        }
+        
+        .cycle-center {
+            width: 100px;
+            height: 100px;
+            background: #1E64C8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            margin: 0 auto 30px;
+            font-size: 14px;
+            text-align: center;
+        }
+        
+        .cycle-items {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .cycle-item {
+            background: #e8f2ff;
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            font-size: 13px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 6px;
         }
         
-        .content-desc {
+        .network-diagram {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+        
+        .network-center {
+            background: #1E64C8;
+            color: white;
+            padding: 15px 30px;
+            border-radius: 25px;
+            font-weight: 700;
             font-size: 16px;
-            color: #555;
-            font-weight: 400;
+        }
+        
+        .network-branches {
+            display: flex;
+            gap: 15px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+        
+        .network-node {
+            background: #e8f2ff;
+            border: 2px solid #1E64C8;
+            border-radius: 20px;
+            padding: 10px 20px;
+            font-size: 13px;
+            font-weight: 600;
+            color: #1E64C8;
+        }
+        
+        .metrics {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #1E64C8 0%, #2980b9 100%);
+            color: white;
+            border-radius: 12px;
+            padding: 25px;
+            text-align: center;
+        }
+        
+        .metric-value {
+            font-size: 36px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .metric-label {
+            font-size: 14px;
+            opacity: 0.9;
+        }
+        
+        .example-box {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            margin-top: 20px;
+            border-radius: 4px;
+        }
+        
+        .example-title {
+            font-weight: 700;
+            color: #f57c00;
+            margin-bottom: 10px;
+        }
+        
+        .example-text {
+            color: #666;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        @media print {
+            body {
+                background: white;
+            }
+            .section {
+                page-break-inside: avoid;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Pharmacovigilance</div>
+        <div class="header">
+            <div class="main-title">Pharmacovigilance</div>
+            <div class="subtitle">AI-Driven Drug Safety Monitoring and Risk Management</div>
+        </div>
         
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="content-main">Signal detection</div>
-                <div class="content-desc">Identifying safety signals</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">Causality assessment</div>
-                <div class="content-desc">Determining drug-event relationships</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">Risk-benefit analysis</div>
-                <div class="content-desc">Therapeutic decision support</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">Literature mining</div>
-                <div class="content-desc">Automated safety surveillance</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">Social media monitoring</div>
-                <div class="content-desc">Real-time safety signals</div>
+        <div class="overview">
+            <div class="overview-text">
+                Pharmacovigilance is the science and activities relating to the detection, assessment, understanding, and prevention of adverse effects or any other drug-related problems. Modern pharmacovigilance increasingly leverages artificial intelligence and machine learning to enhance drug safety monitoring across the entire lifecycle of pharmaceutical products.
             </div>
         </div>
+        
+        <!-- Section 1: Signal Detection -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <div>
+                    <div class="section-title">Signal Detection</div>
+                    <div class="section-subtitle">Identifying safety signals from adverse event data</div>
+                </div>
+            </div>
+            
+            <div class="content-wrapper">
+                <div class="description">
+                    <p>
+                        Signal detection is the process of identifying potential safety issues by analyzing adverse event reports and other data sources. AI algorithms can process vast amounts of structured and unstructured data to detect patterns that might indicate new or increased risks associated with medications.
+                    </p>
+                    
+                    <h3>Key Components:</h3>
+                    <ul>
+                        <li><strong>Data Mining:</strong> Automated analysis of adverse event databases (FDA FAERS, EudraVigilance)</li>
+                        <li><strong>Statistical Methods:</strong> Disproportionality analysis (ROR, PRR, IC, EBGM)</li>
+                        <li><strong>Pattern Recognition:</strong> ML algorithms identify unusual drug-event combinations</li>
+                        <li><strong>Signal Prioritization:</strong> Risk scoring and ranking of potential signals</li>
+                    </ul>
+                    
+                    <div class="example-box">
+                        <div class="example-title">Real-World Example:</div>
+                        <div class="example-text">
+                            An AI system detected an unexpected increase in cardiovascular events associated with a COX-2 inhibitor by analyzing FDA adverse event reports, leading to early safety warnings before widespread harm occurred.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visual">
+                    <div class="visual-title">Signal Detection Workflow</div>
+                    <div class="flowchart">
+                        <div class="flow-item">Data Collection<br><span style="font-size:12px; font-weight:400;">Adverse Event Reports</span></div>
+                        <div class="flow-item">Data Processing<br><span style="font-size:12px; font-weight:400;">Cleaning & Standardization</span></div>
+                        <div class="flow-item">Statistical Analysis<br><span style="font-size:12px; font-weight:400;">Disproportionality Testing</span></div>
+                        <div class="flow-item">Signal Generation<br><span style="font-size:12px; font-weight:400;">Potential Safety Issues</span></div>
+                        <div class="flow-item">Expert Review<br><span style="font-size:12px; font-weight:400;">Clinical Validation</span></div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-value">10M+</div>
+                    <div class="metric-label">Annual Adverse Event Reports</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">70%</div>
+                    <div class="metric-label">Reduction in Detection Time</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">95%</div>
+                    <div class="metric-label">Sensitivity for Known Signals</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section 2: Causality Assessment -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <div>
+                    <div class="section-title">Causality Assessment</div>
+                    <div class="section-subtitle">Determining drug-event relationships using AI algorithms</div>
+                </div>
+            </div>
+            
+            <div class="content-wrapper">
+                <div class="description">
+                    <p>
+                        Causality assessment evaluates whether a causal relationship exists between a drug and an adverse event. AI-powered systems can analyze multiple factors simultaneously to provide more consistent and rapid causality evaluations compared to traditional manual assessment methods.
+                    </p>
+                    
+                    <h3>Assessment Criteria:</h3>
+                    <ul>
+                        <li><strong>Temporal Relationship:</strong> Timing between drug exposure and event onset</li>
+                        <li><strong>Dechallenge/Rechallenge:</strong> Effect of stopping and restarting medication</li>
+                        <li><strong>Alternative Causes:</strong> Other potential explanations for the event</li>
+                        <li><strong>Biological Plausibility:</strong> Known pharmacological mechanisms</li>
+                        <li><strong>Previous Reports:</strong> Similar cases in the literature</li>
+                    </ul>
+                    
+                    <div class="example-box">
+                        <div class="example-title">AI Application:</div>
+                        <div class="example-text">
+                            Natural language processing algorithms automatically extract relevant information from case narratives and apply Naranjo or WHO-UMC causality scales, achieving 85% concordance with expert assessments while reducing evaluation time from hours to seconds.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visual">
+                    <div class="visual-title">Causality Assessment Framework</div>
+                    <div class="cycle-diagram">
+                        <div class="cycle-center">Causality<br>Score</div>
+                        <div class="cycle-items">
+                            <div class="cycle-item">Temporal<br>Sequence</div>
+                            <div class="cycle-item">Dose-Response<br>Relationship</div>
+                            <div class="cycle-item">Biological<br>Mechanism</div>
+                            <div class="cycle-item">Previous<br>Evidence</div>
+                            <div class="cycle-item">Dechallenge/<br>Rechallenge</div>
+                            <div class="cycle-item">Alternative<br>Explanations</div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 20px; text-align: center;">
+                        <div style="display: inline-block; background: #e8f2ff; border: 2px solid #1E64C8; border-radius: 8px; padding: 15px;">
+                            <div style="font-weight: 700; color: #1E64C8; margin-bottom: 8px;">Causality Categories</div>
+                            <div style="font-size: 13px; color: #555;">Certain • Probable • Possible • Unlikely • Unrelated</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section 3: Risk-Benefit Analysis -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <div>
+                    <div class="section-title">Risk-Benefit Analysis</div>
+                    <div class="section-subtitle">Supporting therapeutic decision-making with quantitative models</div>
+                </div>
+            </div>
+            
+            <div class="content-wrapper">
+                <div class="description">
+                    <p>
+                        Risk-benefit analysis systematically evaluates the balance between the therapeutic benefits of a drug and its potential risks. AI models integrate clinical efficacy data, safety profiles, patient characteristics, and real-world evidence to provide personalized risk-benefit assessments.
+                    </p>
+                    
+                    <h3>Analysis Components:</h3>
+                    <ul>
+                        <li><strong>Efficacy Metrics:</strong> Clinical outcomes, survival rates, quality of life improvements</li>
+                        <li><strong>Safety Profile:</strong> Frequency and severity of adverse events</li>
+                        <li><strong>Patient Factors:</strong> Age, comorbidities, genetic markers, concurrent medications</li>
+                        <li><strong>Population Impact:</strong> Number needed to treat vs. number needed to harm</li>
+                        <li><strong>Alternative Therapies:</strong> Comparative effectiveness with other treatments</li>
+                    </ul>
+                    
+                    <div class="example-box">
+                        <div class="example-title">Clinical Application:</div>
+                        <div class="example-text">
+                            A machine learning model helps oncologists assess whether the survival benefit of a chemotherapy regimen outweighs its toxicity risks for individual patients based on their specific genetic profile, performance status, and disease characteristics.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visual">
+                    <div class="visual-title">Risk-Benefit Balance Model</div>
+                    <svg class="diagram" viewBox="0 0 400 300" style="max-width: 400px;">
+                        <!-- Scale base -->
+                        <line x1="200" y1="150" x2="200" y2="250" stroke="#333" stroke-width="3"/>
+                        <circle cx="200" cy="250" r="8" fill="#333"/>
+                        
+                        <!-- Left side (Benefits) -->
+                        <rect x="50" y="80" width="120" height="60" fill="#4CAF50" rx="8"/>
+                        <text x="110" y="105" text-anchor="middle" fill="white" font-weight="700" font-size="16">BENEFITS</text>
+                        <text x="110" y="125" text-anchor="middle" fill="white" font-size="12">Efficacy</text>
+                        
+                        <!-- Right side (Risks) -->
+                        <rect x="230" y="100" width="120" height="60" fill="#F44336" rx="8"/>
+                        <text x="290" y="125" text-anchor="middle" fill="white" font-weight="700" font-size="16">RISKS</text>
+                        <text x="290" y="145" text-anchor="middle" fill="white" font-size="12">Safety Concerns</text>
+                        
+                        <!-- Balance beam -->
+                        <line x1="60" y1="150" x2="340" y2="140" stroke="#1E64C8" stroke-width="4"/>
+                        
+                        <!-- Decision arrow -->
+                        <path d="M 200 180 L 190 200 L 210 200 Z" fill="#1E64C8"/>
+                        <text x="200" y="225" text-anchor="middle" fill="#1E64C8" font-weight="700" font-size="14">DECISION</text>
+                        
+                        <!-- Labels -->
+                        <text x="110" y="50" text-anchor="middle" fill="#4CAF50" font-size="11" font-weight="600">
+                            Clinical Improvement
+                        </text>
+                        <text x="110" y="65" text-anchor="middle" fill="#4CAF50" font-size="11" font-weight="600">
+                            Survival Extension
+                        </text>
+                        
+                        <text x="290" y="70" text-anchor="middle" fill="#F44336" font-size="11" font-weight="600">
+                            Adverse Events
+                        </text>
+                        <text x="290" y="85" text-anchor="middle" fill="#F44336" font-size="11" font-weight="600">
+                            Safety Concerns
+                        </text>
+                    </svg>
+                    <div style="margin-top: 20px; text-align: center; font-size: 13px; color: #666;">
+                        AI models quantitatively assess whether therapeutic benefits outweigh potential risks for individual patients
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section 4: Literature Mining -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <div>
+                    <div class="section-title">Literature Mining</div>
+                    <div class="section-subtitle">Automated extraction of safety information from scientific literature</div>
+                </div>
+            </div>
+            
+            <div class="content-wrapper">
+                <div class="description">
+                    <p>
+                        Literature mining uses natural language processing and text analytics to automatically extract drug safety information from millions of scientific publications, case reports, and clinical trial results. This enables comprehensive surveillance beyond spontaneous reporting systems.
+                    </p>
+                    
+                    <h3>Mining Techniques:</h3>
+                    <ul>
+                        <li><strong>Named Entity Recognition:</strong> Identifying drugs, diseases, and adverse events</li>
+                        <li><strong>Relationship Extraction:</strong> Detecting drug-adverse event associations</li>
+                        <li><strong>Sentiment Analysis:</strong> Assessing severity and clinical significance</li>
+                        <li><strong>Temporal Extraction:</strong> Capturing time-to-onset information</li>
+                        <li><strong>Knowledge Graphs:</strong> Building structured safety knowledge networks</li>
+                    </ul>
+                    
+                    <div class="example-box">
+                        <div class="example-title">Implementation Example:</div>
+                        <div class="example-text">
+                            An NLP system scans 30,000 newly published articles weekly across PubMed, EMBASE, and clinical trial registries, automatically flagging 500+ potential safety signals for human review—a task that would take a team of experts months to complete manually.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visual">
+                    <div class="visual-title">Literature Mining Pipeline</div>
+                    <div class="grid-diagram">
+                        <div class="grid-item">
+                            📚<br>Data Sources<br>
+                            <span style="font-size:11px; font-weight:400;">PubMed, EMBASE,<br>Clinical Trials</span>
+                        </div>
+                        <div class="grid-item">
+                            🔍<br>Text Processing<br>
+                            <span style="font-size:11px; font-weight:400;">NLP & Entity<br>Recognition</span>
+                        </div>
+                        <div class="grid-item">
+                            🔗<br>Relationship<br>Extraction<br>
+                            <span style="font-size:11px; font-weight:400;">Drug-Event<br>Associations</span>
+                        </div>
+                        <div class="grid-item">
+                            📊<br>Knowledge<br>Integration<br>
+                            <span style="font-size:11px; font-weight:400;">Safety Database<br>Update</span>
+                        </div>
+                    </div>
+                    <div style="margin-top: 25px;">
+                        <svg viewBox="0 0 400 120" style="width: 100%; max-width: 400px;">
+                            <!-- Data flow -->
+                            <rect x="20" y="20" width="70" height="50" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                            <text x="55" y="50" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">Articles</text>
+                            
+                            <path d="M 90 45 L 120 45" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowblue)"/>
+                            
+                            <rect x="120" y="20" width="70" height="50" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                            <text x="155" y="50" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">NLP</text>
+                            
+                            <path d="M 190 45 L 220 45" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowblue)"/>
+                            
+                            <rect x="220" y="20" width="70" height="50" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="8"/>
+                            <text x="255" y="50" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">Extraction</text>
+                            
+                            <path d="M 290 45 L 320 45" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowblue)"/>
+                            
+                            <rect x="320" y="20" width="70" height="50" fill="#1E64C8" rx="8"/>
+                            <text x="355" y="50" text-anchor="middle" font-size="12" fill="white" font-weight="600">Signals</text>
+                            
+                            <defs>
+                                <marker id="arrowblue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8" />
+                                </marker>
+                            </defs>
+                            
+                            <!-- Processing stats -->
+                            <text x="200" y="100" text-anchor="middle" font-size="11" fill="#666">
+                                Processing ~30,000 articles/week with 92% accuracy
+                            </text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Section 5: Social Media Monitoring -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <div>
+                    <div class="section-title">Social Media Monitoring</div>
+                    <div class="section-subtitle">Real-time safety signal detection from patient-reported experiences</div>
+                </div>
+            </div>
+            
+            <div class="content-wrapper">
+                <div class="description">
+                    <p>
+                        Social media monitoring analyzes patient discussions on platforms like Twitter, Reddit, and health forums to detect early safety signals and understand real-world patient experiences with medications. This provides a complementary perspective to formal reporting systems.
+                    </p>
+                    
+                    <h3>Monitoring Capabilities:</h3>
+                    <ul>
+                        <li><strong>Real-time Surveillance:</strong> Continuous monitoring of social media conversations</li>
+                        <li><strong>Patient Voice:</strong> Direct access to patient-reported outcomes and experiences</li>
+                        <li><strong>Early Detection:</strong> Signals may emerge before official adverse event reports</li>
+                        <li><strong>Sentiment Analysis:</strong> Understanding patient satisfaction and concerns</li>
+                        <li><strong>Geographic Patterns:</strong> Identifying regional safety issues or product quality problems</li>
+                    </ul>
+                    
+                    <div class="example-box">
+                        <div class="example-title">Case Study:</div>
+                        <div class="example-text">
+                            Social media monitoring detected a cluster of reports about unusual muscle pain associated with a new statin formulation 6 weeks before formal adverse event reports reached a threshold, enabling faster regulatory response and patient protection.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visual">
+                    <div class="visual-title">Social Media Surveillance Network</div>
+                    <div class="network-diagram">
+                        <div class="network-center">AI Monitoring System</div>
+                        <div class="network-branches">
+                            <div class="network-node">🐦 Twitter/X</div>
+                            <div class="network-node">💬 Reddit</div>
+                            <div class="network-node">📱 Facebook</div>
+                            <div class="network-node">🏥 Health Forums</div>
+                            <div class="network-node">⭐ Review Sites</div>
+                            <div class="network-node">📰 News Sites</div>
+                        </div>
+                    </div>
+                    
+                    <div style="margin-top: 30px;">
+                        <svg viewBox="0 0 400 180" style="width: 100%; max-width: 400px;">
+                            <!-- Timeline -->
+                            <line x1="50" y1="90" x2="350" y2="90" stroke="#1E64C8" stroke-width="3"/>
+                            
+                            <!-- Time points -->
+                            <circle cx="100" cy="90" r="6" fill="#4CAF50"/>
+                            <text x="100" y="115" text-anchor="middle" font-size="11" fill="#666">Week 1</text>
+                            <text x="100" y="130" text-anchor="middle" font-size="10" fill="#4CAF50" font-weight="600">Social Media</text>
+                            <text x="100" y="143" text-anchor="middle" font-size="10" fill="#4CAF50" font-weight="600">Detection</text>
+                            
+                            <circle cx="200" cy="90" r="6" fill="#FF9800"/>
+                            <text x="200" y="115" text-anchor="middle" font-size="11" fill="#666">Week 4</text>
+                            <text x="200" y="130" text-anchor="middle" font-size="10" fill="#FF9800" font-weight="600">Signal</text>
+                            <text x="200" y="143" text-anchor="middle" font-size="10" fill="#FF9800" font-weight="600">Validation</text>
+                            
+                            <circle cx="300" cy="90" r="6" fill="#F44336"/>
+                            <text x="300" y="115" text-anchor="middle" font-size="11" fill="#666">Week 7</text>
+                            <text x="300" y="130" text-anchor="middle" font-size="10" fill="#F44336" font-weight="600">Traditional</text>
+                            <text x="300" y="143" text-anchor="middle" font-size="10" fill="#F44336" font-weight="600">Reporting</text>
+                            
+                            <!-- Advantage indicator -->
+                            <path d="M 100 50 L 300 50" stroke="#4CAF50" stroke-width="2" stroke-dasharray="5,5"/>
+                            <text x="200" y="40" text-anchor="middle" font-size="12" fill="#4CAF50" font-weight="700">
+                                6-Week Earlier Detection
+                            </text>
+                            
+                            <!-- Arrow -->
+                            <path d="M 50 90 L 40 90" stroke="#1E64C8" stroke-width="2" marker-start="url(#arrowstart)"/>
+                            <defs>
+                                <marker id="arrowstart" markerWidth="10" markerHeight="10" refX="1" refY="3" orient="auto" markerUnits="strokeWidth">
+                                    <path d="M9,0 L9,6 L0,3 z" fill="#1E64C8" />
+                                </marker>
+                            </defs>
+                            <text x="20" y="95" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600">Time</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="metrics">
+                <div class="metric-card">
+                    <div class="metric-value">500M+</div>
+                    <div class="metric-label">Daily Health-Related Posts</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">3-6 Weeks</div>
+                    <div class="metric-label">Earlier Signal Detection</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-value">78%</div>
+                    <div class="metric-label">Correlation with Official Reports</div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </body>
 </html>

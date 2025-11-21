@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Data Ownership</title>
+    <title>Data Ownership - Detailed Guide</title>
     <style>
         * {
             margin: 0;
@@ -13,34 +13,42 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 40px 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 50px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
         }
         
         .title {
-            font-size: 36px;
+            font-size: 48px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 20px;
             text-align: center;
             padding-bottom: 20px;
-            border-bottom: 3px solid #1E64C8;
+            border-bottom: 4px solid #1E64C8;
         }
         
-        .content-section {
+        .intro {
+            font-size: 18px;
+            color: #555;
+            text-align: center;
+            margin-bottom: 50px;
+            line-height: 1.6;
+        }
+        
+        .overview-section {
             display: flex;
             flex-direction: column;
             gap: 18px;
+            margin-bottom: 60px;
         }
         
         .bullet-item {
@@ -52,6 +60,7 @@
             border-left: 4px solid #1E64C8;
             border-radius: 8px;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .bullet-item:hover {
@@ -72,32 +81,534 @@
             font-weight: 500;
             line-height: 1.4;
         }
+        
+        .detail-section {
+            margin-top: 80px;
+        }
+        
+        .category-card {
+            margin-bottom: 60px;
+            padding: 40px;
+            background: linear-gradient(135deg, #f8f9fa 0%, #ffffff 100%);
+            border-radius: 12px;
+            border: 2px solid #e0e0e0;
+            transition: all 0.3s ease;
+        }
+        
+        .category-card:hover {
+            box-shadow: 0 8px 16px rgba(30, 100, 200, 0.15);
+            border-color: #1E64C8;
+        }
+        
+        .category-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #1E64C8;
+        }
+        
+        .category-icon {
+            width: 80px;
+            height: 80px;
+            background: #1E64C8;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            color: white;
+            flex-shrink: 0;
+        }
+        
+        .category-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E64C8;
+        }
+        
+        .category-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .visual-box {
+            background: white;
+            padding: 30px;
+            border-radius: 8px;
+            border: 2px solid #e0e0e0;
+            min-height: 250px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .visual-illustration {
+            width: 100%;
+            height: 200px;
+            margin-bottom: 15px;
+            position: relative;
+        }
+        
+        .description-box {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+        
+        .description-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        
+        .description-text {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.6;
+            text-align: justify;
+        }
+        
+        .key-points {
+            background: #f0f7ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #1E64C8;
+        }
+        
+        .key-points-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 12px;
+        }
+        
+        .key-points ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .key-points li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #444;
+            font-size: 15px;
+            line-height: 1.5;
+        }
+        
+        .key-points li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #1E64C8;
+            font-weight: bold;
+        }
+        
+        /* SVG Illustrations */
+        .patient-illustration {
+            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .institutional-illustration {
+            background: linear-gradient(135deg, #f3e5f5 0%, #e1bee7 100%);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .commercial-illustration {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .benefit-illustration {
+            background: linear-gradient(135deg, #fff3e0 0%, #ffe0b2 100%);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .indigenous-illustration {
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd0 100%);
+            border-radius: 8px;
+            position: relative;
+            overflow: hidden;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">Data Ownership</div>
         
-        <div class="content-section">
+        <div class="intro">
+            Understanding the complex landscape of data ownership in healthcare and research contexts
+        </div>
+        
+        <div class="overview-section">
             <div class="bullet-item">
                 <span class="bullet">•</span>
-                <span>Patient rights</span>
+                <span>Patient Rights</span>
             </div>
             <div class="bullet-item">
                 <span class="bullet">•</span>
-                <span>Institutional claims</span>
+                <span>Institutional Claims</span>
             </div>
             <div class="bullet-item">
                 <span class="bullet">•</span>
-                <span>Commercial interests</span>
+                <span>Commercial Interests</span>
             </div>
             <div class="bullet-item">
                 <span class="bullet">•</span>
-                <span>Benefit sharing</span>
+                <span>Benefit Sharing</span>
             </div>
             <div class="bullet-item">
                 <span class="bullet">•</span>
-                <span>Indigenous data</span>
+                <span>Indigenous Data</span>
+            </div>
+        </div>
+        
+        <div class="detail-section">
+            <!-- Patient Rights -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">👤</div>
+                    <div class="category-title">Patient Rights</div>
+                </div>
+                <div class="category-content">
+                    <div class="visual-box">
+                        <div class="visual-illustration patient-illustration">
+                            <svg width="100%" height="100%" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Patient figure -->
+                                <circle cx="150" cy="60" r="25" fill="#1E64C8" opacity="0.8"/>
+                                <rect x="130" y="85" width="40" height="50" rx="5" fill="#1E64C8" opacity="0.8"/>
+                                
+                                <!-- Data shield -->
+                                <path d="M 150 150 L 120 170 L 120 190 L 150 200 L 180 190 L 180 170 Z" 
+                                      fill="#4CAF50" stroke="#2E7D32" stroke-width="2" opacity="0.9"/>
+                                
+                                <!-- Checkmarks -->
+                                <path d="M 140 175 L 145 180 L 155 165" stroke="white" stroke-width="3" 
+                                      fill="none" stroke-linecap="round"/>
+                                
+                                <!-- Rights arrows -->
+                                <line x1="90" y1="110" x2="115" y2="110" stroke="#1E64C8" stroke-width="2" 
+                                      marker-end="url(#arrowblue)"/>
+                                <line x1="210" y1="110" x2="185" y2="110" stroke="#1E64C8" stroke-width="2" 
+                                      marker-end="url(#arrowblue)"/>
+                                
+                                <defs>
+                                    <marker id="arrowblue" markerWidth="10" markerHeight="10" 
+                                            refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                        <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8" />
+                                    </marker>
+                                </defs>
+                                
+                                <!-- Labels -->
+                                <text x="60" y="100" font-size="12" fill="#333">Access</text>
+                                <text x="215" y="100" font-size="12" fill="#333">Control</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="description-box">
+                        <div>
+                            <div class="description-title">Overview</div>
+                            <div class="description-text">
+                                Patient rights refer to the fundamental entitlements individuals have regarding their personal health information and medical data. These rights encompass access, control, privacy, and decision-making authority over how their data is collected, used, and shared. Patients have the legal and ethical right to know what data is being collected about them, who has access to it, and how it is being utilized.
+                            </div>
+                        </div>
+                        <div class="key-points">
+                            <div class="key-points-title">Key Aspects</div>
+                            <ul>
+                                <li>Right to access and obtain copies of personal health records</li>
+                                <li>Right to request corrections to inaccurate information</li>
+                                <li>Right to know who has accessed their data and for what purpose</li>
+                                <li>Right to consent or refuse data sharing for research purposes</li>
+                                <li>Right to data portability and withdrawal of consent</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Institutional Claims -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">🏥</div>
+                    <div class="category-title">Institutional Claims</div>
+                </div>
+                <div class="category-content">
+                    <div class="visual-box">
+                        <div class="visual-illustration institutional-illustration">
+                            <svg width="100%" height="100%" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Hospital building -->
+                                <rect x="100" y="60" width="100" height="80" fill="#8E24AA" opacity="0.8" rx="5"/>
+                                <rect x="130" y="80" width="15" height="15" fill="white" opacity="0.9"/>
+                                <rect x="155" y="80" width="15" height="15" fill="white" opacity="0.9"/>
+                                <rect x="130" y="105" width="15" height="15" fill="white" opacity="0.9"/>
+                                <rect x="155" y="105" width="15" height="15" fill="white" opacity="0.9"/>
+                                <rect x="135" y="125" width="30" height="15" fill="white" opacity="0.9"/>
+                                
+                                <!-- Cross symbol -->
+                                <rect x="147" y="35" width="6" height="20" fill="#D32F2F"/>
+                                <rect x="141" y="41" width="18" height="6" fill="#D32F2F"/>
+                                
+                                <!-- Database cylinders -->
+                                <ellipse cx="70" cy="160" rx="20" ry="8" fill="#5E35B1" opacity="0.9"/>
+                                <rect x="50" y="160" width="40" height="25" fill="#5E35B1" opacity="0.9"/>
+                                <ellipse cx="70" cy="185" rx="20" ry="8" fill="#5E35B1" opacity="0.9"/>
+                                
+                                <ellipse cx="230" cy="160" rx="20" ry="8" fill="#5E35B1" opacity="0.9"/>
+                                <rect x="210" y="160" width="40" height="25" fill="#5E35B1" opacity="0.9"/>
+                                <ellipse cx="230" cy="185" rx="20" ry="8" fill="#5E35B1" opacity="0.9"/>
+                                
+                                <!-- Connection lines -->
+                                <line x1="100" y1="120" x2="70" y2="155" stroke="#666" stroke-width="2" 
+                                      stroke-dasharray="5,5"/>
+                                <line x1="200" y1="120" x2="230" y2="155" stroke="#666" stroke-width="2" 
+                                      stroke-dasharray="5,5"/>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="description-box">
+                        <div>
+                            <div class="description-title">Overview</div>
+                            <div class="description-text">
+                                Institutional claims represent the ownership rights that healthcare organizations, research institutions, and medical facilities assert over data generated within their systems. These institutions argue that they have invested significant resources in infrastructure, data collection systems, and maintenance, thus claiming certain proprietary interests in the aggregated data. This creates a complex tension between patient rights and institutional needs.
+                            </div>
+                        </div>
+                        <div class="key-points">
+                            <div class="key-points-title">Key Aspects</div>
+                            <ul>
+                                <li>Investment in data infrastructure and electronic health record systems</li>
+                                <li>Responsibility for data security, privacy, and regulatory compliance</li>
+                                <li>Claims to de-identified or aggregated data for operational improvements</li>
+                                <li>Custodianship responsibilities and legal liability concerns</li>
+                                <li>Need to balance patient privacy with institutional research goals</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Commercial Interests -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">💼</div>
+                    <div class="category-title">Commercial Interests</div>
+                </div>
+                <div class="category-content">
+                    <div class="visual-box">
+                        <div class="visual-illustration commercial-illustration">
+                            <svg width="100%" height="100%" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Company buildings -->
+                                <rect x="50" y="80" width="60" height="80" fill="#43A047" opacity="0.8" rx="5"/>
+                                <rect x="70" y="95" width="10" height="10" fill="white" opacity="0.9"/>
+                                <rect x="85" y="95" width="10" height="10" fill="white" opacity="0.9"/>
+                                <rect x="70" y="110" width="10" height="10" fill="white" opacity="0.9"/>
+                                <rect x="85" y="110" width="10" height="10" fill="white" opacity="0.9"/>
+                                <rect x="70" y="125" width="10" height="10" fill="white" opacity="0.9"/>
+                                <rect x="85" y="125" width="10" height="10" fill="white" opacity="0.9"/>
+                                
+                                <rect x="190" y="90" width="60" height="70" fill="#43A047" opacity="0.8" rx="5"/>
+                                <rect x="210" y="105" width="10" height="10" fill="white" opacity="0.9"/>
+                                <rect x="225" y="105" width="10" height="10" fill="white" opacity="0.9"/>
+                                <rect x="210" y="120" width="10" height="10" fill="white" opacity="0.9"/>
+                                <rect x="225" y="120" width="10" height="10" fill="white" opacity="0.9"/>
+                                
+                                <!-- Data flow -->
+                                <circle cx="150" cy="50" r="30" fill="#FDD835" opacity="0.3" stroke="#F57F17" stroke-width="2"/>
+                                <text x="140" y="58" font-size="20" fill="#F57F17" font-weight="bold">$</text>
+                                
+                                <!-- Arrows showing data flow -->
+                                <path d="M 110 80 L 130 60" stroke="#43A047" stroke-width="3" 
+                                      marker-end="url(#arrowgreen)" fill="none"/>
+                                <path d="M 190 90 L 170 60" stroke="#43A047" stroke-width="3" 
+                                      marker-end="url(#arrowgreen)" fill="none"/>
+                                
+                                <!-- Data packages -->
+                                <rect x="135" y="120" width="30" height="25" fill="#81C784" rx="3" opacity="0.9"/>
+                                <line x1="140" y1="125" x2="160" y2="125" stroke="white" stroke-width="2"/>
+                                <line x1="140" y1="130" x2="155" y2="130" stroke="white" stroke-width="2"/>
+                                <line x1="140" y1="135" x2="160" y2="135" stroke="white" stroke-width="2"/>
+                                
+                                <defs>
+                                    <marker id="arrowgreen" markerWidth="10" markerHeight="10" 
+                                            refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                        <path d="M0,0 L0,6 L9,3 z" fill="#43A047" />
+                                    </marker>
+                                </defs>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="description-box">
+                        <div>
+                            <div class="description-title">Overview</div>
+                            <div class="description-text">
+                                Commercial interests in data ownership involve pharmaceutical companies, biotech firms, technology companies, and other private entities that seek to leverage health data for product development, market research, and profit generation. These organizations invest heavily in data analytics, drug discovery, and personalized medicine initiatives, creating complex questions about who benefits from data-driven innovations and how value should be distributed.
+                            </div>
+                        </div>
+                        <div class="key-points">
+                            <div class="key-points-title">Key Aspects</div>
+                            <ul>
+                                <li>Use of health data for drug discovery and medical device development</li>
+                                <li>Development of AI algorithms and predictive health models</li>
+                                <li>Market research and targeted advertising based on health profiles</li>
+                                <li>Questions about profit-sharing with data contributors</li>
+                                <li>Tension between public health benefits and private profit motives</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Benefit Sharing -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">🤝</div>
+                    <div class="category-title">Benefit Sharing</div>
+                </div>
+                <div class="category-content">
+                    <div class="visual-box">
+                        <div class="visual-illustration benefit-illustration">
+                            <svg width="100%" height="100%" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Central benefit pool -->
+                                <circle cx="150" cy="100" r="45" fill="#FF9800" opacity="0.3" 
+                                        stroke="#EF6C00" stroke-width="3"/>
+                                <text x="140" y="105" font-size="16" fill="#E65100" font-weight="bold">POOL</text>
+                                
+                                <!-- Stakeholder circles -->
+                                <circle cx="70" cy="50" r="25" fill="#FFB74D" opacity="0.9"/>
+                                <text x="62" y="55" font-size="12" fill="#333">👥</text>
+                                
+                                <circle cx="230" cy="50" r="25" fill="#FFB74D" opacity="0.9"/>
+                                <text x="222" y="55" font-size="12" fill="#333">🏛️</text>
+                                
+                                <circle cx="70" cy="150" r="25" fill="#FFB74D" opacity="0.9"/>
+                                <text x="62" y="155" font-size="12" fill="#333">🔬</text>
+                                
+                                <circle cx="230" cy="150" r="25" fill="#FFB74D" opacity="0.9"/>
+                                <text x="222" y="155" font-size="12" fill="#333">🏢</text>
+                                
+                                <!-- Distribution arrows -->
+                                <path d="M 110 75 L 95 60" stroke="#FF9800" stroke-width="3" 
+                                      marker-end="url(#arroworange)" fill="none"/>
+                                <path d="M 190 75 L 205 60" stroke="#FF9800" stroke-width="3" 
+                                      marker-end="url(#arroworange)" fill="none"/>
+                                <path d="M 110 125 L 95 140" stroke="#FF9800" stroke-width="3" 
+                                      marker-end="url(#arroworange)" fill="none"/>
+                                <path d="M 190 125 L 205 140" stroke="#FF9800" stroke-width="3" 
+                                      marker-end="url(#arroworange)" fill="none"/>
+                                
+                                <!-- Equity symbol -->
+                                <line x1="140" y1="90" x2="160" y2="90" stroke="#E65100" stroke-width="2"/>
+                                <line x1="140" y1="110" x2="160" y2="110" stroke="#E65100" stroke-width="2"/>
+                                
+                                <defs>
+                                    <marker id="arroworange" markerWidth="10" markerHeight="10" 
+                                            refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                        <path d="M0,0 L0,6 L9,3 z" fill="#FF9800" />
+                                    </marker>
+                                </defs>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="description-box">
+                        <div>
+                            <div class="description-title">Overview</div>
+                            <div class="description-text">
+                                Benefit sharing addresses the ethical principle that when data is used to generate value, whether financial, scientific, or social, the benefits should be distributed equitably among all stakeholders who contributed to or are affected by that data. This concept challenges the traditional model where commercial entities or institutions reap all rewards while data subjects receive little to no benefit from their contributions.
+                            </div>
+                        </div>
+                        <div class="key-points">
+                            <div class="key-points-title">Key Aspects</div>
+                            <ul>
+                                <li>Fair compensation models for individuals whose data generates profit</li>
+                                <li>Return of research results and health insights to participants</li>
+                                <li>Community-level benefits from population health research</li>
+                                <li>Access to treatments and innovations developed using contributed data</li>
+                                <li>Transparent governance structures for benefit distribution</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Indigenous Data -->
+            <div class="category-card">
+                <div class="category-header">
+                    <div class="category-icon">🌍</div>
+                    <div class="category-title">Indigenous Data</div>
+                </div>
+                <div class="category-content">
+                    <div class="visual-box">
+                        <div class="visual-illustration indigenous-illustration">
+                            <svg width="100%" height="100%" viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
+                                <!-- Earth/community circle -->
+                                <circle cx="150" cy="100" r="50" fill="#EC407A" opacity="0.3" 
+                                        stroke="#C2185B" stroke-width="3"/>
+                                
+                                <!-- Community members in circle -->
+                                <circle cx="150" cy="70" r="12" fill="#F48FB1" opacity="0.9"/>
+                                <circle cx="180" cy="90" r="12" fill="#F48FB1" opacity="0.9"/>
+                                <circle cx="180" cy="110" r="12" fill="#F48FB1" opacity="0.9"/>
+                                <circle cx="150" cy="130" r="12" fill="#F48FB1" opacity="0.9"/>
+                                <circle cx="120" cy="110" r="12" fill="#F48FB1" opacity="0.9"/>
+                                <circle cx="120" cy="90" r="12" fill="#F48FB1" opacity="0.9"/>
+                                
+                                <!-- Connection lines between community -->
+                                <line x1="150" y1="70" x2="180" y2="90" stroke="#EC407A" stroke-width="1.5" opacity="0.6"/>
+                                <line x1="180" y1="90" x2="180" y2="110" stroke="#EC407A" stroke-width="1.5" opacity="0.6"/>
+                                <line x1="180" y1="110" x2="150" y2="130" stroke="#EC407A" stroke-width="1.5" opacity="0.6"/>
+                                <line x1="150" y1="130" x2="120" y2="110" stroke="#EC407A" stroke-width="1.5" opacity="0.6"/>
+                                <line x1="120" y1="110" x2="120" y2="90" stroke="#EC407A" stroke-width="1.5" opacity="0.6"/>
+                                <line x1="120" y1="90" x2="150" y2="70" stroke="#EC407A" stroke-width="1.5" opacity="0.6"/>
+                                
+                                <!-- Cultural symbols -->
+                                <path d="M 150 95 L 145 100 L 150 105 L 155 100 Z" fill="#AD1457" opacity="0.8"/>
+                                
+                                <!-- Sovereignty shield -->
+                                <path d="M 70 150 L 50 160 L 50 175 L 70 183 L 90 175 L 90 160 Z" 
+                                      fill="#EC407A" opacity="0.9" stroke="#C2185B" stroke-width="2"/>
+                                <text x="62" y="172" font-size="20" fill="white" font-weight="bold">S</text>
+                                
+                                <!-- CARE principles box -->
+                                <rect x="210" y="150" width="70" height="40" fill="#F48FB1" opacity="0.9" 
+                                      rx="5" stroke="#C2185B" stroke-width="2"/>
+                                <text x="220" y="168" font-size="11" fill="#333" font-weight="bold">CARE</text>
+                                <text x="217" y="180" font-size="8" fill="#555">Principles</text>
+                            </svg>
+                        </div>
+                    </div>
+                    <div class="description-box">
+                        <div>
+                            <div class="description-title">Overview</div>
+                            <div class="description-text">
+                                Indigenous data sovereignty recognizes the unique rights of indigenous peoples to govern the collection, ownership, and application of data about their communities, territories, and cultural heritage. This principle acknowledges historical exploitation and asserts that indigenous communities should have control over data that affects them, guided by their own values, customs, and governance structures. The CARE Principles (Collective benefit, Authority to control, Responsibility, Ethics) provide a framework for indigenous data governance.
+                            </div>
+                        </div>
+                        <div class="key-points">
+                            <div class="key-points-title">Key Aspects</div>
+                            <ul>
+                                <li>Community consent and collective decision-making over data use</li>
+                                <li>Protection of traditional knowledge and cultural information</li>
+                                <li>Data sovereignty aligned with self-determination rights</li>
+                                <li>Recognition of historical context and ongoing power imbalances</li>
+                                <li>Application of CARE Principles alongside FAIR data principles</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

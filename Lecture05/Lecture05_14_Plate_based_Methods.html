@@ -1,24 +1,28 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Plate-based Methods</title>
+    <title>Plate-based Methods - Enhanced</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
             background: white;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
             align-items: center;
             min-height: 100vh;
+            padding: 20px;
         }
-        .container {
+        .slide {
             width: 960px;
-            height: 540px;
+            min-height: 540px;
             padding: 30px 40px;
             background: white;
+            margin-bottom: 40px;
+            border: 1px solid #e0e0e0;
+            page-break-after: always;
         }
         .title {
             font-size: 28px;
@@ -27,9 +31,24 @@
             margin-bottom: 20px;
             text-align: center;
         }
+        .subtitle {
+            font-size: 22px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 15px;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 8px;
+        }
+        .section-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #0D47A1;
+            margin-top: 20px;
+            margin-bottom: 12px;
+        }
         .visual-content {
             width: 100%;
-            height: 430px;
+            min-height: 400px;
         }
         .note-box {
             background: #f0f5fc;
@@ -43,10 +62,65 @@
             color: #333;
             font-weight: 600;
         }
+        .principle-box {
+            background: #fff8e1;
+            border: 2px solid #FFA726;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .principle-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #E65100;
+            margin-bottom: 8px;
+        }
+        .principle-text {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+            margin: 5px 0;
+        }
+        .key-point {
+            background: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 10px 15px;
+            margin: 10px 0;
+            border-radius: 4px;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+            font-size: 13px;
+        }
+        .comparison-table th {
+            background: #1E64C8;
+            color: white;
+            padding: 10px;
+            text-align: left;
+            font-weight: 600;
+        }
+        .comparison-table td {
+            padding: 8px 10px;
+            border: 1px solid #ddd;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f5f5f5;
+        }
+        ul {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+        li {
+            margin: 5px 0;
+            line-height: 1.5;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Slide 1: Original Overview -->
+    <div class="slide">
         <div class="title">Plate-based Methods</div>
         <div class="visual-content">
             <svg width="100%" height="100%" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
@@ -205,5 +279,535 @@
             <div class="note-text">💡 Lower throughput but deeper sequencing per cell</div>
         </div>
     </div>
+
+    <!-- Slide 2: Smart-seq2 Principle -->
+    <div class="slide">
+        <div class="subtitle">Smart-seq2: Molecular Principle</div>
+        
+        <div class="visual-content">
+            <svg width="100%" height="480" viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg">
+                <!-- Title -->
+                <text x="450" y="25" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#1E64C8" text-anchor="middle">Template Switching Mechanism</text>
+                
+                <!-- Step 1: mRNA -->
+                <g id="step1">
+                    <rect x="50" y="50" width="350" height="100" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                    <text x="225" y="75" font-family="Aptos, sans-serif" font-size="13" font-weight="700" fill="#0D47A1" text-anchor="middle">Step 1: Reverse Transcription</text>
+                    
+                    <!-- mRNA with poly(A) -->
+                    <line x1="70" y1="100" x2="380" y2="100" stroke="#E91E63" stroke-width="3"/>
+                    <text x="70" y="95" font-family="Aptos, sans-serif" font-size="10" fill="#C2185B" font-weight="600">5'</text>
+                    <text x="370" y="95" font-family="Aptos, sans-serif" font-size="10" fill="#C2185B" font-weight="600">3'</text>
+                    
+                    <!-- poly(A) tail -->
+                    <rect x="290" y="96" width="90" height="8" fill="#F06292" stroke="#C2185B" stroke-width="1"/>
+                    <text x="335" y="125" font-family="Aptos, sans-serif" font-size="9" fill="#666">poly(A) tail</text>
+                    
+                    <!-- Oligo-dT primer -->
+                    <line x1="290" y1="115" x2="380" y2="115" stroke="#2196F3" stroke-width="2"/>
+                    <text x="335" y="140" font-family="Aptos, sans-serif" font-size="9" fill="#0D47A1" font-weight="600">Oligo-dT-VN primer</text>
+                </g>
+                
+                <path d="M 420 100 L 460 100" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
+                
+                <!-- Step 2: First strand synthesis -->
+                <g id="step2">
+                    <rect x="480" y="50" width="370" height="100" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+                    <text x="665" y="75" font-family="Aptos, sans-serif" font-size="13" font-weight="700" fill="#E65100" text-anchor="middle">Step 2: Template Switching</text>
+                    
+                    <!-- RNA-cDNA hybrid -->
+                    <line x1="500" y1="100" x2="830" y2="100" stroke="#E91E63" stroke-width="3"/>
+                    <line x1="610" y1="115" x2="830" y2="115" stroke="#2196F3" stroke-width="3"/>
+                    
+                    <!-- Non-template CCC addition -->
+                    <text x="510" y="105" font-family="Aptos, sans-serif" font-size="11" fill="#E91E63" font-weight="700">5'-CCC</text>
+                    <path d="M 545 100 L 545 115" stroke="#4CAF50" stroke-width="2" stroke-dasharray="3,3"/>
+                    
+                    <!-- TSO -->
+                    <line x1="500" y1="130" x2="570" y2="130" stroke="#4CAF50" stroke-width="2"/>
+                    <text x="535" y="148" font-family="Aptos, sans-serif" font-size="9" fill="#1B5E20" font-weight="600">TSO (GGG)</text>
+                </g>
+                
+                <!-- Step 3: Extended product -->
+                <g id="step3">
+                    <rect x="50" y="180" width="800" height="100" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+                    <text x="450" y="205" font-family="Aptos, sans-serif" font-size="13" font-weight="700" fill="#1B5E20" text-anchor="middle">Step 3: Full-length cDNA with Adapters</text>
+                    
+                    <!-- Complete cDNA -->
+                    <rect x="70" y="225" width="50" height="15" fill="#4CAF50" stroke="#2E7D32" stroke-width="1"/>
+                    <text x="95" y="237" font-family="Aptos, sans-serif" font-size="8" fill="white" font-weight="600" text-anchor="middle">TSO</text>
+                    
+                    <line x1="120" y1="232" x2="750" y2="232" stroke="#2196F3" stroke-width="4"/>
+                    
+                    <rect x="750" y="225" width="70" height="15" fill="#FF9800" stroke="#F57C00" stroke-width="1"/>
+                    <text x="785" y="237" font-family="Aptos, sans-serif" font-size="8" fill="white" font-weight="600" text-anchor="middle">Oligo-dT</text>
+                    
+                    <text x="450" y="265" font-family="Aptos, sans-serif" font-size="10" fill="#1B5E20" text-anchor="middle">Full-length cDNA with universal priming sites at both ends</text>
+                </g>
+                
+                <!-- Step 4: PCR -->
+                <g id="step4">
+                    <rect x="50" y="310" width="800" height="150" rx="8" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2"/>
+                    <text x="450" y="335" font-family="Aptos, sans-serif" font-size="13" font-weight="700" fill="#4A148C" text-anchor="middle">Step 4: PCR Amplification</text>
+                    
+                    <!-- Multiple amplified products -->
+                    <g transform="translate(0, 15)">
+                        <rect x="70" y="330" width="50" height="12" fill="#4CAF50"/>
+                        <line x1="120" y1="336" x2="750" y2="336" stroke="#2196F3" stroke-width="3"/>
+                        <rect x="750" y="330" width="70" height="12" fill="#FF9800"/>
+                        
+                        <rect x="70" y="355" width="50" height="12" fill="#4CAF50"/>
+                        <line x1="120" y1="361" x2="750" y2="361" stroke="#2196F3" stroke-width="3"/>
+                        <rect x="750" y="355" width="70" height="12" fill="#FF9800"/>
+                        
+                        <rect x="70" y="380" width="50" height="12" fill="#4CAF50"/>
+                        <line x1="120" y1="386" x2="750" y2="386" stroke="#2196F3" stroke-width="3"/>
+                        <rect x="750" y="380" width="70" height="12" fill="#FF9800"/>
+                        
+                        <rect x="70" y="405" width="50" height="12" fill="#4CAF50"/>
+                        <line x1="120" y1="411" x2="750" y2="411" stroke="#2196F3" stroke-width="3"/>
+                        <rect x="750" y="405" width="70" height="12" fill="#FF9800"/>
+                    </g>
+                    
+                    <text x="450" y="445" font-family="Aptos, sans-serif" font-size="10" fill="#4A148C" text-anchor="middle">Exponential amplification using ISPCR primers</text>
+                </g>
+                
+                <defs>
+                    <marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+        
+        <div class="principle-box">
+            <div class="principle-title">Key Innovation: Template Switching</div>
+            <div class="principle-text">• Reverse transcriptase adds non-templated CCC nucleotides at the 3' end of first-strand cDNA</div>
+            <div class="principle-text">• Template Switching Oligo (TSO) with GGG sequence hybridizes to CCC overhang</div>
+            <div class="principle-text">• RT switches templates and extends along TSO, adding universal priming site</div>
+            <div class="principle-text">• Enables full-length transcript coverage from 5' to 3' end</div>
+        </div>
+    </div>
+
+    <!-- Slide 3: Smart-seq vs UMI-based methods -->
+    <div class="slide">
+        <div class="subtitle">Coverage Comparison: Smart-seq vs UMI-based Methods</div>
+        
+        <div class="visual-content">
+            <svg width="100%" height="400" viewBox="0 0 900 400" xmlns="http://www.w3.org/2000/svg">
+                <!-- Smart-seq2 coverage -->
+                <g id="smartseq-coverage">
+                    <rect x="50" y="30" width="800" height="150" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                    <text x="450" y="55" font-family="Aptos, sans-serif" font-size="15" font-weight="700" fill="#0D47A1" text-anchor="middle">Smart-seq2: Full-length Coverage</text>
+                    
+                    <!-- Gene structure -->
+                    <text x="80" y="90" font-family="Aptos, sans-serif" font-size="11" fill="#666">Gene:</text>
+                    <line x1="120" y1="85" x2="800" y2="85" stroke="#666" stroke-width="2"/>
+                    <rect x="150" y="75" width="80" height="20" fill="#2196F3" stroke="#1565C0" stroke-width="1"/>
+                    <rect x="280" y="75" width="100" height="20" fill="#2196F3" stroke="#1565C0" stroke-width="1"/>
+                    <rect x="450" y="75" width="90" height="20" fill="#2196F3" stroke="#1565C0" stroke-width="1"/>
+                    <rect x="600" y="75" width="80" height="20" fill="#2196F3" stroke="#1565C0" stroke-width="1"/>
+                    <rect x="730" y="75" width="60" height="20" fill="#2196F3" stroke="#1565C0" stroke-width="1"/>
+                    
+                    <text x="140" y="70" font-family="Aptos, sans-serif" font-size="9" fill="#0D47A1" font-weight="600">5' UTR</text>
+                    <text x="790" y="70" font-family="Aptos, sans-serif" font-size="9" fill="#0D47A1" font-weight="600">3' UTR</text>
+                    
+                    <!-- Coverage tracks -->
+                    <text x="80" y="125" font-family="Aptos, sans-serif" font-size="11" fill="#666">Reads:</text>
+                    <path d="M 120 120 Q 200 105 280 115 T 450 110 T 600 115 T 800 120" 
+                          stroke="#4CAF50" stroke-width="3" fill="none"/>
+                    <path d="M 120 135 Q 200 125 280 132 T 450 128 T 600 133 T 800 135" 
+                          stroke="#66BB6A" stroke-width="3" fill="none"/>
+                    <path d="M 120 150 Q 200 140 280 147 T 450 143 T 600 148 T 800 150" 
+                          stroke="#81C784" stroke-width="3" fill="none"/>
+                    
+                    <text x="450" y="170" font-family="Aptos, sans-serif" font-size="10" fill="#1B5E20" font-weight="600" text-anchor="middle">Uniform coverage across entire transcript</text>
+                </g>
+                
+                <!-- 3' UMI-based coverage -->
+                <g id="umi-coverage">
+                    <rect x="50" y="210" width="800" height="150" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+                    <text x="450" y="235" font-family="Aptos, sans-serif" font-size="15" font-weight="700" fill="#E65100" text-anchor="middle">UMI-based (3' counting): 3'-end Coverage</text>
+                    
+                    <!-- Gene structure -->
+                    <text x="80" y="270" font-family="Aptos, sans-serif" font-size="11" fill="#666">Gene:</text>
+                    <line x1="120" y1="265" x2="800" y2="265" stroke="#666" stroke-width="2"/>
+                    <rect x="150" y="255" width="80" height="20" fill="#FF9800" stroke="#F57C00" stroke-width="1" opacity="0.3"/>
+                    <rect x="280" y="255" width="100" height="20" fill="#FF9800" stroke="#F57C00" stroke-width="1" opacity="0.3"/>
+                    <rect x="450" y="255" width="90" height="20" fill="#FF9800" stroke="#F57C00" stroke-width="1" opacity="0.3"/>
+                    <rect x="600" y="255" width="80" height="20" fill="#FF9800" stroke="#F57C00" stroke-width="1" opacity="0.3"/>
+                    <rect x="730" y="255" width="60" height="20" fill="#FF9800" stroke="#F57C00" stroke-width="1"/>
+                    
+                    <text x="140" y="250" font-family="Aptos, sans-serif" font-size="9" fill="#E65100" font-weight="600">5' UTR</text>
+                    <text x="790" y="250" font-family="Aptos, sans-serif" font-size="9" fill="#E65100" font-weight="600">3' UTR</text>
+                    
+                    <!-- Coverage tracks - only at 3' end -->
+                    <text x="80" y="305" font-family="Aptos, sans-serif" font-size="11" fill="#666">Reads:</text>
+                    
+                    <!-- Heavy coverage at 3' end only -->
+                    <rect x="680" y="295" width="120" height="8" fill="#FF5722" opacity="0.8"/>
+                    <rect x="680" y="305" width="120" height="8" fill="#FF5722" opacity="0.8"/>
+                    <rect x="680" y="315" width="120" height="8" fill="#FF5722" opacity="0.8"/>
+                    <rect x="680" y="325" width="120" height="8" fill="#FF5722" opacity="0.8"/>
+                    <rect x="680" y="335" width="120" height="8" fill="#FF5722" opacity="0.8"/>
+                    
+                    <text x="450" y="355" font-family="Aptos, sans-serif" font-size="10" fill="#E65100" font-weight="600" text-anchor="middle">Coverage limited to 3' end (~600bp from poly(A) tail)</text>
+                </g>
+                
+                <!-- Comparison labels -->
+                <g id="comparison-labels">
+                    <text x="900" y="105" font-family="Aptos, sans-serif" font-size="12" fill="#1976D2" font-weight="700" text-anchor="end">✓ Isoforms</text>
+                    <text x="900" y="125" font-family="Aptos, sans-serif" font-size="12" fill="#1976D2" font-weight="700" text-anchor="end">✓ SNPs</text>
+                    <text x="900" y="145" font-family="Aptos, sans-serif" font-size="12" fill="#1976D2" font-weight="700" text-anchor="end">✓ Splicing</text>
+                    
+                    <text x="900" y="285" font-family="Aptos, sans-serif" font-size="12" fill="#F57C00" font-weight="700" text-anchor="end">✓ UMI counts</text>
+                    <text x="900" y="305" font-family="Aptos, sans-serif" font-size="12" fill="#F57C00" font-weight="700" text-anchor="end">✓ Cost-effective</text>
+                    <text x="900" y="325" font-family="Aptos, sans-serif" font-size="12" fill="#D32F2F" font-weight="700" text-anchor="end">✗ Limited info</text>
+                </g>
+            </svg>
+        </div>
+        
+        <div class="key-point">
+            <strong>Trade-off:</strong> Smart-seq provides rich molecular information but lacks UMIs for absolute quantification. UMI-based methods provide accurate molecule counting but limited transcript information.
+        </div>
+    </div>
+
+    <!-- Slide 4: MARS-seq and CEL-seq Principles -->
+    <div class="slide">
+        <div class="subtitle">UMI-based Plate Methods: MARS-seq & CEL-seq2</div>
+        
+        <div class="visual-content">
+            <svg width="100%" height="480" viewBox="0 0 900 480" xmlns="http://www.w3.org/2000/svg">
+                <!-- MARS-seq workflow -->
+                <g id="mars-seq">
+                    <rect x="30" y="20" width="400" height="210" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+                    <text x="230" y="45" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#E65100" text-anchor="middle">MARS-seq Workflow</text>
+                    
+                    <!-- RT primer with barcode and UMI -->
+                    <rect x="60" y="70" width="80" height="20" fill="#FF9800"/>
+                    <text x="100" y="84" font-family="Aptos, sans-serif" font-size="9" fill="white" font-weight="600" text-anchor="middle">Cell BC</text>
+                    
+                    <rect x="140" y="70" width="60" height="20" fill="#FF5722"/>
+                    <text x="170" y="84" font-family="Aptos, sans-serif" font-size="9" fill="white" font-weight="600" text-anchor="middle">UMI</text>
+                    
+                    <rect x="200" y="70" width="180" height="20" fill="#FFCC80"/>
+                    <text x="290" y="84" font-family="Aptos, sans-serif" font-size="9" fill="#333" font-weight="600" text-anchor="middle">Oligo-dT (TTTTTTVN)</text>
+                    
+                    <text x="230" y="110" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">RT primer structure</text>
+                    
+                    <!-- Workflow steps -->
+                    <rect x="60" y="130" width="340" height="30" rx="5" fill="#FFE0B2"/>
+                    <text x="230" y="150" font-family="Aptos, sans-serif" font-size="11" fill="#E65100" text-anchor="middle">1. Cell lysis + RT in each well</text>
+                    
+                    <path d="M 230 160 L 230 175" stroke="#F57C00" stroke-width="2" marker-end="url(#arrow3)"/>
+                    
+                    <rect x="60" y="175" width="340" height="30" rx="5" fill="#FFCC80"/>
+                    <text x="230" y="195" font-family="Aptos, sans-serif" font-size="11" fill="#E65100" text-anchor="middle">2. Pool all wells together</text>
+                    
+                    <path d="M 230 205 L 230 220" stroke="#F57C00" stroke-width="2" marker-end="url(#arrow3)"/>
+                    
+                    <rect x="60" y="220" width="340" height="30" rx="5" fill="#FFB74D"/>
+                    <text x="230" y="240" font-family="Aptos, sans-serif" font-size="11" fill="white" text-anchor="middle">3. IVT amplification (linear)</text>
+                </g>
+                
+                <!-- CEL-seq2 workflow -->
+                <g id="cel-seq">
+                    <rect x="470" y="20" width="400" height="210" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+                    <text x="670" y="45" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#1B5E20" text-anchor="middle">CEL-seq2 Workflow</text>
+                    
+                    <!-- RT primer with barcode and UMI -->
+                    <rect x="500" y="70" width="80" height="20" fill="#4CAF50"/>
+                    <text x="540" y="84" font-family="Aptos, sans-serif" font-size="9" fill="white" font-weight="600" text-anchor="middle">Cell BC</text>
+                    
+                    <rect x="580" y="70" width="60" height="20" fill="#388E3C"/>
+                    <text x="610" y="84" font-family="Aptos, sans-serif" font-size="9" fill="white" font-weight="600" text-anchor="middle">UMI</text>
+                    
+                    <rect x="640" y="70" width="60" height="20" fill="#81C784"/>
+                    <text x="670" y="84" font-family="Aptos, sans-serif" font-size="9" fill="white" font-weight="600" text-anchor="middle">T7 prom</text>
+                    
+                    <rect x="700" y="70" width="130" height="20" fill="#C8E6C9"/>
+                    <text x="765" y="84" font-family="Aptos, sans-serif" font-size="9" fill="#333" font-weight="600" text-anchor="middle">Oligo-dT</text>
+                    
+                    <text x="670" y="110" font-family="Aptos, sans-serif" font-size="10" fill="#666" text-anchor="middle">RT primer with T7 promoter</text>
+                    
+                    <!-- Workflow steps -->
+                    <rect x="500" y="130" width="340" height="30" rx="5" fill="#C8E6C9"/>
+                    <text x="670" y="150" font-family="Aptos, sans-serif" font-size="11" fill="#1B5E20" text-anchor="middle">1. RT with barcoded primers</text>
+                    
+                    <path d="M 670 160 L 670 175" stroke="#388E3C" stroke-width="2" marker-end="url(#arrow4)"/>
+                    
+                    <rect x="500" y="175" width="340" height="30" rx="5" fill="#A5D6A7"/>
+                    <text x="670" y="195" font-family="Aptos, sans-serif" font-size="11" fill="#1B5E20" text-anchor="middle">2. Second strand synthesis</text>
+                    
+                    <path d="M 670 205 L 670 220" stroke="#388E3C" stroke-width="2" marker-end="url(#arrow4)"/>
+                    
+                    <rect x="500" y="220" width="340" height="30" rx="5" fill="#81C784"/>
+                    <text x="670" y="240" font-family="Aptos, sans-serif" font-size="11" fill="white" text-anchor="middle">3. IVT from T7 promoter</text>
+                </g>
+                
+                <!-- UMI deduplication illustration -->
+                <g id="umi-dedup">
+                    <rect x="30" y="260" width="840" height="200" rx="8" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2"/>
+                    <text x="450" y="285" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#4A148C" text-anchor="middle">UMI-based Deduplication</text>
+                    
+                    <!-- Original molecules -->
+                    <text x="80" y="315" font-family="Aptos, sans-serif" font-size="11" fill="#666" font-weight="600">Original molecules:</text>
+                    
+                    <rect x="100" y="325" width="150" height="18" fill="#E1BEE7" stroke="#7B1FA2" stroke-width="1"/>
+                    <text x="115" y="338" font-family="Aptos, sans-serif" font-size="9" fill="#4A148C" font-weight="600">BC:ACGT UMI:AAA</text>
+                    
+                    <rect x="100" y="350" width="150" height="18" fill="#CE93D8" stroke="#7B1FA2" stroke-width="1"/>
+                    <text x="115" y="363" font-family="Aptos, sans-serif" font-size="9" fill="#4A148C" font-weight="600">BC:ACGT UMI:TTT</text>
+                    
+                    <rect x="100" y="375" width="150" height="18" fill="#BA68C8" stroke="#7B1FA2" stroke-width="1"/>
+                    <text x="115" y="388" font-family="Aptos, sans-serif" font-size="9" fill="white" font-weight="600">BC:ACGT UMI:GGG</text>
+                    
+                    <text x="175" y="415" font-family="Aptos, sans-serif" font-size="10" fill="#7B1FA2" font-weight="600">3 molecules</text>
+                    
+                    <!-- After PCR -->
+                    <path d="M 270 355 L 310 355" stroke="#7B1FA2" stroke-width="3" marker-end="url(#arrow5)"/>
+                    <text x="290" y="345" font-family="Aptos, sans-serif" font-size="11" fill="#7B1FA2" font-weight="600">PCR</text>
+                    
+                    <text x="500" y="315" font-family="Aptos, sans-serif" font-size="11" fill="#666" font-weight="600">After amplification:</text>
+                    
+                    <!-- Amplified reads -->
+                    <g transform="translate(0, 0)">
+                        <rect x="330" y="325" width="150" height="12" fill="#E1BEE7" stroke="#7B1FA2" stroke-width="0.5"/>
+                        <rect x="330" y="340" width="150" height="12" fill="#E1BEE7" stroke="#7B1FA2" stroke-width="0.5"/>
+                        <rect x="330" y="355" width="150" height="12" fill="#E1BEE7" stroke="#7B1FA2" stroke-width="0.5"/>
+                        <text x="405" y="345" font-family="Aptos, sans-serif" font-size="8" fill="#4A148C">UMI:AAA (×3)</text>
+                        
+                        <rect x="490" y="325" width="150" height="12" fill="#CE93D8" stroke="#7B1FA2" stroke-width="0.5"/>
+                        <rect x="490" y="340" width="150" height="12" fill="#CE93D8" stroke="#7B1FA2" stroke-width="0.5"/>
+                        <rect x="490" y="355" width="150" height="12" fill="#CE93D8" stroke="#7B1FA2" stroke-width="0.5"/>
+                        <rect x="490" y="370" width="150" height="12" fill="#CE93D8" stroke="#7B1FA2" stroke-width="0.5"/>
+                        <rect x="490" y="385" width="150" height="12" fill="#CE93D8" stroke="#7B1FA2" stroke-width="0.5"/>
+                        <text x="565" y="358" font-family="Aptos, sans-serif" font-size="8" fill="#4A148C">UMI:TTT (×5)</text>
+                        
+                        <rect x="650" y="325" width="150" height="12" fill="#BA68C8" stroke="#7B1FA2" stroke-width="0.5"/>
+                        <rect x="650" y="340" width="150" height="12" fill="#BA68C8" stroke="#7B1FA2" stroke-width="0.5"/>
+                        <rect x="650" y="355" width="150" height="12" fill="#BA68C8" stroke="#7B1FA2" stroke-width="0.5"/>
+                        <rect x="650" y="370" width="150" height="12" fill="#BA68C8" stroke="#7B1FA2" stroke-width="0.5"/>
+                        <text x="725" y="350" font-family="Aptos, sans-serif" font-size="8" fill="white">UMI:GGG (×4)</text>
+                    </g>
+                    
+                    <text x="540" y="420" font-family="Aptos, sans-serif" font-size="10" fill="#7B1FA2" font-weight="600">12 reads collapse to 3 molecules</text>
+                    
+                    <text x="450" y="445" font-family="Aptos, sans-serif" font-size="11" fill="#4A148C" font-weight="700" text-anchor="middle">UMIs enable accurate molecular counting by removing PCR duplicates</text>
+                </g>
+                
+                <defs>
+                    <marker id="arrow3" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#F57C00"/>
+                    </marker>
+                    <marker id="arrow4" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#388E3C"/>
+                    </marker>
+                    <marker id="arrow5" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto" markerUnits="strokeWidth">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#7B1FA2"/>
+                    </marker>
+                </defs>
+            </svg>
+        </div>
+        
+        <div class="principle-box">
+            <div class="principle-title">UMI Principle</div>
+            <div class="principle-text">Each original mRNA molecule is tagged with a unique random barcode (UMI) during reverse transcription. After PCR amplification, all reads with the same UMI are collapsed to count as a single molecule, eliminating amplification bias and enabling accurate quantification.</div>
+        </div>
+    </div>
+
+    <!-- Slide 5: Detailed Comparison Table -->
+    <div class="slide">
+        <div class="subtitle">Detailed Method Comparison</div>
+        
+        <table class="comparison-table">
+            <thead>
+                <tr>
+                    <th>Feature</th>
+                    <th>Smart-seq2/3</th>
+                    <th>MARS-seq</th>
+                    <th>CEL-seq2</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td><strong>Coverage</strong></td>
+                    <td>Full-length transcripts</td>
+                    <td>3' end only (~600bp)</td>
+                    <td>3' end only</td>
+                </tr>
+                <tr>
+                    <td><strong>UMI</strong></td>
+                    <td>❌ No</td>
+                    <td>✅ Yes (8bp)</td>
+                    <td>✅ Yes (6bp)</td>
+                </tr>
+                <tr>
+                    <td><strong>Sensitivity</strong></td>
+                    <td>Highest (~10,000 genes/cell)</td>
+                    <td>Moderate (~5,000 genes/cell)</td>
+                    <td>Moderate (~5,000 genes/cell)</td>
+                </tr>
+                <tr>
+                    <td><strong>Amplification</strong></td>
+                    <td>PCR (exponential)</td>
+                    <td>IVT (linear) then PCR</td>
+                    <td>IVT (linear)</td>
+                </tr>
+                <tr>
+                    <td><strong>Bias</strong></td>
+                    <td>PCR amplification bias, 3' bias with degraded RNA</td>
+                    <td>Strong 3' bias</td>
+                    <td>Reduced bias (linear amp)</td>
+                </tr>
+                <tr>
+                    <td><strong>Cost/cell</strong></td>
+                    <td>High ($5-10)</td>
+                    <td>Moderate ($1-3)</td>
+                    <td>Moderate ($1-3)</td>
+                </tr>
+                <tr>
+                    <td><strong>Throughput</strong></td>
+                    <td>96-384 cells/batch</td>
+                    <td>384-1536 cells/batch</td>
+                    <td>96-384 cells/batch</td>
+                </tr>
+                <tr>
+                    <td><strong>Isoform detection</strong></td>
+                    <td>✅ Excellent</td>
+                    <td>❌ Limited</td>
+                    <td>❌ Limited</td>
+                </tr>
+                <tr>
+                    <td><strong>SNV/mutation</strong></td>
+                    <td>✅ Yes</td>
+                    <td>❌ No</td>
+                    <td>❌ No</td>
+                </tr>
+                <tr>
+                    <td><strong>RNA velocity</strong></td>
+                    <td>✅ Possible (intronic reads)</td>
+                    <td>✅ Possible</td>
+                    <td>✅ Possible</td>
+                </tr>
+                <tr>
+                    <td><strong>Automation</strong></td>
+                    <td>Moderate</td>
+                    <td>High (robotic)</td>
+                    <td>Moderate</td>
+                </tr>
+                <tr>
+                    <td><strong>Best use case</strong></td>
+                    <td>Deep characterization, rare cells, isoform analysis</td>
+                    <td>Large-scale studies, cost-sensitive projects</td>
+                    <td>Balanced approach, reduced bias requirements</td>
+                </tr>
+            </tbody>
+        </table>
+        
+        <div class="key-point">
+            <strong>Selection Guide:</strong> Choose Smart-seq for detailed molecular characterization and isoform analysis. Choose MARS-seq or CEL-seq2 for larger studies where accurate molecule counting is more important than full-length coverage.
+        </div>
+    </div>
+
+    <!-- Slide 6: Applications and Considerations -->
+    <div class="slide">
+        <div class="subtitle">Applications and Technical Considerations</div>
+        
+        <div class="section-title">When to Use Plate-based Methods</div>
+        <ul>
+            <li><strong>Rare cell populations:</strong> When working with limited cell numbers or precious samples (e.g., 50-500 cells)</li>
+            <li><strong>Quality control needs:</strong> When microscopic inspection and selection of individual cells is critical</li>
+            <li><strong>Alternative splicing studies:</strong> Full-length coverage enables isoform detection and splice variant analysis</li>
+            <li><strong>Genetic variation analysis:</strong> SNP calling and allele-specific expression require full-length reads</li>
+            <li><strong>Deep sequencing requirements:</strong> When high read depth per cell is needed (e.g., 1-10M reads/cell)</li>
+        </ul>
+        
+        <div class="section-title">Technical Considerations</div>
+        
+        <div class="principle-box">
+            <div class="principle-title">Cell Viability and Quality</div>
+            <div class="principle-text">• FACS sorting can stress cells; minimize sort time and use gentle settings</div>
+            <div class="principle-text">• Cell viability should be >90% for optimal results</div>
+            <div class="principle-text">• Sort directly into lysis buffer to preserve RNA integrity</div>
+        </div>
+        
+        <div class="principle-box">
+            <div class="principle-title">RNA Quality Requirements</div>
+            <div class="principle-text">• Smart-seq2: Very sensitive to RNA degradation; RIN >7 recommended</div>
+            <div class="principle-text">• UMI methods: More tolerant of degradation due to 3'-end focus</div>
+            <div class="principle-text">• Minimize freeze-thaw cycles; work quickly after cell sorting</div>
+        </div>
+        
+        <div class="principle-box">
+            <div class="principle-title">Batch Effects</div>
+            <div class="principle-text">• Plate-based methods process cells in batches (96-384 wells)</div>
+            <div class="principle-text">• Include biological replicates across multiple plates</div>
+            <div class="principle-text">• Use spike-in controls (ERCC) to monitor technical variation</div>
+            <div class="principle-text">• Computational batch correction may be necessary</div>
+        </div>
+        
+        <div class="key-point">
+            <strong>Cost-Throughput Trade-off:</strong> Plate-based methods cost more per cell but provide deeper information. For studies requiring >10,000 cells, consider droplet-based methods. For <1,000 cells with rich molecular detail needs, plate-based methods are optimal.
+        </div>
+    </div>
+
+    <!-- Slide 7: Emerging Technologies -->
+    <div class="slide">
+        <div class="subtitle">Recent Advances and Emerging Technologies</div>
+        
+        <div class="section-title">Smart-seq3</div>
+        <div class="visual-content">
+            <svg width="100%" height="180" viewBox="0 0 900 180" xmlns="http://www.w3.org/2000/svg">
+                <rect x="50" y="20" width="800" height="140" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                <text x="450" y="50" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#0D47A1" text-anchor="middle">Smart-seq3 Improvements</text>
+                
+                <!-- Feature boxes -->
+                <rect x="80" y="70" width="230" height="70" rx="6" fill="white" stroke="#2196F3" stroke-width="2"/>
+                <text x="195" y="92" font-family="Aptos, sans-serif" font-size="12" font-weight="700" fill="#0D47A1" text-anchor="middle">UMI Integration</text>
+                <text x="195" y="110" font-family="Aptos, sans-serif" font-size="10" fill="#333" text-anchor="middle">5' UMIs added to primers</text>
+                <text x="195" y="126" font-family="Aptos, sans-serif" font-size="10" fill="#4CAF50" text-anchor="middle">→ Accurate quantification</text>
+                
+                <rect x="335" y="70" width="230" height="70" rx="6" fill="white" stroke="#2196F3" stroke-width="2"/>
+                <text x="450" y="92" font-family="Aptos, sans-serif" font-size="12" font-weight="700" fill="#0D47A1" text-anchor="middle">Increased Sensitivity</text>
+                <text x="450" y="110" font-family="Aptos, sans-serif" font-size="10" fill="#333" text-anchor="middle">Improved RT efficiency</text>
+                <text x="450" y="126" font-family="Aptos, sans-serif" font-size="10" fill="#4CAF50" text-anchor="middle">→ 10-20% more genes</text>
+                
+                <rect x="590" y="70" width="230" height="70" rx="6" fill="white" stroke="#2196F3" stroke-width="2"/>
+                <text x="705" y="92" font-family="Aptos, sans-serif" font-size="12" font-weight="700" fill="#0D47A1" text-anchor="middle">Reduced Cost</text>
+                <text x="705" y="110" font-family="Aptos, sans-serif" font-size="10" fill="#333" text-anchor="middle">Optimized reagents</text>
+                <text x="705" y="126" font-family="Aptos, sans-serif" font-size="10" fill="#4CAF50" text-anchor="middle">→ ~50% cost reduction</text>
+            </svg>
+        </div>
+        
+        <div class="section-title">Multimodal Plate-based Methods</div>
+        <ul>
+            <li><strong>scNMT-seq:</strong> Simultaneous measurement of RNA, DNA methylation, and chromatin accessibility in single cells</li>
+            <li><strong>SMART-seqTOTAL:</strong> Captures both poly(A) and non-poly(A) RNAs, including enhancer RNAs and lncRNAs</li>
+            <li><strong>scGET-seq:</strong> Combined genomic DNA and transcriptome sequencing for clonal tracking</li>
+            <li><strong>PLATE-seq:</strong> High-throughput plate-based method with increased automation and reduced costs</li>
+        </ul>
+        
+        <div class="section-title">Future Directions</div>
+        <div class="principle-box">
+            <div class="principle-title">Integration with Spatial Information</div>
+            <div class="principle-text">Combining FACS-based spatial sorting with plate-based deep sequencing to link spatial context with detailed molecular profiles</div>
+        </div>
+        
+        <div class="principle-box">
+            <div class="principle-title">Long-read Sequencing</div>
+            <div class="principle-text">Adaptation of plate-based methods for Oxford Nanopore and PacBio platforms, enabling full-length isoform characterization without fragmentation</div>
+        </div>
+        
+        <div class="principle-box">
+            <div class="principle-title">Enhanced Automation</div>
+            <div class="principle-text">Development of fully automated liquid handling systems to increase throughput while maintaining quality, bridging the gap with droplet-based methods</div>
+        </div>
+        
+        <div class="note-box">
+            <div class="note-text">💡 The field is moving toward methods that combine the molecular depth of plate-based approaches with the throughput advantages of droplet-based systems</div>
+        </div>
+    </div>
+
 </body>
 </html>

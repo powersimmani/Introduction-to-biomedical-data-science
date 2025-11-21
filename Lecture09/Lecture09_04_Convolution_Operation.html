@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Convolution Operation</title>
+    <title>Convolution Operation - Enhanced</title>
     <style>
         * {
             margin: 0;
@@ -100,6 +100,7 @@
             border-radius: 8px;
             padding: 15px;
             text-align: center;
+            margin-bottom: 40px;
         }
         
         .highlight-text {
@@ -112,6 +113,126 @@
             color: #1E64C8;
             font-weight: 700;
             font-size: 17px;
+        }
+        
+        .detailed-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 3px solid #1E64C8;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .detail-card {
+            background: #f8fbff;
+            border: 2.5px solid #1E64C8;
+            border-radius: 12px;
+            padding: 25px;
+            margin-bottom: 35px;
+        }
+        
+        .detail-header {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .detail-number {
+            width: 35px;
+            height: 35px;
+            background: #1E64C8;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .detail-content {
+            display: flex;
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .detail-visual {
+            flex: 1;
+            background: white;
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            padding: 15px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .detail-text {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .detail-description {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 15px;
+        }
+        
+        .detail-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .detail-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 14px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .detail-list li:before {
+            content: "▸";
+            position: absolute;
+            left: 5px;
+            color: #1E64C8;
+            font-weight: 700;
+        }
+        
+        .formula-box {
+            background: white;
+            border: 2px solid #1E64C8;
+            border-radius: 6px;
+            padding: 12px;
+            margin-top: 12px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            text-align: center;
+            color: #1E64C8;
+            font-weight: 600;
+        }
+        
+        .example-label {
+            font-size: 13px;
+            color: #666;
+            font-weight: 600;
+            margin-top: 8px;
+            text-align: center;
         }
     </style>
 </head>
@@ -219,6 +340,540 @@
             <span class="highlight-text">Special Case: </span>
             <span class="highlight-emphasis">1×1 Convolutions</span>
             <span class="highlight-text"> - Channel-wise operations for dimensionality reduction and cross-channel learning</span>
+        </div>
+
+        <!-- Detailed Sections -->
+        <div class="detailed-section">
+            <div class="section-title">Detailed Explanation of Convolution Concepts</div>
+            
+            <!-- Detail 1: Kernel/Filter -->
+            <div class="detail-card">
+                <div class="detail-header">
+                    <div class="detail-number">1</div>
+                    <span>Kernel/Filter Concepts</span>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-visual">
+                        <svg width="380" height="280" viewBox="0 0 380 280">
+                            <!-- 3x3 Kernel Example -->
+                            <text x="80" y="20" font-size="14" fill="#1E64C8" font-weight="600" text-anchor="middle">3×3 Kernel Example</text>
+                            
+                            <!-- Input patch -->
+                            <text x="30" y="50" font-size="11" fill="#666">Input Patch:</text>
+                            <g transform="translate(20, 60)">
+                                <rect x="0" y="0" width="40" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <rect x="40" y="0" width="40" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <rect x="80" y="0" width="40" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <rect x="0" y="40" width="40" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <rect x="40" y="40" width="40" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <rect x="80" y="40" width="40" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <rect x="0" y="80" width="40" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <rect x="40" y="80" width="40" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <rect x="80" y="80" width="40" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                
+                                <!-- Values -->
+                                <text x="20" y="25" font-size="11" fill="#333" text-anchor="middle">1</text>
+                                <text x="60" y="25" font-size="11" fill="#333" text-anchor="middle">2</text>
+                                <text x="100" y="25" font-size="11" fill="#333" text-anchor="middle">3</text>
+                                <text x="20" y="65" font-size="11" fill="#333" text-anchor="middle">4</text>
+                                <text x="60" y="65" font-size="11" fill="#333" text-anchor="middle">5</text>
+                                <text x="100" y="65" font-size="11" fill="#333" text-anchor="middle">6</text>
+                                <text x="20" y="105" font-size="11" fill="#333" text-anchor="middle">7</text>
+                                <text x="60" y="105" font-size="11" fill="#333" text-anchor="middle">8</text>
+                                <text x="100" y="105" font-size="11" fill="#333" text-anchor="middle">9</text>
+                            </g>
+                            
+                            <!-- Multiply symbol -->
+                            <text x="145" y="115" font-size="16" fill="#1E64C8" font-weight="700">×</text>
+                            
+                            <!-- Kernel -->
+                            <text x="200" y="50" font-size="11" fill="#666">Kernel:</text>
+                            <g transform="translate(170, 60)">
+                                <rect x="0" y="0" width="40" height="40" fill="#1E64C8" stroke="#1E64C8" stroke-width="1.5" opacity="0.8"/>
+                                <rect x="40" y="0" width="40" height="40" fill="#1E64C8" stroke="#1E64C8" stroke-width="1.5" opacity="0.8"/>
+                                <rect x="80" y="0" width="40" height="40" fill="#1E64C8" stroke="#1E64C8" stroke-width="1.5" opacity="0.8"/>
+                                <rect x="0" y="40" width="40" height="40" fill="#1E64C8" stroke="#1E64C8" stroke-width="1.5" opacity="0.8"/>
+                                <rect x="40" y="40" width="40" height="40" fill="#1E64C8" stroke="#1E64C8" stroke-width="1.5" opacity="0.8"/>
+                                <rect x="80" y="40" width="40" height="40" fill="#1E64C8" stroke="#1E64C8" stroke-width="1.5" opacity="0.8"/>
+                                <rect x="0" y="80" width="40" height="40" fill="#1E64C8" stroke="#1E64C8" stroke-width="1.5" opacity="0.8"/>
+                                <rect x="40" y="80" width="40" height="40" fill="#1E64C8" stroke="#1E64C8" stroke-width="1.5" opacity="0.8"/>
+                                <rect x="80" y="80" width="40" height="40" fill="#1E64C8" stroke="#1E64C8" stroke-width="1.5" opacity="0.8"/>
+                                
+                                <!-- Values -->
+                                <text x="20" y="25" font-size="11" fill="white" text-anchor="middle" font-weight="600">-1</text>
+                                <text x="60" y="25" font-size="11" fill="white" text-anchor="middle" font-weight="600">0</text>
+                                <text x="100" y="25" font-size="11" fill="white" text-anchor="middle" font-weight="600">1</text>
+                                <text x="20" y="65" font-size="11" fill="white" text-anchor="middle" font-weight="600">-2</text>
+                                <text x="60" y="65" font-size="11" fill="white" text-anchor="middle" font-weight="600">0</text>
+                                <text x="100" y="65" font-size="11" fill="white" text-anchor="middle" font-weight="600">2</text>
+                                <text x="20" y="105" font-size="11" fill="white" text-anchor="middle" font-weight="600">-1</text>
+                                <text x="60" y="105" font-size="11" fill="white" text-anchor="middle" font-weight="600">0</text>
+                                <text x="100" y="105" font-size="11" fill="white" text-anchor="middle" font-weight="600">1</text>
+                            </g>
+                            
+                            <!-- Arrow -->
+                            <path d="M 190 170 L 190 190" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                            <path d="M 190 190 L 185 183 L 195 183 Z" fill="#1E64C8"/>
+                            
+                            <!-- Result -->
+                            <text x="190" y="210" font-size="11" fill="#666" text-anchor="middle">Output Value:</text>
+                            <rect x="140" y="215" width="100" height="45" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="190" y="245" font-size="16" fill="#1E64C8" font-weight="700" text-anchor="middle">Sum = 24</text>
+                            
+                            <!-- Common Kernel Types -->
+                            <text x="30" y="180" font-size="12" fill="#1E64C8" font-weight="600">Common Types:</text>
+                            
+                            <!-- Edge Detection -->
+                            <g transform="translate(20, 190)">
+                                <text x="0" y="0" font-size="10" fill="#666">Edge Detection</text>
+                                <rect x="0" y="5" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <rect x="20" y="5" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <rect x="40" y="5" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <text x="10" y="19" font-size="8" fill="#1E64C8" text-anchor="middle">-1</text>
+                                <text x="30" y="19" font-size="8" fill="#1E64C8" text-anchor="middle">-1</text>
+                                <text x="50" y="19" font-size="8" fill="#1E64C8" text-anchor="middle">-1</text>
+                                
+                                <rect x="0" y="25" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <rect x="20" y="25" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <rect x="40" y="25" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <text x="10" y="39" font-size="8" fill="#1E64C8" text-anchor="middle">-1</text>
+                                <text x="30" y="39" font-size="8" fill="#1E64C8" text-anchor="middle" font-weight="700">8</text>
+                                <text x="50" y="39" font-size="8" fill="#1E64C8" text-anchor="middle">-1</text>
+                                
+                                <rect x="0" y="45" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <rect x="20" y="45" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <rect x="40" y="45" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <text x="10" y="59" font-size="8" fill="#1E64C8" text-anchor="middle">-1</text>
+                                <text x="30" y="59" font-size="8" fill="#1E64C8" text-anchor="middle">-1</text>
+                                <text x="50" y="59" font-size="8" fill="#1E64C8" text-anchor="middle">-1</text>
+                            </g>
+                            
+                            <!-- Blur -->
+                            <g transform="translate(95, 190)">
+                                <text x="0" y="0" font-size="10" fill="#666">Blur (Average)</text>
+                                <rect x="0" y="5" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <rect x="20" y="5" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <rect x="40" y="5" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <text x="10" y="19" font-size="8" fill="#1E64C8" text-anchor="middle">1/9</text>
+                                <text x="30" y="19" font-size="8" fill="#1E64C8" text-anchor="middle">1/9</text>
+                                <text x="50" y="19" font-size="8" fill="#1E64C8" text-anchor="middle">1/9</text>
+                                
+                                <rect x="0" y="25" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <rect x="20" y="25" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <rect x="40" y="25" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <text x="10" y="39" font-size="8" fill="#1E64C8" text-anchor="middle">1/9</text>
+                                <text x="30" y="39" font-size="8" fill="#1E64C8" text-anchor="middle">1/9</text>
+                                <text x="50" y="39" font-size="8" fill="#1E64C8" text-anchor="middle">1/9</text>
+                                
+                                <rect x="0" y="45" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <rect x="20" y="45" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <rect x="40" y="45" width="20" height="20" fill="none" stroke="#1E64C8" stroke-width="1"/>
+                                <text x="10" y="59" font-size="8" fill="#1E64C8" text-anchor="middle">1/9</text>
+                                <text x="30" y="59" font-size="8" fill="#1E64C8" text-anchor="middle">1/9</text>
+                                <text x="50" y="59" font-size="8" fill="#1E64C8" text-anchor="middle">1/9</text>
+                            </g>
+                        </svg>
+                        <div class="example-label">Element-wise multiplication and summation</div>
+                    </div>
+                    <div class="detail-text">
+                        <div class="detail-description">
+                            Kernels (also called filters) are small matrices of learnable weights that slide across the input image to extract features. The convolution operation performs element-wise multiplication between the kernel and the input patch, then sums all values to produce a single output value.
+                        </div>
+                        <ul class="detail-list">
+                            <li><strong>3×3 kernels:</strong> Most commonly used in modern architectures (VGG, ResNet). Efficient and can capture local patterns while being computationally efficient</li>
+                            <li><strong>5×5 kernels:</strong> Used in earlier networks (AlexNet). Capture wider spatial context but require more computation</li>
+                            <li><strong>7×7 kernels:</strong> Typically used only in the first layer for large input images to quickly reduce spatial dimensions</li>
+                            <li><strong>Learnable weights:</strong> Kernel values are learned through backpropagation during training to detect specific features like edges, textures, or complex patterns</li>
+                            <li><strong>Multiple channels:</strong> For RGB images, kernels have depth equal to input channels (e.g., 3×3×3 for RGB)</li>
+                        </ul>
+                        <div class="formula-box">
+                            Output = Σ(Input[i,j] × Kernel[i,j]) + bias
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail 2: Stride and Padding -->
+            <div class="detail-card">
+                <div class="detail-header">
+                    <div class="detail-number">2</div>
+                    <span>Stride and Padding</span>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-visual">
+                        <svg width="380" height="320" viewBox="0 0 380 320">
+                            <!-- Stride Example -->
+                            <text x="190" y="20" font-size="14" fill="#1E64C8" font-weight="600" text-anchor="middle">Stride Comparison</text>
+                            
+                            <!-- Stride 1 -->
+                            <text x="90" y="45" font-size="12" fill="#666" text-anchor="middle">Stride = 1</text>
+                            <g transform="translate(30, 50)">
+                                <!-- Input grid -->
+                                <rect x="0" y="0" width="120" height="120" fill="none" stroke="#1E64C8" stroke-width="1.5"/>
+                                <line x1="30" y1="0" x2="30" y2="120" stroke="#1E64C8" stroke-width="0.5"/>
+                                <line x1="60" y1="0" x2="60" y2="120" stroke="#1E64C8" stroke-width="0.5"/>
+                                <line x1="90" y1="0" x2="90" y2="120" stroke="#1E64C8" stroke-width="0.5"/>
+                                <line x1="0" y1="30" x2="120" y2="30" stroke="#1E64C8" stroke-width="0.5"/>
+                                <line x1="0" y1="60" x2="120" y2="60" stroke="#1E64C8" stroke-width="0.5"/>
+                                <line x1="0" y1="90" x2="120" y2="90" stroke="#1E64C8" stroke-width="0.5"/>
+                                
+                                <!-- Kernel positions -->
+                                <rect x="0" y="0" width="60" height="60" fill="#1E64C8" opacity="0.2" stroke="#1E64C8" stroke-width="2"/>
+                                <rect x="30" y="0" width="60" height="60" fill="#1E64C8" opacity="0.15" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="3,3"/>
+                                <rect x="0" y="30" width="60" height="60" fill="#1E64C8" opacity="0.15" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="3,3"/>
+                                
+                                <!-- Arrow showing movement -->
+                                <path d="M 70 30 L 90 30" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead2)"/>
+                                <text x="80" y="25" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">1 pixel</text>
+                            </g>
+                            
+                            <!-- Stride 2 -->
+                            <text x="280" y="45" font-size="12" fill="#666" text-anchor="middle">Stride = 2</text>
+                            <g transform="translate(220, 50)">
+                                <!-- Input grid -->
+                                <rect x="0" y="0" width="120" height="120" fill="none" stroke="#1E64C8" stroke-width="1.5"/>
+                                <line x1="30" y1="0" x2="30" y2="120" stroke="#1E64C8" stroke-width="0.5"/>
+                                <line x1="60" y1="0" x2="60" y2="120" stroke="#1E64C8" stroke-width="0.5"/>
+                                <line x1="90" y1="0" x2="90" y2="120" stroke="#1E64C8" stroke-width="0.5"/>
+                                <line x1="0" y1="30" x2="120" y2="30" stroke="#1E64C8" stroke-width="0.5"/>
+                                <line x1="0" y1="60" x2="120" y2="60" stroke="#1E64C8" stroke-width="0.5"/>
+                                <line x1="0" y1="90" x2="120" y2="90" stroke="#1E64C8" stroke-width="0.5"/>
+                                
+                                <!-- Kernel positions -->
+                                <rect x="0" y="0" width="60" height="60" fill="#1E64C8" opacity="0.2" stroke="#1E64C8" stroke-width="2"/>
+                                <rect x="60" y="0" width="60" height="60" fill="#1E64C8" opacity="0.15" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="3,3"/>
+                                
+                                <!-- Arrow showing movement -->
+                                <path d="M 70 30 L 120 30" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead2)"/>
+                                <text x="95" y="25" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">2 pixels</text>
+                            </g>
+                            
+                            <!-- Padding Example -->
+                            <text x="190" y="200" font-size="14" fill="#1E64C8" font-weight="600" text-anchor="middle">Padding Example</text>
+                            
+                            <!-- No Padding -->
+                            <text x="90" y="225" font-size="12" fill="#666" text-anchor="middle">No Padding</text>
+                            <g transform="translate(45, 230)">
+                                <rect x="0" y="0" width="90" height="90" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <text x="45" y="50" font-size="11" fill="#333" text-anchor="middle" font-weight="600">5×5 Input</text>
+                                <text x="45" y="110" font-size="10" fill="#666" text-anchor="middle">→ 3×3 Output</text>
+                            </g>
+                            
+                            <!-- Same Padding -->
+                            <text x="280" y="225" font-size="12" fill="#666" text-anchor="middle">Same Padding (p=1)</text>
+                            <g transform="translate(220, 230)">
+                                <!-- Padding border -->
+                                <rect x="-18" y="-18" width="126" height="126" fill="none" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="4,4"/>
+                                <rect x="-18" y="-18" width="126" height="126" fill="#1E64C8" opacity="0.05"/>
+                                
+                                <!-- Original input -->
+                                <rect x="0" y="0" width="90" height="90" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                
+                                <!-- Labels -->
+                                <text x="45" y="50" font-size="11" fill="#333" text-anchor="middle" font-weight="600">5×5 Input</text>
+                                <text x="45" y="110" font-size="10" fill="#666" text-anchor="middle">→ 5×5 Output</text>
+                                <text x="-12" y="-8" font-size="9" fill="#1E64C8" font-weight="600">padding</text>
+                            </g>
+                            
+                            <defs>
+                                <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                                </marker>
+                            </defs>
+                        </svg>
+                        <div class="example-label">Impact of stride and padding on output size</div>
+                    </div>
+                    <div class="detail-text">
+                        <div class="detail-description">
+                            Stride and padding are hyperparameters that control how the kernel moves across the input and how spatial dimensions are preserved or reduced.
+                        </div>
+                        <ul class="detail-list">
+                            <li><strong>Stride:</strong> The number of pixels the kernel moves at each step. Stride=1 produces dense feature maps with maximum spatial resolution. Stride=2 reduces spatial dimensions by half, acting as downsampling</li>
+                            <li><strong>Valid padding (p=0):</strong> No padding added. Output size decreases based on kernel size. Loses information at borders</li>
+                            <li><strong>Same padding:</strong> Adds zeros around the border to maintain input spatial dimensions. Commonly used to preserve resolution throughout the network</li>
+                            <li><strong>Computational impact:</strong> Larger stride reduces computation and memory requirements but may lose fine-grained spatial information</li>
+                            <li><strong>Trade-offs:</strong> Smaller stride = more detail but higher cost; Larger stride = faster but coarser features</li>
+                        </ul>
+                        <div class="formula-box">
+                            Output Size = ⌊(Input - Kernel + 2×Padding) / Stride⌋ + 1
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail 3: Feature Map Generation -->
+            <div class="detail-card">
+                <div class="detail-header">
+                    <div class="detail-number">3</div>
+                    <span>Feature Map Generation</span>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-visual">
+                        <svg width="380" height="300" viewBox="0 0 380 300">
+                            <text x="190" y="20" font-size="14" fill="#1E64C8" font-weight="600" text-anchor="middle">Multi-Filter Convolution</text>
+                            
+                            <!-- Input -->
+                            <g transform="translate(20, 40)">
+                                <text x="40" y="-5" font-size="11" fill="#666" text-anchor="middle">Input</text>
+                                <rect x="0" y="0" width="80" height="80" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                                <text x="40" y="45" font-size="10" fill="#333" text-anchor="middle" font-weight="600">H×W×3</text>
+                                <text x="40" y="95" font-size="9" fill="#666" text-anchor="middle">(RGB Image)</text>
+                            </g>
+                            
+                            <!-- Filters -->
+                            <g transform="translate(140, 40)">
+                                <text x="60" y="-5" font-size="11" fill="#666" text-anchor="middle">Filters</text>
+                                
+                                <!-- Filter 1 -->
+                                <rect x="0" y="0" width="35" height="35" fill="#FF6B6B" stroke="#1E64C8" stroke-width="1.5" opacity="0.8"/>
+                                <text x="17.5" y="22" font-size="9" fill="white" font-weight="600" text-anchor="middle">F1</text>
+                                <text x="17.5" y="48" font-size="8" fill="#666" text-anchor="middle">Edge</text>
+                                
+                                <!-- Filter 2 -->
+                                <rect x="45" y="0" width="35" height="35" fill="#4ECDC4" stroke="#1E64C8" stroke-width="1.5" opacity="0.8"/>
+                                <text x="62.5" y="22" font-size="9" fill="white" font-weight="600" text-anchor="middle">F2</text>
+                                <text x="62.5" y="48" font-size="8" fill="#666" text-anchor="middle">Corner</text>
+                                
+                                <!-- Filter 3 -->
+                                <rect x="90" y="0" width="35" height="35" fill="#95E1D3" stroke="#1E64C8" stroke-width="1.5" opacity="0.8"/>
+                                <text x="107.5" y="22" font-size="9" fill="white" font-weight="600" text-anchor="middle">F3</text>
+                                <text x="107.5" y="48" font-size="8" fill="#666" text-anchor="middle">Texture</text>
+                                
+                                <!-- More filters indicator -->
+                                <text x="62.5" y="70" font-size="10" fill="#666" text-anchor="middle">...</text>
+                                <text x="62.5" y="85" font-size="9" fill="#666" text-anchor="middle">(64 filters)</text>
+                            </g>
+                            
+                            <!-- Arrow -->
+                            <path d="M 110 80 L 130 80" stroke="#1E64C8" stroke-width="2"/>
+                            <path d="M 270 80 L 290 80" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead3)"/>
+                            
+                            <!-- Output Feature Maps -->
+                            <g transform="translate(295, 30)">
+                                <text x="40" y="-5" font-size="11" fill="#666" text-anchor="middle">Output</text>
+                                
+                                <!-- Feature map stack visualization -->
+                                <rect x="15" y="10" width="50" height="60" fill="#FFB6B6" stroke="#1E64C8" stroke-width="1.5" opacity="0.6"/>
+                                <text x="40" y="45" font-size="8" fill="#333" text-anchor="middle" font-weight="600">Map 1</text>
+                                
+                                <rect x="10" y="15" width="50" height="60" fill="#A8E6CF" stroke="#1E64C8" stroke-width="1.5" opacity="0.6"/>
+                                <text x="35" y="50" font-size="8" fill="#333" text-anchor="middle" font-weight="600">Map 2</text>
+                                
+                                <rect x="5" y="20" width="50" height="60" fill="#C7CEEA" stroke="#1E64C8" stroke-width="1.5" opacity="0.6"/>
+                                <text x="30" y="55" font-size="8" fill="#333" text-anchor="middle" font-weight="600">Map 3</text>
+                                
+                                <rect x="0" y="25" width="50" height="60" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2"/>
+                                <text x="25" y="60" font-size="8" fill="#333" text-anchor="middle" font-weight="600">Map N</text>
+                                
+                                <text x="25" y="100" font-size="9" fill="#666" text-anchor="middle">H'×W'×64</text>
+                            </g>
+                            
+                            <!-- Feature Hierarchy -->
+                            <g transform="translate(20, 180)">
+                                <text x="0" y="0" font-size="13" fill="#1E64C8" font-weight="600">Feature Hierarchy</text>
+                                
+                                <!-- Low-level features -->
+                                <rect x="0" y="10" width="100" height="35" fill="#FFE5E5" stroke="#FF6B6B" stroke-width="2" rx="5"/>
+                                <text x="50" y="23" font-size="10" fill="#333" text-anchor="middle" font-weight="600">Layer 1</text>
+                                <text x="50" y="35" font-size="9" fill="#666" text-anchor="middle">Edges, Colors</text>
+                                
+                                <!-- Mid-level features -->
+                                <rect x="130" y="10" width="100" height="35" fill="#E5F5F5" stroke="#4ECDC4" stroke-width="2" rx="5"/>
+                                <text x="180" y="23" font-size="10" fill="#333" text-anchor="middle" font-weight="600">Layer 2-3</text>
+                                <text x="180" y="35" font-size="9" fill="#666" text-anchor="middle">Textures, Shapes</text>
+                                
+                                <!-- High-level features -->
+                                <rect x="260" y="10" width="100" height="35" fill="#E5F5EC" stroke="#95E1D3" stroke-width="2" rx="5"/>
+                                <text x="310" y="23" font-size="10" fill="#333" text-anchor="middle" font-weight="600">Layer 4+</text>
+                                <text x="310" y="35" font-size="9" fill="#666" text-anchor="middle">Objects, Faces</text>
+                                
+                                <!-- Arrows between layers -->
+                                <path d="M 105 27 L 125 27" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead3)"/>
+                                <path d="M 235 27 L 255 27" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead3)"/>
+                            </g>
+                            
+                            <!-- Example visualization -->
+                            <g transform="translate(20, 240)">
+                                <text x="0" y="0" font-size="11" fill="#666" font-weight="600">Example: Face Detection</text>
+                                <text x="0" y="15" font-size="9" fill="#333">Early layers: detect edges of nose, eyes, mouth</text>
+                                <text x="0" y="28" font-size="9" fill="#333">Middle layers: combine into facial features</text>
+                                <text x="0" y="41" font-size="9" fill="#333">Deep layers: recognize complete face patterns</text>
+                            </g>
+                            
+                            <defs>
+                                <marker id="arrowhead3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                                </marker>
+                            </defs>
+                        </svg>
+                        <div class="example-label">Multiple filters create feature map stack</div>
+                    </div>
+                    <div class="detail-text">
+                        <div class="detail-description">
+                            Feature maps are the outputs produced by applying filters to the input. Each filter detects specific patterns and creates one feature map. Multiple filters run in parallel to extract diverse features.
+                        </div>
+                        <ul class="detail-list">
+                            <li><strong>One filter → One feature map:</strong> Each convolutional filter produces a single 2D feature map (spatial dimensions H'×W')</li>
+                            <li><strong>Multiple filters:</strong> Using N filters creates N feature maps, stacked to form a 3D output tensor (H'×W'×N)</li>
+                            <li><strong>Feature hierarchy:</strong> Early layers detect simple features (edges, colors). Deeper layers combine these into complex patterns (textures, objects)</li>
+                            <li><strong>Activation patterns:</strong> High values in a feature map indicate the presence of the pattern that filter is trained to detect</li>
+                            <li><strong>Depth increase:</strong> Networks typically increase channel depth while reducing spatial dimensions (e.g., 224×224×3 → 112×112×64 → 56×56×128)</li>
+                            <li><strong>Spatial preservation:</strong> Feature maps maintain spatial relationships from input, enabling localization tasks</li>
+                        </ul>
+                        <div class="formula-box">
+                            Input (H×W×C_in) * Filters (K×K×C_in×C_out) → Output (H'×W'×C_out)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Detail 4: Receptive Fields -->
+            <div class="detail-card">
+                <div class="detail-header">
+                    <div class="detail-number">4</div>
+                    <span>Receptive Fields</span>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-visual">
+                        <svg width="380" height="320" viewBox="0 0 380 320">
+                            <text x="190" y="20" font-size="14" fill="#1E64C8" font-weight="600" text-anchor="middle">Receptive Field Growth</text>
+                            
+                            <!-- Layer 1 -->
+                            <g transform="translate(20, 40)">
+                                <text x="50" y="-5" font-size="11" fill="#666" text-anchor="middle" font-weight="600">Input Image</text>
+                                <rect x="0" y="0" width="100" height="100" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                                
+                                <!-- Grid -->
+                                <line x1="20" y1="0" x2="20" y2="100" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                <line x1="40" y1="0" x2="40" y2="100" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                <line x1="60" y1="0" x2="60" y2="100" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                <line x1="80" y1="0" x2="80" y2="100" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                <line x1="0" y1="20" x2="100" y2="20" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                <line x1="0" y1="40" x2="100" y2="40" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                <line x1="0" y1="60" x2="100" y2="60" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                <line x1="0" y1="80" x2="100" y2="80" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                
+                                <!-- Small receptive field -->
+                                <rect x="30" y="30" width="40" height="40" fill="#FF6B6B" opacity="0.4" stroke="#FF6B6B" stroke-width="2.5"/>
+                                <text x="50" y="115" font-size="9" fill="#666" text-anchor="middle">RF = 3×3</text>
+                            </g>
+                            
+                            <!-- Arrow -->
+                            <g transform="translate(130, 75)">
+                                <path d="M 0 0 L 20 0" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead4)"/>
+                                <text x="10" y="-5" font-size="9" fill="#1E64C8" text-anchor="middle" font-weight="600">Conv</text>
+                            </g>
+                            
+                            <!-- Layer 2 -->
+                            <g transform="translate(160, 50)">
+                                <text x="40" y="-5" font-size="11" fill="#666" text-anchor="middle" font-weight="600">Layer 1</text>
+                                <rect x="0" y="0" width="80" height="80" fill="#f0f5ff" stroke="#1E64C8" stroke-width="2"/>
+                                
+                                <!-- Grid -->
+                                <line x1="20" y1="0" x2="20" y2="80" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                <line x1="40" y1="0" x2="40" y2="80" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                <line x1="60" y1="0" x2="60" y2="80" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                <line x1="0" y1="20" x2="80" y2="20" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                <line x1="0" y1="40" x2="80" y2="40" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                <line x1="0" y1="60" x2="80" y2="60" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                
+                                <!-- Medium receptive field -->
+                                <rect x="20" y="20" width="40" height="40" fill="#4ECDC4" opacity="0.4" stroke="#4ECDC4" stroke-width="2.5"/>
+                                <text x="40" y="95" font-size="9" fill="#666" text-anchor="middle">RF = 5×5</text>
+                            </g>
+                            
+                            <!-- Arrow -->
+                            <g transform="translate(250, 75)">
+                                <path d="M 0 0 L 20 0" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead4)"/>
+                                <text x="10" y="-5" font-size="9" fill="#1E64C8" text-anchor="middle" font-weight="600">Conv</text>
+                            </g>
+                            
+                            <!-- Layer 3 -->
+                            <g transform="translate(280, 60)">
+                                <text x="35" y="-5" font-size="11" fill="#666" text-anchor="middle" font-weight="600">Layer 2</text>
+                                <rect x="0" y="0" width="70" height="70" fill="#f8f9ff" stroke="#1E64C8" stroke-width="2"/>
+                                
+                                <!-- Grid -->
+                                <line x1="17.5" y1="0" x2="17.5" y2="70" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                <line x1="35" y1="0" x2="35" y2="70" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                <line x1="52.5" y1="0" x2="52.5" y2="70" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                <line x1="0" y1="17.5" x2="70" y2="17.5" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                <line x1="0" y1="35" x2="70" y2="35" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                <line x1="0" y1="52.5" x2="70" y2="52.5" stroke="#1E64C8" stroke-width="0.5" opacity="0.3"/>
+                                
+                                <!-- Large receptive field -->
+                                <rect x="17.5" y="17.5" width="35" height="35" fill="#95E1D3" opacity="0.4" stroke="#95E1D3" stroke-width="2.5"/>
+                                <text x="35" y="85" font-size="9" fill="#666" text-anchor="middle">RF = 7×7</text>
+                            </g>
+                            
+                            <!-- Back mapping visualization -->
+                            <g transform="translate(20, 180)">
+                                <text x="0" y="0" font-size="13" fill="#1E64C8" font-weight="600">Receptive Field Mapping</text>
+                                
+                                <!-- Input with marked regions -->
+                                <rect x="10" y="15" width="100" height="100" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                                <text x="60" y="10" font-size="10" fill="#666" text-anchor="middle">Input</text>
+                                
+                                <!-- Small RF -->
+                                <rect x="40" y="45" width="40" height="40" fill="#FF6B6B" opacity="0.25" stroke="#FF6B6B" stroke-width="1.5"/>
+                                <text x="60" y="68" font-size="8" fill="#333" text-anchor="middle" font-weight="600">3×3</text>
+                                
+                                <!-- Medium RF -->
+                                <rect x="30" y="35" width="60" height="60" fill="#4ECDC4" opacity="0.2" stroke="#4ECDC4" stroke-width="1.5"/>
+                                <text x="60" y="55" font-size="8" fill="#333" text-anchor="middle" font-weight="600">5×5</text>
+                                
+                                <!-- Large RF -->
+                                <rect x="20" y="25" width="80" height="80" fill="#95E1D3" opacity="0.15" stroke="#95E1D3" stroke-width="1.5"/>
+                                <text x="60" y="40" font-size="8" fill="#333" text-anchor="middle" font-weight="600">7×7</text>
+                                
+                                <!-- Center neuron indicator -->
+                                <circle cx="60" cy="65" r="4" fill="#1E64C8"/>
+                                <text x="60" y="130" font-size="9" fill="#666" text-anchor="middle">Single neuron in deep layer</text>
+                                <text x="60" y="142" font-size="9" fill="#666" text-anchor="middle">sees increasingly larger input regions</text>
+                            </g>
+                            
+                            <!-- RF calculation -->
+                            <g transform="translate(150, 180)">
+                                <text x="0" y="0" font-size="13" fill="#1E64C8" font-weight="600">RF Growth Factors</text>
+                                
+                                <rect x="0" y="10" width="210" height="60" fill="white" stroke="#1E64C8" stroke-width="1.5" rx="5"/>
+                                <text x="10" y="28" font-size="10" fill="#333" font-weight="600">✓ Kernel size: Larger = bigger jump</text>
+                                <text x="10" y="43" font-size="10" fill="#333" font-weight="600">✓ Network depth: More layers = larger RF</text>
+                                <text x="10" y="58" font-size="10" fill="#333" font-weight="600">✓ Stride: Larger stride = faster growth</text>
+                                
+                                <rect x="0" y="80" width="210" height="55" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1.5" rx="5"/>
+                                <text x="105" y="97" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="700">Effective Receptive Field</text>
+                                <text x="105" y="110" font-size="9" fill="#333" text-anchor="middle">Center pixels contribute more</text>
+                                <text x="105" y="123" font-size="9" fill="#333" text-anchor="middle">than edge pixels (Gaussian pattern)</text>
+                            </g>
+                            
+                            <defs>
+                                <marker id="arrowhead4" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                                </marker>
+                            </defs>
+                        </svg>
+                        <div class="example-label">Receptive field expands through network layers</div>
+                    </div>
+                    <div class="detail-text">
+                        <div class="detail-description">
+                            The receptive field is the region in the input image that affects a particular neuron's output in a layer. It grows as we go deeper in the network, allowing neurons to aggregate information from increasingly larger spatial contexts.
+                        </div>
+                        <ul class="detail-list">
+                            <li><strong>Definition:</strong> The area of the input image that influences the activation of a single neuron in a given layer</li>
+                            <li><strong>Growth mechanism:</strong> Each convolutional layer increases the receptive field. A neuron in layer N sees a larger region than one in layer N-1</li>
+                            <li><strong>Calculation:</strong> For a 3×3 kernel with stride 1: Layer 1 RF = 3×3, Layer 2 RF = 5×5, Layer 3 RF = 7×7, etc.</li>
+                            <li><strong>Effective receptive field:</strong> Not all pixels in the theoretical RF contribute equally. Central pixels have stronger influence (Gaussian distribution)</li>
+                            <li><strong>Importance:</strong> Larger receptive fields enable understanding of global context, crucial for tasks like object recognition and semantic segmentation</li>
+                            <li><strong>Design consideration:</strong> Deep networks with small kernels (VGG) vs shallow networks with large kernels (AlexNet) achieve similar receptive fields with different computational trade-offs</li>
+                        </ul>
+                        <div class="formula-box">
+                            RF_out = RF_in + (Kernel_size - 1) × ∏(Strides_prev_layers)
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </body>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CNN Architectures</title>
+    <title>CNN Architectures - Detailed Guide</title>
     <style>
         * {
             margin: 0;
@@ -55,6 +55,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 18px;
+            margin-bottom: 30px;
         }
         
         .architecture-card {
@@ -91,6 +92,7 @@
             border-radius: 8px;
             padding: 15px;
             text-align: center;
+            margin-bottom: 40px;
         }
         
         .highlight-text {
@@ -102,6 +104,116 @@
         .highlight-emphasis {
             color: #1E64C8;
             font-weight: 700;
+        }
+        
+        /* Detailed sections styling */
+        .detailed-section {
+            margin-top: 40px;
+            margin-bottom: 40px;
+            border: 3px solid #1E64C8;
+            border-radius: 12px;
+            padding: 30px;
+            background: linear-gradient(135deg, #f8fbff 0%, #ffffff 100%);
+        }
+        
+        .section-header {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #1E64C8;
+        }
+        
+        .section-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 20px;
+        }
+        
+        .diagram-container {
+            background: white;
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        
+        .diagram-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 15px;
+        }
+        
+        .description-container {
+            background: white;
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            padding: 20px;
+        }
+        
+        .description-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 12px;
+        }
+        
+        .description-text {
+            font-size: 14px;
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+        
+        .key-features {
+            margin-top: 15px;
+        }
+        
+        .feature-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .feature-item {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 13px;
+            color: #333;
+            line-height: 1.5;
+        }
+        
+        .feature-item:before {
+            content: "▸";
+            position: absolute;
+            left: 5px;
+            color: #1E64C8;
+            font-weight: bold;
+        }
+        
+        .innovation-badge {
+            display: inline-block;
+            background: #28a745;
+            color: white;
+            padding: 4px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-top: 10px;
+        }
+        
+        .full-width-diagram {
+            grid-column: 1 / -1;
+            background: white;
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            padding: 25px;
         }
     </style>
 </head>
@@ -187,12 +299,12 @@
                 <!-- Accuracy trend line -->
                 <path d="M 80 95 Q 240 85, 400 65 Q 560 60, 720 55" 
                       stroke="#28a745" stroke-width="2" stroke-dasharray="4,3" fill="none" opacity="0.6"/>
-                <text x="500" y="50" font-size="9" fill="#28a745" font-weight="600" text-anchor="middle">Accuracy ↑</text>
+                <text x="500" y="50" font-size="9" fill="#28a745" font-weight="600" text-anchor="middle">Accuracy →</text>
                 
                 <!-- Complexity trend -->
                 <path d="M 80 100 L 720 80" 
                       stroke="#dc3545" stroke-width="2" stroke-dasharray="4,3" fill="none" opacity="0.4"/>
-                <text x="500" y="90" font-size="9" fill="#dc3545" font-weight="600" text-anchor="middle">Parameters ↑</text>
+                <text x="500" y="90" font-size="9" fill="#dc3545" font-weight="600" text-anchor="middle">Parameters →</text>
             </svg>
         </div>
         
@@ -223,6 +335,740 @@
             <span class="highlight-emphasis">Neural Architecture Search (NAS)</span>
             <span class="highlight-text"> - Automated discovery of optimal architectures for specific tasks</span>
         </div>
+
+        <!-- DETAILED SECTION 1: LeNet & AlexNet -->
+        <div class="detailed-section">
+            <div class="section-header">1. LeNet-5 & AlexNet: The Pioneers</div>
+            
+            <div class="section-content">
+                <div class="diagram-container">
+                    <div class="diagram-title">LeNet-5 Architecture (1998)</div>
+                    <svg width="380" height="180" viewBox="0 0 380 180">
+                        <!-- Input -->
+                        <rect x="10" y="60" width="40" height="60" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="30" y="95" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">Input</text>
+                        <text x="30" y="107" font-size="8" fill="#666" text-anchor="middle">32×32</text>
+                        
+                        <!-- Conv1 -->
+                        <path d="M 50 90 L 70 90" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowblue)"/>
+                        <rect x="70" y="50" width="45" height="80" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="92" y="90" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">Conv1</text>
+                        <text x="92" y="102" font-size="7" fill="#666" text-anchor="middle">6@28×28</text>
+                        
+                        <!-- Pool1 -->
+                        <path d="M 115 90 L 130 90" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="130" y="65" width="35" height="50" fill="#b3d7ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="147" y="90" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">Pool</text>
+                        <text x="147" y="100" font-size="7" fill="#666" text-anchor="middle">14×14</text>
+                        
+                        <!-- Conv2 -->
+                        <path d="M 165 90 L 180 90" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="180" y="45" width="45" height="90" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="202" y="90" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">Conv2</text>
+                        <text x="202" y="102" font-size="7" fill="#666" text-anchor="middle">16@10×10</text>
+                        
+                        <!-- Pool2 -->
+                        <path d="M 225 90 L 240 90" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="240" y="70" width="30" height="40" fill="#b3d7ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="255" y="90" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">Pool</text>
+                        <text x="255" y="100" font-size="7" fill="#666" text-anchor="middle">5×5</text>
+                        
+                        <!-- FC -->
+                        <path d="M 270 90 L 285 90" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="285" y="60" width="40" height="60" fill="#9ec5ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="305" y="90" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">FC</text>
+                        <text x="305" y="102" font-size="7" fill="#666" text-anchor="middle">120→84</text>
+                        
+                        <!-- Output -->
+                        <path d="M 325 90 L 340 90" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="340" y="75" width="30" height="30" fill="#80b3ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="355" y="93" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">10</text>
+                        
+                        <!-- Arrow marker definition -->
+                        <defs>
+                            <marker id="arrowblue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- Labels -->
+                        <text x="190" y="25" font-size="11" fill="#28a745" font-weight="700" text-anchor="middle">First Practical CNN</text>
+                        <text x="190" y="160" font-size="9" fill="#666" text-anchor="middle">Sigmoid Activation • ~60K Parameters</text>
+                    </svg>
+                </div>
+                
+                <div class="description-container">
+                    <div class="description-title">LeNet-5 Overview</div>
+                    <div class="description-text">
+                        Developed by Yann LeCun in 1998, LeNet-5 was the first successful application of CNNs for handwritten digit recognition. Originally designed for reading zip codes and bank checks.
+                    </div>
+                    <div class="key-features">
+                        <div class="description-title" style="font-size: 15px;">Key Features:</div>
+                        <ul class="feature-list">
+                            <li class="feature-item">Simple sequential architecture with 5 layers</li>
+                            <li class="feature-item">Used sigmoid and tanh activation functions</li>
+                            <li class="feature-item">Average pooling for downsampling</li>
+                            <li class="feature-item">~60,000 parameters - very small by today's standards</li>
+                            <li class="feature-item">Proved that CNNs could learn hierarchical features</li>
+                        </ul>
+                    </div>
+                    <span class="innovation-badge">Foundation of Modern CNNs</span>
+                </div>
+            </div>
+            
+            <!-- AlexNet Section -->
+            <div class="section-content" style="margin-top: 30px;">
+                <div class="description-container">
+                    <div class="description-title">AlexNet Overview</div>
+                    <div class="description-text">
+                        AlexNet won the ImageNet ILSVRC 2012 competition with a top-5 error of 15.3%, significantly better than the second place (26.2%). This breakthrough revived interest in deep learning.
+                    </div>
+                    <div class="key-features">
+                        <div class="description-title" style="font-size: 15px;">Revolutionary Innovations:</div>
+                        <ul class="feature-list">
+                            <li class="feature-item"><strong>ReLU Activation:</strong> Replaced sigmoid/tanh, enabling faster training</li>
+                            <li class="feature-item"><strong>Dropout:</strong> First use of dropout (0.5) to prevent overfitting</li>
+                            <li class="feature-item"><strong>Data Augmentation:</strong> Random crops, flips, color jittering</li>
+                            <li class="feature-item"><strong>GPU Training:</strong> Used 2 GPUs for parallel training</li>
+                            <li class="feature-item"><strong>Local Response Normalization</strong> for better generalization</li>
+                            <li class="feature-item">60 million parameters, 650,000 neurons</li>
+                        </ul>
+                    </div>
+                    <span class="innovation-badge">ImageNet Winner 2012</span>
+                </div>
+                
+                <div class="diagram-container">
+                    <div class="diagram-title">AlexNet Architecture (2012)</div>
+                    <svg width="380" height="200" viewBox="0 0 380 200">
+                        <!-- Input -->
+                        <rect x="10" y="60" width="35" height="80" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="27" y="100" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">Input</text>
+                        <text x="27" y="112" font-size="7" fill="#666" text-anchor="middle">224×224</text>
+                        <text x="27" y="122" font-size="7" fill="#666" text-anchor="middle">RGB</text>
+                        
+                        <!-- Conv1 -->
+                        <path d="M 45 100 L 60 100" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="60" y="40" width="40" height="120" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="80" y="100" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">Conv1</text>
+                        <text x="80" y="112" font-size="7" fill="#666" text-anchor="middle">96@55×55</text>
+                        <text x="80" y="122" font-size="7" fill="#28a745" font-weight="600" text-anchor="middle">ReLU</text>
+                        
+                        <!-- Pool -->
+                        <path d="M 100 100 L 115 100" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="115" y="60" width="30" height="80" fill="#b3d7ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="130" y="100" font-size="8" fill="#1E64C8" font-weight="600" text-anchor="middle">MaxPool</text>
+                        
+                        <!-- Conv2-5 represented as group -->
+                        <path d="M 145 100 L 160 100" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="160" y="30" width="80" height="140" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="200" y="90" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">Conv Layers</text>
+                        <text x="200" y="102" font-size="7" fill="#666" text-anchor="middle">Conv2-5</text>
+                        <text x="200" y="114" font-size="7" fill="#666" text-anchor="middle">+ MaxPool</text>
+                        <text x="200" y="126" font-size="7" fill="#28a745" font-weight="600" text-anchor="middle">+ ReLU</text>
+                        
+                        <!-- FC Layers -->
+                        <path d="M 240 100 L 260 100" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="260" y="50" width="50" height="100" fill="#9ec5ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="285" y="95" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">FC</text>
+                        <text x="285" y="107" font-size="7" fill="#666" text-anchor="middle">4096→4096</text>
+                        <text x="285" y="119" font-size="7" fill="#dc3545" font-weight="600" text-anchor="middle">Dropout 0.5</text>
+                        
+                        <!-- Output -->
+                        <path d="M 310 100 L 330 100" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="330" y="75" width="35" height="50" fill="#80b3ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="347" y="100" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">1000</text>
+                        <text x="347" y="112" font-size="7" fill="#666" text-anchor="middle">classes</text>
+                        
+                        <!-- GPU Split Indicator -->
+                        <line x1="10" y1="30" x2="365" y2="30" stroke="#ffc107" stroke-width="2" stroke-dasharray="5,5"/>
+                        <text x="190" y="25" font-size="9" fill="#ffc107" font-weight="700" text-anchor="middle">Split across 2 GPUs</text>
+                        
+                        <!-- Bottom labels -->
+                        <text x="190" y="180" font-size="9" fill="#666" text-anchor="middle">8 Layers • 60M Parameters</text>
+                        <text x="190" y="195" font-size="9" fill="#28a745" font-weight="700" text-anchor="middle">Top-5 Error: 15.3%</text>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- DETAILED SECTION 2: ResNet -->
+        <div class="detailed-section">
+            <div class="section-header">2. ResNet: Skip Connections Revolution</div>
+            
+            <div class="section-content">
+                <div class="diagram-container">
+                    <div class="diagram-title">Residual Block Architecture</div>
+                    <svg width="380" height="280" viewBox="0 0 380 280">
+                        <!-- Traditional Block (left) -->
+                        <text x="90" y="20" font-size="12" fill="#dc3545" font-weight="700" text-anchor="middle">Traditional Block</text>
+                        
+                        <!-- Input -->
+                        <rect x="60" y="40" width="60" height="20" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="90" y="54" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">x</text>
+                        
+                        <!-- Conv layers -->
+                        <path d="M 90 60 L 90 75" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowblue2)"/>
+                        <rect x="65" y="75" width="50" height="35" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="90" y="93" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">Conv</text>
+                        <text x="90" y="103" font-size="7" fill="#666" text-anchor="middle">ReLU</text>
+                        
+                        <path d="M 90 110 L 90 125" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="65" y="125" width="50" height="35" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="90" y="143" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">Conv</text>
+                        <text x="90" y="153" font-size="7" fill="#666" text-anchor="middle">ReLU</text>
+                        
+                        <path d="M 90 160 L 90 180" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="60" y="180" width="60" height="20" fill="#b3d7ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="90" y="194" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">F(x)</text>
+                        
+                        <!-- Problem indicator -->
+                        <text x="90" y="220" font-size="9" fill="#dc3545" font-weight="600" text-anchor="middle">Vanishing Gradient</text>
+                        <text x="90" y="233" font-size="8" fill="#dc3545" text-anchor="middle">Hard to train deep</text>
+                        
+                        <!-- Residual Block (right) -->
+                        <text x="280" y="20" font-size="12" fill="#28a745" font-weight="700" text-anchor="middle">Residual Block</text>
+                        
+                        <!-- Input -->
+                        <rect x="250" y="40" width="60" height="20" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="280" y="54" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">x</text>
+                        
+                        <!-- Main path -->
+                        <path d="M 280 60 L 280 75" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowblue2)"/>
+                        <rect x="255" y="75" width="50" height="35" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="280" y="93" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">Conv</text>
+                        <text x="280" y="103" font-size="7" fill="#666" text-anchor="middle">ReLU</text>
+                        
+                        <path d="M 280 110 L 280 125" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="255" y="125" width="50" height="35" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="280" y="143" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">Conv</text>
+                        <text x="280" y="153" font-size="7" fill="#666" text-anchor="middle">(no ReLU)</text>
+                        
+                        <!-- Skip connection -->
+                        <path d="M 310 50 L 335 50 L 335 165 L 305 165" 
+                              stroke="#28a745" stroke-width="3" fill="none" stroke-dasharray="5,5"/>
+                        <text x="340" y="108" font-size="9" fill="#28a745" font-weight="700">Identity</text>
+                        
+                        <!-- Addition -->
+                        <circle cx="280" cy="165" r="12" fill="white" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="280" y="170" font-size="14" fill="#1E64C8" font-weight="700" text-anchor="middle">+</text>
+                        
+                        <!-- ReLU after addition -->
+                        <path d="M 280 177 L 280 187" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="255" y="187" width="50" height="20" fill="#9ec5ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="280" y="201" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">ReLU</text>
+                        
+                        <!-- Output -->
+                        <path d="M 280 207 L 280 220" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="250" y="220" width="60" height="20" fill="#80b3ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="280" y="234" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">F(x) + x</text>
+                        
+                        <!-- Benefit indicator -->
+                        <text x="280" y="260" font-size="9" fill="#28a745" font-weight="700" text-anchor="middle">✓ Easy to train</text>
+                        <text x="280" y="273" font-size="8" fill="#28a745" font-weight="600" text-anchor="middle">100+ layers possible</text>
+                        
+                        <defs>
+                            <marker id="arrowblue2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+                
+                <div class="description-container">
+                    <div class="description-title">ResNet Innovation</div>
+                    <div class="description-text">
+                        ResNet (Residual Network) introduced skip connections that revolutionized deep learning. Instead of learning the desired mapping H(x), layers learn the residual F(x) = H(x) - x, making optimization much easier.
+                    </div>
+                    <div class="description-text" style="margin-top: 10px;">
+                        <strong>The Key Insight:</strong> If the optimal mapping is close to an identity function, it's easier to learn the residual (small deviations) than to learn the complete transformation from scratch.
+                    </div>
+                    <div class="key-features">
+                        <div class="description-title" style="font-size: 15px;">Key Advantages:</div>
+                        <ul class="feature-list">
+                            <li class="feature-item"><strong>Solves Vanishing Gradient:</strong> Gradients flow directly through skip connections</li>
+                            <li class="feature-item"><strong>Deep Networks:</strong> Enables training of 100+ layer networks (ResNet-152)</li>
+                            <li class="feature-item"><strong>Better Optimization:</strong> Easier to optimize than plain networks</li>
+                            <li class="feature-item"><strong>No Extra Parameters:</strong> Identity shortcuts add no complexity</li>
+                            <li class="feature-item">Won ImageNet 2015 with 3.57% top-5 error</li>
+                        </ul>
+                    </div>
+                    <span class="innovation-badge">ImageNet Winner 2015</span>
+                </div>
+            </div>
+            
+            <!-- ResNet Variants -->
+            <div class="full-width-diagram" style="margin-top: 25px;">
+                <div class="diagram-title" style="text-align: center; margin-bottom: 15px;">ResNet Architecture Variants</div>
+                <svg width="830" height="200" viewBox="0 0 830 200">
+                    <!-- ResNet-18 -->
+                    <rect x="20" y="40" width="180" height="120" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="110" y="30" font-size="13" fill="#1E64C8" font-weight="700" text-anchor="middle">ResNet-18</text>
+                    <text x="110" y="65" font-size="10" fill="#666" text-anchor="middle">• 18 layers</text>
+                    <text x="110" y="82" font-size="10" fill="#666" text-anchor="middle">• 11.7M parameters</text>
+                    <text x="110" y="99" font-size="10" fill="#666" text-anchor="middle">• Basic blocks</text>
+                    <text x="110" y="116" font-size="10" fill="#666" text-anchor="middle">• Fast inference</text>
+                    <text x="110" y="140" font-size="9" fill="#28a745" font-weight="600" text-anchor="middle">Good for edge devices</text>
+                    
+                    <!-- ResNet-34 -->
+                    <rect x="220" y="40" width="180" height="120" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="310" y="30" font-size="13" fill="#1E64C8" font-weight="700" text-anchor="middle">ResNet-34</text>
+                    <text x="310" y="65" font-size="10" fill="#666" text-anchor="middle">• 34 layers</text>
+                    <text x="310" y="82" font-size="10" fill="#666" text-anchor="middle">• 21.8M parameters</text>
+                    <text x="310" y="99" font-size="10" fill="#666" text-anchor="middle">• Basic blocks</text>
+                    <text x="310" y="116" font-size="10" fill="#666" text-anchor="middle">• Balanced</text>
+                    <text x="310" y="140" font-size="9" fill="#28a745" font-weight="600" text-anchor="middle">Popular baseline</text>
+                    
+                    <!-- ResNet-50 -->
+                    <rect x="420" y="40" width="180" height="120" fill="#e8f2ff" stroke="#1E64C8" stroke-width="3" rx="5"/>
+                    <text x="510" y="30" font-size="13" fill="#1E64C8" font-weight="700" text-anchor="middle">ResNet-50 ⭐</text>
+                    <text x="510" y="65" font-size="10" fill="#666" text-anchor="middle">• 50 layers</text>
+                    <text x="510" y="82" font-size="10" fill="#666" text-anchor="middle">• 25.6M parameters</text>
+                    <text x="510" y="99" font-size="10" fill="#666" text-anchor="middle">• Bottleneck blocks</text>
+                    <text x="510" y="116" font-size="10" fill="#666" text-anchor="middle">• 1×1 convolutions</text>
+                    <text x="510" y="140" font-size="9" fill="#28a745" font-weight="700" text-anchor="middle">Most widely used</text>
+                    
+                    <!-- ResNet-152 -->
+                    <rect x="620" y="40" width="180" height="120" fill="#f8fbff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="710" y="30" font-size="13" fill="#1E64C8" font-weight="700" text-anchor="middle">ResNet-152</text>
+                    <text x="710" y="65" font-size="10" fill="#666" text-anchor="middle">• 152 layers</text>
+                    <text x="710" y="82" font-size="10" fill="#666" text-anchor="middle">• 60.2M parameters</text>
+                    <text x="710" y="99" font-size="10" fill="#666" text-anchor="middle">• Bottleneck blocks</text>
+                    <text x="710" y="116" font-size="10" fill="#666" text-anchor="middle">• Highest accuracy</text>
+                    <text x="710" y="140" font-size="9" fill="#28a745" font-weight="600" text-anchor="middle">Competition winner</text>
+                    
+                    <!-- Depth comparison arrow -->
+                    <path d="M 30 180 L 790 180" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowblue3)"/>
+                    <text x="410" y="195" font-size="11" fill="#1E64C8" font-weight="700" text-anchor="middle">Increasing Depth & Accuracy →</text>
+                    
+                    <defs>
+                        <marker id="arrowblue3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+
+        <!-- DETAILED SECTION 3: DenseNet -->
+        <div class="detailed-section">
+            <div class="section-header">3. DenseNet: Dense Connectivity Pattern</div>
+            
+            <div class="section-content">
+                <div class="description-container">
+                    <div class="description-title">DenseNet Architecture</div>
+                    <div class="description-text">
+                        DenseNet (Densely Connected Convolutional Networks) takes the idea of skip connections further by connecting each layer to every other layer in a feed-forward fashion. For a network with L layers, there are L(L+1)/2 direct connections.
+                    </div>
+                    <div class="description-text" style="margin-top: 10px;">
+                        <strong>Core Principle:</strong> Each layer receives feature maps from all preceding layers and passes its own feature maps to all subsequent layers. This creates maximum information flow between layers.
+                    </div>
+                    <div class="key-features">
+                        <div class="description-title" style="font-size: 15px;">Key Benefits:</div>
+                        <ul class="feature-list">
+                            <li class="feature-item"><strong>Feature Reuse:</strong> All layers access features from previous layers</li>
+                            <li class="feature-item"><strong>Gradient Flow:</strong> Improved gradient propagation to early layers</li>
+                            <li class="feature-item"><strong>Parameter Efficiency:</strong> Fewer parameters than ResNet</li>
+                            <li class="feature-item"><strong>Implicit Deep Supervision:</strong> All layers receive gradients directly</li>
+                            <li class="feature-item">Better feature propagation and exploration</li>
+                        </ul>
+                    </div>
+                    <span class="innovation-badge">CVPR 2017 Best Paper</span>
+                </div>
+                
+                <div class="diagram-container">
+                    <div class="diagram-title">Dense Block Structure</div>
+                    <svg width="380" height="280" viewBox="0 0 380 280">
+                        <!-- Input Layer -->
+                        <rect x="40" y="40" width="60" height="25" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="70" y="57" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">Layer 0</text>
+                        
+                        <!-- Layer 1 -->
+                        <rect x="40" y="90" width="60" height="25" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="70" y="107" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">Layer 1</text>
+                        
+                        <!-- Connection from L0 to L1 -->
+                        <path d="M 70 65 L 70 90" stroke="#28a745" stroke-width="2" marker-end="url(#arrowgreen)"/>
+                        
+                        <!-- Layer 2 -->
+                        <rect x="40" y="140" width="60" height="25" fill="#b3d7ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="70" y="157" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">Layer 2</text>
+                        
+                        <!-- Connections to L2 -->
+                        <path d="M 70 65 L 50 140" stroke="#28a745" stroke-width="2" marker-end="url(#arrowgreen)"/>
+                        <path d="M 70 115 L 70 140" stroke="#28a745" stroke-width="2" marker-end="url(#arrowgreen)"/>
+                        
+                        <!-- Layer 3 -->
+                        <rect x="40" y="190" width="60" height="25" fill="#9ec5ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="70" y="207" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">Layer 3</text>
+                        
+                        <!-- Connections to L3 -->
+                        <path d="M 70 65 L 45 190" stroke="#28a745" stroke-width="2" marker-end="url(#arrowgreen)"/>
+                        <path d="M 70 115 L 55 190" stroke="#28a745" stroke-width="2" marker-end="url(#arrowgreen)"/>
+                        <path d="M 70 165 L 70 190" stroke="#28a745" stroke-width="2" marker-end="url(#arrowgreen)"/>
+                        
+                        <!-- Output -->
+                        <rect x="40" y="235" width="60" height="25" fill="#80b3ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="70" y="252" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">Output</text>
+                        
+                        <!-- Connections to Output -->
+                        <path d="M 70 65 L 40 235" stroke="#28a745" stroke-width="2" marker-end="url(#arrowgreen)"/>
+                        <path d="M 70 115 L 50 235" stroke="#28a745" stroke-width="2" marker-end="url(#arrowgreen)"/>
+                        <path d="M 70 165 L 60 235" stroke="#28a745" stroke-width="2" marker-end="url(#arrowgreen)"/>
+                        <path d="M 70 215 L 70 235" stroke="#28a745" stroke-width="2" marker-end="url(#arrowgreen)"/>
+                        
+                        <!-- Comparison with ResNet -->
+                        <text x="240" y="30" font-size="12" fill="#1E64C8" font-weight="700">Comparison</text>
+                        
+                        <!-- ResNet connections -->
+                        <text x="240" y="60" font-size="10" fill="#666" font-weight="600">ResNet:</text>
+                        <rect x="160" y="70" width="40" height="20" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="2"/>
+                        <text x="180" y="84" font-size="8" fill="#666" text-anchor="middle">L(n-1)</text>
+                        
+                        <path d="M 200 80 L 235 80" stroke="#1E64C8" stroke-width="2"/>
+                        <path d="M 180 90 Q 180 105 235 105" stroke="#dc3545" stroke-width="2" stroke-dasharray="3,3"/>
+                        
+                        <rect x="235" y="70" width="40" height="20" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="2"/>
+                        <text x="255" y="84" font-size="8" fill="#666" text-anchor="middle">L(n)</text>
+                        
+                        <text x="215" y="125" font-size="8" fill="#666" text-anchor="middle">F(x) + x</text>
+                        
+                        <!-- DenseNet connections -->
+                        <text x="240" y="160" font-size="10" fill="#666" font-weight="600">DenseNet:</text>
+                        
+                        <rect x="150" y="170" width="30" height="20" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="2"/>
+                        <text x="165" y="184" font-size="8" fill="#666" text-anchor="middle">L0</text>
+                        
+                        <rect x="195" y="170" width="30" height="20" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="2"/>
+                        <text x="210" y="184" font-size="8" fill="#666" text-anchor="middle">L1</text>
+                        
+                        <rect x="240" y="170" width="30" height="20" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="2"/>
+                        <text x="255" y="184" font-size="8" fill="#666" text-anchor="middle">L2</text>
+                        
+                        <rect x="285" y="170" width="30" height="20" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1" rx="2"/>
+                        <text x="300" y="184" font-size="8" fill="#666" text-anchor="middle">L3</text>
+                        
+                        <!-- All connections -->
+                        <path d="M 165 190 L 300 170" stroke="#28a745" stroke-width="1.5"/>
+                        <path d="M 210 190 L 300 170" stroke="#28a745" stroke-width="1.5"/>
+                        <path d="M 255 190 L 300 170" stroke="#28a745" stroke-width="1.5"/>
+                        
+                        <text x="220" y="215" font-size="8" fill="#666" text-anchor="middle">[x0, x1, x2, x3]</text>
+                        <text x="220" y="228" font-size="8" fill="#28a745" font-weight="600" text-anchor="middle">Concatenation</text>
+                        
+                        <!-- Feature reuse visualization -->
+                        <text x="240" y="255" font-size="9" fill="#1E64C8" font-weight="700">Feature Reuse</text>
+                        <text x="240" y="270" font-size="8" fill="#666" text-anchor="middle">All previous features</text>
+                        <text x="240" y="282" font-size="8" fill="#666" text-anchor="middle">available to all layers</text>
+                        
+                        <defs>
+                            <marker id="arrowgreen" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#28a745"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+            
+            <!-- DenseNet Architecture Details -->
+            <div class="full-width-diagram" style="margin-top: 25px;">
+                <div class="diagram-title" style="text-align: center; margin-bottom: 15px;">DenseNet Complete Architecture</div>
+                <svg width="830" height="160" viewBox="0 0 830 160">
+                    <!-- Input -->
+                    <rect x="20" y="60" width="60" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                    <text x="50" y="80" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">Input</text>
+                    <text x="50" y="92" font-size="8" fill="#666" text-anchor="middle">224×224</text>
+                    
+                    <!-- Dense Block 1 -->
+                    <path d="M 80 80 L 110 80" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowblue4)"/>
+                    <rect x="110" y="50" width="100" height="60" fill="#d4e7ff" stroke="#28a745" stroke-width="3" rx="3"/>
+                    <text x="160" y="75" font-size="11" fill="#28a745" font-weight="700" text-anchor="middle">Dense Block 1</text>
+                    <text x="160" y="90" font-size="8" fill="#666" text-anchor="middle">6 layers</text>
+                    <text x="160" y="102" font-size="8" fill="#666" text-anchor="middle">k=32 growth rate</text>
+                    
+                    <!-- Transition Layer 1 -->
+                    <path d="M 210 80 L 240 80" stroke="#1E64C8" stroke-width="2"/>
+                    <rect x="240" y="65" width="70" height="30" fill="#b3d7ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                    <text x="275" y="83" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">Transition</text>
+                    <text x="275" y="92" font-size="7" fill="#666" text-anchor="middle">Conv+Pool</text>
+                    
+                    <!-- Dense Block 2 -->
+                    <path d="M 310 80 L 340 80" stroke="#1E64C8" stroke-width="2"/>
+                    <rect x="340" y="50" width="100" height="60" fill="#d4e7ff" stroke="#28a745" stroke-width="3" rx="3"/>
+                    <text x="390" y="75" font-size="11" fill="#28a745" font-weight="700" text-anchor="middle">Dense Block 2</text>
+                    <text x="390" y="90" font-size="8" fill="#666" text-anchor="middle">12 layers</text>
+                    
+                    <!-- Transition Layer 2 -->
+                    <path d="M 440 80 L 470 80" stroke="#1E64C8" stroke-width="2"/>
+                    <rect x="470" y="65" width="70" height="30" fill="#b3d7ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                    <text x="505" y="83" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">Transition</text>
+                    
+                    <!-- Dense Block 3 -->
+                    <path d="M 540 80 L 570 80" stroke="#1E64C8" stroke-width="2"/>
+                    <rect x="570" y="50" width="100" height="60" fill="#d4e7ff" stroke="#28a745" stroke-width="3" rx="3"/>
+                    <text x="620" y="75" font-size="11" fill="#28a745" font-weight="700" text-anchor="middle">Dense Block 3</text>
+                    <text x="620" y="90" font-size="8" fill="#666" text-anchor="middle">24 layers</text>
+                    
+                    <!-- Global Average Pooling -->
+                    <path d="M 670 80 L 700 80" stroke="#1E64C8" stroke-width="2"/>
+                    <rect x="700" y="60" width="60" height="40" fill="#9ec5ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                    <text x="730" y="77" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">Global</text>
+                    <text x="730" y="88" font-size="9" fill="#1E64C8" font-weight="600" text-anchor="middle">Avg Pool</text>
+                    
+                    <!-- Output -->
+                    <path d="M 760 80 L 780 80" stroke="#1E64C8" stroke-width="2"/>
+                    <rect x="780" y="70" width="35" height="20" fill="#80b3ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                    <text x="797" y="84" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">1000</text>
+                    
+                    <!-- Growth rate explanation -->
+                    <text x="415" y="25" font-size="10" fill="#28a745" font-weight="700" text-anchor="middle">Growth Rate k:</text>
+                    <text x="415" y="38" font-size="8" fill="#666" text-anchor="middle">Each layer adds k feature maps</text>
+                    
+                    <!-- Bottom info -->
+                    <text x="415" y="135" font-size="9" fill="#666" text-anchor="middle">DenseNet-121: ~8M parameters • DenseNet-169: ~14M parameters</text>
+                    <text x="415" y="150" font-size="9" fill="#28a745" font-weight="600" text-anchor="middle">More efficient than ResNet with comparable accuracy</text>
+                    
+                    <defs>
+                        <marker id="arrowblue4" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+        </div>
+
+        <!-- DETAILED SECTION 4: EfficientNet -->
+        <div class="detailed-section">
+            <div class="section-header">4. EfficientNet: Compound Scaling</div>
+            
+            <div class="section-content">
+                <div class="diagram-container">
+                    <div class="diagram-title">Compound Scaling Method</div>
+                    <svg width="380" height="280" viewBox="0 0 380 280">
+                        <!-- Traditional scaling approaches -->
+                        <text x="190" y="20" font-size="12" fill="#dc3545" font-weight="700" text-anchor="middle">Traditional Approaches</text>
+                        
+                        <!-- Width scaling -->
+                        <rect x="20" y="35" width="100" height="60" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="70" y="50" font-size="10" fill="#1E64C8" font-weight="700" text-anchor="middle">Width Scaling</text>
+                        <text x="70" y="65" font-size="8" fill="#666" text-anchor="middle">More channels</text>
+                        <rect x="30" y="72" width="10" height="18" fill="#1E64C8"/>
+                        <rect x="45" y="72" width="20" height="18" fill="#1E64C8"/>
+                        <rect x="70" y="72" width="30" height="18" fill="#1E64C8"/>
+                        <text x="70" y="108" font-size="7" fill="#dc3545" text-anchor="middle">↑ Parameters</text>
+                        
+                        <!-- Depth scaling -->
+                        <rect x="140" y="35" width="100" height="60" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="190" y="50" font-size="10" fill="#1E64C8" font-weight="700" text-anchor="middle">Depth Scaling</text>
+                        <text x="190" y="65" font-size="8" fill="#666" text-anchor="middle">More layers</text>
+                        <rect x="160" y="72" width="60" height="6" fill="#1E64C8"/>
+                        <rect x="160" y="80" width="60" height="6" fill="#1E64C8"/>
+                        <rect x="160" y="88" width="60" height="6" fill="#1E64C8"/>
+                        <text x="190" y="108" font-size="7" fill="#dc3545" text-anchor="middle">↑ Training time</text>
+                        
+                        <!-- Resolution scaling -->
+                        <rect x="260" y="35" width="100" height="60" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="310" y="48" font-size="10" fill="#1E64C8" font-weight="700" text-anchor="middle">Resolution</text>
+                        <text x="310" y="58" font-size="10" fill="#1E64C8" font-weight="700" text-anchor="middle">Scaling</text>
+                        <text x="310" y="70" font-size="8" fill="#666" text-anchor="middle">Higher input size</text>
+                        <rect x="280" y="75" width="15" height="15" fill="#1E64C8"/>
+                        <rect x="300" y="75" width="20" height="20" fill="#1E64C8"/>
+                        <text x="310" y="108" font-size="7" fill="#dc3545" text-anchor="middle">↑ Computation</text>
+                        
+                        <!-- Compound scaling -->
+                        <text x="190" y="135" font-size="13" fill="#28a745" font-weight="700" text-anchor="middle">EfficientNet: Compound Scaling</text>
+                        
+                        <rect x="60" y="150" width="260" height="100" fill="#e8fff0" stroke="#28a745" stroke-width="3" rx="5"/>
+                        
+                        <!-- Formula -->
+                        <text x="190" y="175" font-size="11" fill="#1E64C8" font-weight="700" text-anchor="middle">Balanced Scaling with φ:</text>
+                        <text x="190" y="195" font-size="10" fill="#333" text-anchor="middle">depth: d = α<tspan font-size="7" baseline-shift="super">φ</tspan></text>
+                        <text x="190" y="210" font-size="10" fill="#333" text-anchor="middle">width: w = β<tspan font-size="7" baseline-shift="super">φ</tspan></text>
+                        <text x="190" y="225" font-size="10" fill="#333" text-anchor="middle">resolution: r = γ<tspan font-size="7" baseline-shift="super">φ</tspan></text>
+                        
+                        <text x="190" y="243" font-size="8" fill="#666" text-anchor="middle">subject to: α · β² · γ² ≈ 2</text>
+                        
+                        <!-- Benefits -->
+                        <text x="190" y="270" font-size="9" fill="#28a745" font-weight="700" text-anchor="middle">✓ Optimal accuracy-efficiency tradeoff</text>
+                    </svg>
+                </div>
+                
+                <div class="description-container">
+                    <div class="description-title">EfficientNet Innovation</div>
+                    <div class="description-text">
+                        EfficientNet systematically scales network depth, width, and resolution using a compound coefficient. Instead of arbitrarily scaling one dimension, it balances all three dimensions for optimal performance.
+                    </div>
+                    <div class="description-text" style="margin-top: 10px;">
+                        <strong>Key Insight:</strong> Network accuracy improves when depth, width, and resolution are scaled together in a principled way, rather than scaling dimensions independently.
+                    </div>
+                    <div class="key-features">
+                        <div class="description-title" style="font-size: 15px;">Key Innovations:</div>
+                        <ul class="feature-list">
+                            <li class="feature-item"><strong>Neural Architecture Search:</strong> Base architecture (EfficientNet-B0) found via NAS</li>
+                            <li class="feature-item"><strong>Compound Scaling:</strong> Uniform scaling of all dimensions with fixed ratios</li>
+                            <li class="feature-item"><strong>Mobile Inverted Bottleneck:</strong> MBConv blocks with squeeze-excitation</li>
+                            <li class="feature-item"><strong>Efficiency:</strong> Up to 10x fewer parameters than ResNet</li>
+                            <li class="feature-item">State-of-the-art accuracy with better efficiency</li>
+                            <li class="feature-item">EfficientNet-B7: 84.4% top-1 accuracy on ImageNet</li>
+                        </ul>
+                    </div>
+                    <span class="innovation-badge">ICML 2019</span>
+                </div>
+            </div>
+            
+            <!-- EfficientNet Variants Comparison -->
+            <div class="full-width-diagram" style="margin-top: 25px;">
+                <div class="diagram-title" style="text-align: center; margin-bottom: 15px;">EfficientNet Model Family (B0-B7)</div>
+                <svg width="830" height="220" viewBox="0 0 830 220">
+                    <!-- Axes -->
+                    <line x1="50" y1="180" x2="780" y2="180" stroke="#333" stroke-width="2"/>
+                    <line x1="50" y1="180" x2="50" y2="30" stroke="#333" stroke-width="2"/>
+                    
+                    <!-- X-axis label -->
+                    <text x="415" y="205" font-size="11" fill="#333" font-weight="600" text-anchor="middle">Parameters (Millions)</text>
+                    
+                    <!-- Y-axis label -->
+                    <text x="25" y="110" font-size="11" fill="#333" font-weight="600" text-anchor="middle" transform="rotate(-90, 25, 110)">Top-1 Accuracy (%)</text>
+                    
+                    <!-- Grid lines and labels -->
+                    <line x1="50" y1="150" x2="780" y2="150" stroke="#ddd" stroke-width="1" stroke-dasharray="3,3"/>
+                    <text x="40" y="153" font-size="8" fill="#666" text-anchor="end">80%</text>
+                    
+                    <line x1="50" y1="120" x2="780" y2="120" stroke="#ddd" stroke-width="1" stroke-dasharray="3,3"/>
+                    <text x="40" y="123" font-size="8" fill="#666" text-anchor="end">82%</text>
+                    
+                    <line x1="50" y1="90" x2="780" y2="90" stroke="#ddd" stroke-width="1" stroke-dasharray="3,3"/>
+                    <text x="40" y="93" font-size="8" fill="#666" text-anchor="end">84%</text>
+                    
+                    <!-- EfficientNet models as points -->
+                    <!-- B0 -->
+                    <circle cx="120" cy="145" r="6" fill="#1E64C8" stroke="white" stroke-width="2"/>
+                    <text x="120" y="165" font-size="9" fill="#1E64C8" font-weight="700" text-anchor="middle">B0</text>
+                    <text x="120" y="177" font-size="7" fill="#666" text-anchor="middle">5.3M</text>
+                    
+                    <!-- B1 -->
+                    <circle cx="180" cy="140" r="6" fill="#1E64C8" stroke="white" stroke-width="2"/>
+                    <text x="180" y="165" font-size="9" fill="#1E64C8" font-weight="700" text-anchor="middle">B1</text>
+                    <text x="180" y="177" font-size="7" fill="#666" text-anchor="middle">7.8M</text>
+                    
+                    <!-- B2 -->
+                    <circle cx="240" cy="135" r="6" fill="#1E64C8" stroke="white" stroke-width="2"/>
+                    <text x="240" y="165" font-size="9" fill="#1E64C8" font-weight="700" text-anchor="middle">B2</text>
+                    <text x="240" y="177" font-size="7" fill="#666" text-anchor="middle">9.2M</text>
+                    
+                    <!-- B3 -->
+                    <circle cx="310" cy="128" r="6" fill="#1E64C8" stroke="white" stroke-width="2"/>
+                    <text x="310" y="165" font-size="9" fill="#1E64C8" font-weight="700" text-anchor="middle">B3</text>
+                    <text x="310" y="177" font-size="7" fill="#666" text-anchor="middle">12M</text>
+                    
+                    <!-- B4 -->
+                    <circle cx="400" cy="120" r="7" fill="#28a745" stroke="white" stroke-width="2"/>
+                    <text x="400" y="165" font-size="9" fill="#28a745" font-weight="700" text-anchor="middle">B4 ⭐</text>
+                    <text x="400" y="177" font-size="7" fill="#666" text-anchor="middle">19M</text>
+                    
+                    <!-- B5 -->
+                    <circle cx="500" cy="110" r="6" fill="#1E64C8" stroke="white" stroke-width="2"/>
+                    <text x="500" y="165" font-size="9" fill="#1E64C8" font-weight="700" text-anchor="middle">B5</text>
+                    <text x="500" y="177" font-size="7" fill="#666" text-anchor="middle">30M</text>
+                    
+                    <!-- B6 -->
+                    <circle cx="610" cy="100" r="6" fill="#1E64C8" stroke="white" stroke-width="2"/>
+                    <text x="610" y="165" font-size="9" fill="#1E64C8" font-weight="700" text-anchor="middle">B6</text>
+                    <text x="610" y="177" font-size="7" fill="#666" text-anchor="middle">43M</text>
+                    
+                    <!-- B7 -->
+                    <circle cx="720" cy="88" r="7" fill="#dc3545" stroke="white" stroke-width="2"/>
+                    <text x="720" y="165" font-size="9" fill="#dc3545" font-weight="700" text-anchor="middle">B7</text>
+                    <text x="720" y="177" font-size="7" fill="#666" text-anchor="middle">66M</text>
+                    
+                    <!-- Trend line -->
+                    <path d="M 120 145 Q 400 110 720 88" stroke="#1E64C8" stroke-width="2" fill="none" opacity="0.5"/>
+                    
+                    <!-- Comparison with other models -->
+                    <!-- ResNet-50 -->
+                    <circle cx="280" cy="155" r="5" fill="#ffc107" stroke="white" stroke-width="2"/>
+                    <text x="280" y="200" font-size="8" fill="#ffc107" font-weight="600" text-anchor="middle">ResNet-50</text>
+                    <text x="280" y="210" font-size="7" fill="#666" text-anchor="middle">26M</text>
+                    
+                    <!-- ResNet-152 -->
+                    <circle cx="650" cy="135" r="5" fill="#ffc107" stroke="white" stroke-width="2"/>
+                    <text x="650" y="200" font-size="8" fill="#ffc107" font-weight="600" text-anchor="middle">ResNet-152</text>
+                    <text x="650" y="210" font-size="7" fill="#666" text-anchor="middle">60M</text>
+                    
+                    <!-- Legend -->
+                    <text x="600" y="25" font-size="10" fill="#1E64C8" font-weight="700">EfficientNet</text>
+                    <text x="700" y="25" font-size="10" fill="#ffc107" font-weight="700">ResNet</text>
+                    
+                    <!-- Key insight -->
+                    <text x="415" y="50" font-size="10" fill="#28a745" font-weight="700" text-anchor="middle">Better accuracy with fewer parameters</text>
+                </svg>
+            </div>
+            
+            <!-- MBConv Block -->
+            <div class="section-content" style="margin-top: 25px;">
+                <div class="diagram-container" style="grid-column: 1 / -1;">
+                    <div class="diagram-title">Mobile Inverted Bottleneck Convolution (MBConv) Block</div>
+                    <svg width="800" height="180" viewBox="0 0 800 180">
+                        <!-- Input -->
+                        <rect x="30" y="70" width="60" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="60" y="90" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">Input</text>
+                        <text x="60" y="102" font-size="8" fill="#666" text-anchor="middle">C channels</text>
+                        
+                        <!-- Expand -->
+                        <path d="M 90 90 L 120 90" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowblue5)"/>
+                        <rect x="120" y="55" width="80" height="70" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="160" y="85" font-size="10" fill="#1E64C8" font-weight="700" text-anchor="middle">1×1 Conv</text>
+                        <text x="160" y="97" font-size="9" fill="#666" text-anchor="middle">Expansion</text>
+                        <text x="160" y="109" font-size="8" fill="#666" text-anchor="middle">C → C×k</text>
+                        <text x="160" y="119" font-size="7" fill="#28a745" font-weight="600" text-anchor="middle">(k=6 typically)</text>
+                        
+                        <!-- Depthwise -->
+                        <path d="M 200 90 L 230 90" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="230" y="55" width="90" height="70" fill="#b3d7ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="275" y="80" font-size="10" fill="#1E64C8" font-weight="700" text-anchor="middle">Depthwise</text>
+                        <text x="275" y="92" font-size="10" fill="#1E64C8" font-weight="700" text-anchor="middle">Conv 3×3</text>
+                        <text x="275" y="107" font-size="8" fill="#666" text-anchor="middle">Spatial filtering</text>
+                        <text x="275" y="119" font-size="7" fill="#28a745" font-weight="600" text-anchor="middle">Efficient!</text>
+                        
+                        <!-- SE Block -->
+                        <path d="M 320 90 L 350 90" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="350" y="60" width="90" height="60" fill="#9ec5ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="395" y="83" font-size="10" fill="#1E64C8" font-weight="700" text-anchor="middle">Squeeze &</text>
+                        <text x="395" y="95" font-size="10" fill="#1E64C8" font-weight="700" text-anchor="middle">Excitation</text>
+                        <text x="395" y="110" font-size="8" fill="#666" text-anchor="middle">Channel attention</text>
+                        
+                        <!-- Project -->
+                        <path d="M 440 90 L 470 90" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="470" y="55" width="80" height="70" fill="#d4e7ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="510" y="85" font-size="10" fill="#1E64C8" font-weight="700" text-anchor="middle">1×1 Conv</text>
+                        <text x="510" y="97" font-size="9" fill="#666" text-anchor="middle">Projection</text>
+                        <text x="510" y="109" font-size="8" fill="#666" text-anchor="middle">C×k → C</text>
+                        <text x="510" y="119" font-size="7" fill="#666" text-anchor="middle">(no activation)</text>
+                        
+                        <!-- Skip connection -->
+                        <path d="M 60 110 L 60 145 L 620 145 L 620 90" 
+                              stroke="#28a745" stroke-width="3" stroke-dasharray="5,5" fill="none"/>
+                        <text x="340" y="158" font-size="9" fill="#28a745" font-weight="700" text-anchor="middle">Residual Connection (if stride=1 and input=output dims)</text>
+                        
+                        <!-- Output -->
+                        <path d="M 550 90 L 580 90" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="580" y="70" width="60" height="40" fill="#80b3ff" stroke="#1E64C8" stroke-width="2" rx="3"/>
+                        <text x="610" y="90" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">Output</text>
+                        <text x="610" y="102" font-size="8" fill="#666" text-anchor="middle">C channels</text>
+                        
+                        <!-- Top annotations -->
+                        <text x="400" y="25" font-size="11" fill="#1E64C8" font-weight="700" text-anchor="middle">Inverted Residual: Expand → Filter → Compress</text>
+                        <text x="400" y="40" font-size="9" fill="#666" text-anchor="middle">Efficient for mobile and resource-constrained environments</text>
+                        
+                        <defs>
+                            <marker id="arrowblue5" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto" markerUnits="strokeWidth">
+                                <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

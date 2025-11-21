@@ -1,14 +1,15 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Survival Analysis</title>
+    <title>Survival Analysis - Complete Guide</title>
     <style>
         * {margin:0;padding:0;box-sizing:border-box;}
-        body {font-family:Aptos,'Segoe UI',sans-serif;background:white;display:flex;justify-content:center;align-items:center;min-height:100vh;}
-        .container {width:960px;height:540px;padding:30px 45px;background:white;}
+        body {font-family:Aptos,'Segoe UI',sans-serif;background:#f5f5f5;padding:20px;}
+        .page {width:960px;height:540px;margin:0 auto 20px;padding:30px 45px;background:white;box-shadow:0 2px 8px rgba(0,0,0,0.1);}
         .title {font-size:36px;font-weight:700;color:#1E64C8;margin-bottom:18px;text-align:center;}
+        .subtitle {font-size:24px;font-weight:700;color:#1E64C8;margin-bottom:15px;text-align:center;}
         .intro-box {background:#fff4e6;border:3px solid #ffc107;border-radius:12px;padding:14px 22px;margin-bottom:18px;text-align:center;}
         .content-grid {display:grid;grid-template-columns:380px 1fr;gap:18px;}
         .censoring-viz {background:#f8fbff;border:2.5px solid #1E64C8;border-radius:10px;padding:16px;}
@@ -17,10 +18,18 @@
         .info-card {background:#f8fbff;border:2.5px solid #1E64C8;border-radius:10px;padding:14px 16px;}
         .card-title {font-size:16px;font-weight:700;color:#1E64C8;margin-bottom:8px;}
         .card-content {font-size:13px;color:#333;line-height:1.5;}
+        .two-column {display:grid;grid-template-columns:1fr 1fr;gap:20px;}
+        .viz-box {background:#f8fbff;border:2.5px solid #1E64C8;border-radius:10px;padding:18px;}
+        .explanation-box {background:#f0f8ff;border:2px solid #1E64C8;border-radius:8px;padding:16px;margin-top:15px;}
+        .explanation-title {font-size:18px;font-weight:700;color:#1E64C8;margin-bottom:10px;}
+        .explanation-text {font-size:13px;color:#333;line-height:1.7;margin-bottom:8px;}
+        .formula-box {background:#fff;border:2px solid #1E64C8;border-radius:6px;padding:12px;margin:10px 0;font-family:'Courier New',monospace;font-size:14px;text-align:center;color:#1E64C8;font-weight:600;}
+        .highlight {background:#ffffcc;padding:2px 4px;border-radius:3px;font-weight:600;}
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Page 1: Original Content -->
+    <div class="page">
         <div class="title">Survival Analysis</div>
         <div class="intro-box">
             <strong style="color:#856404;">Time-to-event analysis:</strong> Death, disease recurrence, hospital readmission
@@ -131,5 +140,535 @@
             </div>
         </div>
     </div>
+
+    <!-- Page 2: Kaplan-Meier Survival Curve -->
+    <div class="page">
+        <div class="subtitle">Kaplan-Meier Survival Curve</div>
+        <div class="two-column">
+            <div class="viz-box">
+                <div class="viz-title">Survival Curve Example</div>
+                <svg width="400" height="320" viewBox="0 0 400 320">
+                    <!-- Axes -->
+                    <line x1="60" y1="20" x2="60" y2="280" stroke="#333" stroke-width="2"/>
+                    <line x1="60" y1="280" x2="380" y2="280" stroke="#333" stroke-width="2"/>
+                    
+                    <!-- Y-axis label and ticks -->
+                    <text x="25" y="15" font-size="12" fill="#333" font-weight="600">Survival</text>
+                    <text x="20" y="30" font-size="12" fill="#333" font-weight="600">Probability</text>
+                    
+                    <line x1="55" y1="280" x2="60" y2="280" stroke="#333" stroke-width="1.5"/>
+                    <text x="45" y="285" text-anchor="end" font-size="11" fill="#666">0.0</text>
+                    
+                    <line x1="55" y1="215" x2="60" y2="215" stroke="#333" stroke-width="1.5"/>
+                    <text x="45" y="220" text-anchor="end" font-size="11" fill="#666">0.25</text>
+                    
+                    <line x1="55" y1="150" x2="60" y2="150" stroke="#333" stroke-width="1.5"/>
+                    <text x="45" y="155" text-anchor="end" font-size="11" fill="#666">0.50</text>
+                    
+                    <line x1="55" y1="85" x2="60" y2="85" stroke="#333" stroke-width="1.5"/>
+                    <text x="45" y="90" text-anchor="end" font-size="11" fill="#666">0.75</text>
+                    
+                    <line x1="55" y1="20" x2="60" y2="20" stroke="#333" stroke-width="1.5"/>
+                    <text x="45" y="25" text-anchor="end" font-size="11" fill="#666">1.0</text>
+                    
+                    <!-- X-axis label and ticks -->
+                    <text x="220" y="310" text-anchor="middle" font-size="12" fill="#333" font-weight="600">Time (months)</text>
+                    
+                    <line x1="60" y1="280" x2="60" y2="285" stroke="#333" stroke-width="1.5"/>
+                    <text x="60" y="298" text-anchor="middle" font-size="11" fill="#666">0</text>
+                    
+                    <line x1="140" y1="280" x2="140" y2="285" stroke="#333" stroke-width="1.5"/>
+                    <text x="140" y="298" text-anchor="middle" font-size="11" fill="#666">12</text>
+                    
+                    <line x1="220" y1="280" x2="220" y2="285" stroke="#333" stroke-width="1.5"/>
+                    <text x="220" y="298" text-anchor="middle" font-size="11" fill="#666">24</text>
+                    
+                    <line x1="300" y1="280" x2="300" y2="285" stroke="#333" stroke-width="1.5"/>
+                    <text x="300" y="298" text-anchor="middle" font-size="11" fill="#666">36</text>
+                    
+                    <line x1="380" y1="280" x2="380" y2="285" stroke="#333" stroke-width="1.5"/>
+                    <text x="380" y="298" text-anchor="middle" font-size="11" fill="#666">48</text>
+                    
+                    <!-- Treatment A (Blue) - Better survival -->
+                    <polyline points="60,20 95,20 95,45 130,45 130,85 165,85 165,120 200,120 200,150 240,150 240,180 280,180 280,215 320,215 320,250 380,250" 
+                              fill="none" stroke="#1E64C8" stroke-width="3"/>
+                    
+                    <!-- Treatment B (Red) - Worse survival -->
+                    <polyline points="60,20 80,20 80,65 100,65 100,105 120,105 120,150 145,150 145,195 170,195 170,235 200,235 200,265 240,265 240,280 380,280" 
+                              fill="none" stroke="#dc3545" stroke-width="3"/>
+                    
+                    <!-- Censoring marks on Treatment A -->
+                    <circle cx="165" cy="85" r="3" fill="white" stroke="#1E64C8" stroke-width="2"/>
+                    <line x1="163" y1="83" x2="167" y2="87" stroke="#1E64C8" stroke-width="2"/>
+                    <line x1="163" y1="87" x2="167" y2="83" stroke="#1E64C8" stroke-width="2"/>
+                    
+                    <circle cx="240" cy="150" r="3" fill="white" stroke="#1E64C8" stroke-width="2"/>
+                    <line x1="238" y1="148" x2="242" y2="152" stroke="#1E64C8" stroke-width="2"/>
+                    <line x1="238" y1="152" x2="242" y2="148" stroke="#1E64C8" stroke-width="2"/>
+                    
+                    <!-- Censoring marks on Treatment B -->
+                    <circle cx="120" cy="105" r="3" fill="white" stroke="#dc3545" stroke-width="2"/>
+                    <line x1="118" y1="103" x2="122" y2="107" stroke="#dc3545" stroke-width="2"/>
+                    <line x1="118" y1="107" x2="122" y2="103" stroke="#dc3545" stroke-width="2"/>
+                    
+                    <!-- Legend -->
+                    <g transform="translate(250, 40)">
+                        <rect x="0" y="0" width="120" height="55" fill="white" stroke="#333" stroke-width="1" rx="4"/>
+                        
+                        <line x1="10" y1="15" x2="35" y2="15" stroke="#1E64C8" stroke-width="3"/>
+                        <text x="40" y="18" font-size="11" fill="#333">Treatment A</text>
+                        
+                        <line x1="10" y1="35" x2="35" y2="35" stroke="#dc3545" stroke-width="3"/>
+                        <text x="40" y="38" font-size="11" fill="#333">Treatment B</text>
+                    </g>
+                    
+                    <!-- Median survival annotation -->
+                    <line x1="60" y1="150" x2="200" y2="150" stroke="#666" stroke-width="1" stroke-dasharray="3,3"/>
+                    <line x1="200" y1="150" x2="200" y2="280" stroke="#666" stroke-width="1" stroke-dasharray="3,3"/>
+                    <text x="205" y="145" font-size="10" fill="#666" font-style="italic">Median</text>
+                </svg>
+            </div>
+            
+            <div>
+                <div class="explanation-box">
+                    <div class="explanation-title">Kaplan-Meier Method</div>
+                    <div class="explanation-text">
+                        A <span class="highlight">non-parametric survival estimation</span> method that accurately calculates survival probabilities even with censored data.
+                    </div>
+                    <div class="formula-box">
+                        S(t) = ∏(1 - dᵢ/nᵢ)
+                    </div>
+                    <div class="explanation-text">
+                        • <strong>dᵢ</strong>: Number of events at time i<br>
+                        • <strong>nᵢ</strong>: Number at risk at time i<br>
+                        • Represented as a step function
+                    </div>
+                </div>
+                
+                <div class="explanation-box" style="margin-top:12px;">
+                    <div class="explanation-title">Interpretation Points</div>
+                    <div class="explanation-text">
+                        • <strong>Median survival</strong>: Time when S(t) = 0.5<br>
+                        • <strong>Curve comparison</strong>: Use log-rank test<br>
+                        • <strong>Confidence intervals</strong>: Greenwood's formula<br>
+                        • Treatment A shows superior survival vs B
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 3: Cox Proportional Hazards Model -->
+    <div class="page">
+        <div class="subtitle">Cox Proportional Hazards Model</div>
+        <div class="two-column">
+            <div class="viz-box">
+                <div class="viz-title">Hazard Ratio Visualization</div>
+                <svg width="400" height="320" viewBox="0 0 400 320">
+                    <!-- Axes -->
+                    <line x1="60" y1="20" x2="60" y2="280" stroke="#333" stroke-width="2"/>
+                    <line x1="60" y1="280" x2="380" y2="280" stroke="#333" stroke-width="2"/>
+                    
+                    <!-- Y-axis label -->
+                    <text x="20" y="15" font-size="12" fill="#333" font-weight="600">Hazard</text>
+                    <text x="25" y="30" font-size="12" fill="#333" font-weight="600">Rate</text>
+                    
+                    <!-- Y-axis ticks -->
+                    <line x1="55" y1="280" x2="60" y2="280" stroke="#333" stroke-width="1.5"/>
+                    <text x="45" y="285" text-anchor="end" font-size="11" fill="#666">0</text>
+                    
+                    <line x1="55" y1="220" x2="60" y2="220" stroke="#333" stroke-width="1.5"/>
+                    <text x="45" y="225" text-anchor="end" font-size="11" fill="#666">0.05</text>
+                    
+                    <line x1="55" y1="160" x2="60" y2="160" stroke="#333" stroke-width="1.5"/>
+                    <text x="45" y="165" text-anchor="end" font-size="11" fill="#666">0.10</text>
+                    
+                    <line x1="55" y1="100" x2="60" y2="100" stroke="#333" stroke-width="1.5"/>
+                    <text x="45" y="105" text-anchor="end" font-size="11" fill="#666">0.15</text>
+                    
+                    <line x1="55" y1="40" x2="60" y2="40" stroke="#333" stroke-width="1.5"/>
+                    <text x="45" y="45" text-anchor="end" font-size="11" fill="#666">0.20</text>
+                    
+                    <!-- X-axis label and ticks -->
+                    <text x="220" y="310" text-anchor="middle" font-size="12" fill="#333" font-weight="600">Time (months)</text>
+                    
+                    <line x1="60" y1="280" x2="60" y2="285" stroke="#333" stroke-width="1.5"/>
+                    <text x="60" y="298" text-anchor="middle" font-size="11" fill="#666">0</text>
+                    
+                    <line x1="140" y1="280" x2="140" y2="285" stroke="#333" stroke-width="1.5"/>
+                    <text x="140" y="298" text-anchor="middle" font-size="11" fill="#666">12</text>
+                    
+                    <line x1="220" y1="280" x2="220" y2="285" stroke="#333" stroke-width="1.5"/>
+                    <text x="220" y="298" text-anchor="middle" font-size="11" fill="#666">24</text>
+                    
+                    <line x1="300" y1="280" x2="300" y2="285" stroke="#333" stroke-width="1.5"/>
+                    <text x="300" y="298" text-anchor="middle" font-size="11" fill="#666">36</text>
+                    
+                    <line x1="380" y1="280" x2="380" y2="285" stroke="#333" stroke-width="1.5"/>
+                    <text x="380" y="298" text-anchor="middle" font-size="11" fill="#666">48</text>
+                    
+                    <!-- Baseline hazard (Reference group) -->
+                    <path d="M 60,220 Q 140,200 220,180 T 380,150" 
+                          fill="none" stroke="#28a745" stroke-width="3"/>
+                    
+                    <!-- Hazard with HR = 2.0 (High risk group) -->
+                    <path d="M 60,160 Q 140,130 220,100 T 380,50" 
+                          fill="none" stroke="#dc3545" stroke-width="3"/>
+                    
+                    <!-- Proportional hazards illustration -->
+                    <line x1="140" y1="200" x2="140" y2="130" stroke="#666" stroke-width="1.5" stroke-dasharray="4,4"/>
+                    <text x="145" y="165" font-size="10" fill="#666" font-weight="600">HR = 2.0</text>
+                    
+                    <line x1="300" y1="160" x2="300" y2="80" stroke="#666" stroke-width="1.5" stroke-dasharray="4,4"/>
+                    <text x="305" y="120" font-size="10" fill="#666" font-weight="600">HR = 2.0</text>
+                    
+                    <!-- Legend -->
+                    <g transform="translate(230, 220)">
+                        <rect x="0" y="0" width="140" height="55" fill="white" stroke="#333" stroke-width="1" rx="4"/>
+                        
+                        <line x1="10" y1="15" x2="35" y2="15" stroke="#28a745" stroke-width="3"/>
+                        <text x="40" y="18" font-size="11" fill="#333">Baseline (Ref)</text>
+                        
+                        <line x1="10" y1="35" x2="35" y2="35" stroke="#dc3545" stroke-width="3"/>
+                        <text x="40" y="38" font-size="11" fill="#333">High Risk (HR=2)</text>
+                    </g>
+                    
+                    <!-- Annotation box -->
+                    <g transform="translate(70, 35)">
+                        <rect x="0" y="0" width="140" height="45" fill="#fffacd" stroke="#ffc107" stroke-width="2" rx="4"/>
+                        <text x="70" y="15" text-anchor="middle" font-size="10" fill="#333" font-weight="600">Proportional Hazards</text>
+                        <text x="70" y="30" text-anchor="middle" font-size="9" fill="#666">Hazard ratio remains</text>
+                        <text x="70" y="42" text-anchor="middle" font-size="9" fill="#666">constant over time</text>
+                    </g>
+                </svg>
+            </div>
+            
+            <div>
+                <div class="explanation-box">
+                    <div class="explanation-title">Cox Proportional Hazards Model</div>
+                    <div class="explanation-text">
+                        A <span class="highlight">semi-parametric regression model</span> that simultaneously evaluates the effects of multiple covariates on survival.
+                    </div>
+                    <div class="formula-box">
+                        h(t|X) = h₀(t) × exp(β₁X₁ + β₂X₂ + ... + βₚXₚ)
+                    </div>
+                    <div class="explanation-text">
+                        • <strong>h₀(t)</strong>: Baseline hazard function<br>
+                        • <strong>exp(β)</strong>: Hazard Ratio (HR)<br>
+                        • <strong>Proportionality assumption</strong>: HR is time-independent
+                    </div>
+                </div>
+                
+                <div class="explanation-box" style="margin-top:12px;">
+                    <div class="explanation-title">Hazard Ratio (HR) Interpretation</div>
+                    <div class="explanation-text">
+                        • <strong>HR = 1</strong>: No effect<br>
+                        • <strong>HR > 1</strong>: Increased risk (poor prognosis)<br>
+                        • <strong>HR < 1</strong>: Decreased risk (good prognosis)<br>
+                        • <strong>HR = 2.0</strong>: Risk is 2 times higher
+                    </div>
+                </div>
+                
+                <div class="explanation-box" style="margin-top:12px;">
+                    <div class="explanation-title">Model Assumption Testing</div>
+                    <div class="explanation-text">
+                        • Schoenfeld residuals test<br>
+                        • Log-log survival curve parallelism check
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 4: Key Statistical Concepts -->
+    <div class="page">
+        <div class="subtitle">Key Concepts in Survival Analysis</div>
+        
+        <div class="explanation-box">
+            <div class="explanation-title">1. Survival Function</div>
+            <div class="explanation-text">
+                Represents the probability that the event has not occurred by time t.
+            </div>
+            <div class="formula-box">
+                S(t) = P(T > t) = 1 - F(t)
+            </div>
+            <div class="explanation-text">
+                • S(0) = 1 (all subjects survive at start)<br>
+                • S(∞) = 0 (eventually all experience event)<br>
+                • Monotonically decreasing function
+            </div>
+        </div>
+
+        <div class="two-column" style="margin-top:15px;">
+            <div class="explanation-box">
+                <div class="explanation-title">2. Hazard Function</div>
+                <div class="explanation-text">
+                    The instantaneous risk of experiencing the event at time t, given survival until t.
+                </div>
+                <div class="formula-box">
+                    h(t) = lim[Δt→0] P(t ≤ T < t+Δt | T ≥ t) / Δt
+                </div>
+                <div class="explanation-text">
+                    • <strong>Constant</strong>: Exponential distribution<br>
+                    • <strong>Increasing</strong>: Weibull distribution<br>
+                    • <strong>Decreasing then increasing</strong>: Log-normal
+                </div>
+            </div>
+
+            <div class="explanation-box">
+                <div class="explanation-title">3. Cumulative Hazard</div>
+                <div class="explanation-text">
+                    The accumulated hazard from time 0 to time t.
+                </div>
+                <div class="formula-box">
+                    H(t) = ∫₀ᵗ h(u)du = -ln[S(t)]
+                </div>
+                <div class="explanation-text">
+                    • Estimated by Nelson-Aalen estimator<br>
+                    • S(t) = exp[-H(t)]<br>
+                    • Interconvertible with survival function
+                </div>
+            </div>
+        </div>
+
+        <div class="two-column" style="margin-top:15px;">
+            <div class="explanation-box">
+                <div class="explanation-title">4. Log-Rank Test</div>
+                <div class="explanation-text">
+                    A non-parametric test to compare survival curves between two or more groups.
+                </div>
+                <div class="formula-box" style="font-size:12px;">
+                    χ² = [Σ(Oᵢ - Eᵢ)]² / Σ Var(Oᵢ - Eᵢ)
+                </div>
+                <div class="explanation-text">
+                    • Compares observed vs expected events<br>
+                    • Equal weights across follow-up period
+                </div>
+            </div>
+
+            <div class="explanation-box">
+                <div class="explanation-title">5. Censoring Handling</div>
+                <div class="explanation-text">
+                    Methods to utilize information from incomplete observations.
+                </div>
+                <div class="explanation-text">
+                    • <strong>Non-informative censoring</strong>: Independent of event<br>
+                    • Information until censoring included<br>
+                    • Removed from risk set afterwards<br>
+                    • Key strength of survival analysis
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 5: Practical Application Example -->
+    <div class="page">
+        <div class="subtitle">Clinical Research Application Example</div>
+        
+        <div class="explanation-box">
+            <div class="explanation-title">Study Scenario: New Drug Clinical Trial</div>
+            <div class="explanation-text">
+                <strong>Objective:</strong> Evaluate whether a new anticancer drug (Drug A) improves overall survival compared to standard treatment<br>
+                <strong>Population:</strong> 200 patients with advanced lung cancer (100 per arm)<br>
+                <strong>Follow-up:</strong> Maximum 48 months
+            </div>
+        </div>
+
+        <div class="two-column" style="margin-top:15px;">
+            <div class="explanation-box">
+                <div class="explanation-title">Step 1: Study Design</div>
+                <div class="explanation-text">
+                    • <strong>Primary endpoint</strong>: Overall survival (OS)<br>
+                    • <strong>Secondary endpoints</strong>: Progression-free survival (PFS)<br>
+                    • <strong>Covariates</strong>: Age, sex, disease stage, ECOG score<br>
+                    • <strong>Event definition</strong>: Death from any cause
+                </div>
+            </div>
+
+            <div class="explanation-box">
+                <div class="explanation-title">Step 2: Data Collection</div>
+                <div class="explanation-text">
+                    • From enrollment to death or last follow-up<br>
+                    • Censored: Lost to follow-up, withdrew, study end<br>
+                    • Events observed: 118 (59%)<br>
+                    • Censored: 82 (41%)
+                </div>
+            </div>
+        </div>
+
+        <div class="explanation-box" style="margin-top:15px;">
+            <div class="explanation-title">Step 3: Statistical Analysis</div>
+            <div class="explanation-text" style="display:grid;grid-template-columns:1fr 1fr;gap:15px;">
+                <div>
+                    <strong style="color:#1E64C8;">1️⃣ Kaplan-Meier Analysis</strong><br>
+                    • Estimate survival curves for each arm<br>
+                    • Calculate median survival times<br>
+                    • Present 95% confidence intervals<br>
+                    <br>
+                    <strong>Results:</strong><br>
+                    Drug A: Median survival 26.5 months<br>
+                    Standard: Median survival 18.2 months
+                </div>
+                <div>
+                    <strong style="color:#1E64C8;">2️⃣ Log-Rank Test</strong><br>
+                    • Compare survival curves between arms<br>
+                    • Consider entire follow-up period<br>
+                    <br>
+                    <strong>Results:</strong><br>
+                    χ² = 8.42, p = 0.004<br>
+                    → Statistically significant difference
+                </div>
+            </div>
+        </div>
+
+        <div class="explanation-box" style="margin-top:15px;">
+            <div class="explanation-title">Step 4: Cox Regression Analysis (Multivariable)</div>
+            <div class="explanation-text">
+                <strong style="color:#1E64C8;">Treatment Effect Assessment After Covariate Adjustment</strong>
+            </div>
+            <div class="explanation-text" style="font-size:12px;line-height:1.6;">
+                <table style="width:100%;border-collapse:collapse;">
+                    <tr style="background:#f0f8ff;">
+                        <th style="border:1px solid #1E64C8;padding:6px;text-align:left;">Variable</th>
+                        <th style="border:1px solid #1E64C8;padding:6px;">Hazard Ratio (HR)</th>
+                        <th style="border:1px solid #1E64C8;padding:6px;">95% CI</th>
+                        <th style="border:1px solid #1E64C8;padding:6px;">p-value</th>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid #1E64C8;padding:6px;">Treatment (Drug A vs Standard)</td>
+                        <td style="border:1px solid #1E64C8;padding:6px;text-align:center;"><strong>0.62</strong></td>
+                        <td style="border:1px solid #1E64C8;padding:6px;text-align:center;">0.45-0.86</td>
+                        <td style="border:1px solid #1E64C8;padding:6px;text-align:center;"><strong>0.003</strong></td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid #1E64C8;padding:6px;">Age (per 10-year increase)</td>
+                        <td style="border:1px solid #1E64C8;padding:6px;text-align:center;">1.18</td>
+                        <td style="border:1px solid #1E64C8;padding:6px;text-align:center;">1.05-1.33</td>
+                        <td style="border:1px solid #1E64C8;padding:6px;text-align:center;">0.006</td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid #1E64C8;padding:6px;">Disease Stage (IV vs III)</td>
+                        <td style="border:1px solid #1E64C8;padding:6px;text-align:center;">1.95</td>
+                        <td style="border:1px solid #1E64C8;padding:6px;text-align:center;">1.42-2.68</td>
+                        <td style="border:1px solid #1E64C8;padding:6px;text-align:center;"><0.001</td>
+                    </tr>
+                    <tr>
+                        <td style="border:1px solid #1E64C8;padding:6px;">ECOG Score (2 vs 0-1)</td>
+                        <td style="border:1px solid #1E64C8;padding:6px;text-align:center;">1.54</td>
+                        <td style="border:1px solid #1E64C8;padding:6px;text-align:center;">1.15-2.07</td>
+                        <td style="border:1px solid #1E64C8;padding:6px;text-align:center;">0.004</td>
+                    </tr>
+                </table>
+            </div>
+            <div class="explanation-text" style="margin-top:10px;">
+                <strong style="color:#dc3545;">Interpretation:</strong> Drug A reduces mortality risk by 38% compared to Standard (HR=0.62, p=0.003)<br>
+                Treatment effect remains significant after adjusting for other prognostic factors
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 6: Advanced Considerations -->
+    <div class="page">
+        <div class="subtitle">Advanced Topics and Considerations</div>
+        
+        <div class="two-column">
+            <div class="explanation-box">
+                <div class="explanation-title">Violation of Proportional Hazards</div>
+                <div class="explanation-text">
+                    Alternatives when the key Cox model assumption is not met:
+                </div>
+                <div class="explanation-text" style="font-size:12px;line-height:1.6;">
+                    <strong style="color:#1E64C8;">1. Stratified Cox Model</strong><br>
+                    • Stratify by variables violating proportionality<br>
+                    • Estimate separate baseline hazards per stratum<br>
+                    <br>
+                    <strong style="color:#1E64C8;">2. Time-Dependent Covariates</strong><br>
+                    • Include time-varying variables<br>
+                    • Example: X(t) = X × g(t)<br>
+                    <br>
+                    <strong style="color:#1E64C8;">3. Accelerated Failure Time Model</strong><br>
+                    • Directly model survival time<br>
+                    • Use log-normal, Weibull distributions, etc.
+                </div>
+            </div>
+
+            <div class="explanation-box">
+                <div class="explanation-title">Competing Risks Analysis</div>
+                <div class="explanation-text">
+                    When multiple types of events can occur:
+                </div>
+                <div class="explanation-text" style="font-size:12px;line-height:1.6;">
+                    <strong style="color:#1E64C8;">Example Scenarios</strong><br>
+                    • Cancer death vs other-cause death<br>
+                    • Recurrence vs death<br>
+                    • Transplant: Transplanted vs died waiting<br>
+                    <br>
+                    <strong style="color:#1E64C8;">Analysis Methods</strong><br>
+                    • <strong>Cumulative Incidence Function (CIF)</strong>: Probability of specific event<br>
+                    • <strong>Fine-Gray Model</strong>: Subdistribution hazard<br>
+                    • Kaplan-Meier may overestimate with competing risks
+                </div>
+            </div>
+        </div>
+
+        <div class="two-column" style="margin-top:15px;">
+            <div class="explanation-box">
+                <div class="explanation-title">Recurrent Events Analysis</div>
+                <div class="explanation-text" style="font-size:12px;line-height:1.7;">
+                    Multiple events possible in same subject:<br>
+                    • Hospitalizations, recurrences, infections, etc.<br>
+                    <br>
+                    <strong style="color:#1E64C8;">Analysis Approaches</strong><br>
+                    • <strong>Anderson-Gill Model</strong>: All events independent<br>
+                    • <strong>PWP Model</strong>: Sequential conditional events<br>
+                    • <strong>Frailty Model</strong>: Account for within-subject correlation
+                </div>
+            </div>
+
+            <div class="explanation-box">
+                <div class="explanation-title">Sample Size Calculation</div>
+                <div class="explanation-text" style="font-size:12px;line-height:1.7;">
+                    Considerations for survival study design:
+                </div>
+                <div class="formula-box" style="font-size:11px;">
+                    Events = (Z₁₋α/₂ + Z₁₋β)² / [p₁(1-p₁)(log HR)²]
+                </div>
+                <div class="explanation-text" style="font-size:12px;">
+                    • Number of events determines power<br>
+                    • Consider follow-up duration and dropout<br>
+                    • Higher censoring requires more enrollment
+                </div>
+            </div>
+        </div>
+
+        <div class="explanation-box" style="margin-top:15px;">
+            <div class="explanation-title">Key Cautions and Checklist</div>
+            <div class="explanation-text" style="display:grid;grid-template-columns:1fr 1fr;gap:12px;font-size:12px;">
+                <div>
+                    <strong style="color:#dc3545;">⚠️ Data Quality</strong><br>
+                    ✓ Is event definition clear?<br>
+                    ✓ Are censoring reasons documented?<br>
+                    ✓ Is the time origin clearly defined?<br>
+                    <br>
+                    <strong style="color:#dc3545;">⚠️ Model Assumptions</strong><br>
+                    ✓ Test proportional hazards assumption<br>
+                    ✓ Verify non-informative censoring<br>
+                    ✓ Check for outliers and influential observations
+                </div>
+                <div>
+                    <strong style="color:#dc3545;">⚠️ Result Reporting</strong><br>
+                    ✓ Present median follow-up time<br>
+                    ✓ Display number at risk<br>
+                    ✓ Report with confidence intervals<br>
+                    <br>
+                    <strong style="color:#dc3545;">⚠️ Interpretation</strong><br>
+                    ✓ Distinguish clinical vs statistical significance<br>
+                    ✓ Consider adjustment for multiple testing<br>
+                    ✓ Check for potential confounders
+                </div>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

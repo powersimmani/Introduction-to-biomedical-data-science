@@ -1,180 +1,672 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Multiple Testing Correction</title>
+    <title>Multiple Testing Correction - Comprehensive Guide</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f8f9fa;
+            padding: 40px 20px;
         }
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 30px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 50px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
-        .title {
-            font-size: 28px;
-            font-weight: 600;
+        .main-title {
+            font-size: 36px;
+            font-weight: 700;
             color: #1E64C8;
+            margin-bottom: 50px;
+            text-align: center;
+            border-bottom: 4px solid #1E64C8;
+            padding-bottom: 20px;
+        }
+        .section {
+            margin-bottom: 60px;
+        }
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 30px;
+            padding-left: 15px;
+            border-left: 5px solid #1E64C8;
+        }
+        .problem-section {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+        .problem-box {
+            padding: 25px;
+            border-radius: 10px;
+            border: 3px solid;
+        }
+        .problem-without {
+            background: #FFEBEE;
+            border-color: #D32F2F;
+        }
+        .problem-with {
+            background: #E8F5E9;
+            border-color: #388E3C;
+        }
+        .problem-box h3 {
+            font-size: 20px;
+            font-weight: 700;
             margin-bottom: 20px;
             text-align: center;
         }
-        .visual-content {
-            width: 100%;
-            height: 430px;
-        }
-        .note-box {
-            background: #f0f5fc;
-            border-left: 4px solid #1E64C8;
-            border-radius: 6px;
-            padding: 12px 18px;
-            margin-top: 10px;
-        }
-        .note-text {
-            font-size: 16px;
+        .problem-without h3 { color: #C62828; }
+        .problem-with h3 { color: #1B5E20; }
+        
+        .problem-box p {
+            font-size: 15px;
+            line-height: 1.6;
+            margin-bottom: 15px;
             color: #333;
+        }
+        .highlight-box {
+            background: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
             font-weight: 600;
+            text-align: center;
+        }
+        .problem-without .highlight-box { color: #B71C1C; }
+        .problem-with .highlight-box { color: #1B5E20; }
+        
+        .visual-bar {
+            display: flex;
+            height: 50px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin-top: 15px;
+        }
+        .bar-segment {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 13px;
+            font-weight: 600;
+        }
+        
+        .methods-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 40px;
+            margin-top: 30px;
+        }
+        .method-card {
+            border: 3px solid;
+            border-radius: 12px;
+            padding: 30px;
+            background: white;
+        }
+        .method-card h3 {
+            font-size: 22px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid;
+        }
+        .method-bonferroni {
+            border-color: #C2185B;
+            background: #FCE4EC;
+        }
+        .method-bonferroni h3 {
+            color: #880E4F;
+            border-color: #C2185B;
+        }
+        .method-bh {
+            border-color: #1976D2;
+            background: #E3F2FD;
+        }
+        .method-bh h3 {
+            color: #0D47A1;
+            border-color: #1976D2;
+        }
+        .method-qvalue {
+            border-color: #F57C00;
+            background: #FFF3E0;
+        }
+        .method-qvalue h3 {
+            color: #E65100;
+            border-color: #F57C00;
+        }
+        .method-permutation {
+            border-color: #7B1FA2;
+            background: #F3E5F5;
+        }
+        .method-permutation h3 {
+            color: #4A148C;
+            border-color: #7B1FA2;
+        }
+        
+        .formula-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            font-weight: 600;
+            border: 2px solid #ddd;
+        }
+        .characteristics {
+            margin: 20px 0;
+        }
+        .characteristics h4 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            color: #333;
+        }
+        .characteristics ul {
+            list-style: none;
+            padding: 0;
+        }
+        .characteristics li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 14px;
+            line-height: 1.6;
+            color: #444;
+        }
+        .characteristics li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-weight: bold;
+        }
+        
+        .example-section {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .example-section h4 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: #333;
+        }
+        .example-content {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #555;
+        }
+        .example-table {
+            width: 100%;
+            margin-top: 10px;
+            border-collapse: collapse;
+        }
+        .example-table th,
+        .example-table td {
+            padding: 10px;
+            text-align: center;
+            border: 1px solid #ddd;
+            font-size: 13px;
+        }
+        .example-table th {
+            background: #f0f0f0;
+            font-weight: 600;
+        }
+        
+        .comparison-box {
+            background: #f0f5fc;
+            border: 2px solid #1E64C8;
+            border-radius: 10px;
+            padding: 25px;
+            margin-top: 40px;
+        }
+        .comparison-box h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 15px;
+        }
+        .comparison-box p {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        .note-box {
+            background: #fff9c4;
+            border-left: 5px solid #FBC02D;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 30px;
+        }
+        .note-box p {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+        }
+        .note-box strong {
+            color: #F57F17;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Multiple Testing Correction</div>
-        <div class="visual-content">
-            <svg width="100%" height="100%" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
-                <!-- Problem Illustration -->
-                <text x="450" y="25" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">The Multiple Testing Problem</text>
+        <h1 class="main-title">Multiple Testing Correction: A Comprehensive Guide</h1>
+        
+        <!-- Problem Overview Section -->
+        <div class="section">
+            <h2 class="section-title">The Multiple Testing Problem</h2>
+            
+            <div class="problem-section">
+                <div class="problem-box problem-without">
+                    <h3>❌ Without Correction</h3>
+                    <p><strong>Scenario:</strong> Testing 20,000 genes at α = 0.05</p>
+                    <p>When we test thousands of hypotheses simultaneously, even with a reasonable significance level, we end up with an unacceptable number of false positives.</p>
+                    
+                    <div class="highlight-box">
+                        Expected false positives = 20,000 × 0.05 = 1,000 genes!
+                    </div>
+                    
+                    <div class="visual-bar">
+                        <div class="bar-segment" style="flex: 19; background: #BDBDBD;">
+                            19,000 True Negatives
+                        </div>
+                        <div class="bar-segment" style="flex: 1; background: #FF5252;">
+                            1,000 False Positives
+                        </div>
+                    </div>
+                    
+                    <p style="margin-top: 15px;"><strong>Problem:</strong> Among 1,000 "significant" results, we cannot distinguish true discoveries from false alarms!</p>
+                </div>
                 
-                <!-- Left: Without Correction -->
-                <g id="without-correction">
-                    <rect x="20" y="50" width="420" height="160" rx="10" fill="#FFEBEE" stroke="#D32F2F" stroke-width="2"/>
-                    <text x="230" y="75" font-family="Aptos, sans-serif" font-size="15" font-weight="700" fill="#C62828" text-anchor="middle">Without Correction</text>
+                <div class="problem-box problem-with">
+                    <h3>✓ With FDR Control</h3>
+                    <p><strong>Solution:</strong> Benjamini-Hochberg procedure at FDR = 0.05</p>
+                    <p>By controlling the False Discovery Rate, we ensure that among all discoveries we make, no more than 5% are false positives.</p>
                     
-                    <!-- Gene testing illustration -->
-                    <text x="40" y="100" font-family="Aptos, sans-serif" font-size="12" fill="#333">Testing 20,000 genes at α = 0.05:</text>
+                    <div class="highlight-box">
+                        Controls: False discoveries / Total discoveries ≤ 5%
+                    </div>
                     
-                    <rect x="40" y="110" width="380" height="30" rx="5" fill="#FFCDD2"/>
-                    <text x="230" y="130" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#B71C1C" text-anchor="middle">Expected false positives = 20,000 × 0.05 = 1,000 genes!</text>
+                    <div class="visual-bar">
+                        <div class="bar-segment" style="flex: 95; background: #4CAF50;">
+                            95 True Positives
+                        </div>
+                        <div class="bar-segment" style="flex: 5; background: #FF9800;">
+                            5 False Positives
+                        </div>
+                    </div>
                     
-                    <!-- Visual representation -->
-                    <g transform="translate(40, 150)">
-                        <!-- True negatives -->
-                        <rect x="0" y="0" width="300" height="40" fill="#E0E0E0"/>
-                        <text x="150" y="25" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">19,000 True Null</text>
-                        
-                        <!-- False positives highlighted -->
-                        <rect x="300" y="0" width="80" height="40" fill="#FF5252"/>
-                        <text x="340" y="25" font-family="Aptos, sans-serif" font-size="11" fill="white" font-weight="600" text-anchor="middle">1,000 FP</text>
-                    </g>
-                </g>
-                
-                <!-- Right: With Correction -->
-                <g id="with-correction">
-                    <rect x="460" y="50" width="420" height="160" rx="10" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
-                    <text x="670" y="75" font-family="Aptos, sans-serif" font-size="15" font-weight="700" fill="#1B5E20" text-anchor="middle">With FDR Control</text>
-                    
-                    <!-- FDR control explanation -->
-                    <text x="480" y="100" font-family="Aptos, sans-serif" font-size="12" fill="#333">Benjamini-Hochberg at FDR = 0.05:</text>
-                    
-                    <rect x="480" y="110" width="380" height="30" rx="5" fill="#C8E6C9"/>
-                    <text x="670" y="130" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="#1B5E20" text-anchor="middle">Controls proportion of false discoveries ≤ 5%</text>
-                    
-                    <!-- Visual representation -->
-                    <g transform="translate(480, 150)">
-                        <!-- True positives -->
-                        <rect x="0" y="0" width="100" height="40" fill="#4CAF50"/>
-                        <text x="50" y="25" font-family="Aptos, sans-serif" font-size="11" fill="white" font-weight="600" text-anchor="middle">95 TP</text>
-                        
-                        <!-- Controlled false positives -->
-                        <rect x="100" y="0" width="20" height="40" fill="#FF9800"/>
-                        <text x="110" y="25" font-family="Aptos, sans-serif" font-size="10" fill="white" text-anchor="middle">5</text>
-                        
-                        <!-- Remaining -->
-                        <rect x="120" y="0" width="260" height="40" fill="#E0E0E0"/>
-                        <text x="250" y="25" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">Not called significant</text>
-                    </g>
-                </g>
-                
-                <!-- Method Comparison -->
-                <g id="method-comparison">
-                    <text x="450" y="235" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#1E64C8" text-anchor="middle">Correction Methods</text>
-                    
-                    <!-- Bonferroni -->
-                    <g transform="translate(20, 250)">
-                        <rect x="0" y="0" width="200" height="140" rx="8" fill="#FCE4EC" stroke="#C2185B" stroke-width="2"/>
-                        <text x="100" y="25" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#880E4F" text-anchor="middle">Bonferroni (FWER)</text>
-                        
-                        <text x="10" y="45" font-family="Aptos, sans-serif" font-size="11" fill="#333">Formula:</text>
-                        <rect x="10" y="50" width="180" height="25" rx="4" fill="white"/>
-                        <text x="100" y="67" font-family="Aptos, sans-serif" font-size="11" font-family="monospace" fill="#880E4F" text-anchor="middle">p_adjusted = p × n</text>
-                        
-                        <text x="10" y="95" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#C2185B">Very Conservative</text>
-                        <text x="10" y="110" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Controls FWER < α</text>
-                        <text x="10" y="125" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Few false positives</text>
-                        <text x="10" y="140" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Many false negatives</text>
-                    </g>
-                    
-                    <!-- Benjamini-Hochberg -->
-                    <g transform="translate(240, 250)">
-                        <rect x="0" y="0" width="200" height="140" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
-                        <text x="100" y="25" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#0D47A1" text-anchor="middle">Benjamini-Hochberg</text>
-                        
-                        <text x="10" y="45" font-family="Aptos, sans-serif" font-size="11" fill="#333">Formula:</text>
-                        <rect x="10" y="50" width="180" height="25" rx="4" fill="white"/>
-                        <text x="100" y="67" font-family="Aptos, sans-serif" font-size="11" font-family="monospace" fill="#0D47A1" text-anchor="middle">p(i) ≤ (i/m) × α</text>
-                        
-                        <text x="10" y="95" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#1976D2">Balanced</text>
-                        <text x="10" y="110" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Controls FDR < α</text>
-                        <text x="10" y="125" font-family="Aptos, sans-serif" font-size="10" fill="#333">• More discoveries</text>
-                        <text x="10" y="140" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Standard for genomics</text>
-                    </g>
-                    
-                    <!-- Q-value -->
-                    <g transform="translate(460, 250)">
-                        <rect x="0" y="0" width="200" height="140" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
-                        <text x="100" y="25" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#E65100" text-anchor="middle">Q-value</text>
-                        
-                        <text x="10" y="45" font-family="Aptos, sans-serif" font-size="11" fill="#333">Concept:</text>
-                        <rect x="10" y="50" width="180" height="25" rx="4" fill="white"/>
-                        <text x="100" y="67" font-family="Aptos, sans-serif" font-size="11" fill="#E65100" text-anchor="middle">Min FDR at threshold</text>
-                        
-                        <text x="10" y="95" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#F57C00">Adaptive</text>
-                        <text x="10" y="110" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Estimates π₀</text>
-                        <text x="10" y="125" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Data-driven</text>
-                        <text x="10" y="140" font-family="Aptos, sans-serif" font-size="10" fill="#333">• More powerful</text>
-                    </g>
-                    
-                    <!-- Permutation -->
-                    <g transform="translate(680, 250)">
-                        <rect x="0" y="0" width="200" height="140" rx="8" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2"/>
-                        <text x="100" y="25" font-family="Aptos, sans-serif" font-size="14" font-weight="700" fill="#4A148C" text-anchor="middle">Permutation</text>
-                        
-                        <text x="10" y="45" font-family="Aptos, sans-serif" font-size="11" fill="#333">Approach:</text>
-                        <rect x="10" y="50" width="180" height="25" rx="4" fill="white"/>
-                        <text x="100" y="67" font-family="Aptos, sans-serif" font-size="11" fill="#4A148C" text-anchor="middle">Empirical null dist.</text>
-                        
-                        <text x="10" y="95" font-family="Aptos, sans-serif" font-size="11" font-weight="600" fill="#7B1FA2">Non-parametric</text>
-                        <text x="10" y="110" font-family="Aptos, sans-serif" font-size="10" fill="#333">• No assumptions</text>
-                        <text x="10" y="125" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Computationally intensive</text>
-                        <text x="10" y="140" font-family="Aptos, sans-serif" font-size="10" fill="#333">• Complex designs</text>
-                    </g>
-                </g>
-                
-                <!-- Power vs Control Trade-off -->
-                <rect x="20" y="400" width="860" height="15" rx="5" fill="#f0f5fc"/>
-                <text x="450" y="411" font-family="Aptos, sans-serif" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">Trade-off: Strict control (Bonferroni) → Few discoveries | Relaxed control (FDR) → More discoveries with controlled error</text>
-            </svg>
+                    <p style="margin-top: 15px;"><strong>Benefit:</strong> Among 100 called significant, we expect ~95 are truly associated with the phenotype!</p>
+                </div>
+            </div>
         </div>
-        <div class="note-box">
-            <div class="note-text">💡 Testing 20,000 genes requires careful multiple testing correction</div>
+        
+        <!-- Methods Section -->
+        <div class="section">
+            <h2 class="section-title">Multiple Testing Correction Methods</h2>
+            
+            <div class="methods-grid">
+                <!-- Bonferroni Method -->
+                <div class="method-card method-bonferroni">
+                    <h3>Bonferroni Correction (FWER)</h3>
+                    
+                    <div class="formula-box" style="color: #880E4F;">
+                        p<sub>adjusted</sub> = p × n<br>
+                        or<br>
+                        α<sub>threshold</sub> = α / n
+                    </div>
+                    
+                    <div class="characteristics">
+                        <h4>Key Characteristics:</h4>
+                        <ul>
+                            <li><strong>Controls Family-Wise Error Rate (FWER):</strong> Probability of making at least one false positive ≤ α</li>
+                            <li><strong>Very Conservative:</strong> Suitable when even a single false positive is unacceptable</li>
+                            <li><strong>Simple to Calculate:</strong> Just multiply p-values by number of tests</li>
+                            <li><strong>Low Power:</strong> May miss many true discoveries (high false negative rate)</li>
+                            <li><strong>Assumes Independence:</strong> Overly conservative when tests are correlated</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-section">
+                        <h4>📊 Practical Example:</h4>
+                        <div class="example-content">
+                            <p><strong>Study:</strong> Testing 100 genes for disease association</p>
+                            <p><strong>Original α = 0.05</strong></p>
+                            <p><strong>Bonferroni threshold:</strong> 0.05 / 100 = 0.0005</p>
+                            
+                            <table class="example-table">
+                                <tr>
+                                    <th>Gene</th>
+                                    <th>Raw p-value</th>
+                                    <th>Bonferroni p</th>
+                                    <th>Significant?</th>
+                                </tr>
+                                <tr>
+                                    <td>Gene A</td>
+                                    <td>0.0001</td>
+                                    <td>0.01</td>
+                                    <td style="background: #C8E6C9;">✓ Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>Gene B</td>
+                                    <td>0.001</td>
+                                    <td>0.10</td>
+                                    <td style="background: #FFCDD2;">✗ No</td>
+                                </tr>
+                                <tr>
+                                    <td>Gene C</td>
+                                    <td>0.01</td>
+                                    <td>1.00</td>
+                                    <td style="background: #FFCDD2;">✗ No</td>
+                                </tr>
+                            </table>
+                            
+                            <p style="margin-top: 15px;"><strong>Result:</strong> Only the most extreme p-values pass the threshold. Minimal false positives but potentially many missed discoveries.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="example-section" style="margin-top: 15px;">
+                        <h4>🎯 When to Use:</h4>
+                        <div class="example-content">
+                            <ul style="list-style: disc; padding-left: 20px;">
+                                <li>Clinical trials where false positives could lead to harmful treatments</li>
+                                <li>Small number of tests (n < 100)</li>
+                                <li>When stringent control of Type I error is critical</li>
+                                <li>Regulatory or diagnostic applications</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Benjamini-Hochberg Method -->
+                <div class="method-card method-bh">
+                    <h3>Benjamini-Hochberg Procedure (FDR)</h3>
+                    
+                    <div class="formula-box" style="color: #0D47A1;">
+                        Sort p-values: p<sub>(1)</sub> ≤ p<sub>(2)</sub> ≤ ... ≤ p<sub>(m)</sub><br>
+                        Find largest i where: p<sub>(i)</sub> ≤ (i/m) × α<br>
+                        Reject H<sub>(1)</sub>, ..., H<sub>(i)</sub>
+                    </div>
+                    
+                    <div class="characteristics">
+                        <h4>Key Characteristics:</h4>
+                        <ul>
+                            <li><strong>Controls False Discovery Rate (FDR):</strong> Expected proportion of false positives among discoveries ≤ α</li>
+                            <li><strong>Balanced Approach:</strong> More discoveries than Bonferroni while controlling error rate</li>
+                            <li><strong>Standard in Genomics:</strong> Widely accepted in high-throughput studies</li>
+                            <li><strong>Sequential Procedure:</strong> Tests are evaluated in order of significance</li>
+                            <li><strong>Robust:</strong> Works well even with correlated tests</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-section">
+                        <h4>📊 Practical Example:</h4>
+                        <div class="example-content">
+                            <p><strong>Study:</strong> Same 100 genes, FDR = 0.05</p>
+                            
+                            <table class="example-table">
+                                <tr>
+                                    <th>Rank (i)</th>
+                                    <th>p-value</th>
+                                    <th>BH threshold<br>(i/100) × 0.05</th>
+                                    <th>Significant?</th>
+                                </tr>
+                                <tr>
+                                    <td>1</td>
+                                    <td>0.0001</td>
+                                    <td>0.0005</td>
+                                    <td style="background: #C8E6C9;">✓ Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>2</td>
+                                    <td>0.0008</td>
+                                    <td>0.0010</td>
+                                    <td style="background: #C8E6C9;">✓ Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>3</td>
+                                    <td>0.0012</td>
+                                    <td>0.0015</td>
+                                    <td style="background: #C8E6C9;">✓ Yes</td>
+                                </tr>
+                                <tr>
+                                    <td>4</td>
+                                    <td>0.0020</td>
+                                    <td>0.0020</td>
+                                    <td style="background: #C8E6C9;">✓ Yes (largest i)</td>
+                                </tr>
+                                <tr>
+                                    <td>5</td>
+                                    <td>0.0030</td>
+                                    <td>0.0025</td>
+                                    <td style="background: #FFCDD2;">✗ No</td>
+                                </tr>
+                            </table>
+                            
+                            <p style="margin-top: 15px;"><strong>Result:</strong> First 4 genes are called significant. Among these, we expect ~5% (0.2 genes) to be false positives.</p>
+                            <p><strong>Comparison:</strong> Bonferroni found 1 gene, BH found 4 genes - more discoveries with controlled error!</p>
+                        </div>
+                    </div>
+                    
+                    <div class="example-section" style="margin-top: 15px;">
+                        <h4>🎯 When to Use:</h4>
+                        <div class="example-content">
+                            <ul style="list-style: disc; padding-left: 20px;">
+                                <li><strong>Genomics studies:</strong> RNA-seq, GWAS, microarray analysis</li>
+                                <li><strong>Exploratory research:</strong> When some false positives are acceptable</li>
+                                <li><strong>Large-scale testing:</strong> Thousands to millions of hypotheses</li>
+                                <li><strong>Discovery phase:</strong> Identifying candidates for follow-up studies</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q-value Method -->
+                <div class="method-card method-qvalue">
+                    <h3>Q-value Method</h3>
+                    
+                    <div class="formula-box" style="color: #E65100;">
+                        q-value = min<sub>t≥p</sub> { FDR(t) }<br>
+                        where FDR(t) = π₀ × t × m / #{p<sub>i</sub> ≤ t}<br>
+                        π₀ = estimated proportion of true nulls
+                    </div>
+                    
+                    <div class="characteristics">
+                        <h4>Key Characteristics:</h4>
+                        <ul>
+                            <li><strong>Minimum FDR:</strong> Q-value is the minimum FDR at which a test would be called significant</li>
+                            <li><strong>Estimates π₀:</strong> Adaptively estimates proportion of true null hypotheses</li>
+                            <li><strong>More Powerful:</strong> Can discover more true positives than BH when π₀ < 1</li>
+                            <li><strong>Data-Driven:</strong> Uses the data structure to inform correction</li>
+                            <li><strong>Interpretable:</strong> Direct probability interpretation for each test</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-section">
+                        <h4>📊 Practical Example:</h4>
+                        <div class="example-content">
+                            <p><strong>Study:</strong> 10,000 gene expression tests</p>
+                            <p><strong>Estimated π₀ = 0.60</strong> (60% are truly null)</p>
+                            
+                            <table class="example-table">
+                                <tr>
+                                    <th>Gene</th>
+                                    <th>p-value</th>
+                                    <th>BH FDR</th>
+                                    <th>Q-value</th>
+                                    <th>Interpretation</th>
+                                </tr>
+                                <tr>
+                                    <td>Gene X</td>
+                                    <td>0.001</td>
+                                    <td>0.08</td>
+                                    <td>0.05</td>
+                                    <td style="background: #C8E6C9;">Significant at 5% FDR</td>
+                                </tr>
+                                <tr>
+                                    <td>Gene Y</td>
+                                    <td>0.005</td>
+                                    <td>0.12</td>
+                                    <td>0.08</td>
+                                    <td style="background: #FFF9C4;">Borderline at 10% FDR</td>
+                                </tr>
+                                <tr>
+                                    <td>Gene Z</td>
+                                    <td>0.02</td>
+                                    <td>0.25</td>
+                                    <td>0.18</td>
+                                    <td style="background: #FFCDD2;">Not significant</td>
+                                </tr>
+                            </table>
+                            
+                            <p style="margin-top: 15px;"><strong>Key Insight:</strong> Q-value accounts for the fact that 40% of genes are truly differentially expressed, making it less conservative than standard BH.</p>
+                            <p><strong>Advantage:</strong> If π₀ = 0.60, the correction is less severe than assuming all nulls are true (π₀ = 1.0), resulting in more discoveries.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="example-section" style="margin-top: 15px;">
+                        <h4>🎯 When to Use:</h4>
+                        <div class="example-content">
+                            <ul style="list-style: disc; padding-left: 20px;">
+                                <li><strong>Enriched datasets:</strong> When expecting many true positives</li>
+                                <li><strong>Differential expression:</strong> Comparing treatment vs. control</li>
+                                <li><strong>Maximum power needed:</strong> When false negatives are costly</li>
+                                <li><strong>Well-powered studies:</strong> Large sample sizes with strong effects</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Permutation Method -->
+                <div class="method-card method-permutation">
+                    <h3>Permutation-Based Testing</h3>
+                    
+                    <div class="formula-box" style="color: #4A148C;">
+                        1. Randomly permute sample labels<br>
+                        2. Recalculate all test statistics<br>
+                        3. Repeat B times (e.g., B = 1000)<br>
+                        4. p<sub>perm</sub> = #{t<sub>perm</sub> ≥ t<sub>obs</sub>} / B
+                    </div>
+                    
+                    <div class="characteristics">
+                        <h4>Key Characteristics:</h4>
+                        <ul>
+                            <li><strong>Non-Parametric:</strong> No distributional assumptions required</li>
+                            <li><strong>Empirical Null:</strong> Null distribution derived directly from data</li>
+                            <li><strong>Accounts for Correlation:</strong> Preserves dependency structure</li>
+                            <li><strong>Flexible:</strong> Works with any test statistic</li>
+                            <li><strong>Computationally Intensive:</strong> Requires many iterations</li>
+                            <li><strong>Gold Standard:</strong> For complex experimental designs</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="example-section">
+                        <h4>📊 Practical Example:</h4>
+                        <div class="example-content">
+                            <p><strong>Study:</strong> Compare gene expression between Case (n=20) and Control (n=20) for 5,000 genes</p>
+                            
+                            <p style="margin-top: 10px;"><strong>Procedure:</strong></p>
+                            <ol style="padding-left: 25px; line-height: 2;">
+                                <li><strong>Observed data:</strong> Calculate t-statistic for each gene</li>
+                                <li><strong>Permutation 1:</strong> Randomly shuffle case/control labels → recalculate all 5,000 t-statistics</li>
+                                <li><strong>Permutation 2-1000:</strong> Repeat shuffling and calculation</li>
+                                <li><strong>P-value:</strong> For Gene A with t<sub>obs</sub> = 3.5, count how many permutations yielded t ≥ 3.5</li>
+                            </ol>
+                            
+                            <table class="example-table" style="margin-top: 15px;">
+                                <tr>
+                                    <th>Gene</th>
+                                    <th>t<sub>obs</sub></th>
+                                    <th>Parametric p</th>
+                                    <th>Permutation p</th>
+                                    <th>Difference</th>
+                                </tr>
+                                <tr>
+                                    <td>Gene A</td>
+                                    <td>4.2</td>
+                                    <td>0.0001</td>
+                                    <td>0.0002</td>
+                                    <td style="background: #E8F5E9;">Similar</td>
+                                </tr>
+                                <tr>
+                                    <td>Gene B</td>
+                                    <td>2.8</td>
+                                    <td>0.008</td>
+                                    <td>0.015</td>
+                                    <td style="background: #FFF9C4;">More conservative</td>
+                                </tr>
+                                <tr>
+                                    <td>Gene C</td>
+                                    <td>2.1</td>
+                                    <td>0.042</td>
+                                    <td>0.068</td>
+                                    <td style="background: #FFCDD2;">Not significant</td>
+                                </tr>
+                            </table>
+                            
+                            <p style="margin-top: 15px;"><strong>Advantage:</strong> Permutation accounts for actual correlation between genes, avoiding overly liberal or conservative corrections.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="example-section" style="margin-top: 15px;">
+                        <h4>🎯 When to Use:</h4>
+                        <div class="example-content">
+                            <ul style="list-style: disc; padding-left: 20px;">
+                                <li><strong>Small sample sizes:</strong> When parametric assumptions are questionable</li>
+                                <li><strong>Complex designs:</strong> Time series, paired samples, block designs</li>
+                                <li><strong>Correlated features:</strong> Gene co-expression, spatial data</li>
+                                <li><strong>Validation:</strong> Confirming results from other methods</li>
+                                <li><strong>When computational resources allow:</strong> Can be parallelized</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Comparison and Recommendations -->
+        <div class="section">
+            <h2 class="section-title">Method Selection Guide</h2>
+            
+            <div class="comparison-box">
+                <h3>⚖️ Power vs. Control Trade-off</h3>
+                <p><strong>Most Conservative → Most Liberal:</strong></p>
+                <p style="margin-top: 10px;">
+                    <strong>Bonferroni</strong> (Strictest control, fewest discoveries) → 
+                    <strong>Benjamini-Hochberg</strong> (Balanced FDR control) → 
+                    <strong>Q-value</strong> (Adaptive, more discoveries) → 
+                    <strong>Permutation</strong> (Data-driven, context-specific)
+                </p>
+                
+                <p style="margin-top: 20px;"><strong>General Recommendations:</strong></p>
+                <ul style="padding-left: 25px; margin-top: 10px; line-height: 2;">
+                    <li><strong>Use Bonferroni when:</strong> You need absolute certainty, testing few hypotheses, or false positives are extremely costly</li>
+                    <li><strong>Use BH when:</strong> Standard genomics analysis, thousands of tests, exploratory phase</li>
+                    <li><strong>Use Q-value when:</strong> You expect many true signals, need maximum power, follow-up validation planned</li>
+                    <li><strong>Use Permutation when:</strong> Complex designs, correlated data, small samples, or validating other methods</li>
+                </ul>
+            </div>
+            
+            <div class="note-box">
+                <p><strong>💡 Important Note:</strong> In large-scale genomics studies (e.g., testing 20,000+ genes), <strong>multiple testing correction is essential</strong>. Without correction, the overwhelming majority of "significant" results would be false positives, making the findings unreliable and unreproducible.</p>
+                
+                <p style="margin-top: 15px;"><strong>Best Practice:</strong> Always report which correction method was used, the threshold applied (e.g., FDR < 0.05), and the number of discoveries made. Consider using multiple methods and examining their concordance for robustness.</p>
+            </div>
         </div>
     </div>
 </body>

@@ -1,10 +1,12 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Federated Learning</title>
+    <title>Federated Learning - Comprehensive Guide</title>
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;600&display=swap');
+        
         * {
             margin: 0;
             padding: 0;
@@ -12,232 +14,1047 @@
         }
         
         body {
-            font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            font-family: 'Outfit', sans-serif;
+            background: linear-gradient(135deg, #f5f7fa 0%, #e8ecf1 50%, #dde3ea 100%);
+            color: #2c3e50;
+            overflow-x: hidden;
+        }
+        
+        .page {
             min-height: 100vh;
+            padding: 60px 80px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
         }
         
-        .container {
-            width: 960px;
-            height: 540px;
-            padding: 40px 50px;
-            background: white;
+        .page::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231E64C8' fill-opacity='0.03'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+            opacity: 0.5;
+            pointer-events: none;
         }
         
-        .title {
-            font-size: 36px;
+        .hero-title {
+            font-size: 72px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1E64C8 0%, #0c4a9e 50%, #083d8a 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 20px;
+            text-align: center;
+            letter-spacing: -2px;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        .subtitle {
+            font-size: 24px;
+            color: #5a6c7d;
+            text-align: center;
+            margin-bottom: 50px;
+            font-weight: 300;
+            animation: fadeIn 1.5s ease-out;
+        }
+        
+        .overview-diagram {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(30, 100, 200, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.08);
+            animation: fadeInUp 1s ease-out 0.3s backwards;
+        }
+        
+        .category-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 30px;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.6s backwards;
+        }
+        
+        .category-card {
+            background: linear-gradient(135deg, rgba(30, 100, 200, 0.05) 0%, rgba(30, 100, 200, 0.02) 100%);
+            border: 2px solid rgba(30, 100, 200, 0.2);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            background-color: white;
+        }
+        
+        .category-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(30, 100, 200, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .category-card:hover::before {
+            left: 100%;
+        }
+        
+        .category-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: rgba(30, 100, 200, 0.5);
+            box-shadow: 0 15px 35px rgba(30, 100, 200, 0.2);
+        }
+        
+        .category-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            display: block;
+        }
+        
+        .category-title {
+            font-size: 24px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 25px;
-            text-align: center;
-        }
-        
-        .visual-section {
-            background: #f8f9fb;
-            padding: 20px;
-            border-radius: 8px;
             margin-bottom: 15px;
         }
         
-        .content-section {
+        .category-description {
+            font-size: 15px;
+            color: #5a6c7d;
+            line-height: 1.7;
+        }
+        
+        .detail-section {
+            background: white;
+            border-left: 4px solid #1E64C8;
+            border-radius: 12px;
+            padding: 50px;
+            margin-bottom: 60px;
+            position: relative;
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+        
+        .section-icon {
+            font-size: 56px;
+            filter: drop-shadow(0 4px 12px rgba(30, 100, 200, 0.3));
+        }
+        
+        .section-title {
+            font-size: 42px;
+            font-weight: 800;
+            background: linear-gradient(135deg, #1E64C8 0%, #0c4a9e 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        
+        .content-layout {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 20px;
+            gap: 40px;
+            align-items: start;
         }
         
-        .info-box {
-            background: #f8f9fb;
-            border-left: 4px solid #1E64C8;
-            padding: 18px 20px;
-            border-radius: 6px;
-            transition: all 0.3s;
+        .visual-container {
+            background: rgba(30, 100, 200, 0.03);
+            border-radius: 12px;
+            padding: 30px;
+            border: 1px solid rgba(30, 100, 200, 0.15);
         }
         
-        .info-box:hover {
-            background: #e8f2ff;
-            transform: translateX(5px);
+        .explanation {
+            font-size: 17px;
+            line-height: 1.9;
+            color: #2c3e50;
         }
         
-        .info-title {
-            font-size: 18px;
+        .explanation h3 {
+            font-size: 22px;
+            color: #1E64C8;
+            margin-bottom: 15px;
+            margin-top: 25px;
             font-weight: 600;
+        }
+        
+        .explanation h3:first-child {
+            margin-top: 0;
+        }
+        
+        .explanation strong {
             color: #1E64C8;
-            margin-bottom: 10px;
+            font-weight: 600;
         }
         
-        .info-content {
-            font-size: 15px;
-            color: #333;
-            line-height: 1.6;
+        .explanation ul {
+            margin: 15px 0;
+            padding-left: 25px;
         }
         
-        .bullet {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 6px;
+        .explanation li {
+            margin: 10px 0;
+            position: relative;
         }
         
-        .bullet::before {
-            content: "•";
+        .explanation li::marker {
             color: #1E64C8;
-            font-weight: bold;
-            margin-right: 8px;
-            font-size: 16px;
         }
         
-        .full-width-box {
-            grid-column: 1 / -1;
-            background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
-            color: white;
-            padding: 15px 22px;
+        .code-block {
+            background: rgba(30, 100, 200, 0.05);
+            border: 1px solid rgba(30, 100, 200, 0.2);
             border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: #1E64C8;
+            overflow-x: auto;
+        }
+        
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(30, 100, 200, 0.08) 0%, rgba(30, 100, 200, 0.05) 100%);
+            border-left: 3px solid #1E64C8;
+            padding: 20px 25px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+        
+        .success-banner {
+            background: linear-gradient(135deg, #1E64C8 0%, #0c4a9e 100%);
+            padding: 30px 40px;
+            border-radius: 16px;
             text-align: center;
+            margin-top: 40px;
+            box-shadow: 0 10px 30px rgba(30, 100, 200, 0.3);
+        }
+        
+        .success-banner strong {
+            font-size: 20px;
+            font-weight: 700;
+            display: block;
+            margin-bottom: 10px;
+            color: white;
+        }
+        
+        .success-banner p {
             font-size: 16px;
+            color: white;
             font-weight: 500;
         }
         
-        @keyframes dataFlow {
+        .flow-arrow {
+            stroke-dasharray: 1000;
+            stroke-dashoffset: 1000;
+            animation: drawLine 2s ease-in-out forwards;
+        }
+        
+        @keyframes drawLine {
+            to {
+                stroke-dashoffset: 0;
+            }
+        }
+        
+        @keyframes fadeInDown {
+            from {
+                opacity: 0;
+                transform: translateY(-30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(30px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        @keyframes pulse {
             0%, 100% { opacity: 0.3; }
             50% { opacity: 1; }
         }
         
         .data-flow {
-            animation: dataFlow 2s ease-in-out infinite;
+            animation: pulse 2s ease-in-out infinite;
+        }
+        
+        .scroll-indicator {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: #1E64C8;
+            font-size: 14px;
+            animation: bounce 2s infinite;
+        }
+        
+        @keyframes bounce {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-10px); }
+        }
+        
+        .metric-box {
+            display: inline-block;
+            background: rgba(30, 100, 200, 0.08);
+            border: 1px solid rgba(30, 100, 200, 0.3);
+            padding: 8px 16px;
+            border-radius: 6px;
+            margin: 5px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 14px;
+            color: #1E64C8;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">Federated Learning</div>
+    <!-- Overview Page -->
+    <div class="page">
+        <h1 class="hero-title">Federated Learning</h1>
+        <p class="subtitle">Privacy-Preserving Collaborative Machine Learning</p>
         
-        <div class="visual-section">
-            <svg width="100%" height="160" viewBox="0 0 850 160">
+        <div class="overview-diagram">
+            <svg width="100%" height="180" viewBox="0 0 900 180">
                 <!-- Central Server -->
-                <g transform="translate(375, 15)">
-                    <rect x="0" y="0" width="100" height="50" rx="5" fill="#1E64C8" stroke="#5088d4" stroke-width="2"/>
-                    <text x="50" y="20" font-size="12" font-weight="600" fill="white" text-anchor="middle">Global Model</text>
-                    <text x="50" y="35" font-size="11" fill="white" text-anchor="middle">Aggregation</text>
-                    <circle cx="50" cy="50" r="3" fill="white"/>
+                <g transform="translate(400, 20)">
+                    <rect x="0" y="0" width="120" height="60" rx="8" fill="url(#serverGradient)" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="60" y="25" font-size="14" font-weight="700" fill="white" text-anchor="middle">Global Model</text>
+                    <text x="60" y="42" font-size="12" fill="white" text-anchor="middle">Aggregation Server</text>
+                    <circle cx="60" cy="60" r="4" fill="#1E64C8"/>
                 </g>
                 
-                <!-- Hospital 1 -->
-                <g transform="translate(50, 100)">
-                    <rect x="0" y="0" width="110" height="45" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="55" y="17" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">🏥 Hospital A</text>
-                    <text x="55" y="32" font-size="10" fill="#666" text-anchor="middle">Local Training</text>
-                    <circle cx="55" cy="0" r="3" fill="#1E64C8"/>
+                <!-- Hospital Nodes -->
+                <g transform="translate(40, 120)">
+                    <rect x="0" y="0" width="120" height="50" rx="6" fill="rgba(30, 100, 200, 0.08)" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="60" y="18" font-size="12" font-weight="600" fill="#1E64C8" text-anchor="middle">🏥 Hospital A</text>
+                    <text x="60" y="34" font-size="10" fill="#5a6c7d" text-anchor="middle">Local Training</text>
+                    <circle cx="60" cy="0" r="4" fill="#1E64C8"/>
                 </g>
                 
-                <!-- Hospital 2 -->
-                <g transform="translate(220, 100)">
-                    <rect x="0" y="0" width="110" height="45" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="55" y="17" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">🏥 Hospital B</text>
-                    <text x="55" y="32" font-size="10" fill="#666" text-anchor="middle">Local Training</text>
-                    <circle cx="55" cy="0" r="3" fill="#1E64C8"/>
+                <g transform="translate(220, 120)">
+                    <rect x="0" y="0" width="120" height="50" rx="6" fill="rgba(30, 100, 200, 0.08)" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="60" y="18" font-size="12" font-weight="600" fill="#1E64C8" text-anchor="middle">🏥 Hospital B</text>
+                    <text x="60" y="34" font-size="10" fill="#5a6c7d" text-anchor="middle">Local Training</text>
+                    <circle cx="60" cy="0" r="4" fill="#1E64C8"/>
                 </g>
                 
-                <!-- Hospital 3 -->
-                <g transform="translate(390, 100)">
-                    <rect x="0" y="0" width="110" height="45" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="55" y="17" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">🏥 Hospital C</text>
-                    <text x="55" y="32" font-size="10" fill="#666" text-anchor="middle">Local Training</text>
-                    <circle cx="55" cy="0" r="3" fill="#1E64C8"/>
+                <g transform="translate(400, 120)">
+                    <rect x="0" y="0" width="120" height="50" rx="6" fill="rgba(30, 100, 200, 0.08)" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="60" y="18" font-size="12" font-weight="600" fill="#1E64C8" text-anchor="middle">🏥 Hospital C</text>
+                    <text x="60" y="34" font-size="10" fill="#5a6c7d" text-anchor="middle">Local Training</text>
+                    <circle cx="60" cy="0" r="4" fill="#1E64C8"/>
                 </g>
                 
-                <!-- Hospital 4 -->
-                <g transform="translate(560, 100)">
-                    <rect x="0" y="0" width="110" height="45" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="55" y="17" font-size="11" font-weight="600" fill="#1E64C8" text-anchor="middle">🏥 Hospital D</text>
-                    <text x="55" y="32" font-size="10" fill="#666" text-anchor="middle">Local Training</text>
-                    <circle cx="55" cy="0" r="3" fill="#1E64C8"/>
+                <g transform="translate(580, 120)">
+                    <rect x="0" y="0" width="120" height="50" rx="6" fill="rgba(30, 100, 200, 0.08)" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="60" y="18" font-size="12" font-weight="600" fill="#1E64C8" text-anchor="middle">🏥 Hospital D</text>
+                    <text x="60" y="34" font-size="10" fill="#5a6c7d" text-anchor="middle">Local Training</text>
+                    <circle cx="60" cy="0" r="4" fill="#1E64C8"/>
                 </g>
                 
-                <!-- Connection Lines with arrows -->
                 <defs>
-                    <marker id="arrowUp" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                        <polygon points="0 0, 8 4, 0 8" fill="#1E64C8"/>
+                    <linearGradient id="serverGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                        <stop offset="0%" style="stop-color:#1E64C8;stop-opacity:1" />
+                        <stop offset="100%" style="stop-color:#0c4a9e;stop-opacity:1" />
+                    </linearGradient>
+                    <marker id="arrowUp" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+                        <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
                     </marker>
-                    <marker id="arrowDown" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
-                        <polygon points="0 0, 8 4, 0 8" fill="#5088d4"/>
+                    <marker id="arrowDown" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+                        <polygon points="0 0, 10 5, 0 10" fill="#5088d4"/>
                     </marker>
                 </defs>
                 
-                <!-- Upward arrows (gradients) -->
-                <path d="M 105 100 L 405 68" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrowUp)" class="data-flow" style="animation-delay: 0s"/>
-                <text x="200" y="80" font-size="9" fill="#1E64C8">Gradients</text>
+                <!-- Upward arrows -->
+                <path d="M 100 120 L 440 82" stroke="#1E64C8" stroke-width="2.5" fill="none" marker-end="url(#arrowUp)" class="data-flow" style="animation-delay: 0s"/>
+                <text x="220" y="95" font-size="11" font-weight="600" fill="#1E64C8">Gradients</text>
                 
-                <path d="M 275 100 L 420 68" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrowUp)" class="data-flow" style="animation-delay: 0.5s"/>
+                <path d="M 280 120 L 450 82" stroke="#1E64C8" stroke-width="2.5" fill="none" marker-end="url(#arrowUp)" class="data-flow" style="animation-delay: 0.5s"/>
                 
-                <path d="M 445 100 L 435 68" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrowUp)" class="data-flow" style="animation-delay: 1s"/>
+                <path d="M 460 120 L 470 82" stroke="#1E64C8" stroke-width="2.5" fill="none" marker-end="url(#arrowUp)" class="data-flow" style="animation-delay: 1s"/>
                 
-                <path d="M 615 100 L 465 68" stroke="#1E64C8" stroke-width="2" fill="none" marker-end="url(#arrowUp)" class="data-flow" style="animation-delay: 1.5s"/>
+                <path d="M 640 120 L 500 82" stroke="#1E64C8" stroke-width="2.5" fill="none" marker-end="url(#arrowUp)" class="data-flow" style="animation-delay: 1.5s"/>
                 
-                <!-- Downward arrows (model updates) -->
-                <path d="M 390 68 L 115 100" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="4,2" fill="none" marker-end="url(#arrowDown)"/>
-                <text x="220" y="92" font-size="9" fill="#5088d4">Updates</text>
+                <!-- Downward arrows -->
+                <path d="M 430 82 L 110 120" stroke="#5088d4" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arrowDown)"/>
+                <text x="240" y="108" font-size="11" font-weight="600" fill="#5088d4">Updates</text>
                 
-                <path d="M 410 68 L 285 100" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="4,2" fill="none" marker-end="url(#arrowDown)"/>
+                <path d="M 450 82 L 290 120" stroke="#5088d4" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arrowDown)"/>
                 
-                <path d="M 430 68 L 455 100" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="4,2" fill="none" marker-end="url(#arrowDown)"/>
+                <path d="M 470 82 L 470 120" stroke="#5088d4" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arrowDown)"/>
                 
-                <path d="M 450 68 L 625 100" stroke="#5088d4" stroke-width="1.5" stroke-dasharray="4,2" fill="none" marker-end="url(#arrowDown)"/>
+                <path d="M 490 82 L 650 120" stroke="#5088d4" stroke-width="2" stroke-dasharray="5,3" fill="none" marker-end="url(#arrowDown)"/>
                 
-                <!-- Privacy Shield Icons -->
-                <text x="105" y="155" font-size="18" text-anchor="middle">🔒</text>
-                <text x="275" y="155" font-size="18" text-anchor="middle">🔒</text>
-                <text x="445" y="155" font-size="18" text-anchor="middle">🔒</text>
-                <text x="615" y="155" font-size="18" text-anchor="middle">🔒</text>
-                <text x="425" y="155" font-size="10" fill="#1E64C8" text-anchor="middle">Data Never Leaves Site</text>
+                <!-- Privacy Shields -->
+                <text x="100" y="183" font-size="20" text-anchor="middle">🔒</text>
+                <text x="280" y="183" font-size="20" text-anchor="middle">🔒</text>
+                <text x="460" y="183" font-size="20" text-anchor="middle">🔒</text>
+                <text x="640" y="183" font-size="20" text-anchor="middle">🔒</text>
+                <text x="460" y="200" font-size="12" font-weight="600" fill="#1E64C8" text-anchor="middle">Data Never Leaves Site</text>
             </svg>
         </div>
         
-        <div class="content-section">
-            <div class="info-box">
-                <div class="info-title">Distributed Training</div>
-                <div class="info-content">
-                    <div class="bullet">Local model training</div>
-                    <div class="bullet">Gradient aggregation</div>
-                    <div class="bullet">Global model updates</div>
-                    <div class="bullet">Data never leaves site</div>
+        <div class="category-grid">
+            <div class="category-card">
+                <span class="category-icon">🔄</span>
+                <div class="category-title">Distributed Training</div>
+                <div class="category-description">
+                    Local model training with gradient aggregation ensures data never leaves its original site while building powerful global models.
                 </div>
             </div>
             
-            <div class="info-box">
-                <div class="info-title">Privacy Protection</div>
-                <div class="info-content">
-                    <div class="bullet">HIPAA-compliant by design</div>
-                    <div class="bullet">Secure multi-party computation</div>
-                    <div class="bullet">Encrypted communications</div>
-                    <div class="bullet">Differential privacy integration</div>
+            <div class="category-card">
+                <span class="category-icon">🛡️</span>
+                <div class="category-title">Privacy Protection</div>
+                <div class="category-description">
+                    HIPAA-compliant design with secure multi-party computation, encrypted communications, and differential privacy integration.
                 </div>
             </div>
             
-            <div class="info-box">
-                <div class="info-title">Hospital Networks</div>
-                <div class="info-content">
-                    <div class="bullet">Multi-institutional collaboration</div>
-                    <div class="bullet">Diverse patient populations</div>
-                    <div class="bullet">Improved generalizability</div>
+            <div class="category-card">
+                <span class="category-icon">🏥</span>
+                <div class="category-title">Hospital Networks</div>
+                <div class="category-description">
+                    Multi-institutional collaboration across diverse patient populations improves model generalizability and clinical outcomes.
                 </div>
             </div>
             
-            <div class="info-box">
-                <div class="info-title">Technical Challenges</div>
-                <div class="info-content">
-                    <div class="bullet">Non-IID data distribution</div>
-                    <div class="bullet">Communication overhead</div>
-                    <div class="bullet">System heterogeneity</div>
-                    <div class="bullet">Convergence guarantees</div>
+            <div class="category-card">
+                <span class="category-icon">⚙️</span>
+                <div class="category-title">Technical Challenges</div>
+                <div class="category-description">
+                    Addressing non-IID data, communication overhead, system heterogeneity, and convergence guarantees for robust deployment.
                 </div>
             </div>
+        </div>
+        
+        <div class="scroll-indicator">
+            ↓ Scroll for detailed information
+        </div>
+    </div>
+
+    <!-- Detail Section 1: Distributed Training -->
+    <div class="page">
+        <div class="detail-section">
+            <div class="section-header">
+                <span class="section-icon">🔄</span>
+                <h2 class="section-title">Distributed Training</h2>
+            </div>
             
-            <div class="full-width-box">
-                <strong>Success Examples:</strong> Google Health (diabetic retinopathy), NVIDIA Clara (medical imaging consortia)
+            <div class="content-layout">
+                <div class="visual-container">
+                    <svg width="100%" height="480" viewBox="0 0 400 480">
+                        <!-- Training Cycle Diagram -->
+                        <defs>
+                            <linearGradient id="grad1" x1="0%" y1="0%" x2="100%" y2="100%">
+                                <stop offset="0%" style="stop-color:#1E64C8;stop-opacity:1" />
+                                <stop offset="100%" style="stop-color:#1E64C8;stop-opacity:1" />
+                            </linearGradient>
+                            <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- Central circle -->
+                        <circle cx="200" cy="240" r="70" fill="url(#grad1)" opacity="0.3"/>
+                        <text x="200" y="235" font-size="16" font-weight="700" fill="#fff" text-anchor="middle">Global</text>
+                        <text x="200" y="255" font-size="14" fill="#fff" text-anchor="middle">Model</text>
+                        
+                        <!-- Client nodes with detailed info -->
+                        <g transform="translate(200, 80)">
+                            <rect x="-60" y="-35" width="120" height="70" rx="8" fill="rgba(0, 153, 255, 0.15)" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="0" y="-10" font-size="13" font-weight="600" fill="#1E64C8" text-anchor="middle">Client 1</text>
+                            <text x="0" y="8" font-size="10" fill="#5a6c7d" text-anchor="middle">Local Dataset:</text>
+                            <text x="0" y="22" font-size="10" fill="#5088d4" text-anchor="middle">10,000 samples</text>
+                        </g>
+                        
+                        <g transform="translate(350, 240)">
+                            <rect x="-60" y="-35" width="120" height="70" rx="8" fill="rgba(0, 153, 255, 0.15)" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="0" y="-10" font-size="13" font-weight="600" fill="#1E64C8" text-anchor="middle">Client 2</text>
+                            <text x="0" y="8" font-size="10" fill="#5a6c7d" text-anchor="middle">Local Dataset:</text>
+                            <text x="0" y="22" font-size="10" fill="#5088d4" text-anchor="middle">8,500 samples</text>
+                        </g>
+                        
+                        <g transform="translate(200, 400)">
+                            <rect x="-60" y="-35" width="120" height="70" rx="8" fill="rgba(0, 153, 255, 0.15)" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="0" y="-10" font-size="13" font-weight="600" fill="#1E64C8" text-anchor="middle">Client 3</text>
+                            <text x="0" y="8" font-size="10" fill="#5a6c7d" text-anchor="middle">Local Dataset:</text>
+                            <text x="0" y="22" font-size="10" fill="#5088d4" text-anchor="middle">12,000 samples</text>
+                        </g>
+                        
+                        <g transform="translate(50, 240)">
+                            <rect x="-60" y="-35" width="120" height="70" rx="8" fill="rgba(0, 153, 255, 0.15)" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="0" y="-10" font-size="13" font-weight="600" fill="#1E64C8" text-anchor="middle">Client 4</text>
+                            <text x="0" y="8" font-size="10" fill="#5a6c7d" text-anchor="middle">Local Dataset:</text>
+                            <text x="0" y="22" font-size="10" fill="#5088d4" text-anchor="middle">9,200 samples</text>
+                        </g>
+                        
+                        <!-- Arrows showing flow -->
+                        <path d="M 200 150 L 200 170" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow)" class="flow-arrow" style="animation-delay: 0s"/>
+                        <text x="220" y="160" font-size="10" fill="#1E64C8" font-weight="600">Download</text>
+                        
+                        <path d="M 270 240 L 290 240" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow)" class="flow-arrow" style="animation-delay: 0.5s"/>
+                        <text x="280" y="230" font-size="10" fill="#1E64C8" font-weight="600">Download</text>
+                        
+                        <path d="M 200 310 L 200 330" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow)" class="flow-arrow" style="animation-delay: 1s"/>
+                        <text x="220" y="320" font-size="10" fill="#1E64C8" font-weight="600">Download</text>
+                        
+                        <path d="M 130 240 L 110 240" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrow)" class="flow-arrow" style="animation-delay: 1.5s"/>
+                        <text x="90" y="230" font-size="10" fill="#1E64C8" font-weight="600">Download</text>
+                        
+                        <!-- Return arrows (gradients) -->
+                        <path d="M 180 175 L 180 155" stroke="#5088d4" stroke-width="2.5" stroke-dasharray="4,2" marker-end="url(#arrow)"/>
+                        <text x="150" y="165" font-size="9" fill="#5088d4" font-weight="600">Gradients</text>
+                        
+                        <path d="M 285 250 L 265 250" stroke="#5088d4" stroke-width="2.5" stroke-dasharray="4,2" marker-end="url(#arrow)"/>
+                        
+                        <path d="M 180 325 L 180 305" stroke="#5088d4" stroke-width="2.5" stroke-dasharray="4,2" marker-end="url(#arrow)"/>
+                        
+                        <path d="M 115 250 L 135 250" stroke="#5088d4" stroke-width="2.5" stroke-dasharray="4,2" marker-end="url(#arrow)"/>
+                        
+                        <!-- Process labels -->
+                        <text x="200" y="30" font-size="12" font-weight="700" fill="#1E64C8" text-anchor="middle">Communication Round t</text>
+                        <text x="200" y="460" font-size="11" fill="#5a6c7d" text-anchor="middle">Aggregate → Update → Broadcast</text>
+                    </svg>
+                </div>
+                
+                <div class="explanation">
+                    <h3>How Distributed Training Works</h3>
+                    <p>Federated Learning enables collaborative model training across multiple institutions without centralizing sensitive data. The process operates in iterative communication rounds:</p>
+                    
+                    <h3>Training Workflow</h3>
+                    <p><strong>Step 1: Model Distribution</strong><br>
+                    The central server broadcasts the current global model parameters to all participating clients. Each client receives identical initial weights to ensure synchronized training.</p>
+                    
+                    <p><strong>Step 2: Local Training</strong><br>
+                    Each client trains the model on their private dataset for multiple local epochs. This happens independently and simultaneously across all institutions. The local data never leaves the client's secure environment.</p>
+                    
+                    <div class="code-block">
+# Local training pseudocode
+for epoch in range(local_epochs):
+    for batch in local_data:
+        loss = model(batch)
+        gradients = compute_gradients(loss)
+        local_model.update(gradients)
+                    </div>
+                    
+                    <p><strong>Step 3: Gradient Computation</strong><br>
+                    After local training, each client computes the difference between their updated model and the original global model. This gradient information captures the learning from their local data.</p>
+                    
+                    <p><strong>Step 4: Secure Aggregation</strong><br>
+                    Clients send only their model updates (gradients or model weights) to the central server. The aggregation server combines these updates using weighted averaging:</p>
+                    
+                    <div class="code-block">
+# FedAvg aggregation
+w_global = Σ(n_k / n_total) × w_k
+where n_k = samples at client k
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <strong>Key Benefits:</strong>
+                        <ul>
+                            <li>Reduces communication bandwidth by 100-1000× compared to sending raw data</li>
+                            <li>Enables parallel training across geographically distributed sites</li>
+                            <li>Scales efficiently to thousands of participants</li>
+                            <li>Maintains privacy by design - data never centralized</li>
+                        </ul>
+                    </div>
+                    
+                    <h3>Performance Metrics</h3>
+                    <p>In healthcare applications, federated learning typically achieves:</p>
+                    <div class="metric-box">Accuracy: 95-98%</div>
+                    <div class="metric-box">Communication: 50-100 rounds</div>
+                    <div class="metric-box">Local epochs: 1-5</div>
+                    <div class="metric-box">Convergence time: 4-12 hours</div>
+                </div>
             </div>
         </div>
     </div>
+
+    <!-- Detail Section 2: Privacy Protection -->
+    <div class="page">
+        <div class="detail-section">
+            <div class="section-header">
+                <span class="section-icon">🛡️</span>
+                <h2 class="section-title">Privacy Protection</h2>
+            </div>
+            
+            <div class="content-layout">
+                <div class="visual-container">
+                    <svg width="100%" height="520" viewBox="0 0 400 520">
+                        <!-- Privacy Layers Diagram -->
+                        <defs>
+                            <linearGradient id="shieldGrad" x1="0%" y1="0%" x2="0%" y2="100%">
+                                <stop offset="0%" style="stop-color:#1E64C8;stop-opacity:0.8" />
+                                <stop offset="100%" style="stop-color:#1E64C8;stop-opacity:0.4" />
+                            </linearGradient>
+                        </defs>
+                        
+                        <!-- Shield layers -->
+                        <g transform="translate(200, 50)">
+                            <text x="0" y="0" font-size="16" font-weight="700" fill="#1E64C8" text-anchor="middle">Multi-Layer Privacy Framework</text>
+                        </g>
+                        
+                        <!-- Layer 1: Encryption -->
+                        <g transform="translate(200, 100)">
+                            <rect x="-150" y="0" width="300" height="70" rx="8" fill="rgba(0, 212, 255, 0.15)" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="-130" y="25" font-size="14" font-weight="700" fill="#1E64C8">🔐 Layer 1: Encryption</text>
+                            <text x="-130" y="43" font-size="11" fill="#5a6c7d">TLS 1.3 Transport Encryption</text>
+                            <text x="-130" y="58" font-size="10" fill="#5088d4">AES-256 at-rest encryption</text>
+                        </g>
+                        
+                        <!-- Layer 2: Secure Aggregation -->
+                        <g transform="translate(200, 190)">
+                            <rect x="-150" y="0" width="300" height="70" rx="8" fill="rgba(0, 212, 255, 0.15)" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="-130" y="25" font-size="14" font-weight="700" fill="#1E64C8">🔒 Layer 2: Secure Aggregation</text>
+                            <text x="-130" y="43" font-size="11" fill="#5a6c7d">Server cannot see individual updates</text>
+                            <text x="-130" y="58" font-size="10" fill="#5088d4">Homomorphic encryption optional</text>
+                        </g>
+                        
+                        <!-- Layer 3: Differential Privacy -->
+                        <g transform="translate(200, 280)">
+                            <rect x="-150" y="0" width="300" height="70" rx="8" fill="rgba(0, 212, 255, 0.15)" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="-130" y="25" font-size="14" font-weight="700" fill="#1E64C8">📊 Layer 3: Differential Privacy</text>
+                            <text x="-130" y="43" font-size="11" fill="#5a6c7d">Noise injection: ε = 1-10</text>
+                            <text x="-130" y="58" font-size="10" fill="#5088d4">Formal privacy guarantees</text>
+                        </g>
+                        
+                        <!-- Layer 4: Access Control -->
+                        <g transform="translate(200, 370)">
+                            <rect x="-150" y="0" width="300" height="70" rx="8" fill="rgba(0, 212, 255, 0.15)" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="-130" y="25" font-size="14" font-weight="700" fill="#1E64C8">👤 Layer 4: Access Control</text>
+                            <text x="-130" y="43" font-size="11" fill="#5a6c7d">Role-based permissions</text>
+                            <text x="-130" y="58" font-size="10" fill="#5088d4">Audit logging & compliance</text>
+                        </g>
+                        
+                        <!-- Privacy Shield -->
+                        <g transform="translate(200, 460)">
+                            <path d="M 0,-30 L 25,-15 L 25,15 L 0,30 L -25,15 L -25,-15 Z" fill="url(#shieldGrad)" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="0" y="5" font-size="20" text-anchor="middle">🛡️</text>
+                        </g>
+                        
+                        <!-- Connection arrows -->
+                        <path d="M 200 175 L 200 185" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
+                        <path d="M 200 265 L 200 275" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
+                        <path d="M 200 355 L 200 365" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow)" opacity="0.6"/>
+                    </svg>
+                </div>
+                
+                <div class="explanation">
+                    <h3>Comprehensive Privacy Architecture</h3>
+                    <p>Federated Learning implements multiple defense layers to ensure patient data remains secure and private throughout the entire machine learning lifecycle.</p>
+                    
+                    <h3>Layer 1: End-to-End Encryption</h3>
+                    <p><strong>Transport Security:</strong> All communications between clients and servers use TLS 1.3 with perfect forward secrecy. This prevents network eavesdropping and man-in-the-middle attacks.</p>
+                    
+                    <p><strong>At-Rest Protection:</strong> Local datasets and model checkpoints are encrypted using AES-256. Hardware security modules (HSMs) manage encryption keys.</p>
+                    
+                    <h3>Layer 2: Secure Multi-Party Computation</h3>
+                    <p>The aggregation server never sees individual client updates in plaintext. Secure aggregation protocols ensure the server can only compute the weighted average of updates without accessing individual contributions.</p>
+                    
+                    <div class="code-block">
+# Secure aggregation protocol
+Client i: 
+    gradient_i + random_mask_i → Server
+
+Server:
+    receives: Σ(gradient_i + mask_i)
+    after unmasking: Σ(gradient_i)
+    
+Individual gradients remain hidden!
+                    </div>
+                    
+                    <h3>Layer 3: Differential Privacy</h3>
+                    <p>Adds calibrated noise to gradients before sharing, providing mathematical guarantees that the model cannot memorize individual patient records. The privacy budget (ε) controls the privacy-utility tradeoff:</p>
+                    
+                    <ul>
+                        <li><strong>ε = 1:</strong> Strong privacy, slight accuracy reduction (1-2%)</li>
+                        <li><strong>ε = 5:</strong> Balanced privacy-utility tradeoff</li>
+                        <li><strong>ε = 10:</strong> Weaker privacy, minimal accuracy impact</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <strong>HIPAA Compliance:</strong> Federated Learning satisfies HIPAA requirements by ensuring Protected Health Information (PHI) never leaves the covered entity's environment. The de-identified model updates are not considered PHI under the Safe Harbor method.
+                    </div>
+                    
+                    <h3>Layer 4: Governance & Audit</h3>
+                    <p><strong>Access Control:</strong> Role-based access control (RBAC) limits who can participate in training, view model performance, and deploy models.</p>
+                    
+                    <p><strong>Audit Trails:</strong> Complete logging of all data access, model updates, and deployment events enables compliance audits and forensic analysis.</p>
+                    
+                    <p><strong>Certifications:</strong> Most federated learning platforms are SOC 2 Type II, ISO 27001, and HITRUST certified.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Section 3: Hospital Networks -->
+    <div class="page">
+        <div class="detail-section">
+            <div class="section-header">
+                <span class="section-icon">🏥</span>
+                <h2 class="section-title">Hospital Networks</h2>
+            </div>
+            
+            <div class="content-layout">
+                <div class="visual-container">
+                    <svg width="100%" height="500" viewBox="0 0 400 500">
+                        <!-- Hospital Network Map -->
+                        <defs>
+                            <filter id="glow">
+                                <feGaussianBlur stdDeviation="3" result="coloredBlur"/>
+                                <feMerge>
+                                    <feMergeNode in="coloredBlur"/>
+                                    <feMergeNode in="SourceGraphic"/>
+                                </feMerge>
+                            </filter>
+                        </defs>
+                        
+                        <text x="200" y="30" font-size="16" font-weight="700" fill="#1E64C8" text-anchor="middle">Multi-Institutional Collaboration</text>
+                        
+                        <!-- Network connections -->
+                        <line x1="100" y1="120" x2="200" y2="250" stroke="#1E64C8" stroke-width="1.5" opacity="0.4" stroke-dasharray="3,3"/>
+                        <line x1="300" y1="120" x2="200" y2="250" stroke="#1E64C8" stroke-width="1.5" opacity="0.4" stroke-dasharray="3,3"/>
+                        <line x1="100" y1="380" x2="200" y2="250" stroke="#1E64C8" stroke-width="1.5" opacity="0.4" stroke-dasharray="3,3"/>
+                        <line x1="300" y1="380" x2="200" y2="250" stroke="#1E64C8" stroke-width="1.5" opacity="0.4" stroke-dasharray="3,3"/>
+                        
+                        <!-- Central coordination hub -->
+                        <circle cx="200" cy="250" r="40" fill="url(#grad1)" opacity="0.6" filter="url(#glow)"/>
+                        <text x="200" y="245" font-size="13" font-weight="700" fill="#fff" text-anchor="middle">Federation</text>
+                        <text x="200" y="260" font-size="11" fill="#fff" text-anchor="middle">Hub</text>
+                        
+                        <!-- Academic Hospital -->
+                        <g transform="translate(100, 80)">
+                            <rect x="-70" y="0" width="140" height="80" rx="8" fill="rgba(0, 153, 255, 0.15)" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="0" y="22" font-size="13" font-weight="600" fill="#1E64C8" text-anchor="middle">🏥 Academic Hospital</text>
+                            <text x="0" y="38" font-size="10" fill="#5a6c7d" text-anchor="middle">Patients: 50,000</text>
+                            <text x="0" y="52" font-size="10" fill="#5088d4" text-anchor="middle">Rare diseases: High</text>
+                            <text x="0" y="66" font-size="10" fill="#5088d4" text-anchor="middle">Research-focused</text>
+                        </g>
+                        
+                        <!-- Community Hospital -->
+                        <g transform="translate(300, 80)">
+                            <rect x="-70" y="0" width="140" height="80" rx="8" fill="rgba(0, 153, 255, 0.15)" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="0" y="22" font-size="13" font-weight="600" fill="#1E64C8" text-anchor="middle">🏥 Community Hospital</text>
+                            <text x="0" y="38" font-size="10" fill="#5a6c7d" text-anchor="middle">Patients: 25,000</text>
+                            <text x="0" y="52" font-size="10" fill="#5088d4" text-anchor="middle">Common conditions</text>
+                            <text x="0" y="66" font-size="10" fill="#5088d4" text-anchor="middle">Diverse demographics</text>
+                        </g>
+                        
+                        <!-- Regional Medical Center -->
+                        <g transform="translate(100, 340)">
+                            <rect x="-70" y="0" width="140" height="80" rx="8" fill="rgba(0, 153, 255, 0.15)" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="0" y="22" font-size="13" font-weight="600" fill="#1E64C8" text-anchor="middle">🏥 Regional Center</text>
+                            <text x="0" y="38" font-size="10" fill="#5a6c7d" text-anchor="middle">Patients: 35,000</text>
+                            <text x="0" y="52" font-size="10" fill="#5088d4" text-anchor="middle">Trauma specialty</text>
+                            <text x="0" y="66" font-size="10" fill="#5088d4" text-anchor="middle">Emergency focus</text>
+                        </g>
+                        
+                        <!-- Specialty Clinic -->
+                        <g transform="translate(300, 340)">
+                            <rect x="-70" y="0" width="140" height="80" rx="8" fill="rgba(0, 153, 255, 0.15)" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="0" y="22" font-size="13" font-weight="600" fill="#1E64C8" text-anchor="middle">🏥 Specialty Clinic</text>
+                            <text x="0" y="38" font-size="10" fill="#5a6c7d" text-anchor="middle">Patients: 15,000</text>
+                            <text x="0" y="52" font-size="10" fill="#5088d4" text-anchor="middle">Oncology focus</text>
+                            <text x="0" y="66" font-size="10" fill="#5088d4" text-anchor="middle">Advanced imaging</text>
+                        </g>
+                        
+                        <!-- Benefits chart -->
+                        <g transform="translate(50, 460)">
+                            <text x="0" y="0" font-size="12" font-weight="600" fill="#1E64C8">Network Benefits:</text>
+                            <text x="0" y="18" font-size="10" fill="#5a6c7d">✓ 125,000 total patients</text>
+                            <text x="150" y="18" font-size="10" fill="#5a6c7d">✓ Diverse populations</text>
+                            <text x="0" y="32" font-size="10" fill="#5a6c7d">✓ Multiple specialties</text>
+                            <text x="150" y="32" font-size="10" fill="#5a6c7d">✓ Improved generalization</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="explanation">
+                    <h3>Collaborative Healthcare Networks</h3>
+                    <p>Federated Learning transforms how healthcare institutions collaborate, enabling them to build superior AI models while maintaining complete data sovereignty.</p>
+                    
+                    <h3>Multi-Institutional Benefits</h3>
+                    <p><strong>Dataset Diversity:</strong> Each hospital contributes unique patient demographics, conditions, and treatment protocols. This diversity is crucial for building robust models that generalize across different populations.</p>
+                    
+                    <p>For example, in a diabetic retinopathy detection study:</p>
+                    <ul>
+                        <li>Academic hospitals provide rare pathology cases</li>
+                        <li>Community hospitals contribute diverse ethnic backgrounds</li>
+                        <li>Regional centers offer trauma-related complications</li>
+                        <li>Specialty clinics add advanced imaging protocols</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <strong>Real-World Impact:</strong> A federated model trained across 10 hospitals achieved 94.3% accuracy on diabetic retinopathy detection, compared to 88.7% for the best single-hospital model. The improvement came from exposure to 15× more diverse patient cases.
+                    </div>
+                    
+                    <h3>Overcoming Data Silos</h3>
+                    <p>Traditional healthcare AI development faces a fundamental challenge: data cannot be shared due to HIPAA regulations, state privacy laws, and institutional policies. This creates isolated "data silos" where:</p>
+                    
+                    <ul>
+                        <li>Small hospitals lack sufficient data for training</li>
+                        <li>Models overfit to local patient populations</li>
+                        <li>Rare conditions remain under-studied</li>
+                        <li>Algorithm bias persists due to homogeneous training data</li>
+                    </ul>
+                    
+                    <p>Federated Learning breaks down these silos without moving data. Each institution maintains full control over their data while contributing to a shared model.</p>
+                    
+                    <h3>Improved Model Generalization</h3>
+                    <p><strong>Geographic Diversity:</strong> Training across multiple regions captures variations in disease prevalence, treatment standards, and environmental factors.</p>
+                    
+                    <p><strong>Equipment Heterogeneity:</strong> Different hospitals use different imaging equipment (CT, MRI, X-ray from various manufacturers). A federated model learns to be robust to these technical variations.</p>
+                    
+                    <p><strong>Clinical Practice Variation:</strong> Exposure to different diagnostic and treatment protocols makes models more adaptable to real-world clinical workflows.</p>
+                    
+                    <div class="code-block">
+# Performance comparison
+Single-hospital model:
+    Accuracy: 88.7% (local)
+    Accuracy: 76.2% (external)
+    Generalization gap: 12.5%
+
+Federated model (10 hospitals):
+    Accuracy: 94.3% (local)
+    Accuracy: 92.8% (external)
+    Generalization gap: 1.5%
+                    </div>
+                    
+                    <h3>Governance Models</h3>
+                    <p><strong>Consortium Approach:</strong> Hospitals form a legal entity to govern the federation, establishing data use agreements, model ownership rights, and benefit-sharing mechanisms.</p>
+                    
+                    <p><strong>Hub-and-Spoke:</strong> A coordinating institution (often academic medical center) manages the technical infrastructure while participating hospitals maintain autonomy.</p>
+                    
+                    <p><strong>Decentralized Networks:</strong> Peer-to-peer architectures where no single entity controls the federation, suitable for competitive healthcare markets.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detail Section 4: Technical Challenges -->
+    <div class="page">
+        <div class="detail-section">
+            <div class="section-header">
+                <span class="section-icon">⚙️</span>
+                <h2 class="section-title">Technical Challenges</h2>
+            </div>
+            
+            <div class="content-layout">
+                <div class="visual-container">
+                    <svg width="100%" height="540" viewBox="0 0 400 540">
+                        <!-- Challenge diagram -->
+                        <text x="200" y="25" font-size="16" font-weight="700" fill="#1E64C8" text-anchor="middle">Key Technical Challenges</text>
+                        
+                        <!-- Challenge 1: Non-IID Data -->
+                        <g transform="translate(200, 60)">
+                            <rect x="-180" y="0" width="360" height="100" rx="8" fill="rgba(255, 100, 100, 0.1)" stroke="#ff6b6b" stroke-width="2"/>
+                            <text x="-160" y="25" font-size="14" font-weight="700" fill="#ff6b6b">⚠️ Challenge 1: Non-IID Data Distribution</text>
+                            
+                            <!-- Data distribution bars -->
+                            <g transform="translate(-160, 40)">
+                                <text x="0" y="0" font-size="10" fill="#5a6c7d">Hospital A:</text>
+                                <rect x="60" y="-8" width="200" height="12" fill="rgba(0, 212, 255, 0.2)" stroke="#1E64C8" stroke-width="1"/>
+                                <rect x="60" y="-8" width="160" height="12" fill="#1E64C8"/>
+                                <text x="270" y="2" font-size="9" fill="#5a6c7d">80% Diabetes</text>
+                            </g>
+                            
+                            <g transform="translate(-160, 60)">
+                                <text x="0" y="0" font-size="10" fill="#5a6c7d">Hospital B:</text>
+                                <rect x="60" y="-8" width="200" height="12" fill="rgba(0, 212, 255, 0.2)" stroke="#1E64C8" stroke-width="1"/>
+                                <rect x="60" y="-8" width="60" height="12" fill="#1E64C8"/>
+                                <text x="270" y="2" font-size="9" fill="#5a6c7d">30% Diabetes</text>
+                            </g>
+                            
+                            <g transform="translate(-160, 80)">
+                                <text x="0" y="0" font-size="10" fill="#5a6c7d">Hospital C:</text>
+                                <rect x="60" y="-8" width="200" height="12" fill="rgba(0, 212, 255, 0.2)" stroke="#1E64C8" stroke-width="1"/>
+                                <rect x="60" y="-8" width="120" height="12" fill="#1E64C8"/>
+                                <text x="270" y="2" font-size="9" fill="#5a6c7d">60% Diabetes</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Challenge 2: Communication Overhead -->
+                        <g transform="translate(200, 180)">
+                            <rect x="-180" y="0" width="360" height="85" rx="8" fill="rgba(255, 200, 100, 0.1)" stroke="#ffb347" stroke-width="2"/>
+                            <text x="-160" y="25" font-size="14" font-weight="700" fill="#ffb347">⚠️ Challenge 2: Communication Overhead</text>
+                            
+                            <text x="-160" y="45" font-size="11" fill="#5a6c7d">Model size: 500 MB per round</text>
+                            <text x="-160" y="60" font-size="11" fill="#5a6c7d">100 rounds × 10 clients = 500 GB total</text>
+                            <text x="-160" y="75" font-size="11" fill="#5088d4">Solutions: Gradient compression, quantization</text>
+                        </g>
+                        
+                        <!-- Challenge 3: System Heterogeneity -->
+                        <g transform="translate(200, 285)">
+                            <rect x="-180" y="0" width="360" height="100" rx="8" fill="rgba(150, 100, 255, 0.1)" stroke="#9b6bff" stroke-width="2"/>
+                            <text x="-160" y="25" font-size="14" font-weight="700" fill="#9b6bff">⚠️ Challenge 3: System Heterogeneity</text>
+                            
+                            <g transform="translate(-160, 40)">
+                                <text x="0" y="0" font-size="10" fill="#5a6c7d">🖥️ High-performance server</text>
+                                <text x="0" y="15" font-size="10" fill="#5a6c7d">💻 Standard workstation</text>
+                                <text x="0" y="30" font-size="10" fill="#5a6c7d">📱 Edge device (limited compute)</text>
+                                <rect x="200" y="-8" width="12" height="45" fill="#9b6bff" opacity="0.3"/>
+                                <text x="220" y="22" font-size="9" fill="#9b6bff">Variable speed</text>
+                            </g>
+                            
+                            <text x="-160" y="85" font-size="11" fill="#5088d4">Solutions: Asynchronous updates, stragglers handling</text>
+                        </g>
+                        
+                        <!-- Challenge 4: Convergence -->
+                        <g transform="translate(200, 405)">
+                            <rect x="-180" y="0" width="360" height="105" rx="8" fill="rgba(100, 255, 150, 0.1)" stroke="#6bff9b" stroke-width="2"/>
+                            <text x="-160" y="25" font-size="14" font-weight="700" fill="#6bff9b">⚠️ Challenge 4: Convergence Guarantees</text>
+                            
+                            <!-- Convergence plot -->
+                            <g transform="translate(-160, 40)">
+                                <path d="M 0,50 Q 50,40 100,25 T 200,5" stroke="#6bff9b" stroke-width="2" fill="none"/>
+                                <path d="M 0,50 Q 50,35 100,20 T 200,8" stroke="#1E64C8" stroke-width="2" fill="none" stroke-dasharray="4,2"/>
+                                
+                                <text x="0" y="68" font-size="9" fill="#5a6c7d">Round 0</text>
+                                <text x="180" y="68" font-size="9" fill="#5a6c7d">Round 100</text>
+                                <text x="210" y="10" font-size="9" fill="#6bff9b">IID</text>
+                                <text x="210" y="20" font-size="9" fill="#1E64C8">Non-IID</text>
+                            </g>
+                            
+                            <text x="-160" y="95" font-size="11" fill="#5088d4">Solutions: FedProx, SCAFFOLD, adaptive optimization</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="explanation">
+                    <h3>Overcoming Implementation Challenges</h3>
+                    <p>While federated learning offers tremendous benefits, successful deployment requires addressing several technical challenges that arise from distributed training.</p>
+                    
+                    <h3>Challenge 1: Non-IID Data Distribution</h3>
+                    <p><strong>The Problem:</strong> Unlike centralized machine learning where data is shuffled and randomly distributed, federated learning operates on naturally occurring data silos. Each hospital's patient population reflects their geographic location, specialties, and referral patterns, creating highly non-independent and non-identically distributed (non-IID) data.</p>
+                    
+                    <p><strong>Impact on Training:</strong></p>
+                    <ul>
+                        <li>Model weights diverge during local training</li>
+                        <li>Convergence becomes slower and less stable</li>
+                        <li>Final model may be biased toward larger clients</li>
+                        <li>Can reduce accuracy by 5-10% compared to IID scenarios</li>
+                    </ul>
+                    
+                    <p><strong>Solutions:</strong></p>
+                    <ul>
+                        <li><strong>FedProx:</strong> Adds a proximal term to keep local models close to global model during training</li>
+                        <li><strong>Data balancing:</strong> Weight client contributions based on data distribution</li>
+                        <li><strong>Personalization layers:</strong> Allow institution-specific final layers while sharing feature extractors</li>
+                        <li><strong>Clustered FL:</strong> Group similar hospitals to train sub-models</li>
+                    </ul>
+                    
+                    <div class="code-block">
+# FedProx objective
+minimize: L(w) + (μ/2)||w - w_global||²
+where μ controls proximity to global model
+                    </div>
+                    
+                    <h3>Challenge 2: Communication Overhead</h3>
+                    <p><strong>The Problem:</strong> Deep learning models can be enormous (ResNet-50: 100MB, Vision Transformer: 350MB). Transmitting these models hundreds of times creates massive bandwidth requirements and latency issues.</p>
+                    
+                    <p><strong>Bandwidth Analysis:</strong></p>
+                    <div class="metric-box">Model: 500 MB</div>
+                    <div class="metric-box">Rounds: 100</div>
+                    <div class="metric-box">Clients: 10</div>
+                    <div class="metric-box">Total: 500 GB</div>
+                    
+                    <p><strong>Solutions:</strong></p>
+                    <ul>
+                        <li><strong>Gradient compression:</strong> Reduce precision (32-bit → 8-bit) with minimal accuracy loss</li>
+                        <li><strong>Sparse updates:</strong> Send only top-k% largest gradients (90-99% reduction)</li>
+                        <li><strong>Structured updates:</strong> Low-rank approximations of weight matrices</li>
+                        <li><strong>Model pruning:</strong> Remove unnecessary parameters before federation</li>
+                    </ul>
+                    
+                    <div class="highlight-box">
+                        <strong>Practical Impact:</strong> Gradient quantization (32-bit → 8-bit) reduces communication by 75% while maintaining within 0.5% of baseline accuracy. Top-10% gradient sparsification achieves 90% reduction with 1-2% accuracy drop.
+                    </div>
+                    
+                    <h3>Challenge 3: System Heterogeneity</h3>
+                    <p><strong>The Problem:</strong> Different institutions have vastly different computational resources. A high-end academic medical center might have GPU clusters, while a rural clinic runs on modest hardware. This creates "stragglers" that slow down the entire federation.</p>
+                    
+                    <p><strong>Impact:</strong> In synchronous federated learning, the slowest client determines the round completion time. A 10× speed difference means 90% of computation time is wasted waiting.</p>
+                    
+                    <p><strong>Solutions:</strong></p>
+                    <ul>
+                        <li><strong>Asynchronous FL:</strong> Don't wait for slow clients; aggregate updates as they arrive</li>
+                        <li><strong>Tiered participation:</strong> Fast clients participate more frequently</li>
+                        <li><strong>Adaptive timeouts:</strong> Drop stragglers after threshold</li>
+                        <li><strong>Heterogeneous models:</strong> Allow clients to train smaller model variants</li>
+                    </ul>
+                    
+                    <h3>Challenge 4: Convergence Guarantees</h3>
+                    <p><strong>The Problem:</strong> Traditional machine learning convergence theory assumes IID data and synchronous updates. Federated learning violates both assumptions, making convergence behavior unpredictable.</p>
+                    
+                    <p><strong>Theoretical Challenges:</strong></p>
+                    <ul>
+                        <li>Non-convex loss surfaces in deep learning</li>
+                        <li>Statistical heterogeneity across clients</li>
+                        <li>Partial participation (not all clients join each round)</li>
+                        <li>Byzantine failures and malicious clients</li>
+                    </ul>
+                    
+                    <p><strong>Solutions:</strong></p>
+                    <ul>
+                        <li><strong>SCAFFOLD:</strong> Corrects for client drift using control variates</li>
+                        <li><strong>FedAdam/FedYogi:</strong> Adaptive learning rates for stable convergence</li>
+                        <li><strong>Momentum-based methods:</strong> FedAvgM adds momentum to aggregation</li>
+                        <li><strong>Robust aggregation:</strong> Krum, median, and trimmed mean defend against outliers</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Success Stories Page -->
+    <div class="page">
+        <div class="success-banner">
+            <strong>Real-World Success Examples</strong>
+            <p style="margin-top: 15px;">Google Health: Federated learning enabled training diabetic retinopathy detection models across 54 hospitals in India, achieving 90%+ sensitivity without centralizing patient data. The model generalized significantly better than single-site alternatives.</p>
+            <p style="margin-top: 10px;">NVIDIA Clara: Powers medical imaging consortia across hundreds of hospitals worldwide. Their federated platform has been used for brain tumor segmentation (BraTS challenge), COVID-19 detection, and cancer screening applications.</p>
+            <p style="margin-top: 10px;">Massachusetts General Hospital: Led a federated learning initiative across 20 healthcare institutions to develop improved sepsis prediction models, demonstrating 15% improvement in early detection compared to single-hospital models.</p>
+        </div>
+        
+        <div style="margin-top: 50px; text-align: center;">
+            <div style="display: inline-block; background: white; padding: 30px 40px; border-radius: 16px; border: 2px solid rgba(30, 100, 200, 0.2); box-shadow: 0 5px 20px rgba(0, 0, 0, 0.05);">
+                <h3 style="font-size: 28px; color: #1E64C8; margin-bottom: 20px; font-weight: 700;">Key Takeaways</h3>
+                <p style="font-size: 16px; color: #2c3e50; line-height: 1.8; max-width: 700px;">
+                    Federated Learning represents a paradigm shift in collaborative AI development for healthcare. By enabling institutions to jointly train powerful models while maintaining complete data sovereignty, it addresses the fundamental tension between data privacy and model performance. While technical challenges remain, the field is rapidly maturing with robust solutions emerging for communication efficiency, convergence guarantees, and privacy protection.
+                </p>
+                <p style="font-size: 16px; color: #2c3e50; line-height: 1.8; max-width: 700px; margin-top: 15px;">
+                    As healthcare AI continues to advance, federated learning will become the default approach for multi-institutional collaboration, democratizing access to high-quality AI models and ensuring that advances in medical AI benefit all patients, regardless of where they receive care.
+                </p>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

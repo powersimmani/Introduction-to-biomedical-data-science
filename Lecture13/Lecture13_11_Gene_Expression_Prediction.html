@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Gene Expression Prediction</title>
+    <title>Gene Expression Prediction - Detailed Guide</title>
     <style>
         * {
             margin: 0;
@@ -14,17 +14,21 @@
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
             background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            padding: 40px 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+        
+        .main-slide {
+            width: 100%;
+            max-width: 960px;
+            margin: 0 auto 60px;
             padding: 40px 60px;
             background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         .title {
@@ -40,7 +44,7 @@
         .content-wrapper {
             display: flex;
             gap: 25px;
-            height: 385px;
+            min-height: 385px;
         }
         
         .regulation-diagram {
@@ -63,6 +67,7 @@
             border-radius: 6px;
             padding: 13px 18px;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .concept-card:hover {
@@ -90,127 +95,916 @@
             0%, 100% { transform: translateY(0); opacity: 1; }
             50% { transform: translateY(-3px); opacity: 0.7; }
         }
+        
+        /* Detailed sections */
+        .detailed-section {
+            max-width: 1200px;
+            margin: 0 auto 50px;
+            background: white;
+            border-radius: 12px;
+            padding: 40px;
+            box-shadow: 0 2px 15px rgba(0,0,0,0.08);
+        }
+        
+        .section-header {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 10px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1E64C8;
+        }
+        
+        .section-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 25px;
+        }
+        
+        .diagram-container {
+            background: #f8f9fa;
+            padding: 20px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .text-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .text-content h3 {
+            font-size: 20px;
+            color: #1E64C8;
+            margin-bottom: 5px;
+        }
+        
+        .text-content p {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+        }
+        
+        .key-points {
+            background: #e8f2ff;
+            padding: 20px;
+            border-radius: 8px;
+            border-left: 4px solid #1E64C8;
+        }
+        
+        .key-points h4 {
+            font-size: 16px;
+            color: #1E64C8;
+            margin-bottom: 10px;
+        }
+        
+        .key-points ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .key-points li {
+            font-size: 13px;
+            color: #333;
+            margin-bottom: 8px;
+            padding-left: 20px;
+            position: relative;
+        }
+        
+        .key-points li:before {
+            content: "▸";
+            color: #1E64C8;
+            position: absolute;
+            left: 0;
+        }
+        
+        .full-width-diagram {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            margin-top: 25px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Gene Expression Prediction</div>
-        <div class="content-wrapper">
-            <div class="regulation-diagram">
-                <svg width="520" height="385" viewBox="0 0 520 385">
-                    <text x="260" y="25" font-size="15" fill="#333" text-anchor="middle" font-weight="600">Sequence to Expression Pipeline</text>
+        <!-- Main Overview Slide -->
+        <div class="main-slide">
+            <div class="title">Gene Expression Prediction</div>
+            <div class="content-wrapper">
+                <div class="regulation-diagram">
+                    <svg width="520" height="385" viewBox="0 0 520 385">
+                        <text x="260" y="25" font-size="15" fill="#333" text-anchor="middle" font-weight="600">Sequence to Expression Pipeline</text>
+                        
+                        <!-- DNA Sequence with Regulatory Elements -->
+                        <g transform="translate(50, 50)">
+                            <text x="0" y="0" font-size="12" fill="#666" font-weight="600">Genomic DNA:</text>
+                            
+                            <!-- Enhancer -->
+                            <rect x="0" y="10" width="80" height="35" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                            <text x="40" y="23" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Enhancer</text>
+                            <text x="40" y="37" font-size="9" fill="#666" text-anchor="middle">TF binding sites</text>
+                            
+                            <!-- Connection line -->
+                            <path d="M 85,27 L 125,27" stroke="#999" stroke-width="1.5" stroke-dasharray="3,3"/>
+                            
+                            <!-- Promoter -->
+                            <rect x="130" y="10" width="80" height="35" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="170" y="23" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">Promoter</text>
+                            <text x="170" y="37" font-size="9" fill="#666" text-anchor="middle">TSS region</text>
+                            
+                            <!-- Gene body -->
+                            <rect x="215" y="10" width="100" height="35" rx="5" fill="#d4edda" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="265" y="23" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Gene Body</text>
+                            <text x="265" y="37" font-size="9" fill="#666" text-anchor="middle">Exons + Introns</text>
+                            
+                            <!-- Transcription factors -->
+                            <g class="tf-binding">
+                                <ellipse cx="40" cy="-10" rx="15" ry="8" fill="#ff9999" opacity="0.7"/>
+                                <text x="40" y="-6" font-size="8" fill="#333" text-anchor="middle" font-weight="600">TF1</text>
+                            </g>
+                            
+                            <g class="tf-binding" style="animation-delay: 0.7s">
+                                <ellipse cx="170" cy="-10" rx="15" ry="8" fill="#99ccff" opacity="0.7"/>
+                                <text x="170" y="-6" font-size="8" fill="#333" text-anchor="middle" font-weight="600">TF2</text>
+                            </g>
+                        </g>
+                        
+                        <!-- CNN/Transformer Model -->
+                        <g transform="translate(100, 130)">
+                            <rect x="0" y="0" width="320" height="80" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="3"/>
+                            <text x="160" y="20" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="700">Deep Learning Model (Enformer)</text>
+                            
+                            <!-- Model layers -->
+                            <g transform="translate(20, 30)">
+                                <rect x="0" y="0" width="280" height="15" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                                <text x="140" y="11" font-size="10" fill="#333" text-anchor="middle">Convolutional Layers (local patterns)</text>
+                            </g>
+                            
+                            <g transform="translate(20, 50)">
+                                <rect x="0" y="0" width="280" height="15" rx="3" fill="#e3f2fd" stroke="#2874d8" stroke-width="1.5"/>
+                                <text x="140" y="11" font-size="10" fill="#333" text-anchor="middle">Transformer Layers (long-range interactions)</text>
+                            </g>
+                        </g>
+                        
+                        <defs>
+                            <marker id="arrowdown" markerWidth="10" markerHeight="10" refX="5" refY="9" orient="auto">
+                                <polygon points="0 0, 10 0, 5 10" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        <path d="M 260,220 L 260,235" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowdown)"/>
+                        
+                        <!-- Expression Outputs -->
+                        <g transform="translate(80, 245)">
+                            <rect x="0" y="0" width="360" height="110" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="180" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">Predicted Expression Levels</text>
+                            
+                            <!-- Cell types with expression bars -->
+                            <g transform="translate(20, 35)">
+                                <text x="0" y="12" font-size="10" fill="#333">Brain:</text>
+                                <rect x="50" y="4" width="120" height="12" rx="2" fill="#e0e0e0"/>
+                                <rect x="50" y="4" width="90" height="12" rx="2" fill="#1E64C8"/>
+                                <text x="180" y="13" font-size="9" fill="#666">High</text>
+                            </g>
+                            
+                            <g transform="translate(20, 55)">
+                                <text x="0" y="12" font-size="10" fill="#333">Liver:</text>
+                                <rect x="50" y="4" width="120" height="12" rx="2" fill="#e0e0e0"/>
+                                <rect x="50" y="4" width="45" height="12" rx="2" fill="#2874d8"/>
+                                <text x="180" y="13" font-size="9" fill="#666">Medium</text>
+                            </g>
+                            
+                            <g transform="translate(20, 75)">
+                                <text x="0" y="12" font-size="10" fill="#333">Heart:</text>
+                                <rect x="50" y="4" width="120" height="12" rx="2" fill="#e0e0e0"/>
+                                <rect x="50" y="4" width="18" height="12" rx="2" fill="#5fa3e8"/>
+                                <text x="180" y="13" font-size="9" fill="#666">Low</text>
+                            </g>
+                        </g>
+                        
+                        <text x="260" y="375" font-size="11" fill="#666" text-anchor="middle" font-style="italic">Cell-type specific expression prediction</text>
+                    </svg>
+                </div>
+                
+                <div class="concepts-panel">
+                    <div class="concept-card">
+                        <div class="concept-title">Sequence to expression</div>
+                        <div class="concept-desc">DNA → RNA abundance mapping</div>
+                    </div>
+                    <div class="concept-card">
+                        <div class="concept-title">Promoter models</div>
+                        <div class="concept-desc">TSS region activity prediction</div>
+                    </div>
+                    <div class="concept-card">
+                        <div class="concept-title">Enhancer grammar</div>
+                        <div class="concept-desc">TF binding syntax learning</div>
+                    </div>
+                    <div class="concept-card">
+                        <div class="concept-title">Cell type specificity</div>
+                        <div class="concept-desc">Context-dependent prediction</div>
+                    </div>
+                    <div class="concept-card">
+                        <div class="concept-title">Enformer architecture</div>
+                        <div class="concept-desc">Transformer + CNN hybrid model</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Section 1: Sequence to Expression -->
+        <div class="detailed-section">
+            <h2 class="section-header">1. Sequence to Expression</h2>
+            <p class="section-subtitle">Mapping DNA sequences to RNA abundance levels</p>
+            
+            <div class="content-grid">
+                <div class="diagram-container">
+                    <svg width="500" height="350" viewBox="0 0 500 350">
+                        <!-- DNA Input -->
+                        <text x="250" y="25" font-size="14" fill="#333" text-anchor="middle" font-weight="600">Input: DNA Sequence</text>
+                        <rect x="50" y="40" width="400" height="50" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="250" y="60" font-size="11" fill="#333" text-anchor="middle" font-family="monospace">ATGCGTACGTAGCTAGCTAGCTGATCGATCGTAGCTAGC...</text>
+                        <text x="250" y="78" font-size="10" fill="#666" text-anchor="middle">One-hot encoded (4 × sequence_length)</text>
+                        
+                        <!-- Arrow -->
+                        <defs>
+                            <marker id="arrow1" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        <path d="M 250,95 L 250,115" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow1)"/>
+                        
+                        <!-- Processing -->
+                        <rect x="100" y="120" width="300" height="60" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="250" y="140" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">Deep Learning Model</text>
+                        <text x="250" y="158" font-size="10" fill="#666" text-anchor="middle">• Feature extraction</text>
+                        <text x="250" y="173" font-size="10" fill="#666" text-anchor="middle">• Pattern recognition</text>
+                        
+                        <!-- Arrow -->
+                        <path d="M 250,185 L 250,205" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow1)"/>
+                        
+                        <!-- Output -->
+                        <text x="250" y="225" font-size="14" fill="#333" text-anchor="middle" font-weight="600">Output: Expression Level</text>
+                        
+                        <!-- Expression bars -->
+                        <g transform="translate(80, 240)">
+                            <text x="0" y="15" font-size="11" fill="#333">mRNA Count:</text>
+                            <rect x="85" y="5" width="200" height="18" rx="3" fill="#e0e0e0"/>
+                            <rect x="85" y="5" width="150" height="18" rx="3" fill="#1E64C8"/>
+                            <text x="295" y="17" font-size="11" fill="#333">High (150 TPM)</text>
+                        </g>
+                        
+                        <g transform="translate(80, 270)">
+                            <text x="0" y="15" font-size="11" fill="#333">Protein Level:</text>
+                            <rect x="85" y="5" width="200" height="18" rx="3" fill="#e0e0e0"/>
+                            <rect x="85" y="5" width="120" height="18" rx="3" fill="#2874d8"/>
+                            <text x="295" y="17" font-size="11" fill="#333">Medium</text>
+                        </g>
+                        
+                        <g transform="translate(80, 300)">
+                            <text x="0" y="15" font-size="11" fill="#333">Accessibility:</text>
+                            <rect x="85" y="5" width="200" height="18" rx="3" fill="#e0e0e0"/>
+                            <rect x="85" y="5" width="170" height="18" rx="3" fill="#5fa3e8"/>
+                            <text x="295" y="17" font-size="11" fill="#333">Open</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="text-content">
+                    <div>
+                        <h3>Overview</h3>
+                        <p>Sequence-to-expression models predict gene activity directly from DNA sequence. These models learn the complex regulatory code that determines when and where genes are expressed.</p>
+                    </div>
                     
-                    <!-- DNA Sequence with Regulatory Elements -->
-                    <g transform="translate(50, 50)">
-                        <text x="0" y="0" font-size="12" fill="#666" font-weight="600">Genomic DNA:</text>
+                    <div>
+                        <h3>Input Features</h3>
+                        <p>Models take raw DNA sequences as input, typically encoded as one-hot vectors representing the four nucleotides (A, T, G, C). The sequence context can span from hundreds to hundreds of thousands of base pairs.</p>
+                    </div>
+                    
+                    <div>
+                        <h3>Output Predictions</h3>
+                        <p>Models output quantitative predictions of gene expression levels, which can include mRNA abundance (e.g., TPM, FPKM), chromatin accessibility (e.g., ATAC-seq), histone modifications (e.g., ChIP-seq), or protein levels.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>Key Applications & Challenges</h4>
+                <ul>
+                    <li><strong>Variant Effect Prediction:</strong> Predict how genetic variants affect gene expression (eQTLs)</li>
+                    <li><strong>Therapeutic Design:</strong> Design synthetic regulatory elements for gene therapy</li>
+                    <li><strong>Disease Mechanisms:</strong> Understand regulatory disruptions in disease states</li>
+                    <li><strong>Challenge:</strong> Long-range interactions can span megabases, requiring large context windows</li>
+                    <li><strong>Challenge:</strong> Cell-type specific regulation requires integrated models with epigenetic features</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Detailed Section 2: Promoter Models -->
+        <div class="detailed-section">
+            <h2 class="section-header">2. Promoter Models</h2>
+            <p class="section-subtitle">Predicting transcription start site (TSS) region activity</p>
+            
+            <div class="content-grid">
+                <div class="text-content">
+                    <div>
+                        <h3>Promoter Architecture</h3>
+                        <p>Promoters are regulatory DNA regions located upstream of genes, typically spanning ~1kb around the transcription start site (TSS). They contain core elements (TATA box, Initiator, DPE) and binding sites for general transcription factors and RNA polymerase II.</p>
+                    </div>
+                    
+                    <div>
+                        <h3>Model Approaches</h3>
+                        <p>Early models focused on position weight matrices (PWMs) for transcription factor binding sites. Modern deep learning approaches use CNNs to automatically learn motifs and their combinations, capturing complex syntax rules.</p>
+                    </div>
+                    
+                    <div>
+                        <h3>Prediction Tasks</h3>
+                        <p>Models predict TSS activity strength, directionality, tissue-specificity, and response to transcription factors. Advanced models can predict effects of promoter mutations and design synthetic promoters with desired properties.</p>
+                    </div>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg width="500" height="350" viewBox="0 0 500 350">
+                        <!-- Promoter structure -->
+                        <text x="250" y="25" font-size="14" fill="#333" text-anchor="middle" font-weight="600">Promoter Architecture</text>
                         
-                        <!-- Enhancer -->
-                        <rect x="0" y="10" width="80" height="35" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
-                        <text x="40" y="23" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Enhancer</text>
-                        <text x="40" y="37" font-size="9" fill="#666" text-anchor="middle">TF binding sites</text>
-                        
-                        <!-- Connection line -->
-                        <path d="M 85,27 L 125,27" stroke="#999" stroke-width="1.5" stroke-dasharray="3,3"/>
-                        
-                        <!-- Promoter -->
-                        <rect x="130" y="10" width="80" height="35" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="170" y="23" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">Promoter</text>
-                        <text x="170" y="37" font-size="9" fill="#666" text-anchor="middle">TSS region</text>
-                        
-                        <!-- Gene body -->
-                        <rect x="215" y="10" width="100" height="35" rx="5" fill="#d4edda" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="265" y="23" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Gene Body</text>
-                        <text x="265" y="37" font-size="9" fill="#666" text-anchor="middle">Exons + Introns</text>
-                        
-                        <!-- Transcription factors -->
-                        <g class="tf-binding">
-                            <ellipse cx="40" cy="-10" rx="15" ry="8" fill="#ff9999" opacity="0.7"/>
-                            <text x="40" y="-6" font-size="8" fill="#333" text-anchor="middle" font-weight="600">TF1</text>
+                        <!-- Core promoter elements -->
+                        <g transform="translate(50, 50)">
+                            <line x1="0" y1="40" x2="400" y2="40" stroke="#333" stroke-width="2"/>
+                            
+                            <!-- Upstream elements -->
+                            <rect x="20" y="20" width="60" height="40" rx="4" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                            <text x="50" y="37" font-size="10" fill="#333" text-anchor="middle" font-weight="600">CAAT Box</text>
+                            <text x="50" y="50" font-size="8" fill="#666" text-anchor="middle">-80 to -70</text>
+                            
+                            <rect x="100" y="20" width="60" height="40" rx="4" fill="#ffe6e6" stroke="#ff6b6b" stroke-width="2"/>
+                            <text x="130" y="37" font-size="10" fill="#333" text-anchor="middle" font-weight="600">TATA Box</text>
+                            <text x="130" y="50" font-size="8" fill="#666" text-anchor="middle">-30 to -25</text>
+                            
+                            <!-- TSS -->
+                            <line x1="200" y1="20" x2="200" y2="60" stroke="#1E64C8" stroke-width="3"/>
+                            <text x="200" y="75" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="700">TSS (+1)</text>
+                            
+                            <!-- Downstream elements -->
+                            <rect x="230" y="20" width="60" height="40" rx="4" fill="#e3f2fd" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="260" y="37" font-size="10" fill="#333" text-anchor="middle" font-weight="600">Initiator</text>
+                            <text x="260" y="50" font-size="8" fill="#666" text-anchor="middle">-2 to +4</text>
+                            
+                            <rect x="310" y="20" width="60" height="40" rx="4" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
+                            <text x="340" y="37" font-size="10" fill="#333" text-anchor="middle" font-weight="600">DPE</text>
+                            <text x="340" y="50" font-size="8" fill="#666" text-anchor="middle">+28 to +32</text>
                         </g>
                         
-                        <g class="tf-binding" style="animation-delay: 0.7s">
-                            <ellipse cx="170" cy="-10" rx="15" ry="8" fill="#99ccff" opacity="0.7"/>
-                            <text x="170" y="-6" font-size="8" fill="#333" text-anchor="middle" font-weight="600">TF2</text>
+                        <!-- TF binding -->
+                        <g transform="translate(50, 130)">
+                            <text x="200" y="0" font-size="12" fill="#333" text-anchor="middle" font-weight="600">Transcription Factor Binding</text>
+                            
+                            <ellipse cx="50" cy="30" rx="30" ry="15" fill="#ff9999" stroke="#cc0000" stroke-width="2" opacity="0.8"/>
+                            <text x="50" y="34" font-size="9" fill="#333" text-anchor="middle" font-weight="600">TBP</text>
+                            
+                            <ellipse cx="130" cy="30" rx="30" ry="15" fill="#99ccff" stroke="#0066cc" stroke-width="2" opacity="0.8"/>
+                            <text x="130" y="34" font-size="9" fill="#333" text-anchor="middle" font-weight="600">TFIIB</text>
+                            
+                            <ellipse cx="200" cy="30" rx="35" ry="15" fill="#99ff99" stroke="#00aa00" stroke-width="2" opacity="0.8"/>
+                            <text x="200" y="34" font-size="9" fill="#333" text-anchor="middle" font-weight="600">Pol II</text>
+                            
+                            <ellipse cx="270" cy="30" rx="30" ry="15" fill="#ffcc99" stroke="#ff8800" stroke-width="2" opacity="0.8"/>
+                            <text x="270" y="34" font-size="9" fill="#333" text-anchor="middle" font-weight="600">TFIIF</text>
+                            
+                            <ellipse cx="340" cy="30" rx="30" ry="15" fill="#cc99ff" stroke="#8800cc" stroke-width="2" opacity="0.8"/>
+                            <text x="340" y="34" font-size="9" fill="#333" text-anchor="middle" font-weight="600">TFIIE</text>
                         </g>
+                        
+                        <!-- Model prediction -->
+                        <g transform="translate(50, 200)">
+                            <text x="200" y="0" font-size="12" fill="#333" text-anchor="middle" font-weight="600">Activity Prediction Output</text>
+                            
+                            <rect x="30" y="20" width="340" height="90" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <g transform="translate(50, 40)">
+                                <text x="0" y="12" font-size="10" fill="#333">Strong Promoter:</text>
+                                <rect x="100" y="3" width="150" height="15" rx="2" fill="#e0e0e0"/>
+                                <rect x="100" y="3" width="135" height="15" rx="2" fill="#28a745"/>
+                                <text x="260" y="14" font-size="9" fill="#333">90% activity</text>
+                            </g>
+                            
+                            <g transform="translate(50, 65)">
+                                <text x="0" y="12" font-size="10" fill="#333">Tissue Specific:</text>
+                                <rect x="100" y="3" width="150" height="15" rx="2" fill="#e0e0e0"/>
+                                <rect x="100" y="3" width="75" height="15" rx="2" fill="#1E64C8"/>
+                                <text x="260" y="14" font-size="9" fill="#333">Brain only</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>Key Insights & Applications</h4>
+                <ul>
+                    <li><strong>Core Promoter Elements:</strong> TATA box, Initiator (Inr), and Downstream Promoter Element (DPE) determine basal transcription</li>
+                    <li><strong>Proximal Elements:</strong> CAAT box and GC box enhance promoter activity</li>
+                    <li><strong>Synthetic Biology:</strong> Design optimized promoters for gene expression systems</li>
+                    <li><strong>Disease Variants:</strong> Predict how mutations in promoter regions affect gene expression</li>
+                    <li><strong>Recent Models:</strong> ProCapNet, Xpresso, and ExPecto achieve high accuracy on human promoters</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Detailed Section 3: Enhancer Grammar -->
+        <div class="detailed-section">
+            <h2 class="section-header">3. Enhancer Grammar</h2>
+            <p class="section-subtitle">Learning the syntax of transcription factor binding</p>
+            
+            <div class="content-grid">
+                <div class="diagram-container">
+                    <svg width="500" height="400" viewBox="0 0 500 400">
+                        <text x="250" y="25" font-size="14" fill="#333" text-anchor="middle" font-weight="600">Enhancer Regulatory Logic</text>
+                        
+                        <!-- Simple grammar -->
+                        <g transform="translate(30, 50)">
+                            <text x="0" y="0" font-size="11" fill="#333" font-weight="600">Simple: AND Logic</text>
+                            <rect x="0" y="10" width="200" height="60" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                            
+                            <rect x="10" y="20" width="35" height="20" rx="3" fill="#ff9999"/>
+                            <text x="27" y="34" font-size="9" fill="#333" text-anchor="middle">TF-A</text>
+                            
+                            <text x="55" y="34" font-size="10" fill="#333">+</text>
+                            
+                            <rect x="65" y="20" width="35" height="20" rx="3" fill="#99ccff"/>
+                            <text x="82" y="34" font-size="9" fill="#333" text-anchor="middle">TF-B</text>
+                            
+                            <text x="110" y="34" font-size="10" fill="#333">→</text>
+                            
+                            <rect x="125" y="20" width="65" height="20" rx="3" fill="#90EE90"/>
+                            <text x="157" y="34" font-size="9" fill="#333" text-anchor="middle">Active</text>
+                            
+                            <text x="100" y="60" font-size="9" fill="#666" text-anchor="middle">Both TFs required</text>
+                        </g>
+                        
+                        <!-- Complex grammar -->
+                        <g transform="translate(270, 50)">
+                            <text x="0" y="0" font-size="11" fill="#333" font-weight="600">Complex: OR + AND Logic</text>
+                            <rect x="0" y="10" width="200" height="60" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <rect x="10" y="20" width="30" height="18" rx="3" fill="#ff9999"/>
+                            <text x="25" y="33" font-size="8" fill="#333" text-anchor="middle">TF-A</text>
+                            
+                            <text x="45" y="33" font-size="9" fill="#333">OR</text>
+                            
+                            <rect x="62" y="20" width="30" height="18" rx="3" fill="#ff9999"/>
+                            <text x="77" y="33" font-size="8" fill="#333" text-anchor="middle">TF-C</text>
+                            
+                            <line x1="47" y1="42" x2="47" y2="50" stroke="#333" stroke-width="1"/>
+                            <text x="47" y="60" font-size="9" fill="#333" text-anchor="middle">+</text>
+                            
+                            <rect x="100" y="20" width="30" height="18" rx="3" fill="#99ccff"/>
+                            <text x="115" y="33" font-size="8" fill="#333" text-anchor="middle">TF-B</text>
+                            
+                            <text x="140" y="33" font-size="9" fill="#333">→</text>
+                            
+                            <rect x="150" y="20" width="40" height="18" rx="3" fill="#90EE90"/>
+                            <text x="170" y="33" font-size="8" fill="#333" text-anchor="middle">Active</text>
+                        </g>
+                        
+                        <!-- Spacing constraints -->
+                        <g transform="translate(30, 140)">
+                            <text x="220" y="0" font-size="11" fill="#333" font-weight="600" text-anchor="middle">Spacing Constraints Matter</text>
+                            
+                            <!-- Optimal spacing -->
+                            <rect x="0" y="15" width="220" height="50" rx="5" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
+                            <text x="5" y="28" font-size="9" fill="#333" font-weight="600">Optimal:</text>
+                            
+                            <rect x="10" y="35" width="30" height="18" rx="3" fill="#ff9999"/>
+                            <text x="25" y="48" font-size="8" fill="#333" text-anchor="middle">TF-A</text>
+                            
+                            <line x1="45" y1="44" x2="85" y2="44" stroke="#666" stroke-width="2"/>
+                            <text x="65" y="38" font-size="8" fill="#666" text-anchor="middle">8-12bp</text>
+                            
+                            <rect x="90" y="35" width="30" height="18" rx="3" fill="#99ccff"/>
+                            <text x="105" y="48" font-size="8" fill="#333" text-anchor="middle">TF-B</text>
+                            
+                            <text x="130" y="48" font-size="10" fill="#28a745">✓</text>
+                            <text x="150" y="48" font-size="9" fill="#28a745">Strong</text>
+                            
+                            <!-- Poor spacing -->
+                            <rect x="240" y="15" width="220" height="50" rx="5" fill="#f8d7da" stroke="#dc3545" stroke-width="2"/>
+                            <text x="245" y="28" font-size="9" fill="#333" font-weight="600">Poor:</text>
+                            
+                            <rect x="250" y="35" width="30" height="18" rx="3" fill="#ff9999"/>
+                            <text x="265" y="48" font-size="8" fill="#333" text-anchor="middle">TF-A</text>
+                            
+                            <line x1="285" y1="44" x2="345" y2="44" stroke="#666" stroke-width="2"/>
+                            <text x="315" y="38" font-size="8" fill="#666" text-anchor="middle">30bp</text>
+                            
+                            <rect x="350" y="35" width="30" height="18" rx="3" fill="#99ccff"/>
+                            <text x="365" y="48" font-size="8" fill="#333" text-anchor="middle">TF-B</text>
+                            
+                            <text x="390" y="48" font-size="10" fill="#dc3545">✗</text>
+                            <text x="410" y="48" font-size="9" fill="#dc3545">Weak</text>
+                        </g>
+                        
+                        <!-- Orientation -->
+                        <g transform="translate(30, 220)">
+                            <text x="220" y="0" font-size="11" fill="#333" font-weight="600" text-anchor="middle">Orientation Dependence</text>
+                            
+                            <rect x="0" y="15" width="220" height="50" rx="5" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
+                            <text x="5" y="28" font-size="9" fill="#333" font-weight="600">Forward-Forward:</text>
+                            
+                            <rect x="20" y="35" width="40" height="18" rx="3" fill="#ff9999"/>
+                            <text x="40" y="48" font-size="8" fill="#333" text-anchor="middle">TF → →</text>
+                            
+                            <rect x="80" y="35" width="40" height="18" rx="3" fill="#99ccff"/>
+                            <text x="100" y="48" font-size="8" fill="#333" text-anchor="middle">TF → →</text>
+                            
+                            <text x="135" y="48" font-size="10" fill="#28a745">✓</text>
+                            <text x="155" y="48" font-size="9" fill="#28a745">Active</text>
+                            
+                            <rect x="240" y="15" width="220" height="50" rx="5" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+                            <text x="245" y="28" font-size="9" fill="#333" font-weight="600">Forward-Reverse:</text>
+                            
+                            <rect x="260" y="35" width="40" height="18" rx="3" fill="#ff9999"/>
+                            <text x="280" y="48" font-size="8" fill="#333" text-anchor="middle">TF → →</text>
+                            
+                            <rect x="320" y="35" width="40" height="18" rx="3" fill="#99ccff"/>
+                            <text x="340" y="48" font-size="8" fill="#333" text-anchor="middle">TF ← ←</text>
+                            
+                            <text x="375" y="48" font-size="10" fill="#ffc107">~</text>
+                            <text x="395" y="48" font-size="9" fill="#666">Variable</text>
+                        </g>
+                        
+                        <!-- Deep learning approach -->
+                        <g transform="translate(30, 300)">
+                            <text x="220" y="0" font-size="11" fill="#333" font-weight="600" text-anchor="middle">Deep Learning Discovers Grammar</text>
+                            
+                            <rect x="20" y="15" width="420" height="70" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <text x="230" y="32" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">Convolutional Neural Network</text>
+                            
+                            <text x="230" y="52" font-size="9" fill="#666" text-anchor="middle">• Automatically learns motifs and their combinations</text>
+                            <text x="230" y="67" font-size="9" fill="#666" text-anchor="middle">• Captures spacing, orientation, and order preferences</text>
+                            <text x="230" y="82" font-size="9" fill="#666" text-anchor="middle">• Generalizes to predict activity of novel sequences</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="text-content">
+                    <div>
+                        <h3>What is Enhancer Grammar?</h3>
+                        <p>Enhancer grammar refers to the rules governing how transcription factor binding sites combine to produce regulatory activity. Like linguistic grammar, it involves syntax (arrangement), semantics (meaning), and context-dependence.</p>
+                    </div>
+                    
+                    <div>
+                        <h3>Combinatorial Logic</h3>
+                        <p>Enhancers integrate signals from multiple transcription factors through boolean-like logic gates. Common patterns include AND gates (both TFs required), OR gates (either TF sufficient), and NOT gates (repressive interactions).</p>
+                    </div>
+                    
+                    <div>
+                        <h3>Spatial Constraints</h3>
+                        <p>The spacing and orientation between TF binding sites critically affects function. Optimal spacing allows protein-protein interactions, while poor spacing disrupts cooperative binding. Different TF pairs have characteristic preferred spacings.</p>
+                    </div>
+                    
+                    <div>
+                        <h3>Learning Grammar Rules</h3>
+                        <p>Deep learning models, particularly CNNs, automatically discover enhancer grammar from sequence and activity data. They learn motifs, their combinations, and higher-order syntax without explicit feature engineering.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>Key Concepts & Applications</h4>
+                <ul>
+                    <li><strong>Motif Interactions:</strong> TF binding sites work cooperatively or antagonistically based on their arrangement</li>
+                    <li><strong>Flexible Grammar:</strong> Same TFs can produce different outputs depending on context and arrangement</li>
+                    <li><strong>Evolutionary Conservation:</strong> Grammar rules are often conserved across species, indicating functional importance</li>
+                    <li><strong>Therapeutic Applications:</strong> Design synthetic enhancers with predictable, cell-type specific activity</li>
+                    <li><strong>Key Models:</strong> DeepSEA, Basset, and ChromBPNet excel at learning enhancer grammar</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Detailed Section 4: Cell Type Specificity -->
+        <div class="detailed-section">
+            <h2 class="section-header">4. Cell Type Specificity</h2>
+            <p class="section-subtitle">Context-dependent gene expression prediction</p>
+            
+            <div class="content-grid">
+                <div class="text-content">
+                    <div>
+                        <h3>The Challenge</h3>
+                        <p>All cells in an organism share the same genome, yet express vastly different sets of genes. A neuron expresses different genes than a liver cell, despite having identical DNA sequences. This cell-type specificity arises from epigenetic regulation.</p>
+                    </div>
+                    
+                    <div>
+                        <h3>Epigenetic Context</h3>
+                        <p>Cell type identity is encoded through chromatin accessibility, DNA methylation, and histone modifications. These epigenetic marks determine which regulatory elements are active in each cell type, creating a unique regulatory landscape.</p>
+                    </div>
+                    
+                    <div>
+                        <h3>Modeling Approaches</h3>
+                        <p>Modern models incorporate cell-type information through multi-task learning (predicting across cell types simultaneously), conditional models (cell type as input), or through learned cell-type embeddings that capture regulatory state.</p>
+                    </div>
+                    
+                    <div>
+                        <h3>Practical Impact</h3>
+                        <p>Understanding cell-type specificity enables prediction of how genetic variants affect different tissues, design of cell-type-specific gene therapies, and identification of regulatory elements driving cell fate decisions.</p>
+                    </div>
+                </div>
+                
+                <div class="diagram-container">
+                    <svg width="500" height="400" viewBox="0 0 500 400">
+                        <text x="250" y="25" font-size="14" fill="#333" text-anchor="middle" font-weight="600">Same DNA, Different Expression</text>
+                        
+                        <!-- DNA -->
+                        <g transform="translate(150, 50)">
+                            <rect x="0" y="0" width="200" height="30" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="100" y="20" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Gene X DNA Sequence</text>
+                        </g>
+                        
+                        <!-- Arrows to cell types -->
+                        <defs>
+                            <marker id="arrow2" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#666"/>
+                            </marker>
+                        </defs>
+                        
+                        <path d="M 200,85 L 150,130" stroke="#666" stroke-width="2" marker-end="url(#arrow2)"/>
+                        <path d="M 250,85 L 250,130" stroke="#666" stroke-width="2" marker-end="url(#arrow2)"/>
+                        <path d="M 300,85 L 350,130" stroke="#666" stroke-width="2" marker-end="url(#arrow2)"/>
+                        
+                        <!-- Brain cell -->
+                        <g transform="translate(30, 135)">
+                            <circle cx="60" cy="30" r="35" fill="#ffe6f0" stroke="#ff69b4" stroke-width="2"/>
+                            <text x="60" y="32" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Brain</text>
+                            <text x="60" y="45" font-size="9" fill="#666" text-anchor="middle">Neuron</text>
+                            
+                            <!-- Chromatin state -->
+                            <rect x="10" y="75" width="100" height="25" rx="3" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
+                            <text x="60" y="91" font-size="9" fill="#333" text-anchor="middle">Open Chromatin</text>
+                            
+                            <!-- Expression bar -->
+                            <text x="60" y="115" font-size="9" fill="#333" text-anchor="middle">Expression:</text>
+                            <rect x="15" y="120" width="90" height="12" rx="2" fill="#e0e0e0"/>
+                            <rect x="15" y="120" width="75" height="12" rx="2" fill="#1E64C8"/>
+                            <text x="60" y="150" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">HIGH</text>
+                        </g>
+                        
+                        <!-- Liver cell -->
+                        <g transform="translate(180, 135)">
+                            <circle cx="60" cy="30" r="35" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+                            <text x="60" y="32" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Liver</text>
+                            <text x="60" y="45" font-size="9" fill="#666" text-anchor="middle">Hepatocyte</text>
+                            
+                            <!-- Chromatin state -->
+                            <rect x="10" y="75" width="100" height="25" rx="3" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+                            <text x="60" y="91" font-size="9" fill="#333" text-anchor="middle">Partial Access</text>
+                            
+                            <!-- Expression bar -->
+                            <text x="60" y="115" font-size="9" fill="#333" text-anchor="middle">Expression:</text>
+                            <rect x="15" y="120" width="90" height="12" rx="2" fill="#e0e0e0"/>
+                            <rect x="15" y="120" width="35" height="12" rx="2" fill="#2874d8"/>
+                            <text x="60" y="150" font-size="10" fill="#666" text-anchor="middle" font-weight="600">MEDIUM</text>
+                        </g>
+                        
+                        <!-- Heart cell -->
+                        <g transform="translate(330, 135)">
+                            <circle cx="60" cy="30" r="35" fill="#ffebee" stroke="#f44336" stroke-width="2"/>
+                            <text x="60" y="32" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Heart</text>
+                            <text x="60" y="45" font-size="9" fill="#666" text-anchor="middle">Cardiomyocyte</text>
+                            
+                            <!-- Chromatin state -->
+                            <rect x="10" y="75" width="100" height="25" rx="3" fill="#f8d7da" stroke="#dc3545" stroke-width="2"/>
+                            <text x="60" y="91" font-size="9" fill="#333" text-anchor="middle">Closed Chromatin</text>
+                            
+                            <!-- Expression bar -->
+                            <text x="60" y="115" font-size="9" fill="#333" text-anchor="middle">Expression:</text>
+                            <rect x="15" y="120" width="90" height="12" rx="2" fill="#e0e0e0"/>
+                            <rect x="15" y="120" width="8" height="12" rx="2" fill="#5fa3e8"/>
+                            <text x="60" y="150" font-size="10" fill="#dc3545" text-anchor="middle" font-weight="600">LOW</text>
+                        </g>
+                        
+                        <!-- Model approach -->
+                        <g transform="translate(50, 310)">
+                            <rect x="0" y="0" width="400" height="70" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="200" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">Multi-Task Learning Approach</text>
+                            
+                            <text x="200" y="38" font-size="9" fill="#666" text-anchor="middle">Input: DNA sequence + Cell type identifier</text>
+                            <text x="200" y="52" font-size="9" fill="#666" text-anchor="middle">Model: Shared layers + Cell-type-specific heads</text>
+                            <text x="200" y="66" font-size="9" fill="#666" text-anchor="middle">Output: Expression prediction for each cell type</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <h4>Key Mechanisms & Applications</h4>
+                <ul>
+                    <li><strong>Master Regulators:</strong> Cell-type-specific transcription factors (e.g., MyoD in muscle, GATA1 in blood) drive expression programs</li>
+                    <li><strong>Chromatin Accessibility:</strong> DNase-seq and ATAC-seq data reveal which regulatory elements are accessible in each cell type</li>
+                    <li><strong>Histone Marks:</strong> H3K4me3 (promoters), H3K27ac (active enhancers), H3K27me3 (repression) mark regulatory states</li>
+                    <li><strong>Clinical Applications:</strong> Predict tissue-specific effects of disease variants (e.g., heart vs brain)</li>
+                    <li><strong>Notable Models:</strong> Basenji predicts cell-type-specific chromatin and expression across 200+ cell types</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Detailed Section 5: Enformer Architecture -->
+        <div class="detailed-section">
+            <h2 class="section-header">5. Enformer Architecture</h2>
+            <p class="section-subtitle">Transformer + CNN hybrid for long-range regulatory prediction</p>
+            
+            <div class="content-grid">
+                <div class="diagram-container">
+                    <svg width="500" height="450" viewBox="0 0 500 450">
+                        <text x="250" y="25" font-size="14" fill="#333" text-anchor="middle" font-weight="600">Enformer Model Architecture</text>
+                        
+                        <!-- Input -->
+                        <g transform="translate(150, 50)">
+                            <rect x="0" y="0" width="200" height="35" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="100" y="20" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Input DNA Sequence</text>
+                            <text x="100" y="32" font-size="9" fill="#666" text-anchor="middle">196,608 bp (one-hot encoded)</text>
+                        </g>
+                        
+                        <defs>
+                            <marker id="arrow3" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                                <polygon points="0 0, 10 5, 0 10" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        <path d="M 250,90 L 250,110" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow3)"/>
+                        
+                        <!-- Convolutional stem -->
+                        <g transform="translate(100, 115)">
+                            <rect x="0" y="0" width="300" height="55" rx="5" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+                            <text x="150" y="18" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Convolutional Stem</text>
+                            <text x="150" y="32" font-size="9" fill="#666" text-anchor="middle">7 Conv layers + pooling</text>
+                            <text x="150" y="45" font-size="9" fill="#666" text-anchor="middle">Extract local motifs (TF binding sites)</text>
+                            <text x="150" y="57" font-size="8" fill="#999" text-anchor="middle">Output: 1,536 positions × 1,536 channels</text>
+                        </g>
+                        
+                        <path d="M 250,175 L 250,195" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow3)"/>
+                        
+                        <!-- Transformer blocks -->
+                        <g transform="translate(80, 200)">
+                            <rect x="0" y="0" width="340" height="120" rx="5" fill="#e3f2fd" stroke="#2874d8" stroke-width="2"/>
+                            <text x="170" y="18" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Transformer Tower (11 blocks)</text>
+                            
+                            <!-- Single transformer block detail -->
+                            <g transform="translate(20, 30)">
+                                <rect x="0" y="0" width="300" height="75" rx="4" fill="white" stroke="#1E64C8" stroke-width="1.5"/>
+                                
+                                <rect x="10" y="8" width="280" height="16" rx="3" fill="#bbdefb"/>
+                                <text x="150" y="19" font-size="9" fill="#333" text-anchor="middle">Multi-Head Self-Attention (8 heads)</text>
+                                
+                                <rect x="10" y="30" width="280" height="16" rx="3" fill="#c5e1a5"/>
+                                <text x="150" y="41" font-size="9" fill="#333" text-anchor="middle">Layer Normalization</text>
+                                
+                                <rect x="10" y="52" width="280" height="16" rx="3" fill="#ffecb3"/>
+                                <text x="150" y="63" font-size="9" fill="#333" text-anchor="middle">Feed-Forward Network (MLP)</text>
+                                
+                                <text x="150" y="85" font-size="8" fill="#666" text-anchor="middle" font-style="italic">Captures long-range interactions (up to 100kb+)</text>
+                            </g>
+                        </g>
+                        
+                        <path d="M 250,325 L 250,345" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow3)"/>
+                        
+                        <!-- Output heads -->
+                        <g transform="translate(70, 350)">
+                            <rect x="0" y="0" width="360" height="80" rx="5" fill="#f1f8e9" stroke="#689f38" stroke-width="2"/>
+                            <text x="180" y="18" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Multi-Task Output Heads</text>
+                            
+                            <g transform="translate(20, 28)">
+                                <rect x="0" y="0" width="100" height="25" rx="3" fill="#ffccbc"/>
+                                <text x="50" y="16" font-size="8" fill="#333" text-anchor="middle">CAGE</text>
+                                <text x="50" y="25" font-size="7" fill="#666" text-anchor="middle">(gene expression)</text>
+                            </g>
+                            
+                            <g transform="translate(130, 28)">
+                                <rect x="0" y="0" width="100" height="25" rx="3" fill="#c5e1a5"/>
+                                <text x="50" y="16" font-size="8" fill="#333" text-anchor="middle">DNase-seq</text>
+                                <text x="50" y="25" font-size="7" fill="#666" text-anchor="middle">(accessibility)</text>
+                            </g>
+                            
+                            <g transform="translate(240, 28)">
+                                <rect x="0" y="0" width="100" height="25" rx="3" fill="#bbdefb"/>
+                                <text x="50" y="16" font-size="8" fill="#333" text-anchor="middle">H3K27ac</text>
+                                <text x="50" y="25" font-size="7" fill="#666" text-anchor="middle">(histone marks)</text>
+                            </g>
+                            
+                            <text x="180" y="68" font-size="9" fill="#666" text-anchor="middle">5,313 tracks across human & mouse</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="text-content">
+                    <div>
+                        <h3>Why Enformer?</h3>
+                        <p>Previous models (like Basenji) used only CNNs and were limited to ~40kb context windows. Enformer uses transformers to capture interactions across 200kb, dramatically improving predictions by modeling distal enhancers and TAD structures.</p>
+                    </div>
+                    
+                    <div>
+                        <h3>CNN Stem</h3>
+                        <p>The convolutional stem processes raw DNA sequence to extract local features like transcription factor binding motifs. This reduces the sequence length while enriching the representation with biologically meaningful patterns.</p>
+                    </div>
+                    
+                    <div>
+                        <h3>Transformer Tower</h3>
+                        <p>The transformer blocks use self-attention to model long-range interactions between regulatory elements. Unlike CNNs with limited receptive fields, attention can directly connect distant positions, capturing enhancer-promoter loops and chromatin interactions.</p>
+                    </div>
+                    
+                    <div>
+                        <h3>Multi-Task Learning</h3>
+                        <p>Enformer simultaneously predicts thousands of genomic tracks (CAGE, ChIP-seq, DNase-seq, etc.) across cell types. This multi-task approach helps the model learn generalizable regulatory principles and improves performance through shared representations.</p>
+                    </div>
+                    
+                    <div>
+                        <h3>Performance Gains</h3>
+                        <p>Enformer achieves state-of-the-art accuracy, explaining ~60% of variance in human expression data. It substantially outperforms previous models on variant effect prediction and can identify regulatory variants missed by GWAS.</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="full-width-diagram">
+                <svg width="1100" height="200" viewBox="0 0 1100 200">
+                    <text x="550" y="25" font-size="14" fill="#333" text-anchor="middle" font-weight="600">Key Innovations in Enformer</text>
+                    
+                    <!-- Innovation 1 -->
+                    <g transform="translate(20, 50)">
+                        <rect x="0" y="0" width="250" height="120" rx="5" fill="#e3f2fd" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="125" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">1. Long Context Window</text>
+                        
+                        <text x="125" y="45" font-size="10" fill="#333" text-anchor="middle">196,608 bp input</text>
+                        <text x="125" y="62" font-size="9" fill="#666" text-anchor="middle">vs. 40kb in Basenji</text>
+                        
+                        <circle cx="125" cy="85" r="15" fill="#90EE90"/>
+                        <text x="125" y="91" font-size="11" fill="#333" text-anchor="middle" font-weight="600">5×</text>
+                        
+                        <text x="125" y="112" font-size="9" fill="#666" text-anchor="middle">Captures distal enhancers</text>
                     </g>
                     
-                    <!-- CNN/Transformer Model -->
-                    <g transform="translate(100, 130)">
-                        <rect x="0" y="0" width="320" height="80" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="3"/>
-                        <text x="160" y="20" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="700">Deep Learning Model (Enformer)</text>
+                    <!-- Innovation 2 -->
+                    <g transform="translate(290, 50)">
+                        <rect x="0" y="0" width="250" height="120" rx="5" fill="#fff3e0" stroke="#ff9800" stroke-width="2"/>
+                        <text x="125" y="20" font-size="12" fill="#ff9800" text-anchor="middle" font-weight="600">2. Attention Mechanism</text>
                         
-                        <!-- Model layers -->
-                        <g transform="translate(20, 30)">
-                            <rect x="0" y="0" width="280" height="15" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
-                            <text x="140" y="11" font-size="10" fill="#333" text-anchor="middle">Convolutional Layers (local patterns)</text>
-                        </g>
+                        <text x="125" y="45" font-size="10" fill="#333" text-anchor="middle">Self-attention layers</text>
+                        <text x="125" y="62" font-size="9" fill="#666" text-anchor="middle">Direct long-range modeling</text>
                         
-                        <g transform="translate(20, 50)">
-                            <rect x="0" y="0" width="280" height="15" rx="3" fill="#e3f2fd" stroke="#2874d8" stroke-width="1.5"/>
-                            <text x="140" y="11" font-size="10" fill="#333" text-anchor="middle">Transformer Layers (long-range interactions)</text>
-                        </g>
+                        <circle cx="125" cy="85" r="15" fill="#90EE90"/>
+                        <text x="125" y="91" font-size="11" fill="#333" text-anchor="middle" font-weight="600">↑</text>
+                        
+                        <text x="125" y="112" font-size="9" fill="#666" text-anchor="middle">Better than convolution</text>
                     </g>
                     
-                    <defs>
-                        <marker id="arrowdown" markerWidth="10" markerHeight="10" refX="5" refY="9" orient="auto">
-                            <polygon points="0 0, 10 0, 5 10" fill="#1E64C8"/>
-                        </marker>
-                    </defs>
-                    <path d="M 260,220 L 260,235" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowdown)"/>
-                    
-                    <!-- Expression Outputs -->
-                    <g transform="translate(80, 245)">
-                        <rect x="0" y="0" width="360" height="110" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="180" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">Predicted Expression Levels</text>
+                    <!-- Innovation 3 -->
+                    <g transform="translate(560, 50)">
+                        <rect x="0" y="0" width="250" height="120" rx="5" fill="#f1f8e9" stroke="#689f38" stroke-width="2"/>
+                        <text x="125" y="20" font-size="12" fill="#689f38" text-anchor="middle" font-weight="600">3. Cross-Species Training</text>
                         
-                        <!-- Cell types with expression bars -->
-                        <g transform="translate(20, 35)">
-                            <text x="0" y="12" font-size="10" fill="#333">Brain:</text>
-                            <rect x="50" y="4" width="120" height="12" rx="2" fill="#e0e0e0"/>
-                            <rect x="50" y="4" width="90" height="12" rx="2" fill="#1E64C8"/>
-                            <text x="180" y="13" font-size="9" fill="#666">High</text>
-                        </g>
+                        <text x="125" y="45" font-size="10" fill="#333" text-anchor="middle">Human + Mouse data</text>
+                        <text x="125" y="62" font-size="9" fill="#666" text-anchor="middle">Learns conserved principles</text>
                         
-                        <g transform="translate(20, 55)">
-                            <text x="0" y="12" font-size="10" fill="#333">Liver:</text>
-                            <rect x="50" y="4" width="120" height="12" rx="2" fill="#e0e0e0"/>
-                            <rect x="50" y="4" width="45" height="12" rx="2" fill="#2874d8"/>
-                            <text x="180" y="13" font-size="9" fill="#666">Medium</text>
-                        </g>
+                        <circle cx="125" cy="85" r="15" fill="#90EE90"/>
+                        <text x="125" y="91" font-size="11" fill="#333" text-anchor="middle" font-weight="600">✓</text>
                         
-                        <g transform="translate(20, 75)">
-                            <text x="0" y="12" font-size="10" fill="#333">Heart:</text>
-                            <rect x="50" y="4" width="120" height="12" rx="2" fill="#e0e0e0"/>
-                            <rect x="50" y="4" width="18" height="12" rx="2" fill="#5fa3e8"/>
-                            <text x="180" y="13" font-size="9" fill="#666">Low</text>
-                        </g>
+                        <text x="125" y="112" font-size="9" fill="#666" text-anchor="middle">Improved generalization</text>
                     </g>
                     
-                    <text x="260" y="375" font-size="11" fill="#666" text-anchor="middle" font-style="italic">Cell-type specific expression prediction</text>
+                    <!-- Innovation 4 -->
+                    <g transform="translate(830, 50)">
+                        <rect x="0" y="0" width="250" height="120" rx="5" fill="#fce4ec" stroke="#e91e63" stroke-width="2"/>
+                        <text x="125" y="20" font-size="12" fill="#e91e63" text-anchor="middle" font-weight="600">4. Variant Effect Prediction</text>
+                        
+                        <text x="125" y="45" font-size="10" fill="#333" text-anchor="middle">In silico mutagenesis</text>
+                        <text x="125" y="62" font-size="9" fill="#666" text-anchor="middle">Predict regulatory impact</text>
+                        
+                        <circle cx="125" cy="85" r="15" fill="#90EE90"/>
+                        <text x="125" y="91" font-size="11" fill="#333" text-anchor="middle" font-weight="600">★</text>
+                        
+                        <text x="125" y="112" font-size="9" fill="#666" text-anchor="middle">Clinical applications</text>
+                    </g>
                 </svg>
             </div>
             
-            <div class="concepts-panel">
-                <div class="concept-card">
-                    <div class="concept-title">Sequence to expression</div>
-                    <div class="concept-desc">DNA → RNA abundance mapping</div>
-                </div>
-                <div class="concept-card">
-                    <div class="concept-title">Promoter models</div>
-                    <div class="concept-desc">TSS region activity prediction</div>
-                </div>
-                <div class="concept-card">
-                    <div class="concept-title">Enhancer grammar</div>
-                    <div class="concept-desc">TF binding syntax learning</div>
-                </div>
-                <div class="concept-card">
-                    <div class="concept-title">Cell type specificity</div>
-                    <div class="concept-desc">Context-dependent prediction</div>
-                </div>
-                <div class="concept-card">
-                    <div class="concept-title">Enformer architecture</div>
-                    <div class="concept-desc">Transformer + CNN hybrid model</div>
-                </div>
+            <div class="key-points">
+                <h4>Technical Details & Impact</h4>
+                <ul>
+                    <li><strong>Parameters:</strong> ~250M parameters, trained on TPUs for several weeks</li>
+                    <li><strong>Training Data:</strong> Thousands of genomic assays from ENCODE, Roadmap Epigenomics, and GTEx</li>
+                    <li><strong>Architecture Benefit:</strong> Attention mechanism provides computational efficiency and better gradient flow than deep CNNs</li>
+                    <li><strong>Interpretability:</strong> Attention weights reveal which genomic regions interact to regulate expression</li>
+                    <li><strong>Applications:</strong> Variant prioritization, synthetic biology, understanding disease mechanisms, drug target identification</li>
+                    <li><strong>Future Directions:</strong> Single-cell predictions, 3D genome structure integration, protein sequence co-modeling</li>
+                </ul>
             </div>
         </div>
     </div>

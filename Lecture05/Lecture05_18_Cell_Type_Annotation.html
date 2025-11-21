@@ -1,22 +1,24 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cell Type Annotation</title>
+    <title>Cell Type Annotation - Detailed Guide</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
             background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            padding: 40px 20px;
         }
         .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: white;
+        }
+        .section {
             width: 960px;
-            height: 540px;
+            margin: 0 auto 40px;
             padding: 30px 40px;
             background: white;
         }
@@ -43,10 +45,164 @@
             color: #333;
             font-weight: 600;
         }
+        
+        /* Detailed sections styling */
+        .detail-section {
+            width: 960px;
+            margin: 0 auto 30px;
+            padding: 30px 40px;
+            background: white;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid;
+        }
+        .method-card {
+            background: #fafafa;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .method-title {
+            font-size: 18px;
+            font-weight: 600;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .method-icon {
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 10px;
+            font-size: 16px;
+        }
+        .method-description {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .workflow-steps {
+            background: white;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        .step {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 12px;
+        }
+        .step-number {
+            min-width: 28px;
+            height: 28px;
+            border-radius: 50%;
+            background: #1E64C8;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 600;
+            font-size: 13px;
+            margin-right: 12px;
+        }
+        .step-content {
+            flex: 1;
+            padding-top: 4px;
+        }
+        .step-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 4px;
+        }
+        .step-desc {
+            font-size: 13px;
+            color: #666;
+        }
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        .pros, .cons {
+            background: white;
+            padding: 12px;
+            border-radius: 6px;
+        }
+        .pros {
+            border-left: 3px solid #4CAF50;
+        }
+        .cons {
+            border-left: 3px solid #F44336;
+        }
+        .list-title {
+            font-weight: 600;
+            font-size: 13px;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+        .list-item {
+            font-size: 12px;
+            margin-bottom: 5px;
+            padding-left: 15px;
+            position: relative;
+        }
+        .list-item:before {
+            content: "•";
+            position: absolute;
+            left: 5px;
+        }
+        .example-box {
+            background: #E3F2FD;
+            border-radius: 6px;
+            padding: 15px;
+            margin-top: 15px;
+        }
+        .example-title {
+            font-weight: 600;
+            font-size: 14px;
+            margin-bottom: 10px;
+            color: #0D47A1;
+        }
+        .code-block {
+            background: #263238;
+            color: #AED581;
+            padding: 12px;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+            margin-top: 8px;
+        }
+        
+        /* Color themes for different sections */
+        .manual-theme .section-title { color: #D32F2F; border-color: #D32F2F; }
+        .manual-theme .method-icon { background: #FFEBEE; color: #D32F2F; }
+        
+        .reference-theme .section-title { color: #1976D2; border-color: #1976D2; }
+        .reference-theme .method-icon { background: #E3F2FD; color: #1976D2; }
+        
+        .automated-theme .section-title { color: #388E3C; border-color: #388E3C; }
+        .automated-theme .method-icon { background: #E8F5E9; color: #388E3C; }
+        
+        .hybrid-theme .section-title { color: #7B1FA2; border-color: #7B1FA2; }
+        .hybrid-theme .method-icon { background: #F3E5F5; color: #7B1FA2; }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Original Overview Section -->
+    <div class="section">
         <div class="title">Cell Type Annotation</div>
         <div class="visual-content">
             <svg width="100%" height="100%" viewBox="0 0 900 420" xmlns="http://www.w3.org/2000/svg">
@@ -217,8 +373,826 @@
             </svg>
         </div>
         <div class="note-box">
-            <div class="note-text">💡 Combine automated tools with manual curation</div>
+            <div class="note-text">💡 Combine automated tools with manual curation for optimal results</div>
         </div>
     </div>
+
+    <!-- Detailed Section 1: Manual Annotation -->
+    <div class="detail-section manual-theme">
+        <div class="section-title">1. Manual Annotation Methods</div>
+        
+        <div class="method-card">
+            <div class="method-title">
+                <span class="method-icon">📊</span>
+                Marker Gene-Based Identification
+            </div>
+            <div class="method-description">
+                Manual annotation relies on expert knowledge to identify cell types based on the expression patterns of known marker genes. This approach requires deep biological understanding and literature review but provides high-quality, interpretable results.
+            </div>
+            
+            <div class="workflow-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">Identify Differential Markers</div>
+                        <div class="step-desc">Run differential expression analysis to find genes enriched in each cluster</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">Visualize Gene Expression</div>
+                        <div class="step-desc">Generate feature plots, violin plots, and heatmaps for known markers</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">Literature Comparison</div>
+                        <div class="step-desc">Cross-reference expression patterns with published cell type signatures</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-title">Assign Cell Type Labels</div>
+                        <div class="step-desc">Manually label clusters based on marker combinations and biological knowledge</div>
+                    </div>
+                </div>
+            </div>
+
+            <svg width="100%" height="200" viewBox="0 0 800 200" style="margin: 15px 0;">
+                <!-- Feature Plot Example -->
+                <g>
+                    <text x="20" y="20" font-size="14" font-weight="600" fill="#333">Feature Plot: CD3D Expression</text>
+                    <rect x="20" y="30" width="180" height="150" rx="5" fill="#f0f0f0" stroke="#999" stroke-width="1"/>
+                    
+                    <!-- UMAP with CD3D expression -->
+                    <circle cx="80" cy="80" r="25" fill="#FF0000" opacity="0.7"/>
+                    <circle cx="140" cy="90" r="20" fill="#FFA500" opacity="0.5"/>
+                    <circle cx="100" cy="130" r="18" fill="#CCCCCC" opacity="0.3"/>
+                    <circle cx="160" cy="140" r="15" fill="#CCCCCC" opacity="0.3"/>
+                    
+                    <text x="110" y="195" font-size="11" fill="#666" text-anchor="middle">High CD3D = T cells</text>
+                </g>
+                
+                <!-- Violin Plot Example -->
+                <g transform="translate(220, 0)">
+                    <text x="20" y="20" font-size="14" font-weight="600" fill="#333">Violin Plot: Marker Genes</text>
+                    <rect x="20" y="30" width="250" height="150" rx="5" fill="#f0f0f0" stroke="#999" stroke-width="1"/>
+                    
+                    <!-- CD3D violin -->
+                    <ellipse cx="70" cy="100" rx="15" ry="50" fill="#2196F3" opacity="0.6"/>
+                    <text x="70" y="165" font-size="10" fill="#333" text-anchor="middle">CD3D</text>
+                    <text x="70" y="178" font-size="9" fill="#666" text-anchor="middle">T cells</text>
+                    
+                    <!-- CD79A violin -->
+                    <ellipse cx="130" cy="110" rx="15" ry="45" fill="#4CAF50" opacity="0.6"/>
+                    <text x="130" y="165" font-size="10" fill="#333" text-anchor="middle">CD79A</text>
+                    <text x="130" y="178" font-size="9" fill="#666" text-anchor="middle">B cells</text>
+                    
+                    <!-- CD14 violin -->
+                    <ellipse cx="190" cy="105" rx="15" ry="48" fill="#F44336" opacity="0.6"/>
+                    <text x="190" y="165" font-size="10" fill="#333" text-anchor="middle">CD14</text>
+                    <text x="190" y="178" font-size="9" fill="#666" text-anchor="middle">Monocytes</text>
+                    
+                    <!-- NKG7 violin -->
+                    <ellipse cx="250" cy="115" rx="15" ry="40" fill="#FF9800" opacity="0.6"/>
+                    <text x="250" y="165" font-size="10" fill="#333" text-anchor="middle">NKG7</text>
+                    <text x="250" y="178" font-size="9" fill="#666" text-anchor="middle">NK cells</text>
+                </g>
+                
+                <!-- Heatmap Example -->
+                <g transform="translate(500, 0)">
+                    <text x="20" y="20" font-size="14" font-weight="600" fill="#333">Heatmap: Top Markers</text>
+                    <rect x="20" y="30" width="260" height="150" rx="5" fill="#f0f0f0" stroke="#999" stroke-width="1"/>
+                    
+                    <!-- Cluster labels -->
+                    <text x="35" y="55" font-size="9" fill="#333">C0</text>
+                    <text x="35" y="85" font-size="9" fill="#333">C1</text>
+                    <text x="35" y="115" font-size="9" fill="#333">C2</text>
+                    <text x="35" y="145" font-size="9" fill="#333">C3</text>
+                    
+                    <!-- Gene labels -->
+                    <text x="80" y="45" font-size="8" fill="#333">CD3D</text>
+                    <text x="130" y="45" font-size="8" fill="#333">CD79A</text>
+                    <text x="180" y="45" font-size="8" fill="#333">CD14</text>
+                    <text x="235" y="45" font-size="8" fill="#333">NKG7</text>
+                    
+                    <!-- Heatmap cells -->
+                    <rect x="65" y="50" width="35" height="20" fill="#D32F2F"/>
+                    <rect x="115" y="50" width="35" height="20" fill="#90CAF9"/>
+                    <rect x="165" y="50" width="35" height="20" fill="#90CAF9"/>
+                    <rect x="220" y="50" width="35" height="20" fill="#90CAF9"/>
+                    
+                    <rect x="65" y="80" width="35" height="20" fill="#90CAF9"/>
+                    <rect x="115" y="80" width="35" height="20" fill="#388E3C"/>
+                    <rect x="165" y="80" width="35" height="20" fill="#90CAF9"/>
+                    <rect x="220" y="80" width="35" height="20" fill="#90CAF9"/>
+                    
+                    <rect x="65" y="110" width="35" height="20" fill="#90CAF9"/>
+                    <rect x="115" y="110" width="35" height="20" fill="#90CAF9"/>
+                    <rect x="165" y="110" width="35" height="20" fill="#E65100"/>
+                    <rect x="220" y="110" width="35" height="20" fill="#90CAF9"/>
+                    
+                    <rect x="65" y="140" width="35" height="20" fill="#90CAF9"/>
+                    <rect x="115" y="140" width="35" height="20" fill="#90CAF9"/>
+                    <rect x="165" y="140" width="35" height="20" fill="#90CAF9"/>
+                    <rect x="220" y="140" width="35" height="20" fill="#F57C00"/>
+                </g>
+            </svg>
+            
+            <div class="pros-cons">
+                <div class="pros">
+                    <div class="list-title">✅ Advantages</div>
+                    <div class="list-item">Highly interpretable and biologically meaningful</div>
+                    <div class="list-item">Leverages existing biological knowledge</div>
+                    <div class="list-item">Flexible and adaptable to novel cell types</div>
+                    <div class="list-item">No need for reference datasets</div>
+                    <div class="list-item">Direct visual inspection possible</div>
+                </div>
+                <div class="cons">
+                    <div class="list-title">⚠️ Limitations</div>
+                    <div class="list-item">Time-consuming and labor-intensive</div>
+                    <div class="list-item">Requires extensive domain expertise</div>
+                    <div class="list-item">Subjective and prone to bias</div>
+                    <div class="list-item">Not scalable for large datasets</div>
+                    <div class="list-item">Difficult to maintain consistency across studies</div>
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">💻 Example: Manual Annotation in Seurat (R)</div>
+                <div class="code-block">
+# Find cluster markers
+cluster_markers <- FindAllMarkers(seurat_obj, only.pos = TRUE)
+
+# Visualize key markers
+FeaturePlot(seurat_obj, features = c("CD3D", "CD79A", "CD14", "NKG7"))
+
+# Assign cell type labels based on markers
+new.cluster.ids <- c("T cells", "B cells", "Monocytes", "NK cells")
+names(new.cluster.ids) <- levels(seurat_obj)
+seurat_obj <- RenameIdents(seurat_obj, new.cluster.ids)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Section 2: Reference-Based Annotation -->
+    <div class="detail-section reference-theme">
+        <div class="section-title">2. Reference-Based Annotation Methods</div>
+        
+        <div class="method-card">
+            <div class="method-title">
+                <span class="method-icon">🔗</span>
+                Label Transfer from Annotated References
+            </div>
+            <div class="method-description">
+                Reference-based methods leverage well-annotated datasets to automatically transfer cell type labels to new query datasets. These approaches compare gene expression profiles between query and reference cells to predict cell identities based on similarity.
+            </div>
+            
+            <div class="workflow-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">Select Reference Dataset</div>
+                        <div class="step-desc">Choose a high-quality, well-annotated reference from similar tissue/conditions</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">Compute Similarity Scores</div>
+                        <div class="step-desc">Calculate correlation or distance between query and reference cells</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">Transfer Labels</div>
+                        <div class="step-desc">Assign labels based on nearest neighbors or ensemble voting</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-title">Quality Assessment</div>
+                        <div class="step-desc">Evaluate confidence scores and validate assignments</div>
+                    </div>
+                </div>
+            </div>
+
+            <svg width="100%" height="280" viewBox="0 0 800 280" style="margin: 15px 0;">
+                <text x="400" y="20" font-size="16" font-weight="700" fill="#1976D2" text-anchor="middle">Reference-Based Label Transfer Workflow</text>
+                
+                <!-- Reference Dataset -->
+                <g>
+                    <rect x="30" y="40" width="200" height="220" rx="8" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                    <text x="130" y="65" font-size="13" font-weight="600" fill="#0D47A1" text-anchor="middle">Reference Dataset</text>
+                    <text x="130" y="82" font-size="11" fill="#666" text-anchor="middle">(Annotated)</text>
+                    
+                    <!-- Annotated cells -->
+                    <circle cx="80" cy="120" r="18" fill="#2196F3" opacity="0.8"/>
+                    <text x="80" y="125" font-size="9" font-weight="600" fill="white" text-anchor="middle">T cells</text>
+                    
+                    <circle cx="180" cy="120" r="18" fill="#4CAF50" opacity="0.8"/>
+                    <text x="180" y="125" font-size="9" font-weight="600" fill="white" text-anchor="middle">B cells</text>
+                    
+                    <circle cx="80" cy="180" r="18" fill="#F44336" opacity="0.8"/>
+                    <text x="80" y="185" font-size="9" font-weight="600" fill="white" text-anchor="middle">Mono</text>
+                    
+                    <circle cx="180" cy="180" r="18" fill="#FF9800" opacity="0.8"/>
+                    <text x="180" y="185" font-size="9" font-weight="600" fill="white" text-anchor="middle">NK</text>
+                    
+                    <text x="130" y="220" font-size="10" fill="#333" text-anchor="middle">Known labels</text>
+                    <text x="130" y="235" font-size="9" fill="#666" text-anchor="middle">Gene expression profiles</text>
+                </g>
+                
+                <!-- Similarity calculation -->
+                <g transform="translate(240, 110)">
+                    <rect x="0" y="0" width="120" height="80" rx="6" fill="#FFF3E0" stroke="#F57C00" stroke-width="1.5"/>
+                    <text x="60" y="25" font-size="12" font-weight="600" fill="#E65100" text-anchor="middle">Similarity</text>
+                    <text x="60" y="40" font-size="12" font-weight="600" fill="#E65100" text-anchor="middle">Calculation</text>
+                    
+                    <text x="60" y="58" font-size="9" fill="#666" text-anchor="middle">Correlation</text>
+                    <text x="60" y="72" font-size="9" fill="#666" text-anchor="middle">Distance metrics</text>
+                </g>
+                
+                <path d="M 230 140 L 240 140" stroke="#1976D2" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
+                <path d="M 360 150 L 370 150" stroke="#1976D2" stroke-width="2" fill="none" marker-end="url(#arrow2)"/>
+                
+                <!-- Query Dataset -->
+                <g transform="translate(370, 0)">
+                    <rect x="30" y="40" width="200" height="220" rx="8" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2"/>
+                    <text x="130" y="65" font-size="13" font-weight="600" fill="#4A148C" text-anchor="middle">Query Dataset</text>
+                    <text x="130" y="82" font-size="11" fill="#666" text-anchor="middle">(Newly Annotated)</text>
+                    
+                    <!-- Query cells with transferred labels -->
+                    <g>
+                        <circle cx="80" cy="120" r="18" fill="#2196F3" opacity="0.8"/>
+                        <text x="80" y="125" font-size="9" font-weight="600" fill="white" text-anchor="middle">T cells</text>
+                        <text x="80" y="145" font-size="7" fill="#1976D2" text-anchor="middle">score: 0.92</text>
+                    </g>
+                    
+                    <g>
+                        <circle cx="180" cy="120" r="18" fill="#4CAF50" opacity="0.8"/>
+                        <text x="180" y="125" font-size="9" font-weight="600" fill="white" text-anchor="middle">B cells</text>
+                        <text x="180" y="145" font-size="7" fill="#388E3C" text-anchor="middle">score: 0.88</text>
+                    </g>
+                    
+                    <g>
+                        <circle cx="80" cy="180" r="18" fill="#F44336" opacity="0.8"/>
+                        <text x="80" y="185" font-size="9" font-weight="600" fill="white" text-anchor="middle">Mono</text>
+                        <text x="80" y="205" font-size="7" fill="#D32F2F" text-anchor="middle">score: 0.85</text>
+                    </g>
+                    
+                    <g>
+                        <circle cx="180" cy="180" r="18" fill="#FF9800" opacity="0.8"/>
+                        <text x="180" y="185" font-size="9" font-weight="600" fill="white" text-anchor="middle">NK</text>
+                        <text x="180" y="205" font-size="7" fill="#F57C00" text-anchor="middle">score: 0.79</text>
+                    </g>
+                    
+                    <text x="130" y="220" font-size="10" fill="#333" text-anchor="middle">Transferred labels</text>
+                    <text x="130" y="235" font-size="9" fill="#666" text-anchor="middle">with confidence scores</text>
+                </g>
+                
+                <defs>
+                    <marker id="arrow2" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#1976D2"/>
+                    </marker>
+                </defs>
+            </svg>
+
+            <div style="background: white; border-radius: 6px; padding: 15px; margin: 15px 0;">
+                <div style="font-weight: 600; font-size: 14px; margin-bottom: 12px; color: #1976D2;">🔧 Popular Tools & Methods</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div style="background: #E3F2FD; padding: 10px; border-radius: 4px;">
+                        <div style="font-weight: 600; font-size: 12px; margin-bottom: 5px;">SingleR</div>
+                        <div style="font-size: 11px; color: #666;">Correlation-based method using curated reference datasets</div>
+                    </div>
+                    <div style="background: #E3F2FD; padding: 10px; border-radius: 4px;">
+                        <div style="font-weight: 600; font-size: 12px; margin-bottom: 5px;">Seurat Anchors</div>
+                        <div style="font-size: 11px; color: #666;">Integration-based label transfer with CCA/RPCA</div>
+                    </div>
+                    <div style="background: #E3F2FD; padding: 10px; border-radius: 4px;">
+                        <div style="font-weight: 600; font-size: 12px; margin-bottom: 5px;">scmap</div>
+                        <div style="font-size: 11px; color: #666;">Fast nearest neighbor search for cell type projection</div>
+                    </div>
+                    <div style="background: #E3F2FD; padding: 10px; border-radius: 4px;">
+                        <div style="font-weight: 600; font-size: 12px; margin-bottom: 5px;">CellTypist</div>
+                        <div style="font-size: 11px; color: #666;">Machine learning classifier with pre-trained models</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pros-cons">
+                <div class="pros">
+                    <div class="list-title">✅ Advantages</div>
+                    <div class="list-item">Fast and scalable for large datasets</div>
+                    <div class="list-item">Consistent annotations across studies</div>
+                    <div class="list-item">Leverages community-curated references</div>
+                    <div class="list-item">Provides confidence scores</div>
+                    <div class="list-item">Minimal manual intervention required</div>
+                </div>
+                <div class="cons">
+                    <div class="list-title">⚠️ Limitations</div>
+                    <div class="list-item">Limited by reference dataset quality</div>
+                    <div class="list-item">Cannot identify novel cell types</div>
+                    <div class="list-item">Batch effects can reduce accuracy</div>
+                    <div class="list-item">May fail for rare cell populations</div>
+                    <div class="list-item">Requires appropriate reference selection</div>
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">💻 Example: SingleR Annotation (R)</div>
+                <div class="code-block">
+library(SingleR)
+library(celldex)
+
+# Load reference dataset
+ref <- HumanPrimaryCellAtlasData()
+
+# Run SingleR annotation
+predictions <- SingleR(test = query_data, 
+                       ref = ref,
+                       labels = ref$label.main)
+
+# Add annotations to Seurat object
+seurat_obj$celltype <- predictions$labels
+seurat_obj$annotation_score <- predictions$scores
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Section 3: Automated Annotation -->
+    <div class="detail-section automated-theme">
+        <div class="section-title">3. Automated Machine Learning Methods</div>
+        
+        <div class="method-card">
+            <div class="method-title">
+                <span class="method-icon">🤖</span>
+                AI-Powered Cell Type Prediction
+            </div>
+            <div class="method-description">
+                Automated methods use machine learning algorithms to classify cell types based on gene expression patterns. These tools can be trained on existing data or use pre-defined marker databases to make predictions without requiring manual inspection.
+            </div>
+            
+            <div class="workflow-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">Data Preprocessing</div>
+                        <div class="step-desc">Normalize and prepare expression matrix for ML algorithms</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">Model Training/Selection</div>
+                        <div class="step-desc">Train classifier or use pre-trained model on marker databases</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">Prediction & Scoring</div>
+                        <div class="step-desc">Classify cells and generate probability scores for each type</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-title">Validation & Refinement</div>
+                        <div class="step-desc">Assess predictions quality and refine low-confidence calls</div>
+                    </div>
+                </div>
+            </div>
+
+            <svg width="100%" height="260" viewBox="0 0 800 260" style="margin: 15px 0;">
+                <text x="400" y="20" font-size="16" font-weight="700" fill="#388E3C" text-anchor="middle">Machine Learning Classification Pipeline</text>
+                
+                <!-- Input: Gene Expression -->
+                <g>
+                    <rect x="30" y="45" width="150" height="190" rx="8" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+                    <text x="105" y="70" font-size="13" font-weight="600" fill="#1B5E20" text-anchor="middle">Gene Expression</text>
+                    <text x="105" y="87" font-size="11" fill="#666" text-anchor="middle">Matrix</text>
+                    
+                    <!-- Expression matrix visualization -->
+                    <rect x="45" y="100" width="120" height="120" fill="white" stroke="#388E3C" stroke-width="1"/>
+                    
+                    <!-- Matrix cells representing expression values -->
+                    <rect x="50" y="105" width="12" height="12" fill="#FFCDD2"/>
+                    <rect x="65" y="105" width="12" height="12" fill="#EF9A9A"/>
+                    <rect x="80" y="105" width="12" height="12" fill="#E57373"/>
+                    <rect x="95" y="105" width="12" height="12" fill="#EF5350"/>
+                    
+                    <rect x="50" y="120" width="12" height="12" fill="#C8E6C9"/>
+                    <rect x="65" y="120" width="12" height="12" fill="#A5D6A7"/>
+                    <rect x="80" y="120" width="12" height="12" fill="#81C784"/>
+                    <rect x="95" y="120" width="12" height="12" fill="#66BB6A"/>
+                    
+                    <text x="55" y="155" font-size="8" fill="#666">Cell 1</text>
+                    <text x="55" y="170" font-size="8" fill="#666">Cell 2</text>
+                    <text x="55" y="185" font-size="8" fill="#666">Cell 3</text>
+                    <text x="55" y="200" font-size="8" fill="#666">...</text>
+                    
+                    <text x="120" y="95" font-size="8" fill="#666">Genes →</text>
+                </g>
+                
+                <path d="M 185 140 L 220 140" stroke="#388E3C" stroke-width="2.5" marker-end="url(#arrow3)"/>
+                
+                <!-- ML Model -->
+                <g transform="translate(225, 0)">
+                    <rect x="0" y="45" width="180" height="190" rx="8" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+                    <text x="90" y="70" font-size="13" font-weight="600" fill="#E65100" text-anchor="middle">ML Classifier</text>
+                    
+                    <!-- Neural network-like visualization -->
+                    <g transform="translate(30, 85)">
+                        <!-- Input layer -->
+                        <circle cx="20" cy="20" r="8" fill="#2196F3" opacity="0.8"/>
+                        <circle cx="20" cy="50" r="8" fill="#2196F3" opacity="0.8"/>
+                        <circle cx="20" cy="80" r="8" fill="#2196F3" opacity="0.8"/>
+                        <text x="20" y="105" font-size="8" fill="#666" text-anchor="middle">Input</text>
+                        
+                        <!-- Hidden layer -->
+                        <circle cx="70" cy="15" r="8" fill="#4CAF50" opacity="0.8"/>
+                        <circle cx="70" cy="35" r="8" fill="#4CAF50" opacity="0.8"/>
+                        <circle cx="70" cy="55" r="8" fill="#4CAF50" opacity="0.8"/>
+                        <circle cx="70" cy="75" r="8" fill="#4CAF50" opacity="0.8"/>
+                        <text x="70" y="105" font-size="8" fill="#666" text-anchor="middle">Hidden</text>
+                        
+                        <!-- Output layer -->
+                        <circle cx="120" cy="30" r="8" fill="#F44336" opacity="0.8"/>
+                        <circle cx="120" cy="50" r="8" fill="#F44336" opacity="0.8"/>
+                        <circle cx="120" cy="70" r="8" fill="#F44336" opacity="0.8"/>
+                        <text x="120" y="105" font-size="8" fill="#666" text-anchor="middle">Output</text>
+                        
+                        <!-- Connections -->
+                        <line x1="28" y1="20" x2="62" y2="15" stroke="#999" stroke-width="0.5" opacity="0.3"/>
+                        <line x1="28" y1="50" x2="62" y2="35" stroke="#999" stroke-width="0.5" opacity="0.3"/>
+                        <line x1="78" y1="35" x2="112" y2="30" stroke="#999" stroke-width="0.5" opacity="0.3"/>
+                    </g>
+                    
+                    <text x="90" y="150" font-size="10" fill="#333" text-anchor="middle">Algorithms:</text>
+                    <text x="90" y="165" font-size="9" fill="#666" text-anchor="middle">Random Forest</text>
+                    <text x="90" y="178" font-size="9" fill="#666" text-anchor="middle">Neural Networks</text>
+                    <text x="90" y="191" font-size="9" fill="#666" text-anchor="middle">SVM</text>
+                    <text x="90" y="204" font-size="9" fill="#666" text-anchor="middle">Gradient Boosting</text>
+                </g>
+                
+                <path d="M 410 140 L 445 140" stroke="#388E3C" stroke-width="2.5" marker-end="url(#arrow3)"/>
+                
+                <!-- Output: Predictions -->
+                <g transform="translate(450, 0)">
+                    <rect x="0" y="45" width="180" height="190" rx="8" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2"/>
+                    <text x="90" y="70" font-size="13" font-weight="600" fill="#4A148C" text-anchor="middle">Cell Type</text>
+                    <text x="90" y="87" font-size="13" font-weight="600" fill="#4A148C" text-anchor="middle">Predictions</text>
+                    
+                    <!-- Prediction results -->
+                    <g transform="translate(20, 100)">
+                        <rect x="0" y="0" width="140" height="25" rx="4" fill="white" stroke="#2196F3" stroke-width="1.5"/>
+                        <text x="10" y="17" font-size="11" fill="#333">T cells</text>
+                        <rect x="80" y="7" width="50" height="10" rx="2" fill="#4CAF50"/>
+                        <text x="135" y="17" font-size="9" fill="#666">95%</text>
+                        
+                        <rect x="0" y="32" width="140" height="25" rx="4" fill="white" stroke="#4CAF50" stroke-width="1.5"/>
+                        <text x="10" y="49" font-size="11" fill="#333">B cells</text>
+                        <rect x="80" y="39" width="45" height="10" rx="2" fill="#8BC34A"/>
+                        <text x="135" y="49" font-size="9" fill="#666">88%</text>
+                        
+                        <rect x="0" y="64" width="140" height="25" rx="4" fill="white" stroke="#F44336" stroke-width="1.5"/>
+                        <text x="10" y="81" font-size="11" fill="#333">Monocytes</text>
+                        <rect x="80" y="71" width="42" height="10" rx="2" fill="#FFC107"/>
+                        <text x="135" y="81" font-size="9" fill="#666">82%</text>
+                        
+                        <rect x="0" y="96" width="140" height="25" rx="4" fill="white" stroke="#FF9800" stroke-width="1.5"/>
+                        <text x="10" y="113" font-size="11" fill="#333">NK cells</text>
+                        <rect x="80" y="103" width="35" height="10" rx="2" fill="#FF9800"/>
+                        <text x="135" y="113" font-size="9" fill="#666">72%</text>
+                    </g>
+                </g>
+                
+                <defs>
+                    <marker id="arrow3" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#388E3C"/>
+                    </marker>
+                </defs>
+            </svg>
+
+            <div style="background: white; border-radius: 6px; padding: 15px; margin: 15px 0;">
+                <div style="font-weight: 600; font-size: 14px; margin-bottom: 12px; color: #388E3C;">🛠️ Automated Annotation Tools</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
+                    <div style="background: #E8F5E9; padding: 10px; border-radius: 4px;">
+                        <div style="font-weight: 600; font-size: 12px; margin-bottom: 5px;">scCATCH</div>
+                        <div style="font-size: 11px; color: #666;">Evidence-based scoring from marker databases</div>
+                    </div>
+                    <div style="background: #E8F5E9; padding: 10px; border-radius: 4px;">
+                        <div style="font-weight: 600; font-size: 12px; margin-bottom: 5px;">Garnett</div>
+                        <div style="font-size: 11px; color: #666;">Supervised classifier with marker file specification</div>
+                    </div>
+                    <div style="background: #E8F5E9; padding: 10px; border-radius: 4px;">
+                        <div style="font-weight: 600; font-size: 12px; margin-bottom: 5px;">CHETAH</div>
+                        <div style="font-size: 11px; color: #666;">Hierarchical classification with confidence scoring</div>
+                    </div>
+                    <div style="background: #E8F5E9; padding: 10px; border-radius: 4px;">
+                        <div style="font-weight: 600; font-size: 12px; margin-bottom: 5px;">CellAssign</div>
+                        <div style="font-size: 11px; color: #666;">Probabilistic model for marker-based assignment</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pros-cons">
+                <div class="pros">
+                    <div class="list-title">✅ Advantages</div>
+                    <div class="list-item">Highly scalable and reproducible</div>
+                    <div class="list-item">Minimal manual curation needed</div>
+                    <div class="list-item">Handles complex datasets efficiently</div>
+                    <div class="list-item">Can detect subtle expression patterns</div>
+                    <div class="list-item">Built-in confidence metrics</div>
+                </div>
+                <div class="cons">
+                    <div class="list-title">⚠️ Limitations</div>
+                    <div class="list-item">Black-box nature reduces interpretability</div>
+                    <div class="list-item">Requires high-quality training data</div>
+                    <div class="list-item">May overfit to training dataset biases</div>
+                    <div class="list-item">Limited by predefined marker databases</div>
+                    <div class="list-item">Difficult to validate novel predictions</div>
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">💻 Example: CellTypist Annotation (Python)</div>
+                <div class="code-block">
+import celltypist
+from celltypist import models
+
+# Load pre-trained model
+model = models.Model.load(model='Immune_All_Low.pkl')
+
+# Predict cell types
+predictions = celltypist.annotate(adata, model=model, 
+                                  majority_voting=True)
+
+# Add predictions to AnnData
+adata.obs['predicted_labels'] = predictions.predicted_labels
+adata.obs['conf_score'] = predictions.probability
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Detailed Section 4: Hybrid Approaches -->
+    <div class="detail-section hybrid-theme">
+        <div class="section-title">4. Hybrid & Multi-Method Approaches</div>
+        
+        <div class="method-card">
+            <div class="method-title">
+                <span class="method-icon">🔄</span>
+                Combining Multiple Annotation Strategies
+            </div>
+            <div class="method-description">
+                The most robust approach combines manual curation, reference-based methods, and automated tools to leverage the strengths of each strategy. This iterative workflow produces high-confidence annotations while maintaining biological interpretability and scalability.
+            </div>
+            
+            <div class="workflow-steps">
+                <div class="step">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <div class="step-title">Initial Automated Annotation</div>
+                        <div class="step-desc">Apply multiple automated/reference methods for rapid first-pass labeling</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <div class="step-title">Consensus Analysis</div>
+                        <div class="step-desc">Compare predictions across methods, identify agreements and conflicts</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <div class="step-title">Manual Validation</div>
+                        <div class="step-desc">Expert review of low-confidence or conflicting predictions using markers</div>
+                    </div>
+                </div>
+                <div class="step">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <div class="step-title">Iterative Refinement</div>
+                        <div class="step-desc">Update annotations, re-cluster if needed, and validate final assignments</div>
+                    </div>
+                </div>
+            </div>
+
+            <svg width="100%" height="320" viewBox="0 0 800 320" style="margin: 15px 0;">
+                <text x="400" y="25" font-size="16" font-weight="700" fill="#7B1FA2" text-anchor="middle">Integrated Multi-Method Annotation Workflow</text>
+                
+                <!-- Three parallel methods -->
+                <g>
+                    <!-- Manual -->
+                    <rect x="40" y="50" width="130" height="100" rx="6" fill="#FFEBEE" stroke="#D32F2F" stroke-width="2"/>
+                    <text x="105" y="75" font-size="12" font-weight="600" fill="#C62828" text-anchor="middle">Manual</text>
+                    <text x="105" y="92" font-size="10" fill="#666" text-anchor="middle">Marker genes</text>
+                    
+                    <circle cx="75" cy="115" r="12" fill="#2196F3" opacity="0.6"/>
+                    <text x="75" y="119" font-size="8" fill="white" text-anchor="middle">T</text>
+                    
+                    <circle cx="105" cy="115" r="12" fill="#4CAF50" opacity="0.6"/>
+                    <text x="105" y="119" font-size="8" fill="white" text-anchor="middle">B</text>
+                    
+                    <circle cx="135" cy="115" r="12" fill="#F44336" opacity="0.6"/>
+                    <text x="135" y="119" font-size="8" fill="white" text-anchor="middle">M</text>
+                    
+                    <!-- Reference -->
+                    <rect x="195" y="50" width="130" height="100" rx="6" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
+                    <text x="260" y="75" font-size="12" font-weight="600" fill="#0D47A1" text-anchor="middle">Reference</text>
+                    <text x="260" y="92" font-size="10" fill="#666" text-anchor="middle">SingleR/Seurat</text>
+                    
+                    <circle cx="230" cy="115" r="12" fill="#2196F3" opacity="0.6"/>
+                    <text x="230" y="119" font-size="8" fill="white" text-anchor="middle">T</text>
+                    
+                    <circle cx="260" cy="115" r="12" fill="#4CAF50" opacity="0.6"/>
+                    <text x="260" y="119" font-size="8" fill="white" text-anchor="middle">B</text>
+                    
+                    <circle cx="290" cy="115" r="12" fill="#FF9800" opacity="0.6"/>
+                    <text x="290" y="119" font-size="8" fill="white" text-anchor="middle">?</text>
+                    
+                    <!-- Automated -->
+                    <rect x="350" y="50" width="130" height="100" rx="6" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
+                    <text x="415" y="75" font-size="12" font-weight="600" fill="#1B5E20" text-anchor="middle">Automated</text>
+                    <text x="415" y="92" font-size="10" fill="#666" text-anchor="middle">ML methods</text>
+                    
+                    <circle cx="385" cy="115" r="12" fill="#2196F3" opacity="0.6"/>
+                    <text x="385" y="119" font-size="8" fill="white" text-anchor="middle">T</text>
+                    
+                    <circle cx="415" cy="115" r="12" fill="#4CAF50" opacity="0.6"/>
+                    <text x="415" y="119" font-size="8" fill="white" text-anchor="middle">B</text>
+                    
+                    <circle cx="445" cy="115" r="12" fill="#F44336" opacity="0.6"/>
+                    <text x="445" y="119" font-size="8" fill="white" text-anchor="middle">M</text>
+                </g>
+                
+                <!-- Arrows pointing down to consensus -->
+                <path d="M 105 155 L 260 175" stroke="#7B1FA2" stroke-width="2" marker-end="url(#arrow4)"/>
+                <path d="M 260 155 L 260 175" stroke="#7B1FA2" stroke-width="2" marker-end="url(#arrow4)"/>
+                <path d="M 415 155 L 260 175" stroke="#7B1FA2" stroke-width="2" marker-end="url(#arrow4)"/>
+                
+                <!-- Consensus layer -->
+                <g>
+                    <rect x="160" y="180" width="200" height="80" rx="6" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
+                    <text x="260" y="205" font-size="13" font-weight="600" fill="#E65100" text-anchor="middle">Consensus Analysis</text>
+                    
+                    <g transform="translate(180, 215)">
+                        <rect x="0" y="0" width="50" height="35" rx="3" fill="#C8E6C9" stroke="#388E3C" stroke-width="1"/>
+                        <text x="25" y="15" font-size="9" fill="#333" text-anchor="middle">T cells</text>
+                        <text x="25" y="28" font-size="8" fill="#1B5E20" font-weight="600" text-anchor="middle">3/3 ✓</text>
+                        
+                        <rect x="60" y="0" width="50" height="35" rx="3" fill="#C8E6C9" stroke="#388E3C" stroke-width="1"/>
+                        <text x="85" y="15" font-size="9" fill="#333" text-anchor="middle">B cells</text>
+                        <text x="85" y="28" font-size="8" fill="#1B5E20" font-weight="600" text-anchor="middle">3/3 ✓</text>
+                        
+                        <rect x="120" y="0" width="50" height="35" rx="3" fill="#FFCCBC" stroke="#D32F2F" stroke-width="1"/>
+                        <text x="145" y="15" font-size="9" fill="#333" text-anchor="middle">Cluster 3</text>
+                        <text x="145" y="28" font-size="8" fill="#D32F2F" font-weight="600" text-anchor="middle">2/3 ⚠</text>
+                    </g>
+                </g>
+                
+                <path d="M 260 265 L 260 285" stroke="#7B1FA2" stroke-width="2" marker-end="url(#arrow4)"/>
+                
+                <!-- Final curated output -->
+                <g>
+                    <rect x="510" y="50" width="260" height="240" rx="8" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="2"/>
+                    <text x="640" y="80" font-size="14" font-weight="700" fill="#4A148C" text-anchor="middle">Final Curated Annotations</text>
+                    
+                    <!-- Quality metrics -->
+                    <g transform="translate(530, 100)">
+                        <rect x="0" y="0" width="220" height="170" rx="5" fill="white" stroke="#BA68C8" stroke-width="1"/>
+                        
+                        <text x="110" y="20" font-size="12" font-weight="600" fill="#4A148C" text-anchor="middle">Quality Metrics</text>
+                        
+                        <g transform="translate(10, 35)">
+                            <text x="0" y="0" font-size="10" fill="#333">✓ High confidence (>90%):</text>
+                            <text x="200" y="0" font-size="10" fill="#388E3C" font-weight="600" text-anchor="end">85%</text>
+                            
+                            <text x="0" y="20" font-size="10" fill="#333">⚠ Medium confidence:</text>
+                            <text x="200" y="20" font-size="10" fill="#F57C00" font-weight="600" text-anchor="end">12%</text>
+                            
+                            <text x="0" y="40" font-size="10" fill="#333">✗ Low confidence (<50%):</text>
+                            <text x="200" y="40" font-size="10" fill="#D32F2F" font-weight="600" text-anchor="end">3%</text>
+                            
+                            <line x1="0" y1="50" x2="200" y2="50" stroke="#DDD" stroke-width="1"/>
+                            
+                            <text x="0" y="70" font-size="10" fill="#333">Method agreement:</text>
+                            <text x="200" y="70" font-size="10" fill="#4A148C" font-weight="600" text-anchor="end">92%</text>
+                            
+                            <text x="0" y="90" font-size="10" fill="#333">Manual validation:</text>
+                            <text x="200" y="90" font-size="10" fill="#4A148C" font-weight="600" text-anchor="end">100%</text>
+                            
+                            <text x="0" y="110" font-size="10" fill="#333">Novel cell types:</text>
+                            <text x="200" y="110" font-size="10" fill="#7B1FA2" font-weight="600" text-anchor="end">2</text>
+                            
+                            <text x="0" y="130" font-size="10" fill="#333">Cells annotated:</text>
+                            <text x="200" y="130" font-size="10" fill="#4A148C" font-weight="600" text-anchor="end">15,847</text>
+                        </g>
+                    </g>
+                </g>
+                
+                <defs>
+                    <marker id="arrow4" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                        <path d="M0,0 L0,6 L9,3 z" fill="#7B1FA2"/>
+                    </marker>
+                </defs>
+            </svg>
+
+            <div style="background: white; border-radius: 6px; padding: 15px; margin: 15px 0; border: 2px solid #7B1FA2;">
+                <div style="font-weight: 600; font-size: 14px; margin-bottom: 12px; color: #7B1FA2;">📋 Best Practice Checklist</div>
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px;">
+                    <div style="font-size: 11px; color: #333; padding: 8px; background: #F3E5F5; border-radius: 4px;">
+                        ✓ Run 2-3 different annotation methods
+                    </div>
+                    <div style="font-size: 11px; color: #333; padding: 8px; background: #F3E5F5; border-radius: 4px;">
+                        ✓ Compare results for consistency
+                    </div>
+                    <div style="font-size: 11px; color: #333; padding: 8px; background: #F3E5F5; border-radius: 4px;">
+                        ✓ Validate with canonical markers
+                    </div>
+                    <div style="font-size: 11px; color: #333; padding: 8px; background: #F3E5F5; border-radius: 4px;">
+                        ✓ Review confidence scores
+                    </div>
+                    <div style="font-size: 11px; color: #333; padding: 8px; background: #F3E5F5; border-radius: 4px;">
+                        ✓ Manually inspect low-confidence cells
+                    </div>
+                    <div style="font-size: 11px; color: #333; padding: 8px; background: #F3E5F5; border-radius: 4px;">
+                        ✓ Document annotation decisions
+                    </div>
+                    <div style="font-size: 11px; color: #333; padding: 8px; background: #F3E5F5; border-radius: 4px;">
+                        ✓ Check for doublets/multiplets
+                    </div>
+                    <div style="font-size: 11px; color: #333; padding: 8px; background: #F3E5F5; border-radius: 4px;">
+                        ✓ Investigate novel populations
+                    </div>
+                </div>
+            </div>
+            
+            <div class="pros-cons">
+                <div class="pros">
+                    <div class="list-title">✅ Advantages</div>
+                    <div class="list-item">Maximizes accuracy through consensus</div>
+                    <div class="list-item">Balances speed with quality</div>
+                    <div class="list-item">Identifies method-specific biases</div>
+                    <div class="list-item">Enables discovery of novel cell types</div>
+                    <div class="list-item">Provides comprehensive confidence metrics</div>
+                    <div class="list-item">Maintains biological interpretability</div>
+                </div>
+                <div class="cons">
+                    <div class="list-title">⚠️ Considerations</div>
+                    <div class="list-item">Requires more computational resources</div>
+                    <div class="list-item">Longer analysis time investment</div>
+                    <div class="list-item">Needs expertise across multiple tools</div>
+                    <div class="list-item">Resolving conflicts can be subjective</div>
+                    <div class="list-item">More complex workflow management</div>
+                </div>
+            </div>
+            
+            <div class="example-box">
+                <div class="example-title">💻 Example: Multi-Method Consensus Workflow</div>
+                <div class="code-block">
+# Step 1: Run multiple methods
+manual_labels <- ManualAnnotation(seurat_obj, marker_genes)
+singler_labels <- SingleR(seurat_obj, ref_data)
+automated_labels <- CellTypist(seurat_obj, model)
+
+# Step 2: Create consensus matrix
+consensus <- CompareAnnotations(
+    list(manual = manual_labels,
+         singler = singler_labels,
+         automated = automated_labels)
+)
+
+# Step 3: Identify high-confidence consensus
+final_labels <- consensus %>%
+    filter(agreement >= 2/3) %>%
+    select(consensus_label, confidence_score)
+
+# Step 4: Manual review of conflicts
+conflicts <- consensus %>% filter(agreement < 2/3)
+reviewed_labels <- ManualReview(seurat_obj, conflicts)
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Final Summary Box -->
+    <div class="section" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; text-align: center; padding: 40px;">
+        <h2 style="font-size: 24px; margin-bottom: 15px;">Key Takeaways</h2>
+        <p style="font-size: 16px; line-height: 1.8; max-width: 800px; margin: 0 auto;">
+            Successful cell type annotation requires a strategic combination of methods. Start with automated tools for efficiency, validate with reference datasets for consistency, and refine with manual curation for accuracy. Always assess confidence scores, validate with known markers, and document your annotation decisions for reproducibility.
+        </p>
+    </div>
+
 </body>
 </html>

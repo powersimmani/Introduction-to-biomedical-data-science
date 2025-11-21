@@ -1,312 +1,836 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Explainable AI (XAI)</title>
+    <title>Explainable AI (XAI) - Visual Guide</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
             background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
             padding: 40px 20px;
         }
-        
         .container {
-            width: 960px;
+            max-width: 1200px;
+            margin: 0 auto;
             padding: 35px 45px;
             background: white;
         }
-        
         .title {
-            font-size: 28px;
-            font-weight: 600;
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .section {
+            background: #f8fbff;
+            border: 3px solid #1E64C8;
+            border-radius: 12px;
+            padding: 30px;
+            margin-bottom: 40px;
+        }
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
             color: #1E64C8;
             margin-bottom: 25px;
             text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #1E64C8;
         }
-        
-        .xai-framework {
-            background: #f8fbff;
-            border: 2.5px solid #1E64C8;
+        .method-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            margin-top: 25px;
+        }
+        .method-card {
+            background: white;
+            border: 2px solid #4A90E2;
             border-radius: 10px;
             padding: 20px;
-            margin-bottom: 20px;
-        }
-        
-        .framework-title {
-            font-size: 18px;
-            font-weight: 700;
-            color: #1E64C8;
-            text-align: center;
-            margin-bottom: 15px;
-        }
-        
-        .concept-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
-        }
-        
-        .concept-card {
-            background: white;
-            border: 2.5px solid #1E64C8;
-            border-radius: 10px;
-            padding: 18px;
             transition: all 0.3s;
-            min-height: 140px;
         }
-        
-        .concept-card:hover {
+        .method-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(30, 100, 200, 0.2);
-            background: #f8fbff;
+            box-shadow: 0 8px 25px rgba(30, 100, 200, 0.15);
         }
-        
-        .concept-name {
-            font-size: 18px;
+        .method-name {
+            font-size: 20px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
+            text-align: center;
         }
-        
-        .concept-desc {
-            font-size: 15px;
+        .visual-box {
+            background: #f0f5fc;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .key-point {
+            background: white;
+            border-left: 4px solid #28a745;
+            padding: 10px 15px;
+            margin: 8px 0;
+            font-size: 14px;
             color: #333;
-            line-height: 1.5;
         }
+        .limitation {
+            background: white;
+            border-left: 4px solid #dc3545;
+            padding: 10px 15px;
+            margin: 8px 0;
+            font-size: 14px;
+            color: #333;
+        }
+        .example {
+            background: #fff9e6;
+            border: 2px dashed #ffc107;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            font-size: 14px;
+            font-style: italic;
+            color: #555;
+        }
+        svg { max-width: 100%; height: auto; }
+        .badge {
+            display: inline-block;
+            padding: 4px 12px;
+            border-radius: 12px;
+            font-size: 12px;
+            font-weight: 600;
+            margin: 5px 5px 5px 0;
+        }
+        .badge-blue { background: #e6f3ff; color: #1E64C8; }
+        .badge-green { background: #e6ffe6; color: #28a745; }
+        .badge-red { background: #ffe6e6; color: #dc3545; }
+        .badge-yellow { background: #fff9e6; color: #ffc107; }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Explainable AI (XAI)</div>
-        
-        <div class="xai-framework">
-            <div class="framework-title">XAI Methods for Medical Imaging</div>
-            <svg width="880" height="280" viewBox="0 0 880 280">
-                <!-- Black Box Model -->
-                <g transform="translate(30, 100)">
-                    <rect x="0" y="0" width="120" height="80" rx="10" fill="#333" stroke="#1E64C8" stroke-width="2.5"/>
-                    <text x="60" y="30" font-size="12" fill="white" font-weight="700" text-anchor="middle">Black Box</text>
-                    <text x="60" y="45" font-size="12" fill="white" font-weight="700" text-anchor="middle">CNN Model</text>
-                    <text x="60" y="60" font-size="9" fill="#ccc" text-anchor="middle">Millions of params</text>
-                </g>
-                
-                <!-- Input -->
-                <g transform="translate(30, 20)">
-                    <text x="60" y="0" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">Input Image</text>
-                    <rect x="10" y="10" width="100" height="50" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
-                    <ellipse cx="60" cy="35" rx="25" ry="18" fill="white" stroke="#1E64C8" stroke-width="1" opacity="0.7"/>
-                    <circle cx="60" cy="35" r="8" fill="#ff6b6b" opacity="0.5" stroke="#dc3545" stroke-width="1.5"/>
-                </g>
-                
-                <!-- Output -->
-                <g transform="translate(30, 210)">
-                    <rect x="10" y="0" width="100" height="40" rx="5" fill="#e8ffe8" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="60" y="15" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">Prediction</text>
-                    <text x="60" y="28" font-size="9" fill="#28a745" font-weight="600" text-anchor="middle">Cancer: 92%</text>
-                    <text x="60" y="52" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">But why?</text>
-                </g>
-                
-                <!-- Arrows -->
-                <path d="M 60 60 L 60 100" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
-                <path d="M 90 180 L 90 210" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowhead)"/>
-                
-                <!-- XAI Methods -->
-                <g transform="translate(200, 20)">
-                    <text x="320" y="0" font-size="13" fill="#1E64C8" font-weight="700" text-anchor="middle">Explainability Methods</text>
+        <div class="title">Explainable AI (XAI) - Visual Guide</div>
+
+        <div class="section">
+            <div class="section-title">1. Saliency-Based Methods</div>
+            
+            <div class="method-grid">
+                <div class="method-card">
+                    <div class="method-name">🔥 Grad-CAM</div>
                     
-                    <!-- Saliency Maps -->
-                    <g transform="translate(0, 20)">
-                        <rect x="0" y="0" width="190" height="80" rx="8" fill="#fff9e6" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="95" y="18" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">1. Saliency-Based</text>
-                        
-                        <!-- Grad-CAM visualization -->
-                        <rect x="15" y="25" width="40" height="40" fill="#e8f2ff" stroke="#666" stroke-width="1"/>
-                        <defs>
-                            <radialGradient id="heatgrad">
-                                <stop offset="0%" style="stop-color:#ff0000;stop-opacity:0.8" />
-                                <stop offset="50%" style="stop-color:#ff6600;stop-opacity:0.5" />
-                                <stop offset="100%" style="stop-color:#ffff00;stop-opacity:0.2" />
-                            </radialGradient>
-                        </defs>
-                        <ellipse cx="35" cy="45" rx="12" ry="15" fill="url(#heatgrad)"/>
-                        <text x="35" y="75" font-size="8" fill="#666" text-anchor="middle">Grad-CAM</text>
-                        
-                        <!-- Integrated Gradients -->
-                        <rect x="65" y="25" width="40" height="40" fill="#e8f2ff" stroke="#666" stroke-width="1"/>
-                        <rect x="75" y="35" width="20" height="20" fill="#1E64C8" opacity="0.6"/>
-                        <rect x="70" y="30" width="10" height="10" fill="#1E64C8" opacity="0.4"/>
-                        <rect x="85" y="45" width="8" height="8" fill="#1E64C8" opacity="0.3"/>
-                        <text x="85" y="75" font-size="8" fill="#666" text-anchor="middle">IntGrad</text>
-                        
-                        <!-- SHAP -->
-                        <rect x="115" y="25" width="40" height="40" fill="#e8f2ff" stroke="#666" stroke-width="1"/>
-                        <rect x="125" y="35" width="8" height="8" fill="#28a745" opacity="0.8"/>
-                        <rect x="135" y="40" width="8" height="8" fill="#dc3545" opacity="0.8"/>
-                        <rect x="127" y="45" width="8" height="8" fill="#28a745" opacity="0.8"/>
-                        <rect x="137" y="30" width="8" height="8" fill="#dc3545" opacity="0.8"/>
-                        <text x="135" y="75" font-size="8" fill="#666" text-anchor="middle">SHAP</text>
-                    </g>
+                    <div class="visual-box">
+                        <svg width="300" height="200" viewBox="0 0 300 200">
+                            <!-- Input -->
+                            <rect x="20" y="60" width="60" height="60" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <ellipse cx="50" cy="90" rx="20" ry="15" fill="white" stroke="#666" stroke-width="1"/>
+                            <circle cx="50" cy="90" r="8" fill="#ff6b6b" opacity="0.6"/>
+                            <text x="50" y="135" font-size="11" fill="#333" text-anchor="middle">Input</text>
+                            
+                            <!-- Arrow -->
+                            <path d="M 85 90 L 110 90" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow1)"/>
+                            
+                            <!-- CNN -->
+                            <rect x="115" y="50" width="50" height="80" rx="5" fill="#4A90E2" opacity="0.7"/>
+                            <text x="140" y="95" font-size="10" fill="white" font-weight="600" text-anchor="middle">CNN</text>
+                            
+                            <!-- Arrow -->
+                            <path d="M 170 90 L 195 90" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow1)"/>
+                            
+                            <!-- Heatmap -->
+                            <rect x="200" y="60" width="60" height="60" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <defs>
+                                <radialGradient id="heat1">
+                                    <stop offset="0%" style="stop-color:#ff0000;stop-opacity:0.8" />
+                                    <stop offset="60%" style="stop-color:#ffaa00;stop-opacity:0.4" />
+                                    <stop offset="100%" style="stop-color:#ffff00;stop-opacity:0.1" />
+                                </radialGradient>
+                            </defs>
+                            <ellipse cx="230" cy="90" rx="20" ry="15" fill="url(#heat1)"/>
+                            <text x="230" y="135" font-size="11" fill="#333" text-anchor="middle">Heatmap</text>
+                            
+                            <defs>
+                                <marker id="arrow1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
                     
-                    <!-- Concept-Based -->
-                    <g transform="translate(210, 20)">
-                        <rect x="0" y="0" width="190" height="80" rx="8" fill="#ffe6f0" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="95" y="18" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">2. Concept-Based</text>
-                        
-                        <!-- TCAV visualization -->
-                        <g transform="translate(20, 25)">
-                            <rect x="0" y="0" width="150" height="40" fill="white" stroke="#1E64C8" stroke-width="1"/>
-                            <text x="75" y="12" font-size="9" fill="#666" text-anchor="middle">High-level concepts</text>
-                            
-                            <circle cx="25" cy="25" r="8" fill="#ff9999" opacity="0.7"/>
-                            <text x="25" y="29" font-size="7" fill="#333" text-anchor="middle">Tex</text>
-                            
-                            <circle cx="55" cy="25" r="8" fill="#99ccff" opacity="0.7"/>
-                            <text x="55" y="29" font-size="7" fill="#333" text-anchor="middle">Sha</text>
-                            
-                            <circle cx="85" cy="25" r="8" fill="#99ff99" opacity="0.7"/>
-                            <text x="85" y="29" font-size="7" fill="#333" text-anchor="middle">Den</text>
-                            
-                            <circle cx="115" cy="25" r="8" fill="#ffcc99" opacity="0.7"/>
-                            <text x="115" y="29" font-size="7" fill="#333" text-anchor="middle">Size</text>
-                            
-                            <text x="75" y="52" font-size="8" fill="#1E64C8" font-weight="600" text-anchor="middle">→ Clinical features</text>
-                        </g>
-                    </g>
+                    <div class="key-point">✓ Fast and class-discriminative</div>
+                    <div class="key-point">✓ Works with any CNN architecture</div>
+                    <div class="limitation">✗ Low spatial resolution</div>
                     
-                    <!-- Counterfactual -->
-                    <g transform="translate(420, 20)">
-                        <rect x="0" y="0" width="190" height="80" rx="8" fill="#e6f3ff" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="95" y="18" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">3. Counterfactual</text>
-                        
-                        <!-- What-if visualization -->
-                        <rect x="20" y="25" width="35" height="35" fill="#e8f2ff" stroke="#666" stroke-width="1"/>
-                        <circle cx="37.5" cy="42.5" r="6" fill="#ff6b6b" opacity="0.5"/>
-                        <text x="37.5" y="68" font-size="7" fill="#666" text-anchor="middle">Original</text>
-                        
-                        <path d="M 60 42.5 L 75 42.5" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-                        <text x="67.5" y="37" font-size="8" fill="#1E64C8">Δ</text>
-                        
-                        <rect x="80" y="25" width="35" height="35" fill="#e8f2ff" stroke="#666" stroke-width="1"/>
-                        <circle cx="97.5" cy="42.5" r="3" fill="#28a745" opacity="0.5"/>
-                        <text x="97.5" y="68" font-size="7" fill="#666" text-anchor="middle">Modified</text>
-                        
-                        <rect x="125" y="30" width="50" height="25" rx="5" fill="#28a745" opacity="0.2" stroke="#28a745" stroke-width="1"/>
-                        <text x="150" y="44" font-size="8" fill="#333" text-anchor="middle">Benign</text>
-                    </g>
-                </g>
+                    <div class="example">
+                        💡 Example: Highlights lung regions with pneumonia infiltrates in chest X-rays
+                    </div>
+                    
+                    <div>
+                        <span class="badge badge-blue">Radiology</span>
+                        <span class="badge badge-blue">Pathology</span>
+                    </div>
+                </div>
                 
-                <!-- Trust & Validation -->
-                <g transform="translate(200, 130)">
-                    <rect x="0" y="0" width="640" height="130" rx="10" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="320" y="20" font-size="13" fill="#1E64C8" font-weight="700" text-anchor="middle">Clinical Trust & Validation</text>
+                <div class="method-card">
+                    <div class="method-name">📊 Integrated Gradients</div>
                     
-                    <!-- Trust Metrics -->
-                    <g transform="translate(20, 35)">
-                        <rect x="0" y="0" width="180" height="80" rx="5" fill="white" stroke="#1E64C8" stroke-width="1.5"/>
-                        <text x="90" y="18" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">Trust Metrics</text>
-                        
-                        <g transform="translate(15, 25)">
-                            <rect x="0" y="2" width="120" height="6" rx="3" fill="#e0e0e0"/>
-                            <rect x="0" y="2" width="108" height="6" rx="3" fill="#28a745"/>
-                            <text x="130" y="8" font-size="8" fill="#333">90% Consistency</text>
+                    <div class="visual-box">
+                        <svg width="300" height="180" viewBox="0 0 300 180">
+                            <!-- Baseline -->
+                            <rect x="20" y="60" width="40" height="40" fill="#000000" stroke="#666" stroke-width="2"/>
+                            <text x="40" y="110" font-size="10" fill="#333" text-anchor="middle">Baseline</text>
                             
-                            <rect x="0" y="15" width="120" height="6" rx="3" fill="#e0e0e0"/>
-                            <rect x="0" y="15" width="102" height="6" rx="3" fill="#17a2b8"/>
-                            <text x="130" y="21" font-size="8" fill="#333">85% Fidelity</text>
+                            <!-- Interpolation path -->
+                            <rect x="80" y="60" width="30" height="30" fill="#404040" stroke="#666" stroke-width="1"/>
+                            <rect x="120" y="60" width="30" height="30" fill="#808080" stroke="#666" stroke-width="1"/>
+                            <rect x="160" y="60" width="30" height="30" fill="#c0c0c0" stroke="#666" stroke-width="1"/>
+                            <text x="135" y="105" font-size="10" fill="#333" text-anchor="middle">Interpolation Path</text>
                             
-                            <rect x="0" y="28" width="120" height="6" rx="3" fill="#e0e0e0"/>
-                            <rect x="0" y="28" width="96" height="6" rx="3" fill="#ffc107"/>
-                            <text x="130" y="34" font-size="8" fill="#333">80% Stability</text>
+                            <!-- Original -->
+                            <rect x="210" y="60" width="40" height="40" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <circle cx="230" cy="80" r="8" fill="#ff6b6b" opacity="0.6"/>
+                            <text x="230" y="110" font-size="10" fill="#333" text-anchor="middle">Original</text>
                             
-                            <rect x="0" y="41" width="120" height="6" rx="3" fill="#e0e0e0"/>
-                            <rect x="0" y="41" width="114" height="6" rx="3" fill="#6f42c1"/>
-                            <text x="130" y="47" font-size="8" fill="#333">95% Clinical align</text>
-                        </g>
-                    </g>
+                            <!-- Arrow showing path -->
+                            <path d="M 40 120 Q 135 140, 230 120" stroke="#ffc107" stroke-width="2" fill="none" stroke-dasharray="5,3"/>
+                            <text x="135" y="155" font-size="11" fill="#ffc107" font-weight="600" text-anchor="middle">∫ Gradients</text>
+                        </svg>
+                    </div>
                     
-                    <!-- Clinician Feedback -->
-                    <g transform="translate(220, 35)">
-                        <rect x="0" y="0" width="180" height="80" rx="5" fill="white" stroke="#1E64C8" stroke-width="1.5"/>
-                        <text x="90" y="18" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">Clinician Validation</text>
-                        
-                        <g transform="translate(15, 25)">
-                            <circle cx="0" cy="0" r="3" fill="#28a745"/>
-                            <text x="8" y="4" font-size="8" fill="#666">Highlights relevant anatomy</text>
-                            
-                            <circle cx="0" cy="13" r="3" fill="#28a745"/>
-                            <text x="8" y="17" font-size="8" fill="#666">Consistent with knowledge</text>
-                            
-                            <circle cx="0" cy="26" r="3" fill="#ffc107"/>
-                            <text x="8" y="30" font-size="8" fill="#666">Sometimes over-focuses</text>
-                            
-                            <circle cx="0" cy="39" r="3" fill="#28a745"/>
-                            <text x="8" y="43" font-size="8" fill="#666">Aids decision-making</text>
-                        </g>
-                    </g>
+                    <div class="key-point">✓ Theoretically grounded (completeness)</div>
+                    <div class="key-point">✓ Precise pixel-level attribution</div>
+                    <div class="limitation">✗ Computationally expensive</div>
                     
-                    <!-- Spurious Correlation -->
-                    <g transform="translate(420, 35)">
-                        <rect x="0" y="0" width="180" height="80" rx="5" fill="white" stroke="#dc3545" stroke-width="1.5"/>
-                        <text x="90" y="18" font-size="10" fill="#dc3545" font-weight="600" text-anchor="middle">Spurious Detection</text>
-                        
-                        <g transform="translate(15, 25)">
-                            <rect x="0" y="0" width="40" height="40" fill="#ffe6e6" stroke="#dc3545" stroke-width="1"/>
-                            <text x="20" y="15" font-size="8" fill="#666" text-anchor="middle">Image</text>
-                            <rect x="5" y="5" width="8" height="8" fill="#dc3545" opacity="0.6"/>
-                            <text x="20" y="30" font-size="7" fill="#dc3545" text-anchor="middle">Marker</text>
-                            
-                            <text x="55" y="20" font-size="8" fill="#666">⚠️ Model focused on</text>
-                            <text x="55" y="32" font-size="8" fill="#666">hospital markers,</text>
-                            <text x="55" y="44" font-size="8" fill="#666">not pathology!</text>
-                        </g>
-                    </g>
-                </g>
+                    <div class="example">
+                        💡 Example: Identifies exact pixels contributing to tumor classification
+                    </div>
+                    
+                    <div>
+                        <span class="badge badge-blue">Oncology</span>
+                        <span class="badge badge-blue">Diagnosis</span>
+                    </div>
+                </div>
                 
-                <defs>
-                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
-                    </marker>
-                </defs>
-            </svg>
+                <div class="method-card">
+                    <div class="method-name">🎯 LIME</div>
+                    
+                    <div class="visual-box">
+                        <svg width="300" height="180" viewBox="0 0 300 180">
+                            <!-- Original segmented -->
+                            <g transform="translate(20, 40)">
+                                <rect x="0" y="0" width="60" height="60" fill="#f0f0f0" stroke="#1E64C8" stroke-width="2"/>
+                                <rect x="5" y="5" width="20" height="20" fill="#ffcccc" opacity="0.7"/>
+                                <rect x="25" y="5" width="20" height="20" fill="#ccffcc" opacity="0.7"/>
+                                <rect x="45" y="5" width="15" height="20" fill="#ccccff" opacity="0.7"/>
+                                <rect x="5" y="25" width="20" height="20" fill="#ffffcc" opacity="0.7"/>
+                                <rect x="25" y="25" width="20" height="20" fill="#ffccff" opacity="0.7"/>
+                                <text x="30" y="75" font-size="10" fill="#333" text-anchor="middle">Superpixels</text>
+                            </g>
+                            
+                            <!-- Arrow -->
+                            <text x="110" y="75" font-size="16" fill="#1E64C8">→</text>
+                            
+                            <!-- Perturbations -->
+                            <g transform="translate(130, 40)">
+                                <rect x="0" y="0" width="40" height="40" fill="#f0f0f0" stroke="#666" stroke-width="1"/>
+                                <rect x="5" y="5" width="15" height="15" fill="#000" opacity="0.5"/>
+                                <text x="20" y="50" font-size="9" fill="#28a745">+0.85</text>
+                                
+                                <rect x="50" y="0" width="40" height="40" fill="#f0f0f0" stroke="#666" stroke-width="1"/>
+                                <rect x="70" y="5" width="15" height="15" fill="#000" opacity="0.5"/>
+                                <text x="70" y="50" font-size="9" fill="#dc3545">-0.62</text>
+                                
+                                <text x="45" y="65" font-size="10" fill="#333" text-anchor="middle">Perturb & Test</text>
+                            </g>
+                            
+                            <!-- Arrow -->
+                            <text x="200" y="75" font-size="16" fill="#1E64C8">→</text>
+                            
+                            <!-- Local model -->
+                            <g transform="translate(220, 50)">
+                                <rect x="0" y="0" width="60" height="50" rx="5" fill="#e8ffe8" stroke="#28a745" stroke-width="2"/>
+                                <text x="30" y="20" font-size="10" fill="#333" text-anchor="middle">Linear</text>
+                                <text x="30" y="35" font-size="10" fill="#333" text-anchor="middle">Model</text>
+                            </g>
+                        </svg>
+                    </div>
+                    
+                    <div class="key-point">✓ Model-agnostic approach</div>
+                    <div class="key-point">✓ Interpretable local explanations</div>
+                    <div class="limitation">✗ Can be unstable</div>
+                    
+                    <div class="example">
+                        💡 Example: Explains which image regions support/oppose a diagnosis
+                    </div>
+                    
+                    <div>
+                        <span class="badge badge-blue">Black-box</span>
+                        <span class="badge badge-blue">Any model</span>
+                    </div>
+                </div>
+            </div>
         </div>
-        
-        <div class="concept-grid">
-            <div class="concept-card">
-                <div class="concept-name">Interpretability Needs</div>
-                <div class="concept-desc">Clinical trust and adoption. Regulatory requirements and liability concerns</div>
+
+        <div class="section">
+            <div class="section-title">2. Concept Attribution Methods</div>
+            
+            <div class="method-grid">
+                <div class="method-card">
+                    <div class="method-name">🧠 TCAV</div>
+                    
+                    <div class="visual-box">
+                        <svg width="320" height="200" viewBox="0 0 320 200">
+                            <!-- Step 1: Concepts -->
+                            <g transform="translate(20, 20)">
+                                <text x="40" y="0" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">1. Define Concepts</text>
+                                <circle cx="20" cy="20" r="12" fill="#ff9999" opacity="0.7"/>
+                                <text x="20" y="25" font-size="8" fill="#333" text-anchor="middle">Tex</text>
+                                <circle cx="45" cy="20" r="12" fill="#99ccff" opacity="0.7"/>
+                                <text x="45" y="25" font-size="8" fill="#333" text-anchor="middle">Sha</text>
+                                <circle cx="70" cy="20" r="12" fill="#99ff99" opacity="0.7"/>
+                                <text x="70" y="25" font-size="8" fill="#333" text-anchor="middle">Den</text>
+                            </g>
+                            
+                            <!-- Arrow down -->
+                            <path d="M 55 55 L 55 75" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow2)"/>
+                            
+                            <!-- Step 2: Learn CAVs -->
+                            <g transform="translate(20, 80)">
+                                <rect x="0" y="0" width="70" height="40" rx="5" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2"/>
+                                <text x="35" y="15" font-size="10" fill="#333" text-anchor="middle">Learn CAVs</text>
+                                <text x="35" y="30" font-size="9" fill="#666" text-anchor="middle">in activation</text>
+                                <text x="35" y="42" font-size="9" fill="#666" text-anchor="middle">space</text>
+                            </g>
+                            
+                            <!-- Arrow right -->
+                            <path d="M 95 100 L 145 100" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow2)"/>
+                            
+                            <!-- Step 3: TCAV Score -->
+                            <g transform="translate(150, 60)">
+                                <rect x="0" y="0" width="150" height="80" rx="8" fill="#fff9e6" stroke="#ffc107" stroke-width="2"/>
+                                <text x="75" y="20" font-size="11" fill="#ffc107" font-weight="600" text-anchor="middle">3. TCAV Scores</text>
+                                
+                                <rect x="10" y="30" width="100" height="8" fill="#e0e0e0" rx="2"/>
+                                <rect x="10" y="30" width="90" height="8" fill="#ff9999" rx="2"/>
+                                <text x="115" y="37" font-size="9" fill="#333">0.90</text>
+                                
+                                <rect x="10" y="45" width="100" height="8" fill="#e0e0e0" rx="2"/>
+                                <rect x="10" y="45" width="80" height="8" fill="#99ccff" rx="2"/>
+                                <text x="115" y="52" font-size="9" fill="#333">0.80</text>
+                                
+                                <rect x="10" y="60" width="100" height="8" fill="#e0e0e0" rx="2"/>
+                                <rect x="10" y="60" width="50" height="8" fill="#99ff99" rx="2"/>
+                                <text x="115" y="67" font-size="9" fill="#333">0.50</text>
+                            </g>
+                            
+                            <defs>
+                                <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+                    
+                    <div class="key-point">✓ Uses clinically meaningful concepts</div>
+                    <div class="key-point">✓ Quantifies concept importance</div>
+                    <div class="limitation">✗ Requires concept example datasets</div>
+                    
+                    <div class="example">
+                        💡 Example: "Model is 90% sensitive to nodular texture in lung CT scans"
+                    </div>
+                    
+                    <div>
+                        <span class="badge badge-green">Clinical</span>
+                        <span class="badge badge-green">Concepts</span>
+                    </div>
+                </div>
+                
+                <div class="method-card">
+                    <div class="method-name">🔗 Concept Bottleneck Models</div>
+                    
+                    <div class="visual-box">
+                        <svg width="320" height="220" viewBox="0 0 320 220">
+                            <!-- Input -->
+                            <g transform="translate(20, 80)">
+                                <rect x="0" y="0" width="50" height="50" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                                <ellipse cx="25" cy="25" rx="15" ry="12" fill="white" stroke="#666" stroke-width="1"/>
+                                <circle cx="25" cy="25" r="6" fill="#ff6b6b" opacity="0.6"/>
+                                <text x="25" y="65" font-size="10" fill="#333" text-anchor="middle">Input</text>
+                            </g>
+                            
+                            <!-- Arrow -->
+                            <path d="M 75 105 L 95 105" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow3)"/>
+                            
+                            <!-- Encoder -->
+                            <g transform="translate(100, 85)">
+                                <rect x="0" y="0" width="40" height="40" rx="5" fill="#4A90E2" opacity="0.7"/>
+                                <text x="20" y="25" font-size="9" fill="white" font-weight="600" text-anchor="middle">CNN</text>
+                            </g>
+                            
+                            <!-- Arrow -->
+                            <path d="M 145 105 L 165 105" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow3)"/>
+                            
+                            <!-- Concept Layer (BOTTLENECK) -->
+                            <g transform="translate(170, 30)">
+                                <rect x="0" y="0" width="80" height="150" rx="8" fill="#fff9e6" stroke="#ffc107" stroke-width="3"/>
+                                <text x="40" y="15" font-size="10" fill="#ffc107" font-weight="700" text-anchor="middle">Concepts</text>
+                                
+                                <text x="5" y="35" font-size="8" fill="#333">Asymmetry</text>
+                                <rect x="5" y="40" width="50" height="6" fill="#e0e0e0" rx="2"/>
+                                <rect x="5" y="40" width="47" height="6" fill="#28a745" rx="2"/>
+                                <text x="60" y="45" font-size="8" fill="#28a745">.95</text>
+                                
+                                <text x="5" y="58" font-size="8" fill="#333">Border</text>
+                                <rect x="5" y="63" width="50" height="6" fill="#e0e0e0" rx="2"/>
+                                <rect x="5" y="63" width="44" height="6" fill="#28a745" rx="2"/>
+                                <text x="60" y="68" font-size="8" fill="#28a745">.88</text>
+                                
+                                <text x="5" y="81" font-size="8" fill="#333">Color</text>
+                                <rect x="5" y="86" width="50" height="6" fill="#e0e0e0" rx="2"/>
+                                <rect x="5" y="86" width="38" height="6" fill="#28a745" rx="2"/>
+                                <text x="60" y="91" font-size="8" fill="#28a745">.76</text>
+                                
+                                <text x="5" y="104" font-size="8" fill="#333">Diameter</text>
+                                <rect x="5" y="109" width="50" height="6" fill="#e0e0e0" rx="2"/>
+                                <rect x="5" y="109" width="31" height="6" fill="#ffc107" rx="2"/>
+                                <text x="60" y="114" font-size="8" fill="#ffc107">.62</text>
+                                
+                                <text x="5" y="127" font-size="8" fill="#333">Evolution</text>
+                                <rect x="5" y="132" width="50" height="6" fill="#e0e0e0" rx="2"/>
+                                <rect x="5" y="132" width="35" height="6" fill="#28a745" rx="2"/>
+                                <text x="60" y="137" font-size="8" fill="#28a745">.71</text>
+                            </g>
+                            
+                            <!-- Arrow -->
+                            <path d="M 255 105 L 275 105" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow3)"/>
+                            
+                            <!-- Output -->
+                            <g transform="translate(280, 80)">
+                                <rect x="0" y="0" width="35" height="50" rx="5" fill="#e8ffe8" stroke="#28a745" stroke-width="2"/>
+                                <text x="17.5" y="20" font-size="9" fill="#333" text-anchor="middle">Pred</text>
+                                <text x="17.5" y="38" font-size="13" fill="#28a745" font-weight="700" text-anchor="middle">89%</text>
+                            </g>
+                            
+                            <defs>
+                                <marker id="arrow3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                                </marker>
+                            </defs>
+                        </svg>
+                    </div>
+                    
+                    <div class="key-point">✓ Built-in interpretability</div>
+                    <div class="key-point">✓ Transparent decision pathway</div>
+                    <div class="limitation">✗ May sacrifice some accuracy</div>
+                    
+                    <div class="example">
+                        💡 Example: Melanoma detection using ABCDE criteria (visible intermediate layer)
+                    </div>
+                    
+                    <div>
+                        <span class="badge badge-green">Dermatology</span>
+                        <span class="badge badge-green">ABCDE</span>
+                    </div>
+                </div>
             </div>
-        
-            <div class="concept-card">
-                <div class="concept-name">Saliency Maps</div>
-                <div class="concept-desc">Grad-CAM, attention maps. Highlight important image regions</div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">3. Counterfactual Explanations</div>
+            
+            <div class="method-card" style="max-width: 900px; margin: 0 auto;">
+                <div class="method-name">🔄 What-If Analysis</div>
+                
+                <div class="visual-box">
+                    <svg width="700" height="250" viewBox="0 0 700 250">
+                        <!-- Original -->
+                        <g transform="translate(50, 70)">
+                            <rect x="0" y="0" width="120" height="120" fill="#ffe6e6" stroke="#dc3545" stroke-width="3"/>
+                            <text x="60" y="-10" font-size="13" fill="#dc3545" font-weight="600" text-anchor="middle">Original</text>
+                            
+                            <!-- Irregular lesion -->
+                            <path d="M 40 40 Q 55 30, 70 35 Q 85 45, 80 60 Q 75 75, 60 80 Q 45 82, 35 70 Q 28 55, 40 40" 
+                                  fill="#8B4513" opacity="0.7" stroke="#000" stroke-width="1"/>
+                            <ellipse cx="50" cy="55" rx="10" ry="8" fill="#8B0000" opacity="0.6"/>
+                            <ellipse cx="65" cy="62" rx="8" ry="6" fill="#A0522D" opacity="0.6"/>
+                            
+                            <text x="60" y="145" font-size="11" fill="#333" text-anchor="middle">Asymmetric</text>
+                            <text x="60" y="160" font-size="11" fill="#333" text-anchor="middle">Irregular border</text>
+                            <text x="60" y="175" font-size="11" fill="#333" text-anchor="middle">Multiple colors</text>
+                            
+                            <rect x="10" y="185" width="100" height="25" rx="5" fill="#dc3545" opacity="0.2" stroke="#dc3545" stroke-width="2"/>
+                            <text x="60" y="202" font-size="12" fill="#dc3545" font-weight="700" text-anchor="middle">Malignant 92%</text>
+                        </g>
+                        
+                        <!-- Changes -->
+                        <g transform="translate(200, 110)">
+                            <rect x="0" y="0" width="100" height="80" rx="8" fill="#fff9e6" stroke="#ffc107" stroke-width="2"/>
+                            <text x="50" y="20" font-size="12" fill="#ffc107" font-weight="700" text-anchor="middle">Changes:</text>
+                            <text x="50" y="38" font-size="10" fill="#333" text-anchor="middle">→ Smooth border</text>
+                            <text x="50" y="52" font-size="10" fill="#333" text-anchor="middle">→ Symmetric</text>
+                            <text x="50" y="66" font-size="10" fill="#333" text-anchor="middle">→ Uniform color</text>
+                        </g>
+                        
+                        <!-- Arrow -->
+                        <path d="M 180 130 L 190 130" stroke="#ffc107" stroke-width="4" marker-end="url(#arrow4)"/>
+                        <path d="M 310 130 L 320 130" stroke="#ffc107" stroke-width="4" marker-end="url(#arrow4)"/>
+                        
+                        <!-- Counterfactual -->
+                        <g transform="translate(330, 70)">
+                            <rect x="0" y="0" width="120" height="120" fill="#e6ffe6" stroke="#28a745" stroke-width="3"/>
+                            <text x="60" y="-10" font-size="13" fill="#28a745" font-weight="600" text-anchor="middle">Counterfactual</text>
+                            
+                            <!-- Regular lesion -->
+                            <circle cx="60" cy="60" r="25" fill="#8B4513" opacity="0.7" stroke="#654321" stroke-width="1"/>
+                            
+                            <text x="60" y="145" font-size="11" fill="#333" text-anchor="middle">Symmetric</text>
+                            <text x="60" y="160" font-size="11" fill="#333" text-anchor="middle">Regular border</text>
+                            <text x="60" y="175" font-size="11" fill="#333" text-anchor="middle">Uniform color</text>
+                            
+                            <rect x="10" y="185" width="100" height="25" rx="5" fill="#28a745" opacity="0.2" stroke="#28a745" stroke-width="2"/>
+                            <text x="60" y="202" font-size="12" fill="#28a745" font-weight="700" text-anchor="middle">Benign 85%</text>
+                        </g>
+                        
+                        <!-- Clinical insight box -->
+                        <g transform="translate(480, 90)">
+                            <rect x="0" y="0" width="180" height="90" rx="8" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="90" y="20" font-size="11" fill="#1E64C8" font-weight="700" text-anchor="middle">💡 Insight</text>
+                            <text x="90" y="40" font-size="10" fill="#333" text-anchor="middle">"If the lesion had</text>
+                            <text x="90" y="55" font-size="10" fill="#333" text-anchor="middle">regular borders and</text>
+                            <text x="90" y="70" font-size="10" fill="#333" text-anchor="middle">uniform color, it</text>
+                            <text x="90" y="85" font-size="10" fill="#333" text-anchor="middle">would be benign"</text>
+                        </g>
+                        
+                        <defs>
+                            <marker id="arrow4" markerWidth="12" markerHeight="12" refX="10" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#ffc107" />
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+                
+                <div class="key-point">✓ Shows minimal changes needed to flip prediction</div>
+                <div class="key-point">✓ Actionable insights for clinicians</div>
+                <div class="key-point">✓ Helps understand decision boundaries</div>
+                <div class="limitation">✗ May suggest unrealistic changes</div>
+                
+                <div class="example">
+                    💡 Example: "If border irregularity decreased from 0.85 to 0.45, prediction would flip to benign"
+                </div>
+                
+                <div>
+                    <span class="badge badge-yellow">Borderline</span>
+                    <span class="badge badge-yellow">What-if</span>
+                    <span class="badge badge-yellow">Actionable</span>
+                </div>
             </div>
-        
-            <div class="concept-card">
-                <div class="concept-name">Counterfactual Explanations</div>
-                <div class="concept-desc">What changes would flip prediction. Minimal perturbations for opposite class</div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">4. Trust Building & Validation</div>
+            
+            <div class="method-grid">
+                <div class="method-card">
+                    <div class="method-name">✅ Faithfulness Testing</div>
+                    
+                    <div class="visual-box">
+                        <svg width="300" height="180" viewBox="0 0 300 180">
+                            <!-- Original prediction -->
+                            <g transform="translate(20, 40)">
+                                <rect x="0" y="0" width="60" height="50" fill="#e8ffe8" stroke="#28a745" stroke-width="2"/>
+                                <text x="30" y="25" font-size="13" fill="#28a745" font-weight="700" text-anchor="middle">92%</text>
+                                <text x="30" y="40" font-size="9" fill="#666" text-anchor="middle">Original</text>
+                            </g>
+                            
+                            <!-- Arrow -->
+                            <text x="105" y="70" font-size="14" fill="#dc3545">→</text>
+                            <text x="105" y="85" font-size="9" fill="#dc3545">Mask</text>
+                            <text x="105" y="96" font-size="9" fill="#dc3545">important</text>
+                            
+                            <!-- After masking - Faithful -->
+                            <g transform="translate(140, 40)">
+                                <rect x="0" y="0" width="60" height="50" fill="#ffe6e6" stroke="#dc3545" stroke-width="2"/>
+                                <text x="30" y="25" font-size="13" fill="#dc3545" font-weight="700" text-anchor="middle">23%</text>
+                                <text x="30" y="40" font-size="9" fill="#666" text-anchor="middle">Masked</text>
+                            </g>
+                            
+                            <!-- Result -->
+                            <g transform="translate(220, 50)">
+                                <text x="0" y="0" font-size="16" fill="#28a745">✓</text>
+                                <text x="0" y="20" font-size="10" fill="#28a745" font-weight="600">Faithful</text>
+                                <text x="0" y="33" font-size="9" fill="#666">Large drop</text>
+                            </g>
+                            
+                            <!-- Unfaithful example below -->
+                            <g transform="translate(20, 120)">
+                                <rect x="0" y="0" width="60" height="50" fill="#e8ffe8" stroke="#28a745" stroke-width="2"/>
+                                <text x="30" y="25" font-size="13" fill="#28a745" font-weight="700" text-anchor="middle">92%</text>
+                            </g>
+                            
+                            <text x="105" y="150" font-size="14" fill="#dc3545">→</text>
+                            
+                            <g transform="translate(140, 120)">
+                                <rect x="0" y="0" width="60" height="50" fill="#e8ffe8" stroke="#28a745" stroke-width="2"/>
+                                <text x="30" y="25" font-size="13" fill="#28a745" font-weight="700" text-anchor="middle">87%</text>
+                            </g>
+                            
+                            <g transform="translate(220, 130)">
+                                <text x="0" y="0" font-size="16" fill="#dc3545">✗</text>
+                                <text x="0" y="20" font-size="10" fill="#dc3545" font-weight="600">Unfaithful</text>
+                                <text x="0" y="33" font-size="9" fill="#666">Small drop</text>
+                            </g>
+                        </svg>
+                    </div>
+                    
+                    <div class="key-point">✓ Measures if explanations reflect actual model behavior</div>
+                    <div class="key-point">✓ Deletion/insertion tests</div>
+                    <div class="limitation">✗ Masking artifacts can affect results</div>
+                    
+                    <div>
+                        <span class="badge badge-red">Validation</span>
+                        <span class="badge badge-red">Metrics</span>
+                    </div>
+                </div>
+                
+                <div class="method-card">
+                    <div class="method-name">🎯 Consistency Check</div>
+                    
+                    <div class="visual-box">
+                        <svg width="300" height="160" viewBox="0 0 300 160">
+                            <!-- Similar inputs -->
+                            <g transform="translate(20, 30)">
+                                <rect x="0" y="0" width="50" height="50" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                                <circle cx="25" cy="25" r="10" fill="#ff6b6b" opacity="0.6"/>
+                                <text x="25" y="65" font-size="9" fill="#666" text-anchor="middle">Image 1</text>
+                            </g>
+                            
+                            <g transform="translate(20, 90)">
+                                <rect x="0" y="0" width="50" height="50" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                                <circle cx="26" cy="24" r="10" fill="#ff6b6b" opacity="0.6"/>
+                                <text x="25" y="65" font-size="9" fill="#666" text-anchor="middle">Image 2</text>
+                                <text x="25" y="76" font-size="8" fill="#dc3545" text-anchor="middle">+noise</text>
+                            </g>
+                            
+                            <!-- Arrow -->
+                            <text x="90" y="85" font-size="16" fill="#1E64C8">→</text>
+                            
+                            <!-- Consistent explanations -->
+                            <g transform="translate(120, 30)">
+                                <rect x="0" y="0" width="50" height="50" fill="#fff9e6" stroke="#ffc107" stroke-width="2"/>
+                                <ellipse cx="25" cy="25" rx="12" ry="10" fill="url(#heatC1)"/>
+                                <text x="25" y="65" font-size="9" fill="#666" text-anchor="middle">Explain 1</text>
+                                <defs>
+                                    <radialGradient id="heatC1">
+                                        <stop offset="0%" style="stop-color:#ff0000;stop-opacity:0.7" />
+                                        <stop offset="70%" style="stop-color:#ffaa00;stop-opacity:0.3" />
+                                    </radialGradient>
+                                </defs>
+                            </g>
+                            
+                            <g transform="translate(120, 90)">
+                                <rect x="0" y="0" width="50" height="50" fill="#fff9e6" stroke="#ffc107" stroke-width="2"/>
+                                <ellipse cx="26" cy="24" rx="12" ry="10" fill="url(#heatC2)"/>
+                                <text x="25" y="65" font-size="9" fill="#666" text-anchor="middle">Explain 2</text>
+                                <defs>
+                                    <radialGradient id="heatC2">
+                                        <stop offset="0%" style="stop-color:#ff0000;stop-opacity:0.7" />
+                                        <stop offset="70%" style="stop-color:#ffaa00;stop-opacity:0.3" />
+                                    </radialGradient>
+                                </defs>
+                            </g>
+                            
+                            <!-- Result -->
+                            <g transform="translate(200, 70)">
+                                <circle cx="0" cy="0" r="30" fill="none" stroke="#28a745" stroke-width="3"/>
+                                <text x="0" y="8" font-size="22" fill="#28a745" font-weight="700" text-anchor="middle">✓</text>
+                                <text x="0" y="45" font-size="10" fill="#28a745" font-weight="600" text-anchor="middle">Consistent</text>
+                            </g>
+                        </svg>
+                    </div>
+                    
+                    <div class="key-point">✓ Similar inputs → similar explanations</div>
+                    <div class="key-point">✓ Stable under small perturbations</div>
+                    <div class="limitation">✗ Some methods inherently unstable (LIME)</div>
+                    
+                    <div>
+                        <span class="badge badge-red">Stability</span>
+                        <span class="badge badge-red">Trust</span>
+                    </div>
+                </div>
+                
+                <div class="method-card">
+                    <div class="method-name">⚠️ Spurious Detection</div>
+                    
+                    <div class="visual-box">
+                        <svg width="300" height="180" viewBox="0 0 300 180">
+                            <!-- Good model -->
+                            <g transform="translate(20, 30)">
+                                <rect x="0" y="0" width="70" height="70" fill="#e8ffe8" stroke="#28a745" stroke-width="2"/>
+                                <text x="35" y="-8" font-size="10" fill="#28a745" font-weight="600" text-anchor="middle">✓ Correct</text>
+                                <ellipse cx="25" cy="35" rx="12" ry="18" fill="white" stroke="#666" stroke-width="0.5"/>
+                                <ellipse cx="45" cy="35" rx="12" ry="18" fill="white" stroke="#666" stroke-width="0.5"/>
+                                <ellipse cx="25" cy="32" rx="8" ry="12" fill="#ff6b6b" opacity="0.5"/>
+                                <ellipse cx="45" cy="38" rx="6" ry="10" fill="#ff6b6b" opacity="0.5"/>
+                                <text x="35" y="90" font-size="8" fill="#666" text-anchor="middle">Focuses on</text>
+                                <text x="35" y="100" font-size="8" fill="#666" text-anchor="middle">lung pathology</text>
+                            </g>
+                            
+                            <!-- Bad model -->
+                            <g transform="translate(120, 30)">
+                                <rect x="0" y="0" width="70" height="70" fill="#ffe6e6" stroke="#dc3545" stroke-width="2"/>
+                                <text x="35" y="-8" font-size="10" fill="#dc3545" font-weight="600" text-anchor="middle">✗ Spurious</text>
+                                <ellipse cx="25" cy="35" rx="12" ry="18" fill="white" stroke="#666" stroke-width="0.5"/>
+                                <ellipse cx="45" cy="35" rx="12" ry="18" fill="white" stroke="#666" stroke-width="0.5"/>
+                                <ellipse cx="23" cy="32" rx="8" ry="12" fill="#ff6b6b" opacity="0.2"/>
+                                <rect x="5" y="5" width="10" height="10" fill="#dc3545" opacity="0.7"/>
+                                <rect x="4" y="4" width="12" height="12" fill="#ff0000" opacity="0.4"/>
+                                <text x="35" y="90" font-size="8" fill="#666" text-anchor="middle">Focuses on</text>
+                                <text x="35" y="100" font-size="8" fill="#666" text-anchor="middle">hospital marker!</text>
+                            </g>
+                            
+                            <!-- Common spurious features -->
+                            <g transform="translate(20, 130)">
+                                <text x="0" y="0" font-size="10" fill="#333" font-weight="600">Common issues:</text>
+                                <text x="0" y="15" font-size="9" fill="#dc3545">• Hospital markers</text>
+                                <text x="0" y="28" font-size="9" fill="#dc3545">• Medical devices</text>
+                                <text x="0" y="41" font-size="9" fill="#dc3545">• Scanner artifacts</text>
+                            </g>
+                        </svg>
+                    </div>
+                    
+                    <div class="key-point">✓ Identifies unreliable model reasoning</div>
+                    <div class="key-point">✓ Critical for safety</div>
+                    <div class="limitation">✗ Requires expert validation</div>
+                    
+                    <div class="example">
+                        💡 Real case: Pneumonia model achieved 95% but focused on portable X-ray markers!
+                    </div>
+                    
+                    <div>
+                        <span class="badge badge-red">Safety</span>
+                        <span class="badge badge-red">Validation</span>
+                    </div>
+                </div>
             </div>
-        
-            <div class="concept-card">
-                <div class="concept-name">Concept Attribution</div>
-                <div class="concept-desc">High-level concept importance. Relate to clinical features (texture, shape, density)</div>
+        </div>
+
+        <div class="section">
+            <div class="section-title">5. Interpretability Needs by Stakeholder</div>
+            
+            <div class="method-grid">
+                <div class="method-card">
+                    <div class="method-name">👨‍⚕️ Clinicians</div>
+                    <div class="visual-box" style="background: #e6f3ff;">
+                        <div style="font-size: 14px; color: #333; text-align: left; padding: 10px;">
+                            <strong>Need:</strong>
+                            <div style="margin: 8px 0;">• Case-specific explanations</div>
+                            <div style="margin: 8px 0;">• Clinical feature attribution</div>
+                            <div style="margin: 8px 0;">• Quick, actionable insights</div>
+                            <div style="margin: 8px 0;">• Uncertainty quantification</div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        "Why is this lesion melanoma? Which features are most concerning?"
+                    </div>
+                </div>
+                
+                <div class="method-card">
+                    <div class="method-name">🧑 Patients</div>
+                    <div class="visual-box" style="background: #fff9e6;">
+                        <div style="font-size: 14px; color: #333; text-align: left; padding: 10px;">
+                            <strong>Need:</strong>
+                            <div style="margin: 8px 0;">• Plain language</div>
+                            <div style="margin: 8px 0;">• What it means for health</div>
+                            <div style="margin: 8px 0;">• Treatment implications</div>
+                            <div style="margin: 8px 0;">• Confidence in AI use</div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        "What does this result mean for me? Can I get a second opinion?"
+                    </div>
+                </div>
+                
+                <div class="method-card">
+                    <div class="method-name">⚖️ Regulators</div>
+                    <div class="visual-box" style="background: #ffe6f0;">
+                        <div style="font-size: 14px; color: #333; text-align: left; padding: 10px;">
+                            <strong>Need:</strong>
+                            <div style="margin: 8px 0;">• Auditability</div>
+                            <div style="margin: 8px 0;">• Bias detection</div>
+                            <div style="margin: 8px 0;">• Compliance (FDA, GDPR)</div>
+                            <div style="margin: 8px 0;">• Accountability trails</div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        "Can we audit this decision if legally challenged?"
+                    </div>
+                </div>
+                
+                <div class="method-card">
+                    <div class="method-name">💻 AI Developers</div>
+                    <div class="visual-box" style="background: #e6ffe6;">
+                        <div style="font-size: 14px; color: #333; text-align: left; padding: 10px;">
+                            <strong>Need:</strong>
+                            <div style="margin: 8px 0;">• Model debugging</div>
+                            <div style="margin: 8px 0;">• Feature importance</div>
+                            <div style="margin: 8px 0;">• Failure mode detection</div>
+                            <div style="margin: 8px 0;">• Performance metrics</div>
+                        </div>
+                    </div>
+                    <div class="example">
+                        "Is the model using appropriate features? Where does it fail?"
+                    </div>
+                </div>
             </div>
-        
-            <div class="concept-card">
-                <div class="concept-name">Trust Building</div>
-                <div class="concept-desc">Consistent explanations aligned with clinical knowledge. Detect spurious correlations</div>
+        </div>
+
+        <div class="section" style="background: #f0f5fc; border-color: #1E64C8; border-width: 4px;">
+            <div class="section-title">Key Takeaways</div>
+            
+            <div style="text-align: center; margin: 30px 0;">
+                <div style="font-size: 18px; color: #1E64C8; font-weight: 700; margin-bottom: 20px;">
+                    Explainable AI: Essential for Medical AI Deployment
+                </div>
+                
+                <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; max-width: 900px; margin: 0 auto;">
+                    <div style="background: white; padding: 20px; border-radius: 10px; border: 2px solid #1E64C8;">
+                        <div style="font-size: 16px; color: #1E64C8; font-weight: 600; margin-bottom: 10px;">Saliency Methods</div>
+                        <div style="font-size: 13px; color: #666;">Visual attribution</div>
+                        <div style="font-size: 13px; color: #666;">Grad-CAM, LIME</div>
+                    </div>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 10px; border: 2px solid #1E64C8;">
+                        <div style="font-size: 16px; color: #1E64C8; font-weight: 600; margin-bottom: 10px;">Concept Attribution</div>
+                        <div style="font-size: 13px; color: #666;">Clinical concepts</div>
+                        <div style="font-size: 13px; color: #666;">TCAV, CBMs</div>
+                    </div>
+                    
+                    <div style="background: white; padding: 20px; border-radius: 10px; border: 2px solid #1E64C8;">
+                        <div style="font-size: 16px; color: #1E64C8; font-weight: 600; margin-bottom: 10px;">Counterfactuals</div>
+                        <div style="font-size: 13px; color: #666;">What-if analysis</div>
+                        <div style="font-size: 13px; color: #666;">Actionable insights</div>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px; padding: 25px; background: white; border-radius: 10px; max-width: 800px; margin: 30px auto;">
+                    <div style="font-size: 16px; color: #333; line-height: 1.8;">
+                        <strong style="color: #1E64C8;">Essential Requirements:</strong><br>
+                        ✓ Trust & Validation through faithfulness and consistency<br>
+                        ✓ Stakeholder Alignment meeting diverse needs<br>
+                        ✓ Safety through spurious correlation detection<br>
+                        ✓ Regulatory Compliance (FDA, GDPR, EU AI Act)
+                    </div>
+                </div>
+                
+                <div style="margin-top: 25px; font-size: 15px; color: #666; font-style: italic;">
+                    "XAI enables clinicians to understand, validate, and appropriately<br>
+                    rely on AI while maintaining safety, accountability, and trust"
+                </div>
             </div>
-        
         </div>
     </div>
 </body>

@@ -1,236 +1,1108 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Spatial Transcriptomics</title>
+    <title>Spatial Transcriptomics - Complete Guide</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
-            font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: Aptos, 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
+            line-height: 1.6;
         }
-        .container {
-            width: 960px;
-            height: 540px;
-            padding: 30px 40px;
-            background: white;
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
         }
-        .title {
-            font-size: 28px;
-            font-weight: 600;
+        .hero-section {
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+        }
+        h1 {
+            font-size: 42px;
             color: #1E64C8;
-            margin-bottom: 25px;
             text-align: center;
-        }
-        .content-grid {
-            display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 16px;
-            margin-bottom: 20px;
-        }
-        .content-card {
-            background: white;
-            border: 2.5px solid #1E64C8;
-            border-radius: 10px;
-            padding: 16px;
-            transition: all 0.3s;
-        }
-        .content-card:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(30, 100, 200, 0.2);
-            background: #f8fbff;
-        }
-        .card-title {
-            font-size: 18px;
+            margin-bottom: 15px;
             font-weight: 700;
+        }
+        .subtitle {
+            font-size: 20px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        .tech-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .tech-card {
+            background: white;
+            border: 3px solid #1E64C8;
+            border-radius: 12px;
+            padding: 25px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+        }
+        .tech-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(30,100,200,0.3);
+            background: linear-gradient(135deg, #f8fbff 0%, #ffffff 100%);
+        }
+        .tech-card h3 {
             color: #1E64C8;
-            margin-bottom: 8px;
+            font-size: 22px;
+            margin-bottom: 12px;
+            font-weight: 700;
         }
-        .card-desc {
-            font-size: 15px;
-            color: #333;
-            line-height: 1.4;
-        }
-        .note-box {
-            background: #f0f5fc;
-            border-left: 4px solid #1E64C8;
-            border-radius: 6px;
-            padding: 12px 18px;
-            margin-top: 15px;
-        }
-        .note-text {
+        .tech-card p {
+            color: #555;
             font-size: 16px;
-            color: #333;
+            line-height: 1.6;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px 35px;
+            border-radius: 12px;
+            margin: 40px 0;
+            font-size: 19px;
+            font-weight: 600;
+            text-align: center;
+            box-shadow: 0 5px 20px rgba(102,126,234,0.4);
+        }
+        
+        /* Detailed Section Styles */
+        .detail-section {
+            background: white;
+            padding: 50px;
+            border-radius: 15px;
+            margin-bottom: 50px;
+            box-shadow: 0 5px 25px rgba(0,0,0,0.08);
+        }
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 20px;
+        }
+        .section-number {
+            width: 60px;
+            height: 60px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            font-weight: 700;
+            margin-right: 20px;
+            box-shadow: 0 4px 15px rgba(102,126,234,0.4);
+        }
+        .section-header h2 {
+            color: #1E64C8;
+            font-size: 34px;
+            font-weight: 700;
+        }
+        .section-tagline {
+            font-size: 18px;
+            color: #888;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+        .description {
+            font-size: 17px;
+            line-height: 1.9;
+            color: #444;
+            margin-bottom: 35px;
+            text-align: justify;
+        }
+        .specs-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 35px 0;
+            box-shadow: 0 3px 15px rgba(0,0,0,0.1);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .specs-table th {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 18px;
+            text-align: left;
+            font-size: 17px;
             font-weight: 600;
         }
-        .visual-section {
-            margin-top: 20px;
+        .specs-table td {
+            padding: 15px 18px;
+            border-bottom: 1px solid #e5e5e5;
+            font-size: 16px;
+            color: #555;
+        }
+        .specs-table tr:nth-child(even) {
+            background: #f9f9f9;
+        }
+        .specs-table tr:last-child td {
+            border-bottom: none;
+        }
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 25px;
+            margin: 35px 0;
+        }
+        .feature-item {
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 5px solid #667eea;
+            transition: all 0.3s ease;
+        }
+        .feature-item:hover {
+            transform: translateX(5px);
+            box-shadow: 0 5px 20px rgba(0,0,0,0.15);
+        }
+        .feature-item h4 {
+            color: #1E64C8;
+            font-size: 19px;
+            margin-bottom: 12px;
+            font-weight: 700;
+        }
+        .feature-item p {
+            color: #555;
+            font-size: 15px;
+            line-height: 1.7;
+        }
+        .pros-cons-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin: 35px 0;
+        }
+        .pros-box {
+            background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 6px solid #4CAF50;
+        }
+        .cons-box {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 6px solid #f44336;
+        }
+        .pros-box h4 {
+            color: #2E7D32;
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .cons-box h4 {
+            color: #C62828;
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .pros-box ul, .cons-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        .pros-box li, .cons-box li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 15px;
+            line-height: 1.6;
+            color: #444;
+        }
+        .pros-box li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #4CAF50;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        .cons-box li:before {
+            content: "✗";
+            position: absolute;
+            left: 0;
+            color: #f44336;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        .applications-box {
+            background: linear-gradient(135deg, #fff8e1 0%, #ffe082 100%);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 6px solid #FFA000;
+            margin: 35px 0;
+        }
+        .applications-box h4 {
+            color: #F57C00;
+            font-size: 22px;
+            margin-bottom: 20px;
+            font-weight: 700;
+        }
+        .applications-box ul {
+            list-style: none;
+            padding: 0;
+        }
+        .applications-box li {
+            padding: 12px 0;
+            padding-left: 30px;
+            position: relative;
+            font-size: 16px;
+            line-height: 1.7;
+            color: #555;
+        }
+        .applications-box li:before {
+            content: "→";
+            position: absolute;
+            left: 0;
+            color: #F57C00;
+            font-size: 22px;
+            font-weight: 700;
+        }
+        .applications-box strong {
+            color: #E65100;
+        }
+        .diagram-container {
+            background: #f9fafb;
+            padding: 40px;
+            border-radius: 12px;
+            margin: 35px 0;
+            border: 2px solid #e5e7eb;
+        }
+        .diagram-title {
+            font-size: 22px;
+            color: #1E64C8;
+            font-weight: 700;
             text-align: center;
+            margin-bottom: 30px;
+        }
+        @media (max-width: 768px) {
+            .tech-grid, .features, .pros-cons-grid {
+                grid-template-columns: 1fr;
+            }
+            h1 { font-size: 32px; }
+            .section-header h2 { font-size: 26px; }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">Spatial Transcriptomics</div>
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="card-title">Visium Technology</div>
-                <div class="card-desc">10X spatial - 55μm spots, whole transcriptome</div>
+    <div class="main-container">
+        <div class="hero-section">
+            <h1>Spatial Transcriptomics Technologies</h1>
+            <p class="subtitle">A Comprehensive Guide to Methods, Applications, and Trade-offs</p>
+            
+            <div class="tech-grid">
+                <div class="tech-card">
+                    <h3>🔬 Visium Technology</h3>
+                    <p>10X Genomics spatial transcriptomics platform with 55μm spots providing whole transcriptome profiling</p>
+                </div>
+                <div class="tech-card">
+                    <h3>🎯 MERFISH Principles</h3>
+                    <p>Multiplexed error-robust FISH achieving subcellular resolution with combinatorial barcoding</p>
+                </div>
+                <div class="tech-card">
+                    <h3>🧬 seqFISH Evolution</h3>
+                    <p>Sequential fluorescence in situ hybridization profiling 10,000+ genes at single-molecule resolution</p>
+                </div>
+                <div class="tech-card">
+                    <h3>⚡ Slide-seq Methods</h3>
+                    <p>Bead-based spatial barcoding achieving 10μm near-cellular resolution with whole transcriptome</p>
+                </div>
+                <div class="tech-card">
+                    <h3>⚖️ Resolution Trade-offs</h3>
+                    <p>Understanding the balance between gene coverage, spatial resolution, and experimental throughput</p>
+                </div>
             </div>
-            <div class="content-card">
-                <div class="card-title">MERFISH Principles</div>
-                <div class="card-desc">Multiplexed error-robust FISH, subcellular resolution</div>
+            
+            <div class="highlight-box">
+                💡 Spatial context reveals tissue architecture, cell-cell interactions, and microenvironmental influences on gene expression
             </div>
-            <div class="content-card">
-                <div class="card-title">seqFISH Evolution</div>
-                <div class="card-desc">Sequential FISH with barcoding, 10,000+ genes</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Slide-seq Methods</div>
-                <div class="card-desc">Bead-based spatial barcoding, 10μm resolution</div>
-            </div>
-            <div class="content-card">
-                <div class="card-title">Resolution Trade-offs</div>
-                <div class="card-desc">Gene coverage vs spatial resolution vs throughput</div>
-            </div>
+        </div>
 
-        </div>
-        <div class="note-box">
-            <div class="note-text">💡 Spatial context reveals tissue architecture and cell-cell interactions</div>
-        </div>
-        
-        <div class="visual-section">
-            <svg width="860" height="110" viewBox="0 0 860 110" xmlns="http://www.w3.org/2000/svg">
-                <!-- Tissue section representation -->
-                <g id="tissue">
-                    <rect x="10" y="10" width="150" height="95" rx="6" fill="#F5F5F5" stroke="#666" stroke-width="2"/>
-                    <text x="85" y="25" font-family="Aptos, sans-serif" font-size="11" font-weight="700" fill="#333" text-anchor="middle">Tissue Section</text>
+        <!-- SECTION 1: VISIUM -->
+        <div class="detail-section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <h2>Visium Spatial Gene Expression</h2>
+            </div>
+            <p class="section-tagline">Array-Based Whole Transcriptome Spatial Profiling</p>
+            
+            <p class="description">
+                <strong>Visium</strong>, developed by 10x Genomics, represents the most widely adopted spatial transcriptomics platform for unbiased, whole-transcriptome analysis. The technology employs a glass slide containing approximately 5,000 barcoded spots arranged in a hexagonal array, with each spot measuring 55 micrometers in diameter. Fresh-frozen or FFPE tissue sections are placed onto these slides, where tissue permeabilization releases mRNA that is captured by spatially-barcoded oligonucleotides. Each spot contains millions of capture probes with unique spatial barcodes, enabling downstream sequencing to map gene expression back to specific locations within the tissue architecture. This approach bridges the gap between traditional histology and single-cell genomics, providing spatial context to transcriptomic data while maintaining compatibility with standard next-generation sequencing workflows.
+            </p>
+
+            <div class="diagram-container">
+                <div class="diagram-title">Visium Workflow Overview</div>
+                <svg width="100%" viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="50" width="180" height="100" rx="10" fill="#E3F2FD" stroke="#1976D2" stroke-width="3"/>
+                    <text x="140" y="105" font-size="16" font-weight="bold" fill="#0D47A1" text-anchor="middle">Tissue Section</text>
+                    <text x="140" y="125" font-size="13" fill="#666" text-anchor="middle">on Barcoded Slide</text>
                     
-                    <!-- Simplified tissue with regions -->
-                    <ellipse cx="50" cy="60" rx="25" ry="20" fill="#FFCDD2" opacity="0.7"/>
-                    <ellipse cx="85" cy="65" rx="30" ry="25" fill="#C5E1A5" opacity="0.7"/>
-                    <ellipse cx="120" cy="60" rx="25" ry="20" fill="#BBDEFB" opacity="0.7"/>
+                    <path d="M 235 100 L 295 100" stroke="#667eea" stroke-width="4" marker-end="url(#arrowhead)"/>
                     
-                    <text x="50" y="63" font-family="Aptos, sans-serif" font-size="8" font-weight="600" fill="#C62828" text-anchor="middle">A</text>
-                    <text x="85" y="68" font-family="Aptos, sans-serif" font-size="8" font-weight="600" fill="#558B2F" text-anchor="middle">B</text>
-                    <text x="120" y="63" font-family="Aptos, sans-serif" font-size="8" font-weight="600" fill="#1565C0" text-anchor="middle">C</text>
+                    <rect x="300" y="50" width="180" height="100" rx="10" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="3"/>
+                    <text x="390" y="105" font-size="16" font-weight="bold" fill="#6A1B9A" text-anchor="middle">Permeabilization</text>
+                    <text x="390" y="125" font-size="13" fill="#666" text-anchor="middle">& mRNA Capture</text>
                     
-                    <text x="85" y="95" font-family="Aptos, sans-serif" font-size="9" fill="#666" text-anchor="middle">Different cell types</text>
-                </g>
-                
-                <!-- Arrow -->
-                <path d="M 165 52 L 195 52" stroke="#1E64C8" stroke-width="3" fill="none"/>
-                <polygon points="195,52 188,48 188,56" fill="#1E64C8"/>
-                
-                <!-- Visium -->
-                <g id="visium">
-                    <rect x="200" y="10" width="200" height="95" rx="6" fill="#E3F2FD" stroke="#1976D2" stroke-width="2"/>
-                    <text x="300" y="25" font-family="Aptos, sans-serif" font-size="12" font-weight="700" fill="#0D47A1" text-anchor="middle">Visium (55μm spots)</text>
+                    <path d="M 485 100 L 545 100" stroke="#667eea" stroke-width="4" marker-end="url(#arrowhead)"/>
                     
-                    <!-- Spot array -->
-                    <g id="spots">
-                        <circle cx="230" cy="45" r="8" fill="#E57373" opacity="0.7" stroke="#1976D2" stroke-width="1"/>
-                        <circle cx="260" cy="45" r="8" fill="#FFB74D" opacity="0.7" stroke="#1976D2" stroke-width="1"/>
-                        <circle cx="290" cy="45" r="8" fill="#81C784" opacity="0.7" stroke="#1976D2" stroke-width="1"/>
-                        <circle cx="320" cy="45" r="8" fill="#64B5F6" opacity="0.7" stroke="#1976D2" stroke-width="1"/>
-                        <circle cx="350" cy="45" r="8" fill="#64B5F6" opacity="0.7" stroke="#1976D2" stroke-width="1"/>
-                        <circle cx="370" cy="45" r="8" fill="#64B5F6" opacity="0.7" stroke="#1976D2" stroke-width="1"/>
-                        
-                        <circle cx="230" cy="70" r="8" fill="#E57373" opacity="0.7" stroke="#1976D2" stroke-width="1"/>
-                        <circle cx="260" cy="70" r="8" fill="#81C784" opacity="0.7" stroke="#1976D2" stroke-width="1"/>
-                        <circle cx="290" cy="70" r="8" fill="#81C784" opacity="0.7" stroke="#1976D2" stroke-width="1"/>
-                        <circle cx="320" cy="70" r="8" fill="#81C784" opacity="0.7" stroke="#1976D2" stroke-width="1"/>
-                        <circle cx="350" cy="70" r="8" fill="#64B5F6" opacity="0.7" stroke="#1976D2" stroke-width="1"/>
-                        <circle cx="370" cy="70" r="8" fill="#64B5F6" opacity="0.7" stroke="#1976D2" stroke-width="1"/>
-                    </g>
+                    <rect x="550" y="50" width="180" height="100" rx="10" fill="#E8F5E9" stroke="#388E3C" stroke-width="3"/>
+                    <text x="640" y="105" font-size="16" font-weight="bold" fill="#2E7D32" text-anchor="middle">Library Prep</text>
+                    <text x="640" y="125" font-size="13" fill="#666" text-anchor="middle">& Sequencing</text>
                     
-                    <text x="300" y="92" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">~5k genes/spot</text>
-                    <text x="300" y="100" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">Multiple cells/spot</text>
-                </g>
-                
-                <!-- Arrow -->
-                <path d="M 405 52 L 435 52" stroke="#1E64C8" stroke-width="3" fill="none"/>
-                <polygon points="435,52 428,48 428,56" fill="#1E64C8"/>
-                
-                <!-- High-resolution methods -->
-                <g id="highres">
-                    <rect x="440" y="10" width="200" height="95" rx="6" fill="#E8F5E9" stroke="#388E3C" stroke-width="2"/>
-                    <text x="540" y="25" font-family="Aptos, sans-serif" font-size="12" font-weight="700" fill="#1B5E20" text-anchor="middle">MERFISH/seqFISH</text>
+                    <path d="M 735 100 L 795 100" stroke="#667eea" stroke-width="4" marker-end="url(#arrowhead)"/>
                     
-                    <!-- High resolution points -->
-                    <g id="cells">
-                        <!-- Region A cells -->
-                        <circle cx="470" cy="45" r="3" fill="#E57373"/>
-                        <circle cx="478" cy="47" r="3" fill="#E57373"/>
-                        <circle cx="475" cy="53" r="3" fill="#E57373"/>
-                        <circle cx="483" cy="50" r="3" fill="#E57373"/>
-                        
-                        <!-- Region B cells -->
-                        <circle cx="505" cy="55" r="3" fill="#81C784"/>
-                        <circle cx="513" cy="57" r="3" fill="#81C784"/>
-                        <circle cx="510" cy="63" r="3" fill="#81C784"/>
-                        <circle cx="518" cy="60" r="3" fill="#81C784"/>
-                        <circle cx="525" cy="56" r="3" fill="#81C784"/>
-                        <circle cx="520" cy="68" r="3" fill="#81C784"/>
-                        
-                        <!-- Region C cells -->
-                        <circle cx="555" cy="48" r="3" fill="#64B5F6"/>
-                        <circle cx="563" cy="50" r="3" fill="#64B5F6"/>
-                        <circle cx="560" cy="56" r="3" fill="#64B5F6"/>
-                        <circle cx="568" cy="53" r="3" fill="#64B5F6"/>
-                        <circle cx="575" cy="49" r="3" fill="#64B5F6"/>
-                        
-                        <!-- Mixed cells -->
-                        <circle cx="495" cy="48" r="3" fill="#FFB74D"/>
-                        <circle cx="545" cy="62" r="3" fill="#BA68C8"/>
-                    </g>
-                    
-                    <text x="540" y="85" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">Subcellular resolution</text>
-                    <text x="540" y="93" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">100-10,000 genes</text>
-                    <text x="540" y="101" font-family="Aptos, sans-serif" font-size="8" fill="#666" text-anchor="middle">Single cell precision</text>
-                </g>
-                
-                <!-- Comparison -->
-                <g id="comparison">
-                    <rect x="655" y="10" width="195" height="95" rx="6" fill="#FFF3E0" stroke="#F57C00" stroke-width="2"/>
-                    <text x="752" y="25" font-family="Aptos, sans-serif" font-size="11" font-weight="700" fill="#E65100" text-anchor="middle">Technology Trade-offs</text>
-                    
-                    <!-- Trade-off arrows -->
-                    <g transform="translate(670, 35)">
-                        <line x1="0" y1="0" x2="160" y2="0" stroke="#FF5722" stroke-width="2" marker-end="url(#arrowRes)"/>
-                        <text x="80" y="-5" font-family="Aptos, sans-serif" font-size="9" font-weight="600" fill="#E65100" text-anchor="middle">Resolution</text>
-                        <text x="5" y="12" font-family="Aptos, sans-serif" font-size="8" fill="#666">Low</text>
-                        <text x="145" y="12" font-family="Aptos, sans-serif" font-size="8" fill="#666">High</text>
-                    </g>
-                    
-                    <g transform="translate(670, 55)">
-                        <line x1="160" y1="0" x2="0" y2="0" stroke="#2196F3" stroke-width="2" marker-end="url(#arrowGenes)"/>
-                        <text x="80" y="-5" font-family="Aptos, sans-serif" font-size="9" font-weight="600" fill="#1976D2" text-anchor="middle">Gene Coverage</text>
-                        <text x="5" y="12" font-family="Aptos, sans-serif" font-size="8" fill="#666">Low</text>
-                        <text x="145" y="12" font-family="Aptos, sans-serif" font-size="8" fill="#666">High</text>
-                    </g>
+                    <rect x="800" y="50" width="180" height="100" rx="10" fill="#FFF3E0" stroke="#F57C00" stroke-width="3"/>
+                    <text x="890" y="105" font-size="16" font-weight="bold" fill="#E65100" text-anchor="middle">Spatial Analysis</text>
+                    <text x="890" y="125" font-size="13" fill="#666" text-anchor="middle">& Visualization</text>
                     
                     <defs>
-                        <marker id="arrowRes" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-                            <path d="M0,0 L0,6 L8,3 z" fill="#FF5722"/>
-                        </marker>
-                        <marker id="arrowGenes" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
-                            <path d="M0,0 L0,6 L8,3 z" fill="#2196F3"/>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#667eea"/>
                         </marker>
                     </defs>
+                </svg>
+            </div>
+
+            <table class="specs-table">
+                <tr>
+                    <th>Parameter</th>
+                    <th>Specification</th>
+                </tr>
+                <tr>
+                    <td><strong>Spot Size</strong></td>
+                    <td>55 μm diameter (captures 1-10 cells per spot)</td>
+                </tr>
+                <tr>
+                    <td><strong>Spot Spacing</strong></td>
+                    <td>100 μm center-to-center distance</td>
+                </tr>
+                <tr>
+                    <td><strong>Total Spots</strong></td>
+                    <td>~5,000 spots per slide (6.5mm × 6.5mm capture area)</td>
+                </tr>
+                <tr>
+                    <td><strong>Gene Detection</strong></td>
+                    <td>Whole transcriptome (18,000+ genes typically detected)</td>
+                </tr>
+                <tr>
+                    <td><strong>Sensitivity</strong></td>
+                    <td>~5,000-10,000 UMIs (Unique Molecular Identifiers) per spot</td>
+                </tr>
+                <tr>
+                    <td><strong>Tissue Compatibility</strong></td>
+                    <td>Fresh-frozen (FF) and formalin-fixed paraffin-embedded (FFPE)</td>
+                </tr>
+                <tr>
+                    <td><strong>Processing Time</strong></td>
+                    <td>2-3 days (library preparation + sequencing)</td>
+                </tr>
+            </table>
+
+            <div class="features">
+                <div class="feature-item">
+                    <h4>🔍 Unbiased Discovery</h4>
+                    <p>Captures the entire transcriptome without prior gene selection, enabling discovery of unexpected expression patterns and novel tissue organization principles.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>📊 Standardized Platform</h4>
+                    <p>Commercial platform with optimized reagents and automated analysis pipelines (Space Ranger), ensuring reproducibility across laboratories.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🧬 Integration Ready</h4>
+                    <p>Seamlessly integrates with single-cell RNA-seq datasets for cell type deconvolution using computational methods.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>💻 Rich Ecosystem</h4>
+                    <p>Extensive analysis tools including Seurat, Scanpy, Giotto, and Squidpy for spatial domain identification and cell-cell communication inference.</p>
+                </div>
+            </div>
+
+            <div class="pros-cons-grid">
+                <div class="pros-box">
+                    <h4>✓ Advantages</h4>
+                    <ul>
+                        <li>Comprehensive genome-wide coverage without gene panel limitations</li>
+                        <li>Well-established commercial platform with strong technical support</li>
+                        <li>Compatible with both fresh-frozen and archived FFPE tissues</li>
+                        <li>Large and active research community sharing protocols</li>
+                        <li>Cost-effective for whole-transcriptome discovery experiments</li>
+                        <li>Straightforward integration with existing scRNA-seq workflows</li>
+                    </ul>
+                </div>
+                <div class="cons-box">
+                    <h4>✗ Limitations</h4>
+                    <ul>
+                        <li>Lower spatial resolution (55μm spots) captures multiple cells, losing single-cell information</li>
+                        <li>Requires computational deconvolution to infer cell type composition</li>
+                        <li>Fixed array geometry may not align optimally with tissue structure</li>
+                        <li>Lower sensitivity compared to targeted approaches (typical 20-30% gene detection)</li>
+                        <li>Requires relatively large tissue sections (minimum 6.5mm × 6.5mm)</li>
+                        <li>Difficult to resolve fine cellular boundaries and subcellular localization</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="applications-box">
+                <h4>🎯 Key Applications</h4>
+                <ul>
+                    <li><strong>Cancer Research:</strong> Tumor microenvironment mapping, identification of spatial immune infiltration patterns, and characterization of tumor-stroma interactions</li>
+                    <li><strong>Neuroscience:</strong> Brain region parcellation, mapping of cortical layers, and spatial organization of neural cell types across brain structures</li>
+                    <li><strong>Developmental Biology:</strong> Tissue morphogenesis tracking, spatial gene expression dynamics during organogenesis, and embryonic patterning</li>
+                    <li><strong>Immunology:</strong> Tertiary lymphoid structure identification, immune cell spatial organization in lymphoid organs and inflamed tissues</li>
+                    <li><strong>Disease Pathology:</strong> Spatial characterization of fibrotic tissues, inflammatory responses, and tissue architecture disruption in disease states</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 2: MERFISH -->
+        <div class="detail-section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <h2>MERFISH Technology</h2>
+            </div>
+            <p class="section-tagline">Multiplexed Error-Robust Fluorescence In Situ Hybridization</p>
+            
+            <p class="description">
+                <strong>MERFISH</strong> revolutionizes spatial transcriptomics through an ingenious application of error-correcting codes borrowed from information theory. Developed by Xiaowei Zhuang's laboratory, MERFISH enables the simultaneous imaging of hundreds to thousands of RNA species at subcellular resolution. The technology employs combinatorial labeling where each target RNA is encoded by a specific binary barcode (e.g., 16-bit encoding scheme). Through sequential rounds of imaging with different fluorescent probe combinations, each RNA molecule's identity is determined by its unique fluorescence pattern across multiple imaging rounds. The incorporation of Hamming distance-based error correction allows robust RNA identification even in the presence of technical noise or imperfect hybridization, achieving >95% accuracy in gene assignment.
+            </p>
+
+            <div class="diagram-container">
+                <div class="diagram-title">MERFISH Encoding Principle</div>
+                <svg width="100%" viewBox="0 0 1000 250" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="30" width="280" height="180" rx="10" fill="#E8F5E9" stroke="#388E3C" stroke-width="3"/>
+                    <text x="190" y="60" font-size="18" font-weight="bold" fill="#2E7D32" text-anchor="middle">Binary Encoding</text>
                     
-                    <text x="675" y="85" font-family="Aptos, sans-serif" font-size="8" fill="#1976D2" font-weight="600">• Visium:</text>
-                    <text x="715" y="85" font-family="Aptos, sans-serif" font-size="8" fill="#666">Whole transcriptome</text>
+                    <text x="80" y="95" font-size="14" font-weight="bold" fill="#333">Gene A:</text>
+                    <circle cx="160" cy="92" r="8" fill="#E57373"/>
+                    <circle cx="190" cy="92" r="8" fill="none" stroke="#999" stroke-width="2"/>
+                    <circle cx="220" cy="92" r="8" fill="#E57373"/>
+                    <circle cx="250" cy="92" r="8" fill="none" stroke="#999" stroke-width="2"/>
+                    <text x="290" y="95" font-size="12" fill="#666">1010</text>
                     
-                    <text x="675" y="95" font-family="Aptos, sans-serif" font-size="8" fill="#388E3C" font-weight="600">• MERFISH:</text>
-                    <text x="725" y="95" font-family="Aptos, sans-serif" font-size="8" fill="#666">Single cell accuracy</text>
-                </g>
-            </svg>
+                    <text x="80" y="130" font-size="14" font-weight="bold" fill="#333">Gene B:</text>
+                    <circle cx="160" cy="127" r="8" fill="none" stroke="#999" stroke-width="2"/>
+                    <circle cx="190" cy="127" r="8" fill="#64B5F6"/>
+                    <circle cx="220" cy="127" r="8" fill="none" stroke="#999" stroke-width="2"/>
+                    <circle cx="250" cy="127" r="8" fill="#64B5F6"/>
+                    <text x="290" y="130" font-size="12" fill="#666">0101</text>
+                    
+                    <text x="80" y="165" font-size="14" font-weight="bold" fill="#333">Gene C:</text>
+                    <circle cx="160" cy="162" r="8" fill="#81C784"/>
+                    <circle cx="190" cy="162" r="8" fill="#81C784"/>
+                    <circle cx="220" cy="162" r="8" fill="none" stroke="#999" stroke-width="2"/>
+                    <circle cx="250" cy="162" r="8" fill="none" stroke="#999" stroke-width="2"/>
+                    <text x="290" y="165" font-size="12" fill="#666">1100</text>
+                    
+                    <text x="190" y="195" font-size="11" fill="#666" text-anchor="middle">4 imaging rounds</text>
+                    
+                    <path d="M 335 120 L 385 120" stroke="#667eea" stroke-width="4" marker-end="url(#arrow2)"/>
+                    
+                    <rect x="390" y="30" width="280" height="180" rx="10" fill="#E3F2FD" stroke="#1976D2" stroke-width="3"/>
+                    <text x="530" y="60" font-size="18" font-weight="bold" fill="#0D47A1" text-anchor="middle">Sequential Imaging</text>
+                    
+                    <rect x="420" y="80" width="55" height="50" rx="5" fill="#FFEBEE" stroke="#333" stroke-width="2"/>
+                    <text x="447" y="110" font-size="14" font-weight="bold" text-anchor="middle">R1</text>
+                    
+                    <rect x="485" y="80" width="55" height="50" rx="5" fill="#E8F5E9" stroke="#333" stroke-width="2"/>
+                    <text x="512" y="110" font-size="14" font-weight="bold" text-anchor="middle">R2</text>
+                    
+                    <rect x="550" y="80" width="55" height="50" rx="5" fill="#FFF9C4" stroke="#333" stroke-width="2"/>
+                    <text x="577" y="110" font-size="14" font-weight="bold" text-anchor="middle">R3</text>
+                    
+                    <rect x="615" y="80" width="55" height="50" rx="5" fill="#E1F5FE" stroke="#333" stroke-width="2"/>
+                    <text x="642" y="110" font-size="14" font-weight="bold" text-anchor="middle">R4</text>
+                    
+                    <text x="530" y="155" font-size="12" fill="#666" text-anchor="middle">Hybridize → Image → Wash</text>
+                    <text x="530" y="175" font-size="12" fill="#666" text-anchor="middle">Repeat for each round</text>
+                    
+                    <path d="M 675 120 L 725 120" stroke="#667eea" stroke-width="4" marker-end="url(#arrow2)"/>
+                    
+                    <rect x="730" y="30" width="220" height="180" rx="10" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="3"/>
+                    <text x="840" y="60" font-size="18" font-weight="bold" fill="#6A1B9A" text-anchor="middle">Single-Cell Resolution</text>
+                    
+                    <ellipse cx="790" cy="120" rx="35" ry="30" fill="#F8BBD0" opacity="0.3" stroke="#C2185B" stroke-width="2"/>
+                    <circle cx="780" cy="115" r="3" fill="#E57373"/>
+                    <circle cx="795" cy="110" r="3" fill="#E57373"/>
+                    <circle cx="790" cy="125" r="3" fill="#64B5F6"/>
+                    <circle cx="785" cy="130" r="3" fill="#81C784"/>
+                    
+                    <ellipse cx="870" cy="115" rx="30" ry="35" fill="#C8E6C9" opacity="0.3" stroke="#388E3C" stroke-width="2"/>
+                    <circle cx="865" cy="105" r="3" fill="#81C784"/>
+                    <circle cx="875" cy="112" r="3" fill="#81C784"/>
+                    <circle cx="868" cy="120" r="3" fill="#FFB74D"/>
+                    <circle cx="878" cy="125" r="3" fill="#81C784"/>
+                    
+                    <text x="840" y="175" font-size="12" fill="#666" text-anchor="middle">Each dot = individual</text>
+                    <text x="840" y="190" font-size="12" fill="#666" text-anchor="middle">mRNA molecule</text>
+                    
+                    <defs>
+                        <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#667eea"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <table class="specs-table">
+                <tr>
+                    <th>Parameter</th>
+                    <th>Specification</th>
+                </tr>
+                <tr>
+                    <td><strong>Spatial Resolution</strong></td>
+                    <td>~100-200 nm (subcellular, near-optical diffraction limit)</td>
+                </tr>
+                <tr>
+                    <td><strong>Gene Panel Size</strong></td>
+                    <td>100-10,000 genes (typically 300-500 for standard experiments)</td>
+                </tr>
+                <tr>
+                    <td><strong>Detection Efficiency</strong></td>
+                    <td>10-20% of cellular mRNA molecules per gene</td>
+                </tr>
+                <tr>
+                    <td><strong>Encoding Scheme</strong></td>
+                    <td>Modified Hamming Distance-4 (MHD4) code with 16-bit barcodes</td>
+                </tr>
+                <tr>
+                    <td><strong>Imaging Rounds</strong></td>
+                    <td>Typically 10-20 rounds for 300-1000 genes</td>
+                </tr>
+                <tr>
+                    <td><strong>Throughput</strong></td>
+                    <td>Hundreds to thousands of cells per experiment</td>
+                </tr>
+                <tr>
+                    <td><strong>Imaging Time</strong></td>
+                    <td>2-5 days for complete workflow</td>
+                </tr>
+            </table>
+
+            <div class="features">
+                <div class="feature-item">
+                    <h4>🎯 Subcellular Precision</h4>
+                    <p>Resolves individual mRNA molecules within single cells, enabling analysis of RNA localization patterns, nuclear vs cytoplasmic distribution.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🛡️ Error Correction</h4>
+                    <p>Built-in error correction based on Hamming distance allows robust gene identification even with technical imperfections, achieving >95% accuracy.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>📈 Scalable Multiplexing</h4>
+                    <p>Binary combinatorial encoding enables exponential scaling: N imaging rounds can theoretically detect 2^N different RNA species.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🔬 3D Capability</h4>
+                    <p>Can be extended to three-dimensional tissue volumes through z-stack imaging, revealing spatial organization in intact tissue.</p>
+                </div>
+            </div>
+
+            <div class="pros-cons-grid">
+                <div class="pros-box">
+                    <h4>✓ Advantages</h4>
+                    <ul>
+                        <li>True single-cell and subcellular resolution for precise cellular analysis</li>
+                        <li>High multiplexing capacity (hundreds to thousands of genes)</li>
+                        <li>Robust error correction ensures reliable gene identification</li>
+                        <li>Absolute quantification of mRNA copy numbers per cell</li>
+                        <li>Compatible with immunofluorescence for protein colocalization</li>
+                        <li>Can image thick tissue sections and 3D samples</li>
+                        <li>Reveals subcellular RNA localization and compartmentalization</li>
+                    </ul>
+                </div>
+                <div class="cons-box">
+                    <h4>✗ Limitations</h4>
+                    <ul>
+                        <li>Requires pre-selection of target gene panel (not unbiased)</li>
+                        <li>Complex experimental workflow with multiple hybridization cycles</li>
+                        <li>Requires specialized microscopy equipment</li>
+                        <li>Labor-intensive protocol with long acquisition times (days per sample)</li>
+                        <li>Computationally demanding for image processing and spot decoding</li>
+                        <li>Higher cost per gene compared to sequencing-based methods</li>
+                        <li>Limited field of view in single imaging sessions</li>
+                        <li>Tissue autofluorescence can interfere with detection</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="applications-box">
+                <h4>🎯 Key Applications</h4>
+                <ul>
+                    <li><strong>Neuroscience:</strong> Mapping cell type organization in brain regions, neuronal connectivity inference, molecular characterization of neuronal subtypes</li>
+                    <li><strong>Cancer Biology:</strong> Tumor heterogeneity analysis at single-cell level, characterization of rare cancer cell subpopulations, spatial analysis of drug resistance markers</li>
+                    <li><strong>Cell Biology:</strong> Subcellular RNA localization studies, analysis of RNA trafficking and compartmentalization, investigation of local translation sites</li>
+                    <li><strong>Developmental Biology:</strong> High-resolution fate mapping during embryogenesis, molecular characterization of tissue boundaries, analysis of morphogen gradients</li>
+                    <li><strong>Immunology:</strong> Spatial organization of immune cells, characterization of cell interactions at contacts, immune checkpoint expression patterns</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 3: seqFISH -->
+        <div class="detail-section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <h2>seqFISH+ Technology</h2>
+            </div>
+            <p class="section-tagline">Sequential Fluorescence In Situ Hybridization with Ultra-High Multiplexing</p>
+            
+            <p class="description">
+                <strong>seqFISH+</strong> represents an evolution of sequential FISH technologies that achieves unprecedented multiplexing capacity through super-resolution imaging and combinatorial barcoding strategies. Originally developed by Long Cai's laboratory, seqFISH+ can profile 10,000+ genes with subcellular resolution. The method employs pseudocoloring strategies where multiple rounds of hybridization with different colored probes create unique combinatorial codes for each target RNA. By combining temporal barcoding (sequential rounds), spectral barcoding (different fluorophores), and spatial barcoding (subcellular localization), seqFISH+ achieves massive multiplexing while maintaining single-molecule sensitivity. The latest iterations incorporate super-resolution microscopy techniques to push resolution beyond the optical diffraction limit, achieving near-whole-transcriptome coverage at nanoscale precision.
+            </p>
+
+            <div class="diagram-container">
+                <div class="diagram-title">seqFISH+ Multi-Dimensional Barcoding</div>
+                <svg width="100%" viewBox="0 0 1100 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="30" width="280" height="140" rx="10" fill="#E8EAF6" stroke="#3F51B5" stroke-width="3"/>
+                    <text x="190" y="60" font-size="16" font-weight="bold" fill="#1A237E" text-anchor="middle">Temporal Barcoding</text>
+                    <text x="190" y="85" font-size="13" fill="#666" text-anchor="middle">20 sequential rounds</text>
+                    
+                    <rect x="70" y="100" width="35" height="30" rx="3" fill="#FFCDD2" stroke="#333" stroke-width="1"/>
+                    <text x="87" y="120" font-size="10" text-anchor="middle">R1</text>
+                    <rect x="110" y="100" width="35" height="30" rx="3" fill="#F8BBD0" stroke="#333" stroke-width="1"/>
+                    <text x="127" y="120" font-size="10" text-anchor="middle">R2</text>
+                    <rect x="150" y="100" width="35" height="30" rx="3" fill="#E1BEE7" stroke="#333" stroke-width="1"/>
+                    <text x="167" y="120" font-size="10" text-anchor="middle">R3</text>
+                    <text x="200" y="118" font-size="12" fill="#666">... R20</text>
+                    
+                    <path d="M 335 100 L 385 100" stroke="#667eea" stroke-width="4" marker-end="url(#arrow3)"/>
+                    
+                    <rect x="390" y="30" width="280" height="140" rx="10" fill="#E8F5E9" stroke="#388E3C" stroke-width="3"/>
+                    <text x="530" y="60" font-size="16" font-weight="bold" fill="#1B5E20" text-anchor="middle">Spectral Barcoding</text>
+                    <text x="530" y="85" font-size="13" fill="#666" text-anchor="middle">4 color channels</text>
+                    
+                    <circle cx="460" cy="115" r="12" fill="#FF5252"/>
+                    <text x="460" y="120" font-size="9" fill="white" text-anchor="middle" font-weight="bold">R</text>
+                    <circle cx="500" cy="115" r="12" fill="#69F0AE"/>
+                    <text x="500" y="120" font-size="9" fill="#333" text-anchor="middle" font-weight="bold">G</text>
+                    <circle cx="540" cy="115" r="12" fill="#448AFF"/>
+                    <text x="540" y="120" font-size="9" fill="white" text-anchor="middle" font-weight="bold">B</text>
+                    <circle cx="580" cy="115" r="12" fill="#E040FB"/>
+                    <text x="580" y="120" font-size="9" fill="white" text-anchor="middle" font-weight="bold">P</text>
+                    
+                    <path d="M 675 100 L 725 100" stroke="#667eea" stroke-width="4" marker-end="url(#arrow3)"/>
+                    
+                    <rect x="730" y="30" width="320" height="140" rx="10" fill="#FFF3E0" stroke="#F57C00" stroke-width="3"/>
+                    <text x="890" y="60" font-size="16" font-weight="bold" fill="#E65100" text-anchor="middle">Combinatorial Power</text>
+                    <text x="890" y="95" font-size="14" fill="#333" text-anchor="middle">20 rounds × 4 colors =</text>
+                    <text x="890" y="125" font-size="20" fill="#1976D2" font-weight="bold" text-anchor="middle">80 bits of information</text>
+                    <text x="890" y="150" font-size="13" fill="#666" text-anchor="middle">→ 10,000+ gene capacity</text>
+                    
+                    <defs>
+                        <marker id="arrow3" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#667eea"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <table class="specs-table">
+                <tr>
+                    <th>Parameter</th>
+                    <th>Specification</th>
+                </tr>
+                <tr>
+                    <td><strong>Spatial Resolution</strong></td>
+                    <td>~100 nm with super-resolution (diffraction-limited: ~200-300 nm)</td>
+                </tr>
+                <tr>
+                    <td><strong>Gene Coverage</strong></td>
+                    <td>10,000+ genes; scalable to whole transcriptome theoretically</td>
+                </tr>
+                <tr>
+                    <td><strong>Detection Sensitivity</strong></td>
+                    <td>~10-15% of cellular mRNA copies detected per target</td>
+                </tr>
+                <tr>
+                    <td><strong>Imaging Rounds</strong></td>
+                    <td>80 hybridization cycles for 10,000 gene panel</td>
+                </tr>
+                <tr>
+                    <td><strong>Fluorescent Channels</strong></td>
+                    <td>3-4 color channels per round (pseudo-coloring strategy)</td>
+                </tr>
+                <tr>
+                    <td><strong>Field of View</strong></td>
+                    <td>100s-1000s of cells per imaging field</td>
+                </tr>
+                <tr>
+                    <td><strong>Total Experiment Time</strong></td>
+                    <td>3-7 days for complete workflow with large gene panels</td>
+                </tr>
+            </table>
+
+            <div class="features">
+                <div class="feature-item">
+                    <h4>🎨 Pseudo-Coloring</h4>
+                    <p>Uses sequential rounds with limited color channels to create high-dimensional barcodes, achieving massive multiplexing without many simultaneous fluorophores.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🔬 Super-Resolution</h4>
+                    <p>Can be combined with STORM, PAINT, or other super-resolution techniques to achieve resolution beyond the diffraction limit (~20-50 nm).</p>
+                </div>
+                <div class="feature-item">
+                    <h4>📊 Complete Coverage</h4>
+                    <p>Achieves near-whole-transcriptome coverage (10,000+ genes), approaching comprehensive profiling of scRNA-seq with spatial information preserved.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🧊 3D Tissue Mapping</h4>
+                    <p>Optimized for volumetric imaging of intact tissues, enabling reconstruction of 3D cell organization and tissue architecture.</p>
+                </div>
+            </div>
+
+            <div class="pros-cons-grid">
+                <div class="pros-box">
+                    <h4>✓ Advantages</h4>
+                    <ul>
+                        <li>Unprecedented multiplexing capacity (10,000+ genes)</li>
+                        <li>Maintains subcellular resolution with single-molecule sensitivity</li>
+                        <li>Compatible with super-resolution microscopy for nanoscale imaging</li>
+                        <li>Efficient probe design allows broad gene coverage</li>
+                        <li>3D imaging capability for volumetric tissue analysis</li>
+                        <li>Can be combined with protein imaging (immunofluorescence)</li>
+                        <li>Provides absolute mRNA quantification per cell</li>
+                    </ul>
+                </div>
+                <div class="cons-box">
+                    <h4>✗ Limitations</h4>
+                    <ul>
+                        <li>Extremely long experimental time (multiple days for large panels)</li>
+                        <li>Very labor-intensive with 80+ sequential hybridization rounds</li>
+                        <li>Requires highly stable imaging system (minimal stage drift)</li>
+                        <li>Computationally intensive image registration and spot decoding</li>
+                        <li>High cost due to extensive probe sets and imaging time</li>
+                        <li>Risk of sample degradation over multiple rounds</li>
+                        <li>Limited throughput (typically single fields per experiment)</li>
+                        <li>Requires significant expertise in microscopy and image analysis</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="applications-box">
+                <h4>🎯 Key Applications</h4>
+                <ul>
+                    <li><strong>Systems Biology:</strong> Comprehensive mapping of tissue-level gene expression programs, revealing coordinated spatial patterns across thousands of genes</li>
+                    <li><strong>Developmental Biology:</strong> High-resolution spatiotemporal mapping during development, tracking cell fate decisions with near-complete transcriptome coverage</li>
+                    <li><strong>Neuroscience:</strong> Brain cell type classification and spatial organization, mapping transcriptional gradients across brain regions with cellular resolution</li>
+                    <li><strong>Single-Cell Spatial Analysis:</strong> Detailed characterization of cellular heterogeneity within tissues, revealing rare cell states with spatial context</li>
+                    <li><strong>3D Tissue Architecture:</strong> Reconstruction of tissue organization in three dimensions, understanding how gene expression relates to physical tissue structure</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 4: SLIDE-SEQ -->
+        <div class="detail-section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <h2>Slide-seq and Slide-seqV2</h2>
+            </div>
+            <p class="section-tagline">High-Resolution Bead-Based Spatial Barcoding</p>
+            
+            <p class="description">
+                <strong>Slide-seq</strong>, developed by Evan Macosko and Fei Chen, introduces a bead-based approach to spatial transcriptomics that achieves near-cellular resolution (10 μm) with unbiased whole-transcriptome profiling. The technology employs DNA-barcoded beads (10 μm diameter) that are randomly packed onto a surface at high density, creating a two-dimensional array where each bead's position is recorded and associated with a unique spatial barcode. Tissue sections are placed onto this bead array, and mRNA is captured directly on the beads through poly(dT) oligonucleotides. Unlike array-based methods with pre-defined spot positions, Slide-seq's random bead packing enables flexible spatial resolution limited only by bead size. Slide-seqV2 improved upon the original with enhanced bead chemistry, achieving 10-fold higher sensitivity while maintaining the same spatial resolution, making it a powerful tool for high-resolution spatial transcriptomics.
+            </p>
+
+            <div class="diagram-container">
+                <div class="diagram-title">Slide-seq Technology Workflow</div>
+                <svg width="100%" viewBox="0 0 1200 200" xmlns="http://www.w3.org/2000/svg">
+                    <rect x="50" y="50" width="200" height="100" rx="10" fill="#E8F5E9" stroke="#388E3C" stroke-width="3"/>
+                    <text x="150" y="80" font-size="16" font-weight="bold" fill="#1B5E20" text-anchor="middle">Barcoded Beads</text>
+                    <text x="150" y="105" font-size="13" fill="#666" text-anchor="middle">10μm diameter</text>
+                    <text x="150" y="125" font-size="13" fill="#666" text-anchor="middle">Dense packing</text>
+                    
+                    <path d="M 255 100 L 305 100" stroke="#667eea" stroke-width="4" marker-end="url(#arrow4)"/>
+                    
+                    <rect x="310" y="50" width="200" height="100" rx="10" fill="#E3F2FD" stroke="#1976D2" stroke-width="3"/>
+                    <text x="410" y="80" font-size="16" font-weight="bold" fill="#0D47A1" text-anchor="middle">Tissue Placement</text>
+                    <text x="410" y="105" font-size="13" fill="#666" text-anchor="middle">mRNA capture</text>
+                    <text x="410" y="125" font-size="13" fill="#666" text-anchor="middle">on bead surface</text>
+                    
+                    <path d="M 515 100 L 565 100" stroke="#667eea" stroke-width="4" marker-end="url(#arrow4)"/>
+                    
+                    <rect x="570" y="50" width="200" height="100" rx="10" fill="#F3E5F5" stroke="#7B1FA2" stroke-width="3"/>
+                    <text x="670" y="80" font-size="16" font-weight="bold" fill="#6A1B9A" text-anchor="middle">Library Prep</text>
+                    <text x="670" y="105" font-size="13" fill="#666" text-anchor="middle">cDNA synthesis</text>
+                    <text x="670" y="125" font-size="13" fill="#666" text-anchor="middle">+ spatial barcode</text>
+                    
+                    <path d="M 775 100 L 825 100" stroke="#667eea" stroke-width="4" marker-end="url(#arrow4)"/>
+                    
+                    <rect x="830" y="50" width="200" height="100" rx="10" fill="#FFF3E0" stroke="#F57C00" stroke-width="3"/>
+                    <text x="930" y="80" font-size="16" font-weight="bold" fill="#E65100" text-anchor="middle">Spatial Map</text>
+                    <text x="930" y="105" font-size="13" fill="#666" text-anchor="middle">10μm resolution</text>
+                    <text x="930" y="125" font-size="13" fill="#666" text-anchor="middle">whole transcriptome</text>
+                    
+                    <defs>
+                        <marker id="arrow4" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#667eea"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <table class="specs-table">
+                <tr>
+                    <th>Parameter</th>
+                    <th>Slide-seq</th>
+                    <th>Slide-seqV2</th>
+                </tr>
+                <tr>
+                    <td><strong>Spatial Resolution</strong></td>
+                    <td colspan="2">10 μm (near-cellular resolution)</td>
+                </tr>
+                <tr>
+                    <td><strong>Bead Size</strong></td>
+                    <td colspan="2">10 μm diameter</td>
+                </tr>
+                <tr>
+                    <td><strong>Bead Density</strong></td>
+                    <td colspan="2">~100 million beads/cm² (densely packed)</td>
+                </tr>
+                <tr>
+                    <td><strong>UMIs per Bead</strong></td>
+                    <td>~150 UMIs</td>
+                    <td><strong>~1,500 UMIs (10-fold ↑)</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Genes Detected</strong></td>
+                    <td>~600 genes/bead</td>
+                    <td><strong>~3,000 genes/bead (5-fold ↑)</strong></td>
+                </tr>
+                <tr>
+                    <td><strong>Gene Coverage</strong></td>
+                    <td colspan="2">Whole transcriptome (unbiased)</td>
+                </tr>
+                <tr>
+                    <td><strong>Tissue Compatibility</strong></td>
+                    <td colspan="2">Fresh-frozen tissues primarily</td>
+                </tr>
+            </table>
+
+            <div class="features">
+                <div class="feature-item">
+                    <h4>🎲 Random Bead Packing</h4>
+                    <p>Unlike fixed arrays, random bead distribution enables flexible spatial sampling that can adapt to any tissue geometry without pre-defined positions.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🔍 Near-Cellular Resolution</h4>
+                    <p>10μm bead size approaches single-cell dimensions for many cell types, enabling more precise spatial mapping than larger spot-based methods.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>📊 Whole Transcriptome</h4>
+                    <p>Unbiased capture of all mRNA species without pre-selection, enabling discovery-driven research and comprehensive gene expression profiling.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>⚡ Scalable Platform</h4>
+                    <p>Bead-based approach is highly scalable and can be adapted to large tissue sections or multiple samples in parallel experiments.</p>
+                </div>
+            </div>
+
+            <div class="pros-cons-grid">
+                <div class="pros-box">
+                    <h4>✓ Advantages</h4>
+                    <ul>
+                        <li>Higher spatial resolution (10μm) than Visium, approaching cellular scale</li>
+                        <li>Unbiased whole-transcriptome profiling without gene panel selection</li>
+                        <li>Flexible spatial sampling through random bead distribution</li>
+                        <li>Slide-seqV2 achieves 10-fold sensitivity improvement over original</li>
+                        <li>Compatible with standard sequencing workflows and analysis pipelines</li>
+                        <li>Can profile irregular tissue shapes and edges effectively</li>
+                        <li>Lower cost per data point compared to imaging-based methods</li>
+                        <li>Suitable for large tissue sections and whole-organ mapping</li>
+                    </ul>
+                </div>
+                <div class="cons-box">
+                    <h4>✗ Limitations</h4>
+                    <ul>
+                        <li>Still captures multiple cells per bead in dense tissues (not true single-cell)</li>
+                        <li>Requires computational deconvolution for cell type assignment</li>
+                        <li>Random bead placement creates irregular spatial sampling</li>
+                        <li>Lower gene detection efficiency compared to optimized scRNA-seq</li>
+                        <li>Primarily optimized for fresh-frozen tissues, FFPE compatibility limited</li>
+                        <li>Complex bead preparation and quality control requirements</li>
+                        <li>Spatial barcode assignment requires computational image analysis</li>
+                        <li>Variable bead packing density can create sampling artifacts</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="applications-box">
+                <h4>🎯 Key Applications</h4>
+                <ul>
+                    <li><strong>Brain Mapping:</strong> High-resolution spatial transcriptomics of brain regions, cell type mapping across cortical layers, analysis of neuroanatomical structures</li>
+                    <li><strong>Developmental Biology:</strong> Spatiotemporal profiling during organogenesis with near-cellular resolution, tracking cell fate transitions and tissue boundaries</li>
+                    <li><strong>Tumor Microenvironment:</strong> Characterization of cancer-immune interfaces, spatial heterogeneity analysis, mapping of invasive margins with improved resolution</li>
+                    <li><strong>Comparative Studies:</strong> Cross-tissue and cross-species spatial transcriptome comparisons, evolutionary analysis of tissue organization</li>
+                    <li><strong>Organ-Scale Mapping:</strong> Whole-organ spatial profiling to understand tissue-level organization, regional specialization, organ-wide gene expression gradients</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SECTION 5: RESOLUTION TRADE-OFFS -->
+        <div class="detail-section">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <h2>Resolution Trade-offs & Technology Selection</h2>
+            </div>
+            <p class="section-tagline">Balancing Spatial Resolution, Gene Coverage, and Throughput</p>
+            
+            <p class="description">
+                The field of spatial transcriptomics presents researchers with a fundamental three-way trade-off between <strong>spatial resolution</strong>, <strong>gene coverage</strong>, and <strong>experimental throughput</strong>. This triangle of constraints forces strategic decisions based on specific biological questions. High-resolution imaging methods like MERFISH and seqFISH provide subcellular precision but require targeted gene panels and extended acquisition times. Sequencing-based approaches like Visium and Slide-seq offer unbiased whole-transcriptome profiling with faster turnaround but at lower spatial resolution. Understanding these trade-offs is essential for selecting the optimal technology for each research question, tissue type, and experimental scale. No single technology excels in all three dimensions—the key is matching the method to your scientific priorities.
+            </p>
+
+            <div class="diagram-container">
+                <div class="diagram-title">Technology Comparison Matrix</div>
+                <svg width="100%" viewBox="0 0 1100 400" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Triangle trade-off -->
+                    <g transform="translate(550, 100)">
+                        <polygon points="0,0 -250,300 250,300" fill="#f0f4ff" opacity="0.5" stroke="#667eea" stroke-width="4"/>
+                        
+                        <!-- Vertices -->
+                        <circle cx="0" cy="0" r="30" fill="#1976D2" opacity="0.9"/>
+                        <text x="0" y="8" font-size="14" font-weight="bold" fill="white" text-anchor="middle">High</text>
+                        <text x="0" y="-45" font-size="16" font-weight="bold" fill="#0D47A1" text-anchor="middle">Resolution</text>
+                        
+                        <circle cx="-250" cy="300" r="30" fill="#388E3C" opacity="0.9"/>
+                        <text x="-250" y="308" font-size="14" font-weight="bold" fill="white" text-anchor="middle">High</text>
+                        <text x="-250" y="345" font-size="16" font-weight="bold" fill="#1B5E20" text-anchor="middle">Gene Coverage</text>
+                        
+                        <circle cx="250" cy="300" r="30" fill="#F57C00" opacity="0.9"/>
+                        <text x="250" y="308" font-size="14" font-weight="bold" fill="white" text-anchor="middle">High</text>
+                        <text x="250" y="345" font-size="16" font-weight="bold" fill="#E65100" text-anchor="middle">Throughput</text>
+                        
+                        <!-- Technology positions -->
+                        <circle cx="-40" cy="90" r="25" fill="#9C27B0" opacity="0.8" stroke="#4A148C" stroke-width="2"/>
+                        <text x="-40" y="95" font-size="11" font-weight="bold" fill="white" text-anchor="middle">MERFISH</text>
+                        
+                        <circle cx="30" cy="230" r="25" fill="#2196F3" opacity="0.8" stroke="#0D47A1" stroke-width="2"/>
+                        <text x="30" y="235" font-size="11" font-weight="bold" fill="white" text-anchor="middle">Visium</text>
+                        
+                        <circle cx="-70" cy="200" r="25" fill="#00BCD4" opacity="0.8" stroke="#006064" stroke-width="2"/>
+                        <text x="-70" y="205" font-size="10" font-weight="bold" fill="white" text-anchor="middle">Slide-seq</text>
+                        
+                        <circle cx="-20" cy="120" r="25" fill="#673AB7" opacity="0.8" stroke="#311B92" stroke-width="2"/>
+                        <text x="-20" y="125" font-size="10" font-weight="bold" fill="white" text-anchor="middle">seqFISH</text>
+                    </g>
+                    
+                    <!-- Legend -->
+                    <rect x="50" y="320" width="400" height="60" rx="8" fill="white" stroke="#667eea" stroke-width="2"/>
+                    <text x="250" y="345" font-size="14" font-weight="bold" fill="#333" text-anchor="middle">The Trade-Off Triangle</text>
+                    <text x="250" y="365" font-size="11" fill="#666" text-anchor="middle">No technology can simultaneously maximize all three parameters</text>
+                </svg>
+            </div>
+
+            <table class="specs-table">
+                <tr>
+                    <th>Technology</th>
+                    <th>Resolution</th>
+                    <th>Gene Count</th>
+                    <th>Throughput</th>
+                    <th>Best Use Case</th>
+                </tr>
+                <tr>
+                    <td><strong>Visium</strong></td>
+                    <td>55 μm<br/>(multi-cell)</td>
+                    <td>Whole transcriptome<br/>(18,000+ genes)</td>
+                    <td>⭐⭐⭐⭐⭐<br/>Very High</td>
+                    <td>Discovery studies, large tissue surveys, unbiased profiling</td>
+                </tr>
+                <tr>
+                    <td><strong>Slide-seqV2</strong></td>
+                    <td>10 μm<br/>(near-cellular)</td>
+                    <td>Whole transcriptome<br/>(3,000+ genes)</td>
+                    <td>⭐⭐⭐⭐<br/>High</td>
+                    <td>Higher resolution discovery, brain mapping, organ-scale studies</td>
+                </tr>
+                <tr>
+                    <td><strong>MERFISH</strong></td>
+                    <td>~100-200 nm<br/>(subcellular)</td>
+                    <td>Targeted panel<br/>(100-1,000 genes)</td>
+                    <td>⭐⭐<br/>Medium</td>
+                    <td>Hypothesis-driven studies, cell type ID, subcellular RNA</td>
+                </tr>
+                <tr>
+                    <td><strong>seqFISH+</strong></td>
+                    <td>~100 nm<br/>(subcellular)</td>
+                    <td>Ultra-high mux<br/>(10,000+ genes)</td>
+                    <td>⭐<br/>Low</td>
+                    <td>Comprehensive high-res mapping, 3D architecture, systems biology</td>
+                </tr>
+            </table>
+
+            <div class="features">
+                <div class="feature-item">
+                    <h4>🎯 Resolution vs Coverage</h4>
+                    <p>Inverse relationship: Higher spatial resolution typically requires targeted approaches, while whole-transcriptome methods sacrifice resolution for comprehensive coverage.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>⚡ Throughput Constraints</h4>
+                    <p>Imaging-based methods require extensive acquisition time (days), limiting throughput. Sequencing-based approaches enable parallel processing of many samples.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>💰 Cost Considerations</h4>
+                    <p>Cost per gene varies dramatically: sequencing-based methods are cost-effective for many genes, while imaging methods excel for specific targeted genes.</p>
+                </div>
+                <div class="feature-item">
+                    <h4>🔬 Technical Expertise</h4>
+                    <p>Commercial platforms (Visium) offer standardization and ease of use. Advanced imaging methods require specialized microscopy expertise.</p>
+                </div>
+            </div>
+
+            <div class="pros-cons-grid">
+                <div class="pros-box">
+                    <h4>✓ Strategic Advantages of Each Approach</h4>
+                    <ul>
+                        <li><strong>Visium:</strong> Best for exploratory studies, hypothesis generation, when comprehensive gene coverage is critical</li>
+                        <li><strong>Slide-seq:</strong> Optimal when you need better resolution than Visium but still want whole-transcriptome profiling</li>
+                        <li><strong>MERFISH:</strong> Perfect for hypothesis testing with known gene panels, validating scRNA-seq findings spatially</li>
+                        <li><strong>seqFISH:</strong> Ultimate choice when both high gene coverage AND subcellular resolution are required</li>
+                    </ul>
+                </div>
+                <div class="cons-box">
+                    <h4>✗ Common Pitfalls to Avoid</h4>
+                    <ul>
+                        <li>Using imaging methods when genes of interest are unknown - wastes time and resources</li>
+                        <li>Choosing Visium for rare cell type analysis when cells are smaller than 55μm spots</li>
+                        <li>Attempting seqFISH for time-sensitive projects - requires weeks of optimization</li>
+                        <li>Ignoring tissue type compatibility (FFPE vs fresh-frozen requirements)</li>
+                        <li>Underestimating computational requirements for high-resolution imaging data</li>
+                        <li>Not considering integration with existing scRNA-seq data early in planning</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="applications-box">
+                <h4>🎯 Integrated Workflow Strategies</h4>
+                <ul>
+                    <li><strong>Discovery → Validation Workflow:</strong> Start with Visium for unbiased discovery, identify key genes and regions, then validate with MERFISH at subcellular resolution</li>
+                    <li><strong>scRNA-seq Integration:</strong> Generate single-cell reference atlas first, then use Visium or Slide-seq for spatial mapping with cell type deconvolution algorithms</li>
+                    <li><strong>Multi-Technology Approach:</strong> Combine complementary methods on serial sections - Visium for broad coverage, MERFISH for specific regions, immunofluorescence for proteins</li>
+                    <li><strong>Iterative Refinement:</strong> Use lower-resolution methods to identify spatial domains, then apply higher-resolution techniques to boundary regions and interfaces</li>
+                    <li><strong>3D Reconstruction:</strong> Stack seqFISH or MERFISH z-sections for true 3D tissue maps, or use Slide-seq on serial sections for organ-scale 3D atlases</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Final Summary -->
+        <div class="highlight-box" style="margin-top: 60px; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">
+            🔬 <strong>Key Takeaway:</strong> There is no single "best" spatial transcriptomics technology. The optimal choice depends on your specific biological question, required resolution, gene coverage needs, sample type, budget, and timeline. Understanding the fundamental trade-offs enables strategic technology selection for maximum scientific impact.
+        </div>
+
+        <div style="text-align: center; margin-top: 40px; padding: 30px; color: #888; font-size: 14px;">
+            <p><strong>Spatial Transcriptomics Technologies - Comprehensive Guide</strong></p>
+            <p>© 2024 | This guide provides an overview of major spatial transcriptomics platforms for research and educational purposes</p>
         </div>
     </div>
 </body>

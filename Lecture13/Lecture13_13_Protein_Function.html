@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Protein Function</title>
+    <title>Protein Function - Comprehensive Guide</title>
     <style>
         * {
             margin: 0;
@@ -13,16 +13,19 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .hero-section {
+            width: 100%;
             padding: 40px 60px;
             background: white;
         }
@@ -40,7 +43,7 @@
         .content-wrapper {
             display: flex;
             gap: 25px;
-            height: 385px;
+            margin-bottom: 40px;
         }
         
         .function-diagram {
@@ -63,6 +66,7 @@
             border-radius: 6px;
             padding: 13px 18px;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .method-item:hover {
@@ -99,146 +103,959 @@
             0%, 100% { opacity: 0.6; }
             50% { opacity: 1; }
         }
+        
+        /* Detailed sections */
+        .detailed-sections {
+            background: #f8f9fa;
+            padding: 40px 60px;
+        }
+        
+        .section {
+            background: white;
+            border-radius: 10px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .section-number {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            background: #1E64C8;
+            color: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            font-weight: 700;
+        }
+        
+        .section-title {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E64C8;
+            flex: 1;
+        }
+        
+        .section-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .description {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .description h3 {
+            color: #2874d8;
+            font-size: 18px;
+            margin-bottom: 5px;
+        }
+        
+        .description p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        .key-points {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #1E64C8;
+        }
+        
+        .key-points h4 {
+            color: #1E64C8;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+        
+        .key-points ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .key-points li {
+            padding: 5px 0;
+            padding-left: 20px;
+            position: relative;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        .key-points li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #1E64C8;
+        }
+        
+        .visualization {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .example-box {
+            background: #fff;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+        
+        .example-title {
+            font-weight: 600;
+            color: #2874d8;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 15px;
+            border-radius: 6px;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            overflow-x: auto;
+        }
+        
+        .highlight {
+            color: #66d9ef;
+        }
+        
+        .go-term {
+            background: #e8f2ff;
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 5px;
+            font-size: 12px;
+            border: 1px solid #1E64C8;
+        }
+        
+        .ec-number {
+            background: #fff3cd;
+            padding: 8px 12px;
+            border-radius: 5px;
+            display: inline-block;
+            margin: 5px;
+            font-size: 12px;
+            border: 1px solid #e0a800;
+            font-family: monospace;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Protein Function</div>
-        <div class="content-wrapper">
-            <div class="function-diagram">
-                <svg width="560" height="385" viewBox="0 0 560 385">
-                    <text x="280" y="20" font-size="15" fill="#333" text-anchor="middle" font-weight="600">Multi-Level Function Prediction</text>
-                    
-                    <!-- Central Protein -->
-                    <g transform="translate(280, 180)">
-                        <g class="protein-rotate">
-                            <!-- Protein structure (simplified) -->
-                            <circle cx="0" cy="0" r="45" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
-                            
-                            <!-- Alpha helices -->
-                            <path d="M -20,-30 Q -15,-20 -10,-30 T 0,-30 T 10,-30" stroke="#1E64C8" stroke-width="3" fill="none"/>
-                            <path d="M -30,0 Q -20,5 -30,10" stroke="#2874d8" stroke-width="3" fill="none"/>
-                            <path d="M 30,0 Q 20,5 30,10" stroke="#2874d8" stroke-width="3" fill="none"/>
-                            
-                            <!-- Beta sheets -->
-                            <rect x="-15" y="15" width="30" height="4" fill="#1E64C8" opacity="0.7"/>
-                            <rect x="-15" y="22" width="30" height="4" fill="#2874d8" opacity="0.7"/>
-                            
-                            <text x="0" y="5" font-size="12" fill="#333" text-anchor="middle" font-weight="600">Protein</text>
-                        </g>
-                    </g>
-                    
-                    <!-- GO Terms (Gene Ontology) -->
-                    <g transform="translate(60, 60)">
-                        <rect x="0" y="0" width="140" height="80" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="70" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="700">GO Terms</text>
+        <!-- Original Hero Section -->
+        <div class="hero-section">
+            <div class="title">Protein Function Prediction</div>
+            <div class="content-wrapper">
+                <div class="function-diagram">
+                    <svg width="560" height="385" viewBox="0 0 560 385">
+                        <text x="280" y="20" font-size="15" fill="#333" text-anchor="middle" font-weight="600">Multi-Level Function Prediction</text>
                         
-                        <g transform="translate(10, 30)">
-                            <circle cx="5" cy="5" r="3" fill="#1E64C8"/>
-                            <text x="12" y="8" font-size="10" fill="#333">Molecular Function</text>
-                            
-                            <circle cx="5" cy="20" r="3" fill="#2874d8"/>
-                            <text x="12" y="23" font-size="10" fill="#333">Biological Process</text>
-                            
-                            <circle cx="5" cy="35" r="3" fill="#5fa3e8"/>
-                            <text x="12" y="38" font-size="10" fill="#333">Cellular Component</text>
+                        <!-- Central Protein -->
+                        <g transform="translate(280, 180)">
+                            <g class="protein-rotate">
+                                <circle cx="0" cy="0" r="45" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                                
+                                <path d="M -20,-30 Q -15,-20 -10,-30 T 0,-30 T 10,-30" stroke="#1E64C8" stroke-width="3" fill="none"/>
+                                <path d="M -30,0 Q -20,5 -30,10" stroke="#2874d8" stroke-width="3" fill="none"/>
+                                <path d="M 30,0 Q 20,5 30,10" stroke="#2874d8" stroke-width="3" fill="none"/>
+                                
+                                <rect x="-15" y="15" width="30" height="4" fill="#1E64C8" opacity="0.7"/>
+                                <rect x="-15" y="22" width="30" height="4" fill="#2874d8" opacity="0.7"/>
+                                
+                                <text x="0" y="5" font-size="12" fill="#333" text-anchor="middle" font-weight="600">Protein</text>
+                            </g>
                         </g>
                         
-                        <path d="M 140,70 L 235,155" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="3,3" class="function-pulse"/>
-                    </g>
-                    
-                    <!-- EC Numbers -->
-                    <g transform="translate(360, 60)">
-                        <rect x="0" y="0" width="140" height="80" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
-                        <text x="70" y="20" font-size="12" fill="#e0a800" text-anchor="middle" font-weight="700">EC Numbers</text>
-                        
-                        <g transform="translate(10, 30)">
-                            <text x="0" y="10" font-size="10" fill="#333" font-family="monospace">EC 3.4.21.4</text>
-                            <text x="0" y="25" font-size="9" fill="#666">Serine protease</text>
-                            <text x="0" y="40" font-size="9" fill="#666">Catalytic activity</text>
-                        </g>
-                        
-                        <path d="M 360,70 L 325,155" stroke="#e0a800" stroke-width="1.5" stroke-dasharray="3,3" class="function-pulse" style="animation-delay: 0.5s"/>
-                    </g>
-                    
-                    <!-- Domain Annotation -->
-                    <g transform="translate(60, 250)">
-                        <rect x="0" y="0" width="140" height="80" rx="5" fill="#d4edda" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="70" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="700">Domains</text>
-                        
-                        <g transform="translate(10, 30)">
-                            <!-- Domain visualization -->
-                            <rect x="0" y="0" width="120" height="8" rx="2" fill="#e0e0e0"/>
-                            <rect x="5" y="0" width="30" height="8" rx="2" fill="#1E64C8" opacity="0.8"/>
-                            <rect x="45" y="0" width="25" height="8" rx="2" fill="#2874d8" opacity="0.8"/>
-                            <rect x="80" y="0" width="35" height="8" rx="2" fill="#5fa3e8" opacity="0.8"/>
+                        <!-- GO Terms -->
+                        <g transform="translate(60, 60)">
+                            <rect x="0" y="0" width="140" height="80" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="70" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="700">GO Terms</text>
                             
-                            <text x="60" y="22" font-size="9" fill="#666" text-anchor="middle">Kinase domain</text>
-                            <text x="60" y="35" font-size="9" fill="#666" text-anchor="middle">SH2 domain</text>
-                        </g>
-                        
-                        <path d="M 140,260 L 235,205" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="3,3" class="function-pulse" style="animation-delay: 1s"/>
-                    </g>
-                    
-                    <!-- Protein Interactions -->
-                    <g transform="translate(360, 250)">
-                        <rect x="0" y="0" width="140" height="80" rx="5" fill="#e3f2fd" stroke="#2874d8" stroke-width="2"/>
-                        <text x="70" y="20" font-size="12" fill="#2874d8" text-anchor="middle" font-weight="700">Interactions</text>
-                        
-                        <g transform="translate(35, 30)">
-                            <!-- Network visualization -->
-                            <circle cx="35" cy="20" r="8" fill="#2874d8" opacity="0.8"/>
-                            <circle cx="15" cy="15" r="5" fill="#5fa3e8"/>
-                            <circle cx="55" cy="15" r="5" fill="#5fa3e8"/>
-                            <circle cx="15" cy="35" r="5" fill="#5fa3e8"/>
-                            <circle cx="55" cy="35" r="5" fill="#5fa3e8"/>
+                            <g transform="translate(10, 30)">
+                                <circle cx="5" cy="5" r="3" fill="#1E64C8"/>
+                                <text x="12" y="8" font-size="10" fill="#333">Molecular Function</text>
+                                
+                                <circle cx="5" cy="20" r="3" fill="#2874d8"/>
+                                <text x="12" y="23" font-size="10" fill="#333">Biological Process</text>
+                                
+                                <circle cx="5" cy="35" r="3" fill="#5fa3e8"/>
+                                <text x="12" y="38" font-size="10" fill="#333">Cellular Component</text>
+                            </g>
                             
-                            <line x1="35" y1="20" x2="15" y2="15" stroke="#2874d8" stroke-width="1" opacity="0.5"/>
-                            <line x1="35" y1="20" x2="55" y2="15" stroke="#2874d8" stroke-width="1" opacity="0.5"/>
-                            <line x1="35" y1="20" x2="15" y2="35" stroke="#2874d8" stroke-width="1" opacity="0.5"/>
-                            <line x1="35" y1="20" x2="55" y2="35" stroke="#2874d8" stroke-width="1" opacity="0.5"/>
+                            <path d="M 140,70 L 235,155" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="3,3" class="function-pulse"/>
                         </g>
                         
-                        <path d="M 360,260 L 325,205" stroke="#2874d8" stroke-width="1.5" stroke-dasharray="3,3" class="function-pulse" style="animation-delay: 1.5s"/>
-                    </g>
-                    
-                    <!-- Evolutionary Context -->
-                    <g transform="translate(180, 340)">
-                        <rect x="0" y="0" width="200" height="35" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="1.5"/>
-                        <text x="100" y="15" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">Evolutionary Insights</text>
-                        <text x="100" y="27" font-size="9" fill="#666" text-anchor="middle">Conservation patterns → Functional importance</text>
-                    </g>
-                    
-                    <!-- ML Model indicator -->
-                    <g transform="translate(230, 120)">
-                        <rect x="0" y="0" width="100" height="25" rx="12" fill="#fff3cd" stroke="#e0a800" stroke-width="1.5"/>
-                        <text x="50" y="17" font-size="10" fill="#e0a800" text-anchor="middle" font-weight="600">🤖 AI Model</text>
-                    </g>
-                </svg>
+                        <!-- EC Numbers -->
+                        <g transform="translate(360, 60)">
+                            <rect x="0" y="0" width="140" height="80" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                            <text x="70" y="20" font-size="12" fill="#e0a800" text-anchor="middle" font-weight="700">EC Numbers</text>
+                            
+                            <g transform="translate(10, 30)">
+                                <text x="0" y="10" font-size="10" fill="#333" font-family="monospace">EC 3.4.21.4</text>
+                                <text x="0" y="25" font-size="9" fill="#666">Serine protease</text>
+                                <text x="0" y="40" font-size="9" fill="#666">Catalytic activity</text>
+                            </g>
+                            
+                            <path d="M 360,70 L 325,155" stroke="#e0a800" stroke-width="1.5" stroke-dasharray="3,3" class="function-pulse" style="animation-delay: 0.5s"/>
+                        </g>
+                        
+                        <!-- Domain Annotation -->
+                        <g transform="translate(60, 250)">
+                            <rect x="0" y="0" width="140" height="80" rx="5" fill="#d4edda" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="70" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="700">Domains</text>
+                            
+                            <g transform="translate(10, 30)">
+                                <rect x="0" y="0" width="120" height="8" rx="2" fill="#e0e0e0"/>
+                                <rect x="5" y="0" width="30" height="8" rx="2" fill="#1E64C8" opacity="0.8"/>
+                                <rect x="45" y="0" width="25" height="8" rx="2" fill="#2874d8" opacity="0.8"/>
+                                <rect x="80" y="0" width="35" height="8" rx="2" fill="#5fa3e8" opacity="0.8"/>
+                                
+                                <text x="60" y="22" font-size="9" fill="#666" text-anchor="middle">Kinase domain</text>
+                                <text x="60" y="35" font-size="9" fill="#666" text-anchor="middle">SH2 domain</text>
+                            </g>
+                            
+                            <path d="M 140,260 L 235,205" stroke="#1E64C8" stroke-width="1.5" stroke-dasharray="3,3" class="function-pulse" style="animation-delay: 1s"/>
+                        </g>
+                        
+                        <!-- Interactions -->
+                        <g transform="translate(360, 250)">
+                            <rect x="0" y="0" width="140" height="80" rx="5" fill="#e3f2fd" stroke="#2874d8" stroke-width="2"/>
+                            <text x="70" y="20" font-size="12" fill="#2874d8" text-anchor="middle" font-weight="700">Interactions</text>
+                            
+                            <g transform="translate(35, 30)">
+                                <circle cx="35" cy="20" r="8" fill="#2874d8" opacity="0.8"/>
+                                <circle cx="15" cy="15" r="5" fill="#5fa3e8"/>
+                                <circle cx="55" cy="15" r="5" fill="#5fa3e8"/>
+                                <circle cx="15" cy="35" r="5" fill="#5fa3e8"/>
+                                <circle cx="55" cy="35" r="5" fill="#5fa3e8"/>
+                                
+                                <line x1="35" y1="20" x2="15" y2="15" stroke="#2874d8" stroke-width="1" opacity="0.5"/>
+                                <line x1="35" y1="20" x2="55" y2="15" stroke="#2874d8" stroke-width="1" opacity="0.5"/>
+                                <line x1="35" y1="20" x2="15" y2="35" stroke="#2874d8" stroke-width="1" opacity="0.5"/>
+                                <line x1="35" y1="20" x2="55" y2="35" stroke="#2874d8" stroke-width="1" opacity="0.5"/>
+                            </g>
+                            
+                            <path d="M 360,260 L 325,205" stroke="#2874d8" stroke-width="1.5" stroke-dasharray="3,3" class="function-pulse" style="animation-delay: 1.5s"/>
+                        </g>
+                        
+                        <!-- Evolutionary Context -->
+                        <g transform="translate(180, 340)">
+                            <rect x="0" y="0" width="200" height="35" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="1.5"/>
+                            <text x="100" y="15" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">Evolutionary Insights</text>
+                            <text x="100" y="27" font-size="9" fill="#666" text-anchor="middle">Conservation patterns → Functional importance</text>
+                        </g>
+                        
+                        <!-- ML Model indicator -->
+                        <g transform="translate(230, 120)">
+                            <rect x="0" y="0" width="100" height="25" rx="12" fill="#fff3cd" stroke="#e0a800" stroke-width="1.5"/>
+                            <text x="50" y="17" font-size="10" fill="#e0a800" text-anchor="middle" font-weight="600">🤖 AI Model</text>
+                        </g>
+                    </svg>
+                </div>
+                
+                <div class="prediction-methods">
+                    <div class="method-item">
+                        <div class="method-label">GO term prediction</div>
+                        <div class="method-info">Molecular/biological/cellular</div>
+                    </div>
+                    <div class="method-item">
+                        <div class="method-label">EC number classification</div>
+                        <div class="method-info">Enzyme commission numbers</div>
+                    </div>
+                    <div class="method-item">
+                        <div class="method-label">Domain annotation</div>
+                        <div class="method-info">Functional regions identification</div>
+                    </div>
+                    <div class="method-item">
+                        <div class="method-label">Interaction prediction</div>
+                        <div class="method-info">Protein-protein networks</div>
+                    </div>
+                    <div class="method-item">
+                        <div class="method-label">Evolutionary insights</div>
+                        <div class="method-info">Conservation-function mapping</div>
+                    </div>
+                </div>
             </div>
+        </div>
+
+        <!-- Detailed Sections -->
+        <div class="detailed-sections">
             
-            <div class="prediction-methods">
-                <div class="method-item">
-                    <div class="method-label">GO term prediction</div>
-                    <div class="method-info">Molecular/biological/cellular</div>
+            <!-- Section 1: GO Term Prediction -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">1</div>
+                    <div class="section-title">GO Term Prediction</div>
                 </div>
-                <div class="method-item">
-                    <div class="method-label">EC number classification</div>
-                    <div class="method-info">Enzyme commission numbers</div>
-                </div>
-                <div class="method-item">
-                    <div class="method-label">Domain annotation</div>
-                    <div class="method-info">Functional regions identification</div>
-                </div>
-                <div class="method-item">
-                    <div class="method-label">Interaction prediction</div>
-                    <div class="method-info">Protein-protein networks</div>
-                </div>
-                <div class="method-item">
-                    <div class="method-label">Evolutionary insights</div>
-                    <div class="method-info">Conservation-function mapping</div>
+                
+                <div class="section-content">
+                    <div class="description">
+                        <div>
+                            <h3>What are GO Terms?</h3>
+                            <p>Gene Ontology (GO) terms provide a standardized vocabulary to describe protein functions across three main domains. They enable consistent annotation of protein characteristics across different organisms and databases.</p>
+                        </div>
+                        
+                        <div class="key-points">
+                            <h4>Three GO Categories:</h4>
+                            <ul>
+                                <li><strong>Molecular Function (MF):</strong> Activities at the molecular level (e.g., catalytic activity, binding)</li>
+                                <li><strong>Biological Process (BP):</strong> Larger processes accomplished by multiple molecular activities (e.g., signal transduction, metabolism)</li>
+                                <li><strong>Cellular Component (CC):</strong> Location where a gene product is active (e.g., nucleus, mitochondrion)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="example-box">
+                            <div class="example-title">Example: Protein Kinase Annotation</div>
+                            <div>
+                                <span class="go-term">GO:0004672 - protein kinase activity</span>
+                                <span class="go-term">GO:0006468 - protein phosphorylation</span>
+                                <span class="go-term">GO:0005737 - cytoplasm</span>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="visualization">
+                        <svg width="400" height="380" viewBox="0 0 400 380">
+                            <defs>
+                                <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                                    <stop offset="0%" style="stop-color:#1E64C8;stop-opacity:0.8" />
+                                    <stop offset="100%" style="stop-color:#5fa3e8;stop-opacity:0.8" />
+                                </linearGradient>
+                            </defs>
+                            
+                            <text x="200" y="20" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="700">GO Hierarchical Structure</text>
+                            
+                            <!-- Root -->
+                            <rect x="150" y="40" width="100" height="35" rx="5" fill="url(#grad1)"/>
+                            <text x="200" y="62" font-size="12" fill="white" text-anchor="middle" font-weight="600">GO:0003674</text>
+                            <text x="200" y="75" font-size="9" fill="white" text-anchor="middle">Molecular Function</text>
+                            
+                            <!-- Level 1 -->
+                            <line x1="200" y1="75" x2="120" y2="110" stroke="#1E64C8" stroke-width="2"/>
+                            <line x1="200" y1="75" x2="280" y2="110" stroke="#1E64C8" stroke-width="2"/>
+                            
+                            <rect x="50" y="110" width="140" height="35" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="120" y="132" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">GO:0003824</text>
+                            <text x="120" y="143" font-size="9" fill="#666" text-anchor="middle">Catalytic activity</text>
+                            
+                            <rect x="210" y="110" width="140" height="35" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="280" y="132" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">GO:0005488</text>
+                            <text x="280" y="143" font-size="9" fill="#666" text-anchor="middle">Binding</text>
+                            
+                            <!-- Level 2 -->
+                            <line x1="120" y1="145" x2="80" y2="180" stroke="#2874d8" stroke-width="1.5"/>
+                            <line x1="120" y1="145" x2="160" y2="180" stroke="#2874d8" stroke-width="1.5"/>
+                            
+                            <rect x="10" y="180" width="140" height="35" rx="5" fill="#d4edda" stroke="#2874d8" stroke-width="2"/>
+                            <text x="80" y="202" font-size="10" fill="#2874d8" text-anchor="middle" font-weight="600">GO:0016740</text>
+                            <text x="80" y="213" font-size="8" fill="#666" text-anchor="middle">Transferase activity</text>
+                            
+                            <rect x="90" y="180" width="140" height="35" rx="5" fill="#d4edda" stroke="#2874d8" stroke-width="2"/>
+                            <text x="160" y="202" font-size="10" fill="#2874d8" text-anchor="middle" font-weight="600">GO:0016787</text>
+                            <text x="160" y="213" font-size="8" fill="#666" text-anchor="middle">Hydrolase activity</text>
+                            
+                            <!-- Level 3 (Specific) -->
+                            <line x1="80" y1="215" x2="80" y2="250" stroke="#5fa3e8" stroke-width="1.5"/>
+                            
+                            <rect x="10" y="250" width="140" height="45" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                            <text x="80" y="268" font-size="10" fill="#e0a800" text-anchor="middle" font-weight="700">GO:0016301</text>
+                            <text x="80" y="280" font-size="9" fill="#666" text-anchor="middle">Kinase activity</text>
+                            <text x="80" y="291" font-size="8" fill="#999" text-anchor="middle">⭐ Most specific</text>
+                            
+                            <!-- Annotation boxes -->
+                            <rect x="200" y="220" width="180" height="120" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="1.5"/>
+                            <text x="290" y="238" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="700">Prediction Features</text>
+                            
+                            <text x="210" y="258" font-size="9" fill="#666">✓ Sequence similarity</text>
+                            <text x="210" y="275" font-size="9" fill="#666">✓ Domain composition</text>
+                            <text x="210" y="292" font-size="9" fill="#666">✓ Phylogenetic profiles</text>
+                            <text x="210" y="309" font-size="9" fill="#666">✓ Protein interactions</text>
+                            <text x="210" y="326" font-size="9" fill="#666">✓ Gene expression data</text>
+                        </svg>
+                    </div>
                 </div>
             </div>
+
+            <!-- Section 2: EC Number Classification -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">2</div>
+                    <div class="section-title">EC Number Classification</div>
+                </div>
+                
+                <div class="section-content">
+                    <div class="description">
+                        <div>
+                            <h3>Enzyme Commission (EC) Numbers</h3>
+                            <p>EC numbers provide a hierarchical classification system for enzymes based on the chemical reactions they catalyze. Each EC number consists of four digits that progressively specify the enzyme's function.</p>
+                        </div>
+                        
+                        <div class="key-points">
+                            <h4>EC Number Structure (EC a.b.c.d):</h4>
+                            <ul>
+                                <li><strong>First digit (a):</strong> Main enzyme class (1-7)</li>
+                                <li><strong>Second digit (b):</strong> Subclass (substrate type)</li>
+                                <li><strong>Third digit (c):</strong> Sub-subclass (specific substrate)</li>
+                                <li><strong>Fourth digit (d):</strong> Serial number (specific enzyme)</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="example-box">
+                            <div class="example-title">Example: Trypsin Classification</div>
+                            <div class="code-block">
+<span class="highlight">EC 3.4.21.4</span>
+│ │ │  └─ Trypsin (specific enzyme)
+│ │ └──── Serine endopeptidase
+│ └────── Acting on peptide bonds
+└──────── Hydrolase
+                            </div>
+                        </div>
+                        
+                        <div>
+                            <h3>Prediction Approaches</h3>
+                            <p>Modern EC number prediction combines sequence-based methods with structural information and substrate specificity patterns. Machine learning models trained on annotated enzyme databases can predict EC numbers with high accuracy.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="visualization">
+                        <svg width="400" height="450" viewBox="0 0 400 450">
+                            <text x="200" y="20" font-size="14" fill="#e0a800" text-anchor="middle" font-weight="700">EC Classification System</text>
+                            
+                            <!-- Main Classes -->
+                            <rect x="20" y="40" width="360" height="200" rx="5" fill="#fff9e6" stroke="#e0a800" stroke-width="2"/>
+                            <text x="200" y="60" font-size="12" fill="#e0a800" text-anchor="middle" font-weight="600">Seven Main Enzyme Classes</text>
+                            
+                            <g transform="translate(40, 75)">
+                                <rect x="0" y="0" width="155" height="30" rx="3" fill="#fff3cd" stroke="#e0a800" stroke-width="1"/>
+                                <text x="5" y="20" font-size="10" fill="#333" font-weight="600">EC 1 - Oxidoreductases</text>
+                                
+                                <rect x="165" y="0" width="155" height="30" rx="3" fill="#fff3cd" stroke="#e0a800" stroke-width="1"/>
+                                <text x="170" y="20" font-size="10" fill="#333" font-weight="600">EC 2 - Transferases</text>
+                                
+                                <rect x="0" y="35" width="155" height="30" rx="3" fill="#fff3cd" stroke="#e0a800" stroke-width="1"/>
+                                <text x="5" y="55" font-size="10" fill="#333" font-weight="600">EC 3 - Hydrolases</text>
+                                
+                                <rect x="165" y="35" width="155" height="30" rx="3" fill="#fff3cd" stroke="#e0a800" stroke-width="1"/>
+                                <text x="170" y="55" font-size="10" fill="#333" font-weight="600">EC 4 - Lyases</text>
+                                
+                                <rect x="0" y="70" width="155" height="30" rx="3" fill="#fff3cd" stroke="#e0a800" stroke-width="1"/>
+                                <text x="5" y="90" font-size="10" fill="#333" font-weight="600">EC 5 - Isomerases</text>
+                                
+                                <rect x="165" y="70" width="155" height="30" rx="3" fill="#fff3cd" stroke="#e0a800" stroke-width="1"/>
+                                <text x="170" y="90" font-size="10" fill="#333" font-weight="600">EC 6 - Ligases</text>
+                                
+                                <rect x="82.5" y="105" width="155" height="30" rx="3" fill="#fff3cd" stroke="#e0a800" stroke-width="1"/>
+                                <text x="87.5" y="125" font-size="10" fill="#333" font-weight="600">EC 7 - Translocases</text>
+                            </g>
+                            
+                            <!-- Example Detail -->
+                            <rect x="20" y="260" width="360" height="170" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="200" y="280" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">Detailed Example: Protein Kinase</text>
+                            
+                            <g transform="translate(40, 295)">
+                                <circle cx="10" cy="10" r="6" fill="#e0a800"/>
+                                <text x="25" y="15" font-size="10" fill="#333" font-weight="600">EC 2.7.11.1 - Non-specific serine/threonine protein kinase</text>
+                                
+                                <rect x="25" y="25" width="310" height="95" rx="3" fill="white" stroke="#ddd" stroke-width="1"/>
+                                
+                                <text x="35" y="42" font-size="9" fill="#666">Reaction catalyzed:</text>
+                                <text x="35" y="57" font-size="9" fill="#333" font-family="monospace">ATP + protein → ADP + phosphoprotein</text>
+                                
+                                <text x="35" y="77" font-size="9" fill="#666">Substrate specificity:</text>
+                                <text x="35" y="92" font-size="9" fill="#333">Serine or threonine residues on target proteins</text>
+                                
+                                <text x="35" y="110" font-size="9" fill="#666">Cofactor requirement: Mg²⁺ or Mn²⁺</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 3: Domain Annotation -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">3</div>
+                    <div class="section-title">Domain Annotation</div>
+                </div>
+                
+                <div class="section-content">
+                    <div class="description">
+                        <div>
+                            <h3>What are Protein Domains?</h3>
+                            <p>Protein domains are distinct structural and functional units within a protein sequence. They are evolutionarily conserved regions that can fold independently and often retain function even when separated from the rest of the protein.</p>
+                        </div>
+                        
+                        <div class="key-points">
+                            <h4>Key Characteristics:</h4>
+                            <ul>
+                                <li><strong>Modularity:</strong> Can be mixed and matched in different proteins</li>
+                                <li><strong>Conservation:</strong> Similar domains found across different species</li>
+                                <li><strong>Function:</strong> Each domain typically has a specific function</li>
+                                <li><strong>Independence:</strong> Can fold and function independently</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="example-box">
+                            <div class="example-title">Common Domain Databases</div>
+                            <div style="display: flex; flex-direction: column; gap: 8px; margin-top: 10px;">
+                                <div style="background: #e8f2ff; padding: 8px; border-radius: 4px;">
+                                    <strong style="color: #1E64C8;">Pfam:</strong> <span style="font-size: 12px; color: #666;">Protein families database with HMM profiles</span>
+                                </div>
+                                <div style="background: #e8f2ff; padding: 8px; border-radius: 4px;">
+                                    <strong style="color: #1E64C8;">InterPro:</strong> <span style="font-size: 12px; color: #666;">Integrated resource of protein families</span>
+                                </div>
+                                <div style="background: #e8f2ff; padding: 8px; border-radius: 4px;">
+                                    <strong style="color: #1E64C8;">SMART:</strong> <span style="font-size: 12px; color: #666;">Simple Modular Architecture Research Tool</span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="visualization">
+                        <svg width="400" height="450" viewBox="0 0 400 450">
+                            <text x="200" y="20" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="700">Multi-Domain Protein Architecture</text>
+                            
+                            <!-- Example 1: Src Kinase -->
+                            <rect x="20" y="40" width="360" height="130" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="30" y="60" font-size="11" fill="#1E64C8" font-weight="600">Example 1: Src Kinase (c-Src)</text>
+                            
+                            <g transform="translate(30, 75)">
+                                <!-- Protein backbone -->
+                                <rect x="0" y="0" width="340" height="15" rx="2" fill="#e0e0e0"/>
+                                <text x="170" y="11" font-size="8" fill="#666" text-anchor="middle">520 amino acids</text>
+                                
+                                <!-- SH3 domain -->
+                                <rect x="10" y="0" width="50" height="15" rx="2" fill="#1E64C8"/>
+                                <text x="35" y="11" font-size="8" fill="white" text-anchor="middle" font-weight="600">SH3</text>
+                                <text x="35" y="32" font-size="8" fill="#1E64C8" text-anchor="middle">Proline-rich</text>
+                                <text x="35" y="42" font-size="8" fill="#666" text-anchor="middle">binding</text>
+                                
+                                <!-- SH2 domain -->
+                                <rect x="70" y="0" width="60" height="15" rx="2" fill="#2874d8"/>
+                                <text x="100" y="11" font-size="8" fill="white" text-anchor="middle" font-weight="600">SH2</text>
+                                <text x="100" y="32" font-size="8" fill="#2874d8" text-anchor="middle">pTyr binding</text>
+                                
+                                <!-- Kinase domain -->
+                                <rect x="150" y="0" width="120" height="15" rx="2" fill="#5fa3e8"/>
+                                <text x="210" y="11" font-size="8" fill="white" text-anchor="middle" font-weight="600">Kinase Domain</text>
+                                <text x="210" y="32" font-size="8" fill="#5fa3e8" text-anchor="middle">Catalytic activity</text>
+                                <text x="210" y="42" font-size="8" fill="#666" text-anchor="middle">ATP + substrate → products</text>
+                                
+                                <!-- Regulatory tail -->
+                                <rect x="280" y="0" width="50" height="15" rx="2" fill="#95c8f5"/>
+                                <text x="305" y="11" font-size="8" fill="#333" text-anchor="middle" font-weight="600">C-tail</text>
+                                <text x="305" y="32" font-size="8" fill="#666" text-anchor="middle">Regulatory</text>
+                            </g>
+                            
+                            <!-- Example 2: Antibody -->
+                            <rect x="20" y="185" width="360" height="110" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="30" y="205" font-size="11" fill="#1E64C8" font-weight="600">Example 2: Immunoglobulin (Antibody)</text>
+                            
+                            <g transform="translate(30, 220)">
+                                <!-- Heavy chain -->
+                                <text x="0" y="10" font-size="9" fill="#666">Heavy chain:</text>
+                                <rect x="70" y="0" width="260" height="12" rx="2" fill="#e0e0e0"/>
+                                
+                                <rect x="75" y="0" width="40" height="12" rx="2" fill="#e0a800"/>
+                                <text x="95" y="9" font-size="7" fill="white" text-anchor="middle" font-weight="600">VH</text>
+                                
+                                <rect x="120" y="0" width="40" height="12" rx="2" fill="#f5c542"/>
+                                <text x="140" y="9" font-size="7" fill="#333" text-anchor="middle" font-weight="600">CH1</text>
+                                
+                                <rect x="200" y="0" width="40" height="12" rx="2" fill="#f5c542"/>
+                                <text x="220" y="9" font-size="7" fill="#333" text-anchor="middle" font-weight="600">CH2</text>
+                                
+                                <rect x="245" y="0" width="40" height="12" rx="2" fill="#f5c542"/>
+                                <text x="265" y="9" font-size="7" fill="#333" text-anchor="middle" font-weight="600">CH3</text>
+                                
+                                <!-- Light chain -->
+                                <text x="0" y="35" font-size="9" fill="#666">Light chain:</text>
+                                <rect x="70" y="25" width="160" height="12" rx="2" fill="#e0e0e0"/>
+                                
+                                <rect x="75" y="25" width="40" height="12" rx="2" fill="#1E64C8"/>
+                                <text x="95" y="34" font-size="7" fill="white" text-anchor="middle" font-weight="600">VL</text>
+                                
+                                <rect x="120" y="25" width="40" height="12" rx="2" fill="#5fa3e8"/>
+                                <text x="140" y="34" font-size="7" fill="white" text-anchor="middle" font-weight="600">CL</text>
+                                
+                                <!-- Labels -->
+                                <text x="95" y="55" font-size="8" fill="#e0a800" text-anchor="middle">Variable</text>
+                                <text x="95" y="65" font-size="8" fill="#666" text-anchor="middle">(Antigen binding)</text>
+                                
+                                <text x="220" y="55" font-size="8" fill="#f5c542" text-anchor="middle">Constant</text>
+                                <text x="220" y="65" font-size="8" fill="#666" text-anchor="middle">(Effector functions)</text>
+                            </g>
+                            
+                            <!-- Prediction Methods -->
+                            <rect x="20" y="310" width="360" height="120" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="200" y="330" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">Domain Prediction Methods</text>
+                            
+                            <g transform="translate(40, 345)">
+                                <text x="0" y="12" font-size="9" fill="#333">🔍 <tspan font-weight="600">Sequence-based:</tspan> HMM profiles, pattern matching</text>
+                                <text x="0" y="28" font-size="9" fill="#333">🧬 <tspan font-weight="600">Structure-based:</tspan> Fold recognition, structural alignment</text>
+                                <text x="0" y="44" font-size="9" fill="#333">🤖 <tspan font-weight="600">Machine learning:</tspan> Deep learning models (e.g., AlphaFold)</text>
+                                <text x="0" y="60" font-size="9" fill="#333">📊 <tspan font-weight="600">Integrative:</tspan> Combining multiple evidence sources</text>
+                                <text x="0" y="76" font-size="9" fill="#333">🔗 <tspan font-weight="600">Context-aware:</tspan> Domain co-occurrence patterns</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 4: Protein Interaction Prediction -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">4</div>
+                    <div class="section-title">Protein Interaction Prediction</div>
+                </div>
+                
+                <div class="section-content">
+                    <div class="description">
+                        <div>
+                            <h3>Protein-Protein Interactions (PPIs)</h3>
+                            <p>Proteins rarely act alone in cells. Understanding how proteins interact with each other is crucial for deciphering cellular mechanisms, signaling pathways, and disease processes. Computational prediction of PPIs helps identify potential interaction partners.</p>
+                        </div>
+                        
+                        <div class="key-points">
+                            <h4>Types of Protein Interactions:</h4>
+                            <ul>
+                                <li><strong>Stable complexes:</strong> Long-lasting, often structural interactions</li>
+                                <li><strong>Transient interactions:</strong> Brief contacts for signaling or catalysis</li>
+                                <li><strong>Direct binding:</strong> Physical contact between protein surfaces</li>
+                                <li><strong>Indirect associations:</strong> Mediated through other molecules</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="example-box">
+                            <div class="example-title">Prediction Features</div>
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 10px;">
+                                <div style="background: #e3f2fd; padding: 8px; border-radius: 4px; font-size: 11px;">
+                                    <strong style="color: #2874d8;">Genomic:</strong> Gene fusion, gene neighbors
+                                </div>
+                                <div style="background: #e3f2fd; padding: 8px; border-radius: 4px; font-size: 11px;">
+                                    <strong style="color: #2874d8;">Proteomic:</strong> Experimental PPI data
+                                </div>
+                                <div style="background: #e3f2fd; padding: 8px; border-radius: 4px; font-size: 11px;">
+                                    <strong style="color: #2874d8;">Evolutionary:</strong> Co-evolution signals
+                                </div>
+                                <div style="background: #e3f2fd; padding: 8px; border-radius: 4px; font-size: 11px;">
+                                    <strong style="color: #2874d8;">Structural:</strong> Interface complementarity
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="visualization">
+                        <svg width="400" height="450" viewBox="0 0 400 450">
+                            <text x="200" y="20" font-size="14" fill="#2874d8" text-anchor="middle" font-weight="700">Protein Interaction Network</text>
+                            
+                            <!-- Main network visualization -->
+                            <g transform="translate(200, 160)">
+                                <!-- Central hub protein -->
+                                <circle cx="0" cy="0" r="25" fill="#2874d8" stroke="#1E64C8" stroke-width="2"/>
+                                <text x="0" y="5" font-size="11" fill="white" text-anchor="middle" font-weight="600">Hub</text>
+                                <text x="0" y="-40" font-size="9" fill="#2874d8" text-anchor="middle" font-weight="600">Central regulatory protein</text>
+                                
+                                <!-- First layer -->
+                                <g id="layer1">
+                                    <!-- Protein 1 -->
+                                    <circle cx="-90" cy="-50" r="18" fill="#5fa3e8" stroke="#2874d8" stroke-width="1.5"/>
+                                    <text x="-90" y="-46" font-size="9" fill="white" text-anchor="middle" font-weight="600">P1</text>
+                                    <line x1="-18" y1="-18" x2="-72" y2="-43" stroke="#2874d8" stroke-width="2" opacity="0.7"/>
+                                    <text x="-90" y="-68" font-size="7" fill="#666" text-anchor="middle">Kinase</text>
+                                    
+                                    <!-- Protein 2 -->
+                                    <circle cx="0" cy="-100" r="18" fill="#5fa3e8" stroke="#2874d8" stroke-width="1.5"/>
+                                    <text x="0" y="-96" font-size="9" fill="white" text-anchor="middle" font-weight="600">P2</text>
+                                    <line x1="0" y1="-25" x2="0" y2="-82" stroke="#2874d8" stroke-width="2" opacity="0.7"/>
+                                    <text x="0" y="-118" font-size="7" fill="#666" text-anchor="middle">Transcription</text>
+                                    
+                                    <!-- Protein 3 -->
+                                    <circle cx="90" cy="-50" r="18" fill="#5fa3e8" stroke="#2874d8" stroke-width="1.5"/>
+                                    <text x="90" y="-46" font-size="9" fill="white" text-anchor="middle" font-weight="600">P3</text>
+                                    <line x1="18" y1="-18" x2="72" y2="-43" stroke="#2874d8" stroke-width="2" opacity="0.7"/>
+                                    <text x="90" y="-68" font-size="7" fill="#666" text-anchor="middle">Receptor</text>
+                                    
+                                    <!-- Protein 4 -->
+                                    <circle cx="90" cy="50" r="18" fill="#5fa3e8" stroke="#2874d8" stroke-width="1.5"/>
+                                    <text x="90" y="54" font-size="9" fill="white" text-anchor="middle" font-weight="600">P4</text>
+                                    <line x1="18" y1="18" x2="72" y2="43" stroke="#2874d8" stroke-width="2" opacity="0.7"/>
+                                    <text x="90" y="68" font-size="7" fill="#666" text-anchor="middle">Adapter</text>
+                                    
+                                    <!-- Protein 5 -->
+                                    <circle cx="0" cy="100" r="18" fill="#5fa3e8" stroke="#2874d8" stroke-width="1.5"/>
+                                    <text x="0" y="104" font-size="9" fill="white" text-anchor="middle" font-weight="600">P5</text>
+                                    <line x1="0" y1="25" x2="0" y2="82" stroke="#2874d8" stroke-width="2" opacity="0.7"/>
+                                    <text x="0" y="118" font-size="7" fill="#666" text-anchor="middle">Phosphatase</text>
+                                    
+                                    <!-- Protein 6 -->
+                                    <circle cx="-90" cy="50" r="18" fill="#5fa3e8" stroke="#2874d8" stroke-width="1.5"/>
+                                    <text x="-90" y="54" font-size="9" fill="white" text-anchor="middle" font-weight="600">P6</text>
+                                    <line x1="-18" y1="18" x2="-72" y2="43" stroke="#2874d8" stroke-width="2" opacity="0.7"/>
+                                    <text x="-90" y="68" font-size="7" fill="#666" text-anchor="middle">Ligase</text>
+                                </g>
+                                
+                                <!-- Second layer (peripheral) -->
+                                <circle cx="-135" cy="-75" r="12" fill="#95c8f5" stroke="#5fa3e8" stroke-width="1"/>
+                                <text x="-135" y="-72" font-size="7" fill="#333" text-anchor="middle">P7</text>
+                                <line x1="-108" y1="-59" x2="-123" y2="-68" stroke="#5fa3e8" stroke-width="1" opacity="0.5" stroke-dasharray="2,2"/>
+                                
+                                <circle cx="135" cy="-75" r="12" fill="#95c8f5" stroke="#5fa3e8" stroke-width="1"/>
+                                <text x="135" y="-72" font-size="7" fill="#333" text-anchor="middle">P8</text>
+                                <line x1="108" y1="-59" x2="123" y2="-68" stroke="#5fa3e8" stroke-width="1" opacity="0.5" stroke-dasharray="2,2"/>
+                                
+                                <circle cx="135" cy="75" r="12" fill="#95c8f5" stroke="#5fa3e8" stroke-width="1"/>
+                                <text x="135" y="78" font-size="7" fill="#333" text-anchor="middle">P9</text>
+                                <line x1="108" y1="59" x2="123" y2="68" stroke="#5fa3e8" stroke-width="1" opacity="0.5" stroke-dasharray="2,2"/>
+                                
+                                <!-- Cross-talk interaction -->
+                                <line x1="-90" y1="-32" x2="0" y2="-82" stroke="#e0a800" stroke-width="1.5" opacity="0.4" stroke-dasharray="3,3"/>
+                                <line x1="72" y1="-43" x2="72" y2="32" stroke="#e0a800" stroke-width="1.5" opacity="0.4" stroke-dasharray="3,3"/>
+                            </g>
+                            
+                            <!-- Legend -->
+                            <rect x="20" y="340" width="360" height="90" rx="5" fill="#f8f9fa" stroke="#2874d8" stroke-width="2"/>
+                            <text x="200" y="360" font-size="11" fill="#2874d8" text-anchor="middle" font-weight="600">Interaction Types & Confidence</text>
+                            
+                            <g transform="translate(40, 372)">
+                                <line x1="0" y1="5" x2="30" y2="5" stroke="#2874d8" stroke-width="2"/>
+                                <text x="35" y="9" font-size="9" fill="#333">Direct physical interaction (high confidence)</text>
+                                
+                                <line x1="0" y1="22" x2="30" y2="22" stroke="#5fa3e8" stroke-width="1.5"/>
+                                <text x="35" y="26" font-size="9" fill="#333">Experimentally validated</text>
+                                
+                                <line x1="0" y1="39" x2="30" y2="39" stroke="#5fa3e8" stroke-width="1" opacity="0.5" stroke-dasharray="2,2"/>
+                                <text x="35" y="43" font-size="9" fill="#333">Predicted/indirect (medium confidence)</text>
+                                
+                                <line x1="0" y1="56" x2="30" y2="56" stroke="#e0a800" stroke-width="1.5" opacity="0.4" stroke-dasharray="3,3"/>
+                                <text x="35" y="60" font-size="9" fill="#333">Cross-pathway communication</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Section 5: Evolutionary Insights -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-number">5</div>
+                    <div class="section-title">Evolutionary Conservation & Function</div>
+                </div>
+                
+                <div class="section-content">
+                    <div class="description">
+                        <div>
+                            <h3>Conservation-Function Relationship</h3>
+                            <p>Evolutionary conservation analysis provides powerful insights into protein function. Highly conserved regions across species typically indicate functional importance, as mutations in these areas are often detrimental and eliminated by natural selection.</p>
+                        </div>
+                        
+                        <div class="key-points">
+                            <h4>Key Principles:</h4>
+                            <ul>
+                                <li><strong>Sequence conservation:</strong> Similar amino acids across species</li>
+                                <li><strong>Structural conservation:</strong> Preserved 3D structure despite sequence variation</li>
+                                <li><strong>Functional residues:</strong> Highly conserved catalytic and binding sites</li>
+                                <li><strong>Co-evolution:</strong> Correlated mutations reveal interaction partners</li>
+                            </ul>
+                        </div>
+                        
+                        <div class="example-box">
+                            <div class="example-title">Conservation Score Interpretation</div>
+                            <div style="margin-top: 10px;">
+                                <div style="display: flex; align-items: center; gap: 10px; margin: 5px 0;">
+                                    <div style="width: 60px; height: 15px; background: linear-gradient(to right, #d32f2f, #f57c00, #fbc02d, #7cb342, #1976d2); border-radius: 3px;"></div>
+                                    <span style="font-size: 11px; color: #666;">Low → High conservation</span>
+                                </div>
+                                <div style="font-size: 10px; color: #666; margin-top: 8px;">
+                                    <strong style="color: #1976d2;">High conservation (blue):</strong> Functionally critical<br>
+                                    <strong style="color: #d32f2f;">Low conservation (red):</strong> Tolerates variation
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="visualization">
+                        <svg width="400" height="450" viewBox="0 0 400 450">
+                            <text x="200" y="20" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="700">Evolutionary Conservation Analysis</text>
+                            
+                            <!-- Multiple Sequence Alignment -->
+                            <rect x="20" y="40" width="360" height="180" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="200" y="60" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">Multiple Sequence Alignment</text>
+                            
+                            <g transform="translate(30, 75)" font-family="monospace" font-size="10">
+                                <!-- Species labels -->
+                                <text x="0" y="12" fill="#666">Human</text>
+                                <text x="0" y="28" fill="#666">Mouse</text>
+                                <text x="0" y="44" fill="#666">Chicken</text>
+                                <text x="0" y="60" fill="#666">Frog</text>
+                                <text x="0" y="76" fill="#666">Fish</text>
+                                <text x="0" y="92" fill="#666">Yeast</text>
+                                
+                                <!-- Sequence alignment with conservation coloring -->
+                                <g transform="translate(65, 0)">
+                                    <!-- Position indicators -->
+                                    <text x="0" y="-5" font-size="7" fill="#999">10</text>
+                                    <text x="100" y="-5" font-size="7" fill="#999">20</text>
+                                    <text x="200" y="-5" font-size="7" fill="#999">30</text>
+                                    
+                                    <!-- Human sequence -->
+                                    <text x="0" y="12" fill="white"><tspan fill="#1976d2">K</tspan><tspan fill="#1976d2">G</tspan><tspan fill="#7cb342">A</tspan><tspan fill="#fbc02d">T</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#f57c00">V</tspan><tspan fill="#1976d2">D</tspan><tspan fill="#1976d2">F</tspan><tspan fill="#7cb342">G</tspan><tspan fill="#d32f2f">N</tspan></text>
+                                    <text x="100" y="12" fill="white"><tspan fill="#1976d2">E</tspan><tspan fill="#7cb342">A</tspan><tspan fill="#1976d2">R</tspan><tspan fill="#fbc02d">I</tspan><tspan fill="#1976d2">K</tspan><tspan fill="#f57c00">T</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#7cb342">G</tspan><tspan fill="#1976d2">T</tspan><tspan fill="#d32f2f">P</tspan></text>
+                                    <text x="200" y="12" fill="white"><tspan fill="#1976d2">G</tspan><tspan fill="#1976d2">S</tspan><tspan fill="#7cb342">Y</tspan><tspan fill="#fbc02d">M</tspan><tspan fill="#1976d2">A</tspan><tspan fill="#1976d2">P</tspan><tspan fill="#7cb342">E</tspan><tspan fill="#f57c00">V</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#d32f2f">K</tspan></text>
+                                    
+                                    <!-- Mouse -->
+                                    <text x="0" y="28" fill="white"><tspan fill="#1976d2">K</tspan><tspan fill="#1976d2">G</tspan><tspan fill="#7cb342">A</tspan><tspan fill="#fbc02d">S</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#f57c00">I</tspan><tspan fill="#1976d2">D</tspan><tspan fill="#1976d2">F</tspan><tspan fill="#7cb342">G</tspan><tspan fill="#d32f2f">D</tspan></text>
+                                    <text x="100" y="28" fill="white"><tspan fill="#1976d2">E</tspan><tspan fill="#7cb342">A</tspan><tspan fill="#1976d2">R</tspan><tspan fill="#fbc02d">V</tspan><tspan fill="#1976d2">K</tspan><tspan fill="#f57c00">S</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#7cb342">G</tspan><tspan fill="#1976d2">T</tspan><tspan fill="#d32f2f">A</tspan></text>
+                                    <text x="200" y="28" fill="white"><tspan fill="#1976d2">G</tspan><tspan fill="#1976d2">S</tspan><tspan fill="#7cb342">F</tspan><tspan fill="#fbc02d">L</tspan><tspan fill="#1976d2">A</tspan><tspan fill="#1976d2">P</tspan><tspan fill="#7cb342">E</tspan><tspan fill="#f57c00">I</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#d32f2f">R</tspan></text>
+                                    
+                                    <!-- Chicken -->
+                                    <text x="0" y="44" fill="white"><tspan fill="#1976d2">K</tspan><tspan fill="#1976d2">G</tspan><tspan fill="#7cb342">T</tspan><tspan fill="#fbc02d">A</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#f57c00">V</tspan><tspan fill="#1976d2">D</tspan><tspan fill="#1976d2">F</tspan><tspan fill="#7cb342">G</tspan><tspan fill="#d32f2f">S</tspan></text>
+                                    <text x="100" y="44" fill="white"><tspan fill="#1976d2">E</tspan><tspan fill="#7cb342">V</tspan><tspan fill="#1976d2">R</tspan><tspan fill="#fbc02d">I</tspan><tspan fill="#1976d2">K</tspan><tspan fill="#f57c00">A</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#7cb342">G</tspan><tspan fill="#1976d2">T</tspan><tspan fill="#d32f2f">Q</tspan></text>
+                                    <text x="200" y="44" fill="white"><tspan fill="#1976d2">G</tspan><tspan fill="#1976d2">S</tspan><tspan fill="#7cb342">Y</tspan><tspan fill="#fbc02d">V</tspan><tspan fill="#1976d2">A</tspan><tspan fill="#1976d2">P</tspan><tspan fill="#7cb342">D</tspan><tspan fill="#f57c00">V</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#d32f2f">N</tspan></text>
+                                    
+                                    <!-- Frog -->
+                                    <text x="0" y="60" fill="white"><tspan fill="#1976d2">K</tspan><tspan fill="#1976d2">G</tspan><tspan fill="#7cb342">S</tspan><tspan fill="#fbc02d">T</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#f57c00">L</tspan><tspan fill="#1976d2">D</tspan><tspan fill="#1976d2">F</tspan><tspan fill="#7cb342">G</tspan><tspan fill="#d32f2f">A</tspan></text>
+                                    <text x="100" y="60" fill="white"><tspan fill="#1976d2">E</tspan><tspan fill="#7cb342">T</tspan><tspan fill="#1976d2">R</tspan><tspan fill="#fbc02d">V</tspan><tspan fill="#1976d2">K</tspan><tspan fill="#f57c00">T</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#7cb342">G</tspan><tspan fill="#1976d2">T</tspan><tspan fill="#d32f2f">S</tspan></text>
+                                    <text x="200" y="60" fill="white"><tspan fill="#1976d2">G</tspan><tspan fill="#1976d2">S</tspan><tspan fill="#7cb342">F</tspan><tspan fill="#fbc02d">M</tspan><tspan fill="#1976d2">A</tspan><tspan fill="#1976d2">P</tspan><tspan fill="#7cb342">E</tspan><tspan fill="#f57c00">L</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#d32f2f">Q</tspan></text>
+                                    
+                                    <!-- Fish -->
+                                    <text x="0" y="76" fill="white"><tspan fill="#1976d2">K</tspan><tspan fill="#1976d2">G</tspan><tspan fill="#7cb342">A</tspan><tspan fill="#fbc02d">S</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#f57c00">M</tspan><tspan fill="#1976d2">D</tspan><tspan fill="#1976d2">F</tspan><tspan fill="#7cb342">G</tspan><tspan fill="#d32f2f">T</tspan></text>
+                                    <text x="100" y="76" fill="white"><tspan fill="#1976d2">E</tspan><tspan fill="#7cb342">S</tspan><tspan fill="#1976d2">R</tspan><tspan fill="#fbc02d">L</tspan><tspan fill="#1976d2">K</tspan><tspan fill="#f57c00">A</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#7cb342">G</tspan><tspan fill="#1976d2">T</tspan><tspan fill="#d32f2f">P</tspan></text>
+                                    <text x="200" y="76" fill="white"><tspan fill="#1976d2">G</tspan><tspan fill="#1976d2">S</tspan><tspan fill="#7cb342">Y</tspan><tspan fill="#fbc02d">I</tspan><tspan fill="#1976d2">A</tspan><tspan fill="#1976d2">P</tspan><tspan fill="#7cb342">E</tspan><tspan fill="#f57c00">V</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#d32f2f">E</tspan></text>
+                                    
+                                    <!-- Yeast -->
+                                    <text x="0" y="92" fill="white"><tspan fill="#1976d2">K</tspan><tspan fill="#1976d2">G</tspan><tspan fill="#7cb342">T</tspan><tspan fill="#fbc02d">A</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#f57c00">I</tspan><tspan fill="#1976d2">D</tspan><tspan fill="#1976d2">F</tspan><tspan fill="#7cb342">G</tspan><tspan fill="#d32f2f">Q</tspan></text>
+                                    <text x="100" y="92" fill="white"><tspan fill="#1976d2">E</tspan><tspan fill="#7cb342">A</tspan><tspan fill="#1976d2">R</tspan><tspan fill="#fbc02d">I</tspan><tspan fill="#1976d2">K</tspan><tspan fill="#f57c00">S</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#7cb342">G</tspan><tspan fill="#1976d2">T</tspan><tspan fill="#d32f2f">A</tspan></text>
+                                    <text x="200" y="92" fill="white"><tspan fill="#1976d2">G</tspan><tspan fill="#1976d2">S</tspan><tspan fill="#7cb342">F</tspan><tspan fill="#fbc02d">L</tspan><tspan fill="#1976d2">A</tspan><tspan fill="#1976d2">P</tspan><tspan fill="#7cb342">D</tspan><tspan fill="#f57c00">V</tspan><tspan fill="#1976d2">L</tspan><tspan fill="#d32f2f">K</tspan></text>
+                                </g>
+                                
+                                <!-- Conservation indicator -->
+                                <g transform="translate(65, 105)">
+                                    <text x="0" y="12" font-size="8" fill="#1E64C8" font-weight="600">Conservation:</text>
+                                    <rect x="0" y="16" width="10" height="8" fill="#1976d2"/>
+                                    <rect x="10" y="16" width="10" height="8" fill="#1976d2"/>
+                                    <rect x="20" y="16" width="10" height="8" fill="#7cb342"/>
+                                    <rect x="30" y="16" width="10" height="8" fill="#fbc02d"/>
+                                    <rect x="40" y="16" width="10" height="8" fill="#1976d2"/>
+                                    <rect x="50" y="16" width="10" height="8" fill="#f57c00"/>
+                                    <rect x="60" y="16" width="10" height="8" fill="#1976d2"/>
+                                    <rect x="70" y="16" width="10" height="8" fill="#1976d2"/>
+                                    <rect x="80" y="16" width="10" height="8" fill="#7cb342"/>
+                                    <rect x="90" y="16" width="10" height="8" fill="#d32f2f"/>
+                                    
+                                    <text x="45" y="37" font-size="7" fill="#1976d2" text-anchor="middle">▲</text>
+                                    <text x="45" y="48" font-size="7" fill="#1976d2" text-anchor="middle">Active site</text>
+                                    
+                                    <rect x="100" y="16" width="10" height="8" fill="#1976d2"/>
+                                    <rect x="110" y="16" width="10" height="8" fill="#7cb342"/>
+                                    <rect x="120" y="16" width="10" height="8" fill="#1976d2"/>
+                                    <rect x="130" y="16" width="10" height="8" fill="#fbc02d"/>
+                                    <rect x="140" y="16" width="10" height="8" fill="#1976d2"/>
+                                    <rect x="150" y="16" width="10" height="8" fill="#f57c00"/>
+                                    <rect x="160" y="16" width="10" height="8" fill="#1976d2"/>
+                                    <rect x="170" y="16" width="10" height="8" fill="#7cb342"/>
+                                    <rect x="180" y="16" width="10" height="8" fill="#1976d2"/>
+                                    <rect x="190" y="16" width="10" height="8" fill="#d32f2f"/>
+                                    
+                                    <rect x="200" y="16" width="10" height="8" fill="#1976d2"/>
+                                    <rect x="210" y="16" width="10" height="8" fill="#1976d2"/>
+                                    <rect x="220" y="16" width="10" height="8" fill="#7cb342"/>
+                                    <rect x="230" y="16" width="10" height="8" fill="#fbc02d"/>
+                                    <rect x="240" y="16" width="10" height="8" fill="#1976d2"/>
+                                    <rect x="250" y="16" width="10" height="8" fill="#1976d2"/>
+                                    <rect x="260" y="16" width="10" height="8" fill="#7cb342"/>
+                                    <rect x="270" y="16" width="10" height="8" fill="#f57c00"/>
+                                    <rect x="280" y="16" width="10" height="8" fill="#1976d2"/>
+                                    <rect x="290" y="16" width="10" height="8" fill="#d32f2f"/>
+                                    
+                                    <text x="225" y="37" font-size="7" fill="#1976d2" text-anchor="middle">▲</text>
+                                    <text x="225" y="48" font-size="7" fill="#1976d2" text-anchor="middle">Binding site</text>
+                                </g>
+                            </g>
+                            
+                            <!-- Phylogenetic Tree -->
+                            <rect x="20" y="235" width="360" height="195" rx="5" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="200" y="255" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">Phylogenetic Relationship</text>
+                            
+                            <g transform="translate(60, 270)">
+                                <!-- Tree structure -->
+                                <line x1="0" y1="20" x2="40" y2="20" stroke="#1E64C8" stroke-width="2"/>
+                                <line x1="40" y1="20" x2="40" y2="80" stroke="#1E64C8" stroke-width="2"/>
+                                
+                                <!-- Mammals branch -->
+                                <line x1="40" y1="30" x2="80" y2="30" stroke="#2874d8" stroke-width="2"/>
+                                <line x1="80" y1="15" x2="80" y2="30" stroke="#2874d8" stroke-width="1.5"/>
+                                
+                                <line x1="80" y1="15" x2="120" y2="15" stroke="#5fa3e8" stroke-width="1.5"/>
+                                <circle cx="130" cy="15" r="4" fill="#1976d2"/>
+                                <text x="138" y="19" font-size="10" fill="#333">Human</text>
+                                <rect x="200" y="10" width="60" height="10" rx="2" fill="#1976d2"/>
+                                <text x="230" y="18" font-size="7" fill="white" text-anchor="middle">98% identity</text>
+                                
+                                <line x1="80" y1="30" x2="120" y2="30" stroke="#5fa3e8" stroke-width="1.5"/>
+                                <circle cx="130" cy="30" r="4" fill="#1976d2"/>
+                                <text x="138" y="34" font-size="10" fill="#333">Mouse</text>
+                                <rect x="200" y="25" width="60" height="10" rx="2" fill="#1976d2"/>
+                                <text x="230" y="33" font-size="7" fill="white" text-anchor="middle">96% identity</text>
+                                
+                                <!-- Other vertebrates -->
+                                <line x1="40" y1="50" x2="120" y2="50" stroke="#5fa3e8" stroke-width="1.5"/>
+                                <circle cx="130" cy="50" r="4" fill="#7cb342"/>
+                                <text x="138" y="54" font-size="10" fill="#333">Chicken</text>
+                                <rect x="200" y="45" width="60" height="10" rx="2" fill="#7cb342"/>
+                                <text x="230" y="53" font-size="7" fill="white" text-anchor="middle">87% identity</text>
+                                
+                                <line x1="40" y1="65" x2="120" y2="65" stroke="#5fa3e8" stroke-width="1.5"/>
+                                <circle cx="130" cy="65" r="4" fill="#7cb342"/>
+                                <text x="138" y="69" font-size="10" fill="#333">Frog</text>
+                                <rect x="200" y="60" width="60" height="10" rx="2" fill="#fbc02d"/>
+                                <text x="230" y="68" font-size="7" fill="#333" text-anchor="middle">82% identity</text>
+                                
+                                <line x1="40" y1="80" x2="120" y2="80" stroke="#5fa3e8" stroke-width="1.5"/>
+                                <circle cx="130" cy="80" r="4" fill="#f57c00"/>
+                                <text x="138" y="84" font-size="10" fill="#333">Fish</text>
+                                <rect x="200" y="75" width="60" height="10" rx="2" fill="#f57c00"/>
+                                <text x="230" y="83" font-size="7" fill="white" text-anchor="middle">75% identity</text>
+                                
+                                <!-- Distant species -->
+                                <line x1="0" y1="20" x2="0" y2="110" stroke="#1E64C8" stroke-width="2"/>
+                                <line x1="0" y1="110" x2="120" y2="110" stroke="#f57c00" stroke-width="1.5"/>
+                                <circle cx="130" cy="110" r="4" fill="#d32f2f"/>
+                                <text x="138" y="114" font-size="10" fill="#333">Yeast</text>
+                                <rect x="200" y="105" width="60" height="10" rx="2" fill="#d32f2f"/>
+                                <text x="230" y="113" font-size="7" fill="white" text-anchor="middle">45% identity</text>
+                                
+                                <!-- Time scale -->
+                                <text x="0" y="135" font-size="8" fill="#999">← More divergent</text>
+                                <text x="200" y="135" font-size="8" fill="#999" text-anchor="end">More recent →</text>
+                            </g>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </body>

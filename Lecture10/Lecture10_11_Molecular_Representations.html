@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Molecular Representations</title>
+    <title>Molecular Representations - Enhanced</title>
     <style>
         * {
             margin: 0;
@@ -13,16 +13,17 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+        }
+        
+        .header-section {
             padding: 40px 60px;
             background: white;
         }
@@ -46,6 +47,7 @@
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 14px;
+            margin-bottom: 30px;
         }
         
         .content-card {
@@ -54,6 +56,7 @@
             border-radius: 8px;
             padding: 14px 20px;
             transition: all 0.3s;
+            cursor: pointer;
         }
         
         .content-card:hover {
@@ -75,15 +78,103 @@
             font-weight: 400;
         }
 
-        .rotate-3d {
-            animation: rotate3d 4s linear infinite;
+        /* Detail sections */
+        .detail-section {
+            padding: 50px 60px;
+            border-top: 3px solid #e0e0e0;
         }
 
-        @keyframes rotate3d {
-            from { transform: rotateY(0deg); }
-            to { transform: rotateY(360deg); }
+        .detail-section:nth-child(even) {
+            background: #fafafa;
         }
 
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 25px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .section-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            color: white;
+        }
+
+        .section-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: start;
+        }
+
+        .section-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+        }
+
+        .section-text h3 {
+            font-size: 20px;
+            color: #1E64C8;
+            margin-top: 20px;
+            margin-bottom: 10px;
+        }
+
+        .section-text ul {
+            margin-left: 20px;
+            margin-top: 10px;
+        }
+
+        .section-text li {
+            margin-bottom: 8px;
+            color: #555;
+        }
+
+        .section-visual {
+            background: white;
+            border-radius: 12px;
+            padding: 30px;
+            box-shadow: 0 4px 12px rgba(0,0,0,0.08);
+        }
+
+        .highlight-box {
+            background: #e8f4fd;
+            border-left: 4px solid #1E64C8;
+            padding: 15px 20px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+
+        .highlight-box strong {
+            color: #1E64C8;
+        }
+
+        /* Color schemes for each section */
+        .fp-color { background: #1E64C8; }
+        .fp-border { border-left-color: #1E64C8; }
+        
+        .desc-color { background: #9b59b6; }
+        .desc-border { border-left-color: #9b59b6; }
+        
+        .graph-color { background: #2ecc71; }
+        .graph-border { border-left-color: #2ecc71; }
+        
+        .embed-color { background: #e74c3c; }
+        .embed-border { border-left-color: #e74c3c; }
+        
+        .multi-color { background: #f39c12; }
+        .multi-border { border-left-color: #f39c12; }
+
+        /* Animations */
         .bit-flip {
             animation: flip 2s ease-in-out infinite;
         }
@@ -92,186 +183,911 @@
             0%, 100% { fill: #e0e0e0; }
             50% { fill: #1E64C8; }
         }
+
+        .pulse {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 0.6; }
+            50% { opacity: 1; }
+        }
+
+        .example-label {
+            font-size: 12px;
+            font-weight: 600;
+            color: #666;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Molecular Representations</div>
-        
-        <div class="main-visual">
-            <svg width="860" height="220" viewBox="0 0 860 220">
-                <!-- Central molecule -->
-                <g transform="translate(380, 100)">
-                    <circle cx="0" cy="0" r="50" fill="#e3f2fd" stroke="#1E64C8" stroke-width="3" opacity="0.5"/>
-                    
-                    <!-- Simple molecular structure -->
-                    <g transform="translate(-20, -15)">
-                        <circle cx="0" cy="0" r="8" fill="#95a5a6"/>
-                        <circle cx="20" cy="0" r="8" fill="#95a5a6"/>
-                        <circle cx="40" cy="0" r="8" fill="#95a5a6"/>
-                        <circle cx="10" cy="-15" r="8" fill="#e74c3c"/>
-                        <circle cx="30" cy="15" r="8" fill="#3498db"/>
+        <!-- Header Section -->
+        <div class="header-section">
+            <div class="title">Molecular Representations</div>
+            
+            <div class="main-visual">
+                <svg width="860" height="220" viewBox="0 0 860 220">
+                    <!-- Central molecule -->
+                    <g transform="translate(380, 100)">
+                        <circle cx="0" cy="0" r="50" fill="#e3f2fd" stroke="#1E64C8" stroke-width="3" opacity="0.5"/>
                         
-                        <line x1="8" y1="0" x2="12" y2="0" stroke="#666" stroke-width="2"/>
-                        <line x1="28" y1="0" x2="32" y2="0" stroke="#666" stroke-width="2"/>
-                        <line x1="10" y1="-7" x2="10" y2="-2" stroke="#666" stroke-width="2"/>
-                        <line x1="30" y1="7" x2="30" y2="2" stroke="#666" stroke-width="2"/>
+                        <!-- Simple molecular structure -->
+                        <g transform="translate(-20, -15)">
+                            <circle cx="0" cy="0" r="8" fill="#95a5a6"/>
+                            <circle cx="20" cy="0" r="8" fill="#95a5a6"/>
+                            <circle cx="40" cy="0" r="8" fill="#95a5a6"/>
+                            <circle cx="10" cy="-15" r="8" fill="#e74c3c"/>
+                            <circle cx="30" cy="15" r="8" fill="#3498db"/>
+                            
+                            <line x1="8" y1="0" x2="12" y2="0" stroke="#666" stroke-width="2"/>
+                            <line x1="28" y1="0" x2="32" y2="0" stroke="#666" stroke-width="2"/>
+                            <line x1="10" y1="-7" x2="10" y2="-2" stroke="#666" stroke-width="2"/>
+                            <line x1="30" y1="7" x2="30" y2="2" stroke="#666" stroke-width="2"/>
+                        </g>
+                        
+                        <text x="0" y="70" text-anchor="middle" font-size="12" font-weight="600" fill="#1E64C8">Molecule</text>
                     </g>
-                    
-                    <text x="0" y="70" text-anchor="middle" font-size="12" font-weight="600" fill="#1E64C8">Molecule</text>
-                </g>
 
-                <!-- 2D Fingerprint -->
-                <g transform="translate(30, 30)">
-                    <rect x="0" y="0" width="160" height="100" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="80" y="20" text-anchor="middle" font-size="12" font-weight="600" fill="#1E64C8">2D Fingerprint</text>
-                    
-                    <!-- Binary bits -->
-                    <g transform="translate(15, 35)">
-                        <rect x="0" y="0" width="8" height="8" rx="1" fill="#1E64C8"/>
-                        <rect x="12" y="0" width="8" height="8" rx="1" fill="#e0e0e0"/>
-                        <rect x="24" y="0" width="8" height="8" rx="1" fill="#1E64C8" class="bit-flip"/>
-                        <rect x="36" y="0" width="8" height="8" rx="1" fill="#1E64C8"/>
-                        <rect x="48" y="0" width="8" height="8" rx="1" fill="#e0e0e0"/>
-                        <rect x="60" y="0" width="8" height="8" rx="1" fill="#1E64C8"/>
-                        <rect x="72" y="0" width="8" height="8" rx="1" fill="#e0e0e0"/>
-                        <rect x="84" y="0" width="8" height="8" rx="1" fill="#1E64C8" class="bit-flip"/>
-                        <rect x="96" y="0" width="8" height="8" rx="1" fill="#e0e0e0"/>
-                        <rect x="108" y="0" width="8" height="8" rx="1" fill="#1E64C8"/>
-                        <rect x="120" y="0" width="8" height="8" rx="1" fill="#1E64C8"/>
+                    <!-- 2D Fingerprint -->
+                    <g transform="translate(30, 30)">
+                        <rect x="0" y="0" width="160" height="100" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="80" y="20" text-anchor="middle" font-size="12" font-weight="600" fill="#1E64C8">2D Fingerprint</text>
                         
-                        <text x="65" y="20" text-anchor="middle" font-size="9" fill="#666">1 0 1 1 0 1 0 1 0 1 1 ...</text>
+                        <!-- Binary bits -->
+                        <g transform="translate(15, 35)">
+                            <rect x="0" y="0" width="8" height="8" rx="1" fill="#1E64C8"/>
+                            <rect x="12" y="0" width="8" height="8" rx="1" fill="#e0e0e0"/>
+                            <rect x="24" y="0" width="8" height="8" rx="1" fill="#1E64C8" class="bit-flip"/>
+                            <rect x="36" y="0" width="8" height="8" rx="1" fill="#1E64C8"/>
+                            <rect x="48" y="0" width="8" height="8" rx="1" fill="#e0e0e0"/>
+                            <rect x="60" y="0" width="8" height="8" rx="1" fill="#1E64C8"/>
+                            <rect x="72" y="0" width="8" height="8" rx="1" fill="#e0e0e0"/>
+                            <rect x="84" y="0" width="8" height="8" rx="1" fill="#1E64C8" class="bit-flip"/>
+                            <rect x="96" y="0" width="8" height="8" rx="1" fill="#e0e0e0"/>
+                            <rect x="108" y="0" width="8" height="8" rx="1" fill="#1E64C8"/>
+                            <rect x="120" y="0" width="8" height="8" rx="1" fill="#1E64C8"/>
+                            
+                            <text x="65" y="20" text-anchor="middle" font-size="9" fill="#666">1 0 1 1 0 1 0 1 0 1 1 ...</text>
+                        </g>
+                        
+                        <!-- Substructure patterns -->
+                        <g transform="translate(15, 60)">
+                            <circle cx="15" cy="8" r="6" fill="#3498db" opacity="0.6"/>
+                            <text x="15" y="11" text-anchor="middle" font-size="7" fill="white">C=C</text>
+                            <text x="15" y="24" text-anchor="middle" font-size="7" fill="#666">Bit 42</text>
+                            
+                            <circle cx="55" cy="8" r="6" fill="#e74c3c" opacity="0.6"/>
+                            <text x="55" y="11" text-anchor="middle" font-size="7" fill="white">C=O</text>
+                            <text x="55" y="24" text-anchor="middle" font-size="7" fill="#666">Bit 108</text>
+                            
+                            <circle cx="95" cy="8" r="6" fill="#2ecc71" opacity="0.6"/>
+                            <text x="95" y="11" text-anchor="middle" font-size="7" fill="white">NH₂</text>
+                            <text x="95" y="24" text-anchor="middle" font-size="7" fill="#666">Bit 213</text>
+                        </g>
                     </g>
-                    
-                    <!-- Substructure patterns -->
-                    <g transform="translate(15, 60)">
-                        <circle cx="15" cy="8" r="6" fill="#3498db" opacity="0.6"/>
-                        <text x="15" y="11" text-anchor="middle" font-size="7" fill="white">C=C</text>
-                        <text x="15" y="24" text-anchor="middle" font-size="7" fill="#666">Bit 42</text>
-                        
-                        <circle cx="55" cy="8" r="6" fill="#e74c3c" opacity="0.6"/>
-                        <text x="55" y="11" text-anchor="middle" font-size="7" fill="white">C=O</text>
-                        <text x="55" y="24" text-anchor="middle" font-size="7" fill="#666">Bit 108</text>
-                        
-                        <circle cx="95" cy="8" r="6" fill="#2ecc71" opacity="0.6"/>
-                        <text x="95" y="11" text-anchor="middle" font-size="7" fill="white">NH₂</text>
-                        <text x="95" y="24" text-anchor="middle" font-size="7" fill="#666">Bit 213</text>
-                    </g>
-                </g>
 
-                <!-- Graph Representation -->
-                <g transform="translate(30, 145)">
-                    <rect x="0" y="0" width="160" height="65" rx="8" fill="#f8f9fa" stroke="#2ecc71" stroke-width="2"/>
-                    <text x="80" y="18" text-anchor="middle" font-size="12" font-weight="600" fill="#2ecc71">Graph</text>
-                    
-                    <!-- Node-edge representation -->
-                    <g transform="translate(35, 28)">
-                        <circle cx="20" cy="15" r="6" fill="#3498db"/>
-                        <circle cx="45" cy="10" r="6" fill="#e74c3c"/>
-                        <circle cx="70" cy="15" r="6" fill="#2ecc71"/>
-                        <circle cx="45" cy="30" r="6" fill="#f39c12"/>
+                    <!-- Graph Representation -->
+                    <g transform="translate(30, 145)">
+                        <rect x="0" y="0" width="160" height="65" rx="8" fill="#f8f9fa" stroke="#2ecc71" stroke-width="2"/>
+                        <text x="80" y="18" text-anchor="middle" font-size="12" font-weight="600" fill="#2ecc71">Graph</text>
                         
-                        <line x1="26" y1="15" x2="39" y2="11" stroke="#666" stroke-width="2"/>
-                        <line x1="51" y1="11" x2="64" y2="15" stroke="#666" stroke-width="2"/>
-                        <line x1="45" y1="16" x2="45" y2="24" stroke="#666" stroke-width="2"/>
-                        
-                        <text x="90" y="23" font-size="9" fill="#666">V, E, A</text>
+                        <!-- Node-edge representation -->
+                        <g transform="translate(35, 28)">
+                            <circle cx="20" cy="15" r="6" fill="#3498db"/>
+                            <circle cx="45" cy="10" r="6" fill="#e74c3c"/>
+                            <circle cx="70" cy="15" r="6" fill="#2ecc71"/>
+                            <circle cx="45" cy="30" r="6" fill="#f39c12"/>
+                            
+                            <line x1="26" y1="15" x2="39" y2="11" stroke="#666" stroke-width="2"/>
+                            <line x1="51" y1="11" x2="64" y2="15" stroke="#666" stroke-width="2"/>
+                            <line x1="45" y1="16" x2="45" y2="24" stroke="#666" stroke-width="2"/>
+                            
+                            <text x="90" y="23" font-size="9" fill="#666">V, E, A</text>
+                        </g>
                     </g>
-                </g>
 
-                <!-- 3D Descriptors -->
-                <g transform="translate(670, 30)">
-                    <rect x="0" y="0" width="160" height="100" rx="8" fill="#f8f9fa" stroke="#9b59b6" stroke-width="2"/>
-                    <text x="80" y="20" text-anchor="middle" font-size="12" font-weight="600" fill="#9b59b6">3D Descriptors</text>
-                    
-                    <!-- 3D cube representation -->
-                    <g transform="translate(50, 35)">
-                        <!-- 3D molecular conformer -->
-                        <ellipse cx="30" cy="30" rx="25" ry="15" fill="none" stroke="#9b59b6" stroke-width="2" stroke-dasharray="3,2" opacity="0.5"/>
+                    <!-- 3D Descriptors -->
+                    <g transform="translate(670, 30)">
+                        <rect x="0" y="0" width="160" height="100" rx="8" fill="#f8f9fa" stroke="#9b59b6" stroke-width="2"/>
+                        <text x="80" y="20" text-anchor="middle" font-size="12" font-weight="600" fill="#9b59b6">3D Descriptors</text>
                         
-                        <circle cx="20" cy="20" r="6" fill="#95a5a6"/>
-                        <circle cx="40" cy="25" r="6" fill="#95a5a6"/>
-                        <circle cx="30" cy="40" r="6" fill="#e74c3c"/>
+                        <!-- 3D cube representation -->
+                        <g transform="translate(50, 35)">
+                            <!-- 3D molecular conformer -->
+                            <ellipse cx="30" cy="30" rx="25" ry="15" fill="none" stroke="#9b59b6" stroke-width="2" stroke-dasharray="3,2" opacity="0.5"/>
+                            
+                            <circle cx="20" cy="20" r="6" fill="#95a5a6"/>
+                            <circle cx="40" cy="25" r="6" fill="#95a5a6"/>
+                            <circle cx="30" cy="40" r="6" fill="#e74c3c"/>
+                            
+                            <line x1="26" y1="21" x2="34" y2="24" stroke="#666" stroke-width="2"/>
+                            <line x1="34" y1="29" x2="32" y2="35" stroke="#666" stroke-width="2"/>
+                        </g>
                         
-                        <line x1="26" y1="21" x2="34" y2="24" stroke="#666" stroke-width="2"/>
-                        <line x1="34" y1="29" x2="32" y2="35" stroke="#666" stroke-width="2"/>
+                        <!-- Property list -->
+                        <g transform="translate(15, 68)">
+                            <text x="0" y="0" font-size="9" fill="#666">• Shape</text>
+                            <text x="70" y="0" font-size="9" fill="#666">• Surface</text>
+                            <text x="0" y="13" font-size="9" fill="#666">• Volume</text>
+                            <text x="70" y="13" font-size="9" fill="#666">• Charges</text>
+                        </g>
                     </g>
-                    
-                    <!-- Property list -->
-                    <g transform="translate(15, 68)">
-                        <text x="0" y="0" font-size="9" fill="#666">• Shape</text>
-                        <text x="70" y="0" font-size="9" fill="#666">• Surface</text>
-                        <text x="0" y="13" font-size="9" fill="#666">• Volume</text>
-                        <text x="70" y="13" font-size="9" fill="#666">• Charges</text>
+
+                    <!-- Learned Embeddings -->
+                    <g transform="translate(670, 145)">
+                        <rect x="0" y="0" width="160" height="65" rx="8" fill="#f8f9fa" stroke="#e74c3c" stroke-width="2"/>
+                        <text x="80" y="18" text-anchor="middle" font-size="12" font-weight="600" fill="#e74c3c">Embeddings</text>
+                        
+                        <!-- Neural network encoding -->
+                        <g transform="translate(30, 28)">
+                            <!-- Input nodes -->
+                            <circle cx="10" cy="10" r="4" fill="#1E64C8"/>
+                            <circle cx="10" cy="22" r="4" fill="#1E64C8"/>
+                            
+                            <!-- Hidden -->
+                            <circle cx="40" cy="8" r="4" fill="#9b59b6"/>
+                            <circle cx="40" cy="16" r="4" fill="#9b59b6"/>
+                            <circle cx="40" cy="24" r="4" fill="#9b59b6"/>
+                            
+                            <!-- Embedding -->
+                            <circle cx="70" cy="12" r="5" fill="#e74c3c"/>
+                            <circle cx="70" cy="20" r="5" fill="#e74c3c"/>
+                            
+                            <line x1="14" y1="10" x2="36" y2="10" stroke="#ccc" stroke-width="1"/>
+                            <line x1="14" y1="22" x2="36" y2="20" stroke="#ccc" stroke-width="1"/>
+                            <line x1="44" y1="16" x2="65" y2="16" stroke="#ccc" stroke-width="1"/>
+                            
+                            <text x="95" y="18" font-size="9" fill="#666">[h₁, h₂, ..., hₙ]</text>
+                        </g>
                     </g>
-                </g>
 
-                <!-- Learned Embeddings -->
-                <g transform="translate(670, 145)">
-                    <rect x="0" y="0" width="160" height="65" rx="8" fill="#f8f9fa" stroke="#e74c3c" stroke-width="2"/>
-                    <text x="80" y="18" text-anchor="middle" font-size="12" font-weight="600" fill="#e74c3c">Embeddings</text>
-                    
-                    <!-- Neural network encoding -->
-                    <g transform="translate(30, 28)">
-                        <!-- Input nodes -->
-                        <circle cx="10" cy="10" r="4" fill="#1E64C8"/>
-                        <circle cx="10" cy="22" r="4" fill="#1E64C8"/>
-                        
-                        <!-- Hidden -->
-                        <circle cx="40" cy="8" r="4" fill="#9b59b6"/>
-                        <circle cx="40" cy="16" r="4" fill="#9b59b6"/>
-                        <circle cx="40" cy="24" r="4" fill="#9b59b6"/>
-                        
-                        <!-- Embedding -->
-                        <circle cx="70" cy="12" r="5" fill="#e74c3c"/>
-                        <circle cx="70" cy="20" r="5" fill="#e74c3c"/>
-                        
-                        <line x1="14" y1="10" x2="36" y2="10" stroke="#ccc" stroke-width="1"/>
-                        <line x1="14" y1="22" x2="36" y2="20" stroke="#ccc" stroke-width="1"/>
-                        <line x1="44" y1="16" x2="65" y2="16" stroke="#ccc" stroke-width="1"/>
-                        
-                        <text x="95" y="18" font-size="9" fill="#666">[h₁, h₂, ..., hₙ]</text>
-                    </g>
-                </g>
+                    <!-- Arrows connecting to central molecule -->
+                    <path d="M 190 80 L 330 100" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-repr)" opacity="0.4"/>
+                    <path d="M 190 165 L 340 120" stroke="#2ecc71" stroke-width="2" marker-end="url(#arrow-repr)" opacity="0.4"/>
+                    <path d="M 670 80 L 480 100" stroke="#9b59b6" stroke-width="2" marker-start="url(#arrow-repr-rev)" opacity="0.4"/>
+                    <path d="M 670 165 L 490 120" stroke="#e74c3c" stroke-width="2" marker-start="url(#arrow-repr-rev)" opacity="0.4"/>
 
-                <!-- Arrows connecting to central molecule -->
-                <path d="M 190 80 L 330 100" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-repr)" opacity="0.4"/>
-                <path d="M 190 165 L 340 120" stroke="#2ecc71" stroke-width="2" marker-end="url(#arrow-repr)" opacity="0.4"/>
-                <path d="M 670 80 L 480 100" stroke="#9b59b6" stroke-width="2" marker-start="url(#arrow-repr-rev)" opacity="0.4"/>
-                <path d="M 670 165 L 490 120" stroke="#e74c3c" stroke-width="2" marker-start="url(#arrow-repr-rev)" opacity="0.4"/>
-
-                <!-- Arrow markers -->
-                <defs>
-                    <marker id="arrow-repr" markerWidth="8" markerHeight="8" refX="7" refY="2.5" orient="auto">
-                        <polygon points="0 0, 8 2.5, 0 5" fill="#666" opacity="0.4"/>
-                    </marker>
-                    <marker id="arrow-repr-rev" markerWidth="8" markerHeight="8" refX="1" refY="2.5" orient="auto">
-                        <polygon points="8 0, 0 2.5, 8 5" fill="#666" opacity="0.4"/>
-                    </marker>
-                </defs>
-            </svg>
+                    <!-- Arrow markers -->
+                    <defs>
+                        <marker id="arrow-repr" markerWidth="8" markerHeight="8" refX="7" refY="2.5" orient="auto">
+                            <polygon points="0 0, 8 2.5, 0 5" fill="#666" opacity="0.4"/>
+                        </marker>
+                        <marker id="arrow-repr-rev" markerWidth="8" markerHeight="8" refX="1" refY="2.5" orient="auto">
+                            <polygon points="8 0, 0 2.5, 8 5" fill="#666" opacity="0.4"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+            
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="content-main">2D fingerprints</div>
+                    <div class="content-desc">Binary feature vectors</div>
+                </div>
+                <div class="content-card">
+                    <div class="content-main">3D descriptors</div>
+                    <div class="content-desc">Geometric and conformational features</div>
+                </div>
+                <div class="content-card">
+                    <div class="content-main">Graph representations</div>
+                    <div class="content-desc">Molecular graph structures</div>
+                </div>
+                <div class="content-card">
+                    <div class="content-main">Learned embeddings</div>
+                    <div class="content-desc">Deep learning representations</div>
+                </div>
+                <div class="content-card">
+                    <div class="content-main">Multi-view learning</div>
+                    <div class="content-desc">Combining multiple representations</div>
+                </div>
+            </div>
         </div>
-        
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="content-main">2D fingerprints</div>
-                <div class="content-desc">Binary feature vectors</div>
+
+        <!-- Detail Section 1: 2D Fingerprints -->
+        <div class="detail-section">
+            <div class="section-title">
+                <span class="section-number fp-color">1</span>
+                <span style="color: #1E64C8;">2D Molecular Fingerprints</span>
             </div>
-            <div class="content-card">
-                <div class="content-main">3D descriptors</div>
-                <div class="content-desc">Geometric and conformational features</div>
+            
+            <div class="section-content">
+                <div class="section-text">
+                    <p>Molecular fingerprints are fixed-length binary vectors that encode the presence or absence of specific structural features in a molecule. Each bit in the fingerprint corresponds to a particular substructure or molecular pattern.</p>
+                    
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><strong>Hashing:</strong> Chemical substructures are mapped to specific bit positions using hash functions</li>
+                        <li><strong>Fixed Length:</strong> Typical fingerprint sizes range from 512 to 2048 bits</li>
+                        <li><strong>Collision:</strong> Multiple substructures may hash to the same bit position</li>
+                        <li><strong>Similarity:</strong> Tanimoto coefficient measures molecular similarity</li>
+                    </ul>
+
+                    <h3>Common Types</h3>
+                    <ul>
+                        <li><strong>ECFP (Extended Connectivity FP):</strong> Circular fingerprints based on atom neighborhoods</li>
+                        <li><strong>MACCS Keys:</strong> 166 predefined structural keys</li>
+                        <li><strong>Daylight:</strong> Path-based fingerprints</li>
+                        <li><strong>RDKit:</strong> Open-source implementations</li>
+                    </ul>
+
+                    <div class="highlight-box fp-border">
+                        <strong>Use Cases:</strong> Virtual screening, similarity search, compound clustering, QSAR modeling
+                    </div>
+                </div>
+
+                <div class="section-visual">
+                    <div class="example-label">ECFP4 Example - Aspirin</div>
+                    <svg width="100%" height="400" viewBox="0 0 400 400">
+                        <!-- Aspirin structure -->
+                        <g transform="translate(200, 80)">
+                            <!-- Benzene ring -->
+                            <line x1="-30" y1="0" x2="-15" y2="26" stroke="#333" stroke-width="2"/>
+                            <line x1="-15" y1="26" x2="15" y2="26" stroke="#333" stroke-width="2"/>
+                            <line x1="15" y1="26" x2="30" y2="0" stroke="#333" stroke-width="2"/>
+                            <line x1="30" y1="0" x2="15" y2="-26" stroke="#333" stroke-width="2"/>
+                            <line x1="15" y1="-26" x2="-15" y2="-26" stroke="#333" stroke-width="2"/>
+                            <line x1="-15" y1="-26" x2="-30" y2="0" stroke="#333" stroke-width="2"/>
+                            
+                            <!-- Double bonds -->
+                            <line x1="-26" y1="5" x2="-18" y2="20" stroke="#333" stroke-width="2"/>
+                            <line x1="18" y1="20" x2="26" y2="5" stroke="#333" stroke-width="2"/>
+                            <line x1="18" y1="-20" x2="11" y2="-26" stroke="#333" stroke-width="2"/>
+                            
+                            <!-- Carboxyl group -->
+                            <circle cx="-50" cy="0" r="6" fill="#e74c3c"/>
+                            <text x="-50" y="4" text-anchor="middle" font-size="10" fill="white" font-weight="bold">O</text>
+                            <line x1="-44" y1="0" x2="-36" y2="0" stroke="#333" stroke-width="2"/>
+                            
+                            <circle cx="-70" cy="0" r="6" fill="#e74c3c"/>
+                            <text x="-70" y="4" text-anchor="middle" font-size="10" fill="white" font-weight="bold">O</text>
+                            <line x1="-64" y1="0" x2="-56" y2="0" stroke="#333" stroke-width="2"/>
+                            <line x1="-67" y1="-3" x2="-62" y2="-3" stroke="#333" stroke-width="2"/>
+                            
+                            <!-- Acetyl group -->
+                            <circle cx="50" cy="0" r="6" fill="#e74c3c"/>
+                            <text x="50" y="4" text-anchor="middle" font-size="10" fill="white" font-weight="bold">O</text>
+                            <line x1="36" y1="0" x2="44" y2="0" stroke="#333" stroke-width="2"/>
+                            
+                            <circle cx="70" cy="0" r="6" fill="#95a5a6"/>
+                            <text x="70" y="4" text-anchor="middle" font-size="10" fill="white" font-weight="bold">C</text>
+                            <line x1="56" y1="0" x2="64" y2="0" stroke="#333" stroke-width="2"/>
+                            
+                            <circle cx="90" cy="0" r="6" fill="#e74c3c"/>
+                            <text x="90" y="4" text-anchor="middle" font-size="10" fill="white" font-weight="bold">O</text>
+                            <line x1="76" y1="0" x2="84" y2="0" stroke="#333" stroke-width="2"/>
+                            <line x1="78" y1="-3" x2="82" y2="-3" stroke="#333" stroke-width="2"/>
+                            
+                            <text x="0" y="60" text-anchor="middle" font-size="12" fill="#333" font-weight="600">Aspirin (Acetylsalicylic acid)</text>
+                        </g>
+
+                        <!-- Fingerprint visualization -->
+                        <g transform="translate(20, 180)">
+                            <text x="0" y="0" font-size="12" fill="#666" font-weight="600">Generated Fingerprint (2048 bits):</text>
+                            
+                            <!-- Bit string visualization -->
+                            <g transform="translate(0, 20)">
+                                <!-- Row 1 -->
+                                <rect x="0" y="0" width="8" height="8" fill="#1E64C8"/>
+                                <rect x="10" y="0" width="8" height="8" fill="#e0e0e0"/>
+                                <rect x="20" y="0" width="8" height="8" fill="#1E64C8"/>
+                                <rect x="30" y="0" width="8" height="8" fill="#1E64C8"/>
+                                <rect x="40" y="0" width="8" height="8" fill="#e0e0e0"/>
+                                <rect x="50" y="0" width="8" height="8" fill="#1E64C8"/>
+                                <rect x="60" y="0" width="8" height="8" fill="#e0e0e0"/>
+                                <rect x="70" y="0" width="8" height="8" fill="#e0e0e0"/>
+                                <rect x="80" y="0" width="8" height="8" fill="#1E64C8"/>
+                                <rect x="90" y="0" width="8" height="8" fill="#1E64C8"/>
+                                <text x="105" y="8" font-size="10" fill="#999">...</text>
+                                <rect x="120" y="0" width="8" height="8" fill="#e0e0e0"/>
+                                <rect x="130" y="0" width="8" height="8" fill="#1E64C8"/>
+                                <rect x="140" y="0" width="8" height="8" fill="#e0e0e0"/>
+                            </g>
+
+                            <!-- Feature annotations -->
+                            <g transform="translate(0, 50)">
+                                <rect x="0" y="0" width="180" height="60" fill="#f8f9fa" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                                <text x="10" y="18" font-size="11" fill="#333" font-weight="600">Captured Features:</text>
+                                <text x="10" y="35" font-size="10" fill="#666">• Benzene ring → Bits 42, 127, 891</text>
+                                <text x="10" y="50" font-size="10" fill="#666">• Carboxyl group → Bits 234, 1023</text>
+                            </g>
+
+                            <g transform="translate(200, 50)">
+                                <rect x="0" y="0" width="160" height="60" fill="#fff3cd" stroke="#f39c12" stroke-width="1" rx="4"/>
+                                <text x="10" y="18" font-size="11" fill="#333" font-weight="600">Properties:</text>
+                                <text x="10" y="35" font-size="10" fill="#666">• 148 bits set to 1</text>
+                                <text x="10" y="50" font-size="10" fill="#666">• 1900 bits set to 0</text>
+                            </g>
+
+                            <!-- Similarity comparison -->
+                            <g transform="translate(0, 130)">
+                                <text x="0" y="0" font-size="12" fill="#666" font-weight="600">Similarity Calculation:</text>
+                                <rect x="0" y="10" width="360" height="45" fill="#e8f4fd" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                                <text x="180" y="28" text-anchor="middle" font-size="11" fill="#333">Tanimoto = |A ∩ B| / |A ∪ B|</text>
+                                <text x="180" y="45" text-anchor="middle" font-size="10" fill="#666">Measures overlap between fingerprints</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
             </div>
-            <div class="content-card">
-                <div class="content-main">Graph representations</div>
-                <div class="content-desc">Molecular graph structures</div>
+        </div>
+
+        <!-- Detail Section 2: 3D Descriptors -->
+        <div class="detail-section">
+            <div class="section-title">
+                <span class="section-number desc-color">2</span>
+                <span style="color: #9b59b6;">3D Molecular Descriptors</span>
             </div>
-            <div class="content-card">
-                <div class="content-main">Learned embeddings</div>
-                <div class="content-desc">Deep learning representations</div>
+            
+            <div class="section-content">
+                <div class="section-text">
+                    <p>Three-dimensional descriptors capture the spatial arrangement and geometric properties of molecules. These representations account for molecular conformations, which are critical for understanding biological activity and molecular interactions.</p>
+                    
+                    <h3>Key Features</h3>
+                    <ul>
+                        <li><strong>Geometric Properties:</strong> Molecular shape, volume, and surface area</li>
+                        <li><strong>Electronic Features:</strong> Partial charges, electrostatic potentials</li>
+                        <li><strong>Pharmacophoric:</strong> Spatial arrangement of functional groups</li>
+                        <li><strong>Conformation-Dependent:</strong> Properties vary with 3D structure</li>
+                    </ul>
+
+                    <h3>Types of 3D Descriptors</h3>
+                    <ul>
+                        <li><strong>Shape-based:</strong> Molecular volume, surface area, principal moments</li>
+                        <li><strong>Field-based:</strong> Molecular electrostatic potential (MEP)</li>
+                        <li><strong>Pharmacophore:</strong> Distance geometry, spatial patterns</li>
+                        <li><strong>Surface properties:</strong> Hydrophobic/hydrophilic regions</li>
+                    </ul>
+
+                    <div class="highlight-box desc-border">
+                        <strong>Use Cases:</strong> Protein-ligand docking, structure-based drug design, conformer analysis, binding affinity prediction
+                    </div>
+                </div>
+
+                <div class="section-visual">
+                    <div class="example-label">3D Descriptor Examples</div>
+                    <svg width="100%" height="420" viewBox="0 0 400 420">
+                        <!-- 3D Molecule representation -->
+                        <g transform="translate(200, 100)">
+                            <text x="0" y="-60" text-anchor="middle" font-size="13" fill="#9b59b6" font-weight="600">3D Conformer</text>
+                            
+                            <!-- 3D structure with depth -->
+                            <ellipse cx="0" cy="0" rx="60" ry="35" fill="none" stroke="#9b59b6" stroke-width="2" stroke-dasharray="4,3" opacity="0.3"/>
+                            
+                            <!-- Atoms with 3D positioning -->
+                            <circle cx="-30" cy="-15" r="10" fill="#95a5a6" opacity="0.8"/>
+                            <circle cx="0" cy="-25" r="10" fill="#3498db" opacity="0.9"/>
+                            <circle cx="30" cy="-10" r="10" fill="#e74c3c" opacity="0.95"/>
+                            <circle cx="-20" cy="15" r="10" fill="#95a5a6" opacity="0.7"/>
+                            <circle cx="20" cy="20" r="10" fill="#2ecc71" opacity="0.85"/>
+                            
+                            <!-- Bonds with perspective -->
+                            <line x1="-25" y1="-12" x2="-3" y2="-22" stroke="#666" stroke-width="3" opacity="0.8"/>
+                            <line x1="5" y1="-23" x2="25" y2="-12" stroke="#666" stroke-width="3" opacity="0.9"/>
+                            <line x1="-23" y1="-8" x2="-18" y2="10" stroke="#666" stroke-width="2" opacity="0.7"/>
+                            <line x1="25" y1="-5" x2="20" y2="15" stroke="#666" stroke-width="2.5" opacity="0.85"/>
+                            
+                            <!-- Distance annotation -->
+                            <line x1="0" y1="-25" x2="30" y2="-10" stroke="#f39c12" stroke-width="1" stroke-dasharray="2,2"/>
+                            <text x="25" y="-23" font-size="9" fill="#f39c12">d = 3.2Å</text>
+                        </g>
+
+                        <!-- Descriptor panels -->
+                        <g transform="translate(20, 180)">
+                            <!-- Volume descriptor -->
+                            <rect x="0" y="0" width="170" height="80" fill="#f8f9fa" stroke="#9b59b6" stroke-width="2" rx="6"/>
+                            <text x="85" y="20" text-anchor="middle" font-size="12" fill="#9b59b6" font-weight="600">Geometric Properties</text>
+                            <text x="10" y="40" font-size="10" fill="#666">• Volume: 324.5 Ų</text>
+                            <text x="10" y="55" font-size="10" fill="#666">• Surface Area: 287.3 ų</text>
+                            <text x="10" y="70" font-size="10" fill="#666">• Sphericity: 0.82</text>
+                            
+                            <!-- Shape visualization -->
+                            <ellipse cx="145" cy="50" rx="15" ry="20" fill="#9b59b6" opacity="0.2" stroke="#9b59b6" stroke-width="1"/>
+                        </g>
+
+                        <g transform="translate(210, 180)">
+                            <!-- Charge descriptor -->
+                            <rect x="0" y="0" width="170" height="80" fill="#f8f9fa" stroke="#9b59b6" stroke-width="2" rx="6"/>
+                            <text x="85" y="20" text-anchor="middle" font-size="12" fill="#9b59b6" font-weight="600">Electronic Properties</text>
+                            <text x="10" y="40" font-size="10" fill="#666">• Dipole Moment: 2.4 D</text>
+                            <text x="10" y="55" font-size="10" fill="#666">• HOMO: -6.2 eV</text>
+                            <text x="10" y="70" font-size="10" fill="#666">• LUMO: -1.8 eV</text>
+                            
+                            <!-- Charge visualization -->
+                            <circle cx="135" cy="45" r="8" fill="#e74c3c" opacity="0.5"/>
+                            <text x="135" y="48" text-anchor="middle" font-size="8" fill="white" font-weight="bold">δ-</text>
+                            <circle cx="155" cy="45" r="8" fill="#3498db" opacity="0.5"/>
+                            <text x="155" y="48" text-anchor="middle" font-size="8" fill="white" font-weight="bold">δ+</text>
+                        </g>
+
+                        <g transform="translate(20, 280)">
+                            <!-- Pharmacophore -->
+                            <rect x="0" y="0" width="360" height="100" fill="#fff3cd" stroke="#f39c12" stroke-width="2" rx="6"/>
+                            <text x="180" y="20" text-anchor="middle" font-size="12" fill="#f39c12" font-weight="600">Pharmacophore Features</text>
+                            
+                            <!-- Feature points -->
+                            <circle cx="50" cy="55" r="12" fill="#e74c3c" opacity="0.3" stroke="#e74c3c" stroke-width="2"/>
+                            <text x="50" y="60" text-anchor="middle" font-size="9" fill="#e74c3c" font-weight="bold">HBA</text>
+                            <text x="50" y="85" text-anchor="middle" font-size="8" fill="#666">H-Bond Acceptor</text>
+                            
+                            <circle cx="130" cy="55" r="12" fill="#3498db" opacity="0.3" stroke="#3498db" stroke-width="2"/>
+                            <text x="130" y="60" text-anchor="middle" font-size="9" fill="#3498db" font-weight="bold">HBD</text>
+                            <text x="130" y="85" text-anchor="middle" font-size="8" fill="#666">H-Bond Donor</text>
+                            
+                            <circle cx="210" cy="55" r="12" fill="#2ecc71" opacity="0.3" stroke="#2ecc71" stroke-width="2"/>
+                            <text x="210" y="60" text-anchor="middle" font-size="9" fill="#2ecc71" font-weight="bold">HYD</text>
+                            <text x="210" y="85" text-anchor="middle" font-size="8" fill="#666">Hydrophobic</text>
+                            
+                            <circle cx="290" cy="55" r="12" fill="#9b59b6" opacity="0.3" stroke="#9b59b6" stroke-width="2"/>
+                            <text x="290" y="60" text-anchor="middle" font-size="9" fill="#9b59b6" font-weight="bold">AR</text>
+                            <text x="290" y="85" text-anchor="middle" font-size="8" fill="#666">Aromatic Ring</text>
+                        </g>
+                    </svg>
+                </div>
             </div>
-            <div class="content-card">
-                <div class="content-main">Multi-view learning</div>
-                <div class="content-desc">Combining multiple representations</div>
+        </div>
+
+        <!-- Detail Section 3: Graph Representations -->
+        <div class="detail-section">
+            <div class="section-title">
+                <span class="section-number graph-color">3</span>
+                <span style="color: #2ecc71;">Graph Representations</span>
+            </div>
+            
+            <div class="section-content">
+                <div class="section-text">
+                    <p>Graph representations treat molecules as mathematical graphs where atoms are nodes and bonds are edges. This natural representation preserves the connectivity and topological structure of molecules, making it ideal for graph neural networks.</p>
+                    
+                    <h3>Graph Components</h3>
+                    <ul>
+                        <li><strong>Nodes (V):</strong> Atoms with features (element type, charge, hybridization)</li>
+                        <li><strong>Edges (E):</strong> Bonds with attributes (bond type, stereochemistry)</li>
+                        <li><strong>Adjacency Matrix (A):</strong> Connectivity information</li>
+                        <li><strong>Node Features (X):</strong> Atomic properties matrix</li>
+                    </ul>
+
+                    <h3>Advantages</h3>
+                    <ul>
+                        <li><strong>Permutation Invariant:</strong> Same molecule regardless of atom ordering</li>
+                        <li><strong>Size Flexible:</strong> Handles molecules of varying sizes</li>
+                        <li><strong>Interpretable:</strong> Clear mapping to chemical structure</li>
+                        <li><strong>GNN Compatible:</strong> Direct input for graph neural networks</li>
+                    </ul>
+
+                    <div class="highlight-box graph-border">
+                        <strong>Use Cases:</strong> Graph neural networks (GNNs), message passing, molecular property prediction, reaction prediction, retrosynthesis
+                    </div>
+                </div>
+
+                <div class="section-visual">
+                    <div class="example-label">Graph Representation - Ethanol (CH₃CH₂OH)</div>
+                    <svg width="100%" height="420" viewBox="0 0 400 420">
+                        <!-- Molecular graph -->
+                        <g transform="translate(200, 80)">
+                            <text x="0" y="-40" text-anchor="middle" font-size="13" fill="#2ecc71" font-weight="600">Molecular Graph</text>
+                            
+                            <!-- Nodes (atoms) -->
+                            <circle cx="-60" cy="0" r="15" fill="#95a5a6" stroke="#333" stroke-width="2"/>
+                            <text x="-60" y="5" text-anchor="middle" font-size="12" fill="white" font-weight="bold">C</text>
+                            <text x="-60" y="-28" text-anchor="middle" font-size="9" fill="#2ecc71" font-weight="600">Node 0</text>
+                            
+                            <circle cx="0" cy="0" r="15" fill="#95a5a6" stroke="#333" stroke-width="2"/>
+                            <text x="0" y="5" text-anchor="middle" font-size="12" fill="white" font-weight="bold">C</text>
+                            <text x="0" y="-28" text-anchor="middle" font-size="9" fill="#2ecc71" font-weight="600">Node 1</text>
+                            
+                            <circle cx="60" cy="0" r="15" fill="#e74c3c" stroke="#333" stroke-width="2"/>
+                            <text x="60" y="5" text-anchor="middle" font-size="12" fill="white" font-weight="bold">O</text>
+                            <text x="60" y="-28" text-anchor="middle" font-size="9" fill="#2ecc71" font-weight="600">Node 2</text>
+                            
+                            <circle cx="-90" cy="-40" r="12" fill="#e8e8e8" stroke="#666" stroke-width="1.5"/>
+                            <text x="-90" y="-36" text-anchor="middle" font-size="10" fill="#666" font-weight="bold">H</text>
+                            
+                            <circle cx="-90" cy="40" r="12" fill="#e8e8e8" stroke="#666" stroke-width="1.5"/>
+                            <text x="-90" y="44" text-anchor="middle" font-size="10" fill="#666" font-weight="bold">H</text>
+                            
+                            <circle cx="0" cy="-40" r="12" fill="#e8e8e8" stroke="#666" stroke-width="1.5"/>
+                            <text x="0" y="-36" text-anchor="middle" font-size="10" fill="#666" font-weight="bold">H</text>
+                            
+                            <circle cx="0" cy="40" r="12" fill="#e8e8e8" stroke="#666" stroke-width="1.5"/>
+                            <text x="0" y="44" text-anchor="middle" font-size="10" fill="#666" font-weight="bold">H</text>
+                            
+                            <circle cx="90" cy="0" r="12" fill="#e8e8e8" stroke="#666" stroke-width="1.5"/>
+                            <text x="90" y="4" text-anchor="middle" font-size="10" fill="#666" font-weight="bold">H</text>
+                            
+                            <!-- Edges (bonds) -->
+                            <line x1="-45" y1="0" x2="-15" y2="0" stroke="#2ecc71" stroke-width="4"/>
+                            <text x="-30" y="20" text-anchor="middle" font-size="9" fill="#2ecc71" font-weight="600">Edge 0-1</text>
+                            
+                            <line x1="15" y1="0" x2="45" y2="0" stroke="#2ecc71" stroke-width="4"/>
+                            <text x="30" y="20" text-anchor="middle" font-size="9" fill="#2ecc71" font-weight="600">Edge 1-2</text>
+                            
+                            <line x1="-67" y1="-12" x2="-82" y2="-30" stroke="#ccc" stroke-width="2"/>
+                            <line x1="-67" y1="12" x2="-82" y2="30" stroke="#ccc" stroke-width="2"/>
+                            <line x1="-7" y1="-12" x2="-2" y2="-28" stroke="#ccc" stroke-width="2"/>
+                            <line x1="7" y1="12" x2="2" y2="28" stroke="#ccc" stroke-width="2"/>
+                            <line x1="72" y1="0" x2="82" y2="0" stroke="#ccc" stroke-width="2"/>
+                        </g>
+
+                        <!-- Adjacency Matrix -->
+                        <g transform="translate(30, 200)">
+                            <text x="0" y="-10" font-size="12" fill="#2ecc71" font-weight="600">Adjacency Matrix (A)</text>
+                            <rect x="0" y="0" width="140" height="120" fill="#f8f9fa" stroke="#2ecc71" stroke-width="2" rx="4"/>
+                            
+                            <!-- Matrix grid -->
+                            <g transform="translate(10, 10)">
+                                <!-- Headers -->
+                                <text x="20" y="10" text-anchor="middle" font-size="9" fill="#666" font-weight="600">C₀</text>
+                                <text x="50" y="10" text-anchor="middle" font-size="9" fill="#666" font-weight="600">C₁</text>
+                                <text x="80" y="10" text-anchor="middle" font-size="9" fill="#666" font-weight="600">O₂</text>
+                                <text x="110" y="10" text-anchor="middle" font-size="9" fill="#666" font-weight="600">H...</text>
+                                
+                                <!-- Row labels -->
+                                <text x="5" y="30" font-size="9" fill="#666" font-weight="600">C₀</text>
+                                <text x="5" y="55" font-size="9" fill="#666" font-weight="600">C₁</text>
+                                <text x="5" y="80" font-size="9" fill="#666" font-weight="600">O₂</text>
+                                <text x="5" y="100" font-size="9" fill="#666" font-weight="600">H...</text>
+                                
+                                <!-- Matrix values -->
+                                <rect x="15" y="20" width="10" height="10" fill="#e0e0e0"/>
+                                <rect x="45" y="20" width="10" height="10" fill="#2ecc71"/>
+                                <rect x="75" y="20" width="10" height="10" fill="#e0e0e0"/>
+                                <rect x="105" y="20" width="10" height="10" fill="#2ecc71"/>
+                                
+                                <rect x="15" y="45" width="10" height="10" fill="#2ecc71"/>
+                                <rect x="45" y="45" width="10" height="10" fill="#e0e0e0"/>
+                                <rect x="75" y="45" width="10" height="10" fill="#2ecc71"/>
+                                <rect x="105" y="45" width="10" height="10" fill="#2ecc71"/>
+                                
+                                <rect x="15" y="70" width="10" height="10" fill="#e0e0e0"/>
+                                <rect x="45" y="70" width="10" height="10" fill="#2ecc71"/>
+                                <rect x="75" y="70" width="10" height="10" fill="#e0e0e0"/>
+                                <rect x="105" y="70" width="10" height="10" fill="#2ecc71"/>
+                                
+                                <text x="20" y="28" text-anchor="middle" font-size="8" fill="#333">0</text>
+                                <text x="50" y="28" text-anchor="middle" font-size="8" fill="white" font-weight="bold">1</text>
+                                <text x="80" y="28" text-anchor="middle" font-size="8" fill="#333">0</text>
+                                <text x="110" y="28" text-anchor="middle" font-size="8" fill="white" font-weight="bold">1</text>
+                            </g>
+                        </g>
+
+                        <!-- Node Feature Matrix -->
+                        <g transform="translate(200, 200)">
+                            <text x="0" y="-10" font-size="12" fill="#2ecc71" font-weight="600">Node Features (X)</text>
+                            <rect x="0" y="0" width="170" height="120" fill="#f8f9fa" stroke="#2ecc71" stroke-width="2" rx="4"/>
+                            
+                            <g transform="translate(10, 15)">
+                                <text x="0" y="0" font-size="10" fill="#666" font-weight="600">Node 0 (C):</text>
+                                <text x="0" y="16" font-size="9" fill="#666">• Atomic number: 6</text>
+                                <text x="0" y="30" font-size="9" fill="#666">• Degree: 4</text>
+                                <text x="0" y="44" font-size="9" fill="#666">• Hybridization: sp³</text>
+                                
+                                <text x="0" y="65" font-size="10" fill="#666" font-weight="600">Node 1 (C):</text>
+                                <text x="0" y="81" font-size="9" fill="#666">• Atomic number: 6</text>
+                                <text x="0" y="95" font-size="9" fill="#666">• Degree: 4</text>
+                            </g>
+                        </g>
+
+                        <!-- Message passing illustration -->
+                        <g transform="translate(30, 340)">
+                            <rect x="0" y="0" width="340" height="60" fill="#e8f4fd" stroke="#2ecc71" stroke-width="2" rx="6"/>
+                            <text x="170" y="20" text-anchor="middle" font-size="11" fill="#2ecc71" font-weight="600">Graph Neural Network Processing</text>
+                            <text x="170" y="38" text-anchor="middle" font-size="10" fill="#666">h⁽ᵗ⁺¹⁾ᵢ = UPDATE(h⁽ᵗ⁾ᵢ, AGGREGATE({h⁽ᵗ⁾ⱼ : j ∈ N(i)}))</text>
+                            <text x="170" y="52" text-anchor="middle" font-size="9" fill="#999">Nodes aggregate information from neighbors</text>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detail Section 4: Learned Embeddings -->
+        <div class="detail-section">
+            <div class="section-title">
+                <span class="section-number embed-color">4</span>
+                <span style="color: #e74c3c;">Learned Embeddings</span>
+            </div>
+            
+            <div class="section-content">
+                <div class="section-text">
+                    <p>Learned embeddings are continuous vector representations automatically learned by neural networks through training on molecular data. Unlike hand-crafted features, these embeddings capture complex patterns and relationships in a data-driven manner.</p>
+                    
+                    <h3>Key Concepts</h3>
+                    <ul>
+                        <li><strong>Dense Vectors:</strong> Continuous-valued representations (e.g., 128-512 dimensions)</li>
+                        <li><strong>Learned Features:</strong> Automatically discovered patterns from data</li>
+                        <li><strong>Task-Specific:</strong> Optimized for particular prediction objectives</li>
+                        <li><strong>Semantic Meaning:</strong> Similar molecules have similar embeddings</li>
+                    </ul>
+
+                    <h3>Common Architectures</h3>
+                    <ul>
+                        <li><strong>VAE:</strong> Variational autoencoders for generative modeling</li>
+                        <li><strong>GNN:</strong> Graph neural network node/graph embeddings</li>
+                        <li><strong>Transformers:</strong> Self-attention based molecular encoders</li>
+                        <li><strong>Pre-trained Models:</strong> ChemBERTa, MolBERT, UniMol</li>
+                    </ul>
+
+                    <div class="highlight-box embed-border">
+                        <strong>Use Cases:</strong> Transfer learning, molecular generation, similarity search in latent space, multi-task learning, zero-shot prediction
+                    </div>
+                </div>
+
+                <div class="section-visual">
+                    <div class="example-label">Neural Network Embedding Pipeline</div>
+                    <svg width="100%" height="440" viewBox="0 0 400 440">
+                        <!-- Input molecule -->
+                        <g transform="translate(50, 40)">
+                            <text x="0" y="-15" font-size="11" fill="#666" font-weight="600">Input Molecule</text>
+                            <!-- Simple structure -->
+                            <circle cx="0" cy="10" r="8" fill="#95a5a6"/>
+                            <circle cx="20" cy="10" r="8" fill="#95a5a6"/>
+                            <circle cx="40" cy="10" r="8" fill="#e74c3c"/>
+                            <line x1="8" y1="10" x2="12" y2="10" stroke="#666" stroke-width="2"/>
+                            <line x1="28" y1="10" x2="32" y2="10" stroke="#666" stroke-width="2"/>
+                        </g>
+
+                        <!-- Encoder Network -->
+                        <g transform="translate(50, 100)">
+                            <rect x="-25" y="-10" width="250" height="140" fill="#f8f9fa" stroke="#e74c3c" stroke-width="2" rx="8"/>
+                            <text x="100" y="10" text-anchor="middle" font-size="12" fill="#e74c3c" font-weight="600">Encoder Network</text>
+                            
+                            <!-- Layer 1 -->
+                            <g transform="translate(20, 30)">
+                                <circle cx="0" cy="0" r="6" fill="#1E64C8"/>
+                                <circle cx="0" cy="20" r="6" fill="#1E64C8"/>
+                                <circle cx="0" cy="40" r="6" fill="#1E64C8"/>
+                                <circle cx="0" cy="60" r="6" fill="#1E64C8"/>
+                                <text x="0" y="80" text-anchor="middle" font-size="9" fill="#666">Input</text>
+                            </g>
+                            
+                            <!-- Layer 2 -->
+                            <g transform="translate(80, 30)">
+                                <circle cx="0" cy="5" r="6" fill="#9b59b6" class="pulse"/>
+                                <circle cx="0" cy="20" r="6" fill="#9b59b6" class="pulse"/>
+                                <circle cx="0" cy="35" r="6" fill="#9b59b6" class="pulse"/>
+                                <circle cx="0" cy="50" r="6" fill="#9b59b6" class="pulse"/>
+                                <text x="0" y="70" text-anchor="middle" font-size="9" fill="#666">Hidden</text>
+                            </g>
+                            
+                            <!-- Layer 3 -->
+                            <g transform="translate(140, 30)">
+                                <circle cx="0" cy="10" r="6" fill="#9b59b6" class="pulse"/>
+                                <circle cx="0" cy="25" r="6" fill="#9b59b6" class="pulse"/>
+                                <circle cx="0" cy="40" r="6" fill="#9b59b6" class="pulse"/>
+                                <text x="0" y="60" text-anchor="middle" font-size="9" fill="#666">Hidden</text>
+                            </g>
+                            
+                            <!-- Output embedding -->
+                            <g transform="translate(200, 30)">
+                                <circle cx="0" cy="15" r="8" fill="#e74c3c"/>
+                                <circle cx="0" cy="35" r="8" fill="#e74c3c"/>
+                                <text x="0" y="55" text-anchor="middle" font-size="9" fill="#666">Embed</text>
+                            </g>
+                            
+                            <!-- Connections -->
+                            <line x1="26" y1="30" x2="74" y2="35" stroke="#ccc" stroke-width="1" opacity="0.5"/>
+                            <line x1="26" y1="50" x2="74" y2="45" stroke="#ccc" stroke-width="1" opacity="0.5"/>
+                            <line x1="86" y1="25" x2="134" y2="25" stroke="#ccc" stroke-width="1" opacity="0.5"/>
+                            <line x1="86" y1="35" x2="134" y2="35" stroke="#ccc" stroke-width="1" opacity="0.5"/>
+                            <line x1="146" y1="25" x2="192" y2="25" stroke="#ccc" stroke-width="1" opacity="0.5"/>
+                            <line x1="146" y1="35" x2="192" y2="35" stroke="#ccc" stroke-width="1" opacity="0.5"/>
+                        </g>
+
+                        <!-- Embedding vector -->
+                        <g transform="translate(30, 270)">
+                            <text x="0" y="-10" font-size="12" fill="#e74c3c" font-weight="600">Embedding Vector</text>
+                            <rect x="0" y="0" width="340" height="50" fill="#f8f9fa" stroke="#e74c3c" stroke-width="2" rx="6"/>
+                            
+                            <text x="170" y="25" text-anchor="middle" font-size="11" fill="#333" font-family="monospace">
+                                z = [0.34, -0.82, 0.15, ..., 0.91, -0.23]
+                            </text>
+                            <text x="170" y="42" text-anchor="middle" font-size="9" fill="#999">512-dimensional vector</text>
+                        </g>
+
+                        <!-- Latent space visualization -->
+                        <g transform="translate(30, 350)">
+                            <text x="0" y="-10" font-size="12" fill="#e74c3c" font-weight="600">Latent Space Clustering</text>
+                            <rect x="0" y="0" width="340" height="80" fill="#f8f9fa" stroke="#e74c3c" stroke-width="2" rx="6"/>
+                            
+                            <!-- 2D projection of latent space -->
+                            <g transform="translate(170, 40)">
+                                <!-- Cluster 1 - similar molecules -->
+                                <circle cx="-50" cy="-10" r="5" fill="#3498db" opacity="0.7"/>
+                                <circle cx="-45" cy="-5" r="5" fill="#3498db" opacity="0.7"/>
+                                <circle cx="-55" cy="0" r="5" fill="#3498db" opacity="0.7"/>
+                                <text x="-50" y="20" text-anchor="middle" font-size="8" fill="#666">Drug-like</text>
+                                
+                                <!-- Cluster 2 -->
+                                <circle cx="10" cy="-15" r="5" fill="#e74c3c" opacity="0.7"/>
+                                <circle cx="15" cy="-10" r="5" fill="#e74c3c" opacity="0.7"/>
+                                <circle cx="5" cy="-5" r="5" fill="#e74c3c" opacity="0.7"/>
+                                <text x="10" y="10" text-anchor="middle" font-size="8" fill="#666">Reactive</text>
+                                
+                                <!-- Cluster 3 -->
+                                <circle cx="55" cy="5" r="5" fill="#2ecc71" opacity="0.7"/>
+                                <circle cx="60" cy="10" r="5" fill="#2ecc71" opacity="0.7"/>
+                                <circle cx="50" cy="15" r="5" fill="#2ecc71" opacity="0.7"/>
+                                <text x="55" y="30" text-anchor="middle" font-size="8" fill="#666">Natural Products</text>
+                            </g>
+                        </g>
+                    </svg>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detail Section 5: Multi-view Learning -->
+        <div class="detail-section">
+            <div class="section-title">
+                <span class="section-number multi-color">5</span>
+                <span style="color: #f39c12;">Multi-view Learning</span>
+            </div>
+            
+            <div class="section-content">
+                <div class="section-text">
+                    <p>Multi-view learning combines multiple molecular representations to leverage complementary information from different perspectives. This approach recognizes that no single representation captures all relevant molecular properties.</p>
+                    
+                    <h3>Integration Strategies</h3>
+                    <ul>
+                        <li><strong>Early Fusion:</strong> Concatenate features before model input</li>
+                        <li><strong>Late Fusion:</strong> Combine predictions from separate models</li>
+                        <li><strong>Intermediate Fusion:</strong> Merge representations at hidden layers</li>
+                        <li><strong>Attention-based:</strong> Learn optimal weighting of views</li>
+                    </ul>
+
+                    <h3>Common View Combinations</h3>
+                    <ul>
+                        <li><strong>2D + 3D:</strong> Topology and conformational information</li>
+                        <li><strong>Graph + Fingerprint:</strong> Structure and patterns</li>
+                        <li><strong>Sequence + Structure:</strong> SMILES and spatial features</li>
+                        <li><strong>Multiple Conformers:</strong> Ensemble of 3D structures</li>
+                    </ul>
+
+                    <div class="highlight-box multi-border">
+                        <strong>Use Cases:</strong> Robust property prediction, improved generalization, handling missing modalities, cross-modal retrieval, comprehensive molecular understanding
+                    </div>
+                </div>
+
+                <div class="section-visual">
+                    <div class="example-label">Multi-view Integration Architecture</div>
+                    <svg width="100%" height="440" viewBox="0 0 400 440">
+                        <!-- Input molecule -->
+                        <g transform="translate(200, 30)">
+                            <circle cx="0" cy="0" r="25" fill="#e3f2fd" stroke="#f39c12" stroke-width="3"/>
+                            <!-- Molecule structure -->
+                            <g transform="translate(-10, -8)">
+                                <circle cx="0" cy="0" r="5" fill="#95a5a6"/>
+                                <circle cx="10" cy="0" r="5" fill="#95a5a6"/>
+                                <circle cx="20" cy="0" r="5" fill="#e74c3c"/>
+                                <line x1="5" y1="0" x2="5" y2="0" stroke="#666" stroke-width="1.5"/>
+                                <line x1="15" y1="0" x2="15" y2="0" stroke="#666" stroke-width="1.5"/>
+                            </g>
+                            <text x="0" y="45" text-anchor="middle" font-size="11" fill="#f39c12" font-weight="600">Input Molecule</text>
+                        </g>
+
+                        <!-- View 1: 2D Fingerprint -->
+                        <g transform="translate(40, 120)">
+                            <rect x="0" y="0" width="100" height="70" fill="#e8f4fd" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                            <text x="50" y="20" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600">View 1</text>
+                            <text x="50" y="35" text-anchor="middle" font-size="10" fill="#666">2D Fingerprint</text>
+                            
+                            <!-- Mini fingerprint -->
+                            <g transform="translate(15, 45)">
+                                <rect x="0" y="0" width="4" height="4" fill="#1E64C8"/>
+                                <rect x="6" y="0" width="4" height="4" fill="#e0e0e0"/>
+                                <rect x="12" y="0" width="4" height="4" fill="#1E64C8"/>
+                                <rect x="18" y="0" width="4" height="4" fill="#1E64C8"/>
+                                <text x="35" y="4" font-size="7" fill="#999">...</text>
+                            </g>
+                        </g>
+
+                        <!-- View 2: Graph -->
+                        <g transform="translate(160, 120)">
+                            <rect x="0" y="0" width="100" height="70" fill="#e8f9f4" stroke="#2ecc71" stroke-width="2" rx="6"/>
+                            <text x="50" y="20" text-anchor="middle" font-size="11" fill="#2ecc71" font-weight="600">View 2</text>
+                            <text x="50" y="35" text-anchor="middle" font-size="10" fill="#666">Graph</text>
+                            
+                            <!-- Mini graph -->
+                            <g transform="translate(30, 45)">
+                                <circle cx="10" cy="5" r="4" fill="#2ecc71"/>
+                                <circle cx="25" cy="0" r="4" fill="#2ecc71"/>
+                                <circle cx="40" cy="5" r="4" fill="#2ecc71"/>
+                                <line x1="14" y1="5" x2="21" y2="1" stroke="#666" stroke-width="1.5"/>
+                                <line x1="29" y1="1" x2="36" y2="5" stroke="#666" stroke-width="1.5"/>
+                            </g>
+                        </g>
+
+                        <!-- View 3: 3D Descriptors -->
+                        <g transform="translate(280, 120)">
+                            <rect x="0" y="0" width="100" height="70" fill="#f4e8f9" stroke="#9b59b6" stroke-width="2" rx="6"/>
+                            <text x="50" y="20" text-anchor="middle" font-size="11" fill="#9b59b6" font-weight="600">View 3</text>
+                            <text x="50" y="35" text-anchor="middle" font-size="10" fill="#666">3D Features</text>
+                            
+                            <!-- 3D representation -->
+                            <g transform="translate(35, 45)">
+                                <ellipse cx="15" cy="5" rx="12" ry="7" fill="none" stroke="#9b59b6" stroke-width="1.5" stroke-dasharray="2,1"/>
+                                <circle cx="10" cy="3" r="3" fill="#9b59b6"/>
+                                <circle cx="20" cy="7" r="3" fill="#9b59b6"/>
+                            </g>
+                        </g>
+
+                        <!-- Encoder branches -->
+                        <g transform="translate(90, 220)">
+                            <text x="0" y="-10" font-size="10" fill="#666">Encoder 1</text>
+                            <circle cx="0" cy="5" r="5" fill="#1E64C8" opacity="0.7"/>
+                            <circle cx="0" cy="20" r="5" fill="#1E64C8" opacity="0.7"/>
+                            <circle cx="0" cy="35" r="5" fill="#1E64C8" opacity="0.7"/>
+                        </g>
+
+                        <g transform="translate(210, 220)">
+                            <text x="0" y="-10" font-size="10" fill="#666">Encoder 2</text>
+                            <circle cx="0" cy="5" r="5" fill="#2ecc71" opacity="0.7"/>
+                            <circle cx="0" cy="20" r="5" fill="#2ecc71" opacity="0.7"/>
+                            <circle cx="0" cy="35" r="5" fill="#2ecc71" opacity="0.7"/>
+                        </g>
+
+                        <g transform="translate(330, 220)">
+                            <text x="0" y="-10" font-size="10" fill="#666">Encoder 3</text>
+                            <circle cx="0" cy="5" r="5" fill="#9b59b6" opacity="0.7"/>
+                            <circle cx="0" cy="20" r="5" fill="#9b59b6" opacity="0.7"/>
+                            <circle cx="0" cy="35" r="5" fill="#9b59b6" opacity="0.7"/>
+                        </g>
+
+                        <!-- Fusion module -->
+                        <g transform="translate(50, 300)">
+                            <rect x="0" y="0" width="300" height="60" fill="#fff3cd" stroke="#f39c12" stroke-width="3" rx="8"/>
+                            <text x="150" y="25" text-anchor="middle" font-size="12" fill="#f39c12" font-weight="600">Fusion Module</text>
+                            <text x="150" y="45" text-anchor="middle" font-size="10" fill="#666">Attention-based Integration</text>
+                            
+                            <!-- Attention weights visualization -->
+                            <g transform="translate(50, 35)">
+                                <rect x="0" y="0" width="40" height="8" fill="#1E64C8" opacity="0.6"/>
+                                <text x="45" y="7" font-size="8" fill="#666">w₁=0.35</text>
+                                
+                                <rect x="80" y="0" width="55" height="8" fill="#2ecc71" opacity="0.6"/>
+                                <text x="140" y="7" font-size="8" fill="#666">w₂=0.45</text>
+                                
+                                <rect x="160" y="0" width="30" height="8" fill="#9b59b6" opacity="0.6"/>
+                                <text x="195" y="7" font-size="8" fill="#666">w₃=0.20</text>
+                            </g>
+                        </g>
+
+                        <!-- Output -->
+                        <g transform="translate(200, 390)">
+                            <circle cx="0" cy="0" r="20" fill="#f39c12"/>
+                            <text x="0" y="5" text-anchor="middle" font-size="11" fill="white" font-weight="600">Output</text>
+                            <text x="0" y="30" text-anchor="middle" font-size="9" fill="#666">Unified Prediction</text>
+                        </g>
+
+                        <!-- Connection arrows -->
+                        <path d="M 90 70 L 90 90" stroke="#f39c12" stroke-width="2" marker-end="url(#arrow-multi)" opacity="0.6"/>
+                        <path d="M 210 70 L 210 90" stroke="#f39c12" stroke-width="2" marker-end="url(#arrow-multi)" opacity="0.6"/>
+                        <path d="M 330 70 L 330 90" stroke="#f39c12" stroke-width="2" marker-end="url(#arrow-multi)" opacity="0.6"/>
+                        
+                        <path d="M 90 190 L 90 220" stroke="#f39c12" stroke-width="2" marker-end="url(#arrow-multi)" opacity="0.6"/>
+                        <path d="M 210 190 L 210 220" stroke="#f39c12" stroke-width="2" marker-end="url(#arrow-multi)" opacity="0.6"/>
+                        <path d="M 330 190 L 330 220" stroke="#f39c12" stroke-width="2" marker-end="url(#arrow-multi)" opacity="0.6"/>
+                        
+                        <path d="M 90 260 L 120 300" stroke="#f39c12" stroke-width="2" marker-end="url(#arrow-multi)" opacity="0.6"/>
+                        <path d="M 210 260 L 200 300" stroke="#f39c12" stroke-width="2" marker-end="url(#arrow-multi)" opacity="0.6"/>
+                        <path d="M 330 260 L 280 300" stroke="#f39c12" stroke-width="2" marker-end="url(#arrow-multi)" opacity="0.6"/>
+                        
+                        <path d="M 200 360 L 200 370" stroke="#f39c12" stroke-width="2" marker-end="url(#arrow-multi)" opacity="0.6"/>
+
+                        <defs>
+                            <marker id="arrow-multi" markerWidth="8" markerHeight="8" refX="7" refY="2.5" orient="auto">
+                                <polygon points="0 0, 8 2.5, 0 5" fill="#f39c12" opacity="0.6"/>
+                            </marker>
+                        </defs>
+                    </svg>
+
+                    <div style="margin-top: 20px; padding: 15px; background: #e8f4fd; border-radius: 6px; border-left: 4px solid #f39c12;">
+                        <p style="font-size: 11px; color: #666; margin: 0;">
+                            <strong style="color: #f39c12;">Key Advantage:</strong> Each view captures different molecular aspects—topology, geometry, and chemical patterns—creating a comprehensive representation that outperforms single-view approaches for complex prediction tasks.
+                        </p>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

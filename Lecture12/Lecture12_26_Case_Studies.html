@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Case Studies</title>
+    <title>Case Studies - Detailed Overview</title>
     <style>
         * {
             margin: 0;
@@ -13,93 +13,702 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
             padding: 40px 20px;
         }
         
         .container {
-            width: 960px;
-            padding: 35px 45px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
-        .title {
-            font-size: 20px;
-            font-weight: 600;
+        .main-title {
+            font-size: 32px;
+            font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 25px;
+            margin-bottom: 40px;
             text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 15px;
         }
         
         .features-grid {
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
         }
         
         .feature-card {
             background: #f8fbff;
             border: 2px solid #1E64C8;
             border-radius: 10px;
-            padding: 15px 18px;
+            padding: 20px;
             transition: all 0.3s;
+            cursor: pointer;
         }
         
         .feature-card:hover {
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(30, 100, 200, 0.2);
+            box-shadow: 0 6px 20px rgba(30, 100, 200, 0.3);
         }
         
         .feature-title {
-            font-size: 17px;
+            font-size: 18px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         
         .feature-desc {
-            font-size: 16px;
-            color: #333;
+            font-size: 15px;
+            color: #555;
             line-height: 1.5;
+        }
+        
+        .detail-section {
+            margin-bottom: 70px;
+            padding: 30px;
+            background: linear-gradient(to bottom, #f8fbff 0%, white 100%);
+            border-radius: 15px;
+            border-left: 5px solid #1E64C8;
+        }
+        
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 25px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #e0e0e0;
+        }
+        
+        .section-number {
+            width: 50px;
+            height: 50px;
+            background: #1E64C8;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+            margin-right: 20px;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+        }
+        
+        .section-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .content-wrapper {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        
+        .text-content {
+            padding-right: 20px;
+        }
+        
+        .visual-content {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .info-box {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 1px solid #e0e0e0;
+            margin-bottom: 20px;
+        }
+        
+        .info-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .info-title::before {
+            content: "▶";
+            margin-right: 10px;
+            color: #1E64C8;
+        }
+        
+        .info-text {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.7;
+            margin-bottom: 10px;
+        }
+        
+        .key-points {
+            list-style: none;
+            margin-top: 15px;
+        }
+        
+        .key-points li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            color: #333;
+            font-size: 15px;
+        }
+        
+        .key-points li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #1E64C8;
+            font-weight: bold;
+        }
+        
+        .diagram-box {
+            background: white;
+            border: 2px solid #1E64C8;
+            border-radius: 10px;
+            padding: 20px;
+            text-align: center;
+            min-height: 200px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .diagram-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 15px;
+        }
+        
+        .diagram-content {
+            width: 100%;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .flow-chart {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            align-items: center;
+        }
+        
+        .flow-item {
+            background: #e8f4ff;
+            padding: 12px 20px;
+            border-radius: 8px;
+            border: 1px solid #1E64C8;
+            width: 90%;
+            text-align: center;
+            font-size: 14px;
+            font-weight: 500;
+        }
+        
+        .arrow {
+            color: #1E64C8;
+            font-size: 20px;
+            font-weight: bold;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        
+        .stat-box {
+            background: #e8f4ff;
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+        }
+        
+        .stat-number {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 5px;
+        }
+        
+        .stat-label {
+            font-size: 13px;
+            color: #555;
+        }
+        
+        .highlight-box {
+            background: #fff9e6;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 5px;
+        }
+        
+        .highlight-title {
+            font-weight: 600;
+            color: #f57c00;
+            margin-bottom: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .content-wrapper {
+                grid-template-columns: 1fr;
+            }
+            
+            .features-grid {
+                grid-template-columns: 1fr;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Case Studies</div>
+        <div class="main-title">Case Studies in Multi-Omics and Systems Biology</div>
         
+        <!-- Overview Cards -->
         <div class="features-grid">
-            
             <div class="feature-card">
                 <div class="feature-title">TCGA Pan-cancer</div>
                 <div class="feature-desc">The Cancer Genome Atlas multi-omics integration</div>
             </div>
-        
+            
             <div class="feature-card">
                 <div class="feature-title">METABRIC</div>
                 <div class="feature-desc">Molecular taxonomy of breast cancer</div>
             </div>
-        
+            
             <div class="feature-card">
                 <div class="feature-title">LINCS</div>
                 <div class="feature-desc">Library of Integrated Network-based Cellular Signatures</div>
             </div>
-        
+            
             <div class="feature-card">
                 <div class="feature-title">HuBMAP</div>
                 <div class="feature-desc">Human BioMolecular Atlas Program</div>
             </div>
-        
+            
             <div class="feature-card">
                 <div class="feature-title">Clinical Examples</div>
                 <div class="feature-desc">Real-world clinical integration</div>
             </div>
-        
         </div>
+        
+        <!-- Detailed Sections -->
+        
+        <!-- 1. TCGA Pan-cancer -->
+        <div class="detail-section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <div>
+                    <div class="section-title">TCGA Pan-cancer Analysis</div>
+                    <div class="section-subtitle">The Cancer Genome Atlas - Multi-Omics Integration</div>
+                </div>
+            </div>
+            
+            <div class="content-wrapper">
+                <div class="text-content">
+                    <div class="info-box">
+                        <div class="info-title">Overview</div>
+                        <div class="info-text">
+                            The Cancer Genome Atlas (TCGA) represents one of the most comprehensive cancer genomics programs, analyzing over 33 different cancer types across more than 11,000 patients. The pan-cancer analysis integrates multiple omics layers to identify common molecular features and driver events across cancer types.
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <div class="info-title">Key Findings</div>
+                        <ul class="key-points">
+                            <li>Identified 299 cancer driver genes across all tumor types</li>
+                            <li>Discovered shared molecular pathways across different cancers</li>
+                            <li>Characterized tumor microenvironment signatures</li>
+                            <li>Established molecular subtypes for precision medicine</li>
+                            <li>Created comprehensive mutation and expression landscapes</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">Impact on Precision Medicine</div>
+                        <div class="info-text">
+                            TCGA data has enabled the development of tumor-agnostic therapies, where treatment is based on molecular features rather than tissue of origin, revolutionizing cancer treatment approaches.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visual-content">
+                    <div class="diagram-box">
+                        <div class="diagram-title">Multi-Omics Data Integration</div>
+                        <div class="flow-chart">
+                            <div class="flow-item">Genomics (WGS/WES)</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item">Transcriptomics (RNA-seq)</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item">Epigenomics (Methylation)</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item">Proteomics (RPPA)</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item" style="background: #1E64C8; color: white;">Integrated Analysis</div>
+                        </div>
+                    </div>
+                    
+                    <div class="diagram-box">
+                        <div class="diagram-title">TCGA Statistics</div>
+                        <div class="stats-grid">
+                            <div class="stat-box">
+                                <div class="stat-number">33</div>
+                                <div class="stat-label">Cancer Types</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">11,000+</div>
+                                <div class="stat-label">Patients</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">299</div>
+                                <div class="stat-label">Driver Genes</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">2.5PB</div>
+                                <div class="stat-label">Data Generated</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 2. METABRIC -->
+        <div class="detail-section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <div>
+                    <div class="section-title">METABRIC Study</div>
+                    <div class="section-subtitle">Molecular Taxonomy of Breast Cancer</div>
+                </div>
+            </div>
+            
+            <div class="content-wrapper">
+                <div class="text-content">
+                    <div class="info-box">
+                        <div class="info-title">Study Design</div>
+                        <div class="info-text">
+                            The Molecular Taxonomy of Breast Cancer International Consortium (METABRIC) analyzed nearly 2,000 breast cancer patients, integrating genomic and transcriptomic data to refine breast cancer classification and improve prognostic accuracy beyond traditional clinical markers.
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <div class="info-title">Major Discoveries</div>
+                        <ul class="key-points">
+                            <li>Identified 10 integrative molecular subtypes (IntClust 1-10)</li>
+                            <li>Refined PAM50 intrinsic subtypes with genomic data</li>
+                            <li>Discovered copy number-driven subtypes</li>
+                            <li>Identified novel driver alterations in specific subtypes</li>
+                            <li>Improved prognostic stratification for treatment decisions</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">Clinical Translation</div>
+                        <div class="info-text">
+                            METABRIC classifications are now used in clinical decision-making tools and have influenced the design of subtype-specific clinical trials, particularly for triple-negative and HER2-positive breast cancers.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visual-content">
+                    <div class="diagram-box">
+                        <div class="diagram-title">METABRIC Analysis Pipeline</div>
+                        <div class="flow-chart">
+                            <div class="flow-item">Copy Number Arrays</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item">Gene Expression Profiles</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item">Clinical Annotations</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item">Integrative Clustering</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item" style="background: #1E64C8; color: white;">10 IntClust Subtypes</div>
+                        </div>
+                    </div>
+                    
+                    <div class="diagram-box">
+                        <div class="diagram-title">Study Metrics</div>
+                        <div class="stats-grid">
+                            <div class="stat-box">
+                                <div class="stat-number">1,980</div>
+                                <div class="stat-label">Patients</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">10</div>
+                                <div class="stat-label">IntClust Subtypes</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">5</div>
+                                <div class="stat-label">PAM50 Subtypes</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">15y</div>
+                                <div class="stat-label">Follow-up Period</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 3. LINCS -->
+        <div class="detail-section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <div>
+                    <div class="section-title">LINCS Program</div>
+                    <div class="section-subtitle">Library of Integrated Network-based Cellular Signatures</div>
+                </div>
+            </div>
+            
+            <div class="content-wrapper">
+                <div class="text-content">
+                    <div class="info-box">
+                        <div class="info-title">Program Goals</div>
+                        <div class="info-text">
+                            The Library of Integrated Network-based Cellular Signatures (LINCS) is an NIH program that catalogs how cells respond to various perturbations including genetic manipulations and chemical compounds. The goal is to understand cellular pathways and discover new therapeutic targets.
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <div class="info-title">Key Components</div>
+                        <ul class="key-points">
+                            <li>L1000 gene expression signatures from perturbations</li>
+                            <li>Protein-protein interaction networks</li>
+                            <li>Cell morphology profiling (Cell Painting)</li>
+                            <li>Transcription factor binding data</li>
+                            <li>Drug repurposing and combination predictions</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">Applications in Drug Discovery</div>
+                        <div class="info-text">
+                            LINCS data enables systematic drug repurposing by identifying compounds with similar or opposite signatures to disease states, accelerating the discovery of new therapeutic applications for existing drugs.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visual-content">
+                    <div class="diagram-box">
+                        <div class="diagram-title">LINCS Workflow</div>
+                        <div class="flow-chart">
+                            <div class="flow-item">Perturbation (Drug/Gene)</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item">Cellular Response Measurement</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item">Signature Generation</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item">Database Integration</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item" style="background: #1E64C8; color: white;">Therapeutic Prediction</div>
+                        </div>
+                    </div>
+                    
+                    <div class="diagram-box">
+                        <div class="diagram-title">LINCS Database Scale</div>
+                        <div class="stats-grid">
+                            <div class="stat-box">
+                                <div class="stat-number">1.3M+</div>
+                                <div class="stat-label">Perturbations</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">25,000+</div>
+                                <div class="stat-label">Compounds</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">70+</div>
+                                <div class="stat-label">Cell Lines</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">978</div>
+                                <div class="stat-label">Landmark Genes</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 4. HuBMAP -->
+        <div class="detail-section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <div>
+                    <div class="section-title">HuBMAP</div>
+                    <div class="section-subtitle">Human BioMolecular Atlas Program</div>
+                </div>
+            </div>
+            
+            <div class="content-wrapper">
+                <div class="text-content">
+                    <div class="info-box">
+                        <div class="info-title">Program Mission</div>
+                        <div class="info-text">
+                            The Human BioMolecular Atlas Program (HuBMAP) aims to create a comprehensive, high-resolution molecular atlas of the human body at single-cell resolution. This ambitious project integrates spatial transcriptomics, proteomics, metabolomics, and imaging to map cellular architecture and function across organs.
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <div class="info-title">Technical Approaches</div>
+                        <ul class="key-points">
+                            <li>Single-cell and spatial transcriptomics (MERFISH, seqFISH)</li>
+                            <li>Multi-modal imaging (IMC, CODEX, MIBI)</li>
+                            <li>Tissue mapping and 3D reconstruction</li>
+                            <li>Integration of molecular and anatomical data</li>
+                            <li>Open-access data portal and visualization tools</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">Impact on Disease Understanding</div>
+                        <div class="info-text">
+                            By mapping healthy tissue architecture at unprecedented resolution, HuBMAP provides a reference atlas for understanding disease-related alterations in tissue organization, cellular composition, and molecular signaling.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visual-content">
+                    <div class="diagram-box">
+                        <div class="diagram-title">HuBMAP Data Integration</div>
+                        <div class="flow-chart">
+                            <div class="flow-item">Tissue Collection</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item">Multi-Modal Profiling</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item">Spatial Registration</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item">3D Reconstruction</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item" style="background: #1E64C8; color: white;">Interactive Atlas</div>
+                        </div>
+                    </div>
+                    
+                    <div class="diagram-box">
+                        <div class="diagram-title">Program Scope</div>
+                        <div class="stats-grid">
+                            <div class="stat-box">
+                                <div class="stat-number">80+</div>
+                                <div class="stat-label">Organ Types</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">10+</div>
+                                <div class="stat-label">Assay Types</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">1000s</div>
+                                <div class="stat-label">Tissue Samples</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">Single-cell</div>
+                                <div class="stat-label">Resolution</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- 5. Clinical Examples -->
+        <div class="detail-section">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <div>
+                    <div class="section-title">Clinical Integration Examples</div>
+                    <div class="section-subtitle">Real-world Applications of Multi-Omics</div>
+                </div>
+            </div>
+            
+            <div class="content-wrapper">
+                <div class="text-content">
+                    <div class="info-box">
+                        <div class="info-title">Precision Oncology Programs</div>
+                        <div class="info-text">
+                            Clinical implementation of multi-omics profiling has transformed cancer care through molecular tumor boards, where genomic, transcriptomic, and proteomic data inform treatment decisions. Programs like MSK-IMPACT and Foundation Medicine's comprehensive genomic profiling guide targeted therapy selection.
+                        </div>
+                    </div>
+                    
+                    <div class="info-box">
+                        <div class="info-title">Clinical Success Stories</div>
+                        <ul class="key-points">
+                            <li>NTRK fusion detection leading to tumor-agnostic larotrectinib approval</li>
+                            <li>Liquid biopsy for minimal residual disease monitoring</li>
+                            <li>Pharmacogenomics guiding drug dosing (CYP2D6, TPMT)</li>
+                            <li>Multi-omic subtyping in acute myeloid leukemia (AML)</li>
+                            <li>Immune profiling for immunotherapy patient selection</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="highlight-box">
+                        <div class="highlight-title">Future Directions</div>
+                        <div class="info-text">
+                            The integration of multi-omics data into electronic health records, real-time clinical decision support systems, and AI-driven treatment recommendations represents the next frontier in precision medicine implementation.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="visual-content">
+                    <div class="diagram-box">
+                        <div class="diagram-title">Clinical Workflow Integration</div>
+                        <div class="flow-chart">
+                            <div class="flow-item">Patient Sample Collection</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item">Multi-Omics Profiling</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item">Bioinformatics Analysis</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item">Molecular Tumor Board</div>
+                            <div class="arrow">↓</div>
+                            <div class="flow-item" style="background: #1E64C8; color: white;">Treatment Decision</div>
+                        </div>
+                    </div>
+                    
+                    <div class="diagram-box">
+                        <div class="diagram-title">Clinical Impact Metrics</div>
+                        <div class="stats-grid">
+                            <div class="stat-box">
+                                <div class="stat-number">30-40%</div>
+                                <div class="stat-label">Actionable Findings</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">15-20%</div>
+                                <div class="stat-label">Treatment Changes</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">10-15%</div>
+                                <div class="stat-label">Clinical Trial Matches</div>
+                            </div>
+                            <div class="stat-box">
+                                <div class="stat-number">2-4 weeks</div>
+                                <div class="stat-label">Turnaround Time</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        
     </div>
 </body>
 </html>

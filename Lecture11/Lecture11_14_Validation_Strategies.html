@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Validation Strategies</title>
+    <title>Validation Strategies - Detailed Guide</title>
     <style>
         * {
             margin: 0;
@@ -12,40 +12,55 @@
         }
         
         body {
-            font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
+            padding: 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header-section {
+            padding: 40px;
+            background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
+            color: white;
+            border-radius: 12px 12px 0 0;
         }
         
         .title {
-            font-size: 28px;
+            font-size: 36px;
             font-weight: 700;
-            color: #1E64C8;
-            margin-bottom: 25px;
+            margin-bottom: 10px;
             text-align: center;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            text-align: center;
+            opacity: 0.95;
+        }
+        
+        .pyramid-section {
+            padding: 40px;
+            background: white;
         }
         
         .pyramid-container {
             display: flex;
             justify-content: center;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             position: relative;
-            height: 320px;
+            height: 350px;
         }
         
         .pyramid-svg {
             width: 100%;
-            max-width: 600px;
+            max-width: 650px;
         }
         
         .pyramid-level {
@@ -81,163 +96,886 @@
         .info-section {
             display: flex;
             gap: 20px;
+            margin-bottom: 40px;
+            flex-wrap: wrap;
         }
         
         .info-card {
             flex: 1;
+            min-width: 220px;
             background: #f8f9fb;
             border-left: 5px solid #1E64C8;
             border-radius: 8px;
-            padding: 16px 20px;
+            padding: 20px;
             transition: all 0.3s;
         }
         
         .info-card:hover {
             background: #e8f2ff;
             transform: translateY(-3px);
+            box-shadow: 0 4px 12px rgba(30,100,200,0.15);
         }
         
         .info-icon {
-            font-size: 28px;
-            margin-bottom: 8px;
+            font-size: 32px;
+            margin-bottom: 12px;
         }
         
         .info-title {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         
         .info-content {
             font-size: 14px;
-            color: #333;
-            line-height: 1.5;
+            color: #555;
+            line-height: 1.6;
         }
         
         .highlight-box {
             background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
             color: white;
-            padding: 18px 25px;
+            padding: 20px 30px;
             border-radius: 10px;
             text-align: center;
-            font-size: 16px;
-            font-weight: 500;
+            font-size: 18px;
+            font-weight: 600;
             line-height: 1.6;
-            margin-top: 15px;
+            margin-bottom: 40px;
+        }
+        
+        /* Detailed sections */
+        .detailed-section {
+            padding: 0 40px 40px 40px;
+        }
+        
+        .validation-detail {
+            margin-bottom: 50px;
+            border: 2px solid #e0e7ff;
+            border-radius: 12px;
+            overflow: hidden;
+            background: white;
+        }
+        
+        .detail-header {
+            padding: 25px 30px;
+            color: white;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .detail-header.level-1 {
+            background: linear-gradient(135deg, #4894f8 0%, #5088d4 100%);
+        }
+        
+        .detail-header.level-2 {
+            background: linear-gradient(135deg, #3884e8 0%, #4894f8 100%);
+        }
+        
+        .detail-header.level-3 {
+            background: linear-gradient(135deg, #2874d8 0%, #3884e8 100%);
+        }
+        
+        .detail-header.level-4 {
+            background: linear-gradient(135deg, #1E64C8 0%, #2874d8 100%);
+        }
+        
+        .detail-number {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: rgba(255,255,255,0.3);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            font-weight: 700;
+        }
+        
+        .detail-title-group h2 {
+            font-size: 26px;
+            margin-bottom: 5px;
+        }
+        
+        .detail-title-group p {
+            font-size: 16px;
+            opacity: 0.95;
+        }
+        
+        .detail-content {
+            padding: 30px;
+        }
+        
+        .detail-description {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: #f8f9fb;
+            border-radius: 8px;
+            border-left: 4px solid #1E64C8;
+        }
+        
+        .detail-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-bottom: 25px;
+        }
+        
+        .visual-example {
+            background: #f8f9fb;
+            border-radius: 10px;
+            padding: 25px;
+            border: 2px solid #e0e7ff;
+        }
+        
+        .visual-example h3 {
+            color: #1E64C8;
+            font-size: 18px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        
+        .example-diagram {
+            background: white;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 15px;
+        }
+        
+        .key-points {
+            background: white;
+            border-radius: 10px;
+            padding: 25px;
+            border: 2px solid #e0e7ff;
+        }
+        
+        .key-points h3 {
+            color: #1E64C8;
+            font-size: 18px;
+            margin-bottom: 15px;
+        }
+        
+        .key-points ul {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .key-points li {
+            padding: 10px 0;
+            padding-left: 30px;
+            position: relative;
+            line-height: 1.6;
+            color: #444;
+        }
+        
+        .key-points li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #1E64C8;
+            font-weight: bold;
+            font-size: 18px;
+        }
+        
+        .example-box {
+            background: #e8f2ff;
+            border-left: 4px solid #1E64C8;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+        
+        .example-box h4 {
+            color: #1E64C8;
+            font-size: 16px;
+            margin-bottom: 10px;
+        }
+        
+        .example-box p {
+            color: #555;
+            line-height: 1.6;
+            font-size: 14px;
+        }
+        
+        /* Chart styles */
+        .chart-container {
+            position: relative;
+            height: 200px;
+            margin: 15px 0;
+        }
+        
+        .bar-chart {
+            display: flex;
+            align-items: flex-end;
+            justify-content: space-around;
+            height: 150px;
+            gap: 10px;
+            padding: 10px;
+        }
+        
+        .bar {
+            flex: 1;
+            background: linear-gradient(to top, #1E64C8, #5088d4);
+            border-radius: 4px 4px 0 0;
+            position: relative;
+            display: flex;
+            align-items: flex-end;
+            justify-content: center;
+            color: white;
+            font-weight: 600;
+            font-size: 12px;
+            padding-bottom: 5px;
+        }
+        
+        .bar-label {
+            text-align: center;
+            font-size: 12px;
+            margin-top: 8px;
+            color: #666;
+        }
+        
+        .scatter-plot {
+            position: relative;
+            height: 180px;
+            border-left: 2px solid #333;
+            border-bottom: 2px solid #333;
+            margin: 20px;
+        }
+        
+        .scatter-point {
+            position: absolute;
+            width: 8px;
+            height: 8px;
+            background: #1E64C8;
+            border-radius: 50%;
+        }
+        
+        .axis-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+        }
+        
+        .flowchart {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            align-items: center;
+        }
+        
+        .flow-box {
+            background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            min-width: 200px;
+        }
+        
+        .flow-arrow {
+            color: #1E64C8;
+            font-size: 24px;
+            font-weight: bold;
+        }
+        
+        @media (max-width: 768px) {
+            .detail-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .info-section {
+                flex-direction: column;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Validation Strategies</div>
-        
-        <div class="pyramid-container">
-            <svg class="pyramid-svg" viewBox="0 0 600 320">
-                <defs>
-                    <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:#1E64C8;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#2874d8;stop-opacity:1" />
-                    </linearGradient>
-                    <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:#2874d8;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#3884e8;stop-opacity:1" />
-                    </linearGradient>
-                    <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:#3884e8;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#4894f8;stop-opacity:1" />
-                    </linearGradient>
-                    <linearGradient id="grad4" x1="0%" y1="0%" x2="0%" y2="100%">
-                        <stop offset="0%" style="stop-color:#4894f8;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#5088d4;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                
-                <!-- Level 4: Clinical Utility (Top) -->
-                <g class="pyramid-level">
-                    <polygon points="300,20 220,90 380,90" fill="url(#grad1)"/>
-                    <circle cx="190" cy="55" r="18" fill="#ff6b6b"/>
-                    <text class="level-number" x="190" y="62" text-anchor="middle">4</text>
-                    <text class="pyramid-text" x="300" y="60" text-anchor="middle" font-size="16">Clinical Utility</text>
-                    <text class="pyramid-subtext" x="300" y="78" text-anchor="middle">Improved outcomes</text>
-                </g>
-                
-                <!-- Level 3: Clinical Validity -->
-                <g class="pyramid-level">
-                    <polygon points="220,90 160,170 440,170" fill="url(#grad2)"/>
-                    <circle cx="120" cy="130" r="18" fill="#ff9f6b"/>
-                    <text class="level-number" x="120" y="137" text-anchor="middle">3</text>
-                    <text class="pyramid-text" x="300" y="130" text-anchor="middle" font-size="16">Clinical Validity</text>
-                    <text class="pyramid-subtext" x="300" y="148" text-anchor="middle">Outcome association</text>
-                </g>
-                
-                <!-- Level 2: Analytical Validity -->
-                <g class="pyramid-level">
-                    <polygon points="160,170 100,250 500,250" fill="url(#grad3)"/>
-                    <circle cx="60" cy="210" r="18" fill="#ffd66b"/>
-                    <text class="level-number" x="60" y="217" text-anchor="middle">2</text>
-                    <text class="pyramid-text" x="300" y="205" text-anchor="middle" font-size="16">Analytical Validity</text>
-                    <text class="pyramid-subtext" x="300" y="223" text-anchor="middle">Reliable measurement</text>
-                </g>
-                
-                <!-- Level 1: Technical Validation (Base) -->
-                <g class="pyramid-level">
-                    <polygon points="100,250 40,310 560,310" fill="url(#grad4)"/>
-                    <circle cx="20" cy="280" r="18" fill="#6bff6b"/>
-                    <text class="level-number" x="20" y="287" text-anchor="middle">1</text>
-                    <text class="pyramid-text" x="300" y="280" text-anchor="middle" font-size="17">Technical Validation</text>
-                    <text class="pyramid-subtext" x="300" y="298" text-anchor="middle">Precision & accuracy</text>
-                </g>
-                
-                <!-- Arrows indicating progression -->
-                <defs>
-                    <marker id="arrowhead-up" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
-                        <polygon points="0 0, 10 5, 0 10" fill="#1E64C8" />
-                    </marker>
-                </defs>
-                <path d="M 520 280 L 520 60" stroke="#1E64C8" stroke-width="3" fill="none" 
-                      marker-end="url(#arrowhead-up)" stroke-dasharray="8,4"/>
-                <text x="535" y="170" fill="#1E64C8" font-size="13" font-weight="600">Validation</text>
-                <text x="535" y="185" fill="#1E64C8" font-size="13" font-weight="600">Progress</text>
-            </svg>
+        <!-- Header -->
+        <div class="header-section">
+            <div class="title">Validation Strategies</div>
+            <div class="subtitle">A Comprehensive Framework for Biomarker and Diagnostic Test Validation</div>
         </div>
         
-        <div class="info-section">
-            <div class="info-card">
-                <div class="info-icon">🔧</div>
-                <div class="info-title">Technical</div>
-                <div class="info-content">
-                    Assay precision, accuracy, and reproducibility in controlled settings
+        <!-- Pyramid Overview -->
+        <div class="pyramid-section">
+            <div class="pyramid-container">
+                <svg class="pyramid-svg" viewBox="0 0 600 350">
+                    <defs>
+                        <linearGradient id="grad1" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#1E64C8;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#2874d8;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="grad2" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#2874d8;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#3884e8;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="grad3" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#3884e8;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#4894f8;stop-opacity:1" />
+                        </linearGradient>
+                        <linearGradient id="grad4" x1="0%" y1="0%" x2="0%" y2="100%">
+                            <stop offset="0%" style="stop-color:#4894f8;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#5088d4;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <!-- Level 4: Clinical Utility (Top) -->
+                    <g class="pyramid-level">
+                        <polygon points="300,30 220,100 380,100" fill="url(#grad1)"/>
+                        <circle cx="190" cy="65" r="18" fill="#ff6b6b"/>
+                        <text class="level-number" x="190" y="72" text-anchor="middle">4</text>
+                        <text class="pyramid-text" x="300" y="70" text-anchor="middle" font-size="16">Clinical Utility</text>
+                        <text class="pyramid-subtext" x="300" y="88" text-anchor="middle">Improved outcomes</text>
+                    </g>
+                    
+                    <!-- Level 3: Clinical Validity -->
+                    <g class="pyramid-level">
+                        <polygon points="220,100 160,180 440,180" fill="url(#grad2)"/>
+                        <circle cx="120" cy="140" r="18" fill="#ff9f6b"/>
+                        <text class="level-number" x="120" y="147" text-anchor="middle">3</text>
+                        <text class="pyramid-text" x="300" y="140" text-anchor="middle" font-size="16">Clinical Validity</text>
+                        <text class="pyramid-subtext" x="300" y="158" text-anchor="middle">Outcome association</text>
+                    </g>
+                    
+                    <!-- Level 2: Analytical Validity -->
+                    <g class="pyramid-level">
+                        <polygon points="160,180 100,260 500,260" fill="url(#grad3)"/>
+                        <circle cx="60" cy="220" r="18" fill="#ffd66b"/>
+                        <text class="level-number" x="60" y="227" text-anchor="middle">2</text>
+                        <text class="pyramid-text" x="300" y="215" text-anchor="middle" font-size="16">Analytical Validity</text>
+                        <text class="pyramid-subtext" x="300" y="233" text-anchor="middle">Reliable measurement</text>
+                    </g>
+                    
+                    <!-- Level 1: Technical Validation (Base) -->
+                    <g class="pyramid-level">
+                        <polygon points="100,260 40,320 560,320" fill="url(#grad4)"/>
+                        <circle cx="20" cy="290" r="18" fill="#6bff6b"/>
+                        <text class="level-number" x="20" y="297" text-anchor="middle">1</text>
+                        <text class="pyramid-text" x="300" y="290" text-anchor="middle" font-size="17">Technical Validation</text>
+                        <text class="pyramid-subtext" x="300" y="308" text-anchor="middle">Precision & accuracy</text>
+                    </g>
+                    
+                    <!-- Arrows -->
+                    <defs>
+                        <marker id="arrowhead-up" markerWidth="10" markerHeight="10" refX="5" refY="5" orient="auto">
+                            <polygon points="0 0, 10 5, 0 10" fill="#1E64C8" />
+                        </marker>
+                    </defs>
+                    <path d="M 520 290 L 520 70" stroke="#1E64C8" stroke-width="3" fill="none" 
+                          marker-end="url(#arrowhead-up)" stroke-dasharray="8,4"/>
+                    <text x="535" y="180" fill="#1E64C8" font-size="13" font-weight="600">Validation</text>
+                    <text x="535" y="195" fill="#1E64C8" font-size="13" font-weight="600">Progress</text>
+                </svg>
+            </div>
+            
+            <div class="info-section">
+                <div class="info-card">
+                    <div class="info-icon">🔧</div>
+                    <div class="info-title">Technical</div>
+                    <div class="info-content">
+                        Assay precision, accuracy, and reproducibility in controlled settings
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">📊</div>
+                    <div class="info-title">Analytical</div>
+                    <div class="info-content">
+                        Reliable and accurate measurement of biomarker across conditions
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">🏥</div>
+                    <div class="info-title">Clinical</div>
+                    <div class="info-content">
+                        Performance and association with outcome in patient population
+                    </div>
+                </div>
+                
+                <div class="info-card">
+                    <div class="info-icon">✅</div>
+                    <div class="info-title">Utility</div>
+                    <div class="info-content">
+                        Improves decision-making and patient outcomes in practice
+                    </div>
                 </div>
             </div>
             
-            <div class="info-card">
-                <div class="info-icon">📏</div>
-                <div class="info-title">Analytical</div>
-                <div class="info-content">
-                    Reliable and accurate measurement of biomarker across conditions
-                </div>
-            </div>
-            
-            <div class="info-card">
-                <div class="info-icon">🏥</div>
-                <div class="info-title">Clinical</div>
-                <div class="info-content">
-                    Performance and association with outcome in patient population
-                </div>
-            </div>
-            
-            <div class="info-card">
-                <div class="info-icon">✅</div>
-                <div class="info-title">Utility</div>
-                <div class="info-content">
-                    Improves decision-making and patient outcomes in practice
-                </div>
+            <div class="highlight-box">
+                ⚡ Key Principle: Each validation level builds upon the previous one, with clinical utility as the ultimate goal
             </div>
         </div>
         
-        <div class="highlight-box">
-            Clinical Utility: Biomarker must improve decision-making and patient outcomes in practice
+        <!-- Detailed Sections -->
+        <div class="detailed-section">
+            
+            <!-- Level 1: Technical Validation -->
+            <div class="validation-detail">
+                <div class="detail-header level-1">
+                    <div class="detail-number">1</div>
+                    <div class="detail-title-group">
+                        <h2>Technical Validation</h2>
+                        <p>Foundation: Precision & Accuracy</p>
+                    </div>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-description">
+                        Technical validation ensures that the assay or measurement technique performs consistently and accurately under controlled laboratory conditions. This is the foundational step that establishes whether the test can reliably measure what it intends to measure.
+                    </div>
+                    
+                    <div class="detail-grid">
+                        <div class="visual-example">
+                            <h3>🎯 Precision & Accuracy</h3>
+                            <div class="example-diagram">
+                                <svg width="100%" height="200" viewBox="0 0 400 200">
+                                    <!-- Target circles -->
+                                    <circle cx="100" cy="100" r="60" fill="none" stroke="#ddd" stroke-width="2"/>
+                                    <circle cx="100" cy="100" r="40" fill="none" stroke="#ccc" stroke-width="2"/>
+                                    <circle cx="100" cy="100" r="20" fill="none" stroke="#bbb" stroke-width="2"/>
+                                    <circle cx="100" cy="100" r="5" fill="#1E64C8"/>
+                                    
+                                    <!-- High precision, high accuracy -->
+                                    <circle cx="95" cy="98" r="4" fill="#4CAF50"/>
+                                    <circle cx="102" cy="103" r="4" fill="#4CAF50"/>
+                                    <circle cx="98" cy="102" r="4" fill="#4CAF50"/>
+                                    <circle cx="103" cy="97" r="4" fill="#4CAF50"/>
+                                    <text x="100" y="180" text-anchor="middle" font-size="12" fill="#333">High Precision</text>
+                                    <text x="100" y="195" text-anchor="middle" font-size="12" fill="#333">High Accuracy</text>
+                                    
+                                    <!-- Target 2 -->
+                                    <circle cx="300" cy="100" r="60" fill="none" stroke="#ddd" stroke-width="2"/>
+                                    <circle cx="300" cy="100" r="40" fill="none" stroke="#ccc" stroke-width="2"/>
+                                    <circle cx="300" cy="100" r="20" fill="none" stroke="#bbb" stroke-width="2"/>
+                                    <circle cx="300" cy="100" r="5" fill="#1E64C8"/>
+                                    
+                                    <!-- High precision, low accuracy -->
+                                    <circle cx="270" cy="75" r="4" fill="#ff9800"/>
+                                    <circle cx="273" cy="78" r="4" fill="#ff9800"/>
+                                    <circle cx="268" cy="77" r="4" fill="#ff9800"/>
+                                    <circle cx="271" cy="73" r="4" fill="#ff9800"/>
+                                    <text x="300" y="180" text-anchor="middle" font-size="12" fill="#333">High Precision</text>
+                                    <text x="300" y="195" text-anchor="middle" font-size="12" fill="#333">Low Accuracy</text>
+                                </svg>
+                            </div>
+                            <div class="example-box">
+                                <h4>Example: Glucose Meter</h4>
+                                <p>A glucose meter showing 95-97 mg/dL on five consecutive measurements of the same sample (true value 96 mg/dL) demonstrates both high precision and accuracy.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="key-points">
+                            <h3>📋 Key Metrics</h3>
+                            <ul>
+                                <li><strong>Repeatability:</strong> Consistency when same operator measures same sample multiple times</li>
+                                <li><strong>Reproducibility:</strong> Consistency across different operators, instruments, or laboratories</li>
+                                <li><strong>Limit of Detection (LOD):</strong> Lowest concentration that can be reliably detected</li>
+                                <li><strong>Limit of Quantification (LOQ):</strong> Lowest concentration that can be accurately measured</li>
+                                <li><strong>Linearity:</strong> Proportional response across the measurement range</li>
+                                <li><strong>Dynamic Range:</strong> Span between LOQ and upper limit of measurement</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="visual-example" style="margin-top: 20px;">
+                        <h3>📈 Reproducibility Assessment</h3>
+                        <div class="example-diagram">
+                            <div class="bar-chart">
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+                                    <div class="bar" style="height: 85%;">85%</div>
+                                    <div class="bar-label">Lab A</div>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+                                    <div class="bar" style="height: 88%;">88%</div>
+                                    <div class="bar-label">Lab B</div>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+                                    <div class="bar" style="height: 86%;">86%</div>
+                                    <div class="bar-label">Lab C</div>
+                                </div>
+                                <div style="display: flex; flex-direction: column; align-items: center; flex: 1;">
+                                    <div class="bar" style="height: 87%;">87%</div>
+                                    <div class="bar-label">Lab D</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="example-box">
+                            <h4>Inter-laboratory Agreement</h4>
+                            <p>Coefficient of variation (CV) &lt; 15% across multiple laboratories indicates excellent reproducibility for diagnostic assays.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Level 2: Analytical Validity -->
+            <div class="validation-detail">
+                <div class="detail-header level-2">
+                    <div class="detail-number">2</div>
+                    <div class="detail-title-group">
+                        <h2>Analytical Validity</h2>
+                        <p>Real-World Performance: Reliable Biomarker Measurement</p>
+                    </div>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-description">
+                        Analytical validation demonstrates that the test accurately and reliably measures the specific biomarker in real-world biological samples, accounting for biological variability, interfering substances, and diverse sample types. This bridges the gap between controlled laboratory conditions and clinical application.
+                    </div>
+                    
+                    <div class="detail-grid">
+                        <div class="visual-example">
+                            <h3>🔬 Sensitivity & Specificity</h3>
+                            <div class="example-diagram">
+                                <svg width="100%" height="220" viewBox="0 0 400 220">
+                                    <!-- 2x2 table -->
+                                    <rect x="50" y="40" width="300" height="150" fill="none" stroke="#333" stroke-width="2"/>
+                                    <line x1="50" y1="90" x2="350" y2="90" stroke="#333" stroke-width="2"/>
+                                    <line x1="50" y1="140" x2="350" y2="140" stroke="#333" stroke-width="2"/>
+                                    <line x1="200" y1="40" x2="200" y2="190" stroke="#333" stroke-width="2"/>
+                                    
+                                    <!-- Labels -->
+                                    <text x="125" y="30" text-anchor="middle" font-size="14" font-weight="600" fill="#333">Disease +</text>
+                                    <text x="275" y="30" text-anchor="middle" font-size="14" font-weight="600" fill="#333">Disease -</text>
+                                    <text x="30" y="70" text-anchor="middle" font-size="14" font-weight="600" fill="#333">Test +</text>
+                                    <text x="30" y="120" text-anchor="middle" font-size="14" font-weight="600" fill="#333">Test -</text>
+                                    
+                                    <!-- Cell contents -->
+                                    <rect x="55" y="45" width="140" height="40" fill="#4CAF50" opacity="0.3"/>
+                                    <text x="125" y="70" text-anchor="middle" font-size="16" font-weight="600">True +</text>
+                                    
+                                    <rect x="205" y="45" width="140" height="40" fill="#f44336" opacity="0.3"/>
+                                    <text x="275" y="70" text-anchor="middle" font-size="16" font-weight="600">False +</text>
+                                    
+                                    <rect x="55" y="95" width="140" height="40" fill="#f44336" opacity="0.3"/>
+                                    <text x="125" y="120" text-anchor="middle" font-size="16" font-weight="600">False -</text>
+                                    
+                                    <rect x="205" y="95" width="140" height="40" fill="#4CAF50" opacity="0.3"/>
+                                    <text x="275" y="120" text-anchor="middle" font-size="16" font-weight="600">True -</text>
+                                    
+                                    <!-- Formulas -->
+                                    <text x="125" y="160" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">Sensitivity</text>
+                                    <text x="125" y="175" text-anchor="middle" font-size="11" fill="#666">TP/(TP+FN)</text>
+                                    
+                                    <text x="275" y="160" text-anchor="middle" font-size="12" fill="#1E64C8" font-weight="600">Specificity</text>
+                                    <text x="275" y="175" text-anchor="middle" font-size="11" fill="#666">TN/(TN+FP)</text>
+                                </svg>
+                            </div>
+                            <div class="example-box">
+                                <h4>Example: Cancer Biomarker</h4>
+                                <p>A prostate-specific antigen (PSA) test with 90% sensitivity detects 90 out of 100 men with prostate cancer, while 95% specificity means only 5 out of 100 healthy men test positive.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="key-points">
+                            <h3>📋 Key Assessment Areas</h3>
+                            <ul>
+                                <li><strong>Analytical Sensitivity:</strong> Ability to detect low concentrations of the analyte</li>
+                                <li><strong>Analytical Specificity:</strong> Ability to measure only the target biomarker without interference</li>
+                                <li><strong>Sample Stability:</strong> Consistency across storage conditions and time</li>
+                                <li><strong>Matrix Effects:</strong> Performance in different biological samples (blood, urine, tissue)</li>
+                                <li><strong>Reference Intervals:</strong> Normal ranges for healthy populations</li>
+                                <li><strong>Cross-reactivity:</strong> Interference from similar molecules</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="visual-example" style="margin-top: 20px;">
+                        <h3>📊 ROC Curve Analysis</h3>
+                        <div class="example-diagram">
+                            <svg width="100%" height="250" viewBox="0 0 400 250">
+                                <!-- Axes -->
+                                <line x1="50" y1="200" x2="350" y2="200" stroke="#333" stroke-width="2"/>
+                                <line x1="50" y1="200" x2="50" y2="20" stroke="#333" stroke-width="2"/>
+                                
+                                <!-- Grid -->
+                                <line x1="50" y1="110" x2="350" y2="110" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5"/>
+                                <line x1="200" y1="200" x2="200" y2="20" stroke="#ddd" stroke-width="1" stroke-dasharray="5,5"/>
+                                
+                                <!-- Diagonal reference line -->
+                                <line x1="50" y1="200" x2="350" y2="20" stroke="#999" stroke-width="1" stroke-dasharray="3,3"/>
+                                
+                                <!-- ROC curve -->
+                                <path d="M 50 200 Q 80 150, 100 100 T 150 50 T 250 30 T 350 20" 
+                                      stroke="#1E64C8" stroke-width="3" fill="none"/>
+                                
+                                <!-- Optimal point -->
+                                <circle cx="150" cy="50" r="6" fill="#4CAF50"/>
+                                <text x="170" y="50" font-size="12" fill="#4CAF50" font-weight="600">Optimal Cutoff</text>
+                                
+                                <!-- Labels -->
+                                <text x="200" y="230" text-anchor="middle" font-size="14" font-weight="600">1 - Specificity</text>
+                                <text x="15" y="110" text-anchor="middle" font-size="14" font-weight="600" transform="rotate(-90 15 110)">Sensitivity</text>
+                                
+                                <!-- AUC text -->
+                                <text x="280" y="150" font-size="16" fill="#1E64C8" font-weight="600">AUC = 0.92</text>
+                            </svg>
+                        </div>
+                        <div class="example-box">
+                            <h4>Receiver Operating Characteristic (ROC)</h4>
+                            <p>AUC (Area Under Curve) of 0.92 indicates excellent discriminatory ability. Values: 0.9-1.0 = excellent, 0.8-0.9 = good, 0.7-0.8 = fair, 0.6-0.7 = poor, 0.5 = no discrimination.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Level 3: Clinical Validity -->
+            <div class="validation-detail">
+                <div class="detail-header level-3">
+                    <div class="detail-number">3</div>
+                    <div class="detail-title-group">
+                        <h2>Clinical Validity</h2>
+                        <p>Clinical Correlation: Association with Patient Outcomes</p>
+                    </div>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-description">
+                        Clinical validation establishes that the biomarker or test result is associated with a clinical outcome, disease state, or therapeutic response in real patient populations. This demonstrates that the test has meaningful clinical relevance beyond technical performance.
+                    </div>
+                    
+                    <div class="detail-grid">
+                        <div class="visual-example">
+                            <h3>📈 Survival Curves</h3>
+                            <div class="example-diagram">
+                                <svg width="100%" height="220" viewBox="0 0 400 220">
+                                    <!-- Axes -->
+                                    <line x1="50" y1="180" x2="350" y2="180" stroke="#333" stroke-width="2"/>
+                                    <line x1="50" y1="180" x2="50" y2="20" stroke="#333" stroke-width="2"/>
+                                    
+                                    <!-- Grid lines -->
+                                    <line x1="50" y1="130" x2="350" y2="130" stroke="#eee" stroke-width="1"/>
+                                    <line x1="50" y1="80" x2="350" y2="80" stroke="#eee" stroke-width="1"/>
+                                    <line x1="150" y1="180" x2="150" y2="20" stroke="#eee" stroke-width="1"/>
+                                    <line x1="250" y1="180" x2="250" y2="20" stroke="#eee" stroke-width="1"/>
+                                    
+                                    <!-- High biomarker curve (worse outcome) -->
+                                    <path d="M 50 30 L 80 30 L 100 45 L 130 60 L 160 80 L 200 105 L 250 135 L 300 160 L 350 175" 
+                                          stroke="#f44336" stroke-width="3" fill="none"/>
+                                    
+                                    <!-- Low biomarker curve (better outcome) -->
+                                    <path d="M 50 30 L 100 30 L 150 35 L 200 45 L 250 60 L 300 80 L 350 105" 
+                                          stroke="#4CAF50" stroke-width="3" fill="none"/>
+                                    
+                                    <!-- Legend -->
+                                    <line x1="270" y1="50" x2="310" y2="50" stroke="#4CAF50" stroke-width="3"/>
+                                    <text x="315" y="54" font-size="12" fill="#333">Low Biomarker</text>
+                                    
+                                    <line x1="270" y1="70" x2="310" y2="70" stroke="#f44336" stroke-width="3"/>
+                                    <text x="315" y="74" font-size="12" fill="#333">High Biomarker</text>
+                                    
+                                    <!-- Labels -->
+                                    <text x="200" y="205" text-anchor="middle" font-size="13" font-weight="600">Time (months)</text>
+                                    <text x="15" y="100" text-anchor="middle" font-size="13" font-weight="600" transform="rotate(-90 15 100)">Survival (%)</text>
+                                    
+                                    <!-- P-value -->
+                                    <text x="200" y="35" text-anchor="middle" font-size="13" fill="#1E64C8" font-weight="600">p &lt; 0.001</text>
+                                </svg>
+                            </div>
+                            <div class="example-box">
+                                <h4>Example: Prognostic Biomarker</h4>
+                                <p>Elevated troponin levels in acute coronary syndrome patients predict higher mortality rates (Hazard Ratio = 2.5, p&lt;0.001), validating its use for risk stratification.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="key-points">
+                            <h3>📋 Study Types</h3>
+                            <ul>
+                                <li><strong>Prospective Cohort:</strong> Follow patients forward in time to assess outcomes</li>
+                                <li><strong>Retrospective Analysis:</strong> Analyze existing data to find associations</li>
+                                <li><strong>Case-Control Studies:</strong> Compare biomarker levels in diseased vs. healthy individuals</li>
+                                <li><strong>Multicenter Validation:</strong> Confirm findings across different populations and settings</li>
+                                <li><strong>External Validation:</strong> Independent datasets confirm the association</li>
+                                <li><strong>Meta-Analysis:</strong> Combine multiple studies for stronger evidence</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="visual-example" style="margin-top: 20px;">
+                        <h3>🎯 Clinical Performance Metrics</h3>
+                        <div class="example-diagram">
+                            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 15px; padding: 15px;">
+                                <div style="background: #e3f2fd; padding: 15px; border-radius: 8px; border-left: 4px solid #1E64C8;">
+                                    <div style="font-size: 24px; font-weight: 700; color: #1E64C8; margin-bottom: 5px;">92%</div>
+                                    <div style="font-size: 12px; color: #666; font-weight: 600;">Positive Predictive Value (PPV)</div>
+                                    <div style="font-size: 11px; color: #888; margin-top: 5px;">Probability disease is present when test is positive</div>
+                                </div>
+                                <div style="background: #e8f5e9; padding: 15px; border-radius: 8px; border-left: 4px solid #4CAF50;">
+                                    <div style="font-size: 24px; font-weight: 700; color: #4CAF50; margin-bottom: 5px;">95%</div>
+                                    <div style="font-size: 12px; color: #666; font-weight: 600;">Negative Predictive Value (NPV)</div>
+                                    <div style="font-size: 11px; color: #888; margin-top: 5px;">Probability disease is absent when test is negative</div>
+                                </div>
+                                <div style="background: #fff3e0; padding: 15px; border-radius: 8px; border-left: 4px solid #ff9800;">
+                                    <div style="font-size: 24px; font-weight: 700; color: #ff9800; margin-bottom: 5px;">2.5</div>
+                                    <div style="font-size: 12px; color: #666; font-weight: 600;">Hazard Ratio (HR)</div>
+                                    <div style="font-size: 11px; color: #888; margin-top: 5px;">Relative risk of event occurrence</div>
+                                </div>
+                                <div style="background: #fce4ec; padding: 15px; border-radius: 8px; border-left: 4px solid #e91e63;">
+                                    <div style="font-size: 24px; font-weight: 700; color: #e91e63; margin-bottom: 5px;">3.2</div>
+                                    <div style="font-size: 12px; color: #666; font-weight: 600;">Odds Ratio (OR)</div>
+                                    <div style="font-size: 11px; color: #888; margin-top: 5px;">Odds of outcome with biomarker vs. without</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="example-box">
+                            <h4>Statistical Significance vs. Clinical Significance</h4>
+                            <p>A statistically significant association (p&lt;0.05) must also be clinically meaningful. For example, a biomarker that improves prediction by only 2% may be statistically significant but not clinically useful.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Level 4: Clinical Utility -->
+            <div class="validation-detail">
+                <div class="detail-header level-4">
+                    <div class="detail-number">4</div>
+                    <div class="detail-title-group">
+                        <h2>Clinical Utility</h2>
+                        <p>Ultimate Goal: Improved Clinical Decision-Making & Outcomes</p>
+                    </div>
+                </div>
+                <div class="detail-content">
+                    <div class="detail-description">
+                        Clinical utility demonstrates that using the test in clinical practice actually improves patient management, treatment decisions, and health outcomes compared to not using the test. This is the most challenging level to demonstrate but represents the true value of a diagnostic or prognostic tool.
+                    </div>
+                    
+                    <div class="detail-grid">
+                        <div class="visual-example">
+                            <h3>🔄 Clinical Decision Pathway</h3>
+                            <div class="example-diagram">
+                                <div class="flowchart">
+                                    <div class="flow-box">Patient Presentation</div>
+                                    <div class="flow-arrow">↓</div>
+                                    <div class="flow-box">Biomarker Test</div>
+                                    <div class="flow-arrow">↓</div>
+                                    <div style="display: flex; gap: 15px; justify-content: center;">
+                                        <div style="background: #4CAF50; color: white; padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 14px;">
+                                            Positive<br/>→ Treatment A
+                                        </div>
+                                        <div style="background: #2196F3; color: white; padding: 12px 20px; border-radius: 8px; font-weight: 600; font-size: 14px;">
+                                            Negative<br/>→ Treatment B
+                                        </div>
+                                    </div>
+                                    <div class="flow-arrow">↓</div>
+                                    <div class="flow-box" style="background: linear-gradient(135deg, #4CAF50 0%, #8BC34A 100%);">
+                                        Improved Outcomes
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="example-box">
+                                <h4>Example: HER2 Testing in Breast Cancer</h4>
+                                <p>HER2 testing guides treatment decisions: HER2-positive patients receive targeted therapy (trastuzumab), leading to 33% reduction in mortality compared to standard chemotherapy alone.</p>
+                            </div>
+                        </div>
+                        
+                        <div class="key-points">
+                            <h3>📋 Evidence Requirements</h3>
+                            <ul>
+                                <li><strong>Randomized Controlled Trials:</strong> Direct evidence of improved outcomes</li>
+                                <li><strong>Treatment Response:</strong> Test guides therapy selection effectively</li>
+                                <li><strong>Clinical Management:</strong> Changes physician decision-making appropriately</li>
+                                <li><strong>Cost-Effectiveness:</strong> Benefits justify testing costs</li>
+                                <li><strong>Patient Impact:</strong> Improves quality of life or survival</li>
+                                <li><strong>Implementation Studies:</strong> Effective in real-world clinical settings</li>
+                            </ul>
+                        </div>
+                    </div>
+                    
+                    <div class="visual-example" style="margin-top: 20px;">
+                        <h3>💡 Utility Assessment Framework</h3>
+                        <div class="example-diagram">
+                            <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 15px; padding: 15px;">
+                                <div style="text-align: center; padding: 20px; background: #f5f5f5; border-radius: 10px;">
+                                    <div style="font-size: 40px; margin-bottom: 10px;">📊</div>
+                                    <div style="font-weight: 700; color: #1E64C8; margin-bottom: 8px;">Does it change management?</div>
+                                    <div style="font-size: 13px; color: #666; line-height: 1.5;">Test results lead to different treatment decisions</div>
+                                </div>
+                                <div style="text-align: center; padding: 20px; background: #f5f5f5; border-radius: 10px;">
+                                    <div style="font-size: 40px; margin-bottom: 10px;">❤️</div>
+                                    <div style="font-weight: 700; color: #1E64C8; margin-bottom: 8px;">Does it improve outcomes?</div>
+                                    <div style="font-size: 13px; color: #666; line-height: 1.5;">Better survival, quality of life, or symptom control</div>
+                                </div>
+                                <div style="text-align: center; padding: 20px; background: #f5f5f5; border-radius: 10px;">
+                                    <div style="font-size: 40px; margin-bottom: 10px;">💰</div>
+                                    <div style="font-weight: 700; color: #1E64C8; margin-bottom: 8px;">Is it cost-effective?</div>
+                                    <div style="font-size: 13px; color: #666; line-height: 1.5;">Benefits justify costs in healthcare system</div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="example-box">
+                            <h4>Real-World Example: BRCA Testing</h4>
+                            <p>BRCA1/2 mutation testing demonstrates clinical utility through: (1) Identifying high-risk individuals for enhanced screening, (2) Guiding surgical decisions (prophylactic mastectomy reduces cancer risk by 90%), (3) Directing PARP inhibitor therapy in ovarian cancer, and (4) Cost-effectiveness analysis showing $15,000/QALY gained, well below the $50,000 threshold.</p>
+                        </div>
+                    </div>
+                    
+                    <div class="example-box" style="margin-top: 25px; background: linear-gradient(135deg, #e3f2fd 0%, #e8f5e9 100%); border-left: 5px solid #1E64C8;">
+                        <h4>🏆 Gold Standard: The Utility Triad</h4>
+                        <p style="margin-bottom: 10px;"><strong>1. Clinical Impact:</strong> Test results change patient management in a meaningful way</p>
+                        <p style="margin-bottom: 10px;"><strong>2. Patient Benefit:</strong> These management changes lead to improved outcomes (survival, quality of life, reduced morbidity)</p>
+                        <p><strong>3. Healthcare Value:</strong> The benefits are achieved at reasonable cost and can be implemented in routine practice</p>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Summary Section -->
+            <div style="margin-top: 40px; padding: 30px; background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%); border-radius: 12px; color: white;">
+                <h2 style="text-align: center; font-size: 28px; margin-bottom: 20px;">🎯 Validation Strategy Summary</h2>
+                <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 25px; margin-top: 25px;">
+                    <div>
+                        <h3 style="font-size: 18px; margin-bottom: 12px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 8px;">✅ Key Success Factors</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 8px 0; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0;">▸</span>
+                                Sequential validation from technical to clinical utility
+                            </li>
+                            <li style="padding: 8px 0; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0;">▸</span>
+                                Each level builds on previous foundations
+                            </li>
+                            <li style="padding: 8px 0; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0;">▸</span>
+                                Independent validation in diverse populations
+                            </li>
+                            <li style="padding: 8px 0; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0;">▸</span>
+                                Continuous monitoring post-implementation
+                            </li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3 style="font-size: 18px; margin-bottom: 12px; border-bottom: 2px solid rgba(255,255,255,0.3); padding-bottom: 8px;">⚠️ Common Pitfalls</h3>
+                        <ul style="list-style: none; padding: 0;">
+                            <li style="padding: 8px 0; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0;">▸</span>
+                                Skipping technical validation steps
+                            </li>
+                            <li style="padding: 8px 0; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0;">▸</span>
+                                Insufficient sample size in validation studies
+                            </li>
+                            <li style="padding: 8px 0; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0;">▸</span>
+                                Lack of external validation cohorts
+                            </li>
+                            <li style="padding: 8px 0; padding-left: 25px; position: relative;">
+                                <span style="position: absolute; left: 0;">▸</span>
+                                Assuming clinical validity equals clinical utility
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div style="margin-top: 30px; padding: 20px; background: rgba(255,255,255,0.15); border-radius: 8px; text-align: center;">
+                    <p style="font-size: 18px; font-weight: 600; line-height: 1.8;">
+                        Remember: A test can be technically perfect and clinically valid, but without demonstrated clinical utility, it should not be used in routine patient care.
+                    </p>
+                </div>
+            </div>
         </div>
     </div>
 </body>

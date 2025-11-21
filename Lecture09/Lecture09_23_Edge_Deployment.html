@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Edge Deployment</title>
+    <title>Edge Deployment - Comprehensive Guide</title>
     <style>
         * {
             margin: 0;
@@ -12,310 +12,774 @@
         }
         
         body {
-            font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: #f5f7fa;
             padding: 40px 20px;
+            line-height: 1.6;
         }
         
         .container {
-            width: 960px;
-            padding: 35px 45px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 50px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
         }
         
         .title {
-            font-size: 28px;
-            font-weight: 600;
+            font-size: 42px;
+            font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 25px;
+            margin-bottom: 50px;
             text-align: center;
+            padding-bottom: 20px;
+            border-bottom: 4px solid #1E64C8;
         }
         
         .deployment-architecture {
             background: #f8fbff;
-            border: 2.5px solid #1E64C8;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 20px;
+            border: 3px solid #1E64C8;
+            border-radius: 15px;
+            padding: 40px;
+            margin-bottom: 60px;
         }
         
         .architecture-title {
-            font-size: 18px;
+            font-size: 24px;
             font-weight: 700;
             color: #1E64C8;
             text-align: center;
-            margin-bottom: 15px;
+            margin-bottom: 30px;
+        }
+        
+        .svg-container {
+            margin: 30px 0;
         }
         
         .concept-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            gap: 30px;
+            margin-bottom: 60px;
         }
         
         .concept-card {
             background: white;
-            border: 2.5px solid #1E64C8;
-            border-radius: 10px;
-            padding: 18px;
+            border: 3px solid #1E64C8;
+            border-radius: 12px;
+            padding: 25px;
             transition: all 0.3s;
-            min-height: 140px;
+            min-height: 160px;
         }
         
         .concept-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(30, 100, 200, 0.2);
+            transform: translateY(-8px);
+            box-shadow: 0 8px 25px rgba(30, 100, 200, 0.25);
             background: #f8fbff;
         }
         
         .concept-name {
-            font-size: 18px;
+            font-size: 22px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         
         .concept-desc {
-            font-size: 15px;
+            font-size: 16px;
+            color: #444;
+            line-height: 1.7;
+        }
+        
+        .section-divider {
+            height: 3px;
+            background: linear-gradient(to right, #1E64C8, #4a90e2, #1E64C8);
+            margin: 80px 0;
+            border-radius: 2px;
+        }
+        
+        .detailed-section {
+            margin-bottom: 80px;
+        }
+        
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 30px;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #e0e7f0;
+        }
+        
+        .section-content {
+            background: #f9fafb;
+            border-left: 5px solid #1E64C8;
+            padding: 30px;
+            margin-bottom: 40px;
+            border-radius: 8px;
+        }
+        
+        .section-text {
+            font-size: 17px;
             color: #333;
-            line-height: 1.5;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .subsection-title {
+            font-size: 22px;
+            font-weight: 600;
+            color: #2c5aa0;
+            margin: 30px 0 20px 0;
+        }
+        
+        .highlight-box {
+            background: #fff9e6;
+            border: 2px solid #ffc107;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .highlight-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #f57c00;
+            margin-bottom: 12px;
+        }
+        
+        .highlight-text {
+            font-size: 16px;
+            color: #555;
+            line-height: 1.7;
+        }
+        
+        .example-box {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+        
+        .example-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2e7d32;
+            margin-bottom: 12px;
+        }
+        
+        .example-text {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.7;
+        }
+        
+        .benefits-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .benefits-list li {
+            padding: 12px 0 12px 35px;
+            position: relative;
+            font-size: 16px;
+            color: #444;
+        }
+        
+        .benefits-list li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #28a745;
+            font-weight: bold;
+            font-size: 20px;
+        }
+        
+        .challenges-list {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .challenges-list li {
+            padding: 12px 0 12px 35px;
+            position: relative;
+            font-size: 16px;
+            color: #444;
+        }
+        
+        .challenges-list li:before {
+            content: "⚠";
+            position: absolute;
+            left: 0;
+            color: #ff9800;
+            font-weight: bold;
+            font-size: 20px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Edge Deployment</div>
+        <div class="title">Edge Deployment: Comprehensive Guide</div>
         
         <div class="deployment-architecture">
             <div class="architecture-title">Model Compression and Edge Deployment Pipeline</div>
-            <svg width="880" height="280" viewBox="0 0 880 280">
-                <!-- Original Model -->
-                <g transform="translate(30, 30)">
-                    <rect x="0" y="0" width="140" height="100" rx="10" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2.5"/>
-                    <text x="70" y="20" font-size="12" fill="#1E64C8" font-weight="700" text-anchor="middle">Original Model</text>
-                    
-                    <rect x="20" y="30" width="100" height="15" rx="3" fill="#1E64C8" opacity="0.8"/>
-                    <text x="70" y="41" font-size="9" fill="white" text-anchor="middle">ResNet-152</text>
-                    
-                    <text x="70" y="58" font-size="9" fill="#666" text-anchor="middle">Size: 230 MB</text>
-                    <text x="70" y="70" font-size="9" fill="#666" text-anchor="middle">FLOPs: 11.3B</text>
-                    <text x="70" y="82" font-size="9" fill="#666" text-anchor="middle">Latency: 85ms</text>
-                    <text x="70" y="94" font-size="9" fill="#dc3545" font-weight="600" text-anchor="middle">❌ Too large for edge</text>
-                </g>
-                
-                <!-- Compression Methods -->
-                <g transform="translate(200, 20)">
-                    <text x="180" y="0" font-size="13" fill="#1E64C8" font-weight="700" text-anchor="middle">Compression Techniques</text>
-                    
-                    <!-- Quantization -->
-                    <g transform="translate(0, 15)">
-                        <rect x="0" y="0" width="160" height="50" rx="8" fill="#fff9e6" stroke="#ffc107" stroke-width="2"/>
-                        <text x="80" y="18" font-size="10" fill="#ffc107" font-weight="600" text-anchor="middle">Quantization</text>
+            <div class="svg-container">
+                <svg width="100%" height="400" viewBox="0 0 880 400">
+                    <!-- Original Model -->
+                    <g transform="translate(30, 50)">
+                        <rect x="0" y="0" width="140" height="120" rx="10" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2.5"/>
+                        <text x="70" y="25" font-size="14" fill="#1E64C8" font-weight="700" text-anchor="middle">Original Model</text>
                         
-                        <rect x="15" y="24" width="30" height="18" rx="3" fill="#ffc107" opacity="0.3"/>
-                        <text x="30" y="35" font-size="8" fill="#333" text-anchor="middle">FP32</text>
+                        <rect x="20" y="40" width="100" height="18" rx="3" fill="#1E64C8" opacity="0.8"/>
+                        <text x="70" y="52" font-size="10" fill="white" text-anchor="middle">ResNet-152</text>
                         
-                        <path d="M 48 33 L 62 33" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-                        
-                        <rect x="65" y="24" width="30" height="18" rx="3" fill="#ffc107" opacity="0.6"/>
-                        <text x="80" y="35" font-size="8" fill="#333" text-anchor="middle">INT8</text>
-                        
-                        <path d="M 98 33 L 112 33" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-                        
-                        <rect x="115" y="24" width="30" height="18" rx="3" fill="#ffc107" opacity="0.9"/>
-                        <text x="130" y="35" font-size="8" fill="#333" text-anchor="middle">INT4</text>
+                        <text x="70" y="75" font-size="10" fill="#666" text-anchor="middle">Size: 230 MB</text>
+                        <text x="70" y="90" font-size="10" fill="#666" text-anchor="middle">FLOPs: 11.3B</text>
+                        <text x="70" y="105" font-size="10" fill="#666" text-anchor="middle">Latency: 85ms</text>
+                        <text x="70" y="120" font-size="10" fill="#dc3545" font-weight="600" text-anchor="middle">❌ Too large</text>
                     </g>
                     
-                    <!-- Pruning -->
-                    <g transform="translate(200, 15)">
-                        <rect x="0" y="0" width="160" height="50" rx="8" fill="#ffe6f0" stroke="#e91e63" stroke-width="2"/>
-                        <text x="80" y="18" font-size="10" fill="#e91e63" font-weight="600" text-anchor="middle">Pruning</text>
+                    <!-- Compression Methods -->
+                    <g transform="translate(200, 30)">
+                        <text x="180" y="0" font-size="15" fill="#1E64C8" font-weight="700" text-anchor="middle">Compression Techniques</text>
                         
-                        <!-- Network visualization -->
-                        <g transform="translate(20, 22)">
-                            <!-- Original -->
-                            <circle cx="10" cy="10" r="3" fill="#e91e63"/>
-                            <circle cx="25" cy="10" r="3" fill="#e91e63"/>
-                            <circle cx="40" cy="10" r="3" fill="#e91e63"/>
-                            <line x1="10" y1="10" x2="25" y2="10" stroke="#e91e63" stroke-width="1"/>
-                            <line x1="25" y1="10" x2="40" y2="10" stroke="#e91e63" stroke-width="1"/>
+                        <!-- Quantization -->
+                        <g transform="translate(0, 25)">
+                            <rect x="0" y="0" width="160" height="60" rx="8" fill="#fff9e6" stroke="#ffc107" stroke-width="2"/>
+                            <text x="80" y="20" font-size="11" fill="#ffc107" font-weight="600" text-anchor="middle">Quantization</text>
                             
-                            <path d="M 45 10 L 55 10" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                            <rect x="15" y="28" width="35" height="20" rx="3" fill="#ffc107" opacity="0.3"/>
+                            <text x="32.5" y="41" font-size="9" fill="#333" text-anchor="middle">FP32</text>
                             
-                            <!-- Pruned -->
-                            <circle cx="65" cy="10" r="3" fill="#e91e63"/>
-                            <circle cx="80" cy="10" r="3" fill="#ccc" stroke="#e91e63" stroke-width="0.5" stroke-dasharray="1,1"/>
-                            <circle cx="95" cy="10" r="3" fill="#e91e63"/>
-                            <circle cx="110" cy="10" r="3" fill="#ccc" stroke="#e91e63" stroke-width="0.5" stroke-dasharray="1,1"/>
-                            <line x1="65" y1="10" x2="95" y2="10" stroke="#e91e63" stroke-width="1"/>
+                            <path d="M 53 38 L 67 38" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                            
+                            <rect x="70" y="28" width="35" height="20" rx="3" fill="#ffc107" opacity="0.6"/>
+                            <text x="87.5" y="41" font-size="9" fill="#333" text-anchor="middle">INT8</text>
+                            
+                            <path d="M 108 38 L 122 38" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                            
+                            <rect x="125" y="28" width="30" height="20" rx="3" fill="#ffc107" opacity="0.9"/>
+                            <text x="140" y="41" font-size="9" fill="#333" text-anchor="middle">INT4</text>
                         </g>
-                        <text x="80" y="47" font-size="8" fill="#666" text-anchor="middle">Remove 60% weights</text>
+                        
+                        <!-- Pruning -->
+                        <g transform="translate(200, 25)">
+                            <rect x="0" y="0" width="160" height="60" rx="8" fill="#ffe6f0" stroke="#e91e63" stroke-width="2"/>
+                            <text x="80" y="20" font-size="11" fill="#e91e63" font-weight="600" text-anchor="middle">Pruning</text>
+                            
+                            <!-- Network visualization -->
+                            <g transform="translate(20, 28)">
+                                <!-- Before -->
+                                <circle cx="10" cy="12" r="3" fill="#e91e63"/>
+                                <circle cx="25" cy="12" r="3" fill="#e91e63"/>
+                                <circle cx="40" cy="12" r="3" fill="#e91e63"/>
+                                <line x1="10" y1="12" x2="25" y2="12" stroke="#e91e63" stroke-width="1"/>
+                                <line x1="25" y1="12" x2="40" y2="12" stroke="#e91e63" stroke-width="1"/>
+                                
+                                <path d="M 45 12 L 60 12" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                                
+                                <!-- After -->
+                                <circle cx="65" cy="12" r="3" fill="#e91e63"/>
+                                <circle cx="80" cy="12" r="1.5" fill="#ccc" opacity="0.4"/>
+                                <circle cx="95" cy="12" r="3" fill="#e91e63"/>
+                                <line x1="65" y1="12" x2="95" y2="12" stroke="#e91e63" stroke-width="1"/>
+                                <line x1="80" y1="12" x2="95" y2="12" stroke="#ccc" stroke-width="0.5" opacity="0.3" stroke-dasharray="2,2"/>
+                            </g>
+                        </g>
+                        
+                        <!-- Knowledge Distillation -->
+                        <g transform="translate(0, 100)">
+                            <rect x="0" y="0" width="360" height="60" rx="8" fill="#e6f7ff" stroke="#17a2b8" stroke-width="2"/>
+                            <text x="180" y="20" font-size="11" fill="#17a2b8" font-weight="600" text-anchor="middle">Knowledge Distillation</text>
+                            
+                            <g transform="translate(40, 28)">
+                                <rect x="0" y="0" width="80" height="25" rx="4" fill="#17a2b8" opacity="0.2"/>
+                                <text x="40" y="15" font-size="9" fill="#333" text-anchor="middle">Teacher</text>
+                                <text x="40" y="23" font-size="8" fill="#666" text-anchor="middle">(Large)</text>
+                                
+                                <path d="M 85 12 L 115 12" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                                <text x="100" y="8" font-size="7" fill="#17a2b8" text-anchor="middle">Transfer</text>
+                                
+                                <rect x="120" y="0" width="80" height="25" rx="4" fill="#28a745" opacity="0.3"/>
+                                <text x="160" y="15" font-size="9" fill="#333" text-anchor="middle">Student</text>
+                                <text x="160" y="23" font-size="8" fill="#666" text-anchor="middle">(Compact)</text>
+                            </g>
+                        </g>
+                        
+                        <!-- Architecture Optimization -->
+                        <g transform="translate(0, 175)">
+                            <rect x="0" y="0" width="360" height="60" rx="8" fill="#f0f5fc" stroke="#6f42c1" stroke-width="2"/>
+                            <text x="180" y="20" font-size="11" fill="#6f42c1" font-weight="600" text-anchor="middle">Architecture Optimization</text>
+                            
+                            <text x="180" y="38" font-size="10" fill="#666" text-anchor="middle">MobileNet, EfficientNet-Lite, ShuffleNet</text>
+                            <text x="180" y="52" font-size="9" fill="#666" text-anchor="middle">Designed specifically for mobile/edge devices</text>
+                        </g>
                     </g>
                     
-                    <!-- Knowledge Distillation -->
-                    <g transform="translate(0, 73)">
-                        <rect x="0" y="0" width="360" height="50" rx="8" fill="#e6f3ff" stroke="#17a2b8" stroke-width="2"/>
-                        <text x="180" y="18" font-size="10" fill="#17a2b8" font-weight="600" text-anchor="middle">Knowledge Distillation</text>
+                    <!-- Optimized Model -->
+                    <g transform="translate(600, 50)">
+                        <rect x="0" y="0" width="140" height="120" rx="10" fill="#e8ffe8" stroke="#28a745" stroke-width="2.5"/>
+                        <text x="70" y="25" font-size="14" fill="#28a745" font-weight="700" text-anchor="middle">Optimized Model</text>
                         
-                        <!-- Teacher-Student -->
-                        <rect x="20" y="24" width="60" height="20" rx="3" fill="#17a2b8" opacity="0.8"/>
-                        <text x="50" y="36" font-size="8" fill="white" text-anchor="middle">Teacher</text>
+                        <rect x="20" y="40" width="100" height="18" rx="3" fill="#28a745" opacity="0.6"/>
+                        <text x="70" y="52" font-size="10" fill="white" text-anchor="middle">MobileNet-INT8</text>
                         
-                        <path d="M 80 34 L 100 34" stroke="#17a2b8" stroke-width="2" marker-end="url(#arrowhead)"/>
-                        <text x="90" y="30" font-size="8" fill="#17a2b8">KL</text>
-                        
-                        <rect x="100" y="24" width="40" height="20" rx="3" fill="#17a2b8" opacity="0.4"/>
-                        <text x="120" y="36" font-size="8" fill="#333" text-anchor="middle">Student</text>
-                        
-                        <text x="200" y="36" font-size="8" fill="#666">10× smaller, 95% accuracy</text>
+                        <text x="70" y="75" font-size="10" fill="#666" text-anchor="middle">Size: 4.3 MB</text>
+                        <text x="70" y="90" font-size="10" fill="#666" text-anchor="middle">FLOPs: 0.58B</text>
+                        <text x="70" y="105" font-size="10" fill="#666" text-anchor="middle">Latency: 7ms</text>
+                        <text x="70" y="120" font-size="10" fill="#28a745" font-weight="600" text-anchor="middle">✓ Edge-ready!</text>
                     </g>
                     
-                    <!-- Neural Architecture Search -->
-                    <g transform="translate(0, 131)">
-                        <rect x="0" y="0" width="360" height="50" rx="8" fill="#f0f5fc" stroke="#6f42c1" stroke-width="2"/>
-                        <text x="180" y="18" font-size="10" fill="#6f42c1" font-weight="600" text-anchor="middle">Architecture Optimization</text>
+                    <!-- Deployment Targets -->
+                    <g transform="translate(30, 220)">
+                        <text x="420" y="0" font-size="15" fill="#1E64C8" font-weight="700" text-anchor="middle">Deployment Targets</text>
                         
-                        <text x="180" y="32" font-size="9" fill="#666" text-anchor="middle">MobileNet, EfficientNet-Lite, ShuffleNet</text>
-                        <text x="180" y="44" font-size="8" fill="#666" text-anchor="middle">Designed for mobile/edge devices</text>
-                    </g>
-                </g>
-                
-                <!-- Optimized Model -->
-                <g transform="translate(600, 30)">
-                    <rect x="0" y="0" width="140" height="100" rx="10" fill="#e8ffe8" stroke="#28a745" stroke-width="2.5"/>
-                    <text x="70" y="20" font-size="12" fill="#28a745" font-weight="700" text-anchor="middle">Optimized Model</text>
-                    
-                    <rect x="20" y="30" width="100" height="15" rx="3" fill="#28a745" opacity="0.6"/>
-                    <text x="70" y="41" font-size="9" fill="white" text-anchor="middle">MobileNet-INT8</text>
-                    
-                    <text x="70" y="58" font-size="9" fill="#666" text-anchor="middle">Size: 4.3 MB</text>
-                    <text x="70" y="70" font-size="9" fill="#666" text-anchor="middle">FLOPs: 0.58B</text>
-                    <text x="70" y="82" font-size="9" fill="#666" text-anchor="middle">Latency: 7ms</text>
-                    <text x="70" y="94" font-size="9" fill="#28a745" font-weight="600" text-anchor="middle">✓ Edge-ready!</text>
-                </g>
-                
-                <!-- Deployment Targets -->
-                <g transform="translate(30, 150)">
-                    <text x="420" y="0" font-size="13" fill="#1E64C8" font-weight="700" text-anchor="middle">Deployment Targets</text>
-                    
-                    <!-- Mobile -->
-                    <g transform="translate(0, 15)">
-                        <rect x="0" y="0" width="160" height="90" rx="8" fill="#fff0f0" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="80" y="18" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">Mobile Devices</text>
+                        <!-- Mobile -->
+                        <g transform="translate(0, 20)">
+                            <rect x="0" y="0" width="160" height="110" rx="8" fill="#fff0f0" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="80" y="22" font-size="12" fill="#1E64C8" font-weight="600" text-anchor="middle">Mobile Devices</text>
+                            
+                            <rect x="20" y="32" width="120" height="30" rx="5" fill="white" stroke="#666" stroke-width="1"/>
+                            <text x="80" y="50" font-size="10" fill="#666" text-anchor="middle">TensorFlow Lite</text>
+                            
+                            <rect x="20" y="68" width="120" height="30" rx="5" fill="white" stroke="#666" stroke-width="1"/>
+                            <text x="80" y="86" font-size="10" fill="#666" text-anchor="middle">Core ML (iOS)</text>
+                            
+                            <text x="80" y="107" font-size="9" fill="#28a745" text-anchor="middle">ARM CPU/GPU</text>
+                        </g>
                         
-                        <rect x="20" y="25" width="120" height="25" rx="5" fill="white" stroke="#666" stroke-width="1"/>
-                        <text x="80" y="40" font-size="9" fill="#666" text-anchor="middle">TensorFlow Lite</text>
+                        <!-- Edge Server -->
+                        <g transform="translate(175, 20)">
+                            <rect x="0" y="0" width="160" height="110" rx="8" fill="#f0fff0" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="80" y="22" font-size="12" fill="#1E64C8" font-weight="600" text-anchor="middle">Edge Servers</text>
+                            
+                            <rect x="20" y="32" width="120" height="30" rx="5" fill="white" stroke="#666" stroke-width="1"/>
+                            <text x="80" y="50" font-size="10" fill="#666" text-anchor="middle">ONNX Runtime</text>
+                            
+                            <rect x="20" y="68" width="120" height="30" rx="5" fill="white" stroke="#666" stroke-width="1"/>
+                            <text x="80" y="86" font-size="10" fill="#666" text-anchor="middle">TensorRT</text>
+                            
+                            <text x="80" y="107" font-size="9" fill="#28a745" text-anchor="middle">NVIDIA Jetson</text>
+                        </g>
                         
-                        <rect x="20" y="55" width="120" height="25" rx="5" fill="white" stroke="#666" stroke-width="1"/>
-                        <text x="80" y="70" font-size="9" fill="#666" text-anchor="middle">Core ML (iOS)</text>
+                        <!-- Embedded -->
+                        <g transform="translate(350, 20)">
+                            <rect x="0" y="0" width="160" height="110" rx="8" fill="#f0f0ff" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="80" y="22" font-size="12" fill="#1E64C8" font-weight="600" text-anchor="middle">Embedded Systems</text>
+                            
+                            <rect x="20" y="32" width="120" height="30" rx="5" fill="white" stroke="#666" stroke-width="1"/>
+                            <text x="80" y="50" font-size="10" fill="#666" text-anchor="middle">TF Lite Micro</text>
+                            
+                            <rect x="20" y="68" width="120" height="30" rx="5" fill="white" stroke="#666" stroke-width="1"/>
+                            <text x="80" y="86" font-size="10" fill="#666" text-anchor="middle">OpenVINO</text>
+                            
+                            <text x="80" y="107" font-size="9" fill="#28a745" text-anchor="middle">TPU/NPU/VPU</text>
+                        </g>
                         
-                        <text x="80" y="87" font-size="8" fill="#28a745" text-anchor="middle">ARM CPU/GPU</text>
-                    </g>
-                    
-                    <!-- Edge Server -->
-                    <g transform="translate(175, 15)">
-                        <rect x="0" y="0" width="160" height="90" rx="8" fill="#f0fff0" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="80" y="18" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">Edge Servers</text>
-                        
-                        <rect x="20" y="25" width="120" height="25" rx="5" fill="white" stroke="#666" stroke-width="1"/>
-                        <text x="80" y="40" font-size="9" fill="#666" text-anchor="middle">ONNX Runtime</text>
-                        
-                        <rect x="20" y="55" width="120" height="25" rx="5" fill="white" stroke="#666" stroke-width="1"/>
-                        <text x="80" y="70" font-size="9" fill="#666" text-anchor="middle">TensorRT</text>
-                        
-                        <text x="80" y="87" font-size="8" fill="#28a745" text-anchor="middle">NVIDIA Jetson</text>
-                    </g>
-                    
-                    <!-- Embedded -->
-                    <g transform="translate(350, 15)">
-                        <rect x="0" y="0" width="160" height="90" rx="8" fill="#f0f0ff" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="80" y="18" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">Embedded Systems</text>
-                        
-                        <rect x="20" y="25" width="120" height="25" rx="5" fill="white" stroke="#666" stroke-width="1"/>
-                        <text x="80" y="40" font-size="9" fill="#666" text-anchor="middle">TF Lite Micro</text>
-                        
-                        <rect x="20" y="55" width="120" height="25" rx="5" fill="white" stroke="#666" stroke-width="1"/>
-                        <text x="80" y="70" font-size="9" fill="#666" text-anchor="middle">OpenVINO</text>
-                        
-                        <text x="80" y="87" font-size="8" fill="#28a745" text-anchor="middle">TPU/NPU/VPU</text>
+                        <!-- Browser -->
+                        <g transform="translate(525, 20)">
+                            <rect x="0" y="0" width="160" height="110" rx="8" fill="#fffaf0" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="80" y="22" font-size="12" fill="#1E64C8" font-weight="600" text-anchor="middle">Browser-based</text>
+                            
+                            <rect x="20" y="32" width="120" height="30" rx="5" fill="white" stroke="#666" stroke-width="1"/>
+                            <text x="80" y="50" font-size="10" fill="#666" text-anchor="middle">TensorFlow.js</text>
+                            
+                            <rect x="20" y="68" width="120" height="30" rx="5" fill="white" stroke="#666" stroke-width="1"/>
+                            <text x="80" y="86" font-size="10" fill="#666" text-anchor="middle">ONNX.js</text>
+                            
+                            <text x="80" y="107" font-size="9" fill="#28a745" text-anchor="middle">WebGL/WebAssembly</text>
+                        </g>
                     </g>
                     
-                    <!-- Browser -->
-                    <g transform="translate(525, 15)">
-                        <rect x="0" y="0" width="160" height="90" rx="8" fill="#fffaf0" stroke="#1E64C8" stroke-width="2"/>
-                        <text x="80" y="18" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">Browser-based</text>
+                    <!-- Performance Comparison -->
+                    <g transform="translate(750, 50)">
+                        <rect x="0" y="0" width="120" height="120" rx="8" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="60" y="22" font-size="11" fill="#1E64C8" font-weight="600" text-anchor="middle">Metrics</text>
                         
-                        <rect x="20" y="25" width="120" height="25" rx="5" fill="white" stroke="#666" stroke-width="1"/>
-                        <text x="80" y="40" font-size="9" fill="#666" text-anchor="middle">TensorFlow.js</text>
+                        <text x="12" y="45" font-size="9" fill="#666">Model size:</text>
+                        <text x="108" y="45" font-size="9" fill="#28a745" font-weight="600" text-anchor="end">53× ↓</text>
                         
-                        <rect x="20" y="55" width="120" height="25" rx="5" fill="white" stroke="#666" stroke-width="1"/>
-                        <text x="80" y="70" font-size="9" fill="#666" text-anchor="middle">ONNX.js</text>
+                        <text x="12" y="65" font-size="9" fill="#666">Inference:</text>
+                        <text x="108" y="65" font-size="9" fill="#28a745" font-weight="600" text-anchor="end">12× ↑</text>
                         
-                        <text x="80" y="87" font-size="8" fill="#28a745" text-anchor="middle">WebGL/WebAssembly</text>
+                        <text x="12" y="85" font-size="9" fill="#666">Power:</text>
+                        <text x="108" y="85" font-size="9" fill="#28a745" font-weight="600" text-anchor="end">10× ↓</text>
+                        
+                        <text x="12" y="105" font-size="9" fill="#666">Accuracy:</text>
+                        <text x="108" y="105" font-size="9" fill="#ffc107" font-weight="600" text-anchor="end">-2%</text>
                     </g>
-                </g>
-                
-                <!-- Performance Comparison -->
-                <g transform="translate(750, 30)">
-                    <rect x="0" y="0" width="120" height="100" rx="8" fill="#f0f5fc" stroke="#1E64C8" stroke-width="1.5"/>
-                    <text x="60" y="18" font-size="10" fill="#1E64C8" font-weight="600" text-anchor="middle">Metrics</text>
                     
-                    <text x="10" y="35" font-size="8" fill="#666">Model size:</text>
-                    <text x="110" y="35" font-size="8" fill="#28a745" font-weight="600" text-anchor="end">53× ↓</text>
+                    <!-- Arrows -->
+                    <path d="M 170 110 L 200 110" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+                    <path d="M 560 110 L 600 110" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrowhead)"/>
                     
-                    <text x="10" y="50" font-size="8" fill="#666">Inference:</text>
-                    <text x="110" y="50" font-size="8" fill="#28a745" font-weight="600" text-anchor="end">12× ↑</text>
-                    
-                    <text x="10" y="65" font-size="8" fill="#666">Power:</text>
-                    <text x="110" y="65" font-size="8" fill="#28a745" font-weight="600" text-anchor="end">10× ↓</text>
-                    
-                    <text x="10" y="80" font-size="8" fill="#666">Accuracy:</text>
-                    <text x="110" y="80" font-size="8" fill="#ffc107" font-weight="600" text-anchor="end">-2%</text>
-                </g>
-                
-                <!-- Arrows -->
-                <path d="M 170 80 L 200 80" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrowhead)"/>
-                <path d="M 560 80 L 600 80" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrowhead)"/>
-                
-                <defs>
-                    <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
-                    </marker>
-                </defs>
-            </svg>
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
         </div>
         
         <div class="concept-grid">
             <div class="concept-card">
                 <div class="concept-name">Model Compression</div>
-                <div class="concept-desc">Reduce model size and latency. Essential for edge devices and real-time applications</div>
+                <div class="concept-desc">Reduce model size and computational requirements while maintaining accuracy. Essential for deploying deep learning models on resource-constrained edge devices and enabling real-time applications.</div>
             </div>
         
             <div class="concept-card">
                 <div class="concept-name">Quantization</div>
-                <div class="concept-desc">INT8 or INT4 precision. 4x smaller models with minimal accuracy loss</div>
+                <div class="concept-desc">Convert model weights from high-precision (FP32) to lower precision (INT8, INT4). Achieves 4x-8x smaller models with minimal accuracy loss, dramatically reducing memory footprint and inference time.</div>
             </div>
         
             <div class="concept-card">
                 <div class="concept-name">Pruning</div>
-                <div class="concept-desc">Remove redundant weights/neurons. Structured pruning for hardware efficiency</div>
+                <div class="concept-desc">Systematically remove redundant weights, neurons, or entire channels from the network. Structured pruning maintains hardware efficiency while unstructured pruning maximizes compression.</div>
             </div>
         
             <div class="concept-card">
                 <div class="concept-name">Knowledge Distillation</div>
-                <div class="concept-desc">Train small student from large teacher. Maintains performance with fewer parameters</div>
+                <div class="concept-desc">Train a compact student model to mimic a larger teacher model's behavior. Transfers knowledge from complex models to efficient ones while maintaining high performance with significantly fewer parameters.</div>
             </div>
         
             <div class="concept-card">
                 <div class="concept-name">Hardware Acceleration</div>
-                <div class="concept-desc">TensorRT, ONNX Runtime. GPU, TPU, or specialized medical imaging accelerators</div>
+                <div class="concept-desc">Leverage specialized hardware (GPU, TPU, NPU) and optimized runtimes (TensorRT, ONNX Runtime) to maximize inference speed. Critical for real-time applications and high-throughput scenarios.</div>
             </div>
-        
         </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Detailed Section 1: Model Compression -->
+        <div class="detailed-section">
+            <div class="section-title">1. Model Compression: Foundation of Edge Deployment</div>
+            
+            <div class="section-content">
+                <p class="section-text">
+                    Model compression is the cornerstone of edge deployment, addressing the fundamental challenge of deploying sophisticated deep learning models on resource-constrained devices. Modern neural networks, while powerful, often contain millions or billions of parameters, making them impractical for deployment on mobile phones, IoT devices, or embedded systems with limited memory, battery life, and computational power.
+                </p>
+                <p class="section-text">
+                    The goal of model compression is to reduce the model's size, memory footprint, and computational requirements while preserving its accuracy and functionality. This enables deployment scenarios that would otherwise be impossible, such as running complex computer vision models on smartphones, deploying natural language processing systems on edge servers, or embedding AI capabilities into tiny microcontrollers.
+                </p>
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-title">Why Model Compression Matters</div>
+                <ul class="benefits-list">
+                    <li><strong>Reduced Latency:</strong> Smaller models execute faster, enabling real-time applications like autonomous driving and augmented reality</li>
+                    <li><strong>Lower Memory Footprint:</strong> Compressed models fit into limited RAM/storage on mobile and embedded devices</li>
+                    <li><strong>Energy Efficiency:</strong> Less computation means longer battery life and reduced power consumption</li>
+                    <li><strong>Cost Reduction:</strong> Smaller models require less expensive hardware and reduce cloud inference costs</li>
+                    <li><strong>Privacy:</strong> On-device inference eliminates the need to send sensitive data to cloud servers</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Real-World Example: Mobile Face Recognition</div>
+                <div class="example-text">
+                    <strong>Scenario:</strong> A smartphone facial recognition system needs to run in real-time without draining the battery.<br><br>
+                    
+                    <strong>Original Model:</strong> ResNet-101 with 42.5M parameters (170 MB)<br>
+                    - Inference time: 180ms per frame<br>
+                    - Power consumption: 3.5W<br>
+                    - Cannot run at 30 FPS for smooth user experience<br><br>
+                    
+                    <strong>Compressed Model:</strong> MobileNetV3-Small with 2.5M parameters (10 MB)<br>
+                    - Inference time: 15ms per frame<br>
+                    - Power consumption: 0.4W<br>
+                    - Runs smoothly at 60+ FPS<br>
+                    - Accuracy drop: < 1%<br><br>
+                    
+                    <strong>Result:</strong> 17× size reduction, 12× speedup, 87% less power consumption
+                </div>
+            </div>
+
+            <div class="subsection-title">Compression Strategies Overview</div>
+            <div class="section-text">
+                Model compression encompasses several complementary techniques that can be combined for maximum effect. The four primary approaches are quantization (reducing numerical precision), pruning (removing redundant parameters), knowledge distillation (training smaller models to mimic larger ones), and neural architecture search (designing efficient architectures from scratch). Each technique offers different trade-offs between compression ratio, accuracy preservation, and implementation complexity.
+            </div>
+
+            <svg width="100%" height="300" viewBox="0 0 800 300">
+                <defs>
+                    <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                    </marker>
+                </defs>
+                
+                <!-- Original Model -->
+                <rect x="50" y="100" width="120" height="100" rx="8" fill="#ffebee" stroke="#e53935" stroke-width="2"/>
+                <text x="110" y="130" font-size="12" fill="#333" text-anchor="middle" font-weight="600">Original Model</text>
+                <text x="110" y="150" font-size="10" fill="#666" text-anchor="middle">230 MB</text>
+                <text x="110" y="170" font-size="10" fill="#666" text-anchor="middle">42M params</text>
+                <text x="110" y="190" font-size="10" fill="#666" text-anchor="middle">85ms latency</text>
+                
+                <!-- Arrow -->
+                <path d="M 175 150 L 220 150" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow2)"/>
+                <text x="197" y="140" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">Compress</text>
+                
+                <!-- Compression Methods -->
+                <g transform="translate(225, 50)">
+                    <rect x="0" y="0" width="300" height="200" rx="8" fill="#e3f2fd" stroke="#1976d2" stroke-width="2"/>
+                    <text x="150" y="25" font-size="13" fill="#1976d2" text-anchor="middle" font-weight="700">Compression Techniques</text>
+                    
+                    <rect x="15" y="40" width="270" height="35" rx="5" fill="white" stroke="#ffc107" stroke-width="1.5"/>
+                    <text x="150" y="60" font-size="11" fill="#333" text-anchor="middle">Quantization: FP32 → INT8 (4× smaller)</text>
+                    
+                    <rect x="15" y="85" width="270" height="35" rx="5" fill="white" stroke="#e91e63" stroke-width="1.5"/>
+                    <text x="150" y="105" font-size="11" fill="#333" text-anchor="middle">Pruning: Remove 70% of weights</text>
+                    
+                    <rect x="15" y="130" width="270" height="35" rx="5" fill="white" stroke="#17a2b8" stroke-width="1.5"/>
+                    <text x="150" y="150" font-size="11" fill="#333" text-anchor="middle">Distillation: Teacher → Student</text>
+                    
+                    <rect x="15" y="175" width="270" height="35" rx="5" fill="white" stroke="#6f42c1" stroke-width="1.5"/>
+                    <text x="150" y="195" font-size="11" fill="#333" text-anchor="middle">NAS: Design efficient architecture</text>
+                </g>
+                
+                <!-- Arrow -->
+                <path d="M 530 150 L 575 150" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow2)"/>
+                
+                <!-- Compressed Model -->
+                <rect x="580" y="100" width="120" height="100" rx="8" fill="#e8f5e9" stroke="#43a047" stroke-width="2"/>
+                <text x="640" y="130" font-size="12" fill="#333" text-anchor="middle" font-weight="600">Compressed</text>
+                <text x="640" y="150" font-size="10" fill="#666" text-anchor="middle">4.3 MB</text>
+                <text x="640" y="170" font-size="10" fill="#666" text-anchor="middle">2.5M params</text>
+                <text x="640" y="190" font-size="10" fill="#666" text-anchor="middle">7ms latency</text>
+                
+                <!-- Comparison -->
+                <text x="400" y="280" font-size="11" fill="#28a745" text-anchor="middle" font-weight="600">53× smaller | 12× faster | Similar accuracy</text>
+            </svg>
+        </div>
+
+        <!-- Continue with the rest of the sections... Due to length limits, I'll provide a link -->
+        
+        <div class="section-divider"></div>
+        
+        <div class="section-title">Document continues with detailed sections on:</div>
+        <ul class="benefits-list" style="margin: 30px 0;">
+            <li>Section 2: Quantization - Precision Reduction for Efficiency (with detailed examples and visualizations)</li>
+            <li>Section 3: Pruning - Removing Redundancy from Networks (with case studies)</li>
+            <li>Section 4: Knowledge Distillation - Learning from Teacher Models (with mobile translation example)</li>
+            <li>Section 5: Hardware Acceleration - Maximizing Inference Speed (with performance comparisons)</li>
+            <li>Summary and Key Takeaways for successful edge deployment</li>
+        </ul>
+
+    </div>
+</body>
+</html>
+
+        <div class="section-divider"></div>
+
+        <!-- Detailed Section 2: Quantization -->
+        <div class="detailed-section">
+            <div class="section-title">2. Quantization: Precision Reduction for Efficiency</div>
+            
+            <div class="section-content">
+                <p class="section-text">
+                    Quantization is one of the most effective compression techniques, reducing the numerical precision of model weights and activations from 32-bit floating-point (FP32) to lower bit-widths such as 8-bit integers (INT8) or even 4-bit integers (INT4). This approach exploits the observation that neural networks are remarkably robust to reduced precision, as they naturally learn to be tolerant to noise during training.
+                </p>
+                <p class="section-text">
+                    The benefits of quantization are substantial: an INT8 model is 4× smaller than its FP32 counterpart, requires 4× less memory bandwidth, and can leverage specialized hardware instructions for integer arithmetic that are significantly faster and more energy-efficient than floating-point operations. Modern mobile processors and edge accelerators include dedicated INT8 processing units specifically designed for efficient neural network inference.
+                </p>
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-title">Quantization Approaches</div>
+                <div class="highlight-text">
+                    <strong>1. Post-Training Quantization (PTQ):</strong> Convert a trained FP32 model to INT8 without retraining. Fast and simple, but may lose 1-3% accuracy. Ideal for quick deployment.<br><br>
+                    
+                    <strong>2. Quantization-Aware Training (QAT):</strong> Simulate quantization during training so the model learns to compensate for reduced precision. Achieves near-zero accuracy loss but requires retraining.<br><br>
+                    
+                    <strong>3. Dynamic Quantization:</strong> Quantize weights statically but compute activations dynamically. Good balance between compression and accuracy for recurrent networks.<br><br>
+                    
+                    <strong>4. Mixed Precision:</strong> Use different bit-widths for different layers based on sensitivity analysis. Maximizes compression while preserving accuracy in critical layers.
+                </div>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Practical Example: Image Classification on Mobile</div>
+                <div class="example-text">
+                    <strong>Task:</strong> Deploy an image classifier on Android devices<br><br>
+                    
+                    <strong>Model:</strong> ResNet-50 trained on ImageNet<br><br>
+                    
+                    <strong>FP32 Baseline:</strong><br>
+                    - Model size: 102 MB<br>
+                    - Inference time: 45ms on Snapdragon 865<br>
+                    - Top-1 accuracy: 76.5%<br>
+                    - Memory usage: 450 MB<br><br>
+                    
+                    <strong>INT8 Quantized (PTQ):</strong><br>
+                    - Model size: 25.5 MB (4× smaller)<br>
+                    - Inference time: 12ms (3.75× faster)<br>
+                    - Top-1 accuracy: 75.8% (-0.7%)<br>
+                    - Memory usage: 120 MB (73% reduction)<br><br>
+                    
+                    <strong>INT8 Quantized (QAT):</strong><br>
+                    - Model size: 25.5 MB<br>
+                    - Inference time: 12ms<br>
+                    - Top-1 accuracy: 76.3% (-0.2%)<br>
+                    - Memory usage: 120 MB<br><br>
+                    
+                    <strong>Impact:</strong> The app can now run on budget phones with limited RAM, processes images in real-time, and uses 75% less battery per inference.
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Detailed Section 3: Pruning -->
+        <div class="detailed-section">
+            <div class="section-title">3. Pruning: Removing Redundancy from Networks</div>
+            
+            <div class="section-content">
+                <p class="section-text">
+                    Neural network pruning is based on the principle that modern networks are heavily over-parameterized, containing many redundant connections that contribute little to the final predictions. Pruning systematically identifies and removes these redundant parameters, resulting in sparse networks that maintain high accuracy while requiring significantly less computation and memory.
+                </p>
+                <p class="section-text">
+                    The pruning process involves three main phases: training the original dense network, identifying which parameters to remove based on importance metrics, and fine-tuning the pruned network to recover any lost accuracy. Modern pruning techniques can remove 70-90% of parameters from large networks while maintaining comparable accuracy, though the exact compression ratio depends on the network architecture and task complexity.
+                </p>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Case Study: Pruning BERT for NLP Tasks</div>
+                <div class="example-text">
+                    <strong>Objective:</strong> Deploy BERT-base for sentiment analysis on edge servers<br><br>
+                    
+                    <strong>Original BERT-base:</strong><br>
+                    - Parameters: 110M<br>
+                    - Model size: 440 MB<br>
+                    - Latency: 125ms per sentence<br>
+                    - F1 Score: 92.3%<br><br>
+                    
+                    <strong>After Structured Pruning (50% heads + 30% FFN removed):</strong><br>
+                    - Parameters: 55M<br>
+                    - Model size: 220 MB<br>
+                    - Latency: 62ms<br>
+                    - F1 Score: 91.5%<br><br>
+                    
+                    <strong>Combined with INT8 Quantization:</strong><br>
+                    - Model size: 55 MB<br>
+                    - Latency: 18ms<br>
+                    - F1 Score: 91.2%<br><br>
+                    
+                    <strong>Outcome:</strong> 7× faster inference, 8× smaller model, deployable on standard edge hardware
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Detailed Section 4: Knowledge Distillation -->
+        <div class="detailed-section">
+            <div class="section-title">4. Knowledge Distillation: Learning from Teacher Models</div>
+            
+            <div class="section-content">
+                <p class="section-text">
+                    Knowledge distillation is a powerful compression technique that transfers knowledge from a large, accurate "teacher" model to a smaller, efficient "student" model. Unlike pruning or quantization that modify an existing model, distillation creates a new compact model that learns to mimic the teacher's behavior, often achieving better accuracy than training the small model directly.
+                </p>
+                <p class="section-text">
+                    The key insight is that the teacher model's soft predictions (probability distributions) contain more information than hard labels alone. By training the student to match not just the final predictions but the full probability distribution over classes, the student learns the nuanced decision boundaries and uncertainty patterns that the teacher has discovered.
+                </p>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Real-World Application: Mobile Translation App</div>
+                <div class="example-text">
+                    <strong>Challenge:</strong> Deploy neural machine translation for offline use on smartphones<br><br>
+                    
+                    <strong>Teacher Model:</strong> Transformer-Big (English→Spanish)<br>
+                    - Parameters: 213M<br>
+                    - Model size: 850 MB<br>
+                    - BLEU score: 41.2<br><br>
+                    
+                    <strong>Student via Knowledge Distillation:</strong><br>
+                    - Parameters: 18M<br>
+                    - Model size: 72 MB<br>
+                    - BLEU score: 39.5<br><br>
+                    
+                    <strong>After INT8 Quantization:</strong><br>
+                    - Model size: 18 MB<br>
+                    - BLEU score: 39.2<br>
+                    - Latency: 15ms<br><br>
+                    
+                    <strong>Result:</strong> 47× smaller, 30× faster, enabling offline translation
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Detailed Section 5: Hardware Acceleration -->
+        <div class="detailed-section">
+            <div class="section-title">5. Hardware Acceleration: Maximizing Inference Speed</div>
+            
+            <div class="section-content">
+                <p class="section-text">
+                    Hardware acceleration is the final piece of the edge deployment puzzle, utilizing specialized processors and optimized software runtimes to maximize inference speed and energy efficiency. Modern edge devices feature diverse acceleration options: GPUs for parallel processing, TPUs optimized for matrix operations, NPUs designed specifically for neural networks, and specialized AI accelerators.
+                </p>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Performance Comparison: Object Detection on Edge Devices</div>
+                <div class="example-text">
+                    <strong>Model:</strong> YOLOv5s for real-time object detection<br><br>
+                    
+                    <strong>Raspberry Pi 4 (CPU only):</strong><br>
+                    - Latency: 850ms, FPS: 1.2, Power: 5W<br><br>
+                    
+                    <strong>Raspberry Pi 4 + Coral Edge TPU:</strong><br>
+                    - Latency: 45ms, FPS: 22, Power: 7W<br>
+                    - 18× more efficient per frame<br><br>
+                    
+                    <strong>NVIDIA Jetson Nano (GPU):</strong><br>
+                    - Latency: 35ms, FPS: 28, Power: 10W<br><br>
+                    
+                    <strong>iPhone 14 Pro (Neural Engine):</strong><br>
+                    - Latency: 18ms, FPS: 55, Power: 3W<br>
+                    - Most energy-efficient!<br><br>
+                    
+                    <strong>Key Insight:</strong> Specialized AI accelerators provide 20-70× speedup over CPU while improving energy efficiency.
+                </div>
+            </div>
+        </div>
+
+        <div class="section-divider"></div>
+
+        <!-- Conclusion -->
+        <div class="detailed-section">
+            <div class="section-title">Summary: Building Effective Edge AI Systems</div>
+            
+            <div class="section-content">
+                <p class="section-text">
+                    Edge deployment represents the convergence of model compression, hardware acceleration, and software optimization. By combining techniques like quantization (4-8× compression), pruning (50-90% parameter reduction), and knowledge distillation, we can deploy sophisticated AI capabilities on resource-constrained devices.
+                </p>
+                <p class="section-text">
+                    The key to successful edge deployment is measuring real-world performance on target hardware early and often, understanding the trade-offs between accuracy, latency, and power consumption, and selecting the right combination of compression techniques and hardware acceleration for your specific use case.
+                </p>
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-title">Edge AI Success Factors</div>
+                <ul class="benefits-list">
+                    <li><strong>Right Metrics:</strong> Measure what matters on actual devices - latency, memory, power</li>
+                    <li><strong>Right Tools:</strong> Use hardware-specific frameworks (TensorRT, Core ML, TFLite)</li>
+                    <li><strong>Right Tradeoffs:</strong> Balance accuracy, speed, and efficiency for your application</li>
+                    <li><strong>Early Testing:</strong> Validate on real hardware early in development</li>
+                    <li><strong>Iterative Optimization:</strong> Apply compression techniques incrementally</li>
+                </ul>
+            </div>
+
+            <div style="background: #e3f2fd; border-left: 5px solid #1E64C8; padding: 25px; margin: 30px 0; border-radius: 5px;">
+                <p style="font-size: 16px; color: #333; line-height: 1.8; margin: 0;">
+                    <strong style="color: #1E64C8; font-size: 18px;">Final Thought:</strong><br><br>
+                    Edge AI enables intelligent systems where data is generated, reducing latency, protecting privacy, and enabling offline operation. The combination of model compression and hardware acceleration has made it possible to run sophisticated deep learning models on devices ranging from smartphones to tiny microcontrollers, opening up new possibilities for AI applications in healthcare, autonomous vehicles, smart homes, and beyond.
+                </p>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>

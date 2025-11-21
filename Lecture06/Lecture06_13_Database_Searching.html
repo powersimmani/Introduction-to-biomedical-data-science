@@ -1,18 +1,21 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Database Searching</title>
+    <title>Database Searching - Enhanced</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
             background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            padding: 20px;
+        }
+        .page {
+            width: 960px;
+            margin: 0 auto 30px;
+            background: white;
+            page-break-after: always;
         }
         .container {
             width: 960px;
@@ -131,207 +134,957 @@
         .pulse-element {
             animation: pulse 2s ease-in-out infinite;
         }
+        
+        /* Detail page styles */
+        .detail-container {
+            width: 960px;
+            padding: 40px 50px;
+            background: white;
+        }
+        .detail-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 10px;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 10px;
+        }
+        .detail-subtitle {
+            font-size: 16px;
+            color: #666;
+            margin-bottom: 30px;
+            font-style: italic;
+        }
+        .detail-section {
+            margin-bottom: 30px;
+        }
+        .section-header {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        .section-header::before {
+            content: "";
+            width: 4px;
+            height: 24px;
+            background: #1E64C8;
+            margin-right: 10px;
+        }
+        .detail-text {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
+        }
+        .detail-list {
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+        .detail-list li {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 10px;
+        }
+        .detail-list li strong {
+            color: #1E64C8;
+        }
+        .diagram-container {
+            background: #f8fbff;
+            padding: 30px;
+            border-radius: 10px;
+            border: 2px solid #e0e8f5;
+            margin: 20px 0;
+        }
+        .diagram-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .example-box {
+            background: #fff5e6;
+            border-left: 4px solid #FF9800;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .example-box .example-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #FF9800;
+            margin-bottom: 8px;
+        }
+        .example-box .example-text {
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        .comparison-table th {
+            background: #1E64C8;
+            color: white;
+            padding: 12px;
+            font-size: 14px;
+            text-align: left;
+        }
+        .comparison-table td {
+            border: 1px solid #e0e8f5;
+            padding: 10px 12px;
+            font-size: 14px;
+            color: #333;
+        }
+        .comparison-table tr:nth-child(even) {
+            background: #f8fbff;
+        }
+        .highlight-box {
+            background: #e8f5e9;
+            border-left: 4px solid #4CAF50;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        .highlight-box .highlight-title {
+            font-size: 14px;
+            font-weight: 600;
+            color: #4CAF50;
+            margin-bottom: 8px;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">Database Searching</div>
-        
-        <div class="search-process">
-            <div class="process-item">
-                <svg class="process-visual" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- MS Spectrum -->
-                    <rect x="10" y="20" width="90" height="70" rx="5" fill="#f8fbff" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="55" y="15" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">MS/MS Spectra</text>
-                    
-                    <!-- Spectrum peaks -->
-                    <line x1="20" y1="75" x2="90" y2="75" stroke="#5088d4" stroke-width="1"/>
-                    <line x1="20" y1="75" x2="20" y2="30" stroke="#5088d4" stroke-width="1"/>
-                    
-                    <line x1="30" y1="75" x2="30" y2="60" stroke="#4CAF50" stroke-width="3" stroke-linecap="round"/>
-                    <line x1="40" y1="75" x2="40" y2="45" stroke="#2196F3" stroke-width="3" stroke-linecap="round"/>
-                    <line x1="50" y1="75" x2="50" y2="55" stroke="#ff6b6b" stroke-width="3" stroke-linecap="round"/>
-                    <line x1="60" y1="75" x2="60" y2="40" stroke="#9C27B0" stroke-width="3" stroke-linecap="round"/>
-                    <line x1="70" y1="75" x2="70" y2="50" stroke="#FF9800" stroke-width="3" stroke-linecap="round"/>
-                    <line x1="80" y1="75" x2="80" y2="65" stroke="#00BCD4" stroke-width="3" stroke-linecap="round"/>
-                    
-                    <!-- m/z values -->
-                    <text x="55" y="85" font-size="8" fill="#666" text-anchor="middle">m/z</text>
-                    
-                    <!-- Precursor info -->
-                    <rect x="65" y="25" width="30" height="15" rx="2" fill="#fff5f5" stroke="#ff6b6b" stroke-width="1.5"/>
-                    <text x="80" y="35" font-size="8" fill="#ff6b6b" text-anchor="middle">856.4</text>
-                </svg>
-                <div class="process-label">Experimental Spectra
-                    <div class="process-sublabel">Peak lists</div>
-                </div>
-            </div>
+    <!-- Page 1: Overview -->
+    <div class="page">
+        <div class="container">
+            <div class="title">Database Searching</div>
             
-            <div class="process-item">
-                <svg class="process-visual" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Search Engine Core -->
-                    <circle cx="55" cy="55" r="35" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" class="pulse-element"/>
-                    
-                    <!-- Algorithm gears -->
-                    <g transform="translate(55, 55)">
-                        <!-- Central gear -->
-                        <circle r="15" fill="white" stroke="#1E64C8" stroke-width="2"/>
-                        <path d="M-3 -15 L3 -15 L2 -20 L-2 -20 Z" fill="#1E64C8"/>
-                        <path d="M15 -3 L15 3 L20 2 L20 -2 Z" fill="#1E64C8"/>
-                        <path d="M3 15 L-3 15 L-2 20 L2 20 Z" fill="#1E64C8"/>
-                        <path d="M-15 3 L-15 -3 L-20 -2 L-20 2 Z" fill="#1E64C8"/>
+            <div class="search-process">
+                <div class="process-item">
+                    <svg class="process-visual" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- MS Spectrum -->
+                        <rect x="10" y="20" width="90" height="70" rx="5" fill="#f8fbff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="55" y="15" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">MS/MS Spectra</text>
                         
-                        <g transform="rotate(45)">
+                        <!-- Spectrum peaks -->
+                        <line x1="20" y1="75" x2="90" y2="75" stroke="#5088d4" stroke-width="1"/>
+                        <line x1="20" y1="75" x2="20" y2="30" stroke="#5088d4" stroke-width="1"/>
+                        
+                        <line x1="30" y1="75" x2="30" y2="60" stroke="#4CAF50" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="40" y1="75" x2="40" y2="45" stroke="#2196F3" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="50" y1="75" x2="50" y2="55" stroke="#ff6b6b" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="60" y1="75" x2="60" y2="40" stroke="#9C27B0" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="70" y1="75" x2="70" y2="50" stroke="#FF9800" stroke-width="3" stroke-linecap="round"/>
+                        <line x1="80" y1="75" x2="80" y2="65" stroke="#00BCD4" stroke-width="3" stroke-linecap="round"/>
+                        
+                        <!-- m/z values -->
+                        <text x="55" y="85" font-size="8" fill="#666" text-anchor="middle">m/z</text>
+                        
+                        <!-- Precursor info -->
+                        <rect x="65" y="25" width="30" height="15" rx="2" fill="#fff5f5" stroke="#ff6b6b" stroke-width="1.5"/>
+                        <text x="80" y="35" font-size="8" fill="#ff6b6b" text-anchor="middle">856.4</text>
+                    </svg>
+                    <div class="process-label">Experimental Spectra
+                        <div class="process-sublabel">Raw MS/MS data</div>
+                    </div>
+                </div>
+                
+                <div class="process-item">
+                    <svg class="process-visual" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <g transform="translate(55, 55)">
+                            <!-- Central gear -->
+                            <circle r="15" fill="white" stroke="#1E64C8" stroke-width="2"/>
                             <path d="M-3 -15 L3 -15 L2 -20 L-2 -20 Z" fill="#1E64C8"/>
                             <path d="M15 -3 L15 3 L20 2 L20 -2 Z" fill="#1E64C8"/>
                             <path d="M3 15 L-3 15 L-2 20 L2 20 Z" fill="#1E64C8"/>
                             <path d="M-15 3 L-15 -3 L-20 -2 L-20 2 Z" fill="#1E64C8"/>
+                            
+                            <g transform="rotate(45)">
+                                <path d="M-3 -15 L3 -15 L2 -20 L-2 -20 Z" fill="#1E64C8"/>
+                                <path d="M15 -3 L15 3 L20 2 L20 -2 Z" fill="#1E64C8"/>
+                                <path d="M3 15 L-3 15 L-2 20 L2 20 Z" fill="#1E64C8"/>
+                                <path d="M-15 3 L-15 -3 L-20 -2 L-20 2 Z" fill="#1E64C8"/>
+                            </g>
+                            
+                            <!-- Center text -->
+                            <text y="5" font-size="9" fill="#1E64C8" text-anchor="middle" font-weight="bold">PSM</text>
                         </g>
                         
-                        <!-- Center text -->
-                        <text y="5" font-size="9" fill="#1E64C8" text-anchor="middle" font-weight="bold">PSM</text>
+                        <!-- Algorithm names -->
+                        <text x="55" y="15" font-size="8" fill="#666" text-anchor="middle">Mascot/SEQUEST</text>
+                        <text x="55" y="100" font-size="8" fill="#666" text-anchor="middle">MaxQuant</text>
+                    </svg>
+                    <div class="process-label">Search Engine
+                        <div class="process-sublabel">Scoring algorithm</div>
+                    </div>
+                </div>
+                
+                <div class="process-item">
+                    <svg class="process-visual" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Database cylinder -->
+                        <ellipse cx="55" cy="25" rx="35" ry="10" fill="#5088d4" opacity="0.3" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="20" y="25" width="70" height="60" fill="#5088d4" opacity="0.3"/>
+                        <ellipse cx="55" cy="85" rx="35" ry="10" fill="#5088d4" opacity="0.3" stroke="#1E64C8" stroke-width="2"/>
+                        
+                        <!-- Data layers -->
+                        <line x1="20" y1="35" x2="90" y2="35" stroke="#1E64C8" stroke-width="1" opacity="0.5"/>
+                        <line x1="20" y1="45" x2="90" y2="45" stroke="#1E64C8" stroke-width="1" opacity="0.5"/>
+                        <line x1="20" y1="55" x2="90" y2="55" stroke="#1E64C8" stroke-width="1" opacity="0.5"/>
+                        <line x1="20" y1="65" x2="90" y2="65" stroke="#1E64C8" stroke-width="1" opacity="0.5"/>
+                        <line x1="20" y1="75" x2="90" y2="75" stroke="#1E64C8" stroke-width="1" opacity="0.5"/>
+                        
+                        <!-- Protein sequences -->
+                        <text x="55" y="42" font-size="7" fill="#1E64C8" text-anchor="middle">MVLSPADKTNVK...</text>
+                        <text x="55" y="52" font-size="7" fill="#1E64C8" text-anchor="middle">AGFAGDDAPR...</text>
+                        <text x="55" y="62" font-size="7" fill="#1E64C8" text-anchor="middle">EGIPPDQQRLIFAGK...</text>
+                        <text x="55" y="72" font-size="7" fill="#1E64C8" text-anchor="middle">VNQIGSVTESLQACK...</text>
+                        
+                        <!-- DB label -->
+                        <text x="55" y="15" font-size="9" fill="#1E64C8" text-anchor="middle" font-weight="600">UniProt/SwissProt</text>
+                    </svg>
+                    <div class="process-label">Protein Database
+                        <div class="process-sublabel">Reference sequences</div>
+                    </div>
+                </div>
+                
+                <div class="process-item">
+                    <svg class="process-visual" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Results chart -->
+                        <rect x="15" y="20" width="80" height="70" rx="5" fill="white" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="55" y="15" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">Scored Matches</text>
+                        
+                        <!-- Score bars -->
+                        <rect x="25" y="35" width="60" height="6" rx="2" fill="#4CAF50"/>
+                        <text x="88" y="39" font-size="7" fill="#4CAF50">98</text>
+                        
+                        <rect x="25" y="45" width="55" height="6" rx="2" fill="#4CAF50"/>
+                        <text x="83" y="49" font-size="7" fill="#4CAF50">92</text>
+                        
+                        <rect x="25" y="55" width="45" height="6" rx="2" fill="#FF9800"/>
+                        <text x="73" y="59" font-size="7" fill="#FF9800">75</text>
+                        
+                        <rect x="25" y="65" width="35" height="6" rx="2" fill="#FF9800"/>
+                        <text x="63" y="69" font-size="7" fill="#FF9800">62</text>
+                        
+                        <rect x="25" y="75" width="20" height="6" rx="2" fill="#ff6b6b"/>
+                        <text x="48" y="79" font-size="7" fill="#ff6b6b">35</text>
+                        
+                        <!-- FDR threshold line -->
+                        <line x1="70" y1="30" x2="70" y2="85" stroke="#1E64C8" stroke-width="1" stroke-dasharray="3,2"/>
+                        <text x="72" y="28" font-size="7" fill="#1E64C8">FDR 1%</text>
+                    </svg>
+                    <div class="process-label">Scored Matches
+                        <div class="process-sublabel">PSM ranking</div>
+                    </div>
+                </div>
+                
+                <!-- Flow connectors -->
+                <svg class="flow-connector" viewBox="0 0 960 200">
+                    <defs>
+                        <marker id="arrowDB" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" opacity="0.5"/>
+                        </marker>
+                    </defs>
+                    <!-- Flow lines -->
+                    <path d="M180 80 Q240 80, 280 80" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowDB)" opacity="0.5" class="data-flow"/>
+                    <path d="M400 80 Q440 80, 480 80" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowDB)" opacity="0.5" class="data-flow"/>
+                    <path d="M600 80 Q640 80, 680 80" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowDB)" opacity="0.5" class="data-flow"/>
+                    
+                    <!-- Bidirectional between engine and database -->
+                    <path d="M340 60 Q390 50, 440 60" stroke="#5088d4" stroke-width="1.5" marker-end="url(#arrowDB)" opacity="0.4"/>
+                    <path d="M440 100 Q390 110, 340 100" stroke="#5088d4" stroke-width="1.5" marker-end="url(#arrowDB)" opacity="0.4"/>
+                </svg>
+            </div>
+            
+            <div class="content-grid">
+                <div class="content-card">
+                    <svg class="card-icon" viewBox="0 0 35 35">
+                        <circle cx="17" cy="17" r="12" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                        <path d="M17 10 L17 17 L23 20" stroke="#1E64C8" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <div class="card-title">Search Engines</div>
+                    <div class="card-content">
+                        <div class="bullet">Mascot, SEQUEST, X!Tandem</div>
+                        <div class="bullet">MaxQuant, Proteome Discoverer</div>
+                        <div class="bullet">Each with unique algorithms</div>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <svg class="card-icon" viewBox="0 0 35 35">
+                        <rect x="8" y="10" width="19" height="15" rx="2" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                        <line x1="12" y1="15" x2="23" y2="15" stroke="#5088d4" stroke-width="1"/>
+                        <line x1="12" y1="18" x2="23" y2="18" stroke="#5088d4" stroke-width="1"/>
+                        <line x1="12" y1="21" x2="23" y2="21" stroke="#5088d4" stroke-width="1"/>
+                    </svg>
+                    <div class="card-title">Parameter Optimization</div>
+                    <div class="card-content">
+                        <div class="bullet">Mass tolerance settings</div>
+                        <div class="bullet">Enzyme specificity</div>
+                        <div class="bullet">Missed cleavages allowed</div>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <svg class="card-icon" viewBox="0 0 35 35">
+                        <path d="M10 17 L25 17 M25 17 L20 12 M25 17 L20 22" stroke="#ff6b6b" stroke-width="2" stroke-linecap="round"/>
+                        <path d="M25 10 L10 10 M10 10 L15 15 M10 10 L15 5" stroke="#ff6b6b" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+                    </svg>
+                    <div class="card-title">Decoy Databases</div>
+                    <div class="card-content">
+                        <div class="bullet">Reversed/shuffled sequences</div>
+                        <div class="bullet">Estimate false positives</div>
+                        <div class="bullet">Quality control</div>
+                    </div>
+                </div>
+                
+                <div class="content-card">
+                    <svg class="card-icon" viewBox="0 0 35 35">
+                        <circle cx="17" cy="17" r="10" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                        <circle cx="12" cy="12" r="2" fill="#ff6b6b"/>
+                        <circle cx="22" cy="12" r="2" fill="#4CAF50"/>
+                        <circle cx="17" cy="22" r="2" fill="#2196F3"/>
+                    </svg>
+                    <div class="card-title">Modifications</div>
+                    <div class="card-content">
+                        <div class="bullet">Fixed modifications (e.g., carbamidomethylation)</div>
+                        <div class="bullet">Variable modifications (e.g., oxidation)</div>
+                        <div class="bullet">Balance between sensitivity and specificity</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 2: Search Engines Detail -->
+    <div class="page">
+        <div class="detail-container">
+            <div class="detail-title">1. Search Engines</div>
+            <div class="detail-subtitle">Computational tools for matching experimental spectra to theoretical sequences</div>
+            
+            <div class="detail-section">
+                <div class="section-header">Overview</div>
+                <p class="detail-text">
+                    Proteomics search engines are specialized software tools that match experimental MS/MS spectra against theoretical spectra derived from protein databases. Each search engine employs unique algorithms and scoring systems to identify peptide sequences from mass spectrometry data.
+                </p>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">Search Engine Workflow Comparison</div>
+                <svg viewBox="0 0 860 300" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Mascot Section -->
+                    <g transform="translate(50, 20)">
+                        <rect width="230" height="260" rx="8" fill="#f8fbff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="115" y="25" font-size="16" font-weight="600" fill="#1E64C8" text-anchor="middle">Mascot</text>
+                        
+                        <!-- Step 1 -->
+                        <rect x="15" y="40" width="200" height="50" rx="5" fill="white" stroke="#1E64C8" stroke-width="1.5"/>
+                        <text x="115" y="60" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Probability-Based Scoring</text>
+                        <text x="115" y="75" font-size="9" fill="#666" text-anchor="middle">Uses MOWSE algorithm</text>
+                        
+                        <!-- Step 2 -->
+                        <rect x="15" y="100" width="200" height="50" rx="5" fill="white" stroke="#2196F3" stroke-width="1.5"/>
+                        <text x="115" y="120" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Ion Score Calculation</text>
+                        <text x="115" y="135" font-size="9" fill="#666" text-anchor="middle">-10 × log₁₀(P)</text>
+                        
+                        <!-- Step 3 -->
+                        <rect x="15" y="160" width="200" height="50" rx="5" fill="white" stroke="#4CAF50" stroke-width="1.5"/>
+                        <text x="115" y="180" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Statistical Significance</text>
+                        <text x="115" y="195" font-size="9" fill="#666" text-anchor="middle">Expect value & p-value</text>
+                        
+                        <!-- Result -->
+                        <ellipse cx="115" cy="235" rx="60" ry="20" fill="#4CAF50" opacity="0.3" stroke="#4CAF50" stroke-width="2"/>
+                        <text x="115" y="240" font-size="10" fill="#4CAF50" text-anchor="middle" font-weight="600">Score: 85</text>
                     </g>
                     
-                    <!-- Algorithm names -->
-                    <text x="55" y="15" font-size="8" fill="#666" text-anchor="middle">Mascot/SEQUEST</text>
-                    <text x="55" y="100" font-size="8" fill="#666" text-anchor="middle">MaxQuant</text>
+                    <!-- SEQUEST Section -->
+                    <g transform="translate(310, 20)">
+                        <rect width="230" height="260" rx="8" fill="#fff8f0" stroke="#FF9800" stroke-width="2"/>
+                        <text x="115" y="25" font-size="16" font-weight="600" fill="#FF9800" text-anchor="middle">SEQUEST</text>
+                        
+                        <!-- Step 1 -->
+                        <rect x="15" y="40" width="200" height="50" rx="5" fill="white" stroke="#FF9800" stroke-width="1.5"/>
+                        <text x="115" y="60" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Cross-Correlation</text>
+                        <text x="115" y="75" font-size="9" fill="#666" text-anchor="middle">XCorr scoring</text>
+                        
+                        <!-- Step 2 -->
+                        <rect x="15" y="100" width="200" height="50" rx="5" fill="white" stroke="#2196F3" stroke-width="1.5"/>
+                        <text x="115" y="120" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Preliminary Scoring</text>
+                        <text x="115" y="135" font-size="9" fill="#666" text-anchor="middle">Sp (preliminary score)</text>
+                        
+                        <!-- Step 3 -->
+                        <rect x="15" y="160" width="200" height="50" rx="5" fill="white" stroke="#4CAF50" stroke-width="1.5"/>
+                        <text x="115" y="180" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Delta Correlation</text>
+                        <text x="115" y="195" font-size="9" fill="#666" text-anchor="middle">ΔCn calculation</text>
+                        
+                        <!-- Result -->
+                        <ellipse cx="115" cy="235" rx="60" ry="20" fill="#FF9800" opacity="0.3" stroke="#FF9800" stroke-width="2"/>
+                        <text x="115" y="240" font-size="10" fill="#FF9800" text-anchor="middle" font-weight="600">XCorr: 4.5</text>
+                    </g>
+                    
+                    <!-- MaxQuant Section -->
+                    <g transform="translate(570, 20)">
+                        <rect width="230" height="260" rx="8" fill="#f0f8f0" stroke="#4CAF50" stroke-width="2"/>
+                        <text x="115" y="25" font-size="16" font-weight="600" fill="#4CAF50" text-anchor="middle">MaxQuant</text>
+                        
+                        <!-- Step 1 -->
+                        <rect x="15" y="40" width="200" height="50" rx="5" fill="white" stroke="#4CAF50" stroke-width="1.5"/>
+                        <text x="115" y="60" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Andromeda Algorithm</text>
+                        <text x="115" y="75" font-size="9" fill="#666" text-anchor="middle">Probabilistic scoring</text>
+                        
+                        <!-- Step 2 -->
+                        <rect x="15" y="100" width="200" height="50" rx="5" fill="white" stroke="#2196F3" stroke-width="1.5"/>
+                        <text x="115" y="120" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Label-Free Quantification</text>
+                        <text x="115" y="135" font-size="9" fill="#666" text-anchor="middle">LFQ intensity calculation</text>
+                        
+                        <!-- Step 3 -->
+                        <rect x="15" y="160" width="200" height="50" rx="5" fill="white" stroke="#9C27B0" stroke-width="1.5"/>
+                        <text x="115" y="180" font-size="11" fill="#333" text-anchor="middle" font-weight="600">FDR Control</text>
+                        <text x="115" y="195" font-size="9" fill="#666" text-anchor="middle">Posterior error probability</text>
+                        
+                        <!-- Result -->
+                        <ellipse cx="115" cy="235" rx="60" ry="20" fill="#4CAF50" opacity="0.3" stroke="#4CAF50" stroke-width="2"/>
+                        <text x="115" y="240" font-size="10" fill="#4CAF50" text-anchor="middle" font-weight="600">PEP: 0.01</text>
+                    </g>
                 </svg>
-                <div class="process-label">Search Engine
-                    <div class="process-sublabel">Scoring algorithm</div>
+            </div>
+
+            <div class="detail-section">
+                <div class="section-header">Key Search Engines</div>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Search Engine</th>
+                            <th>Scoring Method</th>
+                            <th>Key Features</th>
+                            <th>Best Use Case</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Mascot</strong></td>
+                            <td>Probability-based (MOWSE)</td>
+                            <td>Ion score, Expect values</td>
+                            <td>Standard shotgun proteomics</td>
+                        </tr>
+                        <tr>
+                            <td><strong>SEQUEST</strong></td>
+                            <td>Cross-correlation (XCorr)</td>
+                            <td>XCorr, ΔCn, Sp score</td>
+                            <td>High-resolution MS data</td>
+                        </tr>
+                        <tr>
+                            <td><strong>MaxQuant</strong></td>
+                            <td>Andromeda algorithm</td>
+                            <td>LFQ, SILAC quantification</td>
+                            <td>Quantitative proteomics</td>
+                        </tr>
+                        <tr>
+                            <td><strong>X!Tandem</strong></td>
+                            <td>Hyperscore</td>
+                            <td>Open-source, fast</td>
+                            <td>Large-scale datasets</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">📊 Practical Example: Score Interpretation</div>
+                <div class="example-text">
+                    For a peptide AGFAGDDAPR identified from a spectrum:<br>
+                    • <strong>Mascot Score: 65</strong> (threshold ≥ 30 for p < 0.05)<br>
+                    • <strong>SEQUEST XCorr: 3.8</strong> (charge +2, good match ≥ 2.5)<br>
+                    • <strong>MaxQuant PEP: 0.005</strong> (0.5% probability of false match)
                 </div>
             </div>
-            
-            <div class="process-item">
-                <svg class="process-visual" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Database cylinder -->
-                    <ellipse cx="55" cy="25" rx="35" ry="10" fill="#5088d4" opacity="0.3" stroke="#1E64C8" stroke-width="2"/>
-                    <rect x="20" y="25" width="70" height="60" fill="#5088d4" opacity="0.3"/>
-                    <ellipse cx="55" cy="85" rx="35" ry="10" fill="#5088d4" opacity="0.3" stroke="#1E64C8" stroke-width="2"/>
-                    
-                    <!-- Data layers -->
-                    <line x1="20" y1="35" x2="90" y2="35" stroke="#1E64C8" stroke-width="1" opacity="0.5"/>
-                    <line x1="20" y1="45" x2="90" y2="45" stroke="#1E64C8" stroke-width="1" opacity="0.5"/>
-                    <line x1="20" y1="55" x2="90" y2="55" stroke="#1E64C8" stroke-width="1" opacity="0.5"/>
-                    <line x1="20" y1="65" x2="90" y2="65" stroke="#1E64C8" stroke-width="1" opacity="0.5"/>
-                    <line x1="20" y1="75" x2="90" y2="75" stroke="#1E64C8" stroke-width="1" opacity="0.5"/>
-                    
-                    <!-- Protein sequences -->
-                    <text x="55" y="42" font-size="7" fill="#1E64C8" text-anchor="middle">MVLSPADKTNVK...</text>
-                    <text x="55" y="52" font-size="7" fill="#1E64C8" text-anchor="middle">AGFAGDDAPR...</text>
-                    <text x="55" y="62" font-size="7" fill="#1E64C8" text-anchor="middle">EGIPPDQQRLIFAGK...</text>
-                    <text x="55" y="72" font-size="7" fill="#1E64C8" text-anchor="middle">VNQIGSVTESLQACK...</text>
-                    
-                    <!-- DB label -->
-                    <text x="55" y="15" font-size="9" fill="#1E64C8" text-anchor="middle" font-weight="600">UniProt/SwissProt</text>
-                </svg>
-                <div class="process-label">Protein Database
-                    <div class="process-sublabel">Reference sequences</div>
-                </div>
-            </div>
-            
-            <div class="process-item">
-                <svg class="process-visual" viewBox="0 0 110 110" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Results chart -->
-                    <rect x="15" y="20" width="80" height="70" rx="5" fill="white" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="55" y="15" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">Scored Matches</text>
-                    
-                    <!-- Score bars -->
-                    <rect x="25" y="35" width="60" height="6" rx="2" fill="#4CAF50"/>
-                    <text x="88" y="39" font-size="7" fill="#4CAF50">98</text>
-                    
-                    <rect x="25" y="45" width="55" height="6" rx="2" fill="#4CAF50"/>
-                    <text x="83" y="49" font-size="7" fill="#4CAF50">92</text>
-                    
-                    <rect x="25" y="55" width="45" height="6" rx="2" fill="#FF9800"/>
-                    <text x="73" y="59" font-size="7" fill="#FF9800">75</text>
-                    
-                    <rect x="25" y="65" width="35" height="6" rx="2" fill="#FF9800"/>
-                    <text x="63" y="69" font-size="7" fill="#FF9800">62</text>
-                    
-                    <rect x="25" y="75" width="20" height="6" rx="2" fill="#ff6b6b"/>
-                    <text x="48" y="79" font-size="7" fill="#ff6b6b">35</text>
-                    
-                    <!-- FDR threshold line -->
-                    <line x1="70" y1="30" x2="70" y2="85" stroke="#1E64C8" stroke-width="1" stroke-dasharray="3,2"/>
-                    <text x="72" y="28" font-size="7" fill="#1E64C8">FDR 1%</text>
-                </svg>
-                <div class="process-label">Scored Matches
-                    <div class="process-sublabel">PSM ranking</div>
-                </div>
-            </div>
-            
-            <!-- Flow connectors -->
-            <svg class="flow-connector" viewBox="0 0 960 200">
-                <defs>
-                    <marker id="arrowDB" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                        <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" opacity="0.5"/>
-                    </marker>
-                </defs>
-                <!-- Flow lines -->
-                <path d="M180 80 Q240 80, 280 80" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowDB)" opacity="0.5" class="data-flow"/>
-                <path d="M400 80 Q440 80, 480 80" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowDB)" opacity="0.5" class="data-flow"/>
-                <path d="M600 80 Q640 80, 680 80" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrowDB)" opacity="0.5" class="data-flow"/>
-                
-                <!-- Bidirectional between engine and database -->
-                <path d="M340 60 Q390 50, 440 60" stroke="#5088d4" stroke-width="1.5" marker-end="url(#arrowDB)" opacity="0.4"/>
-                <path d="M440 100 Q390 110, 340 100" stroke="#5088d4" stroke-width="1.5" marker-end="url(#arrowDB)" opacity="0.4"/>
-            </svg>
         </div>
-        
-        <div class="content-grid">
-            <div class="content-card">
-                <svg class="card-icon" viewBox="0 0 35 35">
-                    <circle cx="17" cy="17" r="12" stroke="#1E64C8" stroke-width="2" fill="none"/>
-                    <path d="M17 10 L17 17 L23 20" stroke="#1E64C8" stroke-width="2" stroke-linecap="round"/>
+    </div>
+
+    <!-- Page 3: Parameter Optimization Detail -->
+    <div class="page">
+        <div class="detail-container">
+            <div class="detail-title">2. Parameter Optimization</div>
+            <div class="detail-subtitle">Fine-tuning search parameters for optimal identification accuracy</div>
+            
+            <div class="detail-section">
+                <div class="section-header">Overview</div>
+                <p class="detail-text">
+                    Parameter optimization is critical for maximizing the sensitivity and specificity of peptide identification. Proper parameter settings directly impact the number and quality of peptide-spectrum matches (PSMs) obtained from database searches.
+                </p>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">Key Search Parameters and Their Impact</div>
+                <svg viewBox="0 0 860 400" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Mass Tolerance -->
+                    <g transform="translate(30, 20)">
+                        <rect width="260" height="170" rx="8" fill="#f8fbff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="130" y="25" font-size="14" font-weight="600" fill="#1E64C8" text-anchor="middle">Mass Tolerance</text>
+                        
+                        <!-- Precursor tolerance -->
+                        <rect x="15" y="40" width="230" height="55" rx="5" fill="white" stroke="#2196F3" stroke-width="1.5"/>
+                        <text x="130" y="58" font-size="12" fill="#333" text-anchor="middle" font-weight="600">Precursor Mass Tolerance</text>
+                        <text x="130" y="72" font-size="10" fill="#666" text-anchor="middle">High-res: ±5-10 ppm</text>
+                        <text x="130" y="85" font-size="10" fill="#666" text-anchor="middle">Low-res: ±0.5-1.0 Da</text>
+                        
+                        <!-- Fragment tolerance -->
+                        <rect x="15" y="105" width="230" height="55" rx="5" fill="white" stroke="#FF9800" stroke-width="1.5"/>
+                        <text x="130" y="123" font-size="12" fill="#333" text-anchor="middle" font-weight="600">Fragment Mass Tolerance</text>
+                        <text x="130" y="137" font-size="10" fill="#666" text-anchor="middle">High-res: ±0.01-0.02 Da</text>
+                        <text x="130" y="150" font-size="10" fill="#666" text-anchor="middle">Low-res: ±0.5-1.0 Da</text>
+                    </g>
+                    
+                    <!-- Enzyme Settings -->
+                    <g transform="translate(310, 20)">
+                        <rect width="260" height="170" rx="8" fill="#fff8f0" stroke="#FF9800" stroke-width="2"/>
+                        <text x="130" y="25" font-size="14" font-weight="600" fill="#FF9800" text-anchor="middle">Enzyme Specificity</text>
+                        
+                        <!-- Trypsin -->
+                        <rect x="15" y="40" width="230" height="40" rx="5" fill="white" stroke="#4CAF50" stroke-width="1.5"/>
+                        <text x="130" y="58" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Trypsin: K, R | X</text>
+                        <text x="130" y="72" font-size="9" fill="#666" text-anchor="middle">Most specific</text>
+                        
+                        <!-- Semi-specific -->
+                        <rect x="15" y="88" width="230" height="40" rx="5" fill="white" stroke="#2196F3" stroke-width="1.5"/>
+                        <text x="130" y="106" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Semi-specific</text>
+                        <text x="130" y="120" font-size="9" fill="#666" text-anchor="middle">One tryptic end required</text>
+                        
+                        <!-- Non-specific -->
+                        <rect x="15" y="136" width="230" height="24" rx="5" fill="white" stroke="#ff6b6b" stroke-width="1.5"/>
+                        <text x="130" y="151" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Non-specific</text>
+                    </g>
+                    
+                    <!-- Missed Cleavages -->
+                    <g transform="translate(590, 20)">
+                        <rect width="240" height="170" rx="8" fill="#f0f8f0" stroke="#4CAF50" stroke-width="2"/>
+                        <text x="120" y="25" font-size="14" font-weight="600" fill="#4CAF50" text-anchor="middle">Missed Cleavages</text>
+                        
+                        <!-- Visualization -->
+                        <text x="120" y="50" font-size="10" fill="#333" text-anchor="middle">Peptide: AGFAGDDAPR</text>
+                        
+                        <!-- 0 missed -->
+                        <rect x="20" y="60" width="180" height="25" rx="3" fill="#e8f5e9" stroke="#4CAF50" stroke-width="1"/>
+                        <text x="110" y="76" font-size="9" fill="#333" text-anchor="middle">0 missed: AGFAGDDAPR</text>
+                        
+                        <!-- 1 missed -->
+                        <rect x="20" y="92" width="180" height="25" rx="3" fill="#fff9c4" stroke="#FF9800" stroke-width="1"/>
+                        <text x="110" y="108" font-size="9" fill="#333" text-anchor="middle">1 missed: AGFAGDDAPRXXK</text>
+                        
+                        <!-- 2 missed -->
+                        <rect x="20" y="124" width="180" height="25" rx="3" fill="#ffebee" stroke="#ff6b6b" stroke-width="1"/>
+                        <text x="110" y="140" font-size="9" fill="#333" text-anchor="middle">2 missed: AGFAGDDAPRXXKXXR</text>
+                        
+                        <text x="120" y="162" font-size="9" fill="#666" text-anchor="middle" font-style="italic">Typical: Allow 0-2</text>
+                    </g>
+                    
+                    <!-- Impact Graph -->
+                    <g transform="translate(30, 210)">
+                        <rect width="800" height="170" rx="8" fill="#f8fbff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="400" y="25" font-size="14" font-weight="600" fill="#1E64C8" text-anchor="middle">Parameter Impact on Search Results</text>
+                        
+                        <!-- Axes -->
+                        <line x1="50" y1="140" x2="750" y2="140" stroke="#333" stroke-width="2"/>
+                        <line x1="50" y1="50" x2="50" y2="140" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Y-axis labels -->
+                        <text x="35" y="55" font-size="9" fill="#333" text-anchor="end">High</text>
+                        <text x="35" y="95" font-size="9" fill="#333" text-anchor="end">Med</text>
+                        <text x="35" y="135" font-size="9" fill="#333" text-anchor="end">Low</text>
+                        
+                        <!-- Sensitivity line (green) -->
+                        <polyline points="50,120 200,100 350,85 500,75 650,70 750,68" 
+                                  fill="none" stroke="#4CAF50" stroke-width="3"/>
+                        <circle cx="750" cy="68" r="4" fill="#4CAF50"/>
+                        <text x="760" y="72" font-size="10" fill="#4CAF50">Sensitivity</text>
+                        
+                        <!-- Specificity line (blue) -->
+                        <polyline points="50,60 200,68 350,80 500,95 650,115 750,130" 
+                                  fill="none" stroke="#2196F3" stroke-width="3"/>
+                        <circle cx="750" cy="130" r="4" fill="#2196F3"/>
+                        <text x="760" y="134" font-size="10" fill="#2196F3">Specificity</text>
+                        
+                        <!-- X-axis labels -->
+                        <text x="150" y="158" font-size="10" fill="#333" text-anchor="middle">Tight</text>
+                        <text x="400" y="158" font-size="10" fill="#333" text-anchor="middle">Parameters</text>
+                        <text x="650" y="158" font-size="10" fill="#333" text-anchor="middle">Relaxed</text>
+                    </g>
                 </svg>
-                <div class="card-title">Search Engines</div>
-                <div class="card-content">
-                    <div class="bullet">Mascot, SEQUEST, X!Tandem</div>
-                    <div class="bullet">MaxQuant, Proteome Discoverer</div>
-                    <div class="bullet">Each with unique algorithms</div>
+            </div>
+
+            <div class="detail-section">
+                <div class="section-header">Critical Parameters</div>
+                <ul class="detail-list">
+                    <li><strong>Mass Tolerance:</strong> Defines the acceptable mass deviation between experimental and theoretical values. High-resolution instruments (Orbitrap, Q-TOF) allow tighter tolerances (±5-10 ppm for precursor, ±0.01-0.02 Da for fragments), improving specificity.</li>
+                    <li><strong>Enzyme Specificity:</strong> Specifies digestion patterns. Fully specific searches (both termini must match enzyme cleavage sites) are faster but may miss incomplete digestions. Semi-specific or non-specific searches increase sensitivity but reduce specificity.</li>
+                    <li><strong>Missed Cleavages:</strong> Accounts for incomplete enzymatic digestion. Allowing 0-2 missed cleavages is standard, balancing search space expansion with computational efficiency.</li>
+                    <li><strong>Charge States:</strong> Specifies the range of precursor charge states to consider (typically +2 to +4 for tryptic peptides). Incorrect charge state assignment leads to failed identifications.</li>
+                </ul>
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-title">✓ Best Practices</div>
+                <div class="example-text">
+                    • Start with recommended instrument-specific parameters<br>
+                    • Calibrate mass accuracy using known peptides<br>
+                    • Balance sensitivity vs. search time based on dataset size<br>
+                    • Use diagnostic plots to verify parameter appropriateness
                 </div>
             </div>
-            
-            <div class="content-card">
-                <svg class="card-icon" viewBox="0 0 35 35">
-                    <rect x="8" y="10" width="19" height="15" rx="2" stroke="#1E64C8" stroke-width="2" fill="none"/>
-                    <line x1="12" y1="15" x2="23" y2="15" stroke="#5088d4" stroke-width="1"/>
-                    <line x1="12" y1="18" x2="23" y2="18" stroke="#5088d4" stroke-width="1"/>
-                    <line x1="12" y1="21" x2="23" y2="21" stroke="#5088d4" stroke-width="1"/>
-                </svg>
-                <div class="card-title">Parameter Optimization</div>
-                <div class="card-content">
-                    <div class="bullet">Mass tolerance settings</div>
-                    <div class="bullet">Enzyme specificity</div>
-                    <div class="bullet">Missed cleavages allowed</div>
+
+            <div class="example-box">
+                <div class="example-title">⚙️ Example Configuration</div>
+                <div class="example-text">
+                    <strong>Orbitrap Q Exactive settings:</strong><br>
+                    • Precursor tolerance: ±10 ppm<br>
+                    • Fragment tolerance: ±0.02 Da<br>
+                    • Enzyme: Trypsin/P (cleaves after K/R, not before P)<br>
+                    • Missed cleavages: 2<br>
+                    • Charge states: +2, +3, +4
                 </div>
             </div>
+        </div>
+    </div>
+
+    <!-- Page 4: Decoy Databases Detail -->
+    <div class="page">
+        <div class="detail-container">
+            <div class="detail-title">3. Decoy Databases</div>
+            <div class="detail-subtitle">Statistical validation through target-decoy approach</div>
             
-            <div class="content-card">
-                <svg class="card-icon" viewBox="0 0 35 35">
-                    <path d="M10 17 L25 17 M25 17 L20 12 M25 17 L20 22" stroke="#ff6b6b" stroke-width="2" stroke-linecap="round"/>
-                    <path d="M25 10 L10 10 M10 10 L15 15 M10 10 L15 5" stroke="#ff6b6b" stroke-width="2" stroke-linecap="round" opacity="0.5"/>
+            <div class="detail-section">
+                <div class="section-header">Overview</div>
+                <p class="detail-text">
+                    Decoy databases are artificial protein databases used to estimate the false discovery rate (FDR) in proteomic experiments. By matching experimental spectra against both real (target) and artificial (decoy) sequences, researchers can statistically validate their identifications and control the error rate.
+                </p>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">Target-Decoy Strategy Workflow</div>
+                <svg viewBox="0 0 860 450" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Target Database -->
+                    <g transform="translate(50, 30)">
+                        <rect width="200" height="120" rx="8" fill="#e8f5e9" stroke="#4CAF50" stroke-width="2"/>
+                        <text x="100" y="25" font-size="14" font-weight="600" fill="#4CAF50" text-anchor="middle">Target Database</text>
+                        
+                        <text x="100" y="50" font-size="10" fill="#333" text-anchor="middle">Forward sequences</text>
+                        <text x="100" y="70" font-size="9" fill="#666" text-anchor="middle" font-family="monospace">MVLSPADKTNVK...</text>
+                        <text x="100" y="85" font-size="9" fill="#666" text-anchor="middle" font-family="monospace">AGFAGDDAPR...</text>
+                        <text x="100" y="100" font-size="9" fill="#666" text-anchor="middle" font-family="monospace">EGIPPDQQRLIFAGK...</text>
+                        <text x="100" y="115" font-size="9" fill="#666" text-anchor="middle">50,000 sequences</text>
+                    </g>
+                    
+                    <!-- Decoy Generation -->
+                    <g transform="translate(280, 30)">
+                        <rect width="200" height="120" rx="8" fill="#ffebee" stroke="#ff6b6b" stroke-width="2"/>
+                        <text x="100" y="25" font-size="14" font-weight="600" fill="#ff6b6b" text-anchor="middle">Decoy Database</text>
+                        
+                        <text x="100" y="50" font-size="10" fill="#333" text-anchor="middle">Reversed sequences</text>
+                        <text x="100" y="70" font-size="9" fill="#666" text-anchor="middle" font-family="monospace">...KVNTKDAPSLVM</text>
+                        <text x="100" y="85" font-size="9" fill="#666" text-anchor="middle" font-family="monospace">...RPADDGAFGA</text>
+                        <text x="100" y="100" font-size="9" fill="#666" text-anchor="middle" font-family="monospace">...KGAFILRQQDDPIGE</text>
+                        <text x="100" y="115" font-size="9" fill="#666" text-anchor="middle">50,000 sequences</text>
+                    </g>
+                    
+                    <!-- Combined search -->
+                    <g transform="translate(510, 30)">
+                        <rect width="200" height="120" rx="8" fill="#e3f2fd" stroke="#2196F3" stroke-width="2"/>
+                        <text x="100" y="25" font-size="14" font-weight="600" fill="#2196F3" text-anchor="middle">Combined Search</text>
+                        
+                        <ellipse cx="100" cy="75" rx="70" ry="35" fill="#4CAF50" opacity="0.3" stroke="#4CAF50" stroke-width="2"/>
+                        <text x="100" y="70" font-size="11" fill="#4CAF50" text-anchor="middle" font-weight="600">Target Hits</text>
+                        <text x="100" y="84" font-size="10" fill="#4CAF50" text-anchor="middle">980 PSMs</text>
+                        
+                        <ellipse cx="100" cy="75" rx="35" ry="17" fill="#ff6b6b" opacity="0.5" stroke="#ff6b6b" stroke-width="2"/>
+                        <text x="100" y="108" font-size="10" fill="#ff6b6b" text-anchor="middle" font-weight="600">Decoy: 10</text>
+                    </g>
+                    
+                    <!-- FDR Calculation -->
+                    <g transform="translate(130, 180)">
+                        <rect width="600" height="100" rx="8" fill="#fff9e6" stroke="#FF9800" stroke-width="2"/>
+                        <text x="300" y="30" font-size="16" font-weight="600" fill="#FF9800" text-anchor="middle">False Discovery Rate (FDR) Calculation</text>
+                        
+                        <text x="300" y="55" font-size="13" fill="#333" text-anchor="middle">FDR = (Number of Decoy Hits × 2) / Total Target Hits</text>
+                        <text x="300" y="75" font-size="12" fill="#666" text-anchor="middle">FDR = (10 × 2) / 980 = 0.0204 = 2.04%</text>
+                    </g>
+                    
+                    <!-- Score distribution -->
+                    <g transform="translate(50, 300)">
+                        <rect width="760" height="130" rx="8" fill="#f8fbff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="380" y="25" font-size="14" font-weight="600" fill="#1E64C8" text-anchor="middle">Score Distribution: Target vs. Decoy</text>
+                        
+                        <!-- Axes -->
+                        <line x1="50" y1="110" x2="730" y2="110" stroke="#333" stroke-width="1.5"/>
+                        <line x1="50" y1="40" x2="50" y2="110" stroke="#333" stroke-width="1.5"/>
+                        
+                        <!-- Target distribution (green) -->
+                        <path d="M50,110 Q100,100 150,80 Q200,55 250,50 Q300,48 350,50 Q400,53 450,58 Q500,65 550,75 Q600,88 650,98 Q680,105 710,108" 
+                              fill="none" stroke="#4CAF50" stroke-width="2.5"/>
+                        <path d="M50,110 Q100,100 150,80 Q200,55 250,50 Q300,48 350,50 Q400,53 450,58 Q500,65 550,75 Q600,88 650,98 Q680,105 710,108 L710,110 Z" 
+                              fill="#4CAF50" opacity="0.3"/>
+                        
+                        <!-- Decoy distribution (red) -->
+                        <path d="M50,110 L100,108 L150,106 L200,104 L250,102 L300,101 L350,100 L400,100 L450,101 L500,103 L550,106 L600,108 L650,109 L700,110" 
+                              fill="none" stroke="#ff6b6b" stroke-width="2.5"/>
+                        <path d="M50,110 L100,108 L150,106 L200,104 L250,102 L300,101 L350,100 L400,100 L450,101 L500,103 L550,106 L600,108 L650,109 L700,110 Z" 
+                              fill="#ff6b6b" opacity="0.3"/>
+                        
+                        <!-- FDR threshold line -->
+                        <line x1="550" y1="40" x2="550" y2="110" stroke="#1E64C8" stroke-width="2" stroke-dasharray="5,3"/>
+                        <text x="555" y="50" font-size="10" fill="#1E64C8" font-weight="600">FDR 1%</text>
+                        
+                        <!-- Labels -->
+                        <text x="620" y="70" font-size="10" fill="#4CAF50" font-weight="600">Target</text>
+                        <text x="120" y="105" font-size="10" fill="#ff6b6b" font-weight="600">Decoy</text>
+                        
+                        <text x="380" y="125" font-size="9" fill="#666" text-anchor="middle">Score →</text>
+                    </g>
                 </svg>
-                <div class="card-title">Decoy Databases</div>
-                <div class="card-content">
-                    <div class="bullet">Reversed/shuffled sequences</div>
-                    <div class="bullet">Estimate false positives</div>
-                    <div class="bullet">Quality control</div>
+            </div>
+
+            <div class="detail-section">
+                <div class="section-header">Decoy Generation Methods</div>
+                <ul class="detail-list">
+                    <li><strong>Reversed Sequences:</strong> Most common approach. Each protein sequence is reversed while maintaining the same amino acid composition. Example: AGFAGDDAPR → RPADDGAFGA. This preserves mass distribution but creates non-biological sequences.</li>
+                    <li><strong>Shuffled Sequences:</strong> Randomly shuffle amino acids within each protein while maintaining terminal residues (for enzyme specificity). Provides more randomization than reversal but requires careful implementation to avoid creating target sequences.</li>
+                    <li><strong>Pseudo-Reversed:</strong> Reverses sequences while keeping terminal K/R residues in place to maintain tryptic cleavage patterns, improving decoy quality for enzyme-specific searches.</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">📈 Interpreting FDR Results</div>
+                <div class="example-text">
+                    <strong>Dataset Example:</strong><br>
+                    • Target hits at score threshold: 980 PSMs<br>
+                    • Decoy hits at score threshold: 10 PSMs<br>
+                    • Estimated FDR = (10 × 2) / 980 = 2.04%<br><br>
+                    At 1% FDR threshold: Reduce cutoff to accept ~500 target PSMs with ~5 decoy hits
                 </div>
             </div>
+
+            <div class="highlight-box">
+                <div class="highlight-title">✓ Quality Control Metrics</div>
+                <div class="example-text">
+                    • <strong>PSM-level FDR:</strong> Controls false matches at spectrum level (typically 1%)<br>
+                    • <strong>Peptide-level FDR:</strong> Controls unique peptide sequences (1-5%)<br>
+                    • <strong>Protein-level FDR:</strong> Controls protein inference errors (1-5%)<br>
+                    • Use hierarchical FDR: Most stringent at PSM level, relaxed at protein level
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 5: Modifications Detail -->
+    <div class="page">
+        <div class="detail-container">
+            <div class="detail-title">4. Post-Translational Modifications (PTMs)</div>
+            <div class="detail-subtitle">Identifying and characterizing chemical modifications in proteins</div>
             
-            <div class="content-card">
-                <svg class="card-icon" viewBox="0 0 35 35">
-                    <circle cx="17" cy="17" r="10" stroke="#1E64C8" stroke-width="2" fill="none"/>
-                    <circle cx="12" cy="12" r="2" fill="#ff6b6b"/>
-                    <circle cx="22" cy="12" r="2" fill="#4CAF50"/>
-                    <circle cx="17" cy="22" r="2" fill="#2196F3"/>
+            <div class="detail-section">
+                <div class="section-header">Overview</div>
+                <p class="detail-text">
+                    Post-translational modifications are chemical changes to proteins that occur after translation. These modifications regulate protein function, localization, and interactions. In proteomics database searching, PTMs are specified as mass shifts at specific amino acids, significantly expanding the search space and complexity.
+                </p>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">Common PTMs and Their Mass Shifts</div>
+                <svg viewBox="0 0 860 380" xmlns="http://www.w3.org/2000/svg">
+                    <!-- Fixed Modifications -->
+                    <g transform="translate(30, 20)">
+                        <rect width="400" height="160" rx="8" fill="#e8f5e9" stroke="#4CAF50" stroke-width="2"/>
+                        <text x="200" y="25" font-size="16" font-weight="600" fill="#4CAF50" text-anchor="middle">Fixed Modifications</text>
+                        <text x="200" y="42" font-size="11" fill="#666" text-anchor="middle" font-style="italic">Applied to all specified residues</text>
+                        
+                        <!-- Carbamidomethylation -->
+                        <g transform="translate(20, 55)">
+                            <circle cx="15" cy="15" r="12" fill="white" stroke="#4CAF50" stroke-width="2"/>
+                            <text x="15" y="19" font-size="11" fill="#4CAF50" text-anchor="middle" font-weight="600">C</text>
+                            
+                            <line x1="30" y1="15" x2="50" y2="15" stroke="#4CAF50" stroke-width="2" marker-end="url(#arrow1)"/>
+                            
+                            <circle cx="65" cy="15" r="12" fill="#4CAF50" opacity="0.3" stroke="#4CAF50" stroke-width="2"/>
+                            <text x="65" y="19" font-size="11" fill="#4CAF50" text-anchor="middle" font-weight="600">C</text>
+                            <text x="65" y="28" font-size="7" fill="#4CAF50" text-anchor="middle">+CH₂CONH₂</text>
+                            
+                            <text x="100" y="12" font-size="12" fill="#333" font-weight="600">Carbamidomethylation</text>
+                            <text x="100" y="26" font-size="10" fill="#666">Mass shift: +57.021 Da</text>
+                            <text x="100" y="38" font-size="9" fill="#999">From IAA alkylation</text>
+                        </g>
+                        
+                        <!-- TMT labeling -->
+                        <g transform="translate(20, 105)">
+                            <circle cx="15" cy="15" r="12" fill="white" stroke="#4CAF50" stroke-width="2"/>
+                            <text x="15" y="19" font-size="11" fill="#4CAF50" text-anchor="middle" font-weight="600">K</text>
+                            
+                            <line x1="30" y1="15" x2="50" y2="15" stroke="#4CAF50" stroke-width="2" marker-end="url(#arrow1)"/>
+                            
+                            <circle cx="65" cy="15" r="12" fill="#4CAF50" opacity="0.3" stroke="#4CAF50" stroke-width="2"/>
+                            <text x="65" y="19" font-size="11" fill="#4CAF50" text-anchor="middle" font-weight="600">K</text>
+                            <text x="65" y="28" font-size="7" fill="#4CAF50" text-anchor="middle">+TMT</text>
+                            
+                            <text x="100" y="12" font-size="12" fill="#333" font-weight="600">TMT Labeling</text>
+                            <text x="100" y="26" font-size="10" fill="#666">Mass shift: +229.163 Da</text>
+                            <text x="100" y="38" font-size="9" fill="#999">N-terminus & K residues</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Variable Modifications -->
+                    <g transform="translate(450, 20)">
+                        <rect width="380" height="160" rx="8" fill="#fff3e0" stroke="#FF9800" stroke-width="2"/>
+                        <text x="190" y="25" font-size="16" font-weight="600" fill="#FF9800" text-anchor="middle">Variable Modifications</text>
+                        <text x="190" y="42" font-size="11" fill="#666" text-anchor="middle" font-style="italic">May or may not be present</text>
+                        
+                        <!-- Oxidation -->
+                        <g transform="translate(20, 55)">
+                            <circle cx="15" cy="15" r="12" fill="white" stroke="#FF9800" stroke-width="2"/>
+                            <text x="15" y="19" font-size="11" fill="#FF9800" text-anchor="middle" font-weight="600">M</text>
+                            
+                            <line x1="30" y1="15" x2="50" y2="15" stroke="#FF9800" stroke-width="2" marker-end="url(#arrow2)"/>
+                            
+                            <circle cx="65" cy="15" r="12" fill="#FF9800" opacity="0.3" stroke="#FF9800" stroke-width="2"/>
+                            <text x="65" y="19" font-size="11" fill="#FF9800" text-anchor="middle" font-weight="600">M</text>
+                            <text x="65" y="28" font-size="7" fill="#FF9800" text-anchor="middle">+O</text>
+                            
+                            <text x="95" y="12" font-size="12" fill="#333" font-weight="600">Oxidation</text>
+                            <text x="95" y="26" font-size="10" fill="#666">Mass shift: +15.995 Da</text>
+                            <text x="95" y="38" font-size="9" fill="#999">Common artifact</text>
+                        </g>
+                        
+                        <!-- Phosphorylation -->
+                        <g transform="translate(20, 105)">
+                            <circle cx="15" cy="15" r="12" fill="white" stroke="#FF9800" stroke-width="2"/>
+                            <text x="15" y="19" font-size="11" fill="#FF9800" text-anchor="middle" font-weight="600">S</text>
+                            
+                            <line x1="30" y1="15" x2="50" y2="15" stroke="#FF9800" stroke-width="2" marker-end="url(#arrow2)"/>
+                            
+                            <circle cx="65" cy="15" r="12" fill="#FF9800" opacity="0.3" stroke="#FF9800" stroke-width="2"/>
+                            <text x="65" y="19" font-size="11" fill="#FF9800" text-anchor="middle" font-weight="600">S</text>
+                            <text x="65" y="28" font-size="7" fill="#FF9800" text-anchor="middle">+PO₃</text>
+                            
+                            <text x="95" y="12" font-size="12" fill="#333" font-weight="600">Phosphorylation</text>
+                            <text x="95" y="26" font-size="10" fill="#666">Mass shift: +79.966 Da</text>
+                            <text x="95" y="38" font-size="9" fill="#999">S, T, Y residues</text>
+                        </g>
+                    </g>
+                    
+                    <!-- Modification Impact -->
+                    <g transform="translate(30, 200)">
+                        <rect width="800" height="160" rx="8" fill="#f8fbff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="400" y="25" font-size="16" font-weight="600" fill="#1E64C8" text-anchor="middle">Impact of Variable Modifications on Search Space</text>
+                        
+                        <!-- Peptide example -->
+                        <rect x="50" y="45" width="700" height="95" rx="5" fill="white" stroke="#e0e8f5" stroke-width="1"/>
+                        
+                        <text x="400" y="65" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Peptide: AGFAGDDAPR (10 amino acids)</text>
+                        
+                        <!-- No mods -->
+                        <text x="80" y="90" font-size="10" fill="#333">0 variable mods:</text>
+                        <text x="220" y="90" font-size="10" fill="#4CAF50" font-weight="600">1 peptide form</text>
+                        
+                        <!-- 1 mod site -->
+                        <text x="80" y="105" font-size="10" fill="#333">1 variable mod site (e.g., M):</text>
+                        <text x="220" y="105" font-size="10" fill="#FF9800" font-weight="600">2 peptide forms</text>
+                        
+                        <!-- 2 mod sites -->
+                        <text x="80" y="120" font-size="10" fill="#333">2 variable mod sites (e.g., 2M):</text>
+                        <text x="220" y="120" font-size="10" fill="#ff6b6b" font-weight="600">4 peptide forms</text>
+                        
+                        <!-- Formula -->
+                        <rect x="450" y="75" width="280" height="50" rx="5" fill="#fff9e6" stroke="#FF9800" stroke-width="1"/>
+                        <text x="590" y="95" font-size="11" fill="#333" text-anchor="middle" font-weight="600">Search space expansion:</text>
+                        <text x="590" y="112" font-size="10" fill="#666" text-anchor="middle">2ⁿ combinations (n = mod sites)</text>
+                    </g>
+                    
+                    <!-- Arrows -->
+                    <defs>
+                        <marker id="arrow1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#4CAF50"/>
+                        </marker>
+                        <marker id="arrow2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#FF9800"/>
+                        </marker>
+                    </defs>
                 </svg>
-                <div class="card-title">Modifications</div>
-                <div class="card-content">
-                    <div class="bullet">Fixed modifications (e.g., carbamidomethylation)</div>
-                    <div class="bullet">Variable modifications (e.g., oxidation)</div>
-                    <div class="bullet">Balance between sensitivity and specificity</div>
+            </div>
+
+            <div class="detail-section">
+                <div class="section-header">Types of Modifications</div>
+                <table class="comparison-table">
+                    <thead>
+                        <tr>
+                            <th>Modification Type</th>
+                            <th>Target Residue</th>
+                            <th>Mass Shift (Da)</th>
+                            <th>Biological Function</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><strong>Phosphorylation</strong></td>
+                            <td>S, T, Y</td>
+                            <td>+79.966</td>
+                            <td>Signal transduction, regulation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Acetylation</strong></td>
+                            <td>K, N-term</td>
+                            <td>+42.011</td>
+                            <td>Gene regulation, protein stability</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Methylation</strong></td>
+                            <td>K, R</td>
+                            <td>+14.016 (mono)</td>
+                            <td>Transcription regulation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Ubiquitination</strong></td>
+                            <td>K</td>
+                            <td>+114.043 (Gly-Gly)</td>
+                            <td>Protein degradation, signaling</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Oxidation</strong></td>
+                            <td>M, W</td>
+                            <td>+15.995</td>
+                            <td>Artifact or oxidative stress</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Deamidation</strong></td>
+                            <td>N, Q</td>
+                            <td>+0.984</td>
+                            <td>Protein aging, artifact</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">🔬 Practical Example: Phosphopeptide Analysis</div>
+                <div class="example-text">
+                    <strong>Peptide:</strong> AGFS[+80]GDDAPR<br>
+                    <strong>Unmodified mass:</strong> 1,000.45 Da<br>
+                    <strong>Phosphorylated mass:</strong> 1,080.42 Da (+79.97 Da)<br>
+                    <strong>Interpretation:</strong> Serine at position 4 is phosphorylated<br>
+                    <strong>Biological relevance:</strong> Potential kinase substrate involved in signaling
+                </div>
+            </div>
+
+            <div class="highlight-box">
+                <div class="highlight-title">⚠️ Search Strategy Considerations</div>
+                <div class="example-text">
+                    • <strong>Limit variable modifications:</strong> Each additional variable mod exponentially increases search space (2-3 max recommended)<br>
+                    • <strong>Use two-pass searches:</strong> First search with common mods, second search with expanded mod set on unidentified spectra<br>
+                    • <strong>Consider sample type:</strong> Biological mods (phosphorylation) vs. chemical artifacts (oxidation)<br>
+                    • <strong>Enrichment-aware:</strong> Increase mod allowance for enriched samples (e.g., phospho-enrichment)
                 </div>
             </div>
         </div>

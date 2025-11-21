@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Metabolic Engineering</title>
+    <title>Metabolic Engineering - Detailed Guide</title>
     <style>
         * {
             margin: 0;
@@ -13,18 +13,17 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 40px 20px;
         }
         
-        .container {
+        .page {
             width: 960px;
-            height: 540px;
+            margin: 0 auto 40px;
             padding: 40px 60px;
             background: white;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            page-break-after: always;
         }
         
         .title {
@@ -40,7 +39,7 @@
         .content-wrapper {
             display: flex;
             gap: 25px;
-            height: 385px;
+            min-height: 385px;
         }
         
         .pathway-visual {
@@ -63,6 +62,7 @@
             border-radius: 6px;
             padding: 13px 18px;
             transition: all 0.3s ease;
+            cursor: pointer;
         }
         
         .strategy-item:hover {
@@ -90,10 +90,73 @@
             0%, 100% { stroke-width: 2; opacity: 0.5; }
             50% { stroke-width: 3.5; opacity: 1; }
         }
+
+        /* Detail pages styling */
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1E64C8;
+        }
+
+        .description {
+            font-size: 14px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 30px;
+        }
+
+        .visual-container {
+            margin: 30px 0;
+        }
+
+        .example-box {
+            background: #f8f9fa;
+            border-left: 4px solid #1E64C8;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 6px;
+        }
+
+        .example-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 10px;
+        }
+
+        .example-text {
+            font-size: 13px;
+            line-height: 1.6;
+            color: #555;
+        }
+
+        .key-points {
+            margin: 20px 0;
+        }
+
+        .key-point {
+            display: flex;
+            align-items: flex-start;
+            margin: 12px 0;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+
+        .key-point::before {
+            content: "▸";
+            color: #1E64C8;
+            font-weight: bold;
+            margin-right: 10px;
+            flex-shrink: 0;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Page 1: Overview -->
+    <div class="page">
         <div class="title">Metabolic Engineering</div>
         <div class="content-wrapper">
             <div class="pathway-visual">
@@ -121,7 +184,7 @@
                         <text x="50" y="25" font-size="10" fill="#333" text-anchor="middle" font-weight="600">Enzyme 1</text>
                         <text x="50" y="38" font-size="9" fill="#666" text-anchor="middle">Phosphorylation</text>
                         
-                        <text x="50" y="65" font-size="9" fill="#e0a800" text-anchor="middle" font-weight="600">↑ Overexpressed</text>
+                        <text x="50" y="65" font-size="9" fill="#e0a800" text-anchor="middle" font-weight="600">→ Overexpressed</text>
                     </g>
                     
                     <!-- Intermediate A -->
@@ -217,5 +280,614 @@
             </div>
         </div>
     </div>
+
+    <!-- Page 2: Flux Optimization -->
+    <div class="page">
+        <div class="section-title">1. Flux Optimization</div>
+        
+        <div class="description">
+            Flux optimization involves redistributing metabolic flux through cellular pathways to maximize the production of desired compounds. This strategy focuses on balancing the flow of metabolites to prevent bottlenecks and accumulation of toxic intermediates while maximizing product yield.
+        </div>
+
+        <div class="visual-container">
+            <svg width="840" height="320" viewBox="0 0 840 320">
+                <!-- Title -->
+                <text x="420" y="25" font-size="16" fill="#1E64C8" text-anchor="middle" font-weight="700">Metabolic Flux Distribution</text>
+                
+                <!-- Before optimization -->
+                <g transform="translate(50, 50)">
+                    <text x="150" y="0" font-size="14" fill="#cc0000" text-anchor="middle" font-weight="600">Before Optimization</text>
+                    
+                    <circle cx="50" cy="40" r="25" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="50" y="45" font-size="12" fill="#333" text-anchor="middle" font-weight="600">Glucose</text>
+                    
+                    <!-- Weak flux to product -->
+                    <defs>
+                        <marker id="weakArrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#cc0000"/>
+                        </marker>
+                        <marker id="strongArrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#00aa00"/>
+                        </marker>
+                    </defs>
+                    
+                    <path d="M 80,40 L 170,40" stroke="#cc0000" stroke-width="1.5" marker-end="url(#weakArrow)"/>
+                    <text x="125" y="30" font-size="10" fill="#cc0000" text-anchor="middle">Weak flux</text>
+                    
+                    <circle cx="200" cy="40" r="25" fill="#ffcccc" stroke="#cc0000" stroke-width="2"/>
+                    <text x="200" y="45" font-size="12" fill="#333" text-anchor="middle" font-weight="600">Product</text>
+                    <text x="200" y="80" font-size="11" fill="#cc0000" text-anchor="middle">Low yield: 15%</text>
+                    
+                    <!-- Strong competing pathway -->
+                    <path d="M 50,70 L 50,130" stroke="#666" stroke-width="3" marker-end="url(#weakArrow)"/>
+                    <text x="80" y="105" font-size="10" fill="#666">Strong competing</text>
+                    <text x="80" y="118" font-size="10" fill="#666">pathway</text>
+                    
+                    <circle cx="50" cy="160" r="25" fill="#f0f0f0" stroke="#666" stroke-width="2"/>
+                    <text x="50" y="165" font-size="12" fill="#333" text-anchor="middle" font-weight="600">By-product</text>
+                </g>
+                
+                <!-- Arrow between -->
+                <g transform="translate(400, 120)">
+                    <path d="M 0,0 L 40,0" stroke="#1E64C8" stroke-width="3" marker-end="url(#strongArrow)"/>
+                    <text x="20" y="-10" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">Optimize</text>
+                </g>
+                
+                <!-- After optimization -->
+                <g transform="translate(480, 50)">
+                    <text x="150" y="0" font-size="14" fill="#00aa00" text-anchor="middle" font-weight="600">After Optimization</text>
+                    
+                    <circle cx="50" cy="40" r="25" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="50" y="45" font-size="12" fill="#333" text-anchor="middle" font-weight="600">Glucose</text>
+                    
+                    <!-- Strong flux to product -->
+                    <path d="M 80,40 L 170,40" stroke="#00aa00" stroke-width="4" marker-end="url(#strongArrow)"/>
+                    <text x="125" y="30" font-size="10" fill="#00aa00" text-anchor="middle" font-weight="600">Strong flux</text>
+                    
+                    <circle cx="200" cy="40" r="25" fill="#d4edda" stroke="#00aa00" stroke-width="2"/>
+                    <text x="200" y="45" font-size="12" fill="#333" text-anchor="middle" font-weight="600">Product</text>
+                    <text x="200" y="80" font-size="11" fill="#00aa00" text-anchor="middle" font-weight="600">High yield: 75%</text>
+                    
+                    <!-- Weakened competing pathway -->
+                    <path d="M 50,70 L 50,130" stroke="#ccc" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <text x="80" y="105" font-size="10" fill="#999">Reduced competing</text>
+                    <text x="80" y="118" font-size="10" fill="#999">pathway</text>
+                    
+                    <circle cx="50" cy="160" r="25" fill="#f9f9f9" stroke="#ccc" stroke-width="1.5" stroke-dasharray="3,3"/>
+                    <text x="50" y="165" font-size="12" fill="#999" text-anchor="middle">By-product</text>
+                </g>
+                
+                <!-- Key strategies -->
+                <g transform="translate(50, 240)">
+                    <rect x="0" y="0" width="740" height="70" rx="6" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="370" y="20" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="700">Key Optimization Strategies</text>
+                    
+                    <text x="20" y="40" font-size="11" fill="#333">• Gene overexpression: Increase enzyme levels in rate-limiting steps</text>
+                    <text x="20" y="55" font-size="11" fill="#333">• Gene knockout: Eliminate competing pathways that reduce product yield</text>
+                    <text x="400" y="40" font-size="11" fill="#333">• Promoter engineering: Fine-tune expression levels</text>
+                    <text x="400" y="55" font-size="11" fill="#333">• Dynamic regulation: Respond to metabolic state</text>
+                </g>
+            </svg>
+        </div>
+
+        <div class="example-box">
+            <div class="example-title">Real-World Example: 1,3-Propanediol Production</div>
+            <div class="example-text">
+                DuPont engineered E. coli to produce 1,3-propanediol (a polymer precursor) from glucose. By redirecting flux from glycerol to 1,3-propanediol through overexpression of dhaB and dhaT genes while knocking out competing pathways, they achieved industrial-scale production with yields exceeding 130 g/L, making it commercially viable for producing Sorona® polymer.
+            </div>
+        </div>
+
+        <div class="key-points">
+            <div class="key-point">Computational tools like Flux Balance Analysis (FBA) predict optimal gene modifications</div>
+            <div class="key-point">13C metabolic flux analysis experimentally validates flux distributions</div>
+            <div class="key-point">Balancing growth rate and production rate is critical for industrial applications</div>
+        </div>
+    </div>
+
+    <!-- Page 3: Enzyme Engineering -->
+    <div class="page">
+        <div class="section-title">2. Enzyme Engineering</div>
+        
+        <div class="description">
+            Enzyme engineering focuses on improving the catalytic properties of enzymes through directed evolution, rational design, or computational methods. This approach enhances reaction rates, substrate specificity, stability, and overall pathway efficiency.
+        </div>
+
+        <div class="visual-container">
+            <svg width="840" height="340" viewBox="0 0 840 340">
+                <text x="420" y="25" font-size="16" fill="#1E64C8" text-anchor="middle" font-weight="700">Enzyme Engineering Approaches</text>
+                
+                <!-- Wild-type enzyme -->
+                <g transform="translate(70, 60)">
+                    <rect x="0" y="0" width="200" height="240" rx="8" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                    <text x="100" y="25" font-size="13" fill="#e0a800" text-anchor="middle" font-weight="700">Wild-Type Enzyme</text>
+                    
+                    <!-- Enzyme shape -->
+                    <ellipse cx="100" cy="90" rx="60" ry="50" fill="#ffebcc" stroke="#e0a800" stroke-width="2"/>
+                    <circle cx="100" cy="90" r="15" fill="#e0a800" opacity="0.3"/>
+                    <text x="100" y="95" font-size="10" fill="#666" text-anchor="middle" font-weight="600">Active site</text>
+                    
+                    <!-- Substrate -->
+                    <rect x="140" y="75" width="25" height="30" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="1.5"/>
+                    <text x="152" y="93" font-size="9" fill="#333" text-anchor="middle">S</text>
+                    <text x="100" y="155" font-size="11" fill="#cc0000" text-anchor="middle">❌ Poor fit</text>
+                    
+                    <!-- Performance metrics -->
+                    <g transform="translate(20, 175)">
+                        <text x="0" y="0" font-size="11" fill="#333" font-weight="600">Performance:</text>
+                        <text x="0" y="18" font-size="10" fill="#666">• kcat: 10 s⁻¹</text>
+                        <text x="0" y="33" font-size="10" fill="#666">• KM: 5 mM</text>
+                        <text x="0" y="48" font-size="10" fill="#666">• Stability: 37°C</text>
+                    </g>
+                </g>
+                
+                <!-- Engineering methods -->
+                <g transform="translate(290, 100)">
+                    <rect x="0" y="0" width="260" height="160" rx="8" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="130" y="25" font-size="13" fill="#1E64C8" text-anchor="middle" font-weight="700">Engineering Methods</text>
+                    
+                    <!-- Directed Evolution -->
+                    <g transform="translate(15, 40)">
+                        <rect x="0" y="0" width="110" height="50" rx="5" fill="#d4edda" stroke="#00aa00" stroke-width="1.5"/>
+                        <text x="55" y="16" font-size="11" fill="#00aa00" text-anchor="middle" font-weight="600">Directed Evolution</text>
+                        <text x="55" y="30" font-size="9" fill="#333" text-anchor="middle">Random mutagenesis</text>
+                        <text x="55" y="42" font-size="9" fill="#333" text-anchor="middle">+ screening</text>
+                    </g>
+                    
+                    <!-- Rational Design -->
+                    <g transform="translate(135, 40)">
+                        <rect x="0" y="0" width="110" height="50" rx="5" fill="#f0e5ff" stroke="#8b4dc9" stroke-width="1.5"/>
+                        <text x="55" y="16" font-size="11" fill="#8b4dc9" text-anchor="middle" font-weight="600">Rational Design</text>
+                        <text x="55" y="30" font-size="9" fill="#333" text-anchor="middle">Structure-based</text>
+                        <text x="55" y="42" font-size="9" fill="#333" text-anchor="middle">mutations</text>
+                    </g>
+                    
+                    <!-- Machine Learning -->
+                    <g transform="translate(15, 100)">
+                        <rect x="0" y="0" width="110" height="50" rx="5" fill="#ffe5e5" stroke="#cc0066" stroke-width="1.5"/>
+                        <text x="55" y="16" font-size="11" fill="#cc0066" text-anchor="middle" font-weight="600">Machine Learning</text>
+                        <text x="55" y="30" font-size="9" fill="#333" text-anchor="middle">AI-guided</text>
+                        <text x="55" y="42" font-size="9" fill="#333" text-anchor="middle">prediction</text>
+                    </g>
+                    
+                    <!-- Semi-rational -->
+                    <g transform="translate(135, 100)">
+                        <rect x="0" y="0" width="110" height="50" rx="5" fill="#fff0cc" stroke="#cc8800" stroke-width="1.5"/>
+                        <text x="55" y="16" font-size="11" fill="#cc8800" text-anchor="middle" font-weight="600">Semi-Rational</text>
+                        <text x="55" y="30" font-size="9" fill="#333" text-anchor="middle">Targeted libraries</text>
+                        <text x="55" y="42" font-size="9" fill="#333" text-anchor="middle">+ screening</text>
+                    </g>
+                </g>
+                
+                <!-- Engineered enzyme -->
+                <g transform="translate(570, 60)">
+                    <rect x="0" y="0" width="200" height="240" rx="8" fill="#d4edda" stroke="#00aa00" stroke-width="2"/>
+                    <text x="100" y="25" font-size="13" fill="#00aa00" text-anchor="middle" font-weight="700">Engineered Enzyme</text>
+                    
+                    <!-- Enzyme shape - modified -->
+                    <ellipse cx="100" cy="90" rx="60" ry="50" fill="#e6f7e6" stroke="#00aa00" stroke-width="2"/>
+                    <circle cx="100" cy="90" r="15" fill="#00aa00" opacity="0.4"/>
+                    <text x="100" y="95" font-size="10" fill="#666" text-anchor="middle" font-weight="600">Modified site</text>
+                    
+                    <!-- Mutations shown -->
+                    <circle cx="70" cy="75" r="4" fill="#cc0066"/>
+                    <text x="60" y="72" font-size="8" fill="#cc0066">M1</text>
+                    <circle cx="130" cy="85" r="4" fill="#cc0066"/>
+                    <text x="142" y="88" font-size="8" fill="#cc0066">M2</text>
+                    <circle cx="85" cy="110" r="4" fill="#cc0066"/>
+                    <text x="75" y="125" font-size="8" fill="#cc0066">M3</text>
+                    
+                    <!-- Substrate - better fit -->
+                    <rect x="88" y="75" width="24" height="30" rx="3" fill="#1E64C8" stroke="#1E64C8" stroke-width="1.5"/>
+                    <text x="100" y="93" font-size="9" fill="white" text-anchor="middle" font-weight="600">S</text>
+                    <text x="100" y="155" font-size="11" fill="#00aa00" text-anchor="middle" font-weight="600">✓ Perfect fit</text>
+                    
+                    <!-- Performance metrics -->
+                    <g transform="translate(20, 175)">
+                        <text x="0" y="0" font-size="11" fill="#333" font-weight="600">Performance:</text>
+                        <text x="0" y="18" font-size="10" fill="#00aa00" font-weight="600">• kcat: 500 s⁻¹ (50×)</text>
+                        <text x="0" y="33" font-size="10" fill="#00aa00" font-weight="600">• KM: 0.5 mM (10×)</text>
+                        <text x="0" y="48" font-size="10" fill="#00aa00" font-weight="600">• Stability: 65°C</text>
+                    </g>
+                </g>
+            </svg>
+        </div>
+
+        <div class="example-box">
+            <div class="example-title">Real-World Example: Artemisinic Acid Production</div>
+            <div class="example-text">
+                Researchers at UC Berkeley and Amyris engineered cytochrome P450 enzymes in yeast to produce artemisinic acid, a precursor to the anti-malaria drug artemisinin. Through directed evolution and rational design, they improved enzyme activity by over 200-fold, enabling economical semi-synthetic production of this life-saving medication that was previously only available from plant extraction.
+            </div>
+        </div>
+
+        <div class="key-points">
+            <div class="key-point">AlphaFold and RoseTTAFold enable structure-guided enzyme design</div>
+            <div class="key-point">Deep learning models predict beneficial mutations with >80% accuracy</div>
+            <div class="key-point">Combination approaches (rational + directed evolution) often yield best results</div>
+            <div class="key-point">Enzyme thermostability is crucial for industrial bioprocesses</div>
+        </div>
+    </div>
+
+    <!-- Page 4: Pathway Design -->
+    <div class="page">
+        <div class="section-title">3. Pathway Design</div>
+        
+        <div class="description">
+            Pathway design involves constructing novel biosynthetic routes by introducing heterologous genes or creating entirely synthetic pathways. This strategy enables production of compounds not naturally made by the host organism or improves efficiency through shortened pathways.
+        </div>
+
+        <div class="visual-container">
+            <svg width="840" height="350" viewBox="0 0 840 350">
+                <text x="420" y="25" font-size="16" fill="#1E64C8" text-anchor="middle" font-weight="700">Pathway Design Strategies</text>
+                
+                <!-- Natural pathway -->
+                <g transform="translate(50, 50)">
+                    <text x="150" y="0" font-size="13" fill="#666" text-anchor="middle" font-weight="600">Natural Pathway (Long)</text>
+                    
+                    <circle cx="50" cy="40" r="20" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="50" y="44" font-size="10" fill="#333" text-anchor="middle" font-weight="600">A</text>
+                    
+                    <path d="M 75,40 L 105,40" stroke="#666" stroke-width="2" marker-end="url(#grayArrow)"/>
+                    <text x="90" y="32" font-size="9" fill="#666" text-anchor="middle">E1</text>
+                    
+                    <circle cx="130" cy="40" r="20" fill="#f0f0f0" stroke="#999" stroke-width="2"/>
+                    <text x="130" y="44" font-size="10" fill="#333" text-anchor="middle" font-weight="600">B</text>
+                    
+                    <path d="M 155,40 L 185,40" stroke="#666" stroke-width="2" marker-end="url(#grayArrow)"/>
+                    <text x="170" y="32" font-size="9" fill="#666" text-anchor="middle">E2</text>
+                    
+                    <circle cx="210" cy="40" r="20" fill="#f0f0f0" stroke="#999" stroke-width="2"/>
+                    <text x="210" y="44" font-size="10" fill="#333" text-anchor="middle" font-weight="600">C</text>
+                    
+                    <path d="M 235,40 L 265,40" stroke="#666" stroke-width="2" marker-end="url(#grayArrow)"/>
+                    <text x="250" y="32" font-size="9" fill="#666" text-anchor="middle">E3</text>
+                    
+                    <circle cx="290" cy="40" r="20" fill="#ffe0e0" stroke="#cc0000" stroke-width="2"/>
+                    <text x="290" y="44" font-size="10" fill="#333" text-anchor="middle" font-weight="600">Product</text>
+                    
+                    <text x="170" y="80" font-size="11" fill="#cc0000" text-anchor="middle">❌ Slow (3 steps)</text>
+                    <text x="170" y="95" font-size="11" fill="#cc0000" text-anchor="middle">❌ Low yield (intermediates lost)</text>
+                </g>
+                
+                <defs>
+                    <marker id="grayArrow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                        <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+                    </marker>
+                    <marker id="greenArrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                        <polygon points="0 0, 10 3, 0 6" fill="#00aa00"/>
+                    </marker>
+                </defs>
+                
+                <!-- Synthetic pathway -->
+                <g transform="translate(450, 50)">
+                    <text x="150" y="0" font-size="13" fill="#00aa00" text-anchor="middle" font-weight="600">Engineered Pathway (Optimized)</text>
+                    
+                    <circle cx="70" cy="40" r="20" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="70" y="44" font-size="10" fill="#333" text-anchor="middle" font-weight="600">A</text>
+                    
+                    <path d="M 95,40 L 205,40" stroke="#00aa00" stroke-width="3" marker-end="url(#greenArrow)"/>
+                    <text x="150" y="30" font-size="9" fill="#00aa00" text-anchor="middle" font-weight="600">Novel E*</text>
+                    <text x="150" y="55" font-size="8" fill="#00aa00" text-anchor="middle">(heterologous)</text>
+                    
+                    <circle cx="230" cy="40" r="20" fill="#d4edda" stroke="#00aa00" stroke-width="2"/>
+                    <text x="230" y="44" font-size="10" fill="#333" text-anchor="middle" font-weight="600">Product</text>
+                    
+                    <text x="150" y="85" font-size="11" fill="#00aa00" text-anchor="middle" font-weight="600">✓ Fast (1 step)</text>
+                    <text x="150" y="100" font-size="11" fill="#00aa00" text-anchor="middle" font-weight="600">✓ High yield</text>
+                </g>
+                
+                <!-- Modular pathway construction -->
+                <g transform="translate(50, 160)">
+                    <rect x="0" y="0" width="740" height="170" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="370" y="25" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="700">Modular Pathway Construction</text>
+                    
+                    <!-- Module 1 -->
+                    <g transform="translate(30, 45)">
+                        <rect x="0" y="0" width="150" height="100" rx="6" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="75" y="20" font-size="12" fill="#1E64C8" text-anchor="middle" font-weight="600">Module 1: Uptake</text>
+                        
+                        <circle cx="30" cy="50" r="12" fill="#ffebcc" stroke="#e0a800" stroke-width="1.5"/>
+                        <text x="30" y="53" font-size="8" fill="#333" text-anchor="middle">T1</text>
+                        <text x="70" y="53" font-size="9" fill="#333">Transporter</text>
+                        
+                        <circle cx="30" cy="75" r="12" fill="#ffebcc" stroke="#e0a800" stroke-width="1.5"/>
+                        <text x="30" y="78" font-size="8" fill="#333" text-anchor="middle">K1</text>
+                        <text x="70" y="78" font-size="9" fill="#333">Kinase</text>
+                    </g>
+                    
+                    <!-- Module 2 -->
+                    <g transform="translate(200, 45)">
+                        <rect x="0" y="0" width="150" height="100" rx="6" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                        <text x="75" y="20" font-size="12" fill="#e0a800" text-anchor="middle" font-weight="600">Module 2: Conversion</text>
+                        
+                        <circle cx="30" cy="50" r="12" fill="#ffebcc" stroke="#e0a800" stroke-width="1.5"/>
+                        <text x="30" y="53" font-size="8" fill="#333" text-anchor="middle">E1</text>
+                        <text x="70" y="53" font-size="9" fill="#333">Enzyme A</text>
+                        
+                        <circle cx="30" cy="75" r="12" fill="#ffebcc" stroke="#e0a800" stroke-width="1.5"/>
+                        <text x="30" y="78" font-size="8" fill="#333" text-anchor="middle">E2</text>
+                        <text x="70" y="78" font-size="9" fill="#333">Enzyme B</text>
+                    </g>
+                    
+                    <!-- Module 3 -->
+                    <g transform="translate(370, 45)">
+                        <rect x="0" y="0" width="150" height="100" rx="6" fill="#d4edda" stroke="#00aa00" stroke-width="2"/>
+                        <text x="75" y="20" font-size="12" fill="#00aa00" text-anchor="middle" font-weight="600">Module 3: Export</text>
+                        
+                        <circle cx="30" cy="50" r="12" fill="#e6f7e6" stroke="#00aa00" stroke-width="1.5"/>
+                        <text x="30" y="53" font-size="8" fill="#333" text-anchor="middle">E3</text>
+                        <text x="70" y="53" font-size="9" fill="#333">Efflux pump</text>
+                        
+                        <circle cx="30" cy="75" r="12" fill="#e6f7e6" stroke="#00aa00" stroke-width="1.5"/>
+                        <text x="30" y="78" font-size="8" fill="#333" text-anchor="middle">R1</text>
+                        <text x="70" y="78" font-size="9" fill="#333">Regulator</text>
+                    </g>
+                    
+                    <!-- Genetic parts library -->
+                    <g transform="translate(540, 45)">
+                        <rect x="0" y="0" width="170" height="100" rx="6" fill="#f0e5ff" stroke="#8b4dc9" stroke-width="2"/>
+                        <text x="85" y="20" font-size="12" fill="#8b4dc9" text-anchor="middle" font-weight="600">Parts Library</text>
+                        
+                        <text x="10" y="40" font-size="9" fill="#333">📚 Promoters (strong/weak)</text>
+                        <text x="10" y="55" font-size="9" fill="#333">🧬 RBS variants</text>
+                        <text x="10" y="70" font-size="9" fill="#333">🔧 Terminators</text>
+                        <text x="10" y="85" font-size="9" fill="#333">🎯 Regulatory elements</text>
+                    </g>
+                </g>
+            </svg>
+        </div>
+
+        <div class="example-box">
+            <div class="example-title">Real-World Example: Taxol (Paclitaxel) Precursor Production</div>
+            <div class="example-text">
+                Researchers assembled a 13-gene heterologous pathway in yeast to produce taxadiene, a key precursor to the anti-cancer drug Taxol. This pathway combined genes from Pacific yew trees with engineered yeast enzymes, creating a biosynthetic route that would be impossible in any natural organism. The modular approach allowed rapid optimization of each pathway segment independently.
+            </div>
+        </div>
+
+        <div class="key-points">
+            <div class="key-point">Retrosynthetic analysis identifies optimal enzymatic routes to target molecules</div>
+            <div class="key-point">Codon optimization ensures proper expression of heterologous genes</div>
+            <div class="key-point">Enzyme scaffolding and spatial organization reduce intermediate diffusion</div>
+            <div class="key-point">Standardized genetic parts (BioBricks, MoClo) accelerate pathway construction</div>
+        </div>
+    </div>
+
+    <!-- Page 5: Strain Optimization -->
+    <div class="page">
+        <div class="section-title">4. Strain Optimization</div>
+        
+        <div class="description">
+            Strain optimization encompasses the systematic improvement of host organisms to enhance production capabilities. This includes modifying cellular machinery, improving tolerance to stress, and engineering global regulatory networks for optimal biosynthesis.
+        </div>
+
+        <div class="visual-container">
+            <svg width="840" height="340" viewBox="0 0 840 340">
+                <text x="420" y="25" font-size="16" fill="#1E64C8" text-anchor="middle" font-weight="700">Multi-level Strain Engineering</text>
+                
+                <!-- Cell visualization -->
+                <g transform="translate(100, 50)">
+                    <!-- Cell membrane -->
+                    <ellipse cx="200" cy="140" rx="180" ry="120" fill="#e8f2ff" stroke="#1E64C8" stroke-width="3" opacity="0.3"/>
+                    
+                    <!-- Nucleus/Chromosome -->
+                    <ellipse cx="200" cy="140" rx="70" ry="50" fill="#f0e5ff" stroke="#8b4dc9" stroke-width="2"/>
+                    <text x="200" y="135" font-size="11" fill="#8b4dc9" text-anchor="middle" font-weight="600">Genome</text>
+                    <text x="200" y="150" font-size="9" fill="#666" text-anchor="middle">Optimized</text>
+                    
+                    <!-- Metabolic pathway representation -->
+                    <g transform="translate(50, 80)">
+                        <circle cx="0" cy="0" r="15" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                        <text x="0" y="3" font-size="8" fill="#333" text-anchor="middle">P1</text>
+                    </g>
+                    
+                    <g transform="translate(300, 100)">
+                        <circle cx="0" cy="0" r="15" fill="#d4edda" stroke="#00aa00" stroke-width="2"/>
+                        <text x="0" y="3" font-size="8" fill="#333" text-anchor="middle">P2</text>
+                    </g>
+                    
+                    <g transform="translate(280, 180)">
+                        <circle cx="0" cy="0" r="15" fill="#ffebcc" stroke="#cc8800" stroke-width="2"/>
+                        <text x="0" y="3" font-size="8" fill="#333" text-anchor="middle">P3</text>
+                    </g>
+                    
+                    <!-- Product accumulation -->
+                    <g transform="translate(100, 200)">
+                        <circle cx="0" cy="0" r="8" fill="#1E64C8"/>
+                        <circle cx="15" cy="-5" r="8" fill="#1E64C8"/>
+                        <circle cx="8" cy="12" r="8" fill="#1E64C8"/>
+                        <circle cx="-8" cy="5" r="8" fill="#1E64C8"/>
+                        <text x="0" y="-25" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">Product pool</text>
+                    </g>
+                    
+                    <!-- Stress tolerance indicators -->
+                    <g transform="translate(320, 50)">
+                        <path d="M 0,0 L -10,15 L 10,15 Z" fill="#cc0000" opacity="0.5"/>
+                        <text x="0" y="30" font-size="9" fill="#cc0000" text-anchor="middle">Heat</text>
+                        <text x="0" y="42" font-size="9" fill="#00aa00" text-anchor="middle" font-weight="600">Tolerant!</text>
+                    </g>
+                </g>
+                
+                <!-- Optimization strategies -->
+                <g transform="translate(460, 50)">
+                    <rect x="0" y="0" width="340" height="280" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="170" y="25" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="700">Engineering Targets</text>
+                    
+                    <!-- Genome optimization -->
+                    <g transform="translate(20, 45)">
+                        <rect x="0" y="0" width="300" height="50" rx="5" fill="#f0e5ff" stroke="#8b4dc9" stroke-width="2"/>
+                        <text x="10" y="18" font-size="11" fill="#8b4dc9" font-weight="600">1. Genome Streamlining</text>
+                        <text x="15" y="33" font-size="9" fill="#333">• Remove non-essential genes (reduce metabolic burden)</text>
+                        <text x="15" y="45" font-size="9" fill="#333">• Minimize genome size for faster replication</text>
+                    </g>
+                    
+                    <!-- Cofactor engineering -->
+                    <g transform="translate(20, 105)">
+                        <rect x="0" y="0" width="300" height="50" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                        <text x="10" y="18" font-size="11" fill="#e0a800" font-weight="600">2. Cofactor Engineering</text>
+                        <text x="15" y="33" font-size="9" fill="#333">• Enhance NADH/NADPH regeneration</text>
+                        <text x="15" y="45" font-size="9" fill="#333">• Balance redox state for optimal production</text>
+                    </g>
+                    
+                    <!-- Stress tolerance -->
+                    <g transform="translate(20, 165)">
+                        <rect x="0" y="0" width="300" height="50" rx="5" fill="#ffe5e5" stroke="#cc0066" stroke-width="2"/>
+                        <text x="10" y="18" font-size="11" fill="#cc0066" font-weight="600">3. Stress Tolerance</text>
+                        <text x="15" y="33" font-size="9" fill="#333">• Product toxicity resistance (efflux pumps)</text>
+                        <text x="15" y="45" font-size="9" fill="#333">• Temperature, pH, osmotic stress tolerance</text>
+                    </g>
+                    
+                    <!-- Global regulation -->
+                    <g transform="translate(20, 225)">
+                        <rect x="0" y="0" width="300" height="50" rx="5" fill="#d4edda" stroke="#00aa00" stroke-width="2"/>
+                        <text x="10" y="18" font-size="11" fill="#00aa00" font-weight="600">4. Global Regulation</text>
+                        <text x="15" y="33" font-size="9" fill="#333">• Modify transcription factors (CRP, ArcA/B)</text>
+                        <text x="15" y="45" font-size="9" fill="#333">• Engineer metabolic switches (growth ⇄ production)</text>
+                    </g>
+                </g>
+            </svg>
+        </div>
+
+        <div class="example-box">
+            <div class="example-title">Real-World Example: Tolerance-Enhanced E. coli for Biofuel Production</div>
+            <div class="example-text">
+                Scientists at MIT engineered E. coli for advanced biofuel production by incorporating multiple modifications: deletion of 15 non-essential gene clusters to reduce metabolic burden, overexpression of stress response genes (groESL, dnaKJ), and modification of membrane composition to tolerate high concentrations of toxic alcohols and fatty acids. The optimized strain showed 3-fold improvement in titer and could operate continuously in fed-batch fermentation for over 200 hours.
+            </div>
+        </div>
+
+        <div class="key-points">
+            <div class="key-point">Adaptive laboratory evolution (ALE) complements rational engineering for complex phenotypes</div>
+            <div class="key-point">CRISPR interference (CRISPRi) enables fine-tuning of gene expression without knockouts</div>
+            <div class="key-point">Systems biology approaches identify hidden bottlenecks in cellular metabolism</div>
+            <div class="key-point">Chassis organisms (E. coli, S. cerevisiae, B. subtilis) each offer unique advantages</div>
+        </div>
+    </div>
+
+    <!-- Page 6: Scale-up Prediction -->
+    <div class="page">
+        <div class="section-title">5. Scale-up Prediction</div>
+        
+        <div class="description">
+            Scale-up prediction uses computational models and machine learning to forecast how laboratory-scale bioprocesses will perform at industrial scale. This strategy reduces costly trial-and-error in pilot plants and enables rapid translation from bench to commercial production.
+        </div>
+
+        <div class="visual-container">
+            <svg width="840" height="330" viewBox="0 0 840 330">
+                <text x="420" y="25" font-size="16" fill="#1E64C8" text-anchor="middle" font-weight="700">Lab-to-Production Scale-up Pipeline</text>
+                
+                <!-- Lab scale -->
+                <g transform="translate(80, 60)">
+                    <text x="80" y="0" font-size="12" fill="#666" text-anchor="middle" font-weight="600">Lab Scale</text>
+                    
+                    <!-- Flask -->
+                    <path d="M 50,20 L 50,40 Q 50,60 70,70 L 90,70 Q 110,60 110,40 L 110,20 Z" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                    <ellipse cx="80" cy="20" rx="30" ry="5" fill="#b3d9ff" stroke="#1E64C8" stroke-width="2"/>
+                    
+                    <text x="80" y="100" font-size="10" fill="#333" text-anchor="middle" font-weight="600">50-500 mL</text>
+                    <text x="80" y="115" font-size="9" fill="#666" text-anchor="middle">Shake flask</text>
+                    <text x="80" y="130" font-size="9" fill="#00aa00" text-anchor="middle">Quick iteration</text>
+                </g>
+                
+                <!-- Arrow 1 -->
+                <g transform="translate(190, 100)">
+                    <path d="M 0,0 L 40,0" stroke="#1E64C8" stroke-width="2" marker-end="url(#greenArrow)"/>
+                    <text x="20" y="-8" font-size="9" fill="#1E64C8" text-anchor="middle">Model</text>
+                </g>
+                
+                <!-- Pilot scale -->
+                <g transform="translate(250, 60)">
+                    <text x="100" y="0" font-size="12" fill="#666" text-anchor="middle" font-weight="600">Pilot Scale</text>
+                    
+                    <!-- Bioreactor -->
+                    <rect x="60" y="20" width="80" height="60" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                    <rect x="65" y="25" width="70" height="50" rx="3" fill="#ffebcc" stroke="#e0a800" stroke-width="1"/>
+                    
+                    <!-- Control panel -->
+                    <rect x="145" y="35" width="25" height="30" rx="2" fill="#f0f0f0" stroke="#666" stroke-width="1"/>
+                    <circle cx="157.5" cy="47" r="3" fill="#00aa00"/>
+                    <circle cx="157.5" cy="58" r="3" fill="#1E64C8"/>
+                    
+                    <text x="100" y="100" font-size="10" fill="#333" text-anchor="middle" font-weight="600">1-100 L</text>
+                    <text x="100" y="115" font-size="9" fill="#666" text-anchor="middle">Controlled bioreactor</text>
+                    <text x="100" y="130" font-size="9" fill="#e0a800" text-anchor="middle">Process optimization</text>
+                </g>
+                
+                <!-- Arrow 2 -->
+                <g transform="translate(410, 100)">
+                    <path d="M 0,0 L 40,0" stroke="#1E64C8" stroke-width="2" marker-end="url(#greenArrow)"/>
+                    <text x="20" y="-8" font-size="9" fill="#1E64C8" text-anchor="middle">Predict</text>
+                </g>
+                
+                <!-- Industrial scale -->
+                <g transform="translate(470, 60)">
+                    <text x="130" y="0" font-size="12" fill="#666" text-anchor="middle" font-weight="600">Industrial Scale</text>
+                    
+                    <!-- Large fermentor -->
+                    <rect x="80" y="20" width="100" height="80" rx="8" fill="#d4edda" stroke="#00aa00" stroke-width="3"/>
+                    <rect x="87" y="27" width="86" height="66" rx="5" fill="#e6f7e6" stroke="#00aa00" stroke-width="1.5"/>
+                    
+                    <!-- Pipes -->
+                    <rect x="70" y="45" width="15" height="4" fill="#999"/>
+                    <rect x="175" y="45" width="15" height="4" fill="#999"/>
+                    <rect x="70" y="70" width="15" height="4" fill="#999"/>
+                    <rect x="175" y="70" width="15" height="4" fill="#999"/>
+                    
+                    <text x="130" y="120" font-size="10" fill="#333" text-anchor="middle" font-weight="600">10,000+ L</text>
+                    <text x="130" y="135" font-size="9" fill="#666" text-anchor="middle">Industrial fermentor</text>
+                    <text x="130" y="150" font-size="9" fill="#00aa00" text-anchor="middle" font-weight="600">Commercial production</text>
+                </g>
+                
+                <!-- Modeling framework -->
+                <g transform="translate(50, 200)">
+                    <rect x="0" y="0" width="740" height="120" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                    <text x="370" y="25" font-size="14" fill="#1E64C8" text-anchor="middle" font-weight="700">AI-Powered Scale-up Prediction Framework</text>
+                    
+                    <!-- Input parameters -->
+                    <g transform="translate(20, 45)">
+                        <rect x="0" y="0" width="220" height="60" rx="5" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="110" y="18" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">Input Parameters</text>
+                        
+                        <text x="10" y="35" font-size="9" fill="#333">• Kinetic data (μmax, Ks, YP/S)</text>
+                        <text x="10" y="48" font-size="9" fill="#333">• Oxygen transfer rate (kLa)</text>
+                        <text x="10" y="61" font-size="9" fill="#333">• Mixing time, heat transfer</text>
+                    </g>
+                    
+                    <!-- ML models -->
+                    <g transform="translate(260, 45)">
+                        <rect x="0" y="0" width="220" height="60" rx="5" fill="#fff3cd" stroke="#e0a800" stroke-width="2"/>
+                        <text x="110" y="18" font-size="11" fill="#e0a800" text-anchor="middle" font-weight="600">ML Models</text>
+                        
+                        <text x="10" y="35" font-size="9" fill="#333">• Neural networks (productivity)</text>
+                        <text x="10" y="48" font-size="9" fill="#333">• CFD simulations (mixing)</text>
+                        <text x="10" y="61" font-size="9" fill="#333">• Digital twins (real-time)</text>
+                    </g>
+                    
+                    <!-- Predictions -->
+                    <g transform="translate(500, 45)">
+                        <rect x="0" y="0" width="220" height="60" rx="5" fill="#d4edda" stroke="#00aa00" stroke-width="2"/>
+                        <text x="110" y="18" font-size="11" fill="#00aa00" text-anchor="middle" font-weight="600">Predictions</text>
+                        
+                        <text x="10" y="35" font-size="9" fill="#333">• Final titer & productivity</text>
+                        <text x="10" y="48" font-size="9" fill="#333">• Optimal feeding strategy</text>
+                        <text x="10" y="61" font-size="9" fill="#333">• Cost per kg product</text>
+                    </g>
+                </g>
+            </svg>
+        </div>
+
+        <div class="example-box">
+            <div class="example-title">Real-World Example: Ginkgo Bioworks Scale-up Platform</div>
+            <div class="example-text">
+                Ginkgo Bioworks developed a machine learning platform that predicts fermentation performance at 10,000L+ scale from 96-well plate data. By training models on thousands of fermentation runs, their system predicts titer within 15% accuracy and recommends optimal media composition and feeding strategies. This reduced their time from strain design to commercial production from 18 months to under 6 months for multiple products including fragrance molecules and pharmaceutical intermediates.
+            </div>
+        </div>
+
+        <div class="key-points">
+            <div class="key-point">Computational Fluid Dynamics (CFD) models predict mixing and mass transfer at scale</div>
+            <div class="key-point">Machine learning on historical data outperforms mechanistic models for complex systems</div>
+            <div class="key-point">Digital twins enable real-time process optimization during production</div>
+            <div class="key-point">Scale-down simulators validate predictions before committing to large-scale runs</div>
+            <div class="key-point">Techno-economic analysis (TEA) integrated with models guides cost-effective scale-up</div>
+        </div>
+    </div>
+
 </body>
 </html>

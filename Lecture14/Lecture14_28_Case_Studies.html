@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Case Studies</title>
+    <title>Case Studies - AI in Healthcare</title>
     <style>
         * {
             margin: 0;
@@ -13,42 +13,40 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 40px 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 50px 80px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 50px;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
         }
         
         .title {
-            font-size: 36px;
+            font-size: 42px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-align: center;
             padding-bottom: 20px;
-            border-bottom: 3px solid #1E64C8;
+            border-bottom: 4px solid #1E64C8;
         }
         
         .cases-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            grid-template-rows: repeat(2, 1fr);
-            gap: 15px;
-            height: 340px;
+            gap: 20px;
+            margin-bottom: 60px;
         }
         
         .case-card {
             background: #f8f9fa;
             border-radius: 12px;
-            padding: 20px;
+            padding: 25px;
             display: flex;
             flex-direction: column;
             position: relative;
@@ -57,9 +55,8 @@
         }
         
         .case-card:hover {
-            transform: scale(1.05);
-            box-shadow: 0 8px 20px rgba(30, 100, 200, 0.2);
-            z-index: 10;
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(30, 100, 200, 0.2);
         }
         
         .success-case {
@@ -83,13 +80,13 @@
         .case-header {
             display: flex;
             align-items: center;
-            gap: 12px;
-            margin-bottom: 12px;
+            gap: 15px;
+            margin-bottom: 15px;
         }
         
         .case-icon {
-            width: 50px;
-            height: 50px;
+            width: 55px;
+            height: 55px;
             flex-shrink: 0;
         }
         
@@ -98,62 +95,62 @@
         }
         
         .case-title {
-            font-size: 16px;
+            font-size: 18px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 3px;
+            margin-bottom: 4px;
         }
         
         .case-type {
-            font-size: 11px;
+            font-size: 12px;
             color: #666;
             font-style: italic;
         }
         
         .case-metrics {
             display: flex;
-            gap: 10px;
-            margin-bottom: 12px;
+            gap: 12px;
+            margin-bottom: 15px;
         }
         
         .metric-item {
             flex: 1;
             background: white;
-            padding: 8px;
-            border-radius: 6px;
+            padding: 10px;
+            border-radius: 8px;
             text-align: center;
         }
         
         .metric-value {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 700;
             color: #1E64C8;
         }
         
         .metric-label {
-            font-size: 10px;
+            font-size: 11px;
             color: #666;
-            margin-top: 2px;
+            margin-top: 3px;
         }
         
         .case-lessons {
             flex: 1;
             display: flex;
             flex-direction: column;
-            gap: 6px;
+            gap: 8px;
         }
         
         .lesson-item {
             display: flex;
             align-items: center;
-            gap: 8px;
-            font-size: 12px;
+            gap: 10px;
+            font-size: 13px;
             color: #333;
         }
         
         .lesson-bullet {
-            width: 6px;
-            height: 6px;
+            width: 8px;
+            height: 8px;
             border-radius: 50%;
             flex-shrink: 0;
         }
@@ -172,11 +169,11 @@
         
         .case-badge {
             position: absolute;
-            top: 10px;
-            right: 10px;
-            padding: 3px 10px;
-            border-radius: 12px;
-            font-size: 10px;
+            top: 12px;
+            right: 12px;
+            padding: 4px 12px;
+            border-radius: 15px;
+            font-size: 11px;
             font-weight: 700;
             color: white;
         }
@@ -192,12 +189,253 @@
         .mixed-badge {
             background: #ffc107;
         }
+        
+        /* Detailed Section Styles */
+        .detailed-section {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 3px solid #e0e0e0;
+        }
+        
+        .section-header {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 40px;
+            text-align: center;
+        }
+        
+        .case-detail {
+            margin-bottom: 50px;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+            border-left: 6px solid #1E64C8;
+        }
+        
+        .case-detail.success {
+            border-left-color: #28a745;
+        }
+        
+        .case-detail.failure {
+            border-left-color: #ff6b6b;
+        }
+        
+        .case-detail.evolving {
+            border-left-color: #ffc107;
+        }
+        
+        .detail-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .detail-subtitle {
+            font-size: 16px;
+            color: #666;
+            font-style: italic;
+            margin-bottom: 25px;
+        }
+        
+        .visual-container {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 25px;
+        }
+        
+        .visual-diagram {
+            flex: 1;
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .diagram-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        .flow-diagram {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .flow-step {
+            background: linear-gradient(135deg, #e3f2fd 0%, #f5f5f5 100%);
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #1E64C8;
+            position: relative;
+        }
+        
+        .flow-step::after {
+            content: '↓';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 20px;
+            color: #1E64C8;
+        }
+        
+        .flow-step:last-child::after {
+            content: '';
+        }
+        
+        .flow-step-title {
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 5px;
+        }
+        
+        .flow-step-text {
+            font-size: 13px;
+            color: #555;
+        }
+        
+        .metrics-visualization {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+        }
+        
+        .metric-card {
+            background: linear-gradient(135deg, #f0f9ff 0%, #ffffff 100%);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .metric-card-value {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 8px;
+        }
+        
+        .metric-card-label {
+            font-size: 12px;
+            color: #666;
+            font-weight: 600;
+        }
+        
+        .detail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-top: 25px;
+        }
+        
+        .content-block {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+        
+        .block-title {
+            font-size: 18px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .block-icon {
+            width: 24px;
+            height: 24px;
+        }
+        
+        .content-list {
+            list-style: none;
+            padding: 0;
+        }
+        
+        .content-list li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
+            font-size: 14px;
+            color: #555;
+            line-height: 1.6;
+        }
+        
+        .content-list li::before {
+            content: '▸';
+            position: absolute;
+            left: 0;
+            color: #1E64C8;
+            font-weight: 700;
+        }
+        
+        .content-list.success li::before {
+            color: #28a745;
+        }
+        
+        .content-list.failure li::before {
+            color: #ff6b6b;
+        }
+        
+        .content-list.warning li::before {
+            color: #ffc107;
+        }
+        
+        .key-takeaway {
+            background: linear-gradient(135deg, #fff3cd 0%, #fff9e6 100%);
+            padding: 20px;
+            border-radius: 10px;
+            margin-top: 20px;
+            border-left: 5px solid #ffc107;
+        }
+        
+        .takeaway-title {
+            font-size: 16px;
+            font-weight: 700;
+            color: #856404;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        .takeaway-text {
+            font-size: 14px;
+            color: #856404;
+            line-height: 1.6;
+        }
+        
+        @media print {
+            body {
+                background: white;
+            }
+            .container {
+                box-shadow: none;
+                max-width: 100%;
+            }
+            .case-card:hover {
+                transform: none;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Case Studies</div>
+        <div class="title">AI in Healthcare: Case Studies</div>
         
+        <!-- Summary Grid -->
         <div class="cases-grid">
             <!-- Success Story 1 -->
             <div class="case-card success-case">
@@ -369,6 +607,473 @@
                     <div class="lesson-item">
                         <div class="lesson-bullet success-bullet"></div>
                         <span>Set regulatory precedent</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Detailed Analysis Section -->
+        <div class="detailed-section">
+            <div class="section-header">Detailed Case Analysis</div>
+            
+            <!-- Case 1: Diabetic Retinopathy AI -->
+            <div class="case-detail success">
+                <div class="detail-title">
+                    <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="35" fill="#28a745" opacity="0.2"/>
+                        <path d="M 30 50 L 45 65 L 70 35" fill="none" stroke="#28a745" stroke-width="6" stroke-linecap="round"/>
+                    </svg>
+                    Google Health: Diabetic Retinopathy AI System
+                </div>
+                <div class="detail-subtitle">A Success Story in AI-Driven Screening and Early Detection</div>
+                
+                <div class="visual-container">
+                    <div class="visual-diagram">
+                        <div class="diagram-title">Implementation Workflow</div>
+                        <div class="flow-diagram">
+                            <div class="flow-step">
+                                <div class="flow-step-title">1. Image Capture</div>
+                                <div class="flow-step-text">Retinal fundus images captured using standard cameras in primary care settings</div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-step-title">2. AI Analysis</div>
+                                <div class="flow-step-text">Deep learning model processes images in real-time (< 30 seconds)</div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-step-title">3. Risk Classification</div>
+                                <div class="flow-step-text">Binary output: Referable vs. Non-referable diabetic retinopathy</div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-step-title">4. Clinical Action</div>
+                                <div class="flow-step-text">Immediate referral to ophthalmologist if positive, routine monitoring if negative</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="visual-diagram">
+                        <div class="diagram-title">Performance Metrics</div>
+                        <div class="metrics-visualization">
+                            <div class="metric-card">
+                                <div class="metric-card-value">90.3%</div>
+                                <div class="metric-card-label">Sensitivity</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value">98.1%</div>
+                                <div class="metric-card-label">Specificity</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value">87.2%</div>
+                                <div class="metric-card-label">AUC</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value">50,000+</div>
+                                <div class="metric-card-label">Patients Screened</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value">11</div>
+                                <div class="metric-card-label">Countries</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value">2016</div>
+                                <div class="metric-card-label">First Deployment</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="content-block">
+                        <div class="block-title">
+                            <svg class="block-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#28a745" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            Success Factors
+                        </div>
+                        <ul class="content-list success">
+                            <li><strong>Rigorous Validation:</strong> Trained on 128,000 images and validated across diverse populations in India, Thailand, and the United States</li>
+                            <li><strong>Clinical Integration:</strong> Designed to work with existing screening infrastructure without requiring specialist equipment</li>
+                            <li><strong>Clear Use Case:</strong> Focused on binary classification (refer/don't refer) rather than complex diagnosis</li>
+                            <li><strong>Regulatory Approval:</strong> CE marked in Europe and received regulatory clearance in multiple countries</li>
+                            <li><strong>Provider Training:</strong> Comprehensive training programs for non-ophthalmologist healthcare workers</li>
+                            <li><strong>Quality Control:</strong> Built-in image quality assessment to ensure reliable results</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <div class="block-title">
+                            <svg class="block-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13 10V3L4 14H11L11 21L20 10L13 10Z" stroke="#1E64C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Clinical Impact
+                        </div>
+                        <ul class="content-list">
+                            <li><strong>Access Expansion:</strong> Enabled diabetic retinopathy screening in areas with no ophthalmologists</li>
+                            <li><strong>Early Detection:</strong> Identified referable cases 6-12 months earlier than standard care pathways</li>
+                            <li><strong>Cost Effectiveness:</strong> Reduced screening costs by 30-40% compared to traditional methods</li>
+                            <li><strong>Time Efficiency:</strong> Results available in under 30 seconds vs. days for specialist review</li>
+                            <li><strong>Patient Outcomes:</strong> Increased screening participation rates by 35% in underserved areas</li>
+                            <li><strong>Scalability:</strong> Demonstrated feasibility in low-resource settings with minimal infrastructure</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="key-takeaway">
+                    <div class="takeaway-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 9V11M12 15H12.01M5.07 19H18.93C20.14 19 21 18 20.47 16.88L13.54 4.88C13.01 3.77 10.99 3.77 10.46 4.88L3.53 16.88C3 18 3.86 19 5.07 19Z" stroke="#856404" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Key Takeaway
+                    </div>
+                    <div class="takeaway-text">
+                        Google Health's diabetic retinopathy AI demonstrates that success in medical AI requires more than just high accuracy. The combination of rigorous multi-population validation, seamless clinical workflow integration, clear regulatory pathways, and focus on a well-defined clinical need created a sustainable and impactful solution. This case shows that AI tools succeed when they augment rather than replace clinical expertise, particularly in screening applications where early detection can significantly improve patient outcomes.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case 2: Watson for Oncology -->
+            <div class="case-detail failure">
+                <div class="detail-title">
+                    <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="50" cy="50" r="35" fill="#ff6b6b" opacity="0.2"/>
+                        <path d="M 35 35 L 65 65 M 65 35 L 35 65" stroke="#ff6b6b" stroke-width="6" stroke-linecap="round"/>
+                    </svg>
+                    IBM Watson for Oncology
+                </div>
+                <div class="detail-subtitle">Lessons from Implementation Challenges in Clinical Decision Support</div>
+                
+                <div class="visual-container">
+                    <div class="visual-diagram">
+                        <div class="diagram-title">Implementation Timeline</div>
+                        <div class="flow-diagram">
+                            <div class="flow-step">
+                                <div class="flow-step-title">2013-2015: Development</div>
+                                <div class="flow-step-text">Partnership with Memorial Sloan Kettering, trained on treatment guidelines and case data</div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-step-title">2015-2017: Global Expansion</div>
+                                <div class="flow-step-text">Rapid deployment to hospitals worldwide, high initial enthusiasm and investment</div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-step-title">2017-2018: Challenges Emerge</div>
+                                <div class="flow-step-text">Reports of unsafe recommendations, poor concordance with local practices</div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-step-title">2018-2019: Scaling Back</div>
+                                <div class="flow-step-text">Multiple hospitals discontinued use, IBM reassessed strategy</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="visual-diagram">
+                        <div class="diagram-title">Challenge Metrics</div>
+                        <div class="metrics-visualization">
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #ff6b6b;">$62M</div>
+                                <div class="metric-card-label">Annual License Cost (per hospital)</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #ff6b6b;">34%</div>
+                                <div class="metric-card-label">Concordance Rate (Some Studies)</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #ff6b6b;">78%</div>
+                                <div class="metric-card-label">Oncologists Disagreed</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #ffc107;">230</div>
+                                <div class="metric-card-label">Hospitals at Peak</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #ff6b6b;">~50</div>
+                                <div class="metric-card-label">Hospitals Discontinued</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #ffc107;">Mixed</div>
+                                <div class="metric-card-label">Clinical Utility</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="content-block">
+                        <div class="block-title">
+                            <svg class="block-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 9V11M12 15H12.01M5.07 19H18.93C20.14 19 21 18 20.47 16.88L13.54 4.88C13.01 3.77 10.99 3.77 10.46 4.88L3.53 16.88C3 18 3.86 19 5.07 19Z" stroke="#ff6b6b" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            Key Failure Points
+                        </div>
+                        <ul class="content-list failure">
+                            <li><strong>Training Data Limitations:</strong> Primarily trained on MSK's protocols and synthetic cases rather than diverse real-world data</li>
+                            <li><strong>Geographic Variability:</strong> Recommendations often didn't align with local treatment standards, drug availability, or insurance coverage</li>
+                            <li><strong>Lack of Transparency:</strong> "Black box" nature made it difficult for oncologists to understand reasoning behind recommendations</li>
+                            <li><strong>Workflow Integration:</strong> Required significant time investment to input patient data with minimal workflow efficiency gains</li>
+                            <li><strong>Overpromised Capabilities:</strong> Marketing suggested AI could match expert oncologists, reality showed significant limitations</li>
+                            <li><strong>Insufficient Validation:</strong> Limited prospective clinical trials before widespread deployment</li>
+                            <li><strong>Cost vs. Value:</strong> High licensing costs not justified by clinical utility or improved outcomes</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <div class="block-title">
+                            <svg class="block-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 6.25278V19.2528M12 6.25278C10.8321 5.47686 9.24649 5 7.5 5C5.75351 5 4.16789 5.47686 3 6.25278V19.2528C4.16789 18.4769 5.75351 18 7.5 18C9.24649 18 10.8321 18.4769 12 19.2528M12 6.25278C13.1679 5.47686 14.7535 5 16.5 5C18.2465 5 19.8321 5.47686 21 6.25278V19.2528C19.8321 18.4769 18.2465 18 16.5 18C14.7535 18 13.1679 18.4769 12 19.2528" stroke="#ff6b6b" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                        </svg>
+                        Important Lessons Learned
+                        </div>
+                        <ul class="content-list">
+                            <li><strong>Context Matters:</strong> AI systems must be trained and validated on data representative of their deployment environment</li>
+                            <li><strong>Clinical Expertise Required:</strong> Complex medical decision-making requires nuanced understanding that current AI cannot fully replicate</li>
+                            <li><strong>Transparency is Critical:</strong> Clinicians need to understand how AI arrives at recommendations to trust and use them effectively</li>
+                            <li><strong>Realistic Expectations:</strong> AI should augment clinical decision-making, not attempt to replace expert judgment</li>
+                            <li><strong>Workflow Design:</strong> Technology must integrate seamlessly into existing clinical workflows or provide clear time-saving benefits</li>
+                            <li><strong>Continuous Learning:</strong> AI systems need mechanisms for local adaptation and continuous improvement based on feedback</li>
+                            <li><strong>Value Proposition:</strong> High costs must be justified by demonstrable improvements in efficiency, accuracy, or patient outcomes</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="key-takeaway">
+                    <div class="takeaway-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 9V11M12 15H12.01M5.07 19H18.93C20.14 19 21 18 20.47 16.88L13.54 4.88C13.01 3.77 10.99 3.77 10.46 4.88L3.53 16.88C3 18 3.86 19 5.07 19Z" stroke="#856404" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Key Takeaway
+                    </div>
+                    <div class="takeaway-text">
+                        Watson for Oncology's challenges illustrate that technological sophistication alone doesn't guarantee clinical success. The case demonstrates the critical importance of training data diversity, local contextualization, transparency in AI reasoning, realistic capability expectations, and genuine value addition to clinical workflows. Perhaps most importantly, it shows that AI in complex medical decision-making should serve as a decision support tool that augments physician expertise rather than attempting to replace it. The disconnect between marketing promises and clinical reality eroded trust and adoption.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case 3: Sepsis Prediction -->
+            <div class="case-detail evolving">
+                <div class="detail-title">
+                    <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M 50 20 L 85 40 L 75 75 L 25 75 L 15 40 Z" fill="none" stroke="#ffc107" stroke-width="4"/>
+                        <circle cx="50" cy="50" r="15" fill="#ffc107" opacity="0.3"/>
+                        <text x="50" y="58" text-anchor="middle" font-size="24" font-weight="bold" fill="#ffc107">!</text>
+                    </svg>
+                    Epic Sepsis Prediction Model
+                </div>
+                <div class="detail-subtitle">An Evolving Case Study in Real-Time Risk Prediction and Alert Management</div>
+                
+                <div class="visual-container">
+                    <div class="visual-diagram">
+                        <div class="diagram-title">Prediction & Alert System</div>
+                        <div class="flow-diagram">
+                            <div class="flow-step">
+                                <div class="flow-step-title">1. Continuous Monitoring</div>
+                                <div class="flow-step-text">Real-time analysis of vital signs, lab values, and clinical data from EHR</div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-step-title">2. Risk Calculation</div>
+                                <div class="flow-step-text">Machine learning model calculates sepsis risk score every 15 minutes</div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-step-title">3. Alert Generation</div>
+                                <div class="flow-step-text">Automated alert triggered when risk threshold exceeded</div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-step-title">4. Clinical Response</div>
+                                <div class="flow-step-text">Care team evaluates patient and initiates sepsis protocol if appropriate</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="visual-diagram">
+                        <div class="diagram-title">Performance Profile</div>
+                        <div class="metrics-visualization">
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #ffc107;">63%</div>
+                                <div class="metric-card-label">Positive Predictive Value</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #28a745;">77%</div>
+                                <div class="metric-card-label">Sensitivity</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #1E64C8;">67%</div>
+                                <div class="metric-card-label">Specificity</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #28a745;">500+</div>
+                                <div class="metric-card-label">Hospitals Using</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #ffc107;">37%</div>
+                                <div class="metric-card-label">False Positive Rate</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #1E64C8;">2017</div>
+                                <div class="metric-card-label">Initial Release</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="content-block">
+                        <div class="block-title">
+                            <svg class="block-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 8V12M12 16H12.01M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#ffc107" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            Ongoing Challenges
+                        </div>
+                        <ul class="content-list warning">
+                            <li><strong>Alert Fatigue:</strong> High false positive rate (37%) leads to clinician desensitization and alert dismissal</li>
+                            <li><strong>Variable Performance:</strong> Prediction accuracy varies significantly across different patient populations and hospital settings</li>
+                            <li><strong>Definition Issues:</strong> Sepsis diagnostic criteria evolve (Sepsis-3), requiring model retraining and recalibration</li>
+                            <li><strong>Timing Concerns:</strong> Questions about optimal prediction window - too early increases false positives, too late reduces intervention efficacy</li>
+                            <li><strong>Local Calibration:</strong> Model requires hospital-specific tuning to account for local patient mix and clinical practices</li>
+                            <li><strong>Outcome Measurement:</strong> Difficulty in measuring actual impact on mortality and morbidity due to confounding factors</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <div class="block-title">
+                            <svg class="block-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M13 10V3L4 14H11V21L20 10H13Z" stroke="#28a745" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Positive Developments
+                        </div>
+                        <ul class="content-list success">
+                            <li><strong>Wide Adoption:</strong> Deployed in over 500 hospitals, indicating perceived clinical value despite challenges</li>
+                            <li><strong>Continuous Improvement:</strong> Epic regularly updates model based on aggregated data and clinical feedback</li>
+                            <li><strong>Integration Success:</strong> Seamlessly embedded in Epic EHR workflow, requiring no additional documentation</li>
+                            <li><strong>Early Warning Potential:</strong> Can identify at-risk patients 4-6 hours before clinical recognition in some cases</li>
+                            <li><strong>Customization Options:</strong> Hospitals can adjust sensitivity thresholds based on their risk tolerance and resources</li>
+                            <li><strong>Research Platform:</strong> Provides valuable data for studying sepsis prediction and alert system optimization</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="key-takeaway">
+                    <div class="takeaway-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 9V11M12 15H12.01M5.07 19H18.93C20.14 19 21 18 20.47 16.88L13.54 4.88C13.01 3.77 10.99 3.77 10.46 4.88L3.53 16.88C3 18 3.86 19 5.07 19Z" stroke="#856404" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Key Takeaway
+                    </div>
+                    <div class="takeaway-text">
+                        The Epic sepsis model represents the reality of many AI clinical decision support systems: promising but imperfect, widely deployed yet controversial. It demonstrates that even with widespread adoption, AI prediction tools face ongoing challenges in balancing sensitivity and specificity, managing alert fatigue, and proving definitive clinical benefit. The case illustrates the importance of continuous model refinement, local customization, and integration with broader quality improvement initiatives. Success may depend less on perfect prediction and more on thoughtful implementation that considers local context, provider workflow, and realistic expectations about AI's capabilities in complex, time-sensitive clinical scenarios.
+                    </div>
+                </div>
+            </div>
+
+            <!-- Case 4: IDx-DR -->
+            <div class="case-detail success">
+                <div class="detail-title">
+                    <svg width="40" height="40" viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="20" y="25" width="60" height="50" rx="5" fill="none" stroke="#1E64C8" stroke-width="4"/>
+                        <circle cx="50" cy="50" r="15" fill="#1E64C8" opacity="0.3"/>
+                        <path d="M 35 50 L 45 60 L 65 40" fill="none" stroke="#1E64C8" stroke-width="5" stroke-linecap="round"/>
+                    </svg>
+                    IDx-DR: First Autonomous AI Diagnostic System
+                </div>
+                <div class="detail-subtitle">Landmark FDA Approval and Regulatory Pathway for Autonomous Medical AI</div>
+                
+                <div class="visual-container">
+                    <div class="visual-diagram">
+                        <div class="diagram-title">Regulatory Journey</div>
+                        <div class="flow-diagram">
+                            <div class="flow-step">
+                                <div class="flow-step-title">2010-2016: Development</div>
+                                <div class="flow-step-text">Algorithm development and extensive clinical validation studies</div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-step-title">2017: FDA Submission</div>
+                                <div class="flow-step-text">De Novo pathway submission with comprehensive clinical data</div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-step-title">April 2018: FDA Approval</div>
+                                <div class="flow-step-text">First autonomous AI diagnostic system approved - no specialist oversight required</div>
+                            </div>
+                            <div class="flow-step">
+                                <div class="flow-step-title">2018-Present: Market Entry</div>
+                                <div class="flow-step-text">Commercial deployment, reimbursement establishment, ongoing monitoring</div>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div class="visual-diagram">
+                        <div class="diagram-title">Clinical Trial Results</div>
+                        <div class="metrics-visualization">
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #1E64C8;">87.4%</div>
+                                <div class="metric-card-label">Sensitivity (Referable DR)</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #1E64C8;">89.5%</div>
+                                <div class="metric-card-label">Specificity</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #28a745;">900</div>
+                                <div class="metric-card-label">Patients in Trial</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #1E64C8;">10</div>
+                                <div class="metric-card-label">Primary Care Sites</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #28a745;">96%</div>
+                                <div class="metric-card-label">Image Gradability</div>
+                            </div>
+                            <div class="metric-card">
+                                <div class="metric-card-value" style="color: #1E64C8;">Class II</div>
+                                <div class="metric-card-label">FDA Classification</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="detail-content">
+                    <div class="content-block">
+                        <div class="block-title">
+                            <svg class="block-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M9 12L11 14L15 10M21 12C21 16.9706 16.9706 21 12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12Z" stroke="#1E64C8" stroke-width="2" stroke-linecap="round"/>
+                            </svg>
+                            Regulatory Success Factors
+                        </div>
+                        <ul class="content-list success">
+                            <li><strong>Clear Intended Use:</strong> Precisely defined indication - detection of more than mild diabetic retinopathy in adults with diabetes</li>
+                            <li><strong>Prospective Clinical Trial:</strong> Well-designed, multi-center study with pre-specified endpoints comparing to expert graders</li>
+                            <li><strong>Autonomous Function:</strong> Designed to provide screening decision without clinician interpretation of images or results</li>
+                            <li><strong>Quality Controls:</strong> Built-in image quality assessment ensures only analyzable images are processed</li>
+                            <li><strong>Point-of-Care Design:</strong> Intended for use in primary care settings by non-specialist healthcare providers</li>
+                            <li><strong>Locked Algorithm:</strong> Submitted as a fixed algorithm (not continuously learning) to meet regulatory requirements</li>
+                            <li><strong>Risk-Benefit Analysis:</strong> Demonstrated that benefits of increased screening access outweigh risks of false positives/negatives</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="content-block">
+                        <div class="block-title">
+                            <svg class="block-icon" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                                <path d="M12 2L2 7L12 12L22 7L12 2Z M2 17L12 22L22 17M2 12L12 17L22 12" stroke="#1E64C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+                            </svg>
+                            Broader Impact
+                        </div>
+                        <ul class="content-list">
+                            <li><strong>Regulatory Precedent:</strong> Established pathway for autonomous AI diagnostics, paving way for future applications</li>
+                            <li><strong>Reimbursement Model:</strong> Achieved CPT code and CMS reimbursement, creating economic viability for AI diagnostics</li>
+                            <li><strong>Access Improvement:</strong> Enables screening in settings without ophthalmology expertise, particularly benefiting underserved populations</li>
+                            <li><strong>Validation Standard:</strong> Set expectations for rigor required in AI clinical validation for regulatory approval</li>
+                            <li><strong>Patient Safety Framework:</strong> Demonstrated approach to AI safety monitoring and quality assurance in autonomous systems</li>
+                            <li><strong>Commercial Viability:</strong> Proved business model for AI medical devices as standalone diagnostic tools</li>
+                            <li><strong>International Recognition:</strong> FDA approval facilitated regulatory approvals in other countries</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="key-takeaway">
+                    <div class="takeaway-title">
+                        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                            <path d="M12 9V11M12 15H12.01M5.07 19H18.93C20.14 19 21 18 20.47 16.88L13.54 4.88C13.01 3.77 10.99 3.77 10.46 4.88L3.53 16.88C3 18 3.86 19 5.07 19Z" stroke="#856404" stroke-width="2" stroke-linecap="round"/>
+                        </svg>
+                        Key Takeaway
+                    </div>
+                    <div class="takeaway-text">
+                        IDx-DR's FDA approval represents a watershed moment for medical AI, demonstrating that autonomous diagnostic systems can meet regulatory standards when properly validated and positioned. The success stemmed from several factors: a clearly defined and bounded clinical use case, rigorous prospective validation, thoughtful consideration of the point-of-care context, and comprehensive quality control mechanisms. By achieving both regulatory approval and reimbursement, IDx-DR established a viable model for AI medical devices. Most significantly, it showed that autonomous AI can be deployed safely in healthcare settings without specialist oversight when the clinical application is appropriate, the validation is thorough, and proper safeguards are in place. This case provides a blueprint for future autonomous AI diagnostic systems.
                     </div>
                 </div>
             </div>

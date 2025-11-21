@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Graph Neural Networks</title>
+    <title>Graph Neural Networks - Detailed</title>
     <style>
         * {
             margin: 0;
@@ -13,18 +13,17 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 20px;
         }
         
-        .container {
+        .page {
             width: 960px;
-            height: 540px;
+            min-height: 540px;
             padding: 40px 60px;
             background: white;
+            margin: 0 auto 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
         .title {
@@ -33,6 +32,15 @@
             color: #1E64C8;
             margin-bottom: 25px;
             text-align: center;
+        }
+        
+        .subtitle {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 10px;
         }
         
         .main-visual {
@@ -75,6 +83,53 @@
             font-weight: 400;
         }
 
+        .detail-section {
+            margin-bottom: 30px;
+        }
+
+        .detail-text {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .detail-visual {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0;
+        }
+
+        .formula {
+            background: #f8f9fa;
+            padding: 15px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 14px;
+            margin: 15px 0;
+            border-left: 4px solid #1E64C8;
+        }
+
+        .key-points {
+            background: #fff9e6;
+            padding: 15px 20px;
+            border-radius: 8px;
+            border-left: 4px solid #f39c12;
+            margin: 15px 0;
+        }
+
+        .key-points ul {
+            margin-left: 20px;
+            margin-top: 8px;
+        }
+
+        .key-points li {
+            font-size: 14px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 6px;
+        }
+
         .atom-node {
             animation: pulse 2s ease-in-out infinite;
         }
@@ -113,10 +168,16 @@
             height: 12px;
             border-radius: 50%;
         }
+
+        .highlight {
+            color: #1E64C8;
+            font-weight: 600;
+        }
     </style>
 </head>
 <body>
-    <div class="container">
+    <!-- Page 1: Overview -->
+    <div class="page">
         <div class="title">Graph Neural Networks</div>
         
         <div class="main-visual">
@@ -249,5 +310,636 @@
             </div>
         </div>
     </div>
+
+    <!-- Page 2: Molecular Graphs -->
+    <div class="page">
+        <div class="subtitle">1. Molecular Graphs</div>
+        
+        <div class="detail-section">
+            <div class="detail-text">
+                Molecular graphs provide a natural representation of chemical compounds where <span class="highlight">atoms are represented as nodes</span> and <span class="highlight">chemical bonds as edges</span>. This graph-based representation captures both the structural and relational properties of molecules, making it ideal for machine learning applications in chemistry and drug discovery.
+            </div>
+
+            <div class="detail-visual">
+                <svg width="800" height="280" viewBox="0 0 800 280">
+                    <!-- Example 1: Simple molecule -->
+                    <g transform="translate(50, 40)">
+                        <text x="80" y="-10" font-size="14" font-weight="600" fill="#1E64C8">Ethanol (C₂H₅OH)</text>
+                        
+                        <!-- Carbons -->
+                        <circle cx="40" cy="40" r="18" fill="#2c3e50" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="40" y="46" text-anchor="middle" font-size="14" fill="white" font-weight="bold">C</text>
+                        
+                        <circle cx="120" cy="40" r="18" fill="#2c3e50" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="120" y="46" text-anchor="middle" font-size="14" fill="white" font-weight="bold">C</text>
+                        
+                        <!-- Oxygen -->
+                        <circle cx="200" cy="40" r="18" fill="#e74c3c" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="200" y="46" text-anchor="middle" font-size="14" fill="white" font-weight="bold">O</text>
+                        
+                        <!-- Hydrogen -->
+                        <circle cx="260" cy="40" r="16" fill="#95a5a6" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="260" y="45" text-anchor="middle" font-size="12" fill="white" font-weight="bold">H</text>
+                        
+                        <!-- Bonds -->
+                        <line x1="58" y1="40" x2="102" y2="40" stroke="#666" stroke-width="3"/>
+                        <line x1="138" y1="40" x2="182" y2="40" stroke="#666" stroke-width="3"/>
+                        <line x1="218" y1="40" x2="242" y2="40" stroke="#666" stroke-width="3"/>
+                        
+                        <!-- Labels -->
+                        <text x="40" y="80" text-anchor="middle" font-size="11" fill="#666">node 1</text>
+                        <text x="120" y="80" text-anchor="middle" font-size="11" fill="#666">node 2</text>
+                        <text x="200" y="80" text-anchor="middle" font-size="11" fill="#666">node 3</text>
+                        <text x="260" y="80" text-anchor="middle" font-size="11" fill="#666">node 4</text>
+                        
+                        <text x="80" y="100" text-anchor="middle" font-size="10" fill="#f39c12">edge (1,2)</text>
+                        <text x="160" y="100" text-anchor="middle" font-size="10" fill="#f39c12">edge (2,3)</text>
+                    </g>
+
+                    <!-- Example 2: Cyclic molecule -->
+                    <g transform="translate(450, 40)">
+                        <text x="80" y="-10" font-size="14" font-weight="600" fill="#1E64C8">Benzene Ring (C₆H₆)</text>
+                        
+                        <!-- Hexagon vertices -->
+                        <circle cx="80" cy="20" r="16" fill="#2c3e50" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="80" y="26" text-anchor="middle" font-size="12" fill="white" font-weight="bold">C</text>
+                        
+                        <circle cx="140" cy="40" r="16" fill="#2c3e50" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="140" y="46" text-anchor="middle" font-size="12" fill="white" font-weight="bold">C</text>
+                        
+                        <circle cx="140" cy="100" r="16" fill="#2c3e50" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="140" y="106" text-anchor="middle" font-size="12" fill="white" font-weight="bold">C</text>
+                        
+                        <circle cx="80" cy="120" r="16" fill="#2c3e50" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="80" y="126" text-anchor="middle" font-size="12" fill="white" font-weight="bold">C</text>
+                        
+                        <circle cx="20" cy="100" r="16" fill="#2c3e50" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="20" y="106" text-anchor="middle" font-size="12" fill="white" font-weight="bold">C</text>
+                        
+                        <circle cx="20" cy="40" r="16" fill="#2c3e50" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="20" y="46" text-anchor="middle" font-size="12" fill="white" font-weight="bold">C</text>
+                        
+                        <!-- Single bonds -->
+                        <line x1="70" y1="30" x2="35" y2="45" stroke="#666" stroke-width="2.5"/>
+                        <line x1="130" y1="50" x2="130" y2="90" stroke="#666" stroke-width="2.5"/>
+                        <line x1="30" y1="100" x2="70" y2="115" stroke="#666" stroke-width="2.5"/>
+                        
+                        <!-- Double bonds -->
+                        <line x1="90" y1="25" x2="125" y2="40" stroke="#666" stroke-width="2.5"/>
+                        <line x1="93" y1="30" x2="128" y2="45" stroke="#666" stroke-width="2.5"/>
+                        
+                        <line x1="125" y1="100" x2="90" y2="115" stroke="#666" stroke-width="2.5"/>
+                        <line x1="128" y1="95" x2="93" y2="110" stroke="#666" stroke-width="2.5"/>
+                        
+                        <line x1="25" y1="50" x2="25" y2="90" stroke="#666" stroke-width="2.5"/>
+                        <line x1="30" y1="50" x2="30" y2="90" stroke="#666" stroke-width="2.5"/>
+                        
+                        <text x="80" y="160" text-anchor="middle" font-size="11" fill="#666">Cyclic structure</text>
+                    </g>
+
+                    <!-- Feature representation -->
+                    <g transform="translate(50, 180)">
+                        <rect x="0" y="0" width="700" height="80" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="350" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Node Features (Atom Properties)</text>
+                        
+                        <text x="20" y="50" font-size="12" fill="#555">• Atomic number</text>
+                        <text x="180" y="50" font-size="12" fill="#555">• Formal charge</text>
+                        <text x="340" y="50" font-size="12" fill="#555">• Hybridization</text>
+                        <text x="500" y="50" font-size="12" fill="#555">• Aromaticity</text>
+                        
+                        <text x="20" y="70" font-size="12" fill="#555">• Degree</text>
+                        <text x="180" y="70" font-size="12" fill="#555">• Valence</text>
+                        <text x="340" y="70" font-size="12" fill="#555">• Chirality</text>
+                        <text x="500" y="70" font-size="12" fill="#555">• Mass</text>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="key-points">
+                <strong style="color: #f39c12;">Key Characteristics:</strong>
+                <ul>
+                    <li>Each node stores features like atomic number, charge, hybridization state</li>
+                    <li>Edges encode bond types (single, double, triple) and stereochemistry</li>
+                    <li>Graph structure naturally captures molecular topology and connectivity</li>
+                    <li>Invariant to atom ordering, unlike SMILES string representations</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 3: Message Passing -->
+    <div class="page">
+        <div class="subtitle">2. Message Passing</div>
+        
+        <div class="detail-section">
+            <div class="detail-text">
+                Message passing is the fundamental operation in GNNs where <span class="highlight">nodes exchange information with their neighbors</span>. Each node aggregates messages from connected nodes, allowing information to propagate through the graph structure. This iterative process enables nodes to develop representations that incorporate both local and global graph context.
+            </div>
+
+            <div class="detail-visual">
+                <svg width="800" height="300" viewBox="0 0 800 300">
+                    <!-- Time steps -->
+                    <text x="150" y="25" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">t = 0 (Initial)</text>
+                    <text x="400" y="25" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">t = 1 (After 1 step)</text>
+                    <text x="650" y="25" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">t = 2 (After 2 steps)</text>
+                    
+                    <!-- Initial graph -->
+                    <g transform="translate(80, 60)">
+                        <!-- Central node -->
+                        <circle cx="70" cy="70" r="22" fill="#e74c3c" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="70" y="77" text-anchor="middle" font-size="14" fill="white" font-weight="bold">A</text>
+                        <text x="70" y="110" text-anchor="middle" font-size="10" fill="#666">h₀ᴬ</text>
+                        
+                        <!-- Neighbor nodes -->
+                        <circle cx="20" cy="20" r="18" fill="#3498db" stroke="#999" stroke-width="2"/>
+                        <text x="20" y="26" text-anchor="middle" font-size="12" fill="white" font-weight="bold">B</text>
+                        
+                        <circle cx="120" cy="20" r="18" fill="#3498db" stroke="#999" stroke-width="2"/>
+                        <text x="120" y="26" text-anchor="middle" font-size="12" fill="white" font-weight="bold">C</text>
+                        
+                        <circle cx="120" cy="120" r="18" fill="#3498db" stroke="#999" stroke-width="2"/>
+                        <text x="120" y="126" text-anchor="middle" font-size="12" fill="white" font-weight="bold">D</text>
+                        
+                        <!-- Edges -->
+                        <line x1="35" y1="30" x2="55" y2="55" stroke="#666" stroke-width="2"/>
+                        <line x1="105" y1="30" x2="85" y2="55" stroke="#666" stroke-width="2"/>
+                        <line x1="105" y1="110" x2="85" y2="85" stroke="#666" stroke-width="2"/>
+                    </g>
+                    
+                    <!-- After 1 message passing step -->
+                    <g transform="translate(330, 60)">
+                        <!-- Central node (updated) -->
+                        <circle cx="70" cy="70" r="22" fill="#9b59b6" stroke="#1E64C8" stroke-width="3"/>
+                        <text x="70" y="77" text-anchor="middle" font-size="14" fill="white" font-weight="bold">A</text>
+                        <text x="70" y="110" text-anchor="middle" font-size="10" fill="#666">h₁ᴬ</text>
+                        
+                        <!-- Neighbor nodes -->
+                        <circle cx="20" cy="20" r="18" fill="#3498db" stroke="#999" stroke-width="2"/>
+                        <text x="20" y="26" text-anchor="middle" font-size="12" fill="white" font-weight="bold">B</text>
+                        
+                        <circle cx="120" cy="20" r="18" fill="#3498db" stroke="#999" stroke-width="2"/>
+                        <text x="120" y="26" text-anchor="middle" font-size="12" fill="white" font-weight="bold">C</text>
+                        
+                        <circle cx="120" cy="120" r="18" fill="#3498db" stroke="#999" stroke-width="2"/>
+                        <text x="120" y="126" text-anchor="middle" font-size="12" fill="white" font-weight="bold">D</text>
+                        
+                        <!-- Edges with message arrows -->
+                        <line x1="35" y1="30" x2="55" y2="55" stroke="#666" stroke-width="2"/>
+                        <line x1="38" y1="33" x2="58" y2="58" stroke="#f39c12" stroke-width="2" marker-end="url(#arrow)"/>
+                        
+                        <line x1="105" y1="30" x2="85" y2="55" stroke="#666" stroke-width="2"/>
+                        <line x1="102" y1="33" x2="82" y2="58" stroke="#f39c12" stroke-width="2" marker-end="url(#arrow)"/>
+                        
+                        <line x1="105" y1="110" x2="85" y2="85" stroke="#666" stroke-width="2"/>
+                        <line x1="102" y1="107" x2="82" y2="82" stroke="#f39c12" stroke-width="2" marker-end="url(#arrow)"/>
+                        
+                        <text x="70" y="145" text-anchor="middle" font-size="10" fill="#f39c12" font-weight="600">Messages aggregated</text>
+                    </g>
+                    
+                    <!-- After 2 message passing steps -->
+                    <g transform="translate(580, 60)">
+                        <!-- Central node (further updated) -->
+                        <circle cx="70" cy="70" r="22" fill="#16a085" stroke="#1E64C8" stroke-width="3"/>
+                        <text x="70" y="77" text-anchor="middle" font-size="14" fill="white" font-weight="bold">A</text>
+                        <text x="70" y="110" text-anchor="middle" font-size="10" fill="#666">h₂ᴬ</text>
+                        
+                        <!-- Neighbor nodes (also updated) -->
+                        <circle cx="20" cy="20" r="18" fill="#9b59b6" stroke="#999" stroke-width="2"/>
+                        <text x="20" y="26" text-anchor="middle" font-size="12" fill="white" font-weight="bold">B</text>
+                        
+                        <circle cx="120" cy="20" r="18" fill="#9b59b6" stroke="#999" stroke-width="2"/>
+                        <text x="120" y="26" text-anchor="middle" font-size="12" fill="white" font-weight="bold">C</text>
+                        
+                        <circle cx="120" cy="120" r="18" fill="#9b59b6" stroke="#999" stroke-width="2"/>
+                        <text x="120" y="126" text-anchor="middle" font-size="12" fill="white" font-weight="bold">D</text>
+                        
+                        <!-- Edges -->
+                        <line x1="35" y1="30" x2="55" y2="55" stroke="#666" stroke-width="2"/>
+                        <line x1="105" y1="30" x2="85" y2="55" stroke="#666" stroke-width="2"/>
+                        <line x1="105" y1="110" x2="85" y2="85" stroke="#666" stroke-width="2"/>
+                        
+                        <text x="70" y="145" text-anchor="middle" font-size="10" fill="#16a085" font-weight="600">2-hop neighborhood</text>
+                    </g>
+
+                    <!-- Arrow marker definition -->
+                    <defs>
+                        <marker id="arrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#f39c12"/>
+                        </marker>
+                    </defs>
+                    
+                    <!-- Formula -->
+                    <g transform="translate(50, 220)">
+                        <rect x="0" y="0" width="700" height="60" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="350" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Message Passing Formula</text>
+                        <text x="350" y="50" text-anchor="middle" font-size="14" font-family="monospace" fill="#333">
+                            h<tspan font-size="10" dy="3">v</tspan><tspan dy="-3" font-size="10" baseline-shift="super">(k+1)</tspan> = UPDATE<tspan font-size="10" dy="3">(k)</tspan><tspan dy="-3">(</tspan>h<tspan font-size="10" dy="3">v</tspan><tspan dy="-3" font-size="10" baseline-shift="super">(k)</tspan>, AGGREGATE<tspan font-size="10" dy="3">(k)</tspan><tspan dy="-3">({</tspan>h<tspan font-size="10" dy="3">u</tspan><tspan dy="-3" font-size="10" baseline-shift="super">(k)</tspan> : u ∈ N(v)}))
+                        </text>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="key-points">
+                <strong style="color: #f39c12;">Key Properties:</strong>
+                <ul>
+                    <li>Information propagates through edges: after k steps, nodes have information from k-hop neighbors</li>
+                    <li>AGGREGATE function combines neighbor messages (sum, mean, max, or learnable)</li>
+                    <li>UPDATE function combines aggregated messages with current node state</li>
+                    <li>Enables learning of both local patterns and global graph structure</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 4: Graph Convolutions -->
+    <div class="page">
+        <div class="subtitle">3. Graph Convolutions</div>
+        
+        <div class="detail-section">
+            <div class="detail-text">
+                Graph convolutions extend the concept of convolutional neural networks to graph-structured data. Unlike regular convolutions that operate on grid-like structures, <span class="highlight">graph convolutions aggregate and transform features from irregular neighborhoods</span> defined by graph connectivity.
+            </div>
+
+            <div class="detail-visual">
+                <svg width="800" height="260" viewBox="0 0 800 260">
+                    <!-- Traditional CNN vs Graph Convolution comparison -->
+                    <g transform="translate(50, 20)">
+                        <text x="150" y="0" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Traditional CNN (Grid)</text>
+                        
+                        <!-- Grid structure -->
+                        <rect x="80" y="20" width="30" height="30" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="110" y="20" width="30" height="30" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="140" y="20" width="30" height="30" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="170" y="20" width="30" height="30" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="200" y="20" width="30" height="30" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        
+                        <rect x="80" y="50" width="30" height="30" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="110" y="50" width="30" height="30" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="140" y="50" width="30" height="30" fill="#3498db" stroke="#1E64C8" stroke-width="3"/>
+                        <text x="155" y="70" text-anchor="middle" font-size="12" fill="white" font-weight="bold">x</text>
+                        <rect x="170" y="50" width="30" height="30" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="200" y="50" width="30" height="30" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        
+                        <rect x="80" y="80" width="30" height="30" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="110" y="80" width="30" height="30" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="140" y="80" width="30" height="30" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="170" y="80" width="30" height="30" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="200" y="80" width="30" height="30" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        
+                        <!-- 3x3 kernel highlight -->
+                        <rect x="110" y="20" width="90" height="90" fill="none" stroke="#e74c3c" stroke-width="3" stroke-dasharray="5,5"/>
+                        
+                        <text x="155" y="130" text-anchor="middle" font-size="11" fill="#666">Regular 3×3 neighborhood</text>
+                    </g>
+                    
+                    <g transform="translate(400, 20)">
+                        <text x="150" y="0" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Graph Convolution</text>
+                        
+                        <!-- Graph structure -->
+                        <circle cx="155" cy="65" r="20" fill="#3498db" stroke="#1E64C8" stroke-width="3"/>
+                        <text x="155" y="71" text-anchor="middle" font-size="14" fill="white" font-weight="bold">x</text>
+                        
+                        <circle cx="100" cy="40" r="16" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <circle cx="210" cy="40" r="16" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <circle cx="100" cy="90" r="16" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <circle cx="210" cy="90" r="16" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        <circle cx="155" cy="110" r="16" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                        
+                        <!-- Edges -->
+                        <line x1="115" y1="45" x2="140" y2="58" stroke="#666" stroke-width="2"/>
+                        <line x1="195" y1="45" x2="170" y2="58" stroke="#666" stroke-width="2"/>
+                        <line x1="115" y1="85" x2="140" y2="72" stroke="#666" stroke-width="2"/>
+                        <line x1="195" y1="85" x2="170" y2="72" stroke="#666" stroke-width="2"/>
+                        <line x1="155" y1="95" x2="155" y2="85" stroke="#666" stroke-width="2"/>
+                        
+                        <!-- Neighborhood highlight -->
+                        <circle cx="155" cy="65" r="55" fill="none" stroke="#e74c3c" stroke-width="3" stroke-dasharray="5,5"/>
+                        
+                        <text x="155" y="140" text-anchor="middle" font-size="11" fill="#666">Irregular graph neighborhood</text>
+                    </g>
+                    
+                    <!-- GCN Layer illustration -->
+                    <g transform="translate(100, 170)">
+                        <rect x="0" y="0" width="600" height="75" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="300" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Graph Convolutional Layer (GCN)</text>
+                        
+                        <!-- Layer diagram -->
+                        <g transform="translate(50, 35)">
+                            <!-- Input features -->
+                            <circle cx="30" cy="10" r="6" fill="#3498db"/>
+                            <circle cx="30" cy="25" r="6" fill="#3498db"/>
+                            <text x="30" y="-5" text-anchor="middle" font-size="10" fill="#666">Input</text>
+                            <text x="30" y="42" text-anchor="middle" font-size="9" fill="#666">X ∈ ℝⁿˣᵈ</text>
+                            
+                            <!-- Adjacency -->
+                            <rect x="120" y="5" width="40" height="30" rx="4" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="140" y="23" text-anchor="middle" font-size="10" fill="#1E64C8" font-weight="600">A</text>
+                            <text x="140" y="47" text-anchor="middle" font-size="9" fill="#666">Adjacency</text>
+                            
+                            <!-- Weight -->
+                            <rect x="220" y="5" width="40" height="30" rx="4" fill="#e8f4f8" stroke="#e74c3c" stroke-width="2"/>
+                            <text x="240" y="23" text-anchor="middle" font-size="10" fill="#e74c3c" font-weight="600">W</text>
+                            <text x="240" y="47" text-anchor="middle" font-size="9" fill="#666">Weights</text>
+                            
+                            <!-- Activation -->
+                            <rect x="320" y="5" width="40" height="30" rx="4" fill="#e8f4f8" stroke="#2ecc71" stroke-width="2"/>
+                            <text x="340" y="23" text-anchor="middle" font-size="10" fill="#2ecc71" font-weight="600">σ</text>
+                            <text x="340" y="47" text-anchor="middle" font-size="9" fill="#666">Activation</text>
+                            
+                            <!-- Output -->
+                            <circle cx="430" cy="10" r="6" fill="#2ecc71"/>
+                            <circle cx="430" cy="25" r="6" fill="#2ecc71"/>
+                            <text x="430" y="-5" text-anchor="middle" font-size="10" fill="#666">Output</text>
+                            <text x="430" y="42" text-anchor="middle" font-size="9" fill="#666">H ∈ ℝⁿˣᵈ'</text>
+                            
+                            <!-- Arrows -->
+                            <path d="M 70 17 L 105 17" stroke="#666" stroke-width="2" marker-end="url(#arrow2)"/>
+                            <path d="M 170 17 L 205 17" stroke="#666" stroke-width="2" marker-end="url(#arrow2)"/>
+                            <path d="M 270 17 L 305 17" stroke="#666" stroke-width="2" marker-end="url(#arrow2)"/>
+                            <path d="M 370 17 L 405 17" stroke="#666" stroke-width="2" marker-end="url(#arrow2)"/>
+                        </g>
+                        
+                        <text x="300" y="67" text-anchor="middle" font-size="11" font-family="monospace" fill="#333">H = σ(AXW)</text>
+                    </g>
+                    
+                    <defs>
+                        <marker id="arrow2" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="formula">
+                <strong>Common Graph Convolution Variants:</strong><br/><br/>
+                <strong>GCN:</strong> H⁽ˡ⁺¹⁾ = σ(D̃⁻½ÃD̃⁻½H⁽ˡ⁾W⁽ˡ⁾)<br/>
+                <strong>GraphSAGE:</strong> h_v⁽ˡ⁺¹⁾ = σ(W · CONCAT(h_v⁽ˡ⁾, AGGREGATE({h_u⁽ˡ⁾ : u ∈ N(v)})))<br/>
+                <strong>GIN:</strong> h_v⁽ˡ⁺¹⁾ = MLP((1 + ε) · h_v⁽ˡ⁾ + Σ h_u⁽ˡ⁾)
+            </div>
+
+            <div class="key-points">
+                <strong style="color: #f39c12;">Key Advantages:</strong>
+                <ul>
+                    <li>Permutation invariant: output doesn't depend on node ordering</li>
+                    <li>Parameter sharing across different neighborhood sizes</li>
+                    <li>Can process graphs of varying sizes and structures</li>
+                    <li>Learns hierarchical representations through stacking layers</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 5: Attention Mechanisms -->
+    <div class="page">
+        <div class="subtitle">4. Attention Mechanisms</div>
+        
+        <div class="detail-section">
+            <div class="detail-text">
+                Attention mechanisms in GNNs allow nodes to <span class="highlight">selectively weight the importance of different neighbors</span> during message aggregation. This enables the network to focus on the most relevant connections and improves model interpretability by revealing which graph relationships are most important for predictions.
+            </div>
+
+            <div class="detail-visual">
+                <svg width="800" height="280" viewBox="0 0 800 280">
+                    <!-- Comparison: Uniform vs Attention -->
+                    <g transform="translate(50, 20)">
+                        <text x="150" y="0" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Uniform Aggregation</text>
+                        
+                        <!-- Central node -->
+                        <circle cx="150" cy="80" r="22" fill="#e74c3c" stroke="#1E64C8" stroke-width="3"/>
+                        <text x="150" y="87" text-anchor="middle" font-size="14" fill="white" font-weight="bold">A</text>
+                        
+                        <!-- Neighbors with equal weights -->
+                        <circle cx="80" cy="40" r="18" fill="#3498db" stroke="#999" stroke-width="2"/>
+                        <text x="80" y="46" text-anchor="middle" font-size="12" fill="white" font-weight="bold">B</text>
+                        
+                        <circle cx="220" cy="40" r="18" fill="#3498db" stroke="#999" stroke-width="2"/>
+                        <text x="220" y="46" text-anchor="middle" font-size="12" fill="white" font-weight="bold">C</text>
+                        
+                        <circle cx="80" cy="120" r="18" fill="#3498db" stroke="#999" stroke-width="2"/>
+                        <text x="80" y="126" text-anchor="middle" font-size="12" fill="white" font-weight="bold">D</text>
+                        
+                        <circle cx="220" cy="120" r="18" fill="#3498db" stroke="#999" stroke-width="2"/>
+                        <text x="220" y="126" text-anchor="middle" font-size="12" fill="white" font-weight="bold">E</text>
+                        
+                        <!-- Equal weight edges -->
+                        <line x1="95" y1="50" x2="135" y2="70" stroke="#666" stroke-width="3"/>
+                        <text x="115" y="55" text-anchor="middle" font-size="11" fill="#666" font-weight="600">0.25</text>
+                        
+                        <line x1="205" y1="50" x2="165" y2="70" stroke="#666" stroke-width="3"/>
+                        <text x="185" y="55" text-anchor="middle" font-size="11" fill="#666" font-weight="600">0.25</text>
+                        
+                        <line x1="95" y1="110" x2="135" y2="90" stroke="#666" stroke-width="3"/>
+                        <text x="115" y="105" text-anchor="middle" font-size="11" fill="#666" font-weight="600">0.25</text>
+                        
+                        <line x1="205" y1="110" x2="165" y2="90" stroke="#666" stroke-width="3"/>
+                        <text x="185" y="105" text-anchor="middle" font-size="11" fill="#666" font-weight="600">0.25</text>
+                        
+                        <text x="150" y="145" text-anchor="middle" font-size="11" fill="#666">All neighbors equally weighted</text>
+                    </g>
+                    
+                    <g transform="translate(450, 20)">
+                        <text x="150" y="0" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">Attention-based Aggregation</text>
+                        
+                        <!-- Central node -->
+                        <circle cx="150" cy="80" r="22" fill="#e74c3c" stroke="#1E64C8" stroke-width="3"/>
+                        <text x="150" y="87" text-anchor="middle" font-size="14" fill="white" font-weight="bold">A</text>
+                        
+                        <!-- Neighbors -->
+                        <circle cx="80" cy="40" r="18" fill="#3498db" stroke="#999" stroke-width="2"/>
+                        <text x="80" y="46" text-anchor="middle" font-size="12" fill="white" font-weight="bold">B</text>
+                        
+                        <circle cx="220" cy="40" r="18" fill="#3498db" stroke="#999" stroke-width="2"/>
+                        <text x="220" y="46" text-anchor="middle" font-size="12" fill="white" font-weight="bold">C</text>
+                        
+                        <circle cx="80" cy="120" r="18" fill="#3498db" stroke="#999" stroke-width="2"/>
+                        <text x="80" y="126" text-anchor="middle" font-size="12" fill="white" font-weight="bold">D</text>
+                        
+                        <circle cx="220" cy="120" r="18" fill="#3498db" stroke="#999" stroke-width="2"/>
+                        <text x="220" y="126" text-anchor="middle" font-size="12" fill="white" font-weight="bold">E</text>
+                        
+                        <!-- Variable weight edges with different thickness -->
+                        <line x1="95" y1="50" x2="135" y2="70" stroke="#f39c12" stroke-width="6"/>
+                        <text x="115" y="55" text-anchor="middle" font-size="11" fill="#f39c12" font-weight="bold">0.45</text>
+                        
+                        <line x1="205" y1="50" x2="165" y2="70" stroke="#f39c12" stroke-width="2"/>
+                        <text x="185" y="55" text-anchor="middle" font-size="11" fill="#f39c12" font-weight="bold">0.10</text>
+                        
+                        <line x1="95" y1="110" x2="135" y2="90" stroke="#f39c12" stroke-width="5"/>
+                        <text x="115" y="105" text-anchor="middle" font-size="11" fill="#f39c12" font-weight="bold">0.35</text>
+                        
+                        <line x1="205" y1="110" x2="165" y2="90" stroke="#f39c12" stroke-width="2.5"/>
+                        <text x="185" y="105" text-anchor="middle" font-size="11" fill="#f39c12" font-weight="bold">0.10</text>
+                        
+                        <text x="150" y="145" text-anchor="middle" font-size="11" fill="#f39c12" font-weight="600">Learned attention weights</text>
+                    </g>
+                    
+                    <!-- GAT (Graph Attention Network) mechanism -->
+                    <g transform="translate(50, 180)">
+                        <rect x="0" y="0" width="700" height="85" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="350" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Graph Attention Network (GAT) Mechanism</text>
+                        
+                        <text x="20" y="50" font-size="12" fill="#333"><tspan font-weight="600">Step 1:</tspan> Compute attention scores: e<tspan font-size="9" dy="3">ij</tspan><tspan dy="-3"> = a(Wh</tspan><tspan font-size="9" dy="3">i</tspan><tspan dy="-3">, Wh</tspan><tspan font-size="9" dy="3">j</tspan><tspan dy="-3">)</tspan></text>
+                        
+                        <text x="20" y="70" font-size="12" fill="#333"><tspan font-weight="600">Step 2:</tspan> Normalize with softmax: α<tspan font-size="9" dy="3">ij</tspan><tspan dy="-3"> = softmax</tspan><tspan font-size="9" dy="3">j</tspan><tspan dy="-3">(e</tspan><tspan font-size="9" dy="3">ij</tspan><tspan dy="-3">)</tspan></text>
+                        
+                        <text x="400" y="50" font-size="12" fill="#333"><tspan font-weight="600">Step 3:</tspan> Aggregate: h'<tspan font-size="9" dy="3">i</tspan><tspan dy="-3"> = σ(Σ</tspan><tspan font-size="9" dy="3">j∈N(i)</tspan><tspan dy="-3"> α</tspan><tspan font-size="9" dy="3">ij</tspan><tspan dy="-3">Wh</tspan><tspan font-size="9" dy="3">j</tspan><tspan dy="-3">)</tspan></text>
+                        
+                        <text x="400" y="70" font-size="12" fill="#333"><tspan font-weight="600">Multi-head:</tspan> Concatenate K attention heads</text>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="key-points">
+                <strong style="color: #f39c12;">Benefits of Attention:</strong>
+                <ul>
+                    <li>Automatically learns which neighbors are most relevant for each task</li>
+                    <li>Provides interpretability by visualizing attention weights</li>
+                    <li>Multi-head attention captures different types of relationships</li>
+                    <li>Handles varying neighborhood sizes and heterogeneous graphs naturally</li>
+                    <li>Improves performance on complex molecular property prediction tasks</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
+    <!-- Page 6: Pooling Strategies -->
+    <div class="page">
+        <div class="subtitle">5. Pooling Strategies</div>
+        
+        <div class="detail-section">
+            <div class="detail-text">
+                Pooling operations in GNNs <span class="highlight">aggregate node-level representations into graph-level representations</span>, enabling predictions at the graph level. Different pooling strategies capture different aspects of graph structure and are crucial for tasks like molecular property prediction and graph classification.
+            </div>
+
+            <div class="detail-visual">
+                <svg width="800" height="300" viewBox="0 0 800 300">
+                    <!-- Original graph -->
+                    <g transform="translate(50, 30)">
+                        <text x="80" y="-5" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Input Graph</text>
+                        
+                        <circle cx="50" cy="30" r="16" fill="#3498db" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="50" y="36" text-anchor="middle" font-size="11" fill="white" font-weight="bold">v₁</text>
+                        
+                        <circle cx="110" cy="30" r="16" fill="#3498db" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="110" y="36" text-anchor="middle" font-size="11" fill="white" font-weight="bold">v₂</text>
+                        
+                        <circle cx="80" cy="80" r="16" fill="#3498db" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="80" y="86" text-anchor="middle" font-size="11" fill="white" font-weight="bold">v₃</text>
+                        
+                        <circle cx="30" cy="120" r="16" fill="#3498db" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="30" y="126" text-anchor="middle" font-size="11" fill="white" font-weight="bold">v₄</text>
+                        
+                        <circle cx="130" cy="120" r="16" fill="#3498db" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="130" y="126" text-anchor="middle" font-size="11" fill="white" font-weight="bold">v₅</text>
+                        
+                        <line x1="60" y1="35" x2="100" y2="35" stroke="#666" stroke-width="2"/>
+                        <line x1="55" y1="45" x2="75" y2="65" stroke="#666" stroke-width="2"/>
+                        <line x1="105" y1="45" x2="85" y2="65" stroke="#666" stroke-width="2"/>
+                        <line x1="45" y1="110" x2="70" y2="90" stroke="#666" stroke-width="2"/>
+                        <line x1="115" y1="110" x2="90" y2="90" stroke="#666" stroke-width="2"/>
+                    </g>
+                    
+                    <!-- Global pooling methods -->
+                    <g transform="translate(230, 20)">
+                        <!-- Sum pooling -->
+                        <g transform="translate(0, 0)">
+                            <rect x="0" y="0" width="140" height="50" rx="6" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="70" y="20" text-anchor="middle" font-size="12" font-weight="600" fill="#1E64C8">Sum Pooling</text>
+                            <text x="70" y="38" text-anchor="middle" font-size="11" font-family="monospace" fill="#333">h_G = Σ h_v</text>
+                        </g>
+                        
+                        <!-- Mean pooling -->
+                        <g transform="translate(160, 0)">
+                            <rect x="0" y="0" width="140" height="50" rx="6" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="70" y="20" text-anchor="middle" font-size="12" font-weight="600" fill="#1E64C8">Mean Pooling</text>
+                            <text x="70" y="38" text-anchor="middle" font-size="11" font-family="monospace" fill="#333">h_G = (1/N) Σ h_v</text>
+                        </g>
+                        
+                        <!-- Max pooling -->
+                        <g transform="translate(0, 65)">
+                            <rect x="0" y="0" width="140" height="50" rx="6" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="70" y="20" text-anchor="middle" font-size="12" font-weight="600" fill="#1E64C8">Max Pooling</text>
+                            <text x="70" y="38" text-anchor="middle" font-size="11" font-family="monospace" fill="#333">h_G = max(h_v)</text>
+                        </g>
+                        
+                        <!-- Attention pooling -->
+                        <g transform="translate(160, 65)">
+                            <rect x="0" y="0" width="140" height="50" rx="6" fill="#fff9e6" stroke="#f39c12" stroke-width="2"/>
+                            <text x="70" y="20" text-anchor="middle" font-size="12" font-weight="600" fill="#f39c12">Attention Pooling</text>
+                            <text x="70" y="38" text-anchor="middle" font-size="11" font-family="monospace" fill="#333">h_G = Σ α_v h_v</text>
+                        </g>
+                        
+                        <!-- Arrow to output -->
+                        <path d="M 150 130 L 150 160" stroke="#666" stroke-width="3" marker-end="url(#arrow3)"/>
+                    </g>
+                    
+                    <!-- Output representation -->
+                    <g transform="translate(330, 180)">
+                        <rect x="0" y="0" width="160" height="45" rx="8" fill="#2ecc71" stroke="#1E64C8" stroke-width="3"/>
+                        <text x="80" y="22" text-anchor="middle" font-size="13" font-weight="600" fill="white">Graph Representation</text>
+                        <text x="80" y="38" text-anchor="middle" font-size="11" fill="white">h_G ∈ ℝᵈ</text>
+                    </g>
+                    
+                    <!-- Hierarchical pooling illustration -->
+                    <g transform="translate(50, 200)">
+                        <text x="80" y="0" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Hierarchical Pooling</text>
+                        
+                        <!-- Layer 1 -->
+                        <circle cx="30" cy="25" r="10" fill="#3498db"/>
+                        <circle cx="55" cy="25" r="10" fill="#3498db"/>
+                        <circle cx="80" cy="25" r="10" fill="#3498db"/>
+                        <circle cx="105" cy="25" r="10" fill="#3498db"/>
+                        <circle cx="130" cy="25" r="10" fill="#3498db"/>
+                        <text x="80" y="50" text-anchor="middle" font-size="9" fill="#666">5 nodes</text>
+                        
+                        <!-- Pooling arrow -->
+                        <path d="M 80 45 L 80 60" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow3)"/>
+                        <text x="100" y="57" font-size="9" fill="#e74c3c" font-weight="600">pool</text>
+                        
+                        <!-- Layer 2 -->
+                        <circle cx="50" cy="75" r="10" fill="#9b59b6"/>
+                        <circle cx="80" cy="75" r="10" fill="#9b59b6"/>
+                        <circle cx="110" cy="75" r="10" fill="#9b59b6"/>
+                        <text x="80" y="100" text-anchor="middle" font-size="9" fill="#666">3 nodes</text>
+                        
+                        <!-- Pooling arrow -->
+                        <path d="M 80 95 L 80 110" stroke="#e74c3c" stroke-width="2" marker-end="url(#arrow3)"/>
+                        <text x="100" y="107" font-size="9" fill="#e74c3c" font-weight="600">pool</text>
+                        
+                        <!-- Final -->
+                        <rect x="60" y="120" width="40" height="20" rx="4" fill="#2ecc71"/>
+                        <text x="80" y="134" text-anchor="middle" font-size="10" fill="white" font-weight="600">Graph</text>
+                    </g>
+                    
+                    <defs>
+                        <marker id="arrow3" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                            <polygon points="0 0, 8 3, 0 6" fill="#666"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="formula">
+                <strong>Common Pooling Methods:</strong><br/><br/>
+                <strong>Global Add Pool:</strong> h_G = Σ_{v∈G} h_v<br/>
+                <strong>Global Mean Pool:</strong> h_G = (1/|V|) Σ_{v∈G} h_v<br/>
+                <strong>Global Max Pool:</strong> h_G = max_{v∈G}(h_v)<br/>
+                <strong>Set2Set:</strong> Uses LSTM to aggregate node features iteratively<br/>
+                <strong>DiffPool:</strong> Learns soft cluster assignments for hierarchical pooling
+            </div>
+
+            <div class="key-points">
+                <strong style="color: #f39c12;">Pooling Considerations:</strong>
+                <ul>
+                    <li>Global pooling methods are permutation invariant and simple to implement</li>
+                    <li>Hierarchical pooling captures multi-scale graph structures</li>
+                    <li>Attention-based pooling focuses on important nodes</li>
+                    <li>Choice of pooling affects model capacity and inductive bias</li>
+                    <li>Critical for graph-level prediction tasks like molecule property prediction</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+
 </body>
 </html>

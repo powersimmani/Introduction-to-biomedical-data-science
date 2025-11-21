@@ -100,6 +100,117 @@
             font-size: 18px;
             flex-shrink: 0;
         }
+        
+        .detailed-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 3px solid #1E64C8;
+        }
+        
+        .section-block {
+            margin-bottom: 45px;
+            background: #f8fbff;
+            border-radius: 12px;
+            padding: 30px;
+            border: 2px solid #e0e0e0;
+        }
+        
+        .section-header {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1E64C8;
+        }
+        
+        .section-description {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .code-block {
+            background: #2d2d2d;
+            color: #f8f8f2;
+            padding: 20px;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            overflow-x: auto;
+            margin: 15px 0;
+        }
+        
+        .diagram-box {
+            background: white;
+            border: 2px solid #1E64C8;
+            border-radius: 10px;
+            padding: 25px;
+            margin: 20px 0;
+        }
+        
+        .flow-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 15px;
+        }
+        
+        .flow-box {
+            background: #1E64C8;
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
+            min-width: 140px;
+            font-size: 14px;
+        }
+        
+        .flow-arrow {
+            font-size: 24px;
+            color: #1E64C8;
+            font-weight: bold;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .comparison-table th {
+            background: #1E64C8;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 12px;
+            border: 1px solid #ddd;
+            background: white;
+        }
+        
+        .comparison-table tr:nth-child(even) td {
+            background: #f9f9f9;
+        }
+        
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .highlight-box strong {
+            color: #856404;
+        }
     </style>
 </head>
 <body>
@@ -143,6 +254,510 @@
                     <div class="bullet">Validation tools</div>
                 </div>
             </div>
+        </div>
+        
+        <!-- Detailed Sections -->
+        <div class="detailed-section">
+            
+            <!-- Section 1: HL7 v2 Messages -->
+            <div class="section-block">
+                <div class="section-header">1. HL7 v2 Messages - Detailed Overview</div>
+                
+                <div class="section-description">
+                    HL7 Version 2 is the most widely implemented healthcare messaging standard in the world, used for transmitting clinical and administrative data between different hospital information systems. Despite being considered a "legacy" standard, it remains the backbone of healthcare interoperability in many institutions.
+                </div>
+                
+                <div class="highlight-box">
+                    <strong>Key Characteristic:</strong> HL7 v2 uses a pipe-delimited (|) format to separate data fields, making it compact but challenging to read and parse.
+                </div>
+                
+                <div class="section-description">
+                    <strong>Common Message Types:</strong>
+                </div>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Message Type</th>
+                        <th>Purpose</th>
+                        <th>Example Trigger Events</th>
+                    </tr>
+                    <tr>
+                        <td><strong>ADT</strong> (Admission, Discharge, Transfer)</td>
+                        <td>Patient demographics and visit information</td>
+                        <td>A01 (Admit), A03 (Discharge), A08 (Update)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ORM</strong> (Order Message)</td>
+                        <td>Medical orders (lab, radiology, pharmacy)</td>
+                        <td>O01 (Order), O02 (Cancel Order)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>ORU</strong> (Observation Result)</td>
+                        <td>Lab results and clinical observations</td>
+                        <td>R01 (Unsolicited observation)</td>
+                    </tr>
+                </table>
+                
+                <div class="section-description">
+                    <strong>Example: ADT^A01 Message (Patient Admission)</strong>
+                </div>
+                
+                <div class="code-block">MSH|^~\&|SENDING_APP|FACILITY|RECEIVING_APP|FACILITY|20231115083000||ADT^A01|MSG00001|P|2.5
+EVN|A01|20231115083000
+PID|1||MRN123456^^^Hospital^MR||Doe^John^A||19800115|M|||123 Main St^^Boston^MA^02101^USA|||||||
+PV1|1|I|ICU^101^01^Main Hospital||||123456^Smith^Robert^A^^^MD^L||||||||||V123456|||||||||||||||||||||||||20231115080000</div>
+                
+                <div class="section-description">
+                    <strong>Message Structure Breakdown:</strong>
+                </div>
+                
+                <div class="diagram-box">
+                    <div class="flow-diagram">
+                        <div class="flow-box">MSH<br/>(Header)</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">EVN<br/>(Event)</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">PID<br/>(Patient ID)</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">PV1<br/>(Patient Visit)</div>
+                    </div>
+                </div>
+                
+                <div class="section-description">
+                    <strong>Challenges:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Complex parsing logic required due to delimiters</li>
+                        <li>Optional fields create inconsistency across implementations</li>
+                        <li>Limited data validation capabilities</li>
+                        <li>Version incompatibilities (2.1 through 2.8)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Section 2: FHIR Resources -->
+            <div class="section-block">
+                <div class="section-header">2. FHIR Resources - Modern Healthcare Standard</div>
+                
+                <div class="section-description">
+                    Fast Healthcare Interoperability Resources (FHIR) is the next-generation standard that leverages modern web technologies. It represents healthcare data as modular "resources" that can be easily exchanged via RESTful APIs.
+                </div>
+                
+                <div class="highlight-box">
+                    <strong>Key Innovation:</strong> FHIR uses familiar web standards (JSON/XML, HTTP, OAuth) making it accessible to modern developers and easy to implement.
+                </div>
+                
+                <div class="section-description">
+                    <strong>Core FHIR Resources:</strong>
+                </div>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Resource</th>
+                        <th>Description</th>
+                        <th>Key Elements</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Patient</strong></td>
+                        <td>Demographics and administrative information</td>
+                        <td>name, gender, birthDate, address, telecom</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Observation</strong></td>
+                        <td>Measurements and simple assertions</td>
+                        <td>code, value, status, effectiveDateTime</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Medication</strong></td>
+                        <td>Medication definitions and orders</td>
+                        <td>code, form, ingredient, amount</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Encounter</strong></td>
+                        <td>Healthcare service interaction</td>
+                        <td>status, class, period, participant</td>
+                    </tr>
+                </table>
+                
+                <div class="section-description">
+                    <strong>Example: Patient Resource (JSON Format)</strong>
+                </div>
+                
+                <div class="code-block">{
+  "resourceType": "Patient",
+  "id": "example",
+  "identifier": [{
+    "system": "http://hospital.org/mrn",
+    "value": "MRN123456"
+  }],
+  "name": [{
+    "family": "Doe",
+    "given": ["John", "A"]
+  }],
+  "gender": "male",
+  "birthDate": "1980-01-15",
+  "address": [{
+    "line": ["123 Main St"],
+    "city": "Boston",
+    "state": "MA",
+    "postalCode": "02101",
+    "country": "USA"
+  }],
+  "telecom": [{
+    "system": "phone",
+    "value": "555-1234",
+    "use": "home"
+  }]
+}</div>
+                
+                <div class="section-description">
+                    <strong>Example: Observation Resource (Lab Result)</strong>
+                </div>
+                
+                <div class="code-block">{
+  "resourceType": "Observation",
+  "id": "glucose-001",
+  "status": "final",
+  "category": [{
+    "coding": [{
+      "system": "http://terminology.hl7.org/CodeSystem/observation-category",
+      "code": "laboratory"
+    }]
+  }],
+  "code": {
+    "coding": [{
+      "system": "http://loinc.org",
+      "code": "15074-8",
+      "display": "Glucose [Mass/volume] in Blood"
+    }]
+  },
+  "subject": {
+    "reference": "Patient/example"
+  },
+  "effectiveDateTime": "2023-11-15T08:30:00Z",
+  "valueQuantity": {
+    "value": 95,
+    "unit": "mg/dL",
+    "system": "http://unitsofmeasure.org",
+    "code": "mg/dL"
+  }
+}</div>
+                
+                <div class="diagram-box">
+                    <div style="text-align: center; margin-bottom: 15px; font-weight: 600; color: #1E64C8;">
+                        FHIR Resource Relationships
+                    </div>
+                    <div class="flow-diagram">
+                        <div class="flow-box">Patient</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">Encounter</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">Observation</div>
+                    </div>
+                    <div style="text-align: center; margin-top: 15px; font-size: 14px; color: #666;">
+                        Resources reference each other creating a connected health record
+                    </div>
+                </div>
+                
+                <div class="section-description">
+                    <strong>Advantages over HL7 v2:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Human-readable JSON/XML formats</li>
+                        <li>Built-in validation with profiles and schemas</li>
+                        <li>RESTful API architecture (GET, POST, PUT, DELETE)</li>
+                        <li>Extensible design with custom extensions</li>
+                        <li>Strong community support and tooling</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Section 3: RESTful APIs -->
+            <div class="section-block">
+                <div class="section-header">3. RESTful APIs - FHIR Implementation</div>
+                
+                <div class="section-description">
+                    FHIR leverages RESTful (Representational State Transfer) principles to create a standardized way of accessing and manipulating healthcare data over HTTP. This makes FHIR naturally compatible with web and mobile applications.
+                </div>
+                
+                <div class="highlight-box">
+                    <strong>Core Principle:</strong> Every FHIR resource has a unique URL and can be accessed using standard HTTP methods, making integration straightforward for developers.
+                </div>
+                
+                <div class="section-description">
+                    <strong>HTTP Methods and FHIR Operations:</strong>
+                </div>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>HTTP Method</th>
+                        <th>FHIR Operation</th>
+                        <th>Example URL</th>
+                    </tr>
+                    <tr>
+                        <td><strong>GET</strong></td>
+                        <td>Read/Search resources</td>
+                        <td>GET /Patient/123<br/>GET /Observation?patient=123</td>
+                    </tr>
+                    <tr>
+                        <td><strong>POST</strong></td>
+                        <td>Create new resource</td>
+                        <td>POST /Patient</td>
+                    </tr>
+                    <tr>
+                        <td><strong>PUT</strong></td>
+                        <td>Update existing resource</td>
+                        <td>PUT /Patient/123</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DELETE</strong></td>
+                        <td>Remove resource</td>
+                        <td>DELETE /Patient/123</td>
+                    </tr>
+                </table>
+                
+                <div class="section-description">
+                    <strong>Example API Requests:</strong>
+                </div>
+                
+                <div class="code-block">// 1. GET - Retrieve a specific patient
+GET https://fhir.hospital.org/Patient/123
+Authorization: Bearer {access_token}
+
+// 2. GET - Search for patients by name
+GET https://fhir.hospital.org/Patient?name=John&family=Doe
+
+// 3. GET - Get all observations for a patient
+GET https://fhir.hospital.org/Observation?patient=123&category=laboratory
+
+// 4. POST - Create a new patient
+POST https://fhir.hospital.org/Patient
+Content-Type: application/fhir+json
+Authorization: Bearer {access_token}
+
+{
+  "resourceType": "Patient",
+  "name": [{"family": "Smith", "given": ["Jane"]}],
+  "gender": "female",
+  "birthDate": "1985-03-20"
+}</div>
+                
+                <div class="section-description">
+                    <strong>OAuth 2.0 Authentication Flow:</strong>
+                </div>
+                
+                <div class="diagram-box">
+                    <div class="flow-diagram">
+                        <div class="flow-box">App<br/>Requests</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">Authorization<br/>Server</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">User<br/>Consents</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">Access<br/>Token</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">FHIR<br/>API</div>
+                    </div>
+                </div>
+                
+                <div class="section-description">
+                    <strong>SMART on FHIR:</strong><br/>
+                    SMART (Substitutable Medical Applications, Reusable Technologies) on FHIR is a framework for building healthcare apps that can run across different electronic health record (EHR) systems. It combines OAuth 2.0 for authorization with FHIR APIs for data access.
+                </div>
+                
+                <div class="code-block">// SMART App Launch Sequence
+// 1. Discover FHIR endpoints
+GET https://fhir.hospital.org/.well-known/smart-configuration
+
+// 2. Authorization request
+GET https://auth.hospital.org/authorize?
+    response_type=code&
+    client_id=app123&
+    redirect_uri=https://app.example.com/callback&
+    scope=patient/*.read launch&
+    state=abc123&
+    aud=https://fhir.hospital.org
+
+// 3. Exchange code for token
+POST https://auth.hospital.org/token
+Content-Type: application/x-www-form-urlencoded
+
+grant_type=authorization_code&
+code=AUTH_CODE&
+redirect_uri=https://app.example.com/callback&
+client_id=app123</div>
+                
+                <div class="section-description">
+                    <strong>Common SMART Scopes:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li><strong>patient/*.read</strong> - Read all patient resources</li>
+                        <li><strong>user/Patient.read</strong> - Read patient resources in user context</li>
+                        <li><strong>patient/Observation.write</strong> - Write observations for the patient</li>
+                        <li><strong>launch</strong> - Launch context from EHR</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <!-- Section 4: Implementation Guides -->
+            <div class="section-block">
+                <div class="section-header">4. Implementation Guides - FHIR Profiles and Standards</div>
+                
+                <div class="section-description">
+                    Implementation Guides (IGs) are detailed specifications that constrain and extend the base FHIR specification to meet specific use cases or regulatory requirements. They ensure consistent interpretation and implementation of FHIR across different systems.
+                </div>
+                
+                <div class="highlight-box">
+                    <strong>Why Implementation Guides?</strong> Base FHIR is intentionally flexible. IGs add necessary constraints and extensions to ensure interoperability for specific regions, specialties, or use cases.
+                </div>
+                
+                <div class="section-description">
+                    <strong>Major Implementation Guides:</strong>
+                </div>
+                
+                <table class="comparison-table">
+                    <tr>
+                        <th>Implementation Guide</th>
+                        <th>Region/Purpose</th>
+                        <th>Key Features</th>
+                    </tr>
+                    <tr>
+                        <td><strong>US Core</strong></td>
+                        <td>United States (ONC mandate)</td>
+                        <td>Minimum conformance requirements, USCDI data elements</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Argonaut</strong></td>
+                        <td>US - Early adopters</td>
+                        <td>Provider directories, clinical notes, scheduling</td>
+                    </tr>
+                    <tr>
+                        <td><strong>IPS</strong> (International Patient Summary)</td>
+                        <td>Global</td>
+                        <td>Cross-border patient summary, minimal dataset</td>
+                    </tr>
+                    <tr>
+                        <td><strong>UK Core</strong></td>
+                        <td>United Kingdom</td>
+                        <td>NHS-specific extensions and terminology</td>
+                    </tr>
+                </table>
+                
+                <div class="section-description">
+                    <strong>US Core Profile Example:</strong><br/>
+                    US Core defines specific requirements for common resources. For example, the US Core Patient profile requires:
+                </div>
+                
+                <div class="code-block">{
+  "resourceType": "Patient",
+  "meta": {
+    "profile": ["http://hl7.org/fhir/us/core/StructureDefinition/us-core-patient"]
+  },
+  // REQUIRED elements:
+  "identifier": [/*must have at least one*/],
+  "name": [/*must have at least one*/],
+  "gender": "male|female|other|unknown",
+  
+  // MUST SUPPORT (if available):
+  "birthDate": "1980-01-15",
+  "address": [{/*postal addresses*/}],
+  "telecom": [{/*contact points*/}],
+  
+  // Extensions for US-specific data:
+  "extension": [{
+    "url": "http://hl7.org/fhir/us/core/StructureDefinition/us-core-race",
+    "extension": [{
+      "url": "ombCategory",
+      "valueCoding": {
+        "system": "urn:oid:2.16.840.1.113883.6.238",
+        "code": "2106-3",
+        "display": "White"
+      }
+    }]
+  }]
+}</div>
+                
+                <div class="section-description">
+                    <strong>Validation Tools:</strong>
+                </div>
+                
+                <div class="diagram-box">
+                    <table style="width: 100%; border-collapse: collapse;">
+                        <tr>
+                            <td style="padding: 15px; border: 1px solid #ddd;"><strong>HL7 FHIR Validator</strong></td>
+                            <td style="padding: 15px; border: 1px solid #ddd;">Official Java-based validator from HL7</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 1px solid #ddd;"><strong>Inferno Testing Tool</strong></td>
+                            <td style="padding: 15px; border: 1px solid #ddd;">ONC-certified testing for US Core compliance</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 1px solid #ddd;"><strong>Touchstone</strong></td>
+                            <td style="padding: 15px; border: 1px solid #ddd;">AEGIS platform for conformance testing</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 15px; border: 1px solid #ddd;"><strong>FHIR Profiling Tool</strong></td>
+                            <td style="padding: 15px; border: 1px solid #ddd;">Forge/Simplifier for creating custom profiles</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="section-description">
+                    <strong>Country-Specific Extensions Example:</strong>
+                </div>
+                
+                <div class="code-block">// Korean Social Security Number Extension (Example)
+{
+  "resourceType": "Patient",
+  "extension": [{
+    "url": "http://example.org/fhir/StructureDefinition/kr-resident-registration-number",
+    "valueString": "800115-1234567"
+  }],
+  "identifier": [{
+    "system": "http://example.org/korean-national-id",
+    "value": "800115-1234567"
+  }]
+}
+
+// Australian Indigenous Status Extension
+{
+  "extension": [{
+    "url": "http://hl7.org.au/fhir/StructureDefinition/indigenous-status",
+    "valueCoding": {
+      "system": "https://healthterminologies.gov.au/fhir/CodeSystem/australian-indigenous-status-1",
+      "code": "1",
+      "display": "Aboriginal but not Torres Strait Islander origin"
+    }
+  }]
+}</div>
+                
+                <div class="section-description">
+                    <strong>Implementation Guide Workflow:</strong>
+                </div>
+                
+                <div class="diagram-box">
+                    <div class="flow-diagram">
+                        <div class="flow-box">Define<br/>Requirements</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">Create<br/>Profiles</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">Publish<br/>IG</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">Validate<br/>Resources</div>
+                        <div class="flow-arrow">→</div>
+                        <div class="flow-box">Certify<br/>Compliance</div>
+                    </div>
+                </div>
+                
+                <div class="section-description">
+                    <strong>Key Benefits of Implementation Guides:</strong>
+                    <ul style="margin-left: 20px; margin-top: 10px;">
+                        <li>Ensures consistent data exchange across organizations</li>
+                        <li>Reduces ambiguity in FHIR resource interpretation</li>
+                        <li>Provides clear conformance criteria for certification</li>
+                        <li>Supports regulatory compliance (e.g., ONC, FDA)</li>
+                        <li>Enables automated validation and testing</li>
+                    </ul>
+                </div>
+            </div>
+            
         </div>
     </div>
 </body>

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mass Spectrometry Basics</title>
+    <title>Mass Spectrometry Basics - Enhanced</title>
     <style>
         * {
             margin: 0;
@@ -14,17 +14,23 @@
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
             background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            padding: 40px 20px;
         }
         
         .container {
+            max-width: 960px;
+            margin: 0 auto;
+            background: white;
+        }
+        
+        .slide {
             width: 960px;
-            height: 540px;
+            min-height: 540px;
             padding: 35px 45px;
             background: white;
+            margin-bottom: 60px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            page-break-after: always;
         }
         
         .title {
@@ -158,162 +164,584 @@
             margin-right: 8px;
             font-size: 16px;
         }
+        
+        /* Detailed section styles */
+        .section-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #1E64C8;
+        }
+        
+        .section-content {
+            display: flex;
+            gap: 30px;
+            margin-bottom: 25px;
+        }
+        
+        .visual-container {
+            flex: 1;
+            background: #f8fbff;
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .text-container {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+        
+        .subsection-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 12px;
+            margin-top: 15px;
+        }
+        
+        .subsection-title:first-child {
+            margin-top: 0;
+        }
+        
+        .description {
+            font-size: 15px;
+            color: #333;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .example-box {
+            background: #e8f2ff;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #5088d4;
+            margin-top: 15px;
+        }
+        
+        .example-title {
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 8px;
+        }
+        
+        .formula {
+            background: white;
+            padding: 10px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            text-align: center;
+            margin: 10px 0;
+            border: 1px solid #ddd;
+        }
+        
+        .highlight {
+            color: #ff6b6b;
+            font-weight: 600;
+        }
+        
+        @media print {
+            .slide {
+                box-shadow: none;
+                margin-bottom: 0;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Mass Spectrometry Basics</div>
-        
-        <div class="workflow">
-            <div class="step">
-                <svg class="step-visual" viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Sample introduction -->
-                    <rect x="10" y="40" width="40" height="20" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="30" y="54" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">Sample</text>
-                    
-                    <!-- Ionization chamber -->
-                    <rect x="60" y="20" width="70" height="60" rx="5" fill="none" stroke="#1E64C8" stroke-width="2" stroke-dasharray="5,3"/>
-                    
-                    <!-- Ion spray -->
-                    <circle cx="80" cy="50" r="3" fill="#5088d4"/>
-                    <circle cx="90" cy="45" r="3" fill="#1E64C8" opacity="0.8"/>
-                    <circle cx="95" cy="55" r="3" fill="#5088d4" opacity="0.7"/>
-                    <circle cx="105" cy="48" r="3" fill="#1E64C8" opacity="0.6"/>
-                    <circle cx="110" cy="52" r="3" fill="#5088d4" opacity="0.5"/>
-                    
-                    <!-- Charge symbols -->
-                    <text x="80" y="35" font-size="8" fill="#ff6b6b" font-weight="bold">+</text>
-                    <text x="100" y="35" font-size="8" fill="#ff6b6b" font-weight="bold">+</text>
-                    <text x="90" y="70" font-size="8" fill="#ff6b6b" font-weight="bold">+</text>
-                    <text x="110" y="70" font-size="8" fill="#ff6b6b" font-weight="bold">+</text>
-                </svg>
-                <div class="step-label">Ion Generation
-                    <div class="step-sublabel">ESI / MALDI</div>
+        <!-- Original Overview Slide -->
+        <div class="slide">
+            <div class="title">Mass Spectrometry Basics</div>
+            
+            <div class="workflow">
+                <div class="step">
+                    <svg class="step-visual" viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="10" y="40" width="40" height="20" rx="3" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="30" y="54" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">Sample</text>
+                        <rect x="60" y="20" width="70" height="60" rx="5" fill="none" stroke="#1E64C8" stroke-width="2" stroke-dasharray="5,3"/>
+                        <circle cx="80" cy="50" r="3" fill="#5088d4"/>
+                        <circle cx="90" cy="45" r="3" fill="#1E64C8" opacity="0.8"/>
+                        <circle cx="95" cy="55" r="3" fill="#5088d4" opacity="0.7"/>
+                        <circle cx="105" cy="48" r="3" fill="#1E64C8" opacity="0.6"/>
+                        <circle cx="110" cy="52" r="3" fill="#5088d4" opacity="0.5"/>
+                        <text x="80" y="35" font-size="8" fill="#ff6b6b" font-weight="bold">+</text>
+                        <text x="100" y="35" font-size="8" fill="#ff6b6b" font-weight="bold">+</text>
+                        <text x="90" y="70" font-size="8" fill="#ff6b6b" font-weight="bold">+</text>
+                        <text x="110" y="70" font-size="8" fill="#ff6b6b" font-weight="bold">+</text>
+                    </svg>
+                    <div class="step-label">Ion Generation
+                        <div class="step-sublabel">ESI / MALDI</div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <svg class="step-visual" viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="10" y="20" width="120" height="60" rx="5" fill="#f8fbff" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="25" y="30" width="5" height="40" rx="2" fill="#1E64C8"/>
+                        <rect x="45" y="30" width="5" height="40" rx="2" fill="#5088d4"/>
+                        <rect x="90" y="30" width="5" height="40" rx="2" fill="#5088d4"/>
+                        <rect x="110" y="30" width="5" height="40" rx="2" fill="#1E64C8"/>
+                        <path d="M15 50 Q40 45, 70 50 T120 50" stroke="#ff6b6b" stroke-width="2" fill="none" stroke-dasharray="3,2" opacity="0.7"/>
+                        <text x="70" y="15" font-size="9" fill="#1E64C8" text-anchor="middle" font-weight="600">RF + DC</text>
+                        <circle cx="60" cy="45" r="2" fill="#4CAF50"/>
+                        <circle cx="70" cy="50" r="2.5" fill="#ff6b6b"/>
+                        <circle cx="80" cy="55" r="2" fill="#FF9800"/>
+                    </svg>
+                    <div class="step-label">Mass Analysis
+                        <div class="step-sublabel">m/z Separation</div>
+                    </div>
+                </div>
+                
+                <div class="step">
+                    <svg class="step-visual" viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="10" y="30" width="80" height="40" rx="5" fill="#1E64C8" opacity="0.1" stroke="#1E64C8" stroke-width="2"/>
+                        <rect x="20" y="40" width="60" height="3" fill="#1E64C8"/>
+                        <rect x="20" y="47" width="60" height="3" fill="#5088d4"/>
+                        <rect x="20" y="54" width="60" height="3" fill="#1E64C8"/>
+                        <rect x="20" y="61" width="60" height="3" fill="#5088d4"/>
+                        <rect x="95" y="35" width="40" height="30" rx="3" fill="white" stroke="#1E64C8" stroke-width="1.5"/>
+                        <path d="M100 50 L105 45 L110 52 L115 48 L120 50 L125 46 L130 50" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                        <circle cx="50" cy="25" r="8" fill="none" stroke="#ff6b6b" stroke-width="1.5"/>
+                        <text x="50" y="28" font-size="8" fill="#ff6b6b" text-anchor="middle" font-weight="bold">e⁻</text>
+                    </svg>
+                    <div class="step-label">Detection
+                        <div class="step-sublabel">Signal Processing</div>
+                    </div>
+                </div>
+                
+                <div class="arrow-container">
+                    <svg class="arrow-svg" viewBox="0 0 60 30">
+                        <defs>
+                            <marker id="arrowhead1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        <path d="M5 15 L45 15" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrowhead1)"/>
+                    </svg>
+                    <svg class="arrow-svg" viewBox="0 0 60 30">
+                        <defs>
+                            <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        <path d="M5 15 L45 15" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrowhead2)"/>
+                    </svg>
                 </div>
             </div>
             
-            <div class="step">
-                <svg class="step-visual" viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Mass analyzer chamber -->
-                    <rect x="10" y="20" width="120" height="60" rx="5" fill="#f8fbff" stroke="#1E64C8" stroke-width="2"/>
-                    
-                    <!-- Quadrupole rods -->
-                    <rect x="25" y="30" width="5" height="40" rx="2" fill="#1E64C8"/>
-                    <rect x="45" y="30" width="5" height="40" rx="2" fill="#5088d4"/>
-                    <rect x="90" y="30" width="5" height="40" rx="2" fill="#5088d4"/>
-                    <rect x="110" y="30" width="5" height="40" rx="2" fill="#1E64C8"/>
-                    
-                    <!-- Ion trajectory -->
-                    <path d="M15 50 Q40 45, 70 50 T120 50" stroke="#ff6b6b" stroke-width="2" fill="none" stroke-dasharray="3,2" opacity="0.7"/>
-                    
-                    <!-- RF/DC labels -->
-                    <text x="70" y="15" font-size="9" fill="#1E64C8" text-anchor="middle" font-weight="600">RF + DC</text>
-                    
-                    <!-- m/z separation -->
-                    <circle cx="60" cy="45" r="2" fill="#4CAF50"/>
-                    <circle cx="70" cy="50" r="2.5" fill="#ff6b6b"/>
-                    <circle cx="80" cy="55" r="2" fill="#FF9800"/>
-                </svg>
-                <div class="step-label">Mass Analysis
-                    <div class="step-sublabel">m/z Separation</div>
+            <div class="details-grid">
+                <div class="detail-card">
+                    <svg class="card-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="15" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                        <path d="M20 10 L20 20 L28 24" stroke="#1E64C8" stroke-width="2" stroke-linecap="round"/>
+                        <circle cx="20" cy="20" r="2" fill="#1E64C8"/>
+                    </svg>
+                    <div class="detail-title">Resolution & Accuracy</div>
+                    <div class="detail-content">
+                        <div class="bullet">High resolution: distinguish similar masses</div>
+                        <div class="bullet">Mass accuracy: parts per million (ppm)</div>
+                        <div class="bullet">Critical for peptide identification</div>
+                    </div>
                 </div>
-            </div>
-            
-            <div class="step">
-                <svg class="step-visual" viewBox="0 0 140 100" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <!-- Detector -->
-                    <rect x="10" y="30" width="80" height="40" rx="5" fill="#1E64C8" opacity="0.1" stroke="#1E64C8" stroke-width="2"/>
-                    
-                    <!-- Detection plates -->
-                    <rect x="20" y="40" width="60" height="3" fill="#1E64C8"/>
-                    <rect x="20" y="47" width="60" height="3" fill="#5088d4"/>
-                    <rect x="20" y="54" width="60" height="3" fill="#1E64C8"/>
-                    <rect x="20" y="61" width="60" height="3" fill="#5088d4"/>
-                    
-                    <!-- Signal output -->
-                    <rect x="95" y="35" width="40" height="30" rx="3" fill="white" stroke="#1E64C8" stroke-width="1.5"/>
-                    <path d="M100 50 L105 45 L110 52 L115 48 L120 50 L125 46 L130 50" stroke="#1E64C8" stroke-width="2" fill="none"/>
-                    
-                    <!-- Electron multiplier symbol -->
-                    <circle cx="50" cy="25" r="8" fill="none" stroke="#ff6b6b" stroke-width="1.5"/>
-                    <text x="50" y="28" font-size="8" fill="#ff6b6b" text-anchor="middle" font-weight="bold">e⁻</text>
-                </svg>
-                <div class="step-label">Detection
-                    <div class="step-sublabel">Signal Processing</div>
+                
+                <div class="detail-card">
+                    <svg class="card-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <rect x="8" y="12" width="24" height="16" rx="2" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                        <path d="M12 20 L16 17 L20 21 L24 18 L28 20" stroke="#5088d4" stroke-width="2" fill="none"/>
+                    </svg>
+                    <div class="detail-title">Scan Modes</div>
+                    <div class="detail-content">
+                        <div class="bullet">Full scan: entire mass range</div>
+                        <div class="bullet">Selected ion monitoring (SIM)</div>
+                        <div class="bullet">Data-dependent acquisition (DDA)</div>
+                    </div>
                 </div>
-            </div>
-            
-            <!-- Animated arrows -->
-            <div class="arrow-container">
-                <svg class="arrow-svg" viewBox="0 0 60 30">
-                    <defs>
-                        <marker id="arrowhead1" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
-                        </marker>
-                    </defs>
-                    <path d="M5 15 L45 15" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrowhead1)"/>
-                </svg>
-                <svg class="arrow-svg" viewBox="0 0 60 30">
-                    <defs>
-                        <marker id="arrowhead2" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
-                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
-                        </marker>
-                    </defs>
-                    <path d="M5 15 L45 15" stroke="#1E64C8" stroke-width="2.5" marker-end="url(#arrowhead2)"/>
-                </svg>
+                
+                <div class="detail-card">
+                    <svg class="card-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <path d="M10 30 L10 20 M15 30 L15 15 M20 30 L20 10 M25 30 L25 15 M30 30 L30 20" stroke="#1E64C8" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <div class="detail-title">Sensitivity</div>
+                    <div class="detail-content">
+                        <div class="bullet">Femtomole to attomole detection</div>
+                        <div class="bullet">Dynamic range: 3-5 orders of magnitude</div>
+                        <div class="bullet">Low abundance protein detection</div>
+                    </div>
+                </div>
+                
+                <div class="detail-card">
+                    <svg class="card-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <circle cx="20" cy="20" r="12" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                        <path d="M14 20 L26 20 M20 14 L20 26" stroke="#5088d4" stroke-width="2" stroke-linecap="round"/>
+                    </svg>
+                    <div class="detail-title">Applications</div>
+                    <div class="detail-content">
+                        <div class="bullet">Protein identification</div>
+                        <div class="bullet">Quantification</div>
+                        <div class="bullet">PTM analysis</div>
+                    </div>
+                </div>
             </div>
         </div>
-        
-        <div class="details-grid">
-            <div class="detail-card">
-                <svg class="card-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="20" cy="20" r="15" stroke="#1E64C8" stroke-width="2" fill="none"/>
-                    <path d="M20 10 L20 20 L28 24" stroke="#1E64C8" stroke-width="2" stroke-linecap="round"/>
-                    <circle cx="20" cy="20" r="2" fill="#1E64C8"/>
-                </svg>
-                <div class="detail-title">Resolution & Accuracy</div>
-                <div class="detail-content">
-                    <div class="bullet">High resolution: distinguish similar masses</div>
-                    <div class="bullet">Mass accuracy: parts per million (ppm)</div>
-                    <div class="bullet">Critical for peptide identification</div>
+
+        <!-- Detailed Slide 1: Resolution & Accuracy -->
+        <div class="slide">
+            <div class="section-title">1. Resolution & Accuracy</div>
+            
+            <div class="section-content">
+                <div class="visual-container">
+                    <svg width="380" height="280" viewBox="0 0 380 280" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- High Resolution -->
+                        <text x="60" y="20" font-size="14" font-weight="600" fill="#1E64C8" text-anchor="middle">High Resolution</text>
+                        <!-- Baseline -->
+                        <line x1="10" y1="140" x2="110" y2="140" stroke="#333" stroke-width="1"/>
+                        <!-- Two separate peaks -->
+                        <path d="M30 140 Q35 80, 40 140" stroke="#4CAF50" stroke-width="2.5" fill="none"/>
+                        <path d="M80 140 Q85 80, 90 140" stroke="#ff6b6b" stroke-width="2.5" fill="none"/>
+                        <text x="35" y="70" font-size="10" fill="#4CAF50" text-anchor="middle">m/z 1000.50</text>
+                        <text x="85" y="70" font-size="10" fill="#ff6b6b" text-anchor="middle">m/z 1000.52</text>
+                        <!-- Resolution label -->
+                        <text x="60" y="165" font-size="11" fill="#1E64C8" text-anchor="middle">Δm = 0.02 Da</text>
+                        
+                        <!-- Low Resolution -->
+                        <text x="230" y="20" font-size="14" font-weight="600" fill="#1E64C8" text-anchor="middle">Low Resolution</text>
+                        <!-- Baseline -->
+                        <line x1="180" y1="140" x2="280" y2="140" stroke="#333" stroke-width="1"/>
+                        <!-- One merged peak -->
+                        <path d="M200 140 Q220 75, 240 140" stroke="#FF9800" stroke-width="2.5" fill="none"/>
+                        <text x="220" y="65" font-size="10" fill="#FF9800" text-anchor="middle">Unresolved</text>
+                        
+                        <!-- Resolution Formula -->
+                        <rect x="10" y="190" width="360" height="80" rx="8" fill="#f8fbff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="190" y="215" font-size="13" font-weight="600" fill="#1E64C8" text-anchor="middle">Resolution Formula:</text>
+                        <text x="190" y="240" font-size="16" font-family="serif" fill="#333" text-anchor="middle">R = m / Δm</text>
+                        <text x="190" y="262" font-size="11" fill="#666" text-anchor="middle">where m = mass and Δm = peak width at half maximum (FWHM)</text>
+                    </svg>
+                </div>
+                
+                <div class="text-container">
+                    <div class="subsection-title">Mass Resolution</div>
+                    <div class="description">
+                        The ability to distinguish between ions of similar mass-to-charge ratios. Higher resolution allows separation of peaks that differ by small mass units.
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title">Example:</div>
+                        <div class="description">
+                            Orbitrap mass analyzers achieve resolutions &gt;100,000, enabling discrimination between peptides differing by <span class="highlight">0.001 Da</span>.
+                        </div>
+                    </div>
+                    
+                    <div class="subsection-title">Mass Accuracy</div>
+                    <div class="description">
+                        The closeness of measured mass to the true mass, typically expressed in parts per million (ppm). Essential for confident peptide identification.
+                    </div>
+                    
+                    <div class="formula">
+                        Mass Accuracy (ppm) = [(m<sub>measured</sub> - m<sub>theoretical</sub>) / m<sub>theoretical</sub>] × 10<sup>6</sup>
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title">Typical Values:</div>
+                        <div class="description">
+                            Modern instruments: <span class="highlight">&lt;5 ppm</span> accuracy<br>
+                            High-resolution MS: <span class="highlight">&lt;1 ppm</span> accuracy
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Detailed Slide 2: Scan Modes -->
+        <div class="slide">
+            <div class="section-title">2. Scan Modes</div>
             
-            <div class="detail-card">
-                <svg class="card-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <rect x="8" y="12" width="24" height="16" rx="2" stroke="#1E64C8" stroke-width="2" fill="none"/>
-                    <path d="M12 20 L16 17 L20 21 L24 18 L28 20" stroke="#5088d4" stroke-width="2" fill="none"/>
-                </svg>
-                <div class="detail-title">Scan Modes</div>
-                <div class="detail-content">
-                    <div class="bullet">Full scan: entire mass range</div>
-                    <div class="bullet">Selected ion monitoring (SIM)</div>
-                    <div class="bullet">Data-dependent acquisition (DDA)</div>
+            <div class="section-content">
+                <div class="visual-container">
+                    <svg width="380" height="300" viewBox="0 0 380 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Full Scan Mode -->
+                        <rect x="10" y="10" width="360" height="85" rx="6" fill="#f8fbff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="20" y="30" font-size="13" font-weight="600" fill="#1E64C8">Full Scan (MS1)</text>
+                        <line x1="25" y1="75" x2="355" y2="75" stroke="#333" stroke-width="1"/>
+                        <!-- Multiple peaks across range -->
+                        <path d="M40 75 L45 60 L50 75" stroke="#4CAF50" stroke-width="2" fill="none"/>
+                        <path d="M80 75 L85 50 L90 75" stroke="#ff6b6b" stroke-width="2" fill="none"/>
+                        <path d="M130 75 L135 55 L140 75" stroke="#5088d4" stroke-width="2" fill="none"/>
+                        <path d="M190 75 L195 45 L200 75" stroke="#FF9800" stroke-width="2" fill="none"/>
+                        <path d="M250 75 L255 60 L260 75" stroke="#9C27B0" stroke-width="2" fill="none"/>
+                        <path d="M310 75 L315 65 L320 75" stroke="#00BCD4" stroke-width="2" fill="none"/>
+                        <text x="190" y="92" font-size="10" fill="#666" text-anchor="middle">m/z range: 400-2000</text>
+                        
+                        <!-- Selected Ion Monitoring -->
+                        <rect x="10" y="110" width="360" height="85" rx="6" fill="#f8fbff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="20" y="130" font-size="13" font-weight="600" fill="#1E64C8">Selected Ion Monitoring (SIM)</text>
+                        <line x1="25" y1="175" x2="355" y2="175" stroke="#333" stroke-width="1"/>
+                        <!-- Focused single peak -->
+                        <path d="M175 175 L190 130 L205 175" stroke="#ff6b6b" stroke-width="3" fill="none"/>
+                        <circle cx="190" cy="130" r="4" fill="#ff6b6b"/>
+                        <text x="190" y="120" font-size="11" font-weight="600" fill="#ff6b6b" text-anchor="middle">Target Ion</text>
+                        <text x="190" y="192" font-size="10" fill="#666" text-anchor="middle">Enhanced sensitivity for specific m/z</text>
+                        
+                        <!-- Data-Dependent Acquisition -->
+                        <rect x="10" y="210" width="360" height="85" rx="6" fill="#f8fbff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="20" y="230" font-size="13" font-weight="600" fill="#1E64C8">Data-Dependent Acquisition (DDA)</text>
+                        <line x1="25" y1="265" x2="150" y2="265" stroke="#333" stroke-width="1"/>
+                        <text x="87" y="225" font-size="10" fill="#666">MS1</text>
+                        <!-- MS1 peaks -->
+                        <path d="M40 265 L45 250 L50 265" stroke="#4CAF50" stroke-width="2" fill="none"/>
+                        <path d="M70 265 L75 240 L80 265" stroke="#ff6b6b" stroke-width="2" fill="none"/>
+                        <circle cx="75" cy="240" r="3" fill="#ff6b6b"/>
+                        <path d="M110 265 L115 255 L120 265" stroke="#5088d4" stroke-width="2" fill="none"/>
+                        
+                        <!-- Arrow -->
+                        <path d="M155 255 L175 255" stroke="#1E64C8" stroke-width="2" marker-end="url(#arrow-dda)"/>
+                        <defs>
+                            <marker id="arrow-dda" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto">
+                                <polygon points="0 0, 8 4, 0 8" fill="#1E64C8"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- MS2 fragmentation -->
+                        <line x1="185" y1="265" x2="355" y2="265" stroke="#333" stroke-width="1"/>
+                        <text x="270" y="225" font-size="10" fill="#666">MS2 (Fragment ions)</text>
+                        <path d="M200 265 L203 258 L206 265" stroke="#ff6b6b" stroke-width="1.5" fill="none"/>
+                        <path d="M220 265 L223 253 L226 265" stroke="#ff6b6b" stroke-width="1.5" fill="none"/>
+                        <path d="M245 265 L248 260 L251 265" stroke="#ff6b6b" stroke-width="1.5" fill="none"/>
+                        <path d="M270 265 L273 248 L276 265" stroke="#ff6b6b" stroke-width="1.5" fill="none"/>
+                        <path d="M295 265 L298 255 L301 265" stroke="#ff6b6b" stroke-width="1.5" fill="none"/>
+                        <path d="M320 265 L323 262 L326 265" stroke="#ff6b6b" stroke-width="1.5" fill="none"/>
+                    </svg>
+                </div>
+                
+                <div class="text-container">
+                    <div class="subsection-title">Full Scan Mode</div>
+                    <div class="description">
+                        Measures all ions across a specified m/z range. Provides comprehensive overview but lower sensitivity for individual ions.
+                    </div>
+                    
+                    <div class="subsection-title">Selected Ion Monitoring (SIM)</div>
+                    <div class="description">
+                        Focuses on specific m/z values of interest. Increases sensitivity and detection limit by 10-100 fold for target analytes.
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title">Application:</div>
+                        <div class="description">
+                            Targeted quantification of known peptides in complex mixtures, such as biomarker validation studies.
+                        </div>
+                    </div>
+                    
+                    <div class="subsection-title">Data-Dependent Acquisition (DDA)</div>
+                    <div class="description">
+                        Automatically selects the most abundant ions from MS1 scan for fragmentation (MS2). Enables protein identification through peptide sequencing.
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title">Workflow:</div>
+                        <div class="description">
+                            1. Survey scan (MS1)<br>
+                            2. Select top N peaks<br>
+                            3. Fragment selected ions (MS2)<br>
+                            4. Return to survey scan
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Detailed Slide 3: Sensitivity -->
+        <div class="slide">
+            <div class="section-title">3. Sensitivity</div>
             
-            <div class="detail-card">
-                <svg class="card-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <path d="M10 30 L10 20 M15 30 L15 15 M20 30 L20 10 M25 30 L25 15 M30 30 L30 20" stroke="#1E64C8" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-                <div class="detail-title">Sensitivity</div>
-                <div class="detail-content">
-                    <div class="bullet">Femtomole to attomole detection</div>
-                    <div class="bullet">Dynamic range: 3-5 orders of magnitude</div>
-                    <div class="bullet">Low abundance protein detection</div>
+            <div class="section-content">
+                <div class="visual-container">
+                    <svg width="380" height="300" viewBox="0 0 380 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Dynamic Range Visualization -->
+                        <text x="190" y="25" font-size="14" font-weight="600" fill="#1E64C8" text-anchor="middle">Dynamic Range & Detection Limits</text>
+                        
+                        <!-- Y-axis (Intensity) -->
+                        <line x1="50" y1="50" x2="50" y2="250" stroke="#333" stroke-width="2"/>
+                        <polygon points="50,45 47,52 53,52" fill="#333"/>
+                        <text x="25" y="60" font-size="11" fill="#333" transform="rotate(-90 25 60)">Intensity</text>
+                        
+                        <!-- Y-axis labels (log scale) -->
+                        <text x="45" y="75" font-size="10" fill="#666" text-anchor="end">10⁶</text>
+                        <line x1="47" y1="70" x2="53" y2="70" stroke="#333" stroke-width="1"/>
+                        
+                        <text x="45" y="115" font-size="10" fill="#666" text-anchor="end">10⁵</text>
+                        <line x1="47" y1="110" x2="53" y2="110" stroke="#333" stroke-width="1"/>
+                        
+                        <text x="45" y="155" font-size="10" fill="#666" text-anchor="end">10⁴</text>
+                        <line x1="47" y1="150" x2="53" y2="150" stroke="#333" stroke-width="1"/>
+                        
+                        <text x="45" y="195" font-size="10" fill="#666" text-anchor="end">10³</text>
+                        <line x1="47" y1="190" x2="53" y2="190" stroke="#333" stroke-width="1"/>
+                        
+                        <text x="45" y="235" font-size="10" fill="#666" text-anchor="end">10²</text>
+                        <line x1="47" y1="230" x2="53" y2="230" stroke="#333" stroke-width="1"/>
+                        
+                        <!-- X-axis -->
+                        <line x1="50" y1="250" x2="370" y2="250" stroke="#333" stroke-width="2"/>
+                        <polygon points="375,250 368,247 368,253" fill="#333"/>
+                        <text x="370" y="268" font-size="11" fill="#333" text-anchor="end">Analyte Concentration</text>
+                        
+                        <!-- Bars showing dynamic range -->
+                        <rect x="80" y="70" width="50" height="180" rx="4" fill="#4CAF50" opacity="0.8"/>
+                        <text x="105" y="60" font-size="11" font-weight="600" fill="#4CAF50" text-anchor="middle">High</text>
+                        <text x="105" y="260" font-size="9" fill="#666" text-anchor="middle">Abundant</text>
+                        
+                        <rect x="160" y="110" width="50" height="140" rx="4" fill="#2196F3" opacity="0.8"/>
+                        <text x="185" y="100" font-size="11" font-weight="600" fill="#2196F3" text-anchor="middle">Medium</text>
+                        
+                        <rect x="240" y="150" width="50" height="100" rx="4" fill="#FF9800" opacity="0.8"/>
+                        <text x="265" y="140" font-size="11" font-weight="600" fill="#FF9800" text-anchor="middle">Low</text>
+                        
+                        <rect x="320" y="210" width="50" height="40" rx="4" fill="#f44336" opacity="0.8"/>
+                        <text x="345" y="200" font-size="11" font-weight="600" fill="#f44336" text-anchor="middle">Trace</text>
+                        <text x="345" y="260" font-size="9" fill="#666" text-anchor="middle">Rare</text>
+                        
+                        <!-- Dynamic range bracket -->
+                        <path d="M60 75 L70 75 L70 245 L60 245" stroke="#1E64C8" stroke-width="2" fill="none"/>
+                        <text x="15" y="165" font-size="10" font-weight="600" fill="#1E64C8" transform="rotate(-90 15 165)">5 orders of magnitude</text>
+                        
+                        <!-- Detection limit line -->
+                        <line x1="50" y1="235" x2="370" y2="235" stroke="#ff6b6b" stroke-width="2" stroke-dasharray="5,3"/>
+                        <text x="200" y="232" font-size="10" fill="#ff6b6b" font-weight="600">Detection Limit (LOD)</text>
+                    </svg>
+                </div>
+                
+                <div class="text-container">
+                    <div class="subsection-title">Detection Sensitivity</div>
+                    <div class="description">
+                        Modern MS instruments can detect proteins at femtomole (10<sup>-15</sup> mol) to attomole (10<sup>-18</sup> mol) levels, enabling analysis of rare proteins and post-translational modifications.
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title">Practical Context:</div>
+                        <div class="description">
+                            <span class="highlight">1 femtomole</span> = approximately 600,000 molecules<br>
+                            <span class="highlight">1 attomole</span> = approximately 600 molecules<br>
+                            Sufficient for single-cell proteomics
+                        </div>
+                    </div>
+                    
+                    <div class="subsection-title">Dynamic Range</div>
+                    <div class="description">
+                        The ratio between the most and least abundant detectable proteins. Typical range: <span class="highlight">10³ to 10⁵</span> (3-5 orders of magnitude).
+                    </div>
+                    
+                    <div class="subsection-title">Challenges</div>
+                    <div class="description">
+                        • High-abundance proteins (e.g., albumin) can mask low-abundance proteins<br>
+                        • Sample depletion strategies often required<br>
+                        • Ion suppression effects in complex mixtures
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title">Solution:</div>
+                        <div class="description">
+                            Fractionation techniques (e.g., HPLC) combined with enrichment methods improve detection of low-abundance proteins by <span class="highlight">100-1000 fold</span>.
+                        </div>
+                    </div>
                 </div>
             </div>
+        </div>
+
+        <!-- Detailed Slide 4: Applications -->
+        <div class="slide">
+            <div class="section-title">4. Applications in Proteomics</div>
             
-            <div class="detail-card">
-                <svg class="card-icon" viewBox="0 0 40 40" fill="none" xmlns="http://www.w3.org/2000/svg">
-                    <circle cx="20" cy="20" r="12" stroke="#1E64C8" stroke-width="2" fill="none"/>
-                    <path d="M20 14 L20 26 M14 20 L26 20" stroke="#5088d4" stroke-width="2" stroke-linecap="round"/>
-                </svg>
-                <div class="detail-title">Applications</div>
-                <div class="detail-content">
-                    <div class="bullet">Protein identification</div>
-                    <div class="bullet">Quantification</div>
-                    <div class="bullet">PTM analysis</div>
+            <div class="section-content">
+                <div class="visual-container">
+                    <svg width="380" height="320" viewBox="0 0 380 320" fill="none" xmlns="http://www.w3.org/2000/svg">
+                        <!-- Protein Identification -->
+                        <rect x="10" y="10" width="360" height="95" rx="8" fill="#e8f4ff" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="20" y="32" font-size="14" font-weight="600" fill="#1E64C8">1. Protein Identification</text>
+                        
+                        <!-- Peptide sequence -->
+                        <text x="20" y="55" font-size="11" fill="#666">Protein → Digest → Peptides</text>
+                        <rect x="25" y="62" width="330" height="20" rx="3" fill="white" stroke="#5088d4" stroke-width="1.5"/>
+                        <text x="190" y="77" font-size="10" font-family="monospace" fill="#333" text-anchor="middle">A L G P E D W K</text>
+                        
+                        <!-- MS/MS spectrum representation -->
+                        <line x1="25" y1="95" x2="355" y2="95" stroke="#333" stroke-width="1"/>
+                        <path d="M40 95 L42 85 M70 95 L72 78 M110 95 L112 82 M150 95 L152 75 M195 95 L197 88 M240 95 L242 80 M290 95 L292 83 M330 95 L332 86" stroke="#ff6b6b" stroke-width="2"/>
+                        <text x="190" y="90" font-size="9" fill="#666" text-anchor="middle">Fragment ions (b, y series)</text>
+                        
+                        <!-- Quantification -->
+                        <rect x="10" y="115" width="360" height="95" rx="8" fill="#fff4e8" stroke="#FF9800" stroke-width="2"/>
+                        <text x="20" y="137" font-size="14" font-weight="600" fill="#FF9800">2. Quantitative Proteomics</text>
+                        
+                        <!-- Label-free vs labeled -->
+                        <rect x="20" y="145" width="165" height="55" rx="4" fill="white" stroke="#FF9800" stroke-width="1.5"/>
+                        <text x="102" y="160" font-size="11" font-weight="600" fill="#666" text-anchor="middle">Label-Free</text>
+                        <text x="102" y="175" font-size="9" fill="#666" text-anchor="middle">• Spectral counting</text>
+                        <text x="102" y="187" font-size="9" fill="#666" text-anchor="middle">• Peak intensity</text>
+                        <text x="102" y="199" font-size="9" fill="#666" text-anchor="middle">• No labeling required</text>
+                        
+                        <rect x="195" y="145" width="165" height="55" rx="4" fill="white" stroke="#FF9800" stroke-width="1.5"/>
+                        <text x="277" y="160" font-size="11" font-weight="600" fill="#666" text-anchor="middle">Isotope Labeling</text>
+                        <text x="277" y="175" font-size="9" fill="#666" text-anchor="middle">• SILAC, TMT, iTRAQ</text>
+                        <text x="277" y="187" font-size="9" fill="#666" text-anchor="middle">• Multiplexing</text>
+                        <text x="277" y="199" font-size="9" fill="#666" text-anchor="middle">• High precision</text>
+                        
+                        <!-- PTM Analysis -->
+                        <rect x="10" y="220" width="360" height="95" rx="8" fill="#f0e8ff" stroke="#9C27B0" stroke-width="2"/>
+                        <text x="20" y="242" font-size="14" font-weight="600" fill="#9C27B0">3. Post-Translational Modification (PTM)</text>
+                        
+                        <!-- PTM examples -->
+                        <circle cx="80" cy="265" r="25" fill="#e1bee7" stroke="#9C27B0" stroke-width="2"/>
+                        <text x="80" y="265" font-size="10" font-weight="600" fill="#9C27B0" text-anchor="middle">Phospho</text>
+                        <text x="80" y="277" font-size="8" fill="#666" text-anchor="middle">+80 Da</text>
+                        
+                        <circle cx="190" cy="265" r="25" fill="#e1bee7" stroke="#9C27B0" stroke-width="2"/>
+                        <text x="190" y="265" font-size="10" font-weight="600" fill="#9C27B0" text-anchor="middle">Acetyl</text>
+                        <text x="190" y="277" font-size="8" fill="#666" text-anchor="middle">+42 Da</text>
+                        
+                        <circle cx="300" cy="265" r="25" fill="#e1bee7" stroke="#9C27B0" stroke-width="2"/>
+                        <text x="300" y="265" font-size="10" font-weight="600" fill="#9C27B0" text-anchor="middle">Ubiquitin</text>
+                        <text x="300" y="277" font-size="8" fill="#666" text-anchor="middle">+114 Da</text>
+                        
+                        <text x="190" y="305" font-size="10" fill="#666" text-anchor="middle">Mass shift detection enables PTM identification</text>
+                    </svg>
+                </div>
+                
+                <div class="text-container">
+                    <div class="subsection-title">Protein Identification</div>
+                    <div class="description">
+                        Proteins are digested into peptides, which are analyzed by MS/MS. Fragment ion patterns are matched against databases for identification.
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title">Database Search:</div>
+                        <div class="description">
+                            Mascot, SEQUEST, MaxQuant algorithms match experimental spectra to theoretical peptide fragments. Typical identification: <span class="highlight">&gt;2 unique peptides</span> per protein.
+                        </div>
+                    </div>
+                    
+                    <div class="subsection-title">Quantitative Analysis</div>
+                    <div class="description">
+                        Compares protein abundance across samples using label-free or isotope labeling approaches. Essential for biomarker discovery and pathway analysis.
+                    </div>
+                    
+                    <div class="subsection-title">PTM Characterization</div>
+                    <div class="description">
+                        Detects modifications through characteristic mass shifts. Phosphorylation, acetylation, methylation, ubiquitination are routinely analyzed.
+                    </div>
+                    
+                    <div class="example-box">
+                        <div class="example-title">Clinical Application:</div>
+                        <div class="description">
+                            PTM analysis in cancer research: Aberrant phosphorylation patterns identify activated signaling pathways and therapeutic targets.
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

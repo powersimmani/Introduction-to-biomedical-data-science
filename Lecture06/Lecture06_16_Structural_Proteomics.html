@@ -1,36 +1,38 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Structural Proteomics</title>
+    <title>Structural Proteomics - Enhanced</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 20px;
         }
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 35px 45px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 40px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .title {
-            font-size: 20px;
+            font-size: 32px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 25px;
+            margin-bottom: 30px;
             text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 15px;
         }
         .content-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
             gap: 20px;
+            margin-bottom: 50px;
         }
         .content-card {
             background: #f8fbff;
@@ -65,6 +67,141 @@
             font-weight: bold;
             margin-right: 8px;
             font-size: 16px;
+        }
+        
+        /* Detailed Section Styles */
+        .detailed-section {
+            margin-top: 40px;
+            padding-top: 40px;
+            border-top: 2px solid #e0e0e0;
+        }
+        .section-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .technique-block {
+            margin-bottom: 60px;
+            background: #f9f9f9;
+            padding: 30px;
+            border-radius: 10px;
+            border: 2px solid #1E64C8;
+        }
+        .technique-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        .technique-number {
+            background: #1E64C8;
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 20px;
+        }
+        .technique-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .description {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+        }
+        .description h4 {
+            color: #1E64C8;
+            margin-top: 15px;
+            margin-bottom: 10px;
+            font-size: 18px;
+        }
+        .description p {
+            margin-bottom: 12px;
+        }
+        .description ul {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+        .description li {
+            margin-bottom: 8px;
+        }
+        .diagram {
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #ddd;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+        }
+        .diagram-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 15px;
+        }
+        
+        /* SVG Diagram Styles */
+        svg {
+            max-width: 100%;
+            height: auto;
+        }
+        .protein {
+            fill: #4A90E2;
+            stroke: #1E64C8;
+            stroke-width: 2;
+        }
+        .deuterium {
+            fill: #FFB347;
+            stroke: #FF8C00;
+            stroke-width: 1.5;
+        }
+        .hydrogen {
+            fill: #90EE90;
+            stroke: #32CD32;
+            stroke-width: 1.5;
+        }
+        .crosslinker {
+            stroke: #E74C3C;
+            stroke-width: 3;
+            fill: none;
+        }
+        .protease {
+            fill: #9B59B6;
+            stroke: #8E44AD;
+            stroke-width: 2;
+        }
+        .ion {
+            fill: #F39C12;
+            stroke: #E67E22;
+            stroke-width: 2;
+        }
+        .arrow {
+            fill: none;
+            stroke: #333;
+            stroke-width: 2;
+            marker-end: url(#arrowhead);
+        }
+        .label-text {
+            font-size: 12px;
+            fill: #333;
+            font-family: Arial, sans-serif;
+        }
+        .highlight {
+            fill: #FFE4B5;
+            opacity: 0.7;
         }
     </style>
 </head>
@@ -108,7 +245,354 @@
                     <div class="bullet">Shape information</div>
                 </div>
             </div>
-            
+        </div>
+
+        <!-- Detailed Sections -->
+        <div class="detailed-section">
+            <div class="section-title">Detailed Techniques and Applications</div>
+
+            <!-- HDX-MS -->
+            <div class="technique-block">
+                <div class="technique-title">
+                    <div class="technique-number">1</div>
+                    Hydrogen-Deuterium Exchange Mass Spectrometry (HDX-MS)
+                </div>
+                <div class="technique-content">
+                    <div class="description">
+                        <h4>Principle</h4>
+                        <p>HDX-MS monitors the exchange of hydrogen atoms with deuterium in protein backbone amides. This exchange rate depends on hydrogen bonding, solvent accessibility, and protein dynamics.</p>
+                        
+                        <h4>Key Features</h4>
+                        <ul>
+                            <li><strong>Exchange Kinetics:</strong> Protected regions (secondary structures) exchange slowly, while exposed regions exchange rapidly</li>
+                            <li><strong>Time Resolution:</strong> Milliseconds to hours, capturing multiple timescales of protein motion</li>
+                            <li><strong>Spatial Resolution:</strong> Single amino acid level with optimized workflows</li>
+                        </ul>
+                        
+                        <h4>Applications</h4>
+                        <ul>
+                            <li>Protein-ligand binding interfaces</li>
+                            <li>Conformational changes upon activation</li>
+                            <li>Protein-protein interaction mapping</li>
+                            <li>Antibody epitope mapping</li>
+                            <li>Intrinsically disordered protein dynamics</li>
+                        </ul>
+                    </div>
+                    <div class="diagram">
+                        <div class="diagram-title">HDX-MS Workflow</div>
+                        <svg viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg">
+                            <defs>
+                                <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                    <polygon points="0 0, 10 3, 0 6" fill="#333" />
+                                </marker>
+                            </defs>
+                            
+                            <!-- Native Protein -->
+                            <ellipse cx="100" cy="60" rx="70" ry="35" class="protein"/>
+                            <text x="100" y="65" text-anchor="middle" class="label-text" font-weight="bold">Native Protein</text>
+                            <circle cx="70" cy="45" r="4" class="hydrogen"/>
+                            <circle cx="90" cy="45" r="4" class="hydrogen"/>
+                            <circle cx="110" cy="45" r="4" class="hydrogen"/>
+                            <circle cx="130" cy="45" r="4" class="hydrogen"/>
+                            <text x="200" y="65" class="label-text">H atoms</text>
+                            
+                            <!-- Arrow down -->
+                            <path d="M 100 100 L 100 140" class="arrow"/>
+                            <text x="120" y="125" class="label-text">D₂O incubation</text>
+                            
+                            <!-- Deuterated Protein -->
+                            <ellipse cx="100" cy="170" rx="70" ry="35" class="protein"/>
+                            <text x="100" y="175" text-anchor="middle" class="label-text" font-weight="bold">Deuterated</text>
+                            <circle cx="70" cy="155" r="4" class="deuterium"/>
+                            <circle cx="90" cy="155" r="4" class="hydrogen"/>
+                            <circle cx="110" cy="155" r="4" class="hydrogen"/>
+                            <circle cx="130" cy="155" r="4" class="deuterium"/>
+                            <rect x="85" y="185" width="30" height="15" class="highlight"/>
+                            <text x="200" y="175" class="label-text">D exchange</text>
+                            <text x="180" y="195" class="label-text" font-size="10">(exposed regions)</text>
+                            
+                            <!-- Arrow down -->
+                            <path d="M 100 210 L 100 250" class="arrow"/>
+                            <text x="120" y="235" class="label-text">Proteolysis + MS</text>
+                            
+                            <!-- Mass Spectrum -->
+                            <rect x="30" y="270" width="140" height="70" fill="white" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="100" y="290" text-anchor="middle" class="label-text" font-weight="bold">Mass Spectrum</text>
+                            <line x1="40" y1="330" x2="160" y2="330" stroke="#333" stroke-width="1"/>
+                            <line x1="40" y1="330" x2="40" y2="300" stroke="#333" stroke-width="1"/>
+                            <!-- Peaks -->
+                            <rect x="60" y="310" width="8" height="20" fill="#4A90E2"/>
+                            <rect x="80" y="315" width="8" height="15" fill="#4A90E2"/>
+                            <rect x="100" y="305" width="8" height="25" fill="#4A90E2"/>
+                            <rect x="120" y="320" width="8" height="10" fill="#4A90E2"/>
+                            <text x="100" y="295" text-anchor="middle" class="label-text" font-size="10">m/z shift → D uptake</text>
+                            
+                            <!-- Information box -->
+                            <rect x="220" y="240" width="160" height="100" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="300" y="260" text-anchor="middle" class="label-text" font-weight="bold">Information Obtained:</text>
+                            <text x="230" y="280" class="label-text" font-size="11">• Flexible regions</text>
+                            <text x="230" y="295" class="label-text" font-size="11">• Binding sites</text>
+                            <text x="230" y="310" class="label-text" font-size="11">• Conformational states</text>
+                            <text x="230" y="325" class="label-text" font-size="11">• Protein dynamics</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Cross-linking MS -->
+            <div class="technique-block">
+                <div class="technique-title">
+                    <div class="technique-number">2</div>
+                    Cross-linking Mass Spectrometry (XL-MS)
+                </div>
+                <div class="technique-content">
+                    <div class="description">
+                        <h4>Principle</h4>
+                        <p>XL-MS uses chemical cross-linkers to covalently connect amino acids in close spatial proximity, typically within 10-30 Å depending on the cross-linker length.</p>
+                        
+                        <h4>Key Features</h4>
+                        <ul>
+                            <li><strong>Distance Constraints:</strong> Provides structural restraints for computational modeling</li>
+                            <li><strong>Cross-linker Types:</strong> Lysine-lysine (DSS, BS3), zero-length (EDC), photo-reactive</li>
+                            <li><strong>Complex Analysis:</strong> Captures transient and dynamic protein interactions</li>
+                        </ul>
+                        
+                        <h4>Applications</h4>
+                        <ul>
+                            <li>Large protein complex architecture</li>
+                            <li>Protein-protein interaction networks</li>
+                            <li>Membrane protein topology</li>
+                            <li>Intrinsically disordered regions</li>
+                            <li>In-cell structural studies</li>
+                            <li>Integrative structural biology</li>
+                        </ul>
+                    </div>
+                    <div class="diagram">
+                        <div class="diagram-title">Cross-linking Strategy</div>
+                        <svg viewBox="0 0 400 350" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Two protein domains -->
+                            <ellipse cx="100" cy="80" rx="60" ry="40" class="protein"/>
+                            <text x="100" y="85" text-anchor="middle" class="label-text" font-weight="bold">Domain A</text>
+                            
+                            <ellipse cx="280" cy="80" rx="60" ry="40" class="protein"/>
+                            <text x="280" y="85" text-anchor="middle" class="label-text" font-weight="bold">Domain B</text>
+                            
+                            <!-- Lysine residues -->
+                            <circle cx="140" cy="70" r="6" fill="#E74C3C"/>
+                            <text x="140" y="55" text-anchor="middle" class="label-text" font-size="10">K</text>
+                            <circle cx="240" cy="70" r="6" fill="#E74C3C"/>
+                            <text x="240" y="55" text-anchor="middle" class="label-text" font-size="10">K</text>
+                            
+                            <!-- Cross-linker -->
+                            <line x1="146" y1="70" x2="234" y2="70" class="crosslinker" stroke-dasharray="5,5"/>
+                            <text x="190" y="60" text-anchor="middle" class="label-text" font-size="11" fill="#E74C3C" font-weight="bold">Cross-linker</text>
+                            <text x="190" y="90" text-anchor="middle" class="label-text" font-size="10">Distance: 10-30 Å</text>
+                            
+                            <!-- Arrow down -->
+                            <path d="M 190 120 L 190 150" class="arrow"/>
+                            <text x="210" y="140" class="label-text" font-size="11">Digest</text>
+                            
+                            <!-- Cross-linked peptides -->
+                            <rect x="130" y="170" width="120" height="30" fill="#4A90E2" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="190" y="190" text-anchor="middle" class="label-text" fill="white" font-weight="bold">Cross-linked Peptides</text>
+                            
+                            <!-- Arrow down -->
+                            <path d="M 190 205 L 190 235" class="arrow"/>
+                            <text x="220" y="225" class="label-text" font-size="11">LC-MS/MS</text>
+                            
+                            <!-- Analysis result -->
+                            <rect x="50" y="250" width="280" height="90" fill="white" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="190" y="270" text-anchor="middle" class="label-text" font-weight="bold">Structural Information</text>
+                            
+                            <!-- Network representation -->
+                            <circle cx="100" cy="300" r="15" class="protein"/>
+                            <circle cx="150" cy="300" r="15" class="protein"/>
+                            <circle cx="200" cy="300" r="15" class="protein"/>
+                            <circle cx="250" cy="300" r="15" class="protein"/>
+                            <line x1="115" y1="300" x2="135" y2="300" class="crosslinker"/>
+                            <line x1="165" y1="300" x2="185" y2="300" class="crosslinker"/>
+                            <line x1="215" y1="300" x2="235" y2="300" class="crosslinker"/>
+                            <path d="M 125 285 Q 175 270 225 285" stroke="#E74C3C" stroke-width="2" fill="none"/>
+                            
+                            <text x="190" y="330" text-anchor="middle" class="label-text" font-size="10">Protein topology and interaction network</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Limited Proteolysis -->
+            <div class="technique-block">
+                <div class="technique-title">
+                    <div class="technique-number">3</div>
+                    Limited Proteolysis Mass Spectrometry (LiP-MS)
+                </div>
+                <div class="technique-content">
+                    <div class="description">
+                        <h4>Principle</h4>
+                        <p>Limited proteolysis uses low concentrations of proteases under native conditions to selectively cleave exposed, flexible regions of proteins while leaving structured domains intact.</p>
+                        
+                        <h4>Key Features</h4>
+                        <ul>
+                            <li><strong>Structural Probing:</strong> Differentiates folded from unfolded regions</li>
+                            <li><strong>Native Conditions:</strong> Maintains physiological protein states</li>
+                            <li><strong>Protease Selection:</strong> Commonly uses trypsin, proteinase K, or thermolysin</li>
+                            <li><strong>Time-dependent:</strong> Short incubation times preserve native structure</li>
+                        </ul>
+                        
+                        <h4>Applications</h4>
+                        <ul>
+                            <li>Domain boundary determination</li>
+                            <li>Protein folding state assessment</li>
+                            <li>Ligand-induced conformational changes</li>
+                            <li>Protein stability analysis</li>
+                            <li>Allosteric regulation studies</li>
+                            <li>Quality control in biopharmaceuticals</li>
+                        </ul>
+                    </div>
+                    <div class="diagram">
+                        <div class="diagram-title">Limited Proteolysis Concept</div>
+                        <svg viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Native protein with domains -->
+                            <rect x="40" y="40" width="80" height="50" fill="#4A90E2" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="80" y="70" text-anchor="middle" class="label-text" fill="white" font-weight="bold">Folded</text>
+                            <text x="80" y="30" text-anchor="middle" class="label-text" font-size="11">Structured Domain</text>
+                            
+                            <!-- Flexible linker -->
+                            <path d="M 120 65 Q 145 50, 170 65 T 220 65" stroke="#FFB347" stroke-width="6" fill="none" stroke-linecap="round"/>
+                            <text x="170" y="45" text-anchor="middle" class="label-text" font-size="11" fill="#FF8C00" font-weight="bold">Flexible Linker</text>
+                            
+                            <!-- Another domain -->
+                            <rect x="220" y="40" width="80" height="50" fill="#4A90E2" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="260" y="70" text-anchor="middle" class="label-text" fill="white" font-weight="bold">Folded</text>
+                            <text x="260" y="30" text-anchor="middle" class="label-text" font-size="11">Structured Domain</text>
+                            
+                            <!-- Protease -->
+                            <circle cx="170" cy="120" r="20" class="protease"/>
+                            <text x="170" y="125" text-anchor="middle" class="label-text" fill="white" font-size="11" font-weight="bold">Protease</text>
+                            
+                            <!-- Arrow indicating cleavage -->
+                            <path d="M 170 95 L 170 75" class="arrow" marker-end="url(#arrowhead)"/>
+                            
+                            <!-- After cleavage -->
+                            <text x="180" y="170" class="label-text" font-weight="bold">After Limited Proteolysis:</text>
+                            
+                            <rect x="50" y="190" width="70" height="45" fill="#4A90E2" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="85" y="217" text-anchor="middle" class="label-text" fill="white" font-size="11" font-weight="bold">Domain 1</text>
+                            <text x="85" y="250" text-anchor="middle" class="label-text" font-size="10">Intact</text>
+                            
+                            <!-- Cleaved fragments -->
+                            <rect x="150" y="195" width="25" height="15" fill="#FFB347" stroke="#FF8C00" stroke-width="1.5" rx="2"/>
+                            <rect x="150" y="215" width="30" height="15" fill="#FFB347" stroke="#FF8C00" stroke-width="1.5" rx="2"/>
+                            <text x="165" y="250" text-anchor="middle" class="label-text" font-size="10">Fragments</text>
+                            
+                            <rect x="220" y="190" width="70" height="45" fill="#4A90E2" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="255" y="217" text-anchor="middle" class="label-text" fill="white" font-size="11" font-weight="bold">Domain 2</text>
+                            <text x="255" y="250" text-anchor="middle" class="label-text" font-size="10">Intact</text>
+                            
+                            <!-- MS Analysis -->
+                            <rect x="50" y="280" width="290" height="70" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="195" y="300" text-anchor="middle" class="label-text" font-weight="bold">Mass Spectrometry Analysis</text>
+                            <text x="70" y="320" class="label-text" font-size="11">✓ Identify cleavage sites</text>
+                            <text x="70" y="335" class="label-text" font-size="11">✓ Map accessible regions</text>
+                            <text x="220" y="320" class="label-text" font-size="11">✓ Define domain boundaries</text>
+                            <text x="220" y="335" class="label-text" font-size="11">✓ Assess protein stability</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Ion Mobility MS -->
+            <div class="technique-block">
+                <div class="technique-title">
+                    <div class="technique-number">4</div>
+                    Ion Mobility Mass Spectrometry (IM-MS)
+                </div>
+                <div class="technique-content">
+                    <div class="description">
+                        <h4>Principle</h4>
+                        <p>IM-MS separates ions based on their size, shape, and charge in the gas phase. Ions drift through an inert gas under an electric field, with compact structures traveling faster than extended conformations.</p>
+                        
+                        <h4>Key Features</h4>
+                        <ul>
+                            <li><strong>Collision Cross-Section (CCS):</strong> Measure of ion's surface area, related to 3D structure</li>
+                            <li><strong>Conformer Resolution:</strong> Separates different structural states of the same protein</li>
+                            <li><strong>Gas-phase Analysis:</strong> Rapid measurements (milliseconds)</li>
+                            <li><strong>Native MS Compatible:</strong> Preserves non-covalent interactions</li>
+                        </ul>
+                        
+                        <h4>Applications</h4>
+                        <ul>
+                            <li>Protein complex stoichiometry determination</li>
+                            <li>Conformational ensemble characterization</li>
+                            <li>Protein folding pathway studies</li>
+                            <li>Aggregation and misfolding detection</li>
+                            <li>Structural validation for computational models</li>
+                            <li>Biopharmaceutical characterization</li>
+                        </ul>
+                    </div>
+                    <div class="diagram">
+                        <div class="diagram-title">Ion Mobility Separation</div>
+                        <svg viewBox="0 0 400 360" xmlns="http://www.w3.org/2000/svg">
+                            <!-- Drift tube -->
+                            <rect x="50" y="80" width="300" height="100" fill="#f0f0f0" stroke="#333" stroke-width="2"/>
+                            <text x="200" y="70" text-anchor="middle" class="label-text" font-weight="bold">Ion Mobility Drift Cell</text>
+                            
+                            <!-- Electric field indicators -->
+                            <text x="60" y="105" class="label-text" font-size="12" fill="#E74C3C" font-weight="bold">+</text>
+                            <text x="330" y="105" class="label-text" font-size="12" fill="#1E64C8" font-weight="bold">−</text>
+                            <path d="M 70 130 L 330 130" stroke="#666" stroke-width="1" stroke-dasharray="3,3"/>
+                            <text x="200" y="145" text-anchor="middle" class="label-text" font-size="10">Electric Field →</text>
+                            
+                            <!-- Different conformations -->
+                            <!-- Compact -->
+                            <circle cx="90" cy="130" r="12" class="ion"/>
+                            <text x="90" y="135" text-anchor="middle" class="label-text" font-size="10" fill="white" font-weight="bold">C</text>
+                            <text x="90" y="200" text-anchor="middle" class="label-text" font-size="10" font-weight="bold">Compact</text>
+                            <text x="90" y="215" text-anchor="middle" class="label-text" font-size="9">Small CCS</text>
+                            <text x="90" y="227" text-anchor="middle" class="label-text" font-size="9">Fast drift</text>
+                            
+                            <!-- Intermediate -->
+                            <ellipse cx="200" cy="130" rx="18" ry="12" class="ion"/>
+                            <text x="200" y="135" text-anchor="middle" class="label-text" font-size="10" fill="white" font-weight="bold">I</text>
+                            <text x="200" y="200" text-anchor="middle" class="label-text" font-size="10" font-weight="bold">Intermediate</text>
+                            <text x="200" y="215" text-anchor="middle" class="label-text" font-size="9">Medium CCS</text>
+                            <text x="200" y="227" text-anchor="middle" class="label-text" font-size="9">Medium drift</text>
+                            
+                            <!-- Extended -->
+                            <ellipse cx="310" cy="130" rx="25" ry="10" class="ion"/>
+                            <text x="310" y="135" text-anchor="middle" class="label-text" font-size="10" fill="white" font-weight="bold">E</text>
+                            <text x="310" y="200" text-anchor="middle" class="label-text" font-size="10" font-weight="bold">Extended</text>
+                            <text x="310" y="215" text-anchor="middle" class="label-text" font-size="9">Large CCS</text>
+                            <text x="310" y="227" text-anchor="middle" class="label-text" font-size="9">Slow drift</text>
+                            
+                            <!-- 2D Plot (IM-MS) -->
+                            <rect x="50" y="250" width="130" height="100" fill="white" stroke="#1E64C8" stroke-width="2"/>
+                            <text x="115" y="268" text-anchor="middle" class="label-text" font-weight="bold" font-size="11">2D IM-MS Plot</text>
+                            
+                            <!-- Axes -->
+                            <line x1="60" y1="340" x2="170" y2="340" stroke="#333" stroke-width="1"/>
+                            <line x1="60" y1="280" x2="60" y2="340" stroke="#333" stroke-width="1"/>
+                            <text x="115" y="355" text-anchor="middle" class="label-text" font-size="9">m/z</text>
+                            <text x="45" y="310" text-anchor="end" class="label-text" font-size="9">Drift time</text>
+                            
+                            <!-- Spots representing different conformers -->
+                            <circle cx="85" cy="295" r="4" fill="#F39C12"/>
+                            <circle cx="115" cy="310" r="4" fill="#F39C12"/>
+                            <circle cx="145" cy="325" r="4" fill="#F39C12"/>
+                            
+                            <!-- Information box -->
+                            <rect x="200" y="250" width="150" height="100" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                            <text x="275" y="270" text-anchor="middle" class="label-text" font-weight="bold">Obtained Data:</text>
+                            <text x="210" y="288" class="label-text" font-size="11">• CCS values</text>
+                            <text x="210" y="303" class="label-text" font-size="11">• Shape distribution</text>
+                            <text x="210" y="318" class="label-text" font-size="11">• Oligomeric states</text>
+                            <text x="210" y="333" class="label-text" font-size="11">• Conformational</text>
+                            <text x="215" y="345" class="label-text" font-size="11">  dynamics</text>
+                        </svg>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </body>

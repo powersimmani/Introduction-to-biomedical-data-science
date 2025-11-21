@@ -49,6 +49,7 @@
             display: grid;
             grid-template-columns: 1fr 1fr;
             gap: 15px;
+            margin-bottom: 40px;
         }
         
         .feature-card {
@@ -75,6 +76,115 @@
             font-size: 16px;
             color: #333;
             line-height: 1.5;
+        }
+
+        
+        /* Detailed sections styles */
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #1E64C8, transparent);
+            margin: 40px 0;
+        }
+        
+        .detailed-section {
+            margin-bottom: 50px;
+            padding: 25px;
+            background: #f8fbff;
+            border-radius: 15px;
+            border-left: 5px solid #1E64C8;
+        }
+        
+        .section-title-main {
+            font-size: 24px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 15px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-number {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            width: 35px;
+            height: 35px;
+            background: #1E64C8;
+            color: white;
+            border-radius: 50%;
+            margin-right: 12px;
+            font-size: 18px;
+        }
+        
+        .section-content {
+            font-size: 16px;
+            color: #333;
+            line-height: 1.8;
+            margin-bottom: 20px;
+        }
+        
+        .subsection-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #2874d8;
+            margin-top: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .diagram-container {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            margin: 20px 0;
+            border: 2px solid #e0e0e0;
+            display: flex;
+            justify-content: center;
+            overflow-x: auto;
+        }
+        
+        .key-points {
+            background: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+        }
+        
+        .key-points ul {
+            margin-left: 20px;
+        }
+        
+        .key-points li {
+            margin-bottom: 8px;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .key-points li strong {
+            color: #1E64C8;
+        }
+        
+        .example-box {
+            background: #fff4e6;
+            border-left: 4px solid #ff9800;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+        
+        .example-title {
+            font-weight: 600;
+            color: #ff9800;
+            margin-bottom: 8px;
+        }
+        
+        .formula {
+            background: #f0f0f0;
+            padding: 10px 15px;
+            border-radius: 5px;
+            font-family: 'Courier New', monospace;
+            margin: 10px 0;
+            text-align: center;
+            font-size: 14px;
         }
     </style>
 </head>
@@ -364,7 +474,254 @@
                 <div class="feature-desc">Reconstruction-based integration</div>
             </div>
         
+
+        
+        <!-- Detailed Sections Start Here -->
+        <div class="section-divider"></div>
+
+        <div style="text-align: center; margin: 30px 0 50px 0;">
+            <h2 style="color: #1E64C8; font-size: 28px; font-weight: 700; margin-bottom: 10px;">Detailed Explanations and Examples</h2>
+            <p style="color: #666; font-size: 16px;">In-depth analysis of each fusion strategy with visual examples</p>
         </div>
+
+        <!-- Section 1: Multi-modal Architectures -->
+        <div class="detailed-section">
+            <div class="section-title-main">
+                <span class="section-number">1</span>
+                Multi-modal Architectures
+            </div>
+            
+            <div class="section-content">
+                Multi-modal architectures employ parallel neural networks, each specialized for processing a specific data modality. This approach recognizes that different data types such as images, text, genomic sequences, and clinical measurements have unique structural characteristics that require specialized feature extraction methods.
+            </div>
+
+            <div class="subsection-title">Architecture Design</div>
+            <div class="section-content">
+                The core principle is to use modality-specific encoders that transform raw input data into meaningful latent representations. For example, Convolutional Neural Networks (CNNs) excel at processing spatial data like medical images, Recurrent Neural Networks (RNNs) or Transformers handle sequential data like genomic sequences, and fully connected networks process tabular clinical data.
+            </div>
+
+            <div class="key-points">
+                <strong style="color: #1E64C8;">Key Characteristics:</strong>
+                <ul>
+                    <li><strong>Modality-Specific Processing:</strong> Each encoder is designed to capture the unique patterns and structures inherent to its input modality</li>
+                    <li><strong>Independent Feature Extraction:</strong> Encoders operate independently before fusion, allowing parallel processing and specialized optimization</li>
+                    <li><strong>Flexible Integration:</strong> Different fusion strategies can be applied (concatenation, addition, attention) to combine learned representations</li>
+                    <li><strong>Scalability:</strong> New modalities can be added by simply incorporating additional encoder branches</li>
+                </ul>
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Real-World Example: Cancer Diagnosis</div>
+                <div class="section-content">
+                    A cancer diagnosis system might use a ResNet-50 CNN to process histopathology images, a Transformer to analyze gene expression profiles, and a fully connected network to process patient clinical data including age, biomarkers, and medical history. Each encoder extracts complementary information that is then fused for the final diagnosis.
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 2: Shared Representations -->
+        <div class="detailed-section">
+            <div class="section-title-main">
+                <span class="section-number">2</span>
+                Shared Representations
+            </div>
+            
+            <div class="section-content">
+                Shared representation learning aims to project data from different modalities into a common latent space where semantic relationships are preserved. This enables the model to learn unified representations that capture the underlying structure shared across modalities, facilitating cross-modal understanding and retrieval.
+            </div>
+
+            <div class="subsection-title">Mathematical Formulation</div>
+            <div class="formula">
+                z = f(x₁, x₂, ..., xₙ) where z ∈ ℝᵈ (shared space)
+            </div>
+            <div class="section-content">
+                The goal is to learn projection functions that map different modalities into the same dimensional space while preserving semantic similarity. Data points that are semantically similar should be close in this shared space, regardless of their original modality.
+            </div>
+
+            <div class="key-points">
+                <strong style="color: #1E64C8;">Key Characteristics:</strong>
+                <ul>
+                    <li><strong>Semantic Alignment:</strong> Points with similar meanings cluster together regardless of modality</li>
+                    <li><strong>Cross-modal Retrieval:</strong> Enables finding relevant content across modalities through nearest neighbor search</li>
+                    <li><strong>Dimensionality Reduction:</strong> Projects high-dimensional heterogeneous data into a unified lower-dimensional space</li>
+                    <li><strong>Transfer Learning:</strong> Knowledge learned from one modality can benefit others through the shared representation</li>
+                </ul>
+            </div>
+
+            <div class="subsection-title">Training Objectives</div>
+            <div class="section-content">
+                Common training objectives include minimizing the distance between corresponding samples from different modalities, canonical correlation analysis (CCA) to maximize correlation, and triplet loss to ensure similar samples are closer than dissimilar ones.
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Real-World Example: Medical Report Generation</div>
+                <div class="section-content">
+                    In radiology, X-ray images and diagnostic reports can be projected into a shared space. Given a new X-ray image, the system can retrieve similar images or generate relevant text descriptions by finding nearby points in the shared space. This enables automated report generation and similar case retrieval.
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 3: Cross-modal Attention -->
+        <div class="detailed-section">
+            <div class="section-title-main">
+                <span class="section-number">3</span>
+                Cross-modal Attention
+            </div>
+            
+            <div class="section-content">
+                Cross-modal attention mechanisms allow the model to selectively focus on relevant features from one modality when processing another. This dynamic weighting mechanism learns which parts of each modality are most informative for the task at hand, enabling sophisticated feature interaction and complementary information extraction.
+            </div>
+
+            <div class="subsection-title">Attention Mechanism</div>
+            <div class="formula">
+                Attention(Q, K, V) = softmax(QK<sup>T</sup>/√d<sub>k</sub>)V
+            </div>
+            <div class="section-content">
+                In cross-modal attention, queries come from one modality while keys and values come from another. The attention weights determine how much each element of the source modality should contribute to the representation of the target modality.
+            </div>
+
+            <div class="key-points">
+                <strong style="color: #1E64C8;">Key Characteristics:</strong>
+                <ul>
+                    <li><strong>Selective Focus:</strong> Dynamically determines which features from source modality are relevant for target modality</li>
+                    <li><strong>Learnable Weights:</strong> Attention weights are learned during training based on feature compatibility</li>
+                    <li><strong>Context-Dependent:</strong> Attention patterns change based on the input, allowing adaptive information flow</li>
+                    <li><strong>Bidirectional:</strong> Can be applied in both directions allowing mutual enhancement between modalities</li>
+                </ul>
+            </div>
+
+            <div class="subsection-title">Types of Cross-modal Attention</div>
+            <div class="section-content">
+                <strong>Co-attention:</strong> Both modalities attend to each other simultaneously, creating bidirectional information flow. <strong>Self-attention across modalities:</strong> Treats concatenated multi-modal features as a sequence and applies self-attention. <strong>Guided attention:</strong> One modality acts as a guide to selectively extract information from another.
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Real-World Example: Visual Question Answering</div>
+                <div class="section-content">
+                    When answering "What color is the car?", the text encoder processes the question to generate queries, while the image encoder provides keys and values from different image regions. The attention mechanism focuses on regions containing cars, particularly where color information is visible, effectively grounding the linguistic query in visual content.
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 4: Contrastive Learning -->
+        <div class="detailed-section">
+            <div class="section-title-main">
+                <span class="section-number">4</span>
+                Contrastive Learning
+            </div>
+            
+            <div class="section-content">
+                Contrastive learning trains models by learning to distinguish between similar (positive) and dissimilar (negative) pairs of data. In multi-modal contexts, positive pairs consist of corresponding data from different modalities, such as an image and its caption, while negative pairs are non-matching combinations. The model learns representations where positive pairs are pulled together in the embedding space while negative pairs are pushed apart.
+            </div>
+
+            <div class="subsection-title">Loss Function</div>
+            <div class="formula">
+                L = -log(exp(sim(z<sub>i</sub>, z<sub>j</sub>)/τ) / Σ<sub>k</sub> exp(sim(z<sub>i</sub>, z<sub>k</sub>)/τ))
+            </div>
+            <div class="section-content">
+                Where sim(·,·) is a similarity function like cosine similarity, τ is a temperature parameter, and the sum is over all negative samples. This is known as the InfoNCE loss.
+            </div>
+
+            <div class="key-points">
+                <strong style="color: #1E64C8;">Key Characteristics:</strong>
+                <ul>
+                    <li><strong>Self-Supervised:</strong> Doesn't require manual labels, uses the natural correspondence between modalities</li>
+                    <li><strong>Scalability:</strong> Can leverage large amounts of unlabeled multi-modal data from the internet</li>
+                    <li><strong>Discriminative Learning:</strong> Learns by comparison rather than reconstruction, focusing on distinctive features</li>
+                    <li><strong>Transfer Learning:</strong> Representations learned via contrastive learning transfer well to downstream tasks</li>
+                </ul>
+            </div>
+
+            <div class="subsection-title">Popular Frameworks</div>
+            <div class="section-content">
+                <strong>CLIP (Contrastive Language-Image Pre-training):</strong> Trains image and text encoders jointly by maximizing similarity between matching image-text pairs. <strong>SimCLR:</strong> Creates positive pairs through data augmentation of the same sample. <strong>MoCo (Momentum Contrast):</strong> Uses a momentum encoder and queue to maintain a large number of negative samples.
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Real-World Example: Zero-Shot Classification</div>
+                <div class="section-content">
+                    CLIP, trained on 400 million image-text pairs, can classify images into categories it has never explicitly seen during training. Given an image and a set of text descriptions like "a photo of a cat", "a photo of a dog", the model computes similarities between the image embedding and each text embedding, choosing the highest scoring match. This works because contrastive learning created a shared semantic space.
+                </div>
+            </div>
+        </div>
+
+        <!-- Section 5: Autoencoder Fusion -->
+        <div class="detailed-section">
+            <div class="section-title-main">
+                <span class="section-number">5</span>
+                Autoencoder Fusion
+            </div>
+            
+            <div class="section-content">
+                Autoencoder-based fusion approaches learn multi-modal representations by training the model to reconstruct inputs from a fused latent representation. The key insight is that to successfully reconstruct multiple modalities from a shared bottleneck representation, the model must learn to capture the essential complementary information from all sources. This reconstruction objective naturally encourages the learning of comprehensive multi-modal features.
+            </div>
+
+            <div class="subsection-title">Architecture Components</div>
+            <div class="section-content">
+                The architecture consists of modality-specific encoders that compress each input into latent representations, a fusion module that combines these representations (via concatenation, addition, or more complex operations), and modality-specific decoders that attempt to reconstruct the original inputs from the fused representation.
+            </div>
+
+            <div class="key-points">
+                <strong style="color: #1E64C8;">Key Characteristics:</strong>
+                <ul>
+                    <li><strong>Unsupervised Learning:</strong> Uses reconstruction as a self-supervised signal without requiring labeled data</li>
+                    <li><strong>Information Bottleneck:</strong> The fusion layer acts as a bottleneck forcing compression of essential multi-modal information</li>
+                    <li><strong>Completeness:</strong> Successful reconstruction requires capturing complementary information from all modalities</li>
+                    <li><strong>Regularization:</strong> Can add additional constraints like sparsity or disentanglement to the latent space</li>
+                </ul>
+            </div>
+
+            <div class="subsection-title">Variants and Extensions</div>
+            <div class="section-content">
+                <strong>Variational Autoencoders (VAE):</strong> Add probabilistic modeling to the latent space, learning distributions rather than point estimates. This enables generation of new samples and better uncertainty quantification. <strong>Multi-modal VAE:</strong> Extensions that can handle missing modalities during inference by marginalizing over the latent distributions. <strong>Cross-modal Autoencoders:</strong> Train to reconstruct one modality from another, learning cross-modal mappings.
+            </div>
+
+            <div class="subsection-title">Training Considerations</div>
+            <div class="section-content">
+                Reconstruction losses for different modalities may have different scales, requiring careful weighting. Common approaches include normalizing losses, using adaptive weighting schemes, or employing uncertainty-based weighting where the model learns optimal loss weights during training. Additionally, pre-training encoders separately before fusion can improve convergence.
+            </div>
+
+            <div class="example-box">
+                <div class="example-title">Real-World Example: Multi-omics Data Integration</div>
+                <div class="section-content">
+                    In cancer research, scientists integrate genomics, transcriptomics, and proteomics data using autoencoder fusion. Each omics layer is encoded into a latent representation, fused in a bottleneck layer, then reconstructed. The fused representation captures the essential biological state, enabling patient stratification and biomarker discovery. The reconstruction objective ensures that no critical information from any single omics layer is lost, while the bottleneck forces the model to learn the most informative integrated features.
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="section-divider"></div>
+        
+        <div class="detailed-section" style="background: linear-gradient(135deg, #E8F2FF 0%, #FFF9E6 100%);">
+            <div style="text-align: center; margin-bottom: 25px;">
+                <span style="font-size: 26px; color: #1E64C8; font-weight: 700;">Summary and Comparison</span>
+            </div>
+            
+            <div class="section-content">
+                Each fusion strategy offers unique advantages suited to different scenarios. The choice depends on factors including data characteristics, computational resources, availability of labels, and the specific downstream task.
+            </div>
+
+            <div class="subsection-title">Selection Guidelines</div>
+            <div class="key-points">
+                <ul>
+                    <li><strong>For Supervised Tasks with Labels:</strong> Multi-modal architectures or cross-modal attention provide direct optimization for the target task</li>
+                    <li><strong>For Large Unlabeled Datasets:</strong> Contrastive learning excels at leveraging web-scale data without manual annotation</li>
+                    <li><strong>For Cross-modal Retrieval:</strong> Shared representations create a unified space enabling efficient similarity search</li>
+                    <li><strong>For Incomplete Data:</strong> Autoencoder fusion with variational extensions can handle missing modalities gracefully</li>
+                    <li><strong>For Interpretability:</strong> Cross-modal attention provides insights into which features the model focuses on</li>
+                </ul>
+            </div>
+
+            <div class="section-content" style="margin-top: 20px; padding: 20px; background: white; border-radius: 8px; border-left: 4px solid #1E64C8;">
+                <strong style="color: #1E64C8; font-size: 16px;">Future Directions:</strong> Modern systems often combine multiple strategies hierarchically. For example, using contrastive pre-training to learn initial representations, then fine-tuning with cross-modal attention for specific tasks, or employing autoencoder fusion for robustness to missing data while using attention mechanisms for interpretability.
+            </div>
+        </div>
+
+        <!-- Footer -->
+        <div style="text-align: center; margin-top: 40px; padding: 20px; background: #f8fbff; border-radius: 10px;">
+            <div style="font-size: 14px; color: #1E64C8; font-weight: 600;">Deep Learning Fusion Strategies - Comprehensive Guide</div>
+            <div style="font-size: 12px; color: #666; margin-top: 8px;">Understanding and implementing multi-modal deep learning approaches</div>
+        </div>
+
     </div>
 </body>
 </html>

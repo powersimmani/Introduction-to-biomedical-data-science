@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Health Disparities</title>
+    <title>Health Disparities - Detailed Overview</title>
     <style>
         * {
             margin: 0;
@@ -13,91 +13,610 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 40px 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #1E64C8 0%, #2980b9 100%);
+            padding: 60px 80px;
+            text-align: center;
+        }
+        
+        .title {
+            font-size: 48px;
+            font-weight: 700;
+            color: white;
+            margin-bottom: 20px;
+        }
+        
+        .subtitle {
+            font-size: 20px;
+            color: rgba(255,255,255,0.9);
+            font-weight: 300;
+        }
+        
+        .overview-section {
             padding: 50px 80px;
             background: white;
         }
         
-        .title {
-            font-size: 36px;
+        .section-title {
+            font-size: 32px;
             font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
-            padding-bottom: 20px;
-            border-bottom: 3px solid #1E64C8;
         }
         
-        .content-section {
-            display: flex;
-            flex-direction: column;
-            gap: 18px;
+        .bullets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 60px;
         }
         
-        .bullet-item {
-            display: flex;
-            align-items: flex-start;
-            gap: 16px;
-            padding: 16px 20px;
+        .bullet-card {
+            padding: 20px;
             background: #f8f9fa;
             border-left: 4px solid #1E64C8;
             border-radius: 8px;
             transition: all 0.3s ease;
+            text-align: center;
         }
         
-        .bullet-item:hover {
+        .bullet-card:hover {
             background: #e8f2ff;
-            transform: translateX(8px);
+            transform: translateY(-5px);
+            box-shadow: 0 5px 15px rgba(30,100,200,0.2);
         }
         
-        .bullet {
-            color: #1E64C8;
-            font-size: 24px;
-            font-weight: bold;
-            line-height: 1;
-        }
-        
-        .bullet-item span:last-child {
-            font-size: 20px;
+        .bullet-card span {
+            font-size: 18px;
             color: #333;
+            font-weight: 600;
+        }
+        
+        .detailed-section {
+            padding: 50px 80px;
+            background: #fafbfc;
+        }
+        
+        .disparity-item {
+            margin-bottom: 80px;
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.08);
+        }
+        
+        .disparity-item:last-child {
+            margin-bottom: 0;
+        }
+        
+        .disparity-header {
+            background: linear-gradient(135deg, #1E64C8 0%, #2980b9 100%);
+            padding: 30px 40px;
+            color: white;
+        }
+        
+        .disparity-number {
+            font-size: 18px;
+            opacity: 0.9;
+            margin-bottom: 8px;
+        }
+        
+        .disparity-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 10px;
+        }
+        
+        .disparity-subtitle {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+        
+        .disparity-content {
+            padding: 40px;
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            align-items: center;
+        }
+        
+        .visual-container {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 8px;
+            min-height: 250px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .visual-placeholder {
+            text-align: center;
+        }
+        
+        .icon {
+            font-size: 80px;
+            margin-bottom: 15px;
+        }
+        
+        .icon-label {
+            font-size: 14px;
+            color: #666;
             font-weight: 500;
-            line-height: 1.4;
+        }
+        
+        .description {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        .description h4 {
+            font-size: 20px;
+            color: #1E64C8;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+        
+        .description p {
+            margin-bottom: 15px;
+        }
+        
+        .description ul {
+            margin-left: 20px;
+            margin-top: 15px;
+        }
+        
+        .description li {
+            margin-bottom: 10px;
+            color: #555;
+        }
+        
+        .stat-box {
+            background: #e8f2ff;
+            padding: 15px;
+            border-radius: 6px;
+            margin-top: 15px;
+            border-left: 3px solid #1E64C8;
+        }
+        
+        .stat-box strong {
+            color: #1E64C8;
+        }
+        
+        /* Visual representations using CSS */
+        .digital-divide-visual {
+            display: flex;
+            justify-content: space-around;
+            align-items: flex-end;
+            height: 200px;
+            padding: 20px;
+        }
+        
+        .bar {
+            width: 80px;
+            background: #1E64C8;
+            border-radius: 6px 6px 0 0;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: flex-end;
+            padding-bottom: 10px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .bar.low {
+            height: 40%;
+            background: #e74c3c;
+        }
+        
+        .bar.high {
+            height: 85%;
+            background: #27ae60;
+        }
+        
+        .bar-label {
+            position: absolute;
+            bottom: -30px;
+            font-size: 12px;
+            color: #333;
+            text-align: center;
+            width: 100%;
+        }
+        
+        .representation-visual {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .person-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .person-icon.represented {
+            background: #27ae60;
+        }
+        
+        .person-icon.underrepresented {
+            background: #e74c3c;
+        }
+        
+        .access-visual {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            padding: 30px;
+        }
+        
+        .barrier {
+            width: 60px;
+            height: 120px;
+            background: repeating-linear-gradient(
+                45deg,
+                #e74c3c,
+                #e74c3c 10px,
+                #c0392b 10px,
+                #c0392b 20px
+            );
+            border-radius: 4px;
+        }
+        
+        .person {
+            font-size: 60px;
+        }
+        
+        .outcome-visual {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            padding: 30px;
+        }
+        
+        .outcome-group {
+            text-align: center;
+        }
+        
+        .outcome-circle {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 36px;
+            margin: 0 auto 10px;
+            color: white;
+            font-weight: bold;
+        }
+        
+        .outcome-circle.poor {
+            background: #e74c3c;
+        }
+        
+        .outcome-circle.good {
+            background: #27ae60;
+        }
+        
+        .determinants-visual {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            padding: 20px;
+        }
+        
+        .determinant-bar {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .determinant-icon {
+            font-size: 30px;
+            width: 50px;
+        }
+        
+        .determinant-info {
+            flex: 1;
+        }
+        
+        .determinant-name {
+            font-size: 14px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .determinant-level {
+            height: 20px;
+            background: #e0e0e0;
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        
+        .determinant-fill {
+            height: 100%;
+            background: linear-gradient(90deg, #e74c3c 0%, #f39c12 50%, #27ae60 100%);
+            border-radius: 10px;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Health Disparities</div>
+        <!-- Header Section -->
+        <div class="header">
+            <div class="title">Health Disparities</div>
+            <div class="subtitle">Understanding Inequities in Healthcare Access and Outcomes</div>
+        </div>
         
-        <div class="content-section">
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Digital divide</span>
+        <!-- Overview Section -->
+        <div class="overview-section">
+            <div class="section-title">Key Categories</div>
+            <div class="bullets-grid">
+                <div class="bullet-card">
+                    <span>Digital Divide</span>
+                </div>
+                <div class="bullet-card">
+                    <span>Representation Gaps</span>
+                </div>
+                <div class="bullet-card">
+                    <span>Access Barriers</span>
+                </div>
+                <div class="bullet-card">
+                    <span>Outcome Inequities</span>
+                </div>
+                <div class="bullet-card">
+                    <span>Social Determinants</span>
+                </div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Representation gaps</span>
+        </div>
+        
+        <!-- Detailed Sections -->
+        <div class="detailed-section">
+            <!-- 1. Digital Divide -->
+            <div class="disparity-item">
+                <div class="disparity-header">
+                    <div class="disparity-number">Category 1</div>
+                    <div class="disparity-title">Digital Divide</div>
+                    <div class="disparity-subtitle">Unequal access to technology and digital health resources</div>
+                </div>
+                <div class="disparity-content">
+                    <div class="visual-container">
+                        <div class="digital-divide-visual">
+                            <div class="bar low">
+                                <span>35%</span>
+                                <div class="bar-label">Rural Areas</div>
+                            </div>
+                            <div class="bar high">
+                                <span>89%</span>
+                                <div class="bar-label">Urban Areas</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <h4>Overview</h4>
+                        <p>The digital divide refers to the gap between those who have access to digital technologies and those who do not. In healthcare, this creates significant disparities in accessing telehealth services, health information, and digital health tools.</p>
+                        
+                        <h4>Key Challenges</h4>
+                        <ul>
+                            <li><strong>Internet Access:</strong> Limited broadband availability in rural and low-income communities</li>
+                            <li><strong>Device Ownership:</strong> Lack of smartphones, computers, or tablets needed for telehealth</li>
+                            <li><strong>Digital Literacy:</strong> Difficulty navigating health apps and online portals</li>
+                            <li><strong>Language Barriers:</strong> Limited availability of digital health resources in multiple languages</li>
+                        </ul>
+                        
+                        <div class="stat-box">
+                            <strong>Impact:</strong> Studies show that patients without internet access are 30% less likely to engage with preventive care services.
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Access barriers</span>
+            
+            <!-- 2. Representation Gaps -->
+            <div class="disparity-item">
+                <div class="disparity-header">
+                    <div class="disparity-number">Category 2</div>
+                    <div class="disparity-title">Representation Gaps</div>
+                    <div class="disparity-subtitle">Underrepresentation in healthcare workforce and research</div>
+                </div>
+                <div class="disparity-content">
+                    <div class="visual-container">
+                        <div class="representation-visual">
+                            <div class="person-icon represented">👤</div>
+                            <div class="person-icon represented">👤</div>
+                            <div class="person-icon represented">👤</div>
+                            <div class="person-icon represented">👤</div>
+                            <div class="person-icon represented">👤</div>
+                            <div class="person-icon represented">👤</div>
+                            <div class="person-icon represented">👤</div>
+                            <div class="person-icon underrepresented">👤</div>
+                            <div class="person-icon underrepresented">👤</div>
+                            <div class="person-icon underrepresented">👤</div>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <h4>Overview</h4>
+                        <p>Representation gaps occur when certain demographic groups are underrepresented in healthcare providers, clinical trials, and medical research. This leads to care that may not adequately address the needs of diverse populations.</p>
+                        
+                        <h4>Key Issues</h4>
+                        <ul>
+                            <li><strong>Healthcare Workforce:</strong> Minority groups are underrepresented among physicians and specialists</li>
+                            <li><strong>Clinical Trials:</strong> Historical exclusion of women, minorities, and elderly patients from research</li>
+                            <li><strong>Data Collection:</strong> Insufficient demographic data leading to invisible disparities</li>
+                            <li><strong>Cultural Competency:</strong> Lack of culturally sensitive care practices</li>
+                        </ul>
+                        
+                        <div class="stat-box">
+                            <strong>Impact:</strong> Only 5% of physicians in the U.S. are Black, while Black Americans comprise 13% of the population, contributing to cultural mismatches in care.
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Outcome inequities</span>
+            
+            <!-- 3. Access Barriers -->
+            <div class="disparity-item">
+                <div class="disparity-header">
+                    <div class="disparity-number">Category 3</div>
+                    <div class="disparity-title">Access Barriers</div>
+                    <div class="disparity-subtitle">Obstacles preventing individuals from receiving healthcare services</div>
+                </div>
+                <div class="disparity-content">
+                    <div class="visual-container">
+                        <div class="access-visual">
+                            <div class="person">🚶</div>
+                            <div class="barrier"></div>
+                            <div class="person">🏥</div>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <h4>Overview</h4>
+                        <p>Access barriers are the structural, financial, and logistical obstacles that prevent individuals from obtaining necessary healthcare services. These barriers disproportionately affect vulnerable populations.</p>
+                        
+                        <h4>Common Barriers</h4>
+                        <ul>
+                            <li><strong>Financial:</strong> Lack of insurance, high deductibles, and out-of-pocket costs</li>
+                            <li><strong>Geographic:</strong> Distance to healthcare facilities, especially in rural areas</li>
+                            <li><strong>Transportation:</strong> Limited public transit and lack of personal vehicles</li>
+                            <li><strong>Time Constraints:</strong> Inflexible work schedules and long wait times</li>
+                            <li><strong>Administrative:</strong> Complex paperwork and insurance requirements</li>
+                        </ul>
+                        
+                        <div class="stat-box">
+                            <strong>Impact:</strong> Approximately 46 million Americans live in primary care shortage areas, resulting in delayed diagnoses and preventable complications.
+                        </div>
+                    </div>
+                </div>
             </div>
-            <div class="bullet-item">
-                <span class="bullet">•</span>
-                <span>Social determinants</span>
+            
+            <!-- 4. Outcome Inequities -->
+            <div class="disparity-item">
+                <div class="disparity-header">
+                    <div class="disparity-number">Category 4</div>
+                    <div class="disparity-title">Outcome Inequities</div>
+                    <div class="disparity-subtitle">Differences in health outcomes across population groups</div>
+                </div>
+                <div class="disparity-content">
+                    <div class="visual-container">
+                        <div class="outcome-visual">
+                            <div class="outcome-group">
+                                <div class="outcome-circle poor">↓</div>
+                                <div class="icon-label">Disadvantaged<br>Groups</div>
+                            </div>
+                            <div style="font-size: 40px; color: #e74c3c;">≠</div>
+                            <div class="outcome-group">
+                                <div class="outcome-circle good">↑</div>
+                                <div class="icon-label">Advantaged<br>Groups</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <h4>Overview</h4>
+                        <p>Outcome inequities refer to the measurable differences in health outcomes between different population groups. These disparities persist even when controlling for access to care, highlighting systemic issues in healthcare delivery.</p>
+                        
+                        <h4>Documented Disparities</h4>
+                        <ul>
+                            <li><strong>Mortality Rates:</strong> Higher death rates from preventable diseases in minority communities</li>
+                            <li><strong>Chronic Conditions:</strong> Increased prevalence of diabetes, hypertension, and heart disease</li>
+                            <li><strong>Maternal Health:</strong> Black women face 3-4x higher maternal mortality rates</li>
+                            <li><strong>Cancer Survival:</strong> Lower survival rates for certain cancers in underserved populations</li>
+                            <li><strong>Mental Health:</strong> Higher rates of untreated mental illness in marginalized groups</li>
+                        </ul>
+                        
+                        <div class="stat-box">
+                            <strong>Impact:</strong> Life expectancy can vary by up to 20 years between different neighborhoods in the same city, reflecting cumulative health inequities.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- 5. Social Determinants -->
+            <div class="disparity-item">
+                <div class="disparity-header">
+                    <div class="disparity-number">Category 5</div>
+                    <div class="disparity-title">Social Determinants of Health</div>
+                    <div class="disparity-subtitle">Non-medical factors that influence health outcomes</div>
+                </div>
+                <div class="disparity-content">
+                    <div class="visual-container">
+                        <div class="determinants-visual">
+                            <div class="determinant-bar">
+                                <div class="determinant-icon">🏠</div>
+                                <div class="determinant-info">
+                                    <div class="determinant-name">Housing Quality</div>
+                                    <div class="determinant-level">
+                                        <div class="determinant-fill" style="width: 45%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="determinant-bar">
+                                <div class="determinant-icon">📚</div>
+                                <div class="determinant-info">
+                                    <div class="determinant-name">Education Level</div>
+                                    <div class="determinant-level">
+                                        <div class="determinant-fill" style="width: 60%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="determinant-bar">
+                                <div class="determinant-icon">💰</div>
+                                <div class="determinant-info">
+                                    <div class="determinant-name">Income</div>
+                                    <div class="determinant-level">
+                                        <div class="determinant-fill" style="width: 35%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="determinant-bar">
+                                <div class="determinant-icon">🍎</div>
+                                <div class="determinant-info">
+                                    <div class="determinant-name">Food Access</div>
+                                    <div class="determinant-level">
+                                        <div class="determinant-fill" style="width: 50%;"></div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="description">
+                        <h4>Overview</h4>
+                        <p>Social determinants of health (SDOH) are the conditions in which people are born, grow, live, work, and age. These factors have a profound impact on health outcomes and account for an estimated 80% of health status.</p>
+                        
+                        <h4>Key Determinants</h4>
+                        <ul>
+                            <li><strong>Economic Stability:</strong> Employment, income, poverty, and housing stability</li>
+                            <li><strong>Education:</strong> Literacy, language, and educational attainment</li>
+                            <li><strong>Healthcare Access:</strong> Insurance coverage, provider availability, and health literacy</li>
+                            <li><strong>Neighborhood Environment:</strong> Housing quality, safety, environmental conditions</li>
+                            <li><strong>Social Context:</strong> Discrimination, social cohesion, and community support</li>
+                        </ul>
+                        
+                        <div class="stat-box">
+                            <strong>Impact:</strong> Individuals living in poverty are 5x more likely to report poor health status compared to those with higher incomes, demonstrating the powerful influence of social factors.
+                        </div>
+                    </div>
+                </div>
             </div>
         </div>
     </div>

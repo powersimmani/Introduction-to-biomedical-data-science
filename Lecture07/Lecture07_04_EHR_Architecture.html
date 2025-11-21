@@ -201,6 +201,374 @@
                 Modern EHRs leverage cloud infrastructure (AWS, Azure, GCP) for scalability, disaster recovery, and compliance with healthcare regulations (HIPAA, GDPR)
             </div>
         </div>
-    </div>
+    
+        
+        <!-- Detailed Sections Start Here -->
+        <div style="height: 3px; background: linear-gradient(to right, #1E64C8, #5088d4, #1E64C8); margin: 50px 0 40px 0; border-radius: 2px;"></div>
+
+        <!-- DETAILED EXPLANATIONS -->
+        <div style="margin-bottom: 50px;">
+            <h2 style="font-size: 28px; font-weight: 700; color: #1E64C8; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 3px solid #1E64C8;">
+                📊 Database Design - Detailed Explanation
+            </h2>
+            
+            <div style="background: #f8fbff; border-left: 5px solid #1E64C8; padding: 25px; margin-bottom: 30px; border-radius: 5px;">
+                <h3 style="font-size: 20px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">Relational vs NoSQL Databases</h3>
+                <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 15px;">
+                    EHR systems typically employ a <strong>hybrid database approach</strong>. Relational databases (PostgreSQL, MySQL) store structured data like patient demographics, appointments, and billing records where ACID compliance and referential integrity are critical. NoSQL databases (MongoDB, Cassandra) handle unstructured data such as clinical notes, imaging metadata, and flexible documents.
+                </p>
+                
+                <div style="background: #fff8e1; border-left: 4px solid #ffa726; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                    <div style="font-weight: 600; color: #f57c00; margin-bottom: 8px;">💡 Real-World Example:</div>
+                    <p style="color: #333; font-size: 15px; line-height: 1.6;">
+                        A large hospital system uses PostgreSQL for patient registration and scheduling (structured, transactional data), while MongoDB stores physician dictations and clinical notes (unstructured, schema-flexible data). This allows fast queries on structured data while maintaining flexibility for evolving clinical documentation needs.
+                    </p>
+                </div>
+                
+                <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                    <div style="font-weight: 600; color: #2e7d32; margin-bottom: 8px;">🔑 Key Design Principles:</div>
+                    <ul style="margin-left: 20px; color: #333; font-size: 15px; line-height: 1.8;">
+                        <li>Use relational DBs for transactional integrity (patient demographics, billing)</li>
+                        <li>Use NoSQL for high-volume, schema-flexible data (logs, clinical notes)</li>
+                        <li>Implement proper indexing on frequently queried fields (patient ID, encounter date)</li>
+                        <li>Normalize data to 3NF to reduce redundancy while allowing strategic denormalization for performance</li>
+                        <li>Use composite indexes for multi-column queries (patient_id + encounter_date)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="background: #f8fbff; border-left: 5px solid #1E64C8; padding: 25px; margin-bottom: 30px; border-radius: 5px;">
+                <h3 style="font-size: 20px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">Database Schema Example</h3>
+                <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 15px;">
+                    A typical EHR relational schema includes core tables: <code>PATIENT</code>, <code>ENCOUNTER</code>, <code>PROVIDER</code>, <code>MEDICATION</code>, <code>LAB_RESULTS</code>, <code>DIAGNOSIS</code>. These are linked via foreign keys to maintain referential integrity.
+                </p>
+                
+                <div style="background: #263238; color: #81c784; padding: 20px; border-radius: 8px; font-family: monospace; font-size: 13px; overflow-x: auto; margin: 15px 0;">
+                    <pre>CREATE TABLE patient (
+    patient_id INT PRIMARY KEY,
+    mrn VARCHAR(20) UNIQUE NOT NULL,
+    first_name VARCHAR(50),
+    last_name VARCHAR(50),
+    date_of_birth DATE,
+    gender CHAR(1),
+    ssn VARCHAR(11) ENCRYPTED
+);
+
+CREATE INDEX idx_patient_mrn ON patient(mrn);
+CREATE INDEX idx_patient_dob ON patient(date_of_birth);
+
+CREATE TABLE encounter (
+    encounter_id INT PRIMARY KEY,
+    patient_id INT REFERENCES patient(patient_id),
+    provider_id INT REFERENCES provider(provider_id),
+    encounter_date TIMESTAMP,
+    encounter_type VARCHAR(50),
+    chief_complaint TEXT
+);
+
+CREATE INDEX idx_encounter_patient ON encounter(patient_id, encounter_date);</pre>
+                </div>
+            </div>
+        </div>
+
+        <!-- APPLICATION LAYERS -->
+        <div style="margin-bottom: 50px;">
+            <h2 style="font-size: 28px; font-weight: 700; color: #1E64C8; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 3px solid #1E64C8;">
+                ⚙️ Application Layers - Architecture Patterns
+            </h2>
+            
+            <div style="background: #f8fbff; border-left: 5px solid #1E64C8; padding: 25px; margin-bottom: 30px; border-radius: 5px;">
+                <h3 style="font-size: 20px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">Three-Tier Architecture</h3>
+                <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 15px;">
+                    EHR systems typically follow a <strong>three-tier architecture</strong>: Presentation Layer (UI), Business Logic Layer (application logic), and Data Access Layer (database interaction). This separation enables independent scaling, easier maintenance, and technology flexibility.
+                </p>
+                
+                <div style="background: #fff8e1; border-left: 4px solid #ffa726; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                    <div style="font-weight: 600; color: #f57c00; margin-bottom: 8px;">💡 Layer Responsibilities:</div>
+                    <ul style="margin-left: 20px; color: #333; font-size: 15px; line-height: 1.8;">
+                        <li><strong>Presentation Layer:</strong> Renders UI, handles user input, displays data (React, Angular, Vue)</li>
+                        <li><strong>Business Logic Layer:</strong> Clinical decision support, order processing, workflow orchestration, validation rules</li>
+                        <li><strong>Data Access Layer:</strong> ORM, repository pattern, caching, connection pooling, transaction management</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="background: #f8fbff; border-left: 5px solid #1E64C8; padding: 25px; margin-bottom: 30px; border-radius: 5px;">
+                <h3 style="font-size: 20px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">Microservices Architecture</h3>
+                <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 15px;">
+                    Modern EHRs increasingly adopt <strong>microservices</strong>, decomposing monolithic applications into smaller, independently deployable services. Each microservice handles a specific business capability (Patient Service, Order Service, Billing Service) and communicates via well-defined APIs.
+                </p>
+                
+                <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                    <div style="font-weight: 600; color: #2e7d32; margin-bottom: 8px;">🔑 Microservices Benefits:</div>
+                    <ul style="margin-left: 20px; color: #333; font-size: 15px; line-height: 1.8;">
+                        <li><strong>Independent Scaling:</strong> Scale billing service during month-end without affecting clinical workflows</li>
+                        <li><strong>Technology Diversity:</strong> Use Python for ML-based analytics, Java for transactional services</li>
+                        <li><strong>Fault Isolation:</strong> Billing service downtime doesn't impact patient care</li>
+                        <li><strong>Faster Deployment:</strong> Update appointment scheduling without redeploying entire system</li>
+                        <li><strong>Team Autonomy:</strong> Small teams own specific services end-to-end</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- USER INTERFACES -->
+        <div style="margin-bottom: 50px;">
+            <h2 style="font-size: 28px; font-weight: 700; color: #1E64C8; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 3px solid #1E64C8;">
+                💻 User Interfaces - Design Principles
+            </h2>
+            
+            <div style="background: #f8fbff; border-left: 5px solid #1E64C8; padding: 25px; margin-bottom: 30px; border-radius: 5px;">
+                <h3 style="font-size: 20px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">Clinical Workflow Integration</h3>
+                <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 15px;">
+                    Effective EHR interfaces are designed around <strong>clinical workflows</strong>, minimizing clicks and cognitive load. The interface should support the natural flow of clinical tasks from patient check-in through documentation, ordering, and billing.
+                </p>
+                
+                <div style="background: #fff8e1; border-left: 4px solid #ffa726; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                    <div style="font-weight: 600; color: #f57c00; margin-bottom: 8px;">💡 Workflow Optimization Techniques:</div>
+                    <ul style="margin-left: 20px; color: #333; font-size: 15px; line-height: 1.8;">
+                        <li><strong>Single-Screen Documentation:</strong> Minimize navigation between screens during patient encounters</li>
+                        <li><strong>Smart Defaults:</strong> Pre-fill common values based on context (e.g., current date, provider)</li>
+                        <li><strong>Order Sets:</strong> Predefined order bundles for common conditions (pneumonia, chest pain)</li>
+                        <li><strong>Auto-Save:</strong> Prevent data loss from interruptions common in clinical settings</li>
+                        <li><strong>Keyboard Shortcuts:</strong> Power users can navigate without mouse (Ctrl+P for patient search)</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="background: #f8fbff; border-left: 5px solid #1E64C8; padding: 25px; margin-bottom: 30px; border-radius: 5px;">
+                <h3 style="font-size: 20px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">Responsive Design for Multiple Devices</h3>
+                <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 15px;">
+                    Modern EHRs must work seamlessly across desktops (workstations), tablets (bedside rounds), and mobile phones (on-call providers). <strong>Responsive design</strong> adapts layouts, navigation, and interactions to different screen sizes.
+                </p>
+                
+                <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                    <div style="font-weight: 600; color: #2e7d32; margin-bottom: 8px;">🔑 Responsive Design Principles:</div>
+                    <ul style="margin-left: 20px; color: #333; font-size: 15px; line-height: 1.8;">
+                        <li><strong>Fluid Grids:</strong> Use percentage-based layouts instead of fixed pixels</li>
+                        <li><strong>Flexible Images:</strong> Scale images appropriately for device resolution</li>
+                        <li><strong>Media Queries:</strong> Apply different CSS rules based on screen width</li>
+                        <li><strong>Touch Targets:</strong> Minimum 44x44 pixels for mobile tap targets</li>
+                        <li><strong>Progressive Disclosure:</strong> Show critical info first, hide secondary details on mobile</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: #f8fbff; border-left: 5px solid #1E64C8; padding: 25px; margin-bottom: 30px; border-radius: 5px;">
+                <h3 style="font-size: 20px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">Mobile Applications</h3>
+                <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 15px;">
+                    Mobile apps serve two primary audiences: <strong>clinicians</strong> (bedside documentation, barcode scanning, secure messaging) and <strong>patients</strong> (portal access, appointment booking, medication reminders).
+                </p>
+                
+                <div style="background: #fff8e1; border-left: 4px solid #ffa726; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                    <div style="font-weight: 600; color: #f57c00; margin-bottom: 8px;">💡 Mobile App Features:</div>
+                    <ul style="margin-left: 20px; color: #333; font-size: 15px; line-height: 1.8;">
+                        <li><strong>Clinician Apps:</strong> Barcode medication scanning, voice dictation, e-signature, offline mode for spotty coverage</li>
+                        <li><strong>Patient Apps:</strong> View health records, book appointments, refill medications, secure messaging with providers</li>
+                        <li><strong>Wearable Integration:</strong> Sync data from fitness trackers and medical devices</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- API SERVICES -->
+        <div style="margin-bottom: 50px;">
+            <h2 style="font-size: 28px; font-weight: 700; color: #1E64C8; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 3px solid #1E64C8;">
+                🔌 API Services - Integration Standards
+            </h2>
+            
+            <div style="background: #f8fbff; border-left: 5px solid #1E64C8; padding: 25px; margin-bottom: 30px; border-radius: 5px;">
+                <h3 style="font-size: 20px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">RESTful APIs</h3>
+                <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 15px;">
+                    <strong>REST (Representational State Transfer)</strong> APIs provide a standardized way for external systems to interact with EHR data using HTTP methods (GET, POST, PUT, DELETE). REST APIs enable integrations with laboratories, pharmacies, payers, and third-party health applications.
+                </p>
+                
+                <div style="background: #263238; color: #81c784; padding: 20px; border-radius: 8px; font-family: monospace; font-size: 13px; overflow-x: auto; margin: 15px 0;">
+                    <pre>// Example REST API Endpoints
+GET    /api/v1/patients/{id}          // Retrieve patient
+POST   /api/v1/patients               // Create new patient
+PUT    /api/v1/patients/{id}          // Update patient
+DELETE /api/v1/patients/{id}          // Delete patient
+
+GET    /api/v1/patients?name=Smith&dob=1980-05-15  // Search patients
+GET    /api/v1/encounters?patient_id=123           // Get encounters
+POST   /api/v1/orders                               // Create lab order
+
+// Example Response (JSON)
+{
+  "patient_id": "P12345",
+  "mrn": "MRN123456",
+  "name": {
+    "first": "John",
+    "last": "Doe"
+  },
+  "dob": "1980-05-15",
+  "gender": "M"
+}</pre>
+                </div>
+                
+                <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                    <div style="font-weight: 600; color: #2e7d32; margin-bottom: 8px;">🔑 REST API Best Practices:</div>
+                    <ul style="margin-left: 20px; color: #333; font-size: 15px; line-height: 1.8;">
+                        <li>Use nouns for resources, verbs for actions (GET /patients, not /getPatients)</li>
+                        <li>Version APIs (e.g., /api/v1/) for backward compatibility</li>
+                        <li>Return appropriate HTTP status codes (200 OK, 201 Created, 400 Bad Request, 404 Not Found)</li>
+                        <li>Implement pagination for large result sets (limit, offset parameters)</li>
+                        <li>Use HTTPS/TLS for all API traffic</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="background: #f8fbff; border-left: 5px solid #1E64C8; padding: 25px; margin-bottom: 30px; border-radius: 5px;">
+                <h3 style="font-size: 20px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">FHIR (Fast Healthcare Interoperability Resources)</h3>
+                <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 15px;">
+                    <strong>FHIR</strong> is the modern healthcare data exchange standard developed by HL7. FHIR uses RESTful APIs with standardized resource definitions (Patient, Observation, MedicationRequest, Encounter) enabling true interoperability between different healthcare systems.
+                </p>
+                
+                <div style="background: #fff8e1; border-left: 4px solid #ffa726; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                    <div style="font-weight: 600; color: #f57c00; margin-bottom: 8px;">💡 FHIR Query Examples:</div>
+                    <div style="background: #fff; padding: 15px; border-radius: 4px; font-family: monospace; font-size: 13px; margin-top: 10px;">
+                        <pre>GET /fhir/Patient/123
+GET /fhir/Observation?patient=123&code=8480-6  // Blood pressure
+GET /fhir/MedicationRequest?patient=123&status=active
+POST /fhir/Encounter  // Create new encounter
+GET /fhir/Patient?name=Smith&birthdate=gt1980-01-01  // Search</pre>
+                    </div>
+                </div>
+                
+                <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                    <div style="font-weight: 600; color: #2e7d32; margin-bottom: 8px;">🔑 Common FHIR Resources:</div>
+                    <ul style="margin-left: 20px; color: #333; font-size: 15px; line-height: 1.8;">
+                        <li><strong>Patient:</strong> Demographics, identifiers (MRN, SSN)</li>
+                        <li><strong>Observation:</strong> Vital signs, lab results, clinical measurements</li>
+                        <li><strong>MedicationRequest:</strong> Prescriptions and medication orders</li>
+                        <li><strong>Condition:</strong> Diagnoses and problem lists</li>
+                        <li><strong>Encounter:</strong> Visits, admissions, consultations</li>
+                        <li><strong>Procedure:</strong> Surgical and diagnostic procedures</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="background: #f8fbff; border-left: 5px solid #1E64C8; padding: 25px; margin-bottom: 30px; border-radius: 5px;">
+                <h3 style="font-size: 20px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">Authentication & Authorization</h3>
+                <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 15px;">
+                    API security is critical in healthcare. <strong>OAuth 2.0</strong> and <strong>SMART on FHIR</strong> are the dominant standards for securing healthcare APIs. OAuth handles authentication (verifying identity) and authorization (determining access rights).
+                </p>
+                
+                <div style="background: #fff8e1; border-left: 4px solid #ffa726; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                    <div style="font-weight: 600; color: #f57c00; margin-bottom: 8px;">💡 OAuth 2.0 Flow:</div>
+                    <ol style="margin-left: 20px; color: #333; font-size: 15px; line-height: 1.8;">
+                        <li>Client app requests authorization from EHR authorization server</li>
+                        <li>User logs in and grants consent for data access</li>
+                        <li>Authorization server returns authorization code to client</li>
+                        <li>Client exchanges authorization code for access token</li>
+                        <li>Client uses access token to make API requests</li>
+                        <li>Resource server validates token and returns protected data</li>
+                    </ol>
+                </div>
+                
+                <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                    <div style="font-weight: 600; color: #2e7d32; margin-bottom: 8px;">🔑 Security Best Practices:</div>
+                    <ul style="margin-left: 20px; color: #333; font-size: 15px; line-height: 1.8;">
+                        <li>Use OAuth 2.0 with PKCE (Proof Key for Code Exchange) for mobile apps</li>
+                        <li>Implement token expiration and refresh token rotation</li>
+                        <li>Use scopes to limit access (patient/*.read, patient/*.write)</li>
+                        <li>Rate limit API requests to prevent abuse (e.g., 1000 requests/hour)</li>
+                        <li>Log all API access for audit trails (HIPAA requirement)</li>
+                        <li>Implement IP whitelisting for B2B integrations</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div style="background: #f8fbff; border-left: 5px solid #1E64C8; padding: 25px; margin-bottom: 30px; border-radius: 5px;">
+                <h3 style="font-size: 20px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">Rate Limiting & Monitoring</h3>
+                <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 15px;">
+                    <strong>Rate limiting</strong> protects EHR systems from abuse and ensures fair resource allocation. <strong>API monitoring</strong> tracks usage patterns, performance metrics, and security events to maintain system health and compliance.
+                </p>
+                
+                <div style="background: #fff8e1; border-left: 4px solid #ffa726; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                    <div style="font-weight: 600; color: #f57c00; margin-bottom: 8px;">💡 Monitoring Metrics:</div>
+                    <ul style="margin-left: 20px; color: #333; font-size: 15px; line-height: 1.8;">
+                        <li><strong>Performance:</strong> API response times, throughput, error rates</li>
+                        <li><strong>Usage:</strong> Requests per endpoint, top consumers, usage trends</li>
+                        <li><strong>Security:</strong> Failed authentication attempts, unauthorized access, suspicious patterns</li>
+                        <li><strong>Compliance:</strong> Audit logs for HIPAA, data access tracking</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CLOUD DEPLOYMENT -->
+        <div style="margin-bottom: 50px;">
+            <h2 style="font-size: 28px; font-weight: 700; color: #1E64C8; margin-bottom: 25px; padding-bottom: 10px; border-bottom: 3px solid #1E64C8;">
+                ☁️ Cloud Deployment - Modern Infrastructure
+            </h2>
+            
+            <div style="background: #f8fbff; border-left: 5px solid #1E64C8; padding: 25px; margin-bottom: 30px; border-radius: 5px;">
+                <h3 style="font-size: 20px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">Cloud Platforms & Services</h3>
+                <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 15px;">
+                    Modern EHRs increasingly leverage cloud infrastructure (<strong>AWS, Azure, Google Cloud</strong>) for scalability, disaster recovery, and compliance with healthcare regulations (HIPAA, GDPR). Cloud deployment enables elastic scaling, reduced infrastructure costs, and faster time-to-market.
+                </p>
+                
+                <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                    <div style="font-weight: 600; color: #2e7d32; margin-bottom: 8px;">🔑 Cloud Services for EHR:</div>
+                    <ul style="margin-left: 20px; color: #333; font-size: 15px; line-height: 1.8;">
+                        <li><strong>Compute:</strong> EC2 (AWS), Virtual Machines (Azure), Compute Engine (GCP) for application servers</li>
+                        <li><strong>Database:</strong> RDS (AWS), Azure SQL, Cloud SQL for managed relational databases</li>
+                        <li><strong>Storage:</strong> S3 (AWS), Blob Storage (Azure) for medical images and documents</li>
+                        <li><strong>Load Balancing:</strong> ALB (AWS), Application Gateway (Azure) for traffic distribution</li>
+                        <li><strong>Monitoring:</strong> CloudWatch (AWS), Azure Monitor, Stackdriver (GCP) for system health</li>
+                        <li><strong>Security:</strong> KMS for encryption, IAM for access control, VPC for network isolation</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="background: #f8fbff; border-left: 5px solid #1E64C8; padding: 25px; margin-bottom: 30px; border-radius: 5px;">
+                <h3 style="font-size: 20px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">HIPAA Compliance in Cloud</h3>
+                <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 15px;">
+                    Healthcare organizations must ensure their cloud deployments meet <strong>HIPAA</strong> (Health Insurance Portability and Accountability Act) requirements. This includes signing Business Associate Agreements (BAA) with cloud providers, implementing proper encryption, access controls, and audit logging.
+                </p>
+                
+                <div style="background: #fff8e1; border-left: 4px solid #ffa726; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                    <div style="font-weight: 600; color: #f57c00; margin-bottom: 8px;">💡 HIPAA Compliance Requirements:</div>
+                    <ul style="margin-left: 20px; color: #333; font-size: 15px; line-height: 1.8;">
+                        <li>Encryption at rest (database, storage) and in transit (TLS/SSL)</li>
+                        <li>Access controls with role-based permissions (RBAC)</li>
+                        <li>Audit logging of all PHI access with immutable logs</li>
+                        <li>Regular security assessments and penetration testing</li>
+                        <li>Disaster recovery plan with RTO (Recovery Time Objective) and RPO (Recovery Point Objective)</li>
+                        <li>Business Associate Agreement (BAA) with cloud provider</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div style="background: #f8fbff; border-left: 5px solid #1E64C8; padding: 25px; margin-bottom: 30px; border-radius: 5px;">
+                <h3 style="font-size: 20px; font-weight: 600; color: #1E64C8; margin-bottom: 15px;">High Availability & Disaster Recovery</h3>
+                <p style="font-size: 16px; color: #333; line-height: 1.8; margin-bottom: 15px;">
+                    Healthcare systems require <strong>99.9%+ uptime</strong>. Cloud architecture enables high availability through multi-AZ (Availability Zone) deployments, auto-scaling, and automated failover. Disaster recovery strategies ensure business continuity during outages.
+                </p>
+                
+                <div style="background: #e8f5e9; border-left: 4px solid #4caf50; padding: 15px; margin: 15px 0; border-radius: 4px;">
+                    <div style="font-weight: 600; color: #2e7d32; margin-bottom: 8px;">🔑 HA/DR Strategies:</div>
+                    <ul style="margin-left: 20px; color: #333; font-size: 15px; line-height: 1.8;">
+                        <li><strong>Multi-AZ Deployment:</strong> Replicate across multiple data centers for fault tolerance</li>
+                        <li><strong>Database Replication:</strong> Primary-replica setup with automatic failover</li>
+                        <li><strong>Auto-Scaling:</strong> Automatically add/remove instances based on load</li>
+                        <li><strong>Backup Strategy:</strong> Automated daily backups with point-in-time recovery</li>
+                        <li><strong>Geo-Redundancy:</strong> Disaster recovery site in different geographic region</li>
+                        <li><strong>Chaos Engineering:</strong> Regular failure testing to validate resilience</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- CONCLUSION -->
+        <div style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white; padding: 40px; border-radius: 10px; text-align: center; margin-top: 50px;">
+            <h2 style="font-size: 28px; font-weight: 700; margin-bottom: 20px;">Summary</h2>
+            <p style="font-size: 17px; line-height: 1.8; max-width: 800px; margin: 0 auto;">
+                Modern EHR architecture combines robust database design, layered application architecture, intuitive user interfaces, standardized APIs, and secure cloud infrastructure. Success requires balancing competing demands: performance vs. security, flexibility vs. standardization, innovation vs. compliance. By following these architectural principles and leveraging modern technologies, EHR systems can deliver the scalability, interoperability, and reliability that healthcare providers and patients demand.
+            </p>
+        </div>
+</div>
 </body>
 </html>

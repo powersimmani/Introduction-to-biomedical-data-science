@@ -1,67 +1,489 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Continuing Education</title>
+    <title>Continuing Education in AI & Healthcare</title>
     <style>
         * {margin: 0; padding: 0; box-sizing: border-box;}
-        body {font-family: Aptos, 'Segoe UI', sans-serif; background: white; display: flex; justify-content: center; align-items: center; min-height: 100vh;}
-        .container {width: 960px; height: 540px; padding: 40px 50px; background: white;}
-        .title {font-size: 36px; font-weight: 700; color: #1E64C8; margin-bottom: 35px; text-align: center;}
-        .content-section {display: grid; grid-template-columns: 1fr 1fr; gap: 25px;}
-        .info-box {background: #f8f9fb; border-left: 4px solid #1E64C8; padding: 20px 22px; border-radius: 6px; transition: all 0.3s;}
-        .info-box:hover {background: #e8f2ff; transform: translateX(5px);}
-        .info-title {font-size: 19px; font-weight: 600; color: #1E64C8; margin-bottom: 12px;}
-        .info-content {font-size: 16px; color: #333; line-height: 1.7;}
-        .bullet {display: flex; align-items: flex-start; margin-bottom: 8px;}
-        .bullet::before {content: "•"; color: #1E64C8; font-weight: bold; margin-right: 10px; font-size: 18px;}
-        .full-width-box {grid-column: 1 / -1; background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%); color: white; padding: 18px 25px; border-radius: 8px; text-align: center; font-size: 17px; font-weight: 500;}
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 40px 20px;
+            line-height: 1.6;
+        }
+        .main-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            overflow: hidden;
+        }
+        .header {
+            background: linear-gradient(135deg, #1E64C8 0%, #2a7de1 100%);
+            color: white;
+            padding: 50px;
+            text-align: center;
+        }
+        .header h1 {
+            font-size: 48px;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.2);
+        }
+        .header p {
+            font-size: 20px;
+            opacity: 0.95;
+        }
+        .content-wrapper {
+            padding: 50px;
+        }
+        .category-section {
+            margin-bottom: 60px;
+            background: #f8f9fb;
+            border-radius: 15px;
+            padding: 40px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.08);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .category-section:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.12);
+        }
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 30px;
+            padding-bottom: 20px;
+            border-bottom: 3px solid #1E64C8;
+        }
+        .icon-box {
+            width: 80px;
+            height: 80px;
+            background: linear-gradient(135deg, #1E64C8 0%, #5088d4 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 25px;
+            box-shadow: 0 4px 15px rgba(30,100,200,0.3);
+        }
+        .icon-box svg {
+            width: 45px;
+            height: 45px;
+            fill: white;
+        }
+        .category-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E64C8;
+        }
+        .category-description {
+            font-size: 18px;
+            color: #555;
+            margin-bottom: 30px;
+            line-height: 1.8;
+            padding: 20px;
+            background: white;
+            border-radius: 10px;
+            border-left: 4px solid #1E64C8;
+        }
+        .items-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 25px;
+        }
+        .item-card {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            border: 2px solid #e0e7ff;
+            transition: all 0.3s;
+        }
+        .item-card:hover {
+            border-color: #1E64C8;
+            box-shadow: 0 5px 20px rgba(30,100,200,0.15);
+            transform: translateY(-3px);
+        }
+        .item-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 12px;
+            display: flex;
+            align-items: center;
+        }
+        .item-title::before {
+            content: "→";
+            margin-right: 10px;
+            font-weight: bold;
+            color: #5088d4;
+        }
+        .item-description {
+            font-size: 15px;
+            color: #666;
+            line-height: 1.6;
+        }
+        .highlight-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            margin-top: 40px;
+            text-align: center;
+        }
+        .highlight-box h3 {
+            font-size: 28px;
+            margin-bottom: 15px;
+        }
+        .highlight-box p {
+            font-size: 18px;
+            line-height: 1.8;
+        }
+        .visual-representation {
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            margin: 30px 0;
+            flex-wrap: wrap;
+            gap: 20px;
+        }
+        .visual-item {
+            text-align: center;
+            padding: 20px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+            flex: 1;
+            min-width: 200px;
+        }
+        .visual-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 15px;
+            background: #e8f2ff;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        .visual-label {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+        }
+        @media (max-width: 768px) {
+            .header h1 {font-size: 32px;}
+            .category-title {font-size: 24px;}
+            .items-grid {grid-template-columns: 1fr;}
+        }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">Continuing Education Pathways</div>
-        <div class="content-section">
-            <div class="info-box">
-                <div class="info-title">Advanced Courses</div>
-                <div class="info-content">
-                    <div class="bullet">Deep Learning Specialization (Coursera)</div>
-                    <div class="bullet">MIT: Computational Systems Biology</div>
-                    <div class="bullet">Stanford: AI in Healthcare</div>
-                    <div class="bullet">Fast.ai practical deep learning</div>
-                </div>
-            </div>
-            <div class="info-box">
-                <div class="info-title">Certifications</div>
-                <div class="info-content">
-                    <div class="bullet">TensorFlow Developer Certificate</div>
-                    <div class="bullet">AWS ML Specialty</div>
-                    <div class="bullet">Clinical Informatics Board (ABPM)</div>
-                    <div class="bullet">CAHIMS health IT certification</div>
-                </div>
-            </div>
-            <div class="info-box">
-                <div class="info-title">Online Resources</div>
-                <div class="info-content">
-                    <div class="bullet">ArXiv daily updates</div>
-                    <div class="bullet">Distill.pub (visual explanations)</div>
-                    <div class="bullet">Two Minute Papers (YouTube)</div>
-                    <div class="bullet">Towards Data Science (Medium)</div>
-                </div>
-            </div>
-            <div class="info-box">
-                <div class="info-title">Research Opportunities</div>
-                <div class="info-content">
-                    <div class="bullet">Graduate programs (MS, PhD)</div>
-                    <div class="bullet">Research assistant positions</div>
-                    <div class="bullet">Summer research programs</div>
-                    <div class="bullet">Collaborative projects</div>
-                </div>
-            </div>
+    <div class="main-container">
+        <div class="header">
+            <h1>🎓 Continuing Education Pathways</h1>
+            <p>Advance Your Career in AI and Healthcare Innovation</p>
         </div>
-        <div class="full-width-box">
-            <strong>Industry Partnerships:</strong> Many companies offer courses and certifications (Google, NVIDIA Deep Learning Institute, Microsoft Learn)
+
+        <div class="content-wrapper">
+            <!-- Advanced Courses Section -->
+            <div class="category-section">
+                <div class="category-header">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12 3L1 9l11 6 9-4.91V17h2V9M5 13.18v4L12 21l7-3.82v-4L12 17l-7-3.82z"/>
+                        </svg>
+                    </div>
+                    <div class="category-title">Advanced Courses</div>
+                </div>
+                
+                <div class="category-description">
+                    <strong>Deep dive into specialized topics</strong> that combine artificial intelligence with healthcare applications. These courses provide structured learning paths with hands-on projects, peer interaction, and recognized credentials. Ideal for building a strong theoretical foundation while gaining practical implementation skills.
+                </div>
+
+                <div class="visual-representation">
+                    <div class="visual-item">
+                        <div class="visual-icon">📚</div>
+                        <div class="visual-label">Structured Curriculum</div>
+                    </div>
+                    <div class="visual-item">
+                        <div class="visual-icon">💻</div>
+                        <div class="visual-label">Hands-on Projects</div>
+                    </div>
+                    <div class="visual-item">
+                        <div class="visual-icon">👥</div>
+                        <div class="visual-label">Peer Learning</div>
+                    </div>
+                    <div class="visual-item">
+                        <div class="visual-icon">🏆</div>
+                        <div class="visual-label">Course Completion</div>
+                    </div>
+                </div>
+
+                <div class="items-grid">
+                    <div class="item-card">
+                        <div class="item-title">Deep Learning Specialization (Coursera)</div>
+                        <div class="item-description">
+                            Created by Andrew Ng, this 5-course series covers neural networks, optimization, structuring ML projects, CNNs, and sequence models. Includes Python programming assignments and real-world case studies. Perfect for transitioning from basic ML to advanced deep learning applications.
+                        </div>
+                    </div>
+                    <div class="item-card">
+                        <div class="item-title">MIT: Computational Systems Biology</div>
+                        <div class="item-description">
+                            Explores computational approaches to analyze biological systems, including genomics, proteomics, and metabolic networks. Combines biology, computer science, and statistics to model complex biological processes. Excellent for understanding biological data analysis.
+                        </div>
+                    </div>
+                    <div class="item-card">
+                        <div class="item-title">Stanford: AI in Healthcare</div>
+                        <div class="item-description">
+                            Focuses on medical imaging, clinical decision support, and predictive modeling in healthcare. Covers regulatory considerations, ethical implications, and real-world deployment challenges. Taught by leading researchers in medical AI.
+                        </div>
+                    </div>
+                    <div class="item-card">
+                        <div class="item-title">Fast.ai Practical Deep Learning</div>
+                        <div class="item-description">
+                            Top-down approach to learning deep learning through practical coding first, then theory. Uses PyTorch and emphasizes getting results quickly. Excellent for those who learn best by doing and want to build applications rapidly.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Certifications Section -->
+            <div class="category-section">
+                <div class="category-header">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9,21.5L6.5,19L7.91,17.59L9,18.67L12.59,15.08L14,16.5M3,5A2,2 0 0,1 5,3H19A2,2 0 0,1 21,5V19A2,2 0 0,1 19,21H5C3.89,21 3,20.1 3,19V5M5,5V19H19V5H5M11,7H13V9H11V7M11,11H13V17H11V11M7,7H9V17H7V7M15,7H17V17H15V7Z"/>
+                        </svg>
+                    </div>
+                    <div class="category-title">Professional Certifications</div>
+                </div>
+                
+                <div class="category-description">
+                    <strong>Industry-recognized credentials</strong> that validate your expertise and enhance your professional profile. These certifications demonstrate specialized knowledge to employers, clients, and colleagues. Many require passing rigorous examinations and maintaining continuing education requirements.
+                </div>
+
+                <div class="visual-representation">
+                    <div class="visual-item">
+                        <div class="visual-icon">✅</div>
+                        <div class="visual-label">Validated Skills</div>
+                    </div>
+                    <div class="visual-item">
+                        <div class="visual-icon">📜</div>
+                        <div class="visual-label">Professional Recognition</div>
+                    </div>
+                    <div class="visual-item">
+                        <div class="visual-icon">💼</div>
+                        <div class="visual-label">Career Advancement</div>
+                    </div>
+                    <div class="visual-item">
+                        <div class="visual-icon">🔄</div>
+                        <div class="visual-label">Ongoing Renewal</div>
+                    </div>
+                </div>
+
+                <div class="items-grid">
+                    <div class="item-card">
+                        <div class="item-title">TensorFlow Developer Certificate</div>
+                        <div class="item-description">
+                            Google's official certification demonstrating proficiency in building and training neural networks using TensorFlow. Covers computer vision, NLP, time series prediction, and deployment. Exam-based with hands-on coding challenges completed in a limited timeframe.
+                        </div>
+                    </div>
+                    <div class="item-card">
+                        <div class="item-title">AWS Machine Learning Specialty</div>
+                        <div class="item-description">
+                            Validates expertise in building, training, and deploying ML models on AWS infrastructure. Covers data engineering, exploratory analysis, modeling, and ML implementation. Essential for roles involving cloud-based ML solutions.
+                        </div>
+                    </div>
+                    <div class="item-card">
+                        <div class="item-title">Clinical Informatics Board (ABPM)</div>
+                        <div class="item-description">
+                            Subspecialty certification for physicians in clinical informatics. Requires medical degree, residency, and informatics fellowship or equivalent experience. Focuses on health IT systems, clinical decision support, and healthcare quality improvement.
+                        </div>
+                    </div>
+                    <div class="item-card">
+                        <div class="item-title">CAHIMS Health IT Certification</div>
+                        <div class="item-description">
+                            Certified Associate in Healthcare Information and Management Systems. Demonstrates knowledge of healthcare IT operations, systems, and management. Ideal for IT professionals transitioning into healthcare or healthcare professionals moving into informatics.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Online Resources Section -->
+            <div class="category-section">
+                <div class="category-header">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M11,7H13V9H11V7M11,11H13V17H11V11Z"/>
+                        </svg>
+                    </div>
+                    <div class="category-title">Online Resources & Communities</div>
+                </div>
+                
+                <div class="category-description">
+                    <strong>Stay current with cutting-edge research</strong> and connect with the global AI community. These resources provide daily updates, intuitive explanations, and diverse perspectives on emerging technologies. Essential for continuous learning and staying ahead of rapid developments in the field.
+                </div>
+
+                <div class="visual-representation">
+                    <div class="visual-item">
+                        <div class="visual-icon">🔄</div>
+                        <div class="visual-label">Real-time Updates</div>
+                    </div>
+                    <div class="visual-item">
+                        <div class="visual-icon">🌐</div>
+                        <div class="visual-label">Global Community</div>
+                    </div>
+                    <div class="visual-item">
+                        <div class="visual-icon">📖</div>
+                        <div class="visual-label">Accessible Learning</div>
+                    </div>
+                    <div class="visual-item">
+                        <div class="visual-icon">💡</div>
+                        <div class="visual-label">Diverse Perspectives</div>
+                    </div>
+                </div>
+
+                <div class="items-grid">
+                    <div class="item-card">
+                        <div class="item-title">ArXiv Daily Updates</div>
+                        <div class="item-description">
+                            Open-access repository of research papers in physics, mathematics, computer science, and quantitative biology. New papers posted daily before peer review. Subscribe to specific categories (cs.AI, cs.LG, q-bio) to stay informed about latest research developments.
+                        </div>
+                    </div>
+                    <div class="item-card">
+                        <div class="item-title">Distill.pub (Visual Explanations)</div>
+                        <div class="item-description">
+                            Research journal with interactive visualizations and clear explanations of complex ML concepts. Focuses on making neural networks interpretable and understandable. Features articles on attention mechanisms, feature visualization, and optimization landscapes.
+                        </div>
+                    </div>
+                    <div class="item-card">
+                        <div class="item-title">Two Minute Papers (YouTube)</div>
+                        <div class="item-description">
+                            Video series explaining cutting-edge research papers in AI, computer graphics, and physics simulations. Each video provides accessible summaries with visual demonstrations. Excellent for staying current without reading full papers daily.
+                        </div>
+                    </div>
+                    <div class="item-card">
+                        <div class="item-title">Towards Data Science (Medium)</div>
+                        <div class="item-description">
+                            Community publication with thousands of articles on data science, ML, and AI. Covers practical tutorials, career advice, project walkthroughs, and theoretical deep dives. Great for learning from practitioners' real-world experiences.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Research Opportunities Section -->
+            <div class="category-section">
+                <div class="category-header">
+                    <div class="icon-box">
+                        <svg viewBox="0 0 24 24">
+                            <path d="M9.5,3A6.5,6.5 0 0,1 16,9.5C16,11.11 15.41,12.59 14.44,13.73L14.71,14H15.5L20.5,19L19,20.5L14,15.5V14.71L13.73,14.44C12.59,15.41 11.11,16 9.5,16A6.5,6.5 0 0,1 3,9.5A6.5,6.5 0 0,1 9.5,3M9.5,5C7,5 5,7 5,9.5C5,12 7,14 9.5,14C12,14 14,12 14,9.5C14,7 12,5 9.5,5Z"/>
+                        </svg>
+                    </div>
+                    <div class="category-title">Research Opportunities</div>
+                </div>
+                
+                <div class="category-description">
+                    <strong>Contribute to advancing the field</strong> through academic research and collaborative projects. These opportunities allow you to work on novel problems, publish findings, and build expertise in specialized areas. Ideal for those considering academic careers or wanting deep technical expertise.
+                </div>
+
+                <div class="visual-representation">
+                    <div class="visual-item">
+                        <div class="visual-icon">🔬</div>
+                        <div class="visual-label">Original Research</div>
+                    </div>
+                    <div class="visual-item">
+                        <div class="visual-icon">📄</div>
+                        <div class="visual-label">Publications</div>
+                    </div>
+                    <div class="visual-item">
+                        <div class="visual-icon">🤝</div>
+                        <div class="visual-label">Collaboration</div>
+                    </div>
+                    <div class="visual-item">
+                        <div class="visual-icon">🎯</div>
+                        <div class="visual-label">Specialization</div>
+                    </div>
+                </div>
+
+                <div class="items-grid">
+                    <div class="item-card">
+                        <div class="item-title">Graduate Programs (MS, PhD)</div>
+                        <div class="item-description">
+                            Master's and doctoral programs in Computer Science, Biomedical Informatics, or Computational Biology. MS programs typically 2 years, PhD 4-6 years. Involves coursework, research projects, thesis work, and often teaching. Opens doors to research positions and academia.
+                        </div>
+                    </div>
+                    <div class="item-card">
+                        <div class="item-title">Research Assistant Positions</div>
+                        <div class="item-description">
+                            Pre- or post-degree positions working in university or industry research labs. Assist with data collection, experiments, literature reviews, and paper writing. Excellent way to gain research experience, build relationships with faculty, and explore research interests.
+                        </div>
+                    </div>
+                    <div class="item-card">
+                        <div class="item-title">Summer Research Programs</div>
+                        <div class="item-description">
+                            Intensive 8-12 week programs like NSF REU (Research Experience for Undergraduates) or industry research internships. Work on defined projects with mentorship. Often lead to conference presentations, publications, and future research opportunities.
+                        </div>
+                    </div>
+                    <div class="item-card">
+                        <div class="item-title">Collaborative Projects</div>
+                        <div class="item-description">
+                            Join open-source projects, Kaggle competitions, or research collaborations through platforms like GitHub, Papers with Code, or medical AI challenges. Build portfolio, network with researchers, and contribute to advancing the field.
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Highlight Box -->
+            <div class="highlight-box">
+                <h3>🤝 Industry Partnerships & Corporate Learning</h3>
+                <p>
+                    <strong>Leading tech companies offer extensive educational resources:</strong><br><br>
+                    <strong>Google:</strong> ML Crash Course, Cloud AI Platform tutorials, TensorFlow certifications<br>
+                    <strong>NVIDIA Deep Learning Institute:</strong> Hands-on training in AI, accelerated computing, and data science with GPU-accelerated tools<br>
+                    <strong>Microsoft Learn:</strong> Azure AI services, cognitive services, and ML engineering paths<br>
+                    <strong>IBM:</strong> AI Engineering Professional Certificate, Watson AI courses<br>
+                    <strong>Amazon:</strong> AWS ML Learning Plans, SageMaker workshops
+                </p>
+                <p style="margin-top: 20px; font-style: italic;">
+                    Many of these offerings include free tier access, allowing you to gain hands-on experience with enterprise-grade tools and platforms used in production environments.
+                </p>
+            </div>
+
+            <!-- Learning Path Recommendations -->
+            <div class="category-section">
+                <h2 style="color: #1E64C8; font-size: 32px; margin-bottom: 25px; text-align: center;">📊 Recommended Learning Paths</h2>
+                
+                <div class="items-grid">
+                    <div class="item-card" style="border-color: #10b981;">
+                        <div class="item-title" style="color: #10b981;">🟢 Beginner Path</div>
+                        <div class="item-description">
+                            <strong>Start with:</strong> Fast.ai → Coursera ML Specialization → Towards Data Science articles<br><br>
+                            <strong>Focus:</strong> Practical skills, basic theory, community engagement<br>
+                            <strong>Timeline:</strong> 6-12 months
+                        </div>
+                    </div>
+                    <div class="item-card" style="border-color: #f59e0b;">
+                        <div class="item-title" style="color: #f59e0b;">🟡 Intermediate Path</div>
+                        <div class="item-description">
+                            <strong>Pursue:</strong> Deep Learning Specialization → TensorFlow Certificate → ArXiv + Distill<br><br>
+                            <strong>Focus:</strong> Advanced techniques, certification, research awareness<br>
+                            <strong>Timeline:</strong> 12-18 months
+                        </div>
+                    </div>
+                    <div class="item-card" style="border-color: #ef4444;">
+                        <div class="item-title" style="color: #ef4444;">🔴 Advanced Path</div>
+                        <div class="item-description">
+                            <strong>Engage in:</strong> Graduate program → Research position → Publications + Conferences<br><br>
+                            <strong>Focus:</strong> Original research, specialization, academic contribution<br>
+                            <strong>Timeline:</strong> 2-6 years
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 </body>

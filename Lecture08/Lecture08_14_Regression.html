@@ -1,55 +1,728 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Regression for Biomarkers</title>
+    <title>Regression for Biomarkers - Detailed Guide</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: Aptos, 'Segoe UI', sans-serif; background: white; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .container { width: 960px; height: 540px; padding: 35px 50px; background: white; }
-        .title { font-size: 36px; font-weight: 700; color: #1E64C8; margin-bottom: 20px; text-align: center; }
-        .subtitle { font-size: 18px; color: #666; margin-bottom: 25px; text-align: center; font-style: italic; }
-        .methods-grid { display: grid; grid-template-columns: repeat(2, 1fr); gap: 18px; margin-bottom: 20px; }
-        .method-box { background: #f8fbff; border: 3px solid #1E64C8; border-radius: 10px; padding: 18px 22px; }
-        .method-name { font-size: 20px; font-weight: 700; color: #1E64C8; margin-bottom: 10px; }
-        .method-desc { font-size: 15px; color: #333; line-height: 1.4; margin-bottom: 10px; }
-        .use-case { background: white; border: 2px dashed #1E64C8; border-radius: 6px; padding: 8px 12px; font-size: 13px; color: #555; font-style: italic; }
-        .important-box { background: #fff4e6; border-left: 5px solid #ffc107; border-radius: 8px; padding: 14px 20px; }
-        .important-title { font-size: 17px; font-weight: 700; color: #856404; margin-bottom: 8px; }
-        .important-text { font-size: 15px; color: #333; line-height: 1.5; }
+        body { 
+            font-family: Aptos, 'Segoe UI', sans-serif; 
+            background: #f5f5f5; 
+            padding: 20px;
+        }
+        .container { 
+            max-width: 1200px; 
+            margin: 0 auto;
+            background: white;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .header-section {
+            padding: 40px 50px;
+            background: white;
+        }
+        .title { 
+            font-size: 42px; 
+            font-weight: 700; 
+            color: #1E64C8; 
+            margin-bottom: 15px; 
+            text-align: center; 
+        }
+        .subtitle { 
+            font-size: 20px; 
+            color: #666; 
+            margin-bottom: 30px; 
+            text-align: center; 
+            font-style: italic; 
+        }
+        .methods-grid { 
+            display: grid; 
+            grid-template-columns: repeat(2, 1fr); 
+            gap: 20px; 
+            margin-bottom: 25px; 
+        }
+        .method-box { 
+            background: #f8fbff; 
+            border: 3px solid #1E64C8; 
+            border-radius: 10px; 
+            padding: 20px 24px; 
+        }
+        .method-name { 
+            font-size: 22px; 
+            font-weight: 700; 
+            color: #1E64C8; 
+            margin-bottom: 12px; 
+        }
+        .method-desc { 
+            font-size: 16px; 
+            color: #333; 
+            line-height: 1.5; 
+            margin-bottom: 12px; 
+        }
+        .use-case { 
+            background: white; 
+            border: 2px dashed #1E64C8; 
+            border-radius: 6px; 
+            padding: 10px 14px; 
+            font-size: 14px; 
+            color: #555; 
+            font-style: italic; 
+        }
+        .important-box { 
+            background: #fff4e6; 
+            border-left: 5px solid #ffc107; 
+            border-radius: 8px; 
+            padding: 16px 22px; 
+        }
+        .important-title { 
+            font-size: 18px; 
+            font-weight: 700; 
+            color: #856404; 
+            margin-bottom: 10px; 
+        }
+        .important-text { 
+            font-size: 16px; 
+            color: #333; 
+            line-height: 1.6; 
+        }
+        
+        /* Detailed sections */
+        .detailed-section {
+            padding: 50px;
+            background: #fafafa;
+            border-top: 3px solid #e0e0e0;
+        }
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 40px;
+            text-align: center;
+            padding-bottom: 15px;
+            border-bottom: 3px solid #1E64C8;
+        }
+        .method-detail {
+            background: white;
+            border-radius: 12px;
+            padding: 35px;
+            margin-bottom: 40px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        .method-detail-title {
+            font-size: 28px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            padding-bottom: 12px;
+            border-bottom: 2px solid #e3f2fd;
+        }
+        .method-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            margin-top: 25px;
+        }
+        .visualization {
+            background: #f8f9fa;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+        }
+        .explanation {
+            padding: 10px;
+        }
+        .explanation h3 {
+            font-size: 20px;
+            font-weight: 700;
+            color: #333;
+            margin-bottom: 15px;
+            margin-top: 20px;
+        }
+        .explanation h3:first-child {
+            margin-top: 0;
+        }
+        .explanation p {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 12px;
+        }
+        .explanation ul {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+        .explanation li {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.7;
+            margin-bottom: 8px;
+        }
+        .formula {
+            background: #e3f2fd;
+            border-left: 4px solid #1E64C8;
+            padding: 15px 20px;
+            margin: 15px 0;
+            border-radius: 4px;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            color: #1565c0;
+        }
+        .pros-cons {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        .pros, .cons {
+            padding: 20px;
+            border-radius: 8px;
+        }
+        .pros {
+            background: #e8f5e9;
+            border-left: 4px solid #4caf50;
+        }
+        .cons {
+            background: #ffebee;
+            border-left: 4px solid #f44336;
+        }
+        .pros h4, .cons h4 {
+            font-size: 18px;
+            font-weight: 700;
+            margin-bottom: 12px;
+        }
+        .pros h4 {
+            color: #2e7d32;
+        }
+        .cons h4 {
+            color: #c62828;
+        }
+        .clinical-example {
+            background: #fff3e0;
+            border-left: 4px solid #ff9800;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 20px;
+        }
+        .clinical-example h4 {
+            font-size: 18px;
+            font-weight: 700;
+            color: #e65100;
+            margin-bottom: 12px;
+        }
+        .clinical-example p {
+            font-size: 15px;
+            color: #555;
+            line-height: 1.7;
+        }
+        canvas {
+            max-width: 100%;
+            height: auto;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Regression for Biomarkers</div>
-        <div class="subtitle">Predicting continuous outcomes - lab values, disease progression, dosages</div>
-        <div class="methods-grid">
-            <div class="method-box">
-                <div class="method-name">Linear Regression</div>
-                <div class="method-desc">Simple, interpretable baseline model</div>
-                <div class="use-case">Use case: Predicting HbA1c levels from patient features</div>
+        <!-- Original Header Section -->
+        <div class="header-section">
+            <div class="title">Regression for Biomarkers</div>
+            <div class="subtitle">Predicting continuous outcomes - lab values, disease progression, dosages</div>
+            <div class="methods-grid">
+                <div class="method-box">
+                    <div class="method-name">Linear Regression</div>
+                    <div class="method-desc">Simple, interpretable baseline model</div>
+                    <div class="use-case">Use case: Predicting HbA1c levels from patient features</div>
+                </div>
+                <div class="method-box">
+                    <div class="method-name">Ridge / Lasso / Elastic Net</div>
+                    <div class="method-desc">Regularized regression preventing overfitting</div>
+                    <div class="use-case">Use case: Gene expression → biomarker prediction</div>
+                </div>
+                <div class="method-box">
+                    <div class="method-name">Random Forest Regression</div>
+                    <div class="method-desc">Non-linear relationships, feature importance</div>
+                    <div class="use-case">Use case: ICU length of stay prediction</div>
+                </div>
+                <div class="method-box">
+                    <div class="method-name">Gradient Boosting (XGBoost)</div>
+                    <div class="method-desc">State-of-the-art performance on tabular data</div>
+                    <div class="use-case">Use case: Drug dosage optimization</div>
+                </div>
             </div>
-            <div class="method-box">
-                <div class="method-name">Ridge / Lasso / Elastic Net</div>
-                <div class="method-desc">Regularized regression preventing overfitting</div>
-                <div class="use-case">Use case: Gene expression → biomarker prediction</div>
-            </div>
-            <div class="method-box">
-                <div class="method-name">Random Forest Regression</div>
-                <div class="method-desc">Non-linear relationships, feature importance</div>
-                <div class="use-case">Use case: ICU length of stay prediction</div>
-            </div>
-            <div class="method-box">
-                <div class="method-name">Gradient Boosting (XGBoost)</div>
-                <div class="method-desc">State-of-the-art performance on tabular data</div>
-                <div class="use-case">Use case: Drug dosage optimization</div>
+            <div class="important-box">
+                <div class="important-title">⚠️ Critical: Prediction Intervals</div>
+                <div class="important-text">Clinical decisions require not just point estimates but confidence intervals - quantify uncertainty!</div>
             </div>
         </div>
-        <div class="important-box">
-            <div class="important-title">⚠️ Critical: Prediction Intervals</div>
-            <div class="important-text">Clinical decisions require not just point estimates but confidence intervals - quantify uncertainty!</div>
+
+        <!-- Detailed Explanations Section -->
+        <div class="detailed-section">
+            <div class="section-title">Detailed Methods & Applications</div>
+
+            <!-- 1. Linear Regression -->
+            <div class="method-detail">
+                <div class="method-detail-title">1. Linear Regression</div>
+                <div class="method-content">
+                    <div class="visualization">
+                        <canvas id="linearChart" width="400" height="300"></canvas>
+                    </div>
+                    <div class="explanation">
+                        <h3>What is Linear Regression?</h3>
+                        <p>Linear regression models the relationship between input variables (features) and a continuous output by fitting a straight line (or hyperplane in multiple dimensions) through the data points.</p>
+                        
+                        <div class="formula">
+                            y = β₀ + β₁x₁ + β₂x₂ + ... + βₙxₙ + ε
+                        </div>
+                        
+                        <h3>Key Characteristics</h3>
+                        <ul>
+                            <li><strong>Interpretability:</strong> Coefficients (β) show the direct effect of each feature</li>
+                            <li><strong>Assumptions:</strong> Linearity, independence, homoscedasticity, normality</li>
+                            <li><strong>Training:</strong> Minimizes Mean Squared Error (MSE)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✓ Advantages</h4>
+                        <ul>
+                            <li>Highly interpretable coefficients</li>
+                            <li>Fast training and prediction</li>
+                            <li>Works well with limited data</li>
+                            <li>Provides confidence intervals easily</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>✗ Limitations</h4>
+                        <ul>
+                            <li>Assumes linear relationships</li>
+                            <li>Sensitive to outliers</li>
+                            <li>Cannot capture complex interactions</li>
+                            <li>Struggles with high-dimensional data</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="clinical-example">
+                    <h4>📊 Clinical Example: HbA1c Prediction</h4>
+                    <p><strong>Scenario:</strong> Predicting HbA1c levels based on patient age, BMI, fasting glucose, and exercise frequency.</p>
+                    <p><strong>Model:</strong> HbA1c = 4.2 + 0.03(Age) + 0.08(BMI) + 0.02(Fasting_Glucose) - 0.15(Exercise_Hours)</p>
+                    <p><strong>Interpretation:</strong> Each 1 kg/m² increase in BMI is associated with a 0.08% increase in HbA1c, while each additional hour of weekly exercise decreases HbA1c by 0.15%.</p>
+                </div>
+            </div>
+
+            <!-- 2. Ridge/Lasso/Elastic Net -->
+            <div class="method-detail">
+                <div class="method-detail-title">2. Ridge / Lasso / Elastic Net Regression</div>
+                <div class="method-content">
+                    <div class="visualization">
+                        <canvas id="regularizedChart" width="400" height="300"></canvas>
+                    </div>
+                    <div class="explanation">
+                        <h3>What is Regularized Regression?</h3>
+                        <p>Regularization adds a penalty term to the loss function to prevent overfitting by constraining coefficient magnitudes. This is crucial when dealing with many features or correlated predictors.</p>
+                        
+                        <div class="formula">
+                            Ridge (L2): Loss + λ∑βᵢ²<br>
+                            Lasso (L1): Loss + λ∑|βᵢ|<br>
+                            Elastic Net: Loss + λ₁∑|βᵢ| + λ₂∑βᵢ²
+                        </div>
+                        
+                        <h3>Key Differences</h3>
+                        <ul>
+                            <li><strong>Ridge:</strong> Shrinks coefficients but keeps all features</li>
+                            <li><strong>Lasso:</strong> Can reduce coefficients to exactly zero (feature selection)</li>
+                            <li><strong>Elastic Net:</strong> Combines both L1 and L2 penalties</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✓ Advantages</h4>
+                        <ul>
+                            <li>Handles multicollinearity effectively</li>
+                            <li>Prevents overfitting with many features</li>
+                            <li>Lasso provides automatic feature selection</li>
+                            <li>Elastic Net balances both approaches</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>✗ Limitations</h4>
+                        <ul>
+                            <li>Requires tuning regularization parameter (λ)</li>
+                            <li>Still assumes linear relationships</li>
+                            <li>Feature scaling is critical</li>
+                            <li>Interpretation becomes more complex</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="clinical-example">
+                    <h4>📊 Clinical Example: Gene Expression Biomarker Prediction</h4>
+                    <p><strong>Scenario:</strong> Predicting tumor size from 5,000 gene expression levels with only 200 patient samples.</p>
+                    <p><strong>Challenge:</strong> Many more features than samples (p >> n problem) causes overfitting in standard linear regression.</p>
+                    <p><strong>Solution:</strong> Lasso regression identifies 47 genes with non-zero coefficients, providing both prediction and biological insight into which genes drive tumor growth.</p>
+                    <p><strong>Result:</strong> Test R² improved from 0.23 (linear) to 0.68 (Lasso) by preventing overfitting.</p>
+                </div>
+            </div>
+
+            <!-- 3. Random Forest Regression -->
+            <div class="method-detail">
+                <div class="method-detail-title">3. Random Forest Regression</div>
+                <div class="method-content">
+                    <div class="visualization">
+                        <canvas id="forestChart" width="400" height="300"></canvas>
+                    </div>
+                    <div class="explanation">
+                        <h3>What is Random Forest Regression?</h3>
+                        <p>Random Forest builds multiple decision trees on random subsets of data and features, then averages their predictions. This ensemble approach captures non-linear relationships and complex interactions.</p>
+                        
+                        <h3>How It Works</h3>
+                        <ul>
+                            <li><strong>Bootstrap Sampling:</strong> Each tree trains on a random sample with replacement</li>
+                            <li><strong>Random Features:</strong> At each split, only a random subset of features is considered</li>
+                            <li><strong>Aggregation:</strong> Final prediction is the average of all tree predictions</li>
+                            <li><strong>Feature Importance:</strong> Calculated by measuring prediction accuracy decrease when a feature is permuted</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✓ Advantages</h4>
+                        <ul>
+                            <li>Captures non-linear relationships automatically</li>
+                            <li>Handles missing data well</li>
+                            <li>Provides feature importance rankings</li>
+                            <li>Robust to outliers</li>
+                            <li>No feature scaling required</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>✗ Limitations</h4>
+                        <ul>
+                            <li>Less interpretable than linear models</li>
+                            <li>Can overfit with too many/deep trees</li>
+                            <li>Larger memory footprint</li>
+                            <li>Slower prediction than linear models</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="clinical-example">
+                    <h4>📊 Clinical Example: ICU Length of Stay Prediction</h4>
+                    <p><strong>Scenario:</strong> Predicting ICU stay duration using admission vitals, lab results, comorbidities, and treatment interventions.</p>
+                    <p><strong>Complexity:</strong> Relationships are highly non-linear (e.g., U-shaped relationship between blood pressure and LOS; interactions between age and organ failure).</p>
+                    <p><strong>Model Performance:</strong> Random Forest achieved RMSE of 2.3 days vs 3.8 days for linear regression.</p>
+                    <p><strong>Feature Insights:</strong> Top predictors were APACHE score (importance: 0.24), mechanical ventilation (0.18), and sepsis presence (0.15), guiding resource allocation.</p>
+                </div>
+            </div>
+
+            <!-- 4. Gradient Boosting -->
+            <div class="method-detail">
+                <div class="method-detail-title">4. Gradient Boosting (XGBoost)</div>
+                <div class="method-content">
+                    <div class="visualization">
+                        <canvas id="boostingChart" width="400" height="300"></canvas>
+                    </div>
+                    <div class="explanation">
+                        <h3>What is Gradient Boosting?</h3>
+                        <p>Gradient boosting builds trees sequentially, where each new tree corrects the errors of the previous ensemble. XGBoost is an optimized implementation with regularization and efficient algorithms.</p>
+                        
+                        <h3>Key Concepts</h3>
+                        <ul>
+                            <li><strong>Sequential Learning:</strong> Each tree focuses on the residual errors of previous trees</li>
+                            <li><strong>Gradient Descent:</strong> Uses gradients to minimize loss function</li>
+                            <li><strong>Regularization:</strong> L1/L2 penalties on leaf weights prevent overfitting</li>
+                            <li><strong>Learning Rate:</strong> Controls contribution of each tree (shrinkage)</li>
+                        </ul>
+                    </div>
+                </div>
+                
+                <div class="pros-cons">
+                    <div class="pros">
+                        <h4>✓ Advantages</h4>
+                        <ul>
+                            <li>State-of-the-art accuracy on tabular data</li>
+                            <li>Handles mixed data types seamlessly</li>
+                            <li>Built-in feature importance</li>
+                            <li>Efficient with missing values</li>
+                            <li>Highly customizable with many hyperparameters</li>
+                        </ul>
+                    </div>
+                    <div class="cons">
+                        <h4>✗ Limitations</h4>
+                        <ul>
+                            <li>Prone to overfitting without proper tuning</li>
+                            <li>Longer training time than Random Forest</li>
+                            <li>Many hyperparameters to optimize</li>
+                            <li>Less interpretable than linear models</li>
+                        </ul>
+                    </div>
+                </div>
+
+                <div class="clinical-example">
+                    <h4>📊 Clinical Example: Personalized Drug Dosage Optimization</h4>
+                    <p><strong>Scenario:</strong> Predicting optimal warfarin dosage based on genetic variants (CYP2C9, VKORC1), demographics, medications, and clinical factors.</p>
+                    <p><strong>Challenge:</strong> Complex gene-drug-disease interactions with non-linear dose-response curves.</p>
+                    <p><strong>XGBoost Results:</strong> Mean absolute error of 0.73 mg/day vs 1.42 mg/day for clinical algorithms, reducing bleeding/clotting events by 28%.</p>
+                    <p><strong>Model Insights:</strong> SHAP values revealed that VKORC1 genotype had the largest individual impact, but age-BMI interactions were critical for elderly patients.</p>
+                </div>
+            </div>
+
+            <!-- Final Summary Box -->
+            <div class="important-box" style="margin-top: 40px;">
+                <div class="important-title">🎯 Model Selection Guidelines</div>
+                <div class="important-text">
+                    <strong>Start Simple:</strong> Begin with Linear Regression for interpretability.<br>
+                    <strong>Add Regularization:</strong> Use Ridge/Lasso/Elastic Net when you have many features or multicollinearity.<br>
+                    <strong>Go Non-linear:</strong> Use Random Forest when relationships are complex but interpretability is still important.<br>
+                    <strong>Maximize Performance:</strong> Use XGBoost for best predictive accuracy on structured data.<br><br>
+                    <strong>Always:</strong> Validate on held-out test data, calculate confidence intervals, and consider clinical interpretability alongside statistical performance.
+                </div>
+            </div>
         </div>
     </div>
+
+    <script>
+        // Linear Regression Visualization
+        const ctxLinear = document.getElementById('linearChart').getContext('2d');
+        
+        // Generate sample data
+        const dataPoints = [];
+        for (let i = 0; i < 30; i++) {
+            const x = i * 2;
+            const y = 20 + x * 1.5 + (Math.random() - 0.5) * 15;
+            dataPoints.push({x, y});
+        }
+        
+        // Draw linear regression
+        ctxLinear.fillStyle = '#f8f9fa';
+        ctxLinear.fillRect(0, 0, 400, 300);
+        
+        // Draw axes
+        ctxLinear.strokeStyle = '#333';
+        ctxLinear.lineWidth = 2;
+        ctxLinear.beginPath();
+        ctxLinear.moveTo(40, 260);
+        ctxLinear.lineTo(380, 260);
+        ctxLinear.moveTo(40, 260);
+        ctxLinear.lineTo(40, 20);
+        ctxLinear.stroke();
+        
+        // Draw regression line
+        ctxLinear.strokeStyle = '#1E64C8';
+        ctxLinear.lineWidth = 3;
+        ctxLinear.beginPath();
+        ctxLinear.moveTo(40, 240);
+        ctxLinear.lineTo(380, 80);
+        ctxLinear.stroke();
+        
+        // Draw data points
+        dataPoints.forEach(point => {
+            const plotX = 40 + (point.x / 60) * 340;
+            const plotY = 260 - ((point.y - 20) / 110) * 240;
+            
+            ctxLinear.fillStyle = '#ff6b6b';
+            ctxLinear.beginPath();
+            ctxLinear.arc(plotX, plotY, 4, 0, Math.PI * 2);
+            ctxLinear.fill();
+        });
+        
+        // Labels
+        ctxLinear.fillStyle = '#333';
+        ctxLinear.font = '14px Aptos';
+        ctxLinear.fillText('Age / BMI / Glucose →', 140, 285);
+        ctxLinear.save();
+        ctxLinear.translate(15, 150);
+        ctxLinear.rotate(-Math.PI / 2);
+        ctxLinear.fillText('HbA1c Level →', -50, 0);
+        ctxLinear.restore();
+        ctxLinear.font = 'bold 16px Aptos';
+        ctxLinear.fillStyle = '#1E64C8';
+        ctxLinear.fillText('Linear Fit: y = β₀ + β₁x', 120, 30);
+
+        // Regularized Regression Visualization
+        const ctxReg = document.getElementById('regularizedChart').getContext('2d');
+        ctxReg.fillStyle = '#f8f9fa';
+        ctxReg.fillRect(0, 0, 400, 300);
+        
+        // Draw comparison of different penalties
+        const features = ['Gene1', 'Gene2', 'Gene3', 'Gene4', 'Gene5', 'Gene6'];
+        const linearCoefs = [0.8, 0.75, 0.65, 0.6, 0.55, 0.5];
+        const ridgeCoefs = [0.45, 0.42, 0.38, 0.35, 0.32, 0.3];
+        const lassoCoefs = [0.7, 0.5, 0, 0.4, 0, 0];
+        
+        const barWidth = 15;
+        const spacing = 55;
+        const startX = 50;
+        
+        features.forEach((feature, i) => {
+            const x = startX + i * spacing;
+            
+            // Linear (overfitting)
+            ctxReg.fillStyle = '#ff6b6b';
+            ctxReg.fillRect(x, 260 - linearCoefs[i] * 200, barWidth, linearCoefs[i] * 200);
+            
+            // Ridge
+            ctxReg.fillStyle = '#4ecdc4';
+            ctxReg.fillRect(x + barWidth, 260 - ridgeCoefs[i] * 200, barWidth, ridgeCoefs[i] * 200);
+            
+            // Lasso
+            ctxReg.fillStyle = '#95e1d3';
+            ctxReg.fillRect(x + barWidth * 2, 260 - lassoCoefs[i] * 200, barWidth, lassoCoefs[i] * 200);
+            
+            // Feature label
+            ctxReg.fillStyle = '#333';
+            ctxReg.font = '11px Aptos';
+            ctxReg.fillText('G' + (i+1), x + 15, 280);
+        });
+        
+        // Legend
+        ctxReg.fillStyle = '#ff6b6b';
+        ctxReg.fillRect(50, 20, 20, 15);
+        ctxReg.fillStyle = '#333';
+        ctxReg.font = '12px Aptos';
+        ctxReg.fillText('Linear (overfit)', 75, 32);
+        
+        ctxReg.fillStyle = '#4ecdc4';
+        ctxReg.fillRect(180, 20, 20, 15);
+        ctxReg.fillText('Ridge (shrink)', 205, 32);
+        
+        ctxReg.fillStyle = '#95e1d3';
+        ctxReg.fillRect(290, 20, 20, 15);
+        ctxReg.fillText('Lasso (select)', 315, 32);
+
+        // Random Forest Visualization
+        const ctxForest = document.getElementById('forestChart').getContext('2d');
+        ctxForest.fillStyle = '#f8f9fa';
+        ctxForest.fillRect(0, 0, 400, 300);
+        
+        // Draw multiple trees
+        const drawTree = (x, y, size, color) => {
+            // Trunk
+            ctxForest.fillStyle = '#8B4513';
+            ctxForest.fillRect(x - 3, y + size - 15, 6, 15);
+            
+            // Leaves
+            ctxForest.fillStyle = color;
+            ctxForest.beginPath();
+            ctxForest.arc(x, y + size - 20, size/2, 0, Math.PI * 2);
+            ctxForest.fill();
+            
+            // Root splits
+            ctxForest.strokeStyle = '#333';
+            ctxForest.lineWidth = 1;
+            ctxForest.beginPath();
+            ctxForest.moveTo(x, y + size - 20);
+            ctxForest.lineTo(x - size/3, y + size - 5);
+            ctxForest.moveTo(x, y + size - 20);
+            ctxForest.lineTo(x + size/3, y + size - 5);
+            ctxForest.stroke();
+        };
+        
+        // Draw forest of decision trees
+        const treeColors = ['#27ae60', '#2ecc71', '#16a085', '#1abc9c', '#229954'];
+        for (let i = 0; i < 5; i++) {
+            drawTree(70 + i * 65, 80, 35, treeColors[i]);
+        }
+        
+        // Show aggregation arrow
+        ctxForest.strokeStyle = '#1E64C8';
+        ctxForest.lineWidth = 3;
+        ctxForest.beginPath();
+        ctxForest.moveTo(200, 180);
+        ctxForest.lineTo(200, 210);
+        ctxForest.stroke();
+        
+        // Arrow head
+        ctxForest.beginPath();
+        ctxForest.moveTo(200, 210);
+        ctxForest.lineTo(195, 200);
+        ctxForest.lineTo(205, 200);
+        ctxForest.closePath();
+        ctxForest.fillStyle = '#1E64C8';
+        ctxForest.fill();
+        
+        // Final prediction box
+        ctxForest.fillStyle = '#1E64C8';
+        ctxForest.fillRect(130, 220, 140, 40);
+        ctxForest.fillStyle = 'white';
+        ctxForest.font = 'bold 14px Aptos';
+        ctxForest.fillText('Average Prediction', 145, 235);
+        ctxForest.font = '12px Aptos';
+        ctxForest.fillText('ICU Stay: 4.7 days', 155, 252);
+        
+        // Labels
+        ctxForest.fillStyle = '#333';
+        ctxForest.font = '12px Aptos';
+        ctxForest.fillText('Bootstrap samples + Random features', 95, 30);
+
+        // Gradient Boosting Visualization
+        const ctxBoost = document.getElementById('boostingChart').getContext('2d');
+        ctxBoost.fillStyle = '#f8f9fa';
+        ctxBoost.fillRect(0, 0, 400, 300);
+        
+        // Draw sequential boosting process
+        const stages = [
+            {label: 'Initial\nModel', error: 80, y: 60},
+            {label: 'Tree 1\n(correct errors)', error: 50, y: 100},
+            {label: 'Tree 2\n(correct errors)', error: 30, y: 140},
+            {label: 'Tree 3\n(correct errors)', error: 18, y: 180},
+            {label: 'Final\nEnsemble', error: 12, y: 220}
+        ];
+        
+        stages.forEach((stage, i) => {
+            const x = 200;
+            
+            // Error bar
+            const barHeight = stage.error * 2;
+            ctxBoost.fillStyle = i === stages.length - 1 ? '#27ae60' : '#e74c3c';
+            ctxBoost.fillRect(x - 30, stage.y - barHeight/2, 60, barHeight);
+            
+            // Error value
+            ctxBoost.fillStyle = 'white';
+            ctxBoost.font = 'bold 16px Aptos';
+            ctxBoost.fillText(stage.error + '%', x - 20, stage.y + 5);
+            
+            // Label
+            ctxBoost.fillStyle = '#333';
+            ctxBoost.font = '11px Aptos';
+            const lines = stage.label.split('\n');
+            lines.forEach((line, li) => {
+                ctxBoost.fillText(line, x + 45, stage.y - 5 + li * 13);
+            });
+            
+            // Arrow
+            if (i < stages.length - 1) {
+                ctxBoost.strokeStyle = '#1E64C8';
+                ctxBoost.lineWidth = 2;
+                ctxBoost.beginPath();
+                ctxBoost.moveTo(x, stage.y + stage.error);
+                ctxBoost.lineTo(x, stages[i+1].y - stages[i+1].error);
+                ctxBoost.stroke();
+                
+                // Arrow head
+                ctxBoost.beginPath();
+                ctxBoost.moveTo(x, stages[i+1].y - stages[i+1].error);
+                ctxBoost.lineTo(x - 4, stages[i+1].y - stages[i+1].error - 8);
+                ctxBoost.lineTo(x + 4, stages[i+1].y - stages[i+1].error - 8);
+                ctxBoost.closePath();
+                ctxBoost.fillStyle = '#1E64C8';
+                ctxBoost.fill();
+            }
+        });
+        
+        // Title
+        ctxBoost.fillStyle = '#1E64C8';
+        ctxBoost.font = 'bold 14px Aptos';
+        ctxBoost.fillText('Sequential Error Reduction', 110, 25);
+        ctxBoost.font = '11px Aptos';
+        ctxBoost.fillText('(each tree corrects previous mistakes)', 105, 42);
+    </script>
 </body>
 </html>

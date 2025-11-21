@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RNA-seq Workflow</title>
+    <title>RNA-seq Workflow - Detailed Guide</title>
     <style>
         * {
             margin: 0;
@@ -13,196 +13,858 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f7fa;
+            padding: 40px 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 30px 40px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 40px;
+            border-radius: 12px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         .title {
-            font-size: 28px;
-            font-weight: 600;
+            font-size: 36px;
+            font-weight: 700;
             color: #1E64C8;
-            margin-bottom: 30px;
+            margin-bottom: 15px;
             text-align: center;
+        }
+        
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+        
+        .workflow-overview {
+            background: linear-gradient(135deg, #1E64C8 0%, #3d84e0 100%);
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 50px;
+            color: white;
         }
         
         .workflow-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 20px;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .workflow-step {
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 8px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .arrow {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 24px;
+            color: white;
+        }
+        
+        .section {
+            margin-bottom: 60px;
+            page-break-inside: avoid;
+        }
+        
+        .section-header {
+            background: linear-gradient(90deg, #1E64C8 0%, #3d84e0 100%);
+            color: white;
+            padding: 20px 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+        
+        .section-number {
+            font-size: 32px;
+            font-weight: 700;
+            background: white;
+            color: #1E64C8;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .section-title {
+            font-size: 28px;
+            font-weight: 700;
+        }
+        
+        .content-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
             margin-bottom: 25px;
         }
         
-        .workflow-card {
-            background: white;
-            border: 2.5px solid #1E64C8;
+        .text-content {
+            padding: 20px;
+        }
+        
+        .visual-content {
+            background: #f8fbff;
+            border: 2px solid #e0e0e0;
             border-radius: 10px;
             padding: 20px;
-            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
         }
         
-        .workflow-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 6px 20px rgba(30, 100, 200, 0.2);
-            background: #f8fbff;
+        .description {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+            margin-bottom: 20px;
         }
         
-        .card-title {
-            font-size: 20px;
+        .key-points {
+            background: #f0f5fc;
+            border-left: 4px solid #1E64C8;
+            padding: 20px;
+            border-radius: 6px;
+            margin-top: 20px;
+        }
+        
+        .key-points-title {
+            font-size: 18px;
             font-weight: 700;
             color: #1E64C8;
             margin-bottom: 12px;
-            text-align: center;
-            padding-bottom: 10px;
-            border-bottom: 2px solid #e0e0e0;
         }
         
-        .card-content {
-            font-size: 17px;
+        .key-points ul {
+            list-style: none;
+            padding-left: 0;
+        }
+        
+        .key-points li {
+            padding: 8px 0;
+            padding-left: 25px;
+            position: relative;
             color: #333;
             line-height: 1.6;
         }
         
+        .key-points li:before {
+            content: "▸";
+            position: absolute;
+            left: 0;
+            color: #1E64C8;
+            font-weight: 700;
+        }
+        
+        .formula-box {
+            background: #fff;
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            color: #1E64C8;
+            font-weight: 600;
+        }
+        
         .best-practice {
-            background: #f0f5fc;
-            border-left: 4px solid #1E64C8;
-            border-radius: 6px;
-            padding: 15px 22px;
-            margin-top: 20px;
+            background: linear-gradient(135deg, #28a745 0%, #20c997 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 10px;
+            margin-top: 50px;
+            text-align: center;
         }
         
         .bp-title {
-            font-size: 18px;
+            font-size: 24px;
             font-weight: 700;
-            color: #1E64C8;
-            margin-bottom: 10px;
+            margin-bottom: 15px;
         }
         
         .bp-text {
-            font-size: 17px;
-            color: #333;
-            line-height: 1.5;
+            font-size: 18px;
+            line-height: 1.6;
         }
         
-        .visual-section {
-            margin-top: 25px;
-            text-align: center;
+        svg text {
+            font-family: Aptos, sans-serif;
+        }
+        
+        .comparison-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+        }
+        
+        .comparison-table th {
+            background: #1E64C8;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 600;
+        }
+        
+        .comparison-table td {
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+        }
+        
+        .comparison-table tr:nth-child(even) {
+            background: #f8fbff;
+        }
+        
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 4px;
+        }
+        
+        .highlight-box strong {
+            color: #856404;
         }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="title">RNA-seq Workflow</div>
+        <div class="subtitle">Comprehensive Guide to Experimental Design and Best Practices</div>
         
-        <div class="workflow-grid">
-            <div class="workflow-card">
-                <div class="card-title">Experimental Design</div>
-                <div class="card-content">
-                    Plan your study carefully with appropriate controls and biological questions
-                </div>
-            </div>
-            
-            <div class="workflow-card">
-                <div class="card-title">Replication Strategies</div>
-                <div class="card-content">
-                    Biological replicates (≥3) are essential for statistical power
-                </div>
-            </div>
-            
-            <div class="workflow-card">
-                <div class="card-title">Batch Effect Prevention</div>
-                <div class="card-content">
-                    Randomize sample processing to avoid confounding variables
-                </div>
-            </div>
-            
-            <div class="workflow-card">
-                <div class="card-title">Power Analysis</div>
-                <div class="card-content">
-                    Determine sample size needed to detect biological effects
-                </div>
-            </div>
-            
-            <div class="workflow-card">
-                <div class="card-title">Cost Optimization</div>
-                <div class="card-content">
-                    Balance sequencing depth and sample number for your budget
-                </div>
+        <div class="workflow-overview">
+            <h3 style="text-align: center; margin-bottom: 20px; font-size: 20px;">Complete RNA-seq Pipeline</h3>
+            <div class="workflow-grid">
+                <div class="workflow-step">Design</div>
+                <div class="workflow-step">Sample Prep</div>
+                <div class="workflow-step">Sequencing</div>
+                <div class="workflow-step">QC & Align</div>
+                <div class="workflow-step">Analysis</div>
             </div>
         </div>
-        
+
+        <!-- Section 1: Experimental Design -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">1</div>
+                <div class="section-title">Experimental Design</div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="text-content">
+                    <div class="description">
+                        Experimental design is the foundation of any successful RNA-seq study. A well-designed experiment ensures that the biological questions can be answered with statistical confidence while avoiding common pitfalls that can compromise data quality.
+                    </div>
+                    
+                    <div class="description">
+                        <strong>Critical considerations:</strong><br>
+                        • Define clear biological hypotheses before starting<br>
+                        • Identify appropriate control groups<br>
+                        • Account for potential confounding variables<br>
+                        • Plan for both technical and biological variation<br>
+                        • Consider the statistical model for downstream analysis
+                    </div>
+                </div>
+                
+                <div class="visual-content">
+                    <svg width="450" height="300" viewBox="0 0 450 300">
+                        <!-- Flow diagram -->
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#1E64C8" />
+                            </marker>
+                        </defs>
+                        
+                        <!-- Research Question -->
+                        <rect x="125" y="10" width="200" height="50" rx="8" fill="#1E64C8"/>
+                        <text x="225" y="40" text-anchor="middle" fill="white" font-size="16" font-weight="600">Research Question</text>
+                        
+                        <!-- Arrow down -->
+                        <line x1="225" y1="60" x2="225" y2="90" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Hypothesis -->
+                        <rect x="125" y="95" width="200" height="50" rx="8" fill="#2874d8"/>
+                        <text x="225" y="125" text-anchor="middle" fill="white" font-size="16" font-weight="600">Define Hypothesis</text>
+                        
+                        <!-- Arrow down -->
+                        <line x1="225" y1="145" x2="225" y2="175" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Controls -->
+                        <rect x="30" y="180" width="140" height="50" rx="8" fill="#3d84e0"/>
+                        <text x="100" y="210" text-anchor="middle" fill="white" font-size="14" font-weight="600">Select Controls</text>
+                        
+                        <!-- Sample Groups -->
+                        <rect x="280" y="180" width="140" height="50" rx="8" fill="#3d84e0"/>
+                        <text x="350" y="210" text-anchor="middle" fill="white" font-size="14" font-weight="600">Define Groups</text>
+                        
+                        <!-- Arrows to final -->
+                        <line x1="100" y1="230" x2="225" y2="255" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                        <line x1="350" y1="230" x2="225" y2="255" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                        
+                        <!-- Final box -->
+                        <rect x="100" y="260" width="250" height="35" rx="8" fill="#5088d4"/>
+                        <text x="225" y="282" text-anchor="middle" fill="white" font-size="14" font-weight="600">Experimental Design Plan</text>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <div class="key-points-title">Key Design Principles</div>
+                <ul>
+                    <li><strong>Randomization:</strong> Randomly assign samples to processing batches to prevent systematic bias</li>
+                    <li><strong>Blocking:</strong> Group samples by known sources of variation (e.g., batch, sex, age)</li>
+                    <li><strong>Control Selection:</strong> Use appropriate negative and positive controls</li>
+                    <li><strong>Sample Size:</strong> Calculate required sample size based on expected effect size and variance</li>
+                </ul>
+            </div>
+            
+            <div class="highlight-box">
+                <strong>Common Pitfall:</strong> Starting sequencing without a clear analysis plan often leads to underpowered studies or inability to test the intended hypothesis.
+            </div>
+        </div>
+
+        <!-- Section 2: Replication Strategies -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">2</div>
+                <div class="section-title">Replication Strategies</div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="text-content">
+                    <div class="description">
+                        Replication is crucial for distinguishing true biological variation from technical noise. There are two types of replicates in RNA-seq: <strong>technical replicates</strong> (same sample sequenced multiple times) and <strong>biological replicates</strong> (independent samples from the same condition).
+                    </div>
+                    
+                    <div class="description">
+                        <strong>Biological replicates are essential</strong> because they capture the natural variation between individuals, which is typically much larger than technical variation. Modern RNA-seq platforms have low technical variation, making technical replicates less necessary.
+                    </div>
+                    
+                    <div class="formula-box">
+                        Minimum Recommended: n ≥ 3 biological replicates per condition
+                    </div>
+                    
+                    <div class="description">
+                        For optimal statistical power, 5-6 replicates per group is recommended, especially when expecting small effect sizes or high biological variability.
+                    </div>
+                </div>
+                
+                <div class="visual-content">
+                    <svg width="450" height="320" viewBox="0 0 450 320">
+                        <!-- Title -->
+                        <text x="225" y="25" text-anchor="middle" font-size="18" font-weight="700" fill="#1E64C8">Biological vs Technical Replicates</text>
+                        
+                        <!-- Biological Replicates Section -->
+                        <text x="110" y="60" text-anchor="middle" font-size="14" font-weight="600" fill="#333">Biological Replicates</text>
+                        
+                        <!-- Sample 1 -->
+                        <circle cx="50" cy="100" r="20" fill="#28a745" opacity="0.8"/>
+                        <text x="50" y="105" text-anchor="middle" fill="white" font-size="12" font-weight="600">S1</text>
+                        
+                        <!-- Sample 2 -->
+                        <circle cx="110" cy="100" r="20" fill="#28a745" opacity="0.8"/>
+                        <text x="110" y="105" text-anchor="middle" fill="white" font-size="12" font-weight="600">S2</text>
+                        
+                        <!-- Sample 3 -->
+                        <circle cx="170" cy="100" r="20" fill="#28a745" opacity="0.8"/>
+                        <text x="170" y="105" text-anchor="middle" fill="white" font-size="12" font-weight="600">S3</text>
+                        
+                        <!-- Arrows down -->
+                        <path d="M 50 125 L 50 155" stroke="#333" stroke-width="2" marker-end="url(#arrowblack)"/>
+                        <path d="M 110 125 L 110 155" stroke="#333" stroke-width="2" marker-end="url(#arrowblack)"/>
+                        <path d="M 170 125 L 170 155" stroke="#333" stroke-width="2" marker-end="url(#arrowblack)"/>
+                        
+                        <!-- RNA-seq boxes -->
+                        <rect x="30" y="160" width="40" height="25" rx="4" fill="#1E64C8"/>
+                        <text x="50" y="177" text-anchor="middle" fill="white" font-size="10">RNA-seq</text>
+                        
+                        <rect x="90" y="160" width="40" height="25" rx="4" fill="#1E64C8"/>
+                        <text x="110" y="177" text-anchor="middle" fill="white" font-size="10">RNA-seq</text>
+                        
+                        <rect x="150" y="160" width="40" height="25" rx="4" fill="#1E64C8"/>
+                        <text x="170" y="177" text-anchor="middle" fill="white" font-size="10">RNA-seq</text>
+                        
+                        <text x="110" y="215" text-anchor="middle" font-size="12" fill="#28a745" font-weight="600">✓ Captures biological variation</text>
+                        
+                        <!-- Technical Replicates Section -->
+                        <text x="340" y="60" text-anchor="middle" font-size="14" font-weight="600" fill="#333">Technical Replicates</text>
+                        
+                        <!-- Single sample -->
+                        <circle cx="340" cy="100" r="20" fill="#ffc107" opacity="0.8"/>
+                        <text x="340" y="105" text-anchor="middle" fill="white" font-size="12" font-weight="600">S1</text>
+                        
+                        <!-- Three arrows down -->
+                        <path d="M 320 125 L 300 155" stroke="#333" stroke-width="2" marker-end="url(#arrowblack)"/>
+                        <path d="M 340 125 L 340 155" stroke="#333" stroke-width="2" marker-end="url(#arrowblack)"/>
+                        <path d="M 360 125 L 380 155" stroke="#333" stroke-width="2" marker-end="url(#arrowblack)"/>
+                        
+                        <!-- Three RNA-seq boxes -->
+                        <rect x="280" y="160" width="40" height="25" rx="4" fill="#dc3545" opacity="0.7"/>
+                        <text x="300" y="177" text-anchor="middle" fill="white" font-size="10">RNA-seq</text>
+                        
+                        <rect x="320" y="160" width="40" height="25" rx="4" fill="#dc3545" opacity="0.7"/>
+                        <text x="340" y="177" text-anchor="middle" fill="white" font-size="10">RNA-seq</text>
+                        
+                        <rect x="360" y="160" width="40" height="25" rx="4" fill="#dc3545" opacity="0.7"/>
+                        <text x="380" y="177" text-anchor="middle" fill="white" font-size="10">RNA-seq</text>
+                        
+                        <text x="340" y="215" text-anchor="middle" font-size="12" fill="#dc3545" font-weight="600">✗ No biological variation</text>
+                        
+                        <!-- Bottom comparison -->
+                        <rect x="50" y="250" width="350" height="60" rx="6" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="225" y="272" text-anchor="middle" font-size="13" font-weight="600" fill="#1E64C8">Statistical Power Comparison</text>
+                        <text x="225" y="295" text-anchor="middle" font-size="11" fill="#333">3 biological replicates > 10 technical replicates from 1 sample</text>
+                        
+                        <!-- Arrow marker -->
+                        <defs>
+                            <marker id="arrowblack" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                                <polygon points="0 0, 10 3, 0 6" fill="#333" />
+                            </marker>
+                        </defs>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <div class="key-points-title">Replication Best Practices</div>
+                <ul>
+                    <li><strong>Prioritize biological replicates:</strong> They provide information about true biological variation</li>
+                    <li><strong>Minimum of 3 replicates:</strong> Required for basic statistical tests (t-tests, DESeq2, edgeR)</li>
+                    <li><strong>5-6 replicates optimal:</strong> Provides good power to detect moderate changes (2-fold) with reasonable FDR</li>
+                    <li><strong>Avoid pooling:</strong> Pooling samples reduces the ability to assess biological variation</li>
+                    <li><strong>Technical replicates rarely needed:</strong> Modern platforms have <5% technical CV</li>
+                </ul>
+            </div>
+            
+            <table class="comparison-table">
+                <tr>
+                    <th>Replicates</th>
+                    <th>Statistical Power</th>
+                    <th>Recommended For</th>
+                </tr>
+                <tr>
+                    <td>n = 2</td>
+                    <td>Insufficient - No statistical testing</td>
+                    <td>Pilot studies only</td>
+                </tr>
+                <tr>
+                    <td>n = 3</td>
+                    <td>Minimal - Detects large changes only</td>
+                    <td>Well-defined systems, large effects</td>
+                </tr>
+                <tr>
+                    <td>n = 5-6</td>
+                    <td>Good - Detects moderate changes (1.5-2 fold)</td>
+                    <td>Most RNA-seq experiments</td>
+                </tr>
+                <tr>
+                    <td>n ≥ 10</td>
+                    <td>Excellent - Detects subtle changes</td>
+                    <td>Complex studies, small effect sizes</td>
+                </tr>
+            </table>
+        </div>
+
+        <!-- Section 3: Batch Effect Prevention -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">3</div>
+                <div class="section-title">Batch Effect Prevention</div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="text-content">
+                    <div class="description">
+                        Batch effects are systematic, non-biological differences between groups of samples processed at different times or under different conditions. They can confound biological signals and lead to false conclusions if not properly controlled.
+                    </div>
+                    
+                    <div class="description">
+                        <strong>Common sources of batch effects:</strong><br>
+                        • Different processing days/times<br>
+                        • Different technicians or laboratories<br>
+                        • Different reagent lots or kits<br>
+                        • Different sequencing runs or flow cells<br>
+                        • Seasonal or environmental variations
+                    </div>
+                    
+                    <div class="description">
+                        The gold standard for preventing batch effects is <strong>complete randomization</strong>, where samples from all experimental groups are randomly distributed across all batches.
+                    </div>
+                </div>
+                
+                <div class="visual-content">
+                    <svg width="450" height="320" viewBox="0 0 450 320">
+                        <!-- Title -->
+                        <text x="225" y="25" text-anchor="middle" font-size="16" font-weight="700" fill="#dc3545">Bad Design - Confounded</text>
+                        
+                        <!-- Batch 1 - All Control -->
+                        <rect x="30" y="45" width="170" height="80" rx="6" fill="#fee" stroke="#dc3545" stroke-width="2"/>
+                        <text x="115" y="65" text-anchor="middle" font-size="14" font-weight="600" fill="#dc3545">Batch 1</text>
+                        <circle cx="70" cy="95" r="15" fill="#6c757d"/>
+                        <text x="70" y="100" text-anchor="middle" fill="white" font-size="11" font-weight="600">C1</text>
+                        <circle cx="115" cy="95" r="15" fill="#6c757d"/>
+                        <text x="115" y="100" text-anchor="middle" fill="white" font-size="11" font-weight="600">C2</text>
+                        <circle cx="160" cy="95" r="15" fill="#6c757d"/>
+                        <text x="160" y="100" text-anchor="middle" fill="white" font-size="11" font-weight="600">C3</text>
+                        
+                        <!-- Batch 2 - All Treatment -->
+                        <rect x="250" y="45" width="170" height="80" rx="6" fill="#fee" stroke="#dc3545" stroke-width="2"/>
+                        <text x="335" y="65" text-anchor="middle" font-size="14" font-weight="600" fill="#dc3545">Batch 2</text>
+                        <circle cx="290" cy="95" r="15" fill="#e74c3c"/>
+                        <text x="290" y="100" text-anchor="middle" fill="white" font-size="11" font-weight="600">T1</text>
+                        <circle cx="335" cy="95" r="15" fill="#e74c3c"/>
+                        <text x="335" y="100" text-anchor="middle" fill="white" font-size="11" font-weight="600">T2</text>
+                        <circle cx="380" cy="95" r="15" fill="#e74c3c"/>
+                        <text x="380" y="100" text-anchor="middle" fill="white" font-size="11" font-weight="600">T3</text>
+                        
+                        <text x="225" y="145" text-anchor="middle" font-size="12" fill="#dc3545" font-weight="600">⚠ Batch completely confounded with treatment</text>
+                        
+                        <!-- Good Design -->
+                        <text x="225" y="185" text-anchor="middle" font-size="16" font-weight="700" fill="#28a745">Good Design - Randomized</text>
+                        
+                        <!-- Batch 1 - Mixed -->
+                        <rect x="30" y="205" width="170" height="80" rx="6" fill="#efffef" stroke="#28a745" stroke-width="2"/>
+                        <text x="115" y="225" text-anchor="middle" font-size="14" font-weight="600" fill="#28a745">Batch 1</text>
+                        <circle cx="70" cy="255" r="15" fill="#6c757d"/>
+                        <text x="70" y="260" text-anchor="middle" fill="white" font-size="11" font-weight="600">C1</text>
+                        <circle cx="115" cy="255" r="15" fill="#e74c3c"/>
+                        <text x="115" y="260" text-anchor="middle" fill="white" font-size="11" font-weight="600">T2</text>
+                        <circle cx="160" cy="255" r="15" fill="#6c757d"/>
+                        <text x="160" y="260" text-anchor="middle" fill="white" font-size="11" font-weight="600">C2</text>
+                        
+                        <!-- Batch 2 - Mixed -->
+                        <rect x="250" y="205" width="170" height="80" rx="6" fill="#efffef" stroke="#28a745" stroke-width="2"/>
+                        <text x="335" y="225" text-anchor="middle" font-size="14" font-weight="600" fill="#28a745">Batch 2</text>
+                        <circle cx="290" cy="255" r="15" fill="#e74c3c"/>
+                        <text x="290" y="260" text-anchor="middle" fill="white" font-size="11" font-weight="600">T1</text>
+                        <circle cx="335" cy="255" r="15" fill="#6c757d"/>
+                        <text x="335" y="260" text-anchor="middle" fill="white" font-size="11" font-weight="600">C3</text>
+                        <circle cx="380" cy="255" r="15" fill="#e74c3c"/>
+                        <text x="380" y="260" text-anchor="middle" fill="white" font-size="11" font-weight="600">T3</text>
+                        
+                        <text x="225" y="305" text-anchor="middle" font-size="12" fill="#28a745" font-weight="600">✓ Treatment and control in each batch</text>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <div class="key-points-title">Batch Effect Prevention Strategies</div>
+                <ul>
+                    <li><strong>Randomize sample processing:</strong> Distribute conditions evenly across all batches</li>
+                    <li><strong>Process all samples together:</strong> When possible, process all samples in a single batch</li>
+                    <li><strong>Block design:</strong> If batches are unavoidable, ensure each batch contains all conditions</li>
+                    <li><strong>Record metadata:</strong> Document all processing information (date, technician, kit lot, etc.)</li>
+                    <li><strong>Use computational correction:</strong> Apply batch correction methods (ComBat, limma) if needed</li>
+                    <li><strong>Include controls:</strong> Add control samples to each batch to monitor batch effects</li>
+                </ul>
+            </div>
+            
+            <div class="highlight-box">
+                <strong>Important Note:</strong> Batch effects cannot be fully corrected computationally if they are completely confounded with the biological variable of interest. Prevention through proper experimental design is crucial.
+            </div>
+        </div>
+
+        <!-- Section 4: Power Analysis -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">4</div>
+                <div class="section-title">Power Analysis</div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="text-content">
+                    <div class="description">
+                        Statistical power is the probability of detecting a true effect when it exists. Power analysis helps determine the appropriate sample size needed to detect biologically meaningful differences with acceptable confidence.
+                    </div>
+                    
+                    <div class="description">
+                        <strong>Key factors affecting power:</strong><br>
+                        • <strong>Effect size:</strong> The magnitude of difference you want to detect (e.g., 2-fold change)<br>
+                        • <strong>Biological variability:</strong> Higher variability requires more samples<br>
+                        • <strong>Sample size:</strong> More replicates increase power<br>
+                        • <strong>Significance level (α):</strong> Typically 0.05, adjusted for multiple testing<br>
+                        • <strong>Sequencing depth:</strong> Affects detection of lowly expressed genes
+                    </div>
+                    
+                    <div class="formula-box">
+                        Target Power: 80% (β = 0.20) at FDR < 0.05
+                    </div>
+                </div>
+                
+                <div class="visual-content">
+                    <svg width="450" height="300" viewBox="0 0 450 300">
+                        <!-- Title -->
+                        <text x="225" y="25" text-anchor="middle" font-size="16" font-weight="700" fill="#1E64C8">Sample Size vs Power</text>
+                        
+                        <!-- Axes -->
+                        <line x1="50" y1="250" x2="400" y2="250" stroke="#333" stroke-width="2"/>
+                        <line x1="50" y1="250" x2="50" y2="50" stroke="#333" stroke-width="2"/>
+                        
+                        <!-- Y-axis label -->
+                        <text x="25" y="150" text-anchor="middle" font-size="12" fill="#333" transform="rotate(-90 25 150)">Statistical Power (%)</text>
+                        
+                        <!-- X-axis label -->
+                        <text x="225" y="280" text-anchor="middle" font-size="12" fill="#333">Number of Biological Replicates</text>
+                        
+                        <!-- Y-axis ticks -->
+                        <line x1="45" y1="250" x2="50" y2="250" stroke="#333" stroke-width="2"/>
+                        <text x="40" y="255" text-anchor="end" font-size="10" fill="#333">0</text>
+                        
+                        <line x1="45" y1="210" x2="50" y2="210" stroke="#333" stroke-width="1"/>
+                        <text x="40" y="215" text-anchor="end" font-size="10" fill="#333">25</text>
+                        
+                        <line x1="45" y1="170" x2="50" y2="170" stroke="#333" stroke-width="1"/>
+                        <text x="40" y="175" text-anchor="end" font-size="10" fill="#333">50</text>
+                        
+                        <line x1="45" y1="130" x2="50" y2="130" stroke="#333" stroke-width="1"/>
+                        <text x="40" y="135" text-anchor="end" font-size="10" fill="#333">75</text>
+                        
+                        <line x1="45" y1="90" x2="50" y2="90" stroke="#333" stroke-width="2"/>
+                        <text x="40" y="95" text-anchor="end" font-size="10" fill="#333">100</text>
+                        
+                        <!-- 80% power line -->
+                        <line x1="50" y1="122" x2="400" y2="122" stroke="#28a745" stroke-width="1" stroke-dasharray="5,5"/>
+                        <text x="405" y="125" font-size="10" fill="#28a745" font-weight="600">80%</text>
+                        
+                        <!-- X-axis ticks -->
+                        <line x1="100" y1="250" x2="100" y2="255" stroke="#333" stroke-width="2"/>
+                        <text x="100" y="270" text-anchor="middle" font-size="10" fill="#333">3</text>
+                        
+                        <line x1="170" y1="250" x2="170" y2="255" stroke="#333" stroke-width="2"/>
+                        <text x="170" y="270" text-anchor="middle" font-size="10" fill="#333">5</text>
+                        
+                        <line x1="240" y1="250" x2="240" y2="255" stroke="#333" stroke-width="2"/>
+                        <text x="240" y="270" text-anchor="middle" font-size="10" fill="#333">7</text>
+                        
+                        <line x1="310" y1="250" x2="310" y2="255" stroke="#333" stroke-width="2"/>
+                        <text x="310" y="270" text-anchor="middle" font-size="10" fill="#333">10</text>
+                        
+                        <line x1="380" y1="250" x2="380" y2="255" stroke="#333" stroke-width="2"/>
+                        <text x="380" y="270" text-anchor="middle" font-size="10" fill="#333">15</text>
+                        
+                        <!-- Curve for 2-fold change -->
+                        <path d="M 100 230 Q 170 160, 240 120 T 380 95" 
+                              stroke="#e74c3c" stroke-width="3" fill="none"/>
+                        <text x="385" y="92" font-size="11" fill="#e74c3c" font-weight="600">2-fold</text>
+                        
+                        <!-- Curve for 1.5-fold change -->
+                        <path d="M 100 245 Q 170 200, 240 160 T 380 125" 
+                              stroke="#f39c12" stroke-width="3" fill="none"/>
+                        <text x="385" y="122" font-size="11" fill="#f39c12" font-weight="600">1.5-fold</text>
+                        
+                        <!-- Curve for 3-fold change -->
+                        <path d="M 100 200 Q 170 120, 240 95 T 380 75" 
+                              stroke="#27ae60" stroke-width="3" fill="none"/>
+                        <text x="385" y="72" font-size="11" fill="#27ae60" font-weight="600">3-fold</text>
+                        
+                        <!-- Annotations -->
+                        <circle cx="170" cy="160" r="4" fill="#e74c3c"/>
+                        <circle cx="240" cy="120" r="4" fill="#e74c3c"/>
+                        
+                        <!-- Recommended zone -->
+                        <rect x="140" y="55" width="130" height="195" fill="#1E64C8" opacity="0.1" stroke="#1E64C8" stroke-width="2" stroke-dasharray="3,3"/>
+                        <text x="205" y="45" text-anchor="middle" font-size="11" fill="#1E64C8" font-weight="600">Recommended Range</text>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <div class="key-points-title">Power Analysis Recommendations</div>
+                <ul>
+                    <li><strong>Perform power analysis before starting:</strong> Use tools like RNASeqPower, PROPER, or Scotty</li>
+                    <li><strong>Use pilot data when available:</strong> Estimate variability from preliminary experiments</li>
+                    <li><strong>Consider effect size:</strong> Smaller effects require more samples for detection</li>
+                    <li><strong>Account for multiple testing:</strong> Adjust significance threshold for thousands of genes tested</li>
+                    <li><strong>Balance depth vs replicates:</strong> More replicates usually better than extreme depth</li>
+                    <li><strong>Plan for dropout:</strong> Include extra samples in case of technical failures</li>
+                </ul>
+            </div>
+            
+            <table class="comparison-table">
+                <tr>
+                    <th>Fold Change</th>
+                    <th>Variability (CV)</th>
+                    <th>Samples Needed (80% power)</th>
+                </tr>
+                <tr>
+                    <td>2-fold</td>
+                    <td>Low (20%)</td>
+                    <td>3-4 per group</td>
+                </tr>
+                <tr>
+                    <td>2-fold</td>
+                    <td>Moderate (40%)</td>
+                    <td>5-6 per group</td>
+                </tr>
+                <tr>
+                    <td>1.5-fold</td>
+                    <td>Low (20%)</td>
+                    <td>6-8 per group</td>
+                </tr>
+                <tr>
+                    <td>1.5-fold</td>
+                    <td>Moderate (40%)</td>
+                    <td>12-15 per group</td>
+                </tr>
+            </table>
+            
+            <div class="highlight-box">
+                <strong>Rule of Thumb:</strong> For detecting 2-fold changes in moderately variable genes, aim for 5-6 biological replicates per condition. This provides good power while remaining cost-effective.
+            </div>
+        </div>
+
+        <!-- Section 5: Cost Optimization -->
+        <div class="section">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                <div class="section-title">Cost Optimization</div>
+            </div>
+            
+            <div class="content-grid">
+                <div class="text-content">
+                    <div class="description">
+                        RNA-seq experiments involve significant costs, and optimizing the allocation of resources between sequencing depth and sample number is crucial for maximizing statistical power within budget constraints.
+                    </div>
+                    
+                    <div class="description">
+                        <strong>Key cost considerations:</strong><br>
+                        • <strong>Sequencing depth:</strong> Number of reads per sample<br>
+                        • <strong>Sample number:</strong> Number of biological replicates<br>
+                        • <strong>Library preparation:</strong> Often the most expensive per-sample cost<br>
+                        • <strong>Platform choice:</strong> NovaSeq vs NextSeq vs other platforms<br>
+                        • <strong>Multiplexing:</strong> Pooling multiple samples per lane
+                    </div>
+                    
+                    <div class="formula-box">
+                        Recommended: 20-30M reads per sample for standard DE analysis
+                    </div>
+                </div>
+                
+                <div class="visual-content">
+                    <svg width="450" height="300" viewBox="0 0 450 300">
+                        <!-- Title -->
+                        <text x="225" y="25" text-anchor="middle" font-size="16" font-weight="700" fill="#1E64C8">Cost vs Power Trade-off</text>
+                        
+                        <!-- Scenario 1: Few samples, deep sequencing -->
+                        <rect x="30" y="50" width="180" height="100" rx="8" fill="#ffe0e0" stroke="#dc3545" stroke-width="2"/>
+                        <text x="120" y="75" text-anchor="middle" font-size="14" font-weight="600" fill="#dc3545">Strategy A: Deep Sequencing</text>
+                        
+                        <text x="120" y="100" text-anchor="middle" font-size="12" fill="#333">3 samples × 100M reads</text>
+                        <text x="120" y="118" text-anchor="middle" font-size="11" fill="#666">Cost: $3,000</text>
+                        <text x="120" y="136" text-anchor="middle" font-size="11" font-weight="600" fill="#dc3545">Power: LOW ⚠</text>
+                        
+                        <!-- Scenario 2: More samples, moderate depth -->
+                        <rect x="240" y="50" width="180" height="100" rx="8" fill="#e0ffe0" stroke="#28a745" stroke-width="2"/>
+                        <text x="330" y="75" text-anchor="middle" font-size="14" font-weight="600" fill="#28a745">Strategy B: More Replicates</text>
+                        
+                        <text x="330" y="100" text-anchor="middle" font-size="12" fill="#333">6 samples × 25M reads</text>
+                        <text x="330" y="118" text-anchor="middle" font-size="11" fill="#666">Cost: $3,000</text>
+                        <text x="330" y="136" text-anchor="middle" font-size="11" font-weight="600" fill="#28a745">Power: HIGH ✓</text>
+                        
+                        <!-- Cost breakdown chart -->
+                        <text x="225" y="180" text-anchor="middle" font-size="14" font-weight="600" fill="#333">Typical Cost Breakdown</text>
+                        
+                        <!-- Bar chart -->
+                        <rect x="50" y="195" width="60" height="80" fill="#3498db"/>
+                        <text x="80" y="240" text-anchor="middle" fill="white" font-size="11" font-weight="600">40%</text>
+                        <text x="80" y="290" text-anchor="middle" font-size="10" fill="#333">Library</text>
+                        
+                        <rect x="135" y="215" width="60" height="60" fill="#9b59b6"/>
+                        <text x="165" y="250" text-anchor="middle" fill="white" font-size="11" font-weight="600">30%</text>
+                        <text x="165" y="290" text-anchor="middle" font-size="10" fill="#333">Sequencing</text>
+                        
+                        <rect x="220" y="235" width="60" height="40" fill="#e67e22"/>
+                        <text x="250" y="260" text-anchor="middle" fill="white" font-size="11" font-weight="600">20%</text>
+                        <text x="250" y="290" text-anchor="middle" font-size="10" fill="#333">RNA Prep</text>
+                        
+                        <rect x="305" y="255" width="60" height="20" fill="#95a5a6"/>
+                        <text x="335" y="268" text-anchor="middle" fill="white" font-size="11" font-weight="600">10%</text>
+                        <text x="335" y="290" text-anchor="middle" font-size="10" fill="#333">Analysis</text>
+                        
+                        <!-- Baseline -->
+                        <line x1="40" y1="275" x2="375" y2="275" stroke="#333" stroke-width="2"/>
+                    </svg>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <div class="key-points-title">Cost Optimization Strategies</div>
+                <ul>
+                    <li><strong>Prioritize sample number:</strong> 6 samples at 25M reads beats 3 samples at 100M reads</li>
+                    <li><strong>Reduce unnecessary depth:</strong> Beyond 30M reads, returns diminish for standard DE analysis</li>
+                    <li><strong>Maximize multiplexing:</strong> Pool compatible samples to reduce per-sample sequencing costs</li>
+                    <li><strong>Choose appropriate platform:</strong> Match platform to depth requirements (NovaSeq for many samples)</li>
+                    <li><strong>Consider pilot studies:</strong> Small pilot can inform optimal depth for main study</li>
+                    <li><strong>Negotiate with core facilities:</strong> Bulk pricing for large projects</li>
+                </ul>
+            </div>
+            
+            <table class="comparison-table">
+                <tr>
+                    <th>Application</th>
+                    <th>Recommended Depth</th>
+                    <th>Rationale</th>
+                </tr>
+                <tr>
+                    <td>Differential Expression (Human/Mouse)</td>
+                    <td>20-30M reads</td>
+                    <td>Sufficient for ~15K genes with good coverage</td>
+                </tr>
+                <tr>
+                    <td>Novel Transcript Discovery</td>
+                    <td>50-100M reads</td>
+                    <td>Deeper coverage needed for rare transcripts</td>
+                </tr>
+                <tr>
+                    <td>Allele-specific Expression</td>
+                    <td>60-100M reads</td>
+                    <td>Higher depth for statistical confidence</td>
+                </tr>
+                <tr>
+                    <td>Single-cell RNA-seq</td>
+                    <td>50-100K reads/cell</td>
+                    <td>Shallow per cell, many cells</td>
+                </tr>
+                <tr>
+                    <td>Microbial Transcriptomics</td>
+                    <td>5-10M reads</td>
+                    <td>Smaller transcriptomes require less depth</td>
+                </tr>
+            </table>
+            
+            <div class="highlight-box">
+                <strong>Cost-Effectiveness Principle:</strong> After adequate coverage (~20M reads for mammalian samples), investing in additional biological replicates provides much better statistical power per dollar than increasing sequencing depth.
+            </div>
+        </div>
+
+        <!-- Final Best Practice Summary -->
         <div class="best-practice">
-            <div class="bp-title">⚡ Key Recommendation</div>
-            <div class="bp-text">More biological replicates with moderate depth > few samples with deep sequencing</div>
-        </div>
-        
-        <div class="visual-section">
-            <svg width="860" height="80" viewBox="0 0 860 80" xmlns="http://www.w3.org/2000/svg">
-                <!-- Workflow Steps -->
-                <g id="step1">
-                    <rect x="5" y="20" width="120" height="40" rx="8" fill="#1E64C8"/>
-                    <text x="65" y="45" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="white" text-anchor="middle">Design</text>
-                </g>
-                
-                <g id="arrow1">
-                    <path d="M 130 40 L 160 40" stroke="#1E64C8" stroke-width="3" fill="none"/>
-                    <polygon points="160,40 153,36 153,44" fill="#1E64C8"/>
-                </g>
-                
-                <g id="step2">
-                    <rect x="165" y="20" width="120" height="40" rx="8" fill="#2874d8"/>
-                    <text x="225" y="45" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="white" text-anchor="middle">Sample Prep</text>
-                </g>
-                
-                <g id="arrow2">
-                    <path d="M 290 40 L 320 40" stroke="#1E64C8" stroke-width="3" fill="none"/>
-                    <polygon points="320,40 313,36 313,44" fill="#1E64C8"/>
-                </g>
-                
-                <g id="step3">
-                    <rect x="325" y="20" width="120" height="40" rx="8" fill="#3d84e0"/>
-                    <text x="385" y="45" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="white" text-anchor="middle">Sequencing</text>
-                </g>
-                
-                <g id="arrow3">
-                    <path d="M 450 40 L 480 40" stroke="#1E64C8" stroke-width="3" fill="none"/>
-                    <polygon points="480,40 473,36 473,44" fill="#1E64C8"/>
-                </g>
-                
-                <g id="step4">
-                    <rect x="485" y="20" width="120" height="40" rx="8" fill="#5088d4"/>
-                    <text x="545" y="45" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="white" text-anchor="middle">QC & Align</text>
-                </g>
-                
-                <g id="arrow4">
-                    <path d="M 610 40 L 640 40" stroke="#1E64C8" stroke-width="3" fill="none"/>
-                    <polygon points="640,40 633,36 633,44" fill="#1E64C8"/>
-                </g>
-                
-                <g id="step5">
-                    <rect x="645" y="20" width="120" height="40" rx="8" fill="#6495dd"/>
-                    <text x="705" y="45" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="white" text-anchor="middle">Analysis</text>
-                </g>
-                
-                <g id="arrow5">
-                    <path d="M 770 40 L 795 40" stroke="#1E64C8" stroke-width="3" fill="none"/>
-                    <polygon points="795,40 788,36 788,44" fill="#1E64C8"/>
-                </g>
-                
-                <g id="step6">
-                    <rect x="800" y="20" width="55" height="40" rx="8" fill="#78a2e6"/>
-                    <text x="827.5" y="45" font-family="Aptos, sans-serif" font-size="13" font-weight="600" fill="white" text-anchor="middle">Results</text>
-                </g>
-            </svg>
+            <div class="bp-title">🎯 Golden Rule of RNA-seq Design</div>
+            <div class="bp-text">
+                More biological replicates with moderate sequencing depth (5-6 samples × 20-30M reads) 
+                <br>provides superior statistical power compared to<br>
+                fewer samples with extreme depth (3 samples × 100M reads)
+                <br><br>
+                <strong>Remember:</strong> You cannot compute your way out of poor experimental design!
+            </div>
         </div>
     </div>
 </body>

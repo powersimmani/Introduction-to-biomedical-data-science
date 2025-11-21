@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Drug-Target Interaction</title>
+    <title>Drug-Target Interaction - Detailed</title>
     <style>
         * {
             margin: 0;
@@ -14,17 +14,24 @@
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
             background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            padding: 40px 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 40px 60px;
+            max-width: 960px;
+            margin: 0 auto;
             background: white;
+        }
+        
+        .slide {
+            width: 960px;
+            min-height: 540px;
+            padding: 40px 60px;
+            margin-bottom: 60px;
+            background: white;
+            border: 1px solid #e0e0e0;
+            border-radius: 8px;
+            page-break-after: always;
         }
         
         .title {
@@ -33,6 +40,23 @@
             color: #1E64C8;
             margin-bottom: 20px;
             text-align: center;
+        }
+
+        .section-title {
+            font-size: 32px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 10px;
+        }
+
+        .subsection-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2c3e50;
+            margin-top: 20px;
+            margin-bottom: 12px;
         }
         
         .main-visual {
@@ -75,6 +99,43 @@
             font-weight: 400;
         }
 
+        .text-content {
+            font-size: 15px;
+            line-height: 1.7;
+            color: #333;
+            margin-bottom: 15px;
+        }
+
+        .highlight-box {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 15px;
+            margin: 15px 0;
+            border-radius: 5px;
+        }
+
+        .highlight-box strong {
+            color: #856404;
+        }
+
+        .feature-list {
+            margin-left: 20px;
+            margin-bottom: 15px;
+        }
+
+        .feature-list li {
+            margin-bottom: 8px;
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .two-column {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
         .interaction-pulse {
             animation: pulse-interact 2s ease-in-out infinite;
         }
@@ -101,157 +162,671 @@
             0%, 100% { filter: drop-shadow(0 0 2px rgba(30, 100, 200, 0.3)); }
             50% { filter: drop-shadow(0 0 6px rgba(30, 100, 200, 0.7)); }
         }
+
+        .method-box {
+            background: #f0f7ff;
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .method-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 8px;
+        }
+
+        .example-box {
+            background: #e8f5e9;
+            border: 2px solid #4caf50;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+
+        @media print {
+            .slide {
+                page-break-after: always;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">Drug-Target Interaction</div>
-        
-        <div class="main-visual">
-            <svg width="860" height="220" viewBox="0 0 860 220">
-                <!-- Drug molecules (left side) -->
-                <g transform="translate(50, 50)">
-                    <text x="60" y="-10" text-anchor="middle" font-size="13" font-weight="600" fill="#e74c3c">Drugs</text>
-                    
-                    <!-- Drug 1 -->
-                    <circle cx="60" cy="20" r="18" fill="#e74c3c" opacity="0.8"/>
-                    <text x="60" y="26" text-anchor="middle" font-size="11" fill="white" font-weight="600">D1</text>
-                    
-                    <!-- Drug 2 -->
-                    <circle cx="60" cy="60" r="18" fill="#e67e22" opacity="0.8"/>
-                    <text x="60" y="66" text-anchor="middle" font-size="11" fill="white" font-weight="600">D2</text>
-                    
-                    <!-- Drug 3 -->
-                    <circle cx="60" cy="100" r="18" fill="#f39c12" opacity="0.8"/>
-                    <text x="60" y="106" text-anchor="middle" font-size="11" fill="white" font-weight="600">D3</text>
-                    
-                    <!-- Drug 4 -->
-                    <circle cx="60" cy="140" r="18" fill="#d35400" opacity="0.8"/>
-                    <text x="60" y="146" text-anchor="middle" font-size="11" fill="white" font-weight="600">D4</text>
-                </g>
-
-                <!-- Target proteins (right side) -->
-                <g transform="translate(670, 50)">
-                    <text x="60" y="-10" text-anchor="middle" font-size="13" font-weight="600" fill="#3498db">Targets</text>
-                    
-                    <!-- Target 1 -->
-                    <circle cx="60" cy="20" r="18" fill="#3498db" opacity="0.8"/>
-                    <text x="60" y="26" text-anchor="middle" font-size="11" fill="white" font-weight="600">T1</text>
-                    
-                    <!-- Target 2 -->
-                    <circle cx="60" cy="60" r="18" fill="#2980b9" opacity="0.8"/>
-                    <text x="60" y="66" text-anchor="middle" font-size="11" fill="white" font-weight="600">T2</text>
-                    
-                    <!-- Target 3 -->
-                    <circle cx="60" cy="100" r="18" fill="#1abc9c" opacity="0.8"/>
-                    <text x="60" y="106" text-anchor="middle" font-size="11" fill="white" font-weight="600">T3</text>
-                    
-                    <!-- Target 4 -->
-                    <circle cx="60" cy="140" r="18" fill="#16a085" opacity="0.8"/>
-                    <text x="60" y="146" text-anchor="middle" font-size="11" fill="white" font-weight="600">T4</text>
-                </g>
-
-                <!-- Interaction network (edges) -->
-                <g>
-                    <!-- Strong interactions (thick lines) -->
-                    <line x1="128" y1="70" x2="730" y2="70" stroke="#2ecc71" stroke-width="4" opacity="0.6" class="network-edge"/>
-                    <circle cx="429" cy="70" r="0" fill="#2ecc71" class="interaction-pulse"/>
-                    
-                    <line x1="128" y1="110" x2="730" y2="150" stroke="#2ecc71" stroke-width="4" opacity="0.6" class="network-edge"/>
-                    <circle cx="429" cy="130" r="0" fill="#2ecc71" class="interaction-pulse"/>
-                    
-                    <!-- Moderate interactions (medium lines) -->
-                    <line x1="128" y1="70" x2="730" y2="110" stroke="#f39c12" stroke-width="3" opacity="0.5" stroke-dasharray="5,3"/>
-                    <line x1="128" y1="150" x2="730" y2="150" stroke="#f39c12" stroke-width="3" opacity="0.5" stroke-dasharray="5,3"/>
-                    
-                    <!-- Weak interactions (thin lines) -->
-                    <line x1="128" y1="110" x2="730" y2="70" stroke="#95a5a6" stroke-width="2" opacity="0.3" stroke-dasharray="3,2"/>
-                    <line x1="128" y1="150" x2="730" y2="110" stroke="#95a5a6" stroke-width="2" opacity="0.3" stroke-dasharray="3,2"/>
-                    <line x1="128" y1="190" x2="730" y2="190" stroke="#95a5a6" stroke-width="2" opacity="0.3" stroke-dasharray="3,2"/>
-                </g>
-
-                <!-- Central prediction model -->
-                <g transform="translate(330, 35)" class="prediction-box">
-                    <rect x="0" y="0" width="200" height="150" rx="12" fill="#f8f9fa" stroke="#1E64C8" stroke-width="3"/>
-                    <text x="100" y="25" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">ML Predictor</text>
-                    
-                    <!-- Neural network representation -->
-                    <g transform="translate(40, 40)">
-                        <!-- Input -->
-                        <circle cx="10" cy="30" r="6" fill="#e74c3c"/>
-                        <circle cx="10" cy="50" r="6" fill="#3498db"/>
-                        <text x="25" y="32" font-size="9" fill="#666">Drug</text>
-                        <text x="25" y="52" font-size="9" fill="#666">Target</text>
+        <!-- Slide 1: Title Slide -->
+        <div class="slide">
+            <div class="title">Drug-Target Interaction</div>
+            
+            <div class="main-visual">
+                <svg width="860" height="220" viewBox="0 0 860 220">
+                    <!-- Drug molecules (left side) -->
+                    <g transform="translate(50, 50)">
+                        <text x="60" y="-10" text-anchor="middle" font-size="13" font-weight="600" fill="#e74c3c">Drugs</text>
                         
-                        <!-- Hidden layers -->
-                        <circle cx="60" cy="25" r="5" fill="#9b59b6"/>
-                        <circle cx="60" cy="40" r="5" fill="#9b59b6"/>
-                        <circle cx="60" cy="55" r="5" fill="#9b59b6"/>
-                        <circle cx="60" cy="70" r="5" fill="#9b59b6"/>
+                        <!-- Drug 1 -->
+                        <circle cx="60" cy="20" r="18" fill="#e74c3c" opacity="0.8"/>
+                        <text x="60" y="26" text-anchor="middle" font-size="11" fill="white" font-weight="600">D1</text>
                         
-                        <circle cx="100" cy="30" r="5" fill="#34495e"/>
-                        <circle cx="100" cy="50" r="5" fill="#34495e"/>
-                        <circle cx="100" cy="70" r="5" fill="#34495e"/>
+                        <!-- Drug 2 -->
+                        <circle cx="60" cy="60" r="18" fill="#e67e22" opacity="0.8"/>
+                        <text x="60" y="66" text-anchor="middle" font-size="11" fill="white" font-weight="600">D2</text>
                         
-                        <!-- Output -->
-                        <circle cx="140" cy="40" r="7" fill="#2ecc71"/>
-                        <text x="135" y="60" font-size="9" fill="#666" text-anchor="middle">Score</text>
+                        <!-- Drug 3 -->
+                        <circle cx="60" cy="100" r="18" fill="#f39c12" opacity="0.8"/>
+                        <text x="60" y="106" text-anchor="middle" font-size="11" fill="white" font-weight="600">D3</text>
                         
-                        <!-- Connections -->
-                        <line x1="16" y1="30" x2="55" y2="30" stroke="#bdc3c7" stroke-width="1"/>
-                        <line x1="16" y1="50" x2="55" y2="50" stroke="#bdc3c7" stroke-width="1"/>
-                        <line x1="65" y1="40" x2="95" y2="40" stroke="#bdc3c7" stroke-width="1"/>
-                        <line x1="105" y1="40" x2="133" y2="40" stroke="#bdc3c7" stroke-width="1"/>
+                        <!-- Drug 4 -->
+                        <circle cx="60" cy="140" r="18" fill="#d35400" opacity="0.8"/>
+                        <text x="60" y="146" text-anchor="middle" font-size="11" fill="white" font-weight="600">D4</text>
                     </g>
-                    
-                    <text x="100" y="130" text-anchor="middle" font-size="10" fill="#666">Binary / Affinity</text>
-                </g>
 
-                <!-- Legend -->
-                <g transform="translate(350, 200)">
-                    <line x1="0" y1="5" x2="30" y2="5" stroke="#2ecc71" stroke-width="4"/>
-                    <text x="35" y="9" font-size="10" fill="#666">Strong (IC₅₀ < 100nM)</text>
-                    
-                    <line x1="170" y1="5" x2="200" y2="5" stroke="#f39c12" stroke-width="3" stroke-dasharray="5,3"/>
-                    <text x="205" y="9" font-size="10" fill="#666">Moderate</text>
-                </g>
+                    <!-- Target proteins (right side) -->
+                    <g transform="translate(670, 50)">
+                        <text x="60" y="-10" text-anchor="middle" font-size="13" font-weight="600" fill="#3498db">Targets</text>
+                        
+                        <!-- Target 1 -->
+                        <circle cx="60" cy="20" r="18" fill="#3498db" opacity="0.8"/>
+                        <text x="60" y="26" text-anchor="middle" font-size="11" fill="white" font-weight="600">T1</text>
+                        
+                        <!-- Target 2 -->
+                        <circle cx="60" cy="60" r="18" fill="#2980b9" opacity="0.8"/>
+                        <text x="60" y="66" text-anchor="middle" font-size="11" fill="white" font-weight="600">T2</text>
+                        
+                        <!-- Target 3 -->
+                        <circle cx="60" cy="100" r="18" fill="#1abc9c" opacity="0.8"/>
+                        <text x="60" y="106" text-anchor="middle" font-size="11" fill="white" font-weight="600">T3</text>
+                        
+                        <!-- Target 4 -->
+                        <circle cx="60" cy="140" r="18" fill="#16a085" opacity="0.8"/>
+                        <text x="60" y="146" text-anchor="middle" font-size="11" fill="white" font-weight="600">T4</text>
+                    </g>
 
-                <!-- Polypharmacology annotation -->
-                <g transform="translate(50, 10)">
-                    <rect x="0" y="0" width="130" height="25" rx="5" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
-                    <text x="65" y="16" text-anchor="middle" font-size="11" font-weight="600" fill="#856404">Polypharmacology</text>
-                </g>
+                    <!-- Interaction network (edges) -->
+                    <g>
+                        <!-- Strong interactions (thick lines) -->
+                        <line x1="128" y1="70" x2="730" y2="70" stroke="#2ecc71" stroke-width="4" opacity="0.6" class="network-edge"/>
+                        <circle cx="429" cy="70" r="0" fill="#2ecc71" class="interaction-pulse"/>
+                        
+                        <line x1="128" y1="110" x2="730" y2="150" stroke="#2ecc71" stroke-width="4" opacity="0.6" class="network-edge"/>
+                        <circle cx="429" cy="130" r="0" fill="#2ecc71" class="interaction-pulse"/>
+                        
+                        <!-- Moderate interactions (medium lines) -->
+                        <line x1="128" y1="70" x2="730" y2="110" stroke="#f39c12" stroke-width="3" opacity="0.5" stroke-dasharray="5,3"/>
+                        <line x1="128" y1="150" x2="730" y2="150" stroke="#f39c12" stroke-width="3" opacity="0.5" stroke-dasharray="5,3"/>
+                        
+                        <!-- Weak interactions (thin lines) -->
+                        <line x1="128" y1="110" x2="730" y2="70" stroke="#95a5a6" stroke-width="2" opacity="0.3" stroke-dasharray="3,2"/>
+                        <line x1="128" y1="150" x2="730" y2="110" stroke="#95a5a6" stroke-width="2" opacity="0.3" stroke-dasharray="3,2"/>
+                        <line x1="128" y1="190" x2="730" y2="190" stroke="#95a5a6" stroke-width="2" opacity="0.3" stroke-dasharray="3,2"/>
+                    </g>
 
-                <!-- Selectivity annotation -->
-                <g transform="translate(680, 10)">
-                    <rect x="0" y="0" width="100" height="25" rx="5" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
-                    <text x="50" y="16" text-anchor="middle" font-size="11" font-weight="600" fill="#155724">Selectivity</text>
-                </g>
-            </svg>
+                    <!-- Central prediction model -->
+                    <g transform="translate(330, 35)" class="prediction-box">
+                        <rect x="0" y="0" width="200" height="150" rx="12" fill="#f8f9fa" stroke="#1E64C8" stroke-width="3"/>
+                        <text x="100" y="25" text-anchor="middle" font-size="14" font-weight="600" fill="#1E64C8">ML Predictor</text>
+                        
+                        <!-- Neural network representation -->
+                        <g transform="translate(40, 40)">
+                            <!-- Input -->
+                            <circle cx="10" cy="30" r="6" fill="#e74c3c"/>
+                            <circle cx="10" cy="50" r="6" fill="#3498db"/>
+                            <text x="25" y="32" font-size="9" fill="#666">Drug</text>
+                            <text x="25" y="52" font-size="9" fill="#666">Target</text>
+                            
+                            <!-- Hidden layers -->
+                            <circle cx="60" cy="25" r="5" fill="#9b59b6"/>
+                            <circle cx="60" cy="40" r="5" fill="#9b59b6"/>
+                            <circle cx="60" cy="55" r="5" fill="#9b59b6"/>
+                            <circle cx="60" cy="70" r="5" fill="#9b59b6"/>
+                            
+                            <circle cx="100" cy="30" r="5" fill="#34495e"/>
+                            <circle cx="100" cy="50" r="5" fill="#34495e"/>
+                            <circle cx="100" cy="70" r="5" fill="#34495e"/>
+                            
+                            <!-- Output -->
+                            <circle cx="140" cy="40" r="7" fill="#2ecc71"/>
+                            <text x="135" y="60" font-size="9" fill="#666" text-anchor="middle">Score</text>
+                            
+                            <!-- Connections -->
+                            <line x1="16" y1="30" x2="55" y2="30" stroke="#bdc3c7" stroke-width="1"/>
+                            <line x1="16" y1="50" x2="55" y2="50" stroke="#bdc3c7" stroke-width="1"/>
+                            <line x1="65" y1="40" x2="95" y2="40" stroke="#bdc3c7" stroke-width="1"/>
+                            <line x1="105" y1="40" x2="133" y2="40" stroke="#bdc3c7" stroke-width="1"/>
+                        </g>
+                        
+                        <text x="100" y="130" text-anchor="middle" font-size="10" fill="#666">Binary / Affinity</text>
+                    </g>
+
+                    <!-- Legend -->
+                    <g transform="translate(350, 200)">
+                        <line x1="0" y1="5" x2="30" y2="5" stroke="#2ecc71" stroke-width="4"/>
+                        <text x="35" y="9" font-size="10" fill="#666">Strong (IC₅₀ < 100nM)</text>
+                        
+                        <line x1="170" y1="5" x2="200" y2="5" stroke="#f39c12" stroke-width="3" stroke-dasharray="5,3"/>
+                        <text x="205" y="9" font-size="10" fill="#666">Moderate</text>
+                    </g>
+
+                    <!-- Polypharmacology annotation -->
+                    <g transform="translate(50, 10)">
+                        <rect x="0" y="0" width="130" height="25" rx="5" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+                        <text x="65" y="16" text-anchor="middle" font-size="11" font-weight="600" fill="#856404">Polypharmacology</text>
+                    </g>
+
+                    <!-- Selectivity annotation -->
+                    <g transform="translate(680, 10)">
+                        <rect x="0" y="0" width="100" height="25" rx="5" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
+                        <text x="50" y="16" text-anchor="middle" font-size="11" font-weight="600" fill="#155724">Selectivity</text>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="content-grid">
+                <div class="content-card">
+                    <div class="content-main">Binary classification</div>
+                    <div class="content-desc">Predicting interaction likelihood</div>
+                </div>
+                <div class="content-card">
+                    <div class="content-main">Binding affinity</div>
+                    <div class="content-desc">Quantitative affinity prediction</div>
+                </div>
+                <div class="content-card">
+                    <div class="content-main">Kinome profiling</div>
+                    <div class="content-desc">Kinase selectivity analysis</div>
+                </div>
+                <div class="content-card">
+                    <div class="content-main">Polypharmacology</div>
+                    <div class="content-desc">Multi-target interactions</div>
+                </div>
+                <div class="content-card">
+                    <div class="content-main">Off-target prediction</div>
+                    <div class="content-desc">Safety profiling</div>
+                </div>
+            </div>
         </div>
-        
-        <div class="content-grid">
-            <div class="content-card">
-                <div class="content-main">Binary classification</div>
-                <div class="content-desc">Predicting interaction likelihood</div>
+
+        <!-- Slide 2: Binary Classification -->
+        <div class="slide">
+            <div class="section-title">1. Binary Classification</div>
+            
+            <div class="text-content">
+                Binary classification predicts whether a drug-target pair will interact or not, producing a yes/no or 0/1 output. This is the fundamental task in drug-target interaction prediction and serves as the foundation for drug discovery pipelines.
             </div>
-            <div class="content-card">
-                <div class="content-main">Binding affinity</div>
-                <div class="content-desc">Quantitative affinity prediction</div>
+
+            <div style="text-align: center; margin: 20px 0;">
+                <svg width="800" height="200" viewBox="0 0 800 200">
+                    <!-- Input -->
+                    <g transform="translate(50, 80)">
+                        <rect x="0" y="0" width="120" height="80" rx="8" fill="#ffe5e5" stroke="#e74c3c" stroke-width="2"/>
+                        <text x="60" y="25" text-anchor="middle" font-size="13" font-weight="600" fill="#c0392b">Drug Features</text>
+                        <text x="60" y="45" text-anchor="middle" font-size="11" fill="#666">• SMILES</text>
+                        <text x="60" y="60" text-anchor="middle" font-size="11" fill="#666">• Fingerprints</text>
+                        <text x="60" y="75" text-anchor="middle" font-size="11" fill="#666">• Descriptors</text>
+                    </g>
+
+                    <g transform="translate(50, 10)">
+                        <rect x="0" y="0" width="120" height="60" rx="8" fill="#e3f2fd" stroke="#2196f3" stroke-width="2"/>
+                        <text x="60" y="20" text-anchor="middle" font-size="13" font-weight="600" fill="#1565c0">Target Features</text>
+                        <text x="60" y="38" text-anchor="middle" font-size="11" fill="#666">• Sequence</text>
+                        <text x="60" y="52" text-anchor="middle" font-size="11" fill="#666">• Structure</text>
+                    </g>
+
+                    <!-- Arrow -->
+                    <path d="M 180 100 L 260 100" stroke="#333" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+                    
+                    <!-- Classifier -->
+                    <g transform="translate(270, 50)">
+                        <rect x="0" y="0" width="180" height="100" rx="10" fill="#f3e5f5" stroke="#9c27b0" stroke-width="3"/>
+                        <text x="90" y="25" text-anchor="middle" font-size="14" font-weight="600" fill="#7b1fa2">ML Classifier</text>
+                        
+                        <!-- Algorithm examples -->
+                        <text x="90" y="48" text-anchor="middle" font-size="10" fill="#666">Random Forest</text>
+                        <text x="90" y="63" text-anchor="middle" font-size="10" fill="#666">Deep Neural Network</text>
+                        <text x="90" y="78" text-anchor="middle" font-size="10" fill="#666">Graph Neural Network</text>
+                        <text x="90" y="93" text-anchor="middle" font-size="10" fill="#666">Support Vector Machine</text>
+                    </g>
+
+                    <!-- Arrow -->
+                    <path d="M 460 100 L 540 100" stroke="#333" stroke-width="3" fill="none" marker-end="url(#arrowhead)"/>
+
+                    <!-- Output -->
+                    <g transform="translate(550, 60)">
+                        <rect x="0" y="0" width="100" height="40" rx="8" fill="#c8e6c9" stroke="#4caf50" stroke-width="2"/>
+                        <text x="50" y="16" text-anchor="middle" font-size="13" font-weight="600" fill="#2e7d32">Interact</text>
+                        <text x="50" y="32" text-anchor="middle" font-size="12" fill="#388e3c">Class: 1</text>
+                    </g>
+
+                    <g transform="translate(550, 110)">
+                        <rect x="0" y="0" width="100" height="40" rx="8" fill="#ffcdd2" stroke="#f44336" stroke-width="2"/>
+                        <text x="50" y="16" text-anchor="middle" font-size="13" font-weight="600" fill="#c62828">No Interact</text>
+                        <text x="50" y="32" text-anchor="middle" font-size="12" fill="#d32f2f">Class: 0</text>
+                    </g>
+
+                    <defs>
+                        <marker id="arrowhead" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#333"/>
+                        </marker>
+                    </defs>
+                </svg>
             </div>
-            <div class="content-card">
-                <div class="content-main">Kinome profiling</div>
-                <div class="content-desc">Kinase selectivity analysis</div>
+
+            <div class="subsection-title">Key Characteristics</div>
+            <ul class="feature-list">
+                <li><strong>Output:</strong> Binary label (interact/non-interact) or probability score (0-1)</li>
+                <li><strong>Threshold:</strong> Typically IC₅₀ < 10μM or Kd < 10μM defines positive interactions</li>
+                <li><strong>Evaluation metrics:</strong> Accuracy, Precision, Recall, F1-score, AUROC, AUPRC</li>
+                <li><strong>Class imbalance:</strong> Negative samples often far outnumber positive samples</li>
+            </ul>
+
+            <div class="method-box">
+                <div class="method-title">Common Approaches</div>
+                <div style="font-size: 14px; color: #555; line-height: 1.6;">
+                    <strong>1. Feature-based methods:</strong> Extract molecular fingerprints and protein descriptors<br>
+                    <strong>2. Similarity-based methods:</strong> Leverage chemical and genomic similarities<br>
+                    <strong>3. Network-based methods:</strong> Use known DTI networks for prediction<br>
+                    <strong>4. Deep learning:</strong> End-to-end learning from raw sequences and structures
+                </div>
             </div>
-            <div class="content-card">
-                <div class="content-main">Polypharmacology</div>
-                <div class="content-desc">Multi-target interactions</div>
-            </div>
-            <div class="content-card">
-                <div class="content-main">Off-target prediction</div>
-                <div class="content-desc">Safety profiling</div>
+
+            <div class="example-box">
+                <strong>Clinical Example:</strong> Predicting whether a new kinase inhibitor will bind to EGFR receptor. The model outputs probability = 0.92, indicating high likelihood of interaction, warranting further experimental validation.
             </div>
         </div>
+
+        <!-- Slide 3: Binding Affinity Prediction -->
+        <div class="slide">
+            <div class="section-title">2. Binding Affinity Prediction</div>
+            
+            <div class="text-content">
+                Binding affinity prediction provides quantitative measurements of how strongly a drug binds to its target protein. This is crucial for lead optimization and understanding drug efficacy, typically measured as IC₅₀, Kd, Ki, or ΔG values.
+            </div>
+
+            <div style="text-align: center; margin: 20px 0;">
+                <svg width="800" height="240" viewBox="0 0 800 240">
+                    <!-- Affinity spectrum -->
+                    <defs>
+                        <linearGradient id="affinityGradient" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#e74c3c;stop-opacity:1" />
+                            <stop offset="50%" style="stop-color:#f39c12;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#2ecc71;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+
+                    <!-- Gradient bar -->
+                    <rect x="100" y="40" width="600" height="40" fill="url(#affinityGradient)" rx="5"/>
+                    
+                    <!-- Labels -->
+                    <text x="100" y="30" font-size="12" font-weight="600" fill="#c0392b">Weak</text>
+                    <text x="680" y="30" font-size="12" font-weight="600" fill="#27ae60">Strong</text>
+                    
+                    <!-- IC50 scale -->
+                    <text x="400" y="105" text-anchor="middle" font-size="14" font-weight="600" fill="#333">IC₅₀ Scale</text>
+                    
+                    <line x1="100" y1="115" x2="100" y2="125" stroke="#333" stroke-width="2"/>
+                    <text x="100" y="140" text-anchor="middle" font-size="11" fill="#666">10mM</text>
+                    
+                    <line x1="250" y1="115" x2="250" y2="125" stroke="#333" stroke-width="2"/>
+                    <text x="250" y="140" text-anchor="middle" font-size="11" fill="#666">1μM</text>
+                    
+                    <line x1="400" y1="115" x2="400" y2="125" stroke="#333" stroke-width="2"/>
+                    <text x="400" y="140" text-anchor="middle" font-size="11" fill="#666">100nM</text>
+                    
+                    <line x1="550" y1="115" x2="550" y2="125" stroke="#333" stroke-width="2"/>
+                    <text x="550" y="140" text-anchor="middle" font-size="11" fill="#666">10nM</text>
+                    
+                    <line x1="700" y1="115" x2="700" y2="125" stroke="#333" stroke-width="2"/>
+                    <text x="700" y="140" text-anchor="middle" font-size="11" fill="#666">1nM</text>
+
+                    <!-- Example predictions -->
+                    <g transform="translate(0, 160)">
+                        <!-- Example 1 -->
+                        <rect x="90" y="0" width="140" height="60" rx="8" fill="#ffebee" stroke="#e74c3c" stroke-width="2"/>
+                        <text x="160" y="20" text-anchor="middle" font-size="12" font-weight="600" fill="#c0392b">Drug A</text>
+                        <text x="160" y="38" text-anchor="middle" font-size="11" fill="#666">Predicted IC₅₀:</text>
+                        <text x="160" y="52" text-anchor="middle" font-size="13" font-weight="600" fill="#e74c3c">15 μM</text>
+
+                        <!-- Example 2 -->
+                        <rect x="250" y="0" width="140" height="60" rx="8" fill="#fff9e6" stroke="#f39c12" stroke-width="2"/>
+                        <text x="320" y="20" text-anchor="middle" font-size="12" font-weight="600" fill="#d68910">Drug B</text>
+                        <text x="320" y="38" text-anchor="middle" font-size="11" fill="#666">Predicted IC₅₀:</text>
+                        <text x="320" y="52" text-anchor="middle" font-size="13" font-weight="600" fill="#f39c12">250 nM</text>
+
+                        <!-- Example 3 -->
+                        <rect x="410" y="0" width="140" height="60" rx="8" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+                        <text x="480" y="20" text-anchor="middle" font-size="12" font-weight="600" fill="#2e7d32">Drug C</text>
+                        <text x="480" y="38" text-anchor="middle" font-size="11" fill="#666">Predicted IC₅₀:</text>
+                        <text x="480" y="52" text-anchor="middle" font-size="13" font-weight="600" fill="#4caf50">8 nM</text>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="subsection-title">Affinity Metrics</div>
+            <ul class="feature-list">
+                <li><strong>IC₅₀:</strong> Concentration causing 50% inhibition (most common in screening)</li>
+                <li><strong>Kd (Dissociation constant):</strong> Equilibrium binding constant</li>
+                <li><strong>Ki (Inhibition constant):</strong> Affinity of inhibitor binding</li>
+                <li><strong>ΔG (Binding free energy):</strong> Thermodynamic measure of binding strength</li>
+            </ul>
+
+            <div class="method-box">
+                <div class="method-title">Computational Approaches</div>
+                <div style="font-size: 14px; color: #555; line-height: 1.6;">
+                    <strong>Structure-based:</strong> Molecular docking, MD simulations, free energy calculations<br>
+                    <strong>Ligand-based:</strong> QSAR models, 3D-QSAR, pharmacophore modeling<br>
+                    <strong>Machine Learning:</strong> Regression models (RF, SVM, DNN) trained on bioactivity databases<br>
+                    <strong>Deep Learning:</strong> Graph networks, attention mechanisms, transformer models
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="example-box">
+                    <strong>Challenge:</strong> Affinity prediction requires continuous value regression, which is more complex than binary classification. Data sparsity across the full affinity range poses challenges.
+                </div>
+                <div class="example-box">
+                    <strong>Application:</strong> Lead optimization - comparing analogs to identify compounds with improved binding affinity while maintaining drug-like properties.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 4: Kinome Profiling -->
+        <div class="slide">
+            <div class="section-title">3. Kinome Profiling</div>
+            
+            <div class="text-content">
+                Kinome profiling assesses how a compound interacts with the entire kinase family (~518 human kinases). This is critical for understanding selectivity profiles, predicting efficacy, and identifying potential off-target effects of kinase inhibitors.
+            </div>
+
+            <div style="text-align: center; margin: 15px 0;">
+                <svg width="760" height="260" viewBox="0 0 760 260">
+                    <!-- Kinase tree representation -->
+                    <circle cx="380" cy="40" r="25" fill="#9b59b6" opacity="0.8"/>
+                    <text x="380" y="46" text-anchor="middle" font-size="11" fill="white" font-weight="600">Kinome</text>
+                    
+                    <!-- Major branches -->
+                    <!-- AGC -->
+                    <line x1="380" y1="65" x2="200" y2="120" stroke="#7f8c8d" stroke-width="3"/>
+                    <circle cx="200" cy="120" r="20" fill="#e74c3c" opacity="0.8"/>
+                    <text x="200" y="125" text-anchor="middle" font-size="10" fill="white" font-weight="600">AGC</text>
+                    <text x="200" y="150" text-anchor="middle" font-size="9" fill="#666">PKA, PKC, PKG</text>
+                    
+                    <!-- CAMK -->
+                    <line x1="380" y1="65" x2="320" y2="120" stroke="#7f8c8d" stroke-width="3"/>
+                    <circle cx="320" cy="120" r="20" fill="#e67e22" opacity="0.8"/>
+                    <text x="320" y="125" text-anchor="middle" font-size="10" fill="white" font-weight="600">CAMK</text>
+                    <text x="320" y="150" text-anchor="middle" font-size="9" fill="#666">CaMK, MLCK</text>
+                    
+                    <!-- CMGC -->
+                    <line x1="380" y1="65" x2="440" y2="120" stroke="#7f8c8d" stroke-width="3"/>
+                    <circle cx="440" cy="120" r="20" fill="#f39c12" opacity="0.8"/>
+                    <text x="440" y="125" text-anchor="middle" font-size="10" fill="white" font-weight="600">CMGC</text>
+                    <text x="440" y="150" text-anchor="middle" font-size="9" fill="#666">CDK, MAPK</text>
+                    
+                    <!-- TK -->
+                    <line x1="380" y1="65" x2="560" y2="120" stroke="#7f8c8d" stroke-width="3"/>
+                    <circle cx="560" cy="120" r="20" fill="#3498db" opacity="0.8"/>
+                    <text x="560" y="125" text-anchor="middle" font-size="10" fill="white" font-weight="600">TK</text>
+                    <text x="560" y="150" text-anchor="middle" font-size="9" fill="#666">EGFR, SRC</text>
+
+                    <!-- Selectivity heatmap example -->
+                    <g transform="translate(80, 180)">
+                        <text x="0" y="0" font-size="12" font-weight="600" fill="#333">Selectivity Profile Example</text>
+                        
+                        <!-- Heatmap -->
+                        <rect x="0" y="10" width="40" height="30" fill="#27ae60" opacity="0.9"/>
+                        <text x="20" y="30" text-anchor="middle" font-size="10" fill="white" font-weight="600">95%</text>
+                        <text x="20" y="48" text-anchor="middle" font-size="9" fill="#666">Target</text>
+                        
+                        <rect x="50" y="10" width="40" height="30" fill="#e74c3c" opacity="0.5"/>
+                        <text x="70" y="30" text-anchor="middle" font-size="10" fill="white" font-weight="600">8%</text>
+                        <text x="70" y="48" text-anchor="middle" font-size="9" fill="#666">Off 1</text>
+                        
+                        <rect x="100" y="10" width="40" height="30" fill="#e74c3c" opacity="0.3"/>
+                        <text x="120" y="30" text-anchor="middle" font-size="10" fill="white" font-weight="600">3%</text>
+                        <text x="120" y="48" text-anchor="middle" font-size="9" fill="#666">Off 2</text>
+                        
+                        <rect x="150" y="10" width="40" height="30" fill="#95a5a6" opacity="0.3"/>
+                        <text x="170" y="30" text-anchor="middle" font-size="10" fill="white" font-weight="600">0%</text>
+                        <text x="170" y="48" text-anchor="middle" font-size="9" fill="#666">Off 3</text>
+                    </g>
+
+                    <!-- Selectivity score -->
+                    <g transform="translate(450, 180)">
+                        <rect x="0" y="0" width="220" height="65" rx="8" fill="#e8f5e9" stroke="#4caf50" stroke-width="2"/>
+                        <text x="110" y="20" text-anchor="middle" font-size="12" font-weight="600" fill="#2e7d32">Selectivity Score</text>
+                        <text x="110" y="38" text-anchor="middle" font-size="10" fill="#666">S(10) = 0.95</text>
+                        <text x="110" y="54" text-anchor="middle" font-size="9" fill="#666">95% inhibition at target vs</text>
+                        <text x="110" y="66" text-anchor="middle" font-size="9" fill="#666">10 most similar kinases</text>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="subsection-title">Key Aspects</div>
+            <ul class="feature-list">
+                <li><strong>Selectivity index:</strong> Ratio of activity against target vs off-targets</li>
+                <li><strong>Panel screening:</strong> Testing against representative kinase panels (e.g., 50-400 kinases)</li>
+                <li><strong>Kinase phylogenetic tree:</strong> Understanding relationships helps predict cross-reactivity</li>
+                <li><strong>Binding mode analysis:</strong> Type I, II, III, IV inhibitors show different selectivity patterns</li>
+            </ul>
+
+            <div class="method-box">
+                <div class="method-title">Profiling Technologies</div>
+                <div style="font-size: 14px; color: #555; line-height: 1.6;">
+                    <strong>Experimental:</strong> KINOMEscan, Reaction Biology panels, NanoBRET<br>
+                    <strong>Computational:</strong> Structure-based virtual screening across kinome<br>
+                    <strong>ML approaches:</strong> Multi-task learning, transfer learning, proteochemometric modeling<br>
+                    <strong>Visualization:</strong> Kinome tree diagrams, phylogenetic heat maps
+                </div>
+            </div>
+
+            <div class="example-box">
+                <strong>Clinical Relevance:</strong> Imatinib (Gleevec) was designed to inhibit BCR-ABL but also shows activity against c-KIT and PDGFR. This off-target profile contributes to its efficacy in GIST (gastrointestinal stromal tumors) but also causes side effects.
+            </div>
+        </div>
+
+        <!-- Slide 5: Polypharmacology -->
+        <div class="slide">
+            <div class="section-title">4. Polypharmacology</div>
+            
+            <div class="text-content">
+                Polypharmacology refers to the intentional or unintentional binding of a drug to multiple therapeutic targets. Modern drug discovery increasingly embraces designed polypharmacology to achieve enhanced efficacy through multi-target modulation.
+            </div>
+
+            <div style="text-align: center; margin: 20px 0;">
+                <svg width="760" height="200" viewBox="0 0 760 200">
+                    <!-- Central drug -->
+                    <circle cx="380" cy="100" r="35" fill="#9b59b6" opacity="0.9"/>
+                    <text x="380" y="100" text-anchor="middle" font-size="13" fill="white" font-weight="700">Drug</text>
+                    <text x="380" y="115" text-anchor="middle" font-size="10" fill="white">Multi-target</text>
+
+                    <!-- Target 1 - Top -->
+                    <circle cx="380" cy="20" r="25" fill="#e74c3c" opacity="0.8"/>
+                    <text x="380" y="20" text-anchor="middle" font-size="10" fill="white" font-weight="600">Target A</text>
+                    <text x="380" y="32" text-anchor="middle" font-size="8" fill="white">Primary</text>
+                    <line x1="380" y1="65" x2="380" y2="45" stroke="#e74c3c" stroke-width="4" opacity="0.7"/>
+                    <text x="395" y="55" font-size="9" fill="#e74c3c" font-weight="600">IC₅₀: 5nM</text>
+
+                    <!-- Target 2 - Top Right -->
+                    <circle cx="520" cy="50" r="25" fill="#e67e22" opacity="0.8"/>
+                    <text x="520" y="50" text-anchor="middle" font-size="10" fill="white" font-weight="600">Target B</text>
+                    <text x="520" y="62" text-anchor="middle" font-size="8" fill="white">Secondary</text>
+                    <line x1="410" y1="80" x2="495" y2="60" stroke="#e67e22" stroke-width="3" opacity="0.6"/>
+                    <text x="460" y="65" font-size="9" fill="#e67e22" font-weight="600">IC₅₀: 25nM</text>
+
+                    <!-- Target 3 - Right -->
+                    <circle cx="580" cy="100" r="25" fill="#f39c12" opacity="0.8"/>
+                    <text x="580" y="100" text-anchor="middle" font-size="10" fill="white" font-weight="600">Target C</text>
+                    <text x="580" y="112" text-anchor="middle" font-size="8" fill="white">Tertiary</text>
+                    <line x1="415" y1="100" x2="555" y2="100" stroke="#f39c12" stroke-width="3" opacity="0.6"/>
+                    <text x="490" y="92" font-size="9" fill="#f39c12" font-weight="600">IC₅₀: 80nM</text>
+
+                    <!-- Target 4 - Bottom Right -->
+                    <circle cx="520" cy="150" r="25" fill="#3498db" opacity="0.8"/>
+                    <text x="520" y="150" text-anchor="middle" font-size="10" fill="white" font-weight="600">Target D</text>
+                    <text x="520" y="162" text-anchor="middle" font-size="8" fill="white">Pathway</text>
+                    <line x1="410" y1="120" x2="495" y2="140" stroke="#3498db" stroke-width="3" opacity="0.6"/>
+                    <text x="460" y="138" font-size="9" fill="#3498db" font-weight="600">IC₅₀: 150nM</text>
+
+                    <!-- Target 5 - Bottom -->
+                    <circle cx="380" cy="180" r="25" fill="#1abc9c" opacity="0.8"/>
+                    <text x="380" y="180" text-anchor="middle" font-size="10" fill="white" font-weight="600">Target E</text>
+                    <text x="380" y="192" text-anchor="middle" font-size="8" fill="white">Network</text>
+                    <line x1="380" y1="135" x2="380" y2="155" stroke="#1abc9c" stroke-width="3" opacity="0.6"/>
+                    <text x="340" y="145" font-size="9" fill="#1abc9c" font-weight="600">IC₅₀: 200nM</text>
+
+                    <!-- Target 6 - Bottom Left -->
+                    <circle cx="240" cy="150" r="25" fill="#16a085" opacity="0.8"/>
+                    <text x="240" y="150" text-anchor="middle" font-size="10" fill="white" font-weight="600">Target F</text>
+                    <text x="240" y="162" text-anchor="middle" font-size="8" fill="white">Backup</text>
+                    <line x1="350" y1="120" x2="265" y2="140" stroke="#16a085" stroke-width="2" opacity="0.5" stroke-dasharray="3,2"/>
+                    <text x="300" y="138" font-size="9" fill="#16a085" font-weight="600">IC₅₀: 500nM</text>
+
+                    <!-- Legend -->
+                    <g transform="translate(80, 10)">
+                        <rect x="0" y="0" width="180" height="50" rx="5" fill="#fff9e6" stroke="#f39c12" stroke-width="2"/>
+                        <text x="90" y="17" text-anchor="middle" font-size="11" font-weight="600" fill="#856404">Designed Polypharmacology</text>
+                        <text x="90" y="32" text-anchor="middle" font-size="9" fill="#666">Synergistic effects through</text>
+                        <text x="90" y="44" text-anchor="middle" font-size="9" fill="#666">multi-target modulation</text>
+                    </g>
+                </svg>
+            </div>
+
+            <div class="subsection-title">Types and Strategies</div>
+            <ul class="feature-list">
+                <li><strong>Designed polypharmacology:</strong> Intentional multi-target binding for synergistic effects</li>
+                <li><strong>Network pharmacology:</strong> Targeting multiple nodes in disease pathways</li>
+                <li><strong>Activity cliff analysis:</strong> Small structural changes causing dramatic activity shifts</li>
+                <li><strong>Scaffold hopping:</strong> Finding chemotypes that maintain multi-target profiles</li>
+            </ul>
+
+            <div class="method-box">
+                <div class="method-title">Computational Prediction</div>
+                <div style="font-size: 14px; color: #555; line-height: 1.6;">
+                    <strong>Multi-task learning:</strong> Simultaneous prediction across multiple targets<br>
+                    <strong>Network analysis:</strong> Protein-protein interaction networks and pathway modeling<br>
+                    <strong>Similarity-based:</strong> Chemical similarity to known polypharmacological agents<br>
+                    <strong>De novo design:</strong> Generative models for multi-target optimization
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="example-box">
+                    <strong>Success Story:</strong> Sunitinib inhibits multiple RTKs (VEGFR, PDGFR, c-KIT, FLT3) providing broad anti-angiogenic and anti-tumor activity in renal cell carcinoma.
+                </div>
+                <div class="highlight-box">
+                    <strong>Challenge:</strong> Balancing desired polypharmacology with unwanted promiscuity. Requires careful optimization of the activity profile across the target panel.
+                </div>
+            </div>
+        </div>
+
+        <!-- Slide 6: Off-Target Prediction -->
+        <div class="slide">
+            <div class="section-title">5. Off-Target Prediction</div>
+            
+            <div class="text-content">
+                Off-target prediction identifies unintended drug-protein interactions that may cause adverse effects or toxicity. This is critical for safety assessment and early identification of potential liabilities in drug development.
+            </div>
+
+            <div style="text-align: center; margin: 20px 0;">
+                <svg width="760" height="200" viewBox="0 0 760 200">
+                    <!-- Drug candidate -->
+                    <g transform="translate(50, 80)">
+                        <circle cx="50" cy="20" r="30" fill="#9b59b6" opacity="0.9"/>
+                        <text x="50" y="20" text-anchor="middle" font-size="12" fill="white" font-weight="700">Drug</text>
+                        <text x="50" y="33" text-anchor="middle" font-size="9" fill="white">Candidate</text>
+                    </g>
+
+                    <!-- Intended target (green) -->
+                    <g transform="translate(250, 30)">
+                        <circle cx="50" cy="20" r="28" fill="#27ae60" opacity="0.8" stroke="#27ae60" stroke-width="3"/>
+                        <text x="50" y="18" text-anchor="middle" font-size="11" fill="white" font-weight="600">Target</text>
+                        <text x="50" y="30" text-anchor="middle" font-size="9" fill="white">Intended</text>
+                        <path d="M 130 100 L 278 48" stroke="#27ae60" stroke-width="4" fill="none" marker-end="url(#greenarrow)"/>
+                        <text x="200" y="70" font-size="10" fill="#27ae60" font-weight="600">✓ Therapeutic</text>
+                    </g>
+
+                    <!-- Off-target safety panel -->
+                    <g transform="translate(450, 20)">
+                        <rect x="0" y="0" width="260" height="165" rx="10" fill="#ffe5e5" stroke="#e74c3c" stroke-width="2"/>
+                        <text x="130" y="20" text-anchor="middle" font-size="13" font-weight="600" fill="#c0392b">Safety Panel (Off-Targets)</text>
+                        
+                        <!-- hERG -->
+                        <circle cx="40" cy="45" r="18" fill="#e74c3c" opacity="0.7"/>
+                        <text x="40" y="49" text-anchor="middle" font-size="9" fill="white" font-weight="600">hERG</text>
+                        <text x="95" y="50" font-size="10" fill="#666">Cardiac toxicity</text>
+                        <path d="M 130 100 L 448 65" stroke="#e74c3c" stroke-width="2" stroke-dasharray="4,2" fill="none"/>
+                        
+                        <!-- CYP450 -->
+                        <circle cx="40" cy="80" r="18" fill="#e67e22" opacity="0.7"/>
+                        <text x="40" y="83" text-anchor="middle" font-size="8" fill="white" font-weight="600">CYP450</text>
+                        <text x="95" y="85" font-size="10" fill="#666">Drug metabolism</text>
+                        <path d="M 130 100 L 448 100" stroke="#e67e22" stroke-width="2" stroke-dasharray="4,2" fill="none"/>
+                        
+                        <!-- PXR -->
+                        <circle cx="40" cy="115" r="18" fill="#f39c12" opacity="0.7"/>
+                        <text x="40" y="119" text-anchor="middle" font-size="9" fill="white" font-weight="600">PXR</text>
+                        <text x="95" y="120" font-size="10" fill="#666">Drug interactions</text>
+                        <path d="M 130 100 L 448 135" stroke="#f39c12" stroke-width="2" stroke-dasharray="4,2" fill="none"/>
+                        
+                        <!-- MAO -->
+                        <circle cx="200" cy="45" r="18" fill="#95a5a6" opacity="0.7"/>
+                        <text x="200" y="49" text-anchor="middle" font-size="9" fill="white" font-weight="600">MAO</text>
+                        <text x="200" y="67" text-anchor="middle" font-size="9" fill="#666">Neurological</text>
+                        
+                        <!-- GPCR -->
+                        <circle cx="200" cy="95" r="18" fill="#7f8c8d" opacity="0.7"/>
+                        <text x="200" y="98" text-anchor="middle" font-size="8" fill="white" font-weight="600">GPCRs</text>
+                        <text x="200" y="115" text-anchor="middle" font-size="9" fill="#666">Various AEs</text>
+                        
+                        <!-- Nuclear receptors -->
+                        <circle cx="200" cy="140" r="18" fill="#34495e" opacity="0.7"/>
+                        <text x="200" y="143" text-anchor="middle" font-size="8" fill="white" font-weight="600">NR</text>
+                        <text x="200" y="160" text-anchor="middle" font-size="9" fill="#666">Hormonal</text>
+                    </g>
+
+                    <defs>
+                        <marker id="greenarrow" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#27ae60"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="subsection-title">Critical Safety Targets</div>
+            <ul class="feature-list">
+                <li><strong>hERG channel:</strong> Cardiac toxicity (QT prolongation) - most common cause of drug withdrawal</li>
+                <li><strong>CYP450 enzymes:</strong> Drug-drug interactions and altered metabolism</li>
+                <li><strong>Nuclear receptors:</strong> PXR, CAR - hepatotoxicity and drug interactions</li>
+                <li><strong>Neurotransmitter receptors:</strong> 5-HT, dopamine, histamine - CNS side effects</li>
+                <li><strong>Ion channels:</strong> Nav, Cav - cardiac and neurological toxicity</li>
+            </ul>
+
+            <div class="method-box">
+                <div class="method-title">Prediction Strategies</div>
+                <div style="font-size: 14px; color: #555; line-height: 1.6;">
+                    <strong>Target-based screening:</strong> Virtual screening against safety panels<br>
+                    <strong>Ligand-based models:</strong> QSAR for specific off-targets (e.g., hERG prediction)<br>
+                    <strong>Similarity searching:</strong> Structural alerts and known toxicophores<br>
+                    <strong>AI/ML approaches:</strong> Multi-task deep learning, graph neural networks<br>
+                    <strong>Inverse docking:</strong> Screening compound against protein structure library
+                </div>
+            </div>
+
+            <div class="two-column">
+                <div class="example-box">
+                    <strong>Risk Assessment:</strong> Early off-target prediction can save millions in development costs. A compound with predicted strong hERG binding (IC₅₀ < 1μM) should be deprioritized or modified before expensive in vivo studies.
+                </div>
+                <div class="highlight-box">
+                    <strong>Regulatory Impact:</strong> FDA and EMA require comprehensive off-target assessment. Computational predictions complement experimental safety pharmacology panels (e.g., SafetyScreen44).
+                </div>
+            </div>
+
+            <div style="margin-top: 20px; padding: 15px; background: #e3f2fd; border-left: 4px solid #2196f3; border-radius: 5px;">
+                <strong style="color: #1565c0;">Integrated Approach:</strong>
+                <span style="font-size: 14px; color: #555;"> Modern drug discovery combines all five DTI prediction approaches - starting with binary classification and affinity prediction for hit identification, followed by kinome profiling and polypharmacology assessment for optimization, and rigorous off-target prediction for safety evaluation throughout the pipeline.</span>
+            </div>
+        </div>
+
     </div>
 </body>
 </html>
