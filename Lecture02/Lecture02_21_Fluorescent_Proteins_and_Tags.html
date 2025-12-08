@@ -193,6 +193,133 @@
             color: #0277bd;
             margin-bottom: 5px;
         }
+        .fret-diagram {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+            margin: 25px 0;
+            flex-wrap: wrap;
+        }
+        .fret-protein {
+            width: 100px;
+            height: 100px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-weight: 700;
+            font-size: 14px;
+            position: relative;
+        }
+        .energy-arrow {
+            font-size: 32px;
+            color: #dc2626;
+            animation: pulse 2s infinite;
+        }
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+        .distance-indicator {
+            background: #fef3c7;
+            border: 2px solid #f59e0b;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+            text-align: center;
+        }
+        .biosensor-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            margin: 25px 0;
+        }
+        .biosensor-card {
+            background: linear-gradient(135deg, #f0f9ff, #e0f2fe);
+            border: 2px solid #0284c7;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+        .biosensor-card:hover {
+            transform: scale(1.05);
+            box-shadow: 0 8px 16px rgba(2, 132, 199, 0.3);
+        }
+        .biosensor-icon {
+            width: 70px;
+            height: 70px;
+            border-radius: 50%;
+            margin: 0 auto 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            background: white;
+            border: 3px solid #0284c7;
+        }
+        .biosensor-name {
+            font-weight: 700;
+            color: #0369a1;
+            font-size: 16px;
+            margin-bottom: 8px;
+        }
+        .biosensor-desc {
+            font-size: 13px;
+            color: #555;
+            line-height: 1.5;
+        }
+        .mechanism-box {
+            background: #f8fafc;
+            border: 2px dashed #64748b;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .mechanism-title {
+            font-weight: 700;
+            color: #334155;
+            margin-bottom: 12px;
+            font-size: 16px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .step-container {
+            display: flex;
+            align-items: center;
+            justify-content: space-around;
+            flex-wrap: wrap;
+            gap: 15px;
+            margin: 20px 0;
+        }
+        .step-box {
+            background: white;
+            border: 2px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            min-width: 150px;
+            flex: 1;
+        }
+        .step-number {
+            background: #6366f1;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 10px;
+            font-weight: 700;
+        }
+        .arrow-right {
+            font-size: 24px;
+            color: #6366f1;
+        }
     </style>
 </head>
 <body>
@@ -492,11 +619,281 @@
             </div>
         </div>
 
+        <!-- NEW Section 5: FRET -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">5</div>
+                FRET - Measuring Molecular Proximity and Interactions
+            </div>
+
+            <div class="visual-representation">
+                <h3 style="color: #1E64C8; margin-bottom: 20px;">FRET Mechanism</h3>
+                <div class="fret-diagram">
+                    <div style="text-align: center;">
+                        <div class="fret-protein" style="background: radial-gradient(circle, #06b6d4, #0891b2); box-shadow: 0 0 30px rgba(6, 182, 212, 0.6);">
+                            <span>DONOR<br><span style="font-size: 11px;">(CFP)</span></span>
+                        </div>
+                        <div style="margin-top: 10px; font-size: 12px; color: #666;">Excited State</div>
+                        <div style="margin-top: 5px; font-size: 11px; color: #0891b2; font-weight: 600;">λex: 433nm</div>
+                    </div>
+                    
+                    <div style="text-align: center; display: flex; flex-direction: column; align-items: center; justify-content: center;">
+                        <div class="energy-arrow">⟿</div>
+                        <div style="font-size: 12px; color: #dc2626; font-weight: 700; margin-top: 8px;">Energy Transfer</div>
+                        <div style="font-size: 11px; color: #666; margin-top: 3px;">Non-radiative</div>
+                    </div>
+                    
+                    <div style="text-align: center;">
+                        <div class="fret-protein" style="background: radial-gradient(circle, #fbbf24, #f59e0b); box-shadow: 0 0 30px rgba(251, 191, 36, 0.6);">
+                            <span>ACCEPTOR<br><span style="font-size: 11px;">(YFP)</span></span>
+                        </div>
+                        <div style="margin-top: 10px; font-size: 12px; color: #666;">Emits Light</div>
+                        <div style="margin-top: 5px; font-size: 11px; color: #f59e0b; font-weight: 600;">λem: 527nm</div>
+                    </div>
+                </div>
+
+                <div class="distance-indicator">
+                    <div style="font-weight: 700; color: #d97706; margin-bottom: 8px; font-size: 15px;">Critical Distance Requirement</div>
+                    <div style="font-size: 14px; color: #555;">FRET efficiency is highly distance-dependent: <strong>1-10 nm</strong></div>
+                    <div style="font-size: 12px; color: #666; margin-top: 5px;">Efficiency ∝ 1/r⁶ (inverse sixth power of distance)</div>
+                </div>
+            </div>
+
+            <div class="description-text">
+                Förster Resonance Energy Transfer (FRET) is a quantum mechanical phenomenon in which energy is transferred non-radiatively from an excited donor fluorophore to a nearby acceptor fluorophore. This process only occurs when the two fluorophores are in extremely close proximity (typically 1-10 nm), making FRET an invaluable "molecular ruler" for detecting protein-protein interactions, conformational changes, and monitoring molecular dynamics in living cells.
+            </div>
+
+            <div class="key-points">
+                <div class="key-points-title">FRET Requirements & Principles:</div>
+                <ul>
+                    <li><strong>Spectral overlap:</strong> Donor emission spectrum must overlap with acceptor excitation spectrum</li>
+                    <li><strong>Distance dependence:</strong> FRET efficiency is extremely sensitive to distance (1-10 nm optimal range)</li>
+                    <li><strong>Orientation factor:</strong> Relative dipole orientation affects efficiency (κ² = 2/3 for random orientation)</li>
+                    <li><strong>Common FRET pairs:</strong> CFP-YFP, GFP-mCherry, mTurquoise-mVenus, EGFP-mRFP</li>
+                    <li><strong>Measurement methods:</strong> Sensitized emission, acceptor photobleaching, fluorescence lifetime imaging (FLIM)</li>
+                    <li><strong>Förster distance (R₀):</strong> Distance at which FRET efficiency is 50% (typically 4-6 nm for FP pairs)</li>
+                </ul>
+            </div>
+
+            <div class="mechanism-box">
+                <div class="mechanism-title">
+                    <span style="font-size: 20px;">⚙️</span>
+                    FRET Detection Methods
+                </div>
+                <div class="step-container">
+                    <div class="step-box">
+                        <div class="step-number">1</div>
+                        <div style="font-weight: 700; color: #334155; margin-bottom: 5px; font-size: 14px;">Sensitized Emission</div>
+                        <div style="font-size: 12px; color: #666;">Excite donor, measure acceptor emission increase</div>
+                    </div>
+                    <div class="arrow-right">→</div>
+                    <div class="step-box">
+                        <div class="step-number">2</div>
+                        <div style="font-weight: 700; color: #334155; margin-bottom: 5px; font-size: 14px;">Acceptor Photobleaching</div>
+                        <div style="font-size: 12px; color: #666;">Bleach acceptor, observe donor emission recovery</div>
+                    </div>
+                    <div class="arrow-right">→</div>
+                    <div class="step-box">
+                        <div class="step-number">3</div>
+                        <div style="font-weight: 700; color: #334155; margin-bottom: 5px; font-size: 14px;">FLIM-FRET</div>
+                        <div style="font-size: 12px; color: #666;">Measure donor fluorescence lifetime decrease</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="application-box">
+                <div class="application-title">Key Applications of FRET:</div>
+                <div class="technique-grid">
+                    <div class="technique-card">
+                        <div class="technique-name">Protein-Protein Interactions</div>
+                        <div style="font-size: 13px; color: #555;">Detect direct binding between two proteins tagged with donor and acceptor fluorophores</div>
+                    </div>
+                    <div class="technique-card">
+                        <div class="technique-name">Conformational Changes</div>
+                        <div style="font-size: 13px; color: #555;">Monitor protein folding, domain movements using intramolecular FRET sensors</div>
+                    </div>
+                    <div class="technique-card">
+                        <div class="technique-name">Biosensor Development</div>
+                        <div style="font-size: 13px; color: #555;">Create genetically encoded sensors for Ca²⁺, cAMP, kinase activity, and metabolites</div>
+                    </div>
+                    <div class="technique-card">
+                        <div class="technique-name">Drug Screening</div>
+                        <div style="font-size: 13px; color: #555;">High-throughput screening for compounds that disrupt or promote protein interactions</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #fef3c7; border: 2px solid #f59e0b; border-radius: 8px; padding: 20px; margin-top: 20px;">
+                <div style="font-weight: 700; color: #d97706; margin-bottom: 10px; font-size: 16px;">💡 FRET Advantages:</div>
+                <div style="color: #555; line-height: 1.8; font-size: 14px;">
+                    FRET provides spatial resolution far beyond the diffraction limit of conventional microscopy, detecting molecular proximities at the nanometer scale. Unlike traditional biochemical methods, FRET operates in living cells in real-time, allowing researchers to observe dynamic protein interactions and conformational changes as they occur. This makes FRET indispensable for studying signal transduction, enzyme kinetics, and molecular assembly processes.
+                </div>
+            </div>
+        </div>
+
+        <!-- NEW Section 6: Fluorescent Biosensors -->
+        <div class="detailed-section">
+            <div class="section-header">
+                <div class="section-number">6</div>
+                Fluorescent Biosensors - Monitoring Cellular Environment
+            </div>
+
+            <div class="visual-representation">
+                <h3 style="color: #1E64C8; margin-bottom: 20px;">Genetically Encoded Biosensors</h3>
+                <div class="biosensor-grid">
+                    <div class="biosensor-card">
+                        <div class="biosensor-icon" style="background: linear-gradient(135deg, #fef3c7, #fde68a);">
+                            <span style="color: #d97706;">Ca²⁺</span>
+                        </div>
+                        <div class="biosensor-name">Calcium Sensors</div>
+                        <div class="biosensor-desc">GCaMP, Pericam<br>Detect neuronal activity, muscle contraction, signaling</div>
+                    </div>
+
+                    <div class="biosensor-card">
+                        <div class="biosensor-icon" style="background: linear-gradient(135deg, #ddd6fe, #c4b5fd);">
+                            <span style="color: #7c3aed;">pH</span>
+                        </div>
+                        <div class="biosensor-name">pH Indicators</div>
+                        <div class="biosensor-desc">pHluorin, pHRed<br>Monitor organelle acidification, autophagy</div>
+                    </div>
+
+                    <div class="biosensor-card">
+                        <div class="biosensor-icon" style="background: linear-gradient(135deg, #fecaca, #fca5a5);">
+                            <span style="color: #dc2626;">ATP</span>
+                        </div>
+                        <div class="biosensor-name">ATP Sensors</div>
+                        <div class="biosensor-desc">ATeam, PercevalHR<br>Track metabolic state, mitochondrial function</div>
+                    </div>
+
+                    <div class="biosensor-card">
+                        <div class="biosensor-icon" style="background: linear-gradient(135deg, #ccfbf1, #99f6e4);">
+                            <span style="color: #0d9488;">H₂O₂</span>
+                        </div>
+                        <div class="biosensor-name">ROS Sensors</div>
+                        <div class="biosensor-desc">HyPer, roGFP<br>Measure oxidative stress, redox state</div>
+                    </div>
+
+                    <div class="biosensor-card">
+                        <div class="biosensor-icon" style="background: linear-gradient(135deg, #e0e7ff, #c7d2fe);">
+                            <span style="color: #4f46e5;">cAMP</span>
+                        </div>
+                        <div class="biosensor-name">Second Messenger</div>
+                        <div class="biosensor-desc">Epac-SH187, AKAR<br>Monitor GPCR signaling, PKA activity</div>
+                    </div>
+
+                    <div class="biosensor-card">
+                        <div class="biosensor-icon" style="background: linear-gradient(135deg, #fce7f3, #fbcfe8);">
+                            <span style="color: #db2777;">Gluc</span>
+                        </div>
+                        <div class="biosensor-name">Glucose Sensors</div>
+                        <div class="biosensor-desc">FLII12Pglu, iGlucoSnFR<br>Track glucose uptake, metabolism</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="description-text">
+                Genetically encoded fluorescent biosensors are engineered proteins that change their fluorescence properties in response to specific cellular analytes or events. These sensors combine the specificity of molecular recognition with the real-time, non-invasive nature of fluorescent protein imaging, enabling researchers to monitor dynamic changes in cellular biochemistry within living cells and organisms. Biosensors have revolutionized our understanding of cell signaling, metabolism, and physiology.
+            </div>
+
+            <div class="mechanism-box">
+                <div class="mechanism-title">
+                    <span style="font-size: 20px;">🔄</span>
+                    Biosensor Design Principles
+                </div>
+                <div class="step-container">
+                    <div class="step-box">
+                        <div class="step-number">1</div>
+                        <div style="font-weight: 700; color: #334155; margin-bottom: 5px; font-size: 14px;">Recognition Domain</div>
+                        <div style="font-size: 12px; color: #666;">Specific binding site for target molecule</div>
+                    </div>
+                    <div class="arrow-right">→</div>
+                    <div class="step-box">
+                        <div class="step-number">2</div>
+                        <div style="font-weight: 700; color: #334155; margin-bottom: 5px; font-size: 14px;">Conformational Change</div>
+                        <div style="font-size: 12px; color: #666;">Binding induces structural rearrangement</div>
+                    </div>
+                    <div class="arrow-right">→</div>
+                    <div class="step-box">
+                        <div class="step-number">3</div>
+                        <div style="font-weight: 700; color: #334155; margin-bottom: 5px; font-size: 14px;">Signal Transduction</div>
+                        <div style="font-size: 12px; color: #666;">Change in FRET, intensity, or wavelength</div>
+                    </div>
+                </div>
+
+                <div style="margin-top: 20px; padding: 15px; background: white; border-radius: 6px; border: 1px solid #cbd5e1;">
+                    <div style="font-weight: 700; color: #475569; margin-bottom: 10px;">Common Architectures:</div>
+                    <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; font-size: 13px; color: #555;">
+                        <div><strong style="color: #0891b2;">Single FP sensors:</strong> Intensity or wavelength changes (e.g., pHluorin, GCaMP)</div>
+                        <div><strong style="color: #0891b2;">FRET-based sensors:</strong> Two FPs flanking binding domain (e.g., Cameleon, Epac)</div>
+                        <div><strong style="color: #0891b2;">Circularly permuted FPs:</strong> Altered termini for enhanced sensitivity (e.g., GCaMP)</div>
+                        <div><strong style="color: #0891b2;">Resonance energy transfer:</strong> BRET uses luciferase as donor</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="key-points">
+                <div class="key-points-title">Biosensor Characteristics & Considerations:</div>
+                <ul>
+                    <li><strong>Dynamic range:</strong> The fold-change in signal between low and high analyte concentrations</li>
+                    <li><strong>Affinity (Kd):</strong> Must match physiological concentration range of target molecule</li>
+                    <li><strong>Kinetics:</strong> Response speed should match biological timescale (milliseconds to minutes)</li>
+                    <li><strong>Specificity:</strong> Minimal cross-reactivity with similar molecules</li>
+                    <li><strong>Subcellular targeting:</strong> Localization sequences direct sensors to specific organelles</li>
+                    <li><strong>Ratiometric vs. intensity:</strong> Ratiometric sensors (FRET, dual-wavelength) are less affected by expression levels</li>
+                    <li><strong>Reversibility:</strong> Most biosensors are reversible, enabling real-time monitoring of dynamic changes</li>
+                </ul>
+            </div>
+
+            <div class="application-box">
+                <div class="application-title">Groundbreaking Biosensor Applications:</div>
+                <div class="technique-grid">
+                    <div class="technique-card">
+                        <div class="technique-name">Neuroscience</div>
+                        <div style="font-size: 13px; color: #555;">GCaMP for imaging neuronal activity in behaving animals, mapping brain circuits</div>
+                    </div>
+                    <div class="technique-card">
+                        <div class="technique-name">Metabolism Studies</div>
+                        <div style="font-size: 13px; color: #555;">Real-time monitoring of glucose, ATP, lactate in response to metabolic perturbations</div>
+                    </div>
+                    <div class="technique-card">
+                        <div class="technique-name">Drug Discovery</div>
+                        <div style="font-size: 13px; color: #555;">High-throughput screening for compounds affecting specific signaling pathways</div>
+                    </div>
+                    <div class="technique-card">
+                        <div class="technique-name">Disease Research</div>
+                        <div style="font-size: 13px; color: #555;">Track calcium dysregulation in cardiac disease, ROS in neurodegeneration</div>
+                    </div>
+                    <div class="technique-card">
+                        <div class="technique-name">Organelle Physiology</div>
+                        <div style="font-size: 13px; color: #555;">Measure pH gradients, ion concentrations in mitochondria, ER, lysosomes</div>
+                    </div>
+                    <div class="technique-card">
+                        <div class="technique-name">Developmental Biology</div>
+                        <div style="font-size: 13px; color: #555;">Visualize signaling gradients and metabolic states during embryogenesis</div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="background: #ecfdf5; border: 2px solid #10b981; border-radius: 8px; padding: 20px; margin-top: 20px;">
+                <div style="font-weight: 700; color: #047857; margin-bottom: 10px; font-size: 16px;">🌟 Notable Biosensor: GCaMP Calcium Indicators</div>
+                <div style="color: #555; line-height: 1.8; font-size: 14px;">
+                    The GCaMP family represents one of the most successful biosensor platforms. GCaMP combines circularly permuted GFP with calmodulin and the M13 peptide. Upon calcium binding, conformational changes increase fluorescence up to 100-fold. GCaMP6 and newer variants (jGCaMP7, jGCaMP8) have enabled large-scale brain activity mapping, revealing how neural circuits encode behavior, memory, and perception. These sensors are now standard tools in neuroscience laboratories worldwide.
+                </div>
+            </div>
+
+            <div style="background: #f0f9ff; border: 2px solid #0284c7; border-radius: 8px; padding: 20px; margin-top: 20px;">
+                <div style="font-weight: 700; color: #0369a1; margin-bottom: 10px; font-size: 16px;">⚡ Emerging Trends in Biosensor Development:</div>
+                <div style="color: #555; line-height: 1.8; font-size: 14px;">
+                    Recent advances include ultrasensitive sensors with improved signal-to-noise ratios, near-infrared biosensors for deep tissue imaging, genetically encoded voltage indicators (GEVIs) for direct measurement of membrane potential, and multiplexed sensors that simultaneously monitor multiple analytes. Machine learning is also being applied to design biosensors with optimized properties, accelerating the development of next-generation tools for cellular biology.
+                </div>
+            </div>
+        </div>
+
         <!-- Summary Footer -->
         <div style="background: linear-gradient(135deg, #1E64C8, #2563eb); color: white; padding: 25px; border-radius: 8px; margin-top: 30px; text-align: center;">
             <div style="font-size: 20px; font-weight: 700; margin-bottom: 10px;">Fluorescent Proteins: Illuminating Life at the Molecular Level</div>
             <div style="font-size: 14px; opacity: 0.95; line-height: 1.6;">
-                From the discovery of GFP in jellyfish to the development of sophisticated photoswitchable variants, fluorescent proteins have transformed our ability to observe living cells. These genetically encoded tools continue to drive innovations in cell biology, neuroscience, developmental biology, and beyond.
+                From the discovery of GFP in jellyfish to the development of sophisticated photoswitchable variants and biosensors, fluorescent proteins have transformed our ability to observe living cells. These genetically encoded tools continue to drive innovations in cell biology, neuroscience, developmental biology, and beyond, enabling researchers to visualize and measure biological processes with unprecedented spatial and temporal resolution.
             </div>
         </div>
     </div>
