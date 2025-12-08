@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Water - The Solvent of Life</title>
+    <title>pH and Biological Systems - Enhanced</title>
     <style>
         * {
             margin: 0;
@@ -13,77 +13,51 @@
         
         body {
             font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
+            background: #f5f5f5;
+            padding: 20px;
         }
         
         .container {
-            width: 960px;
-            height: 540px;
-            padding: 30px 45px;
+            max-width: 1200px;
+            margin: 0 auto;
             background: white;
+            padding: 40px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         
         .title {
-            font-size: 22px;
+            font-size: 32px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
             text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 15px;
         }
         
-        .main-layout {
+        .content-grid {
             display: grid;
-            grid-template-columns: 0.9fr 1.1fr;
+            grid-template-columns: 1fr 1fr;
             gap: 20px;
-            height: calc(100% - 60px);
-        }
-        
-        .left-section {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-        
-        .water-molecule {
-            background: linear-gradient(135deg, #e3f2fd 0%, #bbdefb 100%);
-            border: 2px solid #2196F3;
-            border-radius: 12px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            height: 200px;
-        }
-        
-        .molecule-title {
-            font-size: 16px;
-            font-weight: 600;
-            color: #1565C0;
-            margin-bottom: 15px;
+            margin-bottom: 40px;
         }
         
         .info-box {
             background: #f8f9fb;
             border-left: 4px solid #1E64C8;
-            padding: 14px 16px;
+            padding: 16px 18px;
             border-radius: 6px;
-            flex: 1;
         }
         
         .info-title {
-            font-size: 16px;
+            font-size: 17px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 8px;
+            margin-bottom: 10px;
         }
         
         .info-content {
-            font-size: 14px;
+            font-size: 15px;
             color: #333;
             line-height: 1.5;
         }
@@ -91,7 +65,7 @@
         .bullet {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 5px;
+            margin-bottom: 6px;
         }
         
         .bullet::before {
@@ -99,109 +73,1482 @@
             color: #1E64C8;
             font-weight: bold;
             margin-right: 8px;
+            font-size: 16px;
+        }
+        
+        .detailed-section {
+            margin-top: 40px;
+            padding-top: 30px;
+            border-top: 2px solid #e0e0e0;
+        }
+        
+        .section-item {
+            margin-bottom: 50px;
+            page-break-inside: avoid;
+        }
+        
+        .section-header {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+        }
+        
+        .section-number {
+            background: #1E64C8;
+            color: white;
+            width: 35px;
+            height: 35px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-right: 15px;
+            font-size: 18px;
+        }
+        
+        .detail-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+            align-items: start;
+        }
+        
+        .detail-text {
+            font-size: 16px;
+            line-height: 1.8;
+            color: #333;
+        }
+        
+        .detail-text h4 {
+            color: #1E64C8;
+            margin-top: 15px;
+            margin-bottom: 8px;
+            font-size: 17px;
+        }
+        
+        .detail-text p {
+            margin-bottom: 12px;
+        }
+        
+        .detail-text ul {
+            margin-left: 20px;
+            margin-bottom: 12px;
+        }
+        
+        .detail-text li {
+            margin-bottom: 6px;
+        }
+        
+        .diagram {
+            background: #f8f9fb;
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            min-height: 300px;
+        }
+        
+        .diagram-title {
+            font-size: 16px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 15px;
+            text-align: center;
+        }
+        
+        /* pH Scale Diagram */
+        .ph-scale {
+            width: 100%;
+            height: 60px;
+            background: linear-gradient(to right, 
+                #ff0000 0%, #ff4500 14%, #ffa500 28%, 
+                #ffff00 42%, #90ee90 50%, #00ff00 58%,
+                #00ffff 72%, #0000ff 86%, #8b00ff 100%);
+            border-radius: 8px;
+            position: relative;
+            margin: 15px 0;
+        }
+        
+        .ph-markers {
+            display: flex;
+            justify-content: space-between;
+            width: 100%;
+            margin-top: 10px;
+            font-size: 14px;
+            font-weight: 600;
+        }
+        
+        .ph-marker {
+            text-align: center;
+            flex: 1;
+        }
+        
+        .ph-label {
+            margin-top: 10px;
+            font-size: 13px;
+            color: #666;
+        }
+        
+        /* Buffer System Diagram */
+        .buffer-diagram {
+            width: 100%;
+        }
+        
+        .buffer-reaction {
+            background: white;
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            text-align: center;
+        }
+        
+        .reaction-arrow {
+            font-size: 24px;
+            color: #1E64C8;
+            margin: 10px 0;
+        }
+        
+        .equation {
+            font-family: 'Courier New', monospace;
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            padding: 8px;
+            background: #f0f0f0;
+            border-radius: 4px;
+            margin: 5px 0;
+        }
+        
+        /* Henderson-Hasselbalch Graph */
+        .hh-graph {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            background: white;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+        
+        .hh-curve {
+            width: calc(100% - 60px);
+            height: calc(100% - 50px);
+            margin: 25px 30px;
+            position: relative;
+        }
+        
+        .axis {
+            position: absolute;
+            background: #333;
+        }
+        
+        .axis-y {
+            left: 0;
+            top: 0;
+            width: 2px;
+            height: 100%;
+        }
+        
+        .axis-x {
+            left: 0;
+            bottom: 0;
+            width: 100%;
+            height: 2px;
+        }
+        
+        .curve-path {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+        }
+        
+        svg {
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* Enzyme pH Graph */
+        .enzyme-graph {
+            width: 100%;
+            height: 250px;
+            position: relative;
+            background: white;
+            border: 2px solid #ccc;
+            border-radius: 8px;
+        }
+        
+        .graph-content {
+            width: calc(100% - 60px);
+            height: calc(100% - 50px);
+            margin: 25px 30px;
+            position: relative;
+        }
+        
+        .graph-label {
+            position: absolute;
+            font-size: 12px;
+            font-weight: 600;
+            color: #333;
+        }
+        
+        .blood-ph-range {
+            background: #e8f4f8;
+            border: 2px dashed #1E64C8;
+            border-radius: 4px;
+            padding: 10px;
+            margin: 10px 0;
+            text-align: center;
+            font-weight: 600;
+            color: #1E64C8;
+        }
+        
+        /* Real Examples Section */
+        .real-examples-section {
+            margin-top: 60px;
+            padding-top: 40px;
+            border-top: 3px solid #1E64C8;
+        }
+        
+        .examples-title {
+            font-size: 28px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        
+        .examples-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .example-card {
+            background: white;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+        
+        .example-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        
+        .example-image {
+            height: 180px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .example-info {
+            padding: 18px;
+            background: #f8f9fb;
+        }
+        
+        .example-name {
+            font-size: 16px;
+            font-weight: 600;
+            color: #333;
+            margin-bottom: 8px;
+        }
+        
+        .example-ph {
+            font-size: 24px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+        
+        .example-desc {
+            font-size: 13px;
+            color: #666;
+            line-height: 1.5;
+        }
+        
+        /* pH indicator colors */
+        .ph-very-acidic { color: #d32f2f; }
+        .ph-acidic { color: #f57c00; }
+        .ph-slightly-acidic { color: #fbc02d; }
+        .ph-neutral { color: #388e3c; }
+        .ph-slightly-basic { color: #0288d1; }
+        .ph-basic { color: #7b1fa2; }
+        
+        /* Realistic illustrations */
+        .stomach-illustration {
+            background: linear-gradient(135deg, #ffcdd2 0%, #ef9a9a 50%, #e57373 100%);
+        }
+        
+        .stomach-svg {
+            width: 140px;
+            height: 140px;
+        }
+        
+        .blood-illustration {
+            background: linear-gradient(135deg, #ffebee 0%, #ffcdd2 50%, #ef9a9a 100%);
+        }
+        
+        .ocean-illustration {
+            background: linear-gradient(180deg, #81d4fa 0%, #4fc3f7 30%, #29b6f6 60%, #0288d1 100%);
+        }
+        
+        .lemon-illustration {
+            background: linear-gradient(135deg, #fff9c4 0%, #fff59d 50%, #ffee58 100%);
+        }
+        
+        .soap-illustration {
+            background: linear-gradient(135deg, #e1f5fe 0%, #b3e5fc 50%, #81d4fa 100%);
+        }
+        
+        .milk-illustration {
+            background: linear-gradient(135deg, #fafafa 0%, #f5f5f5 50%, #eeeeee 100%);
+        }
+        
+        /* Body pH Diagram */
+        .body-ph-section {
+            margin-top: 50px;
+            background: #f8f9fb;
+            border-radius: 12px;
+            padding: 30px;
+        }
+        
+        .body-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 60px;
+        }
+        
+        .body-svg-container {
+            position: relative;
+            width: 200px;
+            height: 400px;
+        }
+        
+        .body-labels {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        
+        .body-label {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px 18px;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+        }
+        
+        .label-dot {
+            width: 16px;
+            height: 16px;
+            border-radius: 50%;
+        }
+        
+        .label-text {
+            flex: 1;
+        }
+        
+        .label-name {
+            font-weight: 600;
+            color: #333;
             font-size: 14px;
         }
         
-        .right-section {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 15px;
+        .label-ph {
+            font-size: 13px;
+            color: #666;
+        }
+        
+        /* Digestive System Animation */
+        .digestive-section {
+            margin-top: 50px;
+            background: linear-gradient(135deg, #e8f5e9 0%, #f1f8e9 100%);
+            border-radius: 12px;
+            padding: 30px;
+        }
+        
+        .digestive-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #2e7d32;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .digestive-flow {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+        
+        .digestive-organ {
+            text-align: center;
+            padding: 20px 15px;
+            background: white;
+            border-radius: 12px;
+            min-width: 120px;
+            box-shadow: 0 3px 10px rgba(0,0,0,0.1);
+        }
+        
+        .organ-icon {
+            width: 60px;
+            height: 60px;
+            margin: 0 auto 10px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+        }
+        
+        .organ-name {
+            font-weight: 600;
+            font-size: 14px;
+            color: #333;
+            margin-bottom: 5px;
+        }
+        
+        .organ-ph {
+            font-size: 18px;
+            font-weight: 700;
+        }
+        
+        .organ-enzyme {
+            font-size: 11px;
+            color: #666;
+            margin-top: 5px;
+        }
+        
+        .flow-arrow {
+            font-size: 28px;
+            color: #81c784;
+        }
+        
+        /* Buffer Animation */
+        .buffer-demo-section {
+            margin-top: 50px;
+            background: white;
+            border: 2px solid #1E64C8;
+            border-radius: 12px;
+            padding: 30px;
+        }
+        
+        .buffer-demo-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .beaker-comparison {
+            display: flex;
+            justify-content: center;
+            gap: 80px;
+            margin-bottom: 30px;
+        }
+        
+        .beaker-container {
+            text-align: center;
+        }
+        
+        .beaker {
+            width: 120px;
+            height: 160px;
+            position: relative;
+            margin: 0 auto 15px;
+        }
+        
+        .beaker-glass {
+            width: 100%;
+            height: 100%;
+            border: 4px solid #90a4ae;
+            border-top: none;
+            border-radius: 0 0 15px 15px;
+            background: transparent;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .beaker-liquid {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 70%;
+            border-radius: 0 0 10px 10px;
+            transition: background-color 0.5s ease;
+        }
+        
+        .water-liquid {
+            background: linear-gradient(180deg, #90caf9 0%, #64b5f6 100%);
+        }
+        
+        .water-acidified {
+            background: linear-gradient(180deg, #ffcc80 0%, #ffa726 100%);
+        }
+        
+        .buffer-liquid {
+            background: linear-gradient(180deg, #a5d6a7 0%, #81c784 100%);
+        }
+        
+        .buffer-stable {
+            background: linear-gradient(180deg, #a5d6a7 0%, #66bb6a 100%);
+        }
+        
+        .beaker-label {
+            font-weight: 600;
+            font-size: 15px;
+            color: #333;
+        }
+        
+        .beaker-ph-display {
+            font-size: 28px;
+            font-weight: 700;
+            margin-top: 10px;
+        }
+        
+        .acid-drop {
+            position: absolute;
+            top: -30px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 20px;
+            height: 28px;
+            background: #ff5722;
+            border-radius: 50% 50% 50% 50% / 60% 60% 40% 40%;
+            animation: dropFall 2s infinite;
+        }
+        
+        @keyframes dropFall {
+            0% { top: -30px; opacity: 1; }
+            60% { top: 20px; opacity: 1; }
+            100% { top: 30px; opacity: 0; }
+        }
+        
+        .comparison-note {
+            text-align: center;
+            padding: 15px;
+            background: #fff3e0;
+            border-radius: 8px;
+            font-size: 14px;
+            color: #e65100;
+        }
+        
+        /* Cell pH Environment */
+        .cell-section {
+            margin-top: 50px;
+            background: linear-gradient(135deg, #fce4ec 0%, #f8bbd9 100%);
+            border-radius: 12px;
+            padding: 30px;
+        }
+        
+        .cell-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #c2185b;
+            margin-bottom: 25px;
+            text-align: center;
+        }
+        
+        .cell-diagram {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        
+        .cell-svg {
+            width: 100%;
+            max-width: 700px;
+            height: 350px;
+        }
+        
+        @media print {
+            .section-item {
+                page-break-inside: avoid;
+            }
+            
+            .example-card:hover {
+                transform: none;
+                box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            }
+        }
+        
+        @media (max-width: 768px) {
+            .examples-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .content-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .detail-content {
+                grid-template-columns: 1fr;
+            }
+            
+            .body-diagram {
+                flex-direction: column;
+            }
+            
+            .digestive-flow {
+                flex-direction: column;
+            }
+            
+            .beaker-comparison {
+                flex-direction: column;
+                gap: 40px;
+            }
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">💧 Water - The Solvent of Life</div>
+        <div class="title">pH and Biological Systems</div>
         
-        <div class="main-layout">
-            <div class="left-section">
-                <div class="water-molecule">
-                    <div class="molecule-title">H₂O Molecular Structure</div>
-                    <svg width="200" height="120" viewBox="0 0 200 120">
-                        <!-- Oxygen atom -->
-                        <circle cx="100" cy="80" r="25" fill="#E53935" opacity="0.8"/>
-                        <text x="100" y="87" text-anchor="middle" fill="white" font-size="18" font-weight="bold">O</text>
-                        
-                        <!-- Hydrogen atoms -->
-                        <circle cx="50" cy="40" r="15" fill="#2196F3" opacity="0.8"/>
-                        <text x="50" y="46" text-anchor="middle" fill="white" font-size="14" font-weight="bold">H</text>
-                        
-                        <circle cx="150" cy="40" r="15" fill="#2196F3" opacity="0.8"/>
-                        <text x="150" y="46" text-anchor="middle" fill="white" font-size="14" font-weight="bold">H</text>
-                        
-                        <!-- Bonds -->
-                        <line x1="60" y1="50" x2="85" y2="70" stroke="#333" stroke-width="3"/>
-                        <line x1="140" y1="50" x2="115" y2="70" stroke="#333" stroke-width="3"/>
-                        
-                        <!-- Angle indicator -->
-                        <path d="M 85 70 Q 100 65 115 70" stroke="#FFA726" stroke-width="2" fill="none" stroke-dasharray="3,3"/>
-                        <text x="100" y="62" text-anchor="middle" fill="#FFA726" font-size="12" font-weight="bold">104.5°</text>
-                        
-                        <!-- Polarity indicators -->
-                        <text x="100" y="110" text-anchor="middle" fill="#E53935" font-size="14" font-weight="bold">δ-</text>
-                        <text x="50" y="25" text-anchor="middle" fill="#2196F3" font-size="14" font-weight="bold">δ+</text>
-                        <text x="150" y="25" text-anchor="middle" fill="#2196F3" font-size="14" font-weight="bold">δ+</text>
-                    </svg>
+        <!-- Summary Section -->
+        <div class="content-grid">
+            <div class="info-box">
+                <div class="info-title">pH Scale</div>
+                <div class="info-content">
+                    <div class="bullet">pH = -log[H⁺]</div>
+                    <div class="bullet">Range: 0 (acidic) to 14 (basic)</div>
+                    <div class="bullet">pH 7 is neutral</div>
+                    <div class="bullet">Each unit = 10× concentration change</div>
                 </div>
-                
-                <div class="info-box">
-                    <div class="info-title">🔬 Molecular Structure</div>
-                    <div class="info-content">
-                        <div class="bullet">Bent geometry (104.5°)</div>
-                        <div class="bullet">Polar covalent O-H bonds</div>
-                        <div class="bullet">Partial charges: δ- O, δ+ H</div>
-                        <div class="bullet">Strong dipole moment</div>
+            </div>
+            
+            <div class="info-box">
+                <div class="info-title">Buffer Systems</div>
+                <div class="info-content">
+                    <div class="bullet">Resist pH changes</div>
+                    <div class="bullet">Blood pH: 7.35-7.45</div>
+                    <div class="bullet">Bicarbonate buffer (H₂CO₃/HCO₃⁻)</div>
+                    <div class="bullet">Phosphate buffer in cells</div>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <div class="info-title">Henderson-Hasselbalch Equation</div>
+                <div class="info-content">
+                    <div class="bullet">pH = pKa + log([A⁻]/[HA])</div>
+                    <div class="bullet">Predicts buffer behavior</div>
+                    <div class="bullet">Critical for enzyme function</div>
+                    <div class="bullet">Used in drug design</div>
+                </div>
+            </div>
+            
+            <div class="info-box">
+                <div class="info-title">Enzyme pH Dependence</div>
+                <div class="info-content">
+                    <div class="bullet">Each enzyme has optimal pH</div>
+                    <div class="bullet">Pepsin (stomach): pH 2</div>
+                    <div class="bullet">Trypsin (intestine): pH 8</div>
+                    <div class="bullet">pH affects protein charge state</div>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Detailed Sections -->
+        <div class="detailed-section">
+            
+            <!-- Section 1: pH Scale -->
+            <div class="section-item">
+                <div class="section-header">
+                    <div class="section-number">1</div>
+                    pH Scale - Measure of Hydrogen Ion Concentration
+                </div>
+                <div class="detail-content">
+                    <div class="detail-text">
+                        <h4>Definition and Concept</h4>
+                        <p>pH is defined as the negative logarithm of hydrogen ion (H⁺) concentration in a solution. This concept was introduced by Danish biochemist Søren Sørensen in 1909.</p>
+                        
+                        <div class="equation">pH = -log₁₀[H⁺]</div>
+                        
+                        <h4>Characteristics of pH Scale</h4>
+                        <ul>
+                            <li><strong>Range:</strong> 0 (strong acid) ~ 14 (strong base)</li>
+                            <li><strong>Neutral:</strong> pH 7 (pure water)</li>
+                            <li><strong>Logarithmic scale:</strong> Each pH unit change represents a 10-fold change in H⁺ concentration</li>
+                            <li><strong>Inverse relationship:</strong> Lower pH means higher acidity</li>
+                        </ul>
+                        
+                        <h4>Biological Significance</h4>
+                        <p>Living organisms function normally only within a very narrow pH range. Even small changes in pH can significantly affect protein structure, enzyme activity, membrane permeability, and more.</p>
+                        
+                        <h4>Common Examples</h4>
+                        <ul>
+                            <li>Gastric acid: pH 1.5-2.0</li>
+                            <li>Lemon juice: pH 2.0-2.5</li>
+                            <li>Blood: pH 7.35-7.45</li>
+                            <li>Baking soda solution: pH 8.5-9.0</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="diagram">
+                        <div class="diagram-title">pH Scale Visualization</div>
+                        <div class="ph-scale"></div>
+                        <div class="ph-markers">
+                            <div class="ph-marker">
+                                <div>0</div>
+                                <div class="ph-label">Strong Acid</div>
+                            </div>
+                            <div class="ph-marker">
+                                <div>7</div>
+                                <div class="ph-label">Neutral</div>
+                            </div>
+                            <div class="ph-marker">
+                                <div>14</div>
+                                <div class="ph-label">Strong Base</div>
+                            </div>
+                        </div>
+                        <div style="margin-top: 20px; font-size: 14px; text-align: left; width: 100%;">
+                            <div style="margin: 8px 0;"><strong>pH 2:</strong> Gastric acid, Lemon juice</div>
+                            <div style="margin: 8px 0;"><strong>pH 4:</strong> Wine, Tomato</div>
+                            <div style="margin: 8px 0;"><strong>pH 7:</strong> Pure water</div>
+                            <div style="margin: 8px 0;"><strong>pH 7.4:</strong> Blood</div>
+                            <div style="margin: 8px 0;"><strong>pH 8:</strong> Seawater</div>
+                            <div style="margin: 8px 0;"><strong>pH 11:</strong> Ammonia</div>
+                        </div>
                     </div>
                 </div>
             </div>
             
-            <div class="right-section">
-                <div class="info-box">
-                    <div class="info-title">🌡️ Unique Properties</div>
-                    <div class="info-content">
-                        <div class="bullet">High heat capacity</div>
-                        <div class="bullet">High heat of vaporization</div>
-                        <div class="bullet">Less dense as solid (ice floats)</div>
-                        <div class="bullet">Excellent solvent for polar molecules</div>
-                    </div>
+            <!-- Section 2: Buffer Systems -->
+            <div class="section-item">
+                <div class="section-header">
+                    <div class="section-number">2</div>
+                    Buffer Systems - pH Regulation Systems in Living Organisms
                 </div>
-                
-                <div class="info-box">
-                    <div class="info-title">🧪 Hydrophobic Effect</div>
-                    <div class="info-content">
-                        <div class="bullet">Nonpolar molecules cluster together</div>
-                        <div class="bullet">Drives protein folding</div>
-                        <div class="bullet">Forms lipid bilayers</div>
-                        <div class="bullet">Entropy-driven process</div>
+                <div class="detail-content">
+                    <div class="detail-text">
+                        <h4>What is a Buffer Solution?</h4>
+                        <p>A buffer solution is a solution that minimizes pH changes even when acids or bases are added. It consists of a mixture of a weak acid and its conjugate base (or a weak base and its conjugate acid).</p>
+                        
+                        <h4>Mechanism of Action</h4>
+                        <ul>
+                            <li><strong>When acid is added:</strong> Base form (A⁻) neutralizes H⁺</li>
+                            <li><strong>When base is added:</strong> Acid form (HA) neutralizes OH⁻</li>
+                            <li>pH stabilization through equilibrium shift</li>
+                        </ul>
+                        
+                        <h4>Major Biological Buffer Systems</h4>
+                        <p><strong>1. Bicarbonate Buffer System (Blood)</strong></p>
+                        <div class="equation">H₂CO₃ ⇌ H⁺ + HCO₃⁻</div>
+                        <ul>
+                            <li>Maintains blood pH at 7.35-7.45</li>
+                            <li>Regulated by lungs and kidneys</li>
+                            <li>Most important body fluid buffer system</li>
+                        </ul>
+                        
+                        <p><strong>2. Phosphate Buffer System (Intracellular)</strong></p>
+                        <div class="equation">H₂PO₄⁻ ⇌ H⁺ + HPO₄²⁻</div>
+                        <ul>
+                            <li>Important in cytoplasm and urine</li>
+                            <li>pKa = 6.86 (close to physiological pH)</li>
+                        </ul>
+                        
+                        <p><strong>3. Protein Buffer System</strong></p>
+                        <ul>
+                            <li>Amino acid residues such as histidine and cysteine</li>
+                            <li>Hemoglobin is a representative example</li>
+                        </ul>
+                        
+                        <h4>Clinical Importance</h4>
+                        <p>Acidosis or alkalosis can be life-threatening, and abnormalities in buffer systems are associated with various diseases.</p>
                     </div>
-                </div>
-                
-                <div class="info-box">
-                    <div class="info-title">💫 Solvation</div>
-                    <div class="info-content">
-                        <div class="bullet">Water molecules surround ions</div>
-                        <div class="bullet">Hydration shells stabilize charges</div>
-                        <div class="bullet">Affects biochemical reactions</div>
-                        <div class="bullet">Critical for ion transport</div>
-                    </div>
-                </div>
-                
-                <div class="info-box" style="background: linear-gradient(135deg, #e8f5e9 0%, #c8e6c9 100%); border-left-color: #4CAF50;">
-                    <div class="info-title" style="color: #2E7D32;">🌊 H-Bond Network</div>
-                    <div class="info-content">
-                        <svg width="100%" height="60" viewBox="0 0 200 60">
-                            <circle cx="30" cy="30" r="8" fill="#2196F3" opacity="0.6"/>
-                            <circle cx="70" cy="30" r="8" fill="#2196F3" opacity="0.6"/>
-                            <circle cx="110" cy="30" r="8" fill="#2196F3" opacity="0.6"/>
-                            <circle cx="150" cy="30" r="8" fill="#2196F3" opacity="0.6"/>
-                            <line x1="38" y1="30" x2="62" y2="30" stroke="#4CAF50" stroke-width="2" stroke-dasharray="4,4"/>
-                            <line x1="78" y1="30" x2="102" y2="30" stroke="#4CAF50" stroke-width="2" stroke-dasharray="4,4"/>
-                            <line x1="118" y1="30" x2="142" y2="30" stroke="#4CAF50" stroke-width="2" stroke-dasharray="4,4"/>
-                            <text x="100" y="55" text-anchor="middle" font-size="11" fill="#2E7D32" font-weight="600">Hydrogen Bond Network</text>
-                        </svg>
+                    
+                    <div class="diagram">
+                        <div class="diagram-title">Bicarbonate Buffer System</div>
+                        <div class="buffer-diagram">
+                            <div class="buffer-reaction">
+                                <div class="equation">CO₂ + H₂O ⇌ H₂CO₃</div>
+                                <div style="font-size: 12px; margin-top: 5px; color: #666;">Carbonic anhydrase</div>
+                            </div>
+                            
+                            <div class="reaction-arrow">⇅</div>
+                            
+                            <div class="buffer-reaction">
+                                <div class="equation">H₂CO₃ ⇌ H⁺ + HCO₃⁻</div>
+                            </div>
+                            
+                            <div class="blood-ph-range">
+                                Normal blood pH range: 7.35 - 7.45
+                            </div>
+                            
+                            <div style="margin-top: 15px; font-size: 13px; text-align: left;">
+                                <div style="background: #fff3cd; padding: 10px; border-radius: 4px; margin: 8px 0;">
+                                    <strong>When acid is added:</strong><br>
+                                    HCO₃⁻ + H⁺ → H₂CO₃ → CO₂ + H₂O<br>
+                                    <span style="color: #666; font-size: 12px;">CO₂ expelled through lungs</span>
+                                </div>
+                                <div style="background: #d1ecf1; padding: 10px; border-radius: 4px; margin: 8px 0;">
+                                    <strong>When base is added:</strong><br>
+                                    H₂CO₃ + OH⁻ → HCO₃⁻ + H₂O<br>
+                                    <span style="color: #666; font-size: 12px;">HCO₃⁻ reabsorption regulated by kidneys</span>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
+            
+            <!-- Section 3: Henderson-Hasselbalch Equation -->
+            <div class="section-item">
+                <div class="section-header">
+                    <div class="section-number">3</div>
+                    Henderson-Hasselbalch Equation - Quantitative Analysis of Buffer Solutions
+                </div>
+                <div class="detail-content">
+                    <div class="detail-text">
+                        <h4>Derivation of the Equation</h4>
+                        <p>The Henderson-Hasselbalch equation is derived from the dissociation equilibrium of a weak acid:</p>
+                        
+                        <div class="equation">Ka = [H⁺][A⁻] / [HA]</div>
+                        <p style="text-align: center; margin: 10px 0;">Taking -log of both sides</p>
+                        <div class="equation">pH = pKa + log([A⁻]/[HA])</div>
+                        
+                        <h4>Meaning of the Equation</h4>
+                        <ul>
+                            <li><strong>pH:</strong> Hydrogen ion concentration of the solution</li>
+                            <li><strong>pKa:</strong> Acid dissociation constant (-logKa)</li>
+                            <li><strong>[A⁻]:</strong> Concentration of conjugate base</li>
+                            <li><strong>[HA]:</strong> Concentration of weak acid</li>
+                        </ul>
+                        
+                        <h4>Key Principles</h4>
+                        <p><strong>When pH = pKa:</strong></p>
+                        <ul>
+                            <li>[A⁻] = [HA] (1:1 ratio)</li>
+                            <li>Maximum buffer capacity</li>
+                            <li>Equal concentrations of acid and base forms</li>
+                        </ul>
+                        
+                        <p><strong>Effective buffer range:</strong> pKa ± 1</p>
+                        <ul>
+                            <li>Best buffering effect within this range</li>
+                            <li>Effectively resists pH changes</li>
+                        </ul>
+                        
+                        <h4>Biochemical Applications</h4>
+                        <ul>
+                            <li><strong>Enzyme research:</strong> Determining optimal pH conditions</li>
+                            <li><strong>Drug design:</strong> Predicting bioavailability</li>
+                            <li><strong>Protein purification:</strong> Maintaining stability</li>
+                            <li><strong>Diagnostics:</strong> Blood gas analysis</li>
+                        </ul>
+                        
+                        <h4>Practical Example</h4>
+                        <p>Acetate buffer (pKa = 4.76):</p>
+                        <ul>
+                            <li>At pH 4.76, CH₃COOH and CH₃COO⁻ are 1:1</li>
+                            <li>Effective buffering in pH 3.76-5.76 range</li>
+                            <li>Widely used in biochemical experiments</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="diagram">
+                        <div class="diagram-title">Henderson-Hasselbalch Titration Curve</div>
+                        <div class="hh-graph">
+                            <div class="hh-curve">
+                                <div class="axis axis-y"></div>
+                                <div class="axis axis-x"></div>
+                                <svg viewBox="0 0 300 200" style="position: absolute; top: 0; left: 0;">
+                                    <path d="M 0,190 Q 50,180 75,150 T 150,50 Q 200,15 300,10" 
+                                          stroke="#1E64C8" stroke-width="3" fill="none"/>
+                                    
+                                    <!-- pKa line -->
+                                    <line x1="0" y1="100" x2="300" y2="100" 
+                                          stroke="#ff6b6b" stroke-width="2" stroke-dasharray="5,5"/>
+                                    
+                                    <!-- Buffer region -->
+                                    <rect x="0" y="70" width="300" height="60" 
+                                          fill="#1E64C8" opacity="0.1"/>
+                                    
+                                    <!-- pKa point -->
+                                    <circle cx="150" cy="100" r="5" fill="#ff6b6b"/>
+                                    <text x="160" y="95" font-size="12" fill="#ff6b6b" font-weight="bold">pKa</text>
+                                </svg>
+                                
+                                <div class="graph-label" style="left: -35px; top: -10px;">pH</div>
+                                <div class="graph-label" style="left: -35px; top: 45%; transform: translateY(-50%);">14</div>
+                                <div class="graph-label" style="left: -25px; bottom: -20px;">0</div>
+                                
+                                <div class="graph-label" style="bottom: -25px; right: -5px;">Base Added</div>
+                                <div class="graph-label" style="bottom: -25px; left: 0;">0</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 15px; font-size: 13px; text-align: left; width: 100%;">
+                            <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; margin: 8px 0;">
+                                <strong>Buffer Region:</strong><br>
+                                pH change is gradual within pKa ± 1 range
+                            </div>
+                            <div style="display: flex; gap: 10px; margin-top: 10px;">
+                                <div style="flex: 1; padding: 8px; background: #fff3cd; border-radius: 4px; font-size: 12px;">
+                                    <strong>pH &lt; pKa</strong><br>
+                                    [HA] &gt; [A⁻]<br>
+                                    Acid form predominates
+                                </div>
+                                <div style="flex: 1; padding: 8px; background: #d1ecf1; border-radius: 4px; font-size: 12px;">
+                                    <strong>pH &gt; pKa</strong><br>
+                                    [A⁻] &gt; [HA]<br>
+                                    Base form predominates
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Section 4: Enzyme pH Dependence -->
+            <div class="section-item">
+                <div class="section-header">
+                    <div class="section-number">4</div>
+                    Enzyme pH Dependence - Relationship Between Enzyme Activity and pH
+                </div>
+                <div class="detail-content">
+                    <div class="detail-text">
+                        <h4>Relationship Between Enzymes and pH</h4>
+                        <p>Every enzyme has a specific pH range at which it exhibits optimal activity. This reflects the enzyme's evolutionary adaptation and physiological function.</p>
+                        
+                        <h4>Mechanisms by Which pH Affects Enzymes</h4>
+                        
+                        <p><strong>1. Changes in Ionization State</strong></p>
+                        <ul>
+                            <li>Change in charge of amino acid residues in active site</li>
+                            <li>Proton acceptance/donation required for catalytic action</li>
+                            <li>pKa of His, Cys, Asp, Glu, etc. are important</li>
+                        </ul>
+                        
+                        <p><strong>2. Changes in Protein Structure</strong></p>
+                        <ul>
+                            <li>Changes in electrostatic interactions</li>
+                            <li>Changes in hydrogen bonding patterns</li>
+                            <li>Denaturation occurs at extreme pH</li>
+                        </ul>
+                        
+                        <p><strong>3. Substrate Binding Affinity</strong></p>
+                        <ul>
+                            <li>Effect of substrate ionization state</li>
+                            <li>Efficiency of enzyme-substrate complex formation</li>
+                        </ul>
+                        
+                        <h4>Representative Enzyme Examples</h4>
+                        
+                        <p><strong>Pepsin - pH 2.0</strong></p>
+                        <ul>
+                            <li>Protein digestion in stomach</li>
+                            <li>Optimized for strongly acidic environment</li>
+                            <li>Rich in acidic amino acid residues</li>
+                        </ul>
+                        
+                        <p><strong>Trypsin - pH 8.0</strong></p>
+                        <ul>
+                            <li>Protein digestion in small intestine</li>
+                            <li>Active in slightly alkaline environment</li>
+                            <li>Secreted by pancreas</li>
+                        </ul>
+                        
+                        <p><strong>Amylase - pH 7.0</strong></p>
+                        <ul>
+                            <li>Starch-degrading enzyme</li>
+                            <li>Present in saliva and pancreas</li>
+                            <li>Optimal at neutral pH</li>
+                        </ul>
+                        
+                        <h4>Clinical and Industrial Applications</h4>
+                        <ul>
+                            <li><strong>Enzyme therapeutics:</strong> Requires maintenance of appropriate pH</li>
+                            <li><strong>Food industry:</strong> Control enzyme reactions by pH adjustment</li>
+                            <li><strong>Diagnostic kits:</strong> Testing performed at optimal pH</li>
+                            <li><strong>Biotechnology:</strong> Research on improving enzyme stability</li>
+                        </ul>
+                    </div>
+                    
+                    <div class="diagram">
+                        <div class="diagram-title">Enzyme Activity vs pH</div>
+                        <div class="enzyme-graph">
+                            <div class="graph-content">
+                                <div class="axis axis-y"></div>
+                                <div class="axis axis-x"></div>
+                                <svg viewBox="0 0 300 200" style="position: absolute; top: 0; left: 0;">
+                                    <!-- Pepsin curve (pH 2) -->
+                                    <path d="M 10,180 Q 30,30 50,10 Q 70,30 90,180" 
+                                          stroke="#ff6b6b" stroke-width="2.5" fill="none"/>
+                                    
+                                    <!-- Trypsin curve (pH 8) -->
+                                    <path d="M 160,180 Q 180,30 200,10 Q 220,30 240,180" 
+                                          stroke="#4ecdc4" stroke-width="2.5" fill="none"/>
+                                    
+                                    <!-- Amylase curve (pH 7) -->
+                                    <path d="M 120,180 Q 140,40 150,15 Q 160,40 180,180" 
+                                          stroke="#95e1d3" stroke-width="2.5" fill="none"/>
+                                    
+                                    <!-- pH markers -->
+                                    <line x1="50" y1="195" x2="50" y2="200" stroke="#333" stroke-width="1"/>
+                                    <line x1="150" y1="195" x2="150" y2="200" stroke="#333" stroke-width="1"/>
+                                    <line x1="200" y1="195" x2="200" y2="200" stroke="#333" stroke-width="1"/>
+                                    
+                                    <text x="45" y="215" font-size="11" fill="#333">2</text>
+                                    <text x="145" y="215" font-size="11" fill="#333">7</text>
+                                    <text x="195" y="215" font-size="11" fill="#333">8</text>
+                                </svg>
+                                
+                                <div class="graph-label" style="left: -50px; top: -5px; writing-mode: vertical-rl; transform: rotate(180deg);">Activity</div>
+                                <div class="graph-label" style="bottom: -30px; left: 50%; transform: translateX(-50%);">pH</div>
+                            </div>
+                        </div>
+                        
+                        <div style="margin-top: 15px; font-size: 13px; width: 100%;">
+                            <div style="display: flex; gap: 10px; margin-bottom: 10px;">
+                                <div style="display: flex; align-items: center; gap: 5px;">
+                                    <div style="width: 20px; height: 3px; background: #ff6b6b;"></div>
+                                    <span>Pepsin (pH 2)</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 5px;">
+                                    <div style="width: 20px; height: 3px; background: #95e1d3;"></div>
+                                    <span>Amylase (pH 7)</span>
+                                </div>
+                                <div style="display: flex; align-items: center; gap: 5px;">
+                                    <div style="width: 20px; height: 3px; background: #4ecdc4;"></div>
+                                    <span>Trypsin (pH 8)</span>
+                                </div>
+                            </div>
+                            
+                            <div style="background: #fff3cd; padding: 10px; border-radius: 4px; margin: 8px 0; font-size: 12px;">
+                                <strong>Key Concepts:</strong><br>
+                                • Each enzyme has maximum activity at a specific pH<br>
+                                • Activity decreases sharply away from optimal pH<br>
+                                • Enzyme's habitat matches its optimal pH
+                            </div>
+                            
+                            <div style="background: #e8f4f8; padding: 10px; border-radius: 4px; font-size: 12px;">
+                                <strong>Physiological Significance:</strong><br>
+                                pH changes activate different enzymes in each section of the digestive tract
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+        </div>
+        
+        <!-- NEW: Real Examples Section -->
+        <div class="real-examples-section">
+            <div class="examples-title">🧪 Real-World pH Examples</div>
+            
+            <!-- pH Examples Grid -->
+            <div class="examples-grid">
+                <!-- Gastric Acid -->
+                <div class="example-card">
+                    <div class="example-image stomach-illustration">
+                        <svg class="stomach-svg" viewBox="0 0 100 100">
+                            <!-- Stomach shape -->
+                            <path d="M 30,25 Q 15,35 20,55 Q 25,80 50,85 Q 75,80 80,55 Q 85,35 70,25 Q 55,20 45,25 Q 35,30 30,25" 
+                                  fill="#e57373" stroke="#c62828" stroke-width="2"/>
+                            <!-- Stomach lining folds -->
+                            <path d="M 35,40 Q 40,45 35,55" stroke="#c62828" stroke-width="1.5" fill="none"/>
+                            <path d="M 50,35 Q 55,50 50,65" stroke="#c62828" stroke-width="1.5" fill="none"/>
+                            <path d="M 65,40 Q 60,50 65,60" stroke="#c62828" stroke-width="1.5" fill="none"/>
+                            <!-- Acid droplets -->
+                            <circle cx="40" cy="50" r="3" fill="#ffeb3b" opacity="0.8"/>
+                            <circle cx="55" cy="55" r="2" fill="#ffeb3b" opacity="0.8"/>
+                            <circle cx="60" cy="45" r="2.5" fill="#ffeb3b" opacity="0.8"/>
+                            <!-- H+ ions -->
+                            <text x="38" y="62" font-size="8" fill="#d32f2f" font-weight="bold">H⁺</text>
+                            <text x="55" y="70" font-size="8" fill="#d32f2f" font-weight="bold">H⁺</text>
+                        </svg>
+                    </div>
+                    <div class="example-info">
+                        <div class="example-name">Gastric Acid</div>
+                        <div class="example-ph ph-very-acidic">pH 1.5 - 2.0</div>
+                        <div class="example-desc">A strongly acidic environment essential for pepsin activation and food sterilization. The stomach wall is protected by a mucus layer.</div>
+                    </div>
+                </div>
+                
+                <!-- Lemon -->
+                <div class="example-card">
+                    <div class="example-image lemon-illustration">
+                        <svg viewBox="0 0 100 100" style="width: 140px; height: 140px;">
+                            <!-- Lemon body -->
+                            <ellipse cx="50" cy="50" rx="35" ry="28" fill="#fdd835" stroke="#f9a825" stroke-width="2"/>
+                            <!-- Lemon tips -->
+                            <ellipse cx="18" cy="50" rx="8" ry="5" fill="#fdd835" stroke="#f9a825" stroke-width="1.5"/>
+                            <ellipse cx="82" cy="50" rx="8" ry="5" fill="#fdd835" stroke="#f9a825" stroke-width="1.5"/>
+                            <!-- Cross-section suggestion -->
+                            <circle cx="50" cy="50" r="18" fill="#fff9c4" stroke="#fbc02d" stroke-width="1"/>
+                            <!-- Segments -->
+                            <line x1="50" y1="32" x2="50" y2="68" stroke="#fbc02d" stroke-width="0.8"/>
+                            <line x1="35" y1="38" x2="65" y2="62" stroke="#fbc02d" stroke-width="0.8"/>
+                            <line x1="35" y1="62" x2="65" y2="38" stroke="#fbc02d" stroke-width="0.8"/>
+                            <!-- Citric acid drops -->
+                            <circle cx="42" cy="45" r="2" fill="#fff59d"/>
+                            <circle cx="58" cy="55" r="2" fill="#fff59d"/>
+                        </svg>
+                    </div>
+                    <div class="example-info">
+                        <div class="example-name">Lemon Juice</div>
+                        <div class="example-ph ph-very-acidic">pH 2.0 - 2.5</div>
+                        <div class="example-desc">Mainly composed of citric acid. A natural acidic substance widely used in food preservation and cooking.</div>
+                    </div>
+                </div>
+                
+                <!-- Blood -->
+                <div class="example-card">
+                    <div class="example-image blood-illustration">
+                        <svg viewBox="0 0 100 100" style="width: 140px; height: 140px;">
+                            <!-- Blood vessel -->
+                            <rect x="10" y="30" width="80" height="40" rx="20" fill="#ef9a9a" stroke="#c62828" stroke-width="2"/>
+                            <!-- Red blood cells -->
+                            <ellipse cx="30" cy="50" rx="10" ry="6" fill="#d32f2f"/>
+                            <ellipse cx="30" cy="50" rx="4" ry="2" fill="#b71c1c"/>
+                            <ellipse cx="55" cy="45" rx="10" ry="6" fill="#e53935"/>
+                            <ellipse cx="55" cy="45" rx="4" ry="2" fill="#c62828"/>
+                            <ellipse cx="70" cy="55" rx="10" ry="6" fill="#d32f2f"/>
+                            <ellipse cx="70" cy="55" rx="4" ry="2" fill="#b71c1c"/>
+                            <!-- Plasma flow lines -->
+                            <path d="M 15,50 Q 25,48 35,50" stroke="#ffcdd2" stroke-width="1" fill="none"/>
+                            <path d="M 45,52 Q 55,50 65,52" stroke="#ffcdd2" stroke-width="1" fill="none"/>
+                        </svg>
+                    </div>
+                    <div class="example-info">
+                        <div class="example-name">Blood</div>
+                        <div class="example-ph ph-neutral">pH 7.35 - 7.45</div>
+                        <div class="example-desc">Must be maintained within a very narrow range. Deviations from this range can be life-threatening.</div>
+                    </div>
+                </div>
+                
+                <!-- Milk -->
+                <div class="example-card">
+                    <div class="example-image milk-illustration">
+                        <svg viewBox="0 0 100 100" style="width: 140px; height: 140px;">
+                            <!-- Milk carton/glass -->
+                            <rect x="30" y="25" width="40" height="55" rx="3" fill="white" stroke="#bdbdbd" stroke-width="2"/>
+                            <rect x="30" y="25" width="40" height="12" fill="#e3f2fd" stroke="#bdbdbd" stroke-width="1"/>
+                            <!-- Milk surface -->
+                            <ellipse cx="50" cy="40" rx="18" ry="4" fill="#f5f5f5"/>
+                            <!-- Milk droplet -->
+                            <path d="M 50,55 Q 55,65 50,72 Q 45,65 50,55" fill="white" stroke="#e0e0e0" stroke-width="1"/>
+                            <!-- Calcium ions -->
+                            <text x="38" y="60" font-size="6" fill="#757575">Ca²⁺</text>
+                            <text x="55" y="68" font-size="6" fill="#757575">Ca²⁺</text>
+                        </svg>
+                    </div>
+                    <div class="example-info">
+                        <div class="example-name">Milk</div>
+                        <div class="example-ph ph-slightly-acidic">pH 6.5 - 6.7</div>
+                        <div class="example-desc">Slightly acidic. During lactic acid fermentation, lactic acid is produced, lowering the pH further (yogurt: pH 4.0-4.5).</div>
+                    </div>
+                </div>
+                
+                <!-- Seawater -->
+                <div class="example-card">
+                    <div class="example-image ocean-illustration">
+                        <svg viewBox="0 0 100 100" style="width: 140px; height: 140px;">
+                            <!-- Waves -->
+                            <path d="M 0,35 Q 15,30 30,35 T 60,35 T 90,35 T 120,35" fill="none" stroke="#0288d1" stroke-width="2"/>
+                            <path d="M 0,45 Q 15,40 30,45 T 60,45 T 90,45 T 120,45" fill="none" stroke="#039be5" stroke-width="2"/>
+                            <!-- Water body -->
+                            <rect x="0" y="50" width="100" height="50" fill="#29b6f6"/>
+                            <!-- Fish -->
+                            <path d="M 25,65 Q 35,60 40,65 Q 35,70 25,65" fill="#ff8a65"/>
+                            <circle cx="37" cy="64" r="1.5" fill="#333"/>
+                            <!-- Coral -->
+                            <path d="M 60,85 Q 65,70 70,85" stroke="#f48fb1" stroke-width="3" fill="none"/>
+                            <path d="M 70,85 Q 75,72 80,85" stroke="#ce93d8" stroke-width="3" fill="none"/>
+                            <!-- Bubbles -->
+                            <circle cx="45" cy="70" r="2" fill="white" opacity="0.6"/>
+                            <circle cx="50" cy="62" r="1.5" fill="white" opacity="0.6"/>
+                        </svg>
+                    </div>
+                    <div class="example-info">
+                        <div class="example-name">Seawater</div>
+                        <div class="example-ph ph-slightly-basic">pH 7.9 - 8.3</div>
+                        <div class="example-desc">Habitat for marine life. Ocean acidification due to CO₂ absorption is a threat to marine ecosystems.</div>
+                    </div>
+                </div>
+                
+                <!-- Soap -->
+                <div class="example-card">
+                    <div class="example-image soap-illustration">
+                        <svg viewBox="0 0 100 100" style="width: 140px; height: 140px;">
+                            <!-- Soap bar -->
+                            <rect x="25" y="40" width="50" height="30" rx="5" fill="#81d4fa" stroke="#0288d1" stroke-width="2"/>
+                            <!-- Bubbles -->
+                            <circle cx="20" cy="30" r="8" fill="none" stroke="#b3e5fc" stroke-width="1.5"/>
+                            <circle cx="35" cy="22" r="6" fill="none" stroke="#b3e5fc" stroke-width="1.5"/>
+                            <circle cx="70" cy="25" r="10" fill="none" stroke="#b3e5fc" stroke-width="1.5"/>
+                            <circle cx="80" cy="45" r="7" fill="none" stroke="#b3e5fc" stroke-width="1.5"/>
+                            <circle cx="15" cy="55" r="5" fill="none" stroke="#b3e5fc" stroke-width="1.5"/>
+                            <!-- Shine effect -->
+                            <ellipse cx="40" cy="48" rx="8" ry="3" fill="white" opacity="0.5"/>
+                            <!-- OH- ions -->
+                            <text x="55" cy="35" font-size="7" fill="#0277bd">OH⁻</text>
+                        </svg>
+                    </div>
+                    <div class="example-info">
+                        <div class="example-name">Soap</div>
+                        <div class="example-ph ph-basic">pH 9.0 - 10.0</div>
+                        <div class="example-desc">Composed of fatty acid salts, making it basic. Cleaning action occurs through micelle formation.</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Human Body pH Diagram -->
+            <div class="body-ph-section">
+                <div class="examples-title">🧬 pH Distribution in Human Body</div>
+                <div class="body-diagram">
+                    <div class="body-svg-container">
+                        <svg viewBox="0 0 150 350" style="width: 100%; height: 100%;">
+                            <!-- Body outline -->
+                            <!-- Head -->
+                            <circle cx="75" cy="35" r="28" fill="#ffccbc" stroke="#8d6e63" stroke-width="2"/>
+                            <!-- Neck -->
+                            <rect x="65" y="60" width="20" height="20" fill="#ffccbc" stroke="#8d6e63" stroke-width="1"/>
+                            <!-- Torso -->
+                            <path d="M 40,80 L 35,180 L 55,200 L 95,200 L 115,180 L 110,80 Z" fill="#ffccbc" stroke="#8d6e63" stroke-width="2"/>
+                            <!-- Arms -->
+                            <path d="M 40,85 L 15,150 L 20,155 L 50,100" fill="#ffccbc" stroke="#8d6e63" stroke-width="2"/>
+                            <path d="M 110,85 L 135,150 L 130,155 L 100,100" fill="#ffccbc" stroke="#8d6e63" stroke-width="2"/>
+                            <!-- Legs -->
+                            <path d="M 55,200 L 45,300 L 55,305 L 70,210" fill="#ffccbc" stroke="#8d6e63" stroke-width="2"/>
+                            <path d="M 95,200 L 105,300 L 95,305 L 80,210" fill="#ffccbc" stroke="#8d6e63" stroke-width="2"/>
+                            
+                            <!-- Internal organs indicators -->
+                            <!-- Mouth/Saliva -->
+                            <circle cx="75" cy="45" r="6" fill="#81c784" stroke="#2e7d32" stroke-width="1.5"/>
+                            <text x="75" y="48" font-size="6" fill="white" text-anchor="middle">6.8</text>
+                            
+                            <!-- Stomach -->
+                            <ellipse cx="68" cy="115" rx="18" ry="12" fill="#ef5350" stroke="#c62828" stroke-width="1.5"/>
+                            <text x="68" y="118" font-size="7" fill="white" text-anchor="middle">1.5</text>
+                            
+                            <!-- Small Intestine -->
+                            <ellipse cx="75" cy="145" rx="25" ry="10" fill="#64b5f6" stroke="#1976d2" stroke-width="1.5"/>
+                            <text x="75" y="148" font-size="7" fill="white" text-anchor="middle">7.5</text>
+                            
+                            <!-- Large Intestine -->
+                            <path d="M 50,165 Q 45,175 55,180 Q 95,180 100,175 Q 105,165 95,160" fill="#ab47bc" stroke="#7b1fa2" stroke-width="1.5" fill-opacity="0.7"/>
+                            <text x="75" y="175" font-size="6" fill="white" text-anchor="middle">5.5-7</text>
+                            
+                            <!-- Blood indicator (heart area) -->
+                            <circle cx="85" cy="100" r="10" fill="#f44336" stroke="#b71c1c" stroke-width="1.5"/>
+                            <text x="85" y="103" font-size="6" fill="white" text-anchor="middle">7.4</text>
+                            
+                            <!-- Skin -->
+                            <circle cx="125" cy="130" r="8" fill="#ffb74d" stroke="#f57c00" stroke-width="1.5"/>
+                            <text x="125" y="133" font-size="6" fill="white" text-anchor="middle">5.5</text>
+                        </svg>
+                    </div>
+                    
+                    <div class="body-labels">
+                        <div class="body-label">
+                            <div class="label-dot" style="background: #81c784;"></div>
+                            <div class="label-text">
+                                <div class="label-name">Saliva</div>
+                                <div class="label-ph">pH 6.5 - 7.0 • Amylase activity</div>
+                            </div>
+                        </div>
+                        <div class="body-label">
+                            <div class="label-dot" style="background: #ef5350;"></div>
+                            <div class="label-text">
+                                <div class="label-name">Stomach</div>
+                                <div class="label-ph">pH 1.5 - 2.0 • Pepsin activation</div>
+                            </div>
+                        </div>
+                        <div class="body-label">
+                            <div class="label-dot" style="background: #f44336;"></div>
+                            <div class="label-text">
+                                <div class="label-name">Blood</div>
+                                <div class="label-ph">pH 7.35 - 7.45 • Homeostasis</div>
+                            </div>
+                        </div>
+                        <div class="body-label">
+                            <div class="label-dot" style="background: #64b5f6;"></div>
+                            <div class="label-text">
+                                <div class="label-name">Small Intestine</div>
+                                <div class="label-ph">pH 7.0 - 8.0 • Trypsin activity</div>
+                            </div>
+                        </div>
+                        <div class="body-label">
+                            <div class="label-dot" style="background: #ab47bc;"></div>
+                            <div class="label-text">
+                                <div class="label-name">Large Intestine</div>
+                                <div class="label-ph">pH 5.5 - 7.0 • Gut bacteria environment</div>
+                            </div>
+                        </div>
+                        <div class="body-label">
+                            <div class="label-dot" style="background: #ffb74d;"></div>
+                            <div class="label-text">
+                                <div class="label-name">Skin</div>
+                                <div class="label-ph">pH 4.5 - 5.5 • Acid mantle protection</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Digestive System pH Journey -->
+            <div class="digestive-section">
+                <div class="digestive-title">🍽️ pH Changes During Digestion</div>
+                <div class="digestive-flow">
+                    <div class="digestive-organ">
+                        <div class="organ-icon" style="background: #c8e6c9;">🦷</div>
+                        <div class="organ-name">Mouth</div>
+                        <div class="organ-ph ph-neutral">pH 6.8</div>
+                        <div class="organ-enzyme">Salivary Amylase</div>
+                    </div>
+                    
+                    <div class="flow-arrow">→</div>
+                    
+                    <div class="digestive-organ">
+                        <div class="organ-icon" style="background: #ffcdd2;">🔴</div>
+                        <div class="organ-name">Stomach</div>
+                        <div class="organ-ph ph-very-acidic">pH 1.5-2</div>
+                        <div class="organ-enzyme">Pepsin</div>
+                    </div>
+                    
+                    <div class="flow-arrow">→</div>
+                    
+                    <div class="digestive-organ">
+                        <div class="organ-icon" style="background: #fff9c4;">🟡</div>
+                        <div class="organ-name">Duodenum</div>
+                        <div class="organ-ph ph-slightly-acidic">pH 6.0</div>
+                        <div class="organ-enzyme">Bile + Pancreatic juice</div>
+                    </div>
+                    
+                    <div class="flow-arrow">→</div>
+                    
+                    <div class="digestive-organ">
+                        <div class="organ-icon" style="background: #bbdefb;">🔵</div>
+                        <div class="organ-name">Small Intestine</div>
+                        <div class="organ-ph ph-slightly-basic">pH 7.5-8</div>
+                        <div class="organ-enzyme">Trypsin, Lipase</div>
+                    </div>
+                    
+                    <div class="flow-arrow">→</div>
+                    
+                    <div class="digestive-organ">
+                        <div class="organ-icon" style="background: #e1bee7;">🟣</div>
+                        <div class="organ-name">Large Intestine</div>
+                        <div class="organ-ph ph-slightly-acidic">pH 5.5-7</div>
+                        <div class="organ-enzyme">Gut Bacteria</div>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- Buffer System Demo -->
+            <div class="buffer-demo-section">
+                <div class="buffer-demo-title">⚗️ How Buffer Solutions Work</div>
+                <div class="beaker-comparison">
+                    <div class="beaker-container">
+                        <div class="beaker-label">Pure Water</div>
+                        <div class="beaker">
+                            <div class="acid-drop"></div>
+                            <div class="beaker-glass">
+                                <div class="beaker-liquid water-acidified"></div>
+                            </div>
+                        </div>
+                        <div class="beaker-ph-display ph-acidic">pH 7 → 3</div>
+                        <div style="font-size: 12px; color: #666; margin-top: 8px;">Drastic pH change when acid is added</div>
+                    </div>
+                    
+                    <div class="beaker-container">
+                        <div class="beaker-label">Buffer Solution</div>
+                        <div class="beaker">
+                            <div class="acid-drop"></div>
+                            <div class="beaker-glass">
+                                <div class="beaker-liquid buffer-stable"></div>
+                            </div>
+                        </div>
+                        <div class="beaker-ph-display ph-neutral">pH 7 → 6.8</div>
+                        <div style="font-size: 12px; color: #666; margin-top: 8px;">pH change minimized</div>
+                    </div>
+                </div>
+                <div class="comparison-note">
+                    <strong>💡 Key Point:</strong> Buffer solutions minimize pH changes by utilizing the equilibrium between a weak acid and its conjugate base.<br>
+                    The bicarbonate buffer system in blood is essential for maintaining life!
+                </div>
+            </div>
+            
+            <!-- Cell pH Environment -->
+            <div class="cell-section">
+                <div class="cell-title">🔬 Intracellular pH Environment</div>
+                <div class="cell-diagram">
+                    <svg class="cell-svg" viewBox="0 0 700 350">
+                        <!-- Cell membrane -->
+                        <ellipse cx="350" cy="175" rx="300" ry="150" fill="#fce4ec" stroke="#c2185b" stroke-width="4"/>
+                        
+                        <!-- Phospholipid bilayer representation -->
+                        <ellipse cx="350" cy="175" rx="290" ry="140" fill="none" stroke="#f48fb1" stroke-width="2" stroke-dasharray="10,5"/>
+                        
+                        <!-- Nucleus -->
+                        <ellipse cx="350" cy="175" rx="80" ry="60" fill="#ce93d8" stroke="#7b1fa2" stroke-width="3"/>
+                        <text x="350" y="170" font-size="14" fill="white" text-anchor="middle" font-weight="bold">Nucleus</text>
+                        <text x="350" y="190" font-size="12" fill="white" text-anchor="middle">pH 7.2</text>
+                        
+                        <!-- Mitochondria -->
+                        <ellipse cx="180" cy="140" rx="50" ry="25" fill="#81c784" stroke="#388e3c" stroke-width="2"/>
+                        <path d="M 140,140 Q 155,130 170,140 Q 185,150 200,140 Q 215,130 220,140" stroke="#388e3c" stroke-width="1.5" fill="none"/>
+                        <text x="180" y="125" font-size="10" fill="#1b5e20" text-anchor="middle" font-weight="bold">Mitochondria</text>
+                        <text x="180" y="155" font-size="9" fill="#2e7d32" text-anchor="middle">Matrix: pH 7.8</text>
+                        
+                        <!-- Lysosome -->
+                        <circle cx="520" cy="130" r="35" fill="#ef5350" stroke="#c62828" stroke-width="2"/>
+                        <text x="520" y="125" font-size="10" fill="white" text-anchor="middle" font-weight="bold">Lysosome</text>
+                        <text x="520" y="142" font-size="10" fill="white" text-anchor="middle">pH 4.5-5</text>
+                        
+                        <!-- Golgi apparatus -->
+                        <path d="M 200,230 Q 220,220 240,230" stroke="#ffb74d" stroke-width="4" fill="none"/>
+                        <path d="M 205,245 Q 225,235 245,245" stroke="#ffa726" stroke-width="4" fill="none"/>
+                        <path d="M 210,260 Q 230,250 250,260" stroke="#ff9800" stroke-width="4" fill="none"/>
+                        <text x="225" y="285" font-size="10" fill="#e65100" text-anchor="middle" font-weight="bold">Golgi Apparatus</text>
+                        <text x="225" y="298" font-size="9" fill="#ef6c00" text-anchor="middle">pH 6.0-6.5</text>
+                        
+                        <!-- Endoplasmic Reticulum -->
+                        <path d="M 450,200 Q 470,180 490,200 Q 510,220 530,200 Q 550,180 570,200" stroke="#64b5f6" stroke-width="3" fill="none"/>
+                        <path d="M 455,220 Q 475,200 495,220 Q 515,240 535,220 Q 555,200 565,220" stroke="#42a5f5" stroke-width="3" fill="none"/>
+                        <text x="510" y="250" font-size="10" fill="#1565c0" text-anchor="middle" font-weight="bold">Endoplasmic Reticulum</text>
+                        <text x="510" y="265" font-size="9" fill="#1976d2" text-anchor="middle">pH 7.0-7.4</text>
+                        
+                        <!-- Cytoplasm label -->
+                        <text x="140" cy="280" font-size="12" fill="#880e4f" font-weight="bold">Cytoplasm</text>
+                        <text x="140" y="298" font-size="11" fill="#ad1457">pH 7.0-7.4</text>
+                        
+                        <!-- Extracellular space -->
+                        <text x="100" y="50" font-size="11" fill="#666" font-weight="bold">Extracellular Space</text>
+                        <text x="100" y="68" font-size="10" fill="#888">pH 7.35-7.45</text>
+                        
+                        <!-- pH gradient arrows -->
+                        <defs>
+                            <marker id="arrowhead" markerWidth="10" markerHeight="7" refX="9" refY="3.5" orient="auto">
+                                <polygon points="0 0, 10 3.5, 0 7" fill="#c2185b"/>
+                            </marker>
+                        </defs>
+                        
+                        <!-- H+ pump indication -->
+                        <text x="600" y="280" font-size="9" fill="#c2185b" text-anchor="middle">H⁺ Pump</text>
+                        <path d="M 590,290 L 610,290" stroke="#c2185b" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    </svg>
+                </div>
+            </div>
+            
         </div>
     </div>
 </body>
