@@ -5,501 +5,607 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Amino Acids Structure</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: Aptos, 'Segoe UI', sans-serif; background: white; padding: 20px; }
+        .container { max-width: 1200px; margin: 0 auto; }
+        .title { font-size: 28px; font-weight: 600; color: #1E64C8; margin-bottom: 25px; text-align: center; }
+        .content-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; margin-bottom: 30px; }
+        .info-box { background: #f8f9fb; border-left: 4px solid #1E64C8; padding: 16px 18px; border-radius: 6px; }
+        .info-title { font-size: 17px; font-weight: 600; color: #1E64C8; margin-bottom: 10px; }
+        .info-content { font-size: 15px; color: #333; line-height: 1.5; }
+        .bullet { display: flex; align-items: flex-start; margin-bottom: 6px; }
+        .bullet::before { content: "•"; color: #1E64C8; font-weight: bold; margin-right: 8px; }
+        .details-section { margin-top: 30px; padding-top: 25px; border-top: 3px solid #1E64C8; }
+        .section-title { font-size: 24px; font-weight: 600; color: #1E64C8; margin-bottom: 20px; text-align: center; }
+        .detail-card { background: white; border: 2px solid #1E64C8; border-radius: 10px; padding: 20px; margin-bottom: 25px; box-shadow: 0 2px 8px rgba(30, 100, 200, 0.1); }
+        .detail-header { font-size: 20px; font-weight: 600; color: #1E64C8; margin-bottom: 15px; display: flex; align-items: center; }
+        .detail-header::before { content: ""; width: 10px; height: 10px; background: #1E64C8; border-radius: 50%; margin-right: 12px; }
+        .detail-content { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .structure-visual { background: #f8f9fb; border-radius: 8px; padding: 20px; display: flex; flex-direction: column; align-items: center; justify-content: center; border: 1px solid #e0e5eb; }
+        .diagram-title { font-size: 14px; font-weight: 600; color: #1E64C8; margin-bottom: 15px; }
+        .amino-acid-diagram { font-family: 'Courier New', monospace; font-size: 14px; color: #333; line-height: 1.8; white-space: pre; margin: 10px 0; }
+        .r-group { color: #C8281E; font-weight: bold; }
+        .nh2-group { color: #2E7D32; font-weight: bold; }
+        .cooh-group { color: #F57C00; font-weight: bold; }
+        .examples { display: flex; flex-direction: column; }
+        .example-item { margin-bottom: 15px; padding: 12px; background: #fff; border-radius: 6px; border-left: 3px solid #1E64C8; }
+        .example-title { font-weight: 600; color: #1E64C8; margin-bottom: 6px; font-size: 15px; }
+        .example-text { color: #555; line-height: 1.5; font-size: 14px; }
+        .property-tag { display: inline-block; background: #e8f0fe; color: #1E64C8; padding: 4px 10px; border-radius: 4px; font-size: 12px; font-weight: 500; margin: 3px 3px 3px 0; }
+        .chemical-formula { font-family: 'Courier New', monospace; background: #fff3cd; padding: 2px 6px; border-radius: 3px; }
         
-        body {
-            font-family: Aptos, 'Segoe UI', sans-serif;
-            background: white;
-            padding: 20px;
-        }
+        /* Real Examples Section */
+        .examples-section { margin-top: 40px; padding-top: 30px; border-top: 3px solid #1E64C8; }
+        .color-legend { display: flex; justify-content: center; gap: 25px; margin: 25px 0; flex-wrap: wrap; }
+        .legend-item { display: flex; align-items: center; gap: 8px; font-size: 13px; color: #555; }
+        .legend-color { width: 20px; height: 20px; border-radius: 4px; }
+        .legend-c { background: #444; }
+        .legend-n { background: #2E7D32; }
+        .legend-o { background: #C8281E; }
+        .legend-h { background: #999; }
+        .legend-s { background: #F9A825; }
         
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            background: white;
-        }
+        .aa-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 20px; margin-top: 20px; }
+        .aa-card { background: white; border: 2px solid #e0e5eb; border-radius: 12px; padding: 15px; text-align: center; transition: all 0.3s; }
+        .aa-card:hover { border-color: #1E64C8; box-shadow: 0 4px 15px rgba(30,100,200,0.15); transform: translateY(-3px); }
+        .aa-name { font-size: 16px; font-weight: 700; color: #1E64C8; }
+        .aa-abbrev { font-size: 12px; color: #666; margin-bottom: 10px; }
+        .aa-svg { width: 100%; height: 120px; }
+        .aa-prop { display: inline-block; padding: 4px 10px; border-radius: 15px; font-size: 11px; font-weight: 600; margin-top: 8px; }
+        .nonpolar { background: #fff3e0; color: #e65100; }
+        .polar { background: #e3f2fd; color: #1565c0; }
+        .positive { background: #e8f5e9; color: #2e7d32; }
+        .negative { background: #fce4ec; color: #c62828; }
+        .aromatic { background: #f3e5f5; color: #7b1fa2; }
+        .sulfur { background: #fffde7; color: #f9a825; }
+        .aa-formula { font-family: 'Courier New', monospace; font-size: 11px; color: #888; margin-top: 5px; }
         
-        .title {
-            font-size: 28px;
-            font-weight: 600;
-            color: #1E64C8;
-            margin-bottom: 25px;
-            text-align: center;
-        }
+        .category-header { display: flex; align-items: center; margin: 30px 0 15px; padding-bottom: 10px; border-bottom: 2px solid #e0e5eb; }
+        .category-icon { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-right: 12px; font-size: 16px; }
+        .category-title { font-size: 18px; font-weight: 600; color: #333; }
+        .category-sub { font-size: 13px; color: #666; margin-left: 10px; }
         
-        .content-grid {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .info-box {
-            background: #f8f9fb;
-            border-left: 4px solid #1E64C8;
-            padding: 16px 18px;
-            border-radius: 6px;
-        }
-        
-        .info-title {
-            font-size: 17px;
-            font-weight: 600;
-            color: #1E64C8;
-            margin-bottom: 10px;
-        }
-        
-        .info-content {
-            font-size: 15px;
-            color: #333;
-            line-height: 1.5;
-        }
-        
-        .bullet {
-            display: flex;
-            align-items: flex-start;
-            margin-bottom: 6px;
-        }
-        
-        .bullet::before {
-            content: "•";
-            color: #1E64C8;
-            font-weight: bold;
-            margin-right: 8px;
-            font-size: 16px;
-        }
-        
-        .details-section {
-            margin-top: 30px;
-            padding-top: 25px;
-            border-top: 3px solid #1E64C8;
-        }
-        
-        .section-title {
-            font-size: 24px;
-            font-weight: 600;
-            color: #1E64C8;
-            margin-bottom: 20px;
-            text-align: center;
-        }
-        
-        .detail-card {
-            background: white;
-            border: 2px solid #1E64C8;
-            border-radius: 10px;
-            padding: 20px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 8px rgba(30, 100, 200, 0.1);
-        }
-        
-        .detail-header {
-            font-size: 20px;
-            font-weight: 600;
-            color: #1E64C8;
-            margin-bottom: 15px;
-            display: flex;
-            align-items: center;
-        }
-        
-        .detail-header::before {
-            content: "";
-            width: 10px;
-            height: 10px;
-            background: #1E64C8;
-            border-radius: 50%;
-            margin-right: 12px;
-        }
-        
-        .detail-content {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-        }
-        
-        .structure-visual {
-            background: #f8f9fb;
-            border-radius: 8px;
-            padding: 20px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: 1px solid #e0e5eb;
-        }
-        
-        .diagram-title {
-            font-size: 14px;
-            font-weight: 600;
-            color: #1E64C8;
-            margin-bottom: 15px;
-        }
-        
-        .amino-acid-diagram {
-            font-family: 'Courier New', monospace;
-            font-size: 14px;
-            color: #333;
-            line-height: 1.8;
-            white-space: pre;
-            margin: 10px 0;
-        }
-        
-        .r-group {
-            color: #C8281E;
-            font-weight: bold;
-        }
-        
-        .nh2-group {
-            color: #2E7D32;
-            font-weight: bold;
-        }
-        
-        .cooh-group {
-            color: #F57C00;
-            font-weight: bold;
-        }
-        
-        .examples {
-            display: flex;
-            flex-direction: column;
-            justify-content: space-between;
-        }
-        
-        .example-item {
-            margin-bottom: 15px;
-            padding: 12px;
-            background: #ffffff;
-            border-radius: 6px;
-            border-left: 3px solid #1E64C8;
-        }
-        
-        .example-title {
-            font-weight: 600;
-            color: #1E64C8;
-            margin-bottom: 6px;
-            font-size: 15px;
-        }
-        
-        .example-text {
-            color: #555;
-            line-height: 1.5;
-            font-size: 14px;
-        }
-        
-        .property-tag {
-            display: inline-block;
-            background: #e8f0fe;
-            color: #1E64C8;
-            padding: 4px 10px;
-            border-radius: 4px;
-            font-size: 12px;
-            font-weight: 500;
-            margin: 3px 3px 3px 0;
-        }
-        
-        .chemical-formula {
-            font-family: 'Courier New', monospace;
-            background: #fff3cd;
-            padding: 2px 6px;
-            border-radius: 3px;
-            font-weight: 500;
-        }
+        .peptide-section { margin-top: 40px; background: linear-gradient(135deg, #f8f9fb 0%, #e8f0fe 100%); border-radius: 15px; padding: 25px; }
+        .peptide-title { font-size: 20px; font-weight: 600; color: #1E64C8; text-align: center; margin-bottom: 20px; }
+        .peptide-content { display: flex; justify-content: center; align-items: center; gap: 30px; flex-wrap: wrap; }
+        .peptide-svg-box { background: white; border-radius: 10px; padding: 20px; box-shadow: 0 2px 10px rgba(0,0,0,0.08); }
+        .peptide-info { max-width: 320px; }
+        .peptide-info h4 { color: #1E64C8; margin-bottom: 8px; }
+        .peptide-info p { font-size: 14px; color: #555; line-height: 1.6; }
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="title">Amino Acids Structure</div>
-        
-        <div class="content-grid">
-            <div class="info-box">
-                <div class="info-title">General Structure</div>
-                <div class="info-content">
-                    <div class="bullet">Central α-carbon</div>
-                    <div class="bullet">Amino group (-NH₂)</div>
-                    <div class="bullet">Carboxyl group (-COOH)</div>
-                    <div class="bullet">Variable R group (side chain)</div>
-                </div>
-            </div>
-            
-            <div class="info-box">
-                <div class="info-title">Classification</div>
-                <div class="info-content">
-                    <div class="bullet">Nonpolar/hydrophobic</div>
-                    <div class="bullet">Polar uncharged</div>
-                    <div class="bullet">Positively charged (basic)</div>
-                    <div class="bullet">Negatively charged (acidic)</div>
-                </div>
-            </div>
-            
-            <div class="info-box">
-                <div class="info-title">Chirality</div>
-                <div class="info-content">
-                    <div class="bullet">All are L-amino acids in proteins</div>
-                    <div class="bullet">D-amino acids rare in nature</div>
-                    <div class="bullet">Asymmetric α-carbon</div>
-                    <div class="bullet">Mirror image isomers</div>
-                </div>
-            </div>
-            
-            <div class="info-box">
-                <div class="info-title">Ionization States</div>
-                <div class="info-content">
-                    <div class="bullet">pKa values determine charge</div>
-                    <div class="bullet">Zwitterion at physiological pH</div>
-                    <div class="bullet">Affects protein interactions</div>
-                    <div class="bullet">Important for enzyme catalysis</div>
-                </div>
+<div class="container">
+    <div class="title">Amino Acids Structure</div>
+    
+    <div class="content-grid">
+        <div class="info-box">
+            <div class="info-title">General Structure</div>
+            <div class="info-content">
+                <div class="bullet">Central α-carbon</div>
+                <div class="bullet">Amino group (-NH₂)</div>
+                <div class="bullet">Carboxyl group (-COOH)</div>
+                <div class="bullet">Variable R group (side chain)</div>
             </div>
         </div>
+        <div class="info-box">
+            <div class="info-title">Classification</div>
+            <div class="info-content">
+                <div class="bullet">Nonpolar/hydrophobic</div>
+                <div class="bullet">Polar uncharged</div>
+                <div class="bullet">Positively charged (basic)</div>
+                <div class="bullet">Negatively charged (acidic)</div>
+            </div>
+        </div>
+        <div class="info-box">
+            <div class="info-title">Chirality</div>
+            <div class="info-content">
+                <div class="bullet">All are L-amino acids in proteins</div>
+                <div class="bullet">D-amino acids rare in nature</div>
+                <div class="bullet">Asymmetric α-carbon</div>
+                <div class="bullet">Mirror image isomers</div>
+            </div>
+        </div>
+        <div class="info-box">
+            <div class="info-title">Ionization States</div>
+            <div class="info-content">
+                <div class="bullet">pKa values determine charge</div>
+                <div class="bullet">Zwitterion at physiological pH</div>
+                <div class="bullet">Affects protein interactions</div>
+                <div class="bullet">Important for enzyme catalysis</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Real Amino Acid Examples -->
+    <div class="examples-section">
+        <div class="section-title">The 20 Standard Amino Acids - Structural Examples</div>
         
-        <!-- Detailed Examples Section -->
-        <div class="details-section">
-            <div class="section-title">Detailed Structure Examples</div>
-            
-            <!-- General Structure -->
-            <div class="detail-card">
-                <div class="detail-header">1. General Structure</div>
-                <div class="detail-content">
-                    <div class="structure-visual">
-                        <div class="diagram-title">Basic Amino Acid Structure</div>
-                        <div class="amino-acid-diagram">        <span class="nh2-group">NH₂</span>
-        |
-<span class="r-group">R</span> — C — <span class="cooh-group">COOH</span>
-        |
-        H
-        
-α-carbon (chiral center)</div>
-                        <div style="margin-top: 15px; padding: 10px; background: white; border-radius: 5px; font-size: 13px;">
-                            <strong>Components:</strong><br>
-                            <span class="nh2-group">■</span> Amino group<br>
-                            <span class="cooh-group">■</span> Carboxyl group<br>
-                            <span class="r-group">■</span> Variable R group<br>
-                            • Hydrogen atom
-                        </div>
-                    </div>
-                    <div class="examples">
-                        <div class="example-item">
-                            <div class="example-title">Key Features</div>
-                            <div class="example-text">
-                                The central α-carbon is bonded to four different groups, making it a chiral center (except glycine). This tetrahedral arrangement is fundamental to amino acid structure.
-                                <div style="margin-top: 8px;">
-                                    <span class="property-tag">Tetrahedral geometry</span>
-                                    <span class="property-tag">Chiral center</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="example-item">
-                            <div class="example-title">Zwitterion Form</div>
-                            <div class="example-text">
-                                At physiological pH (~7.4), amino acids exist as zwitterions with <span class="chemical-formula">NH₃⁺</span> and <span class="chemical-formula">COO⁻</span> groups, carrying both positive and negative charges.
-                                <div style="margin-top: 8px;">
-                                    <span class="property-tag">pH dependent</span>
-                                    <span class="property-tag">Amphoteric</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+        <div class="color-legend">
+            <div class="legend-item"><div class="legend-color legend-c"></div><span>Carbon (C)</span></div>
+            <div class="legend-item"><div class="legend-color legend-n"></div><span>Nitrogen (N)</span></div>
+            <div class="legend-item"><div class="legend-color legend-o"></div><span>Oxygen (O)</span></div>
+            <div class="legend-item"><div class="legend-color legend-h"></div><span>Hydrogen (H)</span></div>
+            <div class="legend-item"><div class="legend-color legend-s"></div><span>Sulfur (S)</span></div>
+        </div>
+
+        <!-- Nonpolar -->
+        <div class="category-header">
+            <div class="category-icon" style="background:#fff3e0;color:#e65100;">🔶</div>
+            <div class="category-title">Nonpolar (Hydrophobic)</div>
+            <div class="category-sub">Found in protein cores</div>
+        </div>
+        <div class="aa-grid">
+            <div class="aa-card">
+                <div class="aa-name">Glycine</div>
+                <div class="aa-abbrev">Gly (G)</div>
+                <svg class="aa-svg" viewBox="0 0 160 120">
+                    <circle cx="80" cy="50" r="12" fill="#444"/><text x="80" y="54" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Cα</text>
+                    <line x1="68" y1="50" x2="40" y2="50" stroke="#333" stroke-width="3"/>
+                    <circle cx="30" cy="50" r="10" fill="#2E7D32"/><text x="30" y="54" text-anchor="middle" fill="white" font-size="9" font-weight="bold">N</text>
+                    <circle cx="18" cy="40" r="5" fill="#999"/><circle cx="18" cy="60" r="5" fill="#999"/>
+                    <line x1="92" y1="50" x2="115" y2="50" stroke="#333" stroke-width="3"/>
+                    <circle cx="125" cy="50" r="10" fill="#444"/><text x="125" y="54" text-anchor="middle" fill="white" font-size="9" font-weight="bold">C</text>
+                    <line x1="125" y1="40" x2="125" y2="28" stroke="#333" stroke-width="2"/><line x1="129" y1="40" x2="129" y2="28" stroke="#333" stroke-width="2"/>
+                    <circle cx="127" cy="22" r="8" fill="#C8281E"/><text x="127" y="25" text-anchor="middle" fill="white" font-size="7">O</text>
+                    <line x1="135" y1="50" x2="148" y2="50" stroke="#333" stroke-width="2"/>
+                    <circle cx="152" cy="50" r="7" fill="#C8281E"/><text x="152" y="53" text-anchor="middle" fill="white" font-size="7">O</text>
+                    <line x1="80" y1="62" x2="80" y2="82" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="90" r="8" fill="#999"/><text x="80" y="93" text-anchor="middle" fill="white" font-size="9" font-weight="bold">H</text>
+                    <line x1="80" y1="38" x2="80" y2="22" stroke="#333" stroke-width="2"/>
+                    <circle cx="80" cy="16" r="6" fill="#999"/><text x="80" y="19" text-anchor="middle" fill="white" font-size="7">H</text>
+                </svg>
+                <div class="aa-prop nonpolar">Simplest AA</div>
+                <div class="aa-formula">C₂H₅NO₂</div>
             </div>
-            
-            <!-- Classification Details -->
-            <div class="detail-card">
-                <div class="detail-header">2. Classification by R Group Properties</div>
-                <div class="detail-content">
-                    <div class="structure-visual">
-                        <div class="diagram-title">Example R Groups</div>
-                        <div class="amino-acid-diagram">
-<strong>Nonpolar:</strong>
--CH₃ (Alanine)
--CH(CH₃)₂ (Valine)
-
-<strong>Polar uncharged:</strong>
--CH₂OH (Serine)
--CH₂CONH₂ (Asparagine)
-
-<strong>Positive (+):</strong>
--CH₂-CH₂-CH₂-CH₂-NH₃⁺ 
-(Lysine)
-
-<strong>Negative (-):</strong>
--CH₂-COO⁻ 
-(Aspartate)</div>
-                    </div>
-                    <div class="examples">
-                        <div class="example-item">
-                            <div class="example-title">Nonpolar/Hydrophobic</div>
-                            <div class="example-text">
-                                <strong>Examples:</strong> Alanine, Valine, Leucine, Isoleucine, Methionine, Phenylalanine, Tryptophan, Proline
-                                <br><br>
-                                These amino acids have hydrocarbon R groups that avoid water. They're typically found in protein interiors and membrane proteins.
-                                <div style="margin-top: 8px;">
-                                    <span class="property-tag">Hydrophobic effect</span>
-                                    <span class="property-tag">Protein core</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="example-item">
-                            <div class="example-title">Polar Uncharged</div>
-                            <div class="example-text">
-                                <strong>Examples:</strong> Serine, Threonine, Cysteine, Asparagine, Glutamine, Tyrosine
-                                <br><br>
-                                Contain polar groups (OH, SH, NH₂, C=O) that can form hydrogen bonds but don't ionize at physiological pH.
-                                <div style="margin-top: 8px;">
-                                    <span class="property-tag">H-bonding</span>
-                                    <span class="property-tag">Surface residues</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="example-item">
-                            <div class="example-title">Charged Amino Acids</div>
-                            <div class="example-text">
-                                <strong>Basic (+):</strong> Lysine, Arginine, Histidine (pKa ~6-12.5)
-                                <br>
-                                <strong>Acidic (-):</strong> Aspartate, Glutamate (pKa ~3.5-4.5)
-                                <br><br>
-                                These residues are ionized at physiological pH and participate in salt bridges and electrostatic interactions.
-                                <div style="margin-top: 8px;">
-                                    <span class="property-tag">Ionic interactions</span>
-                                    <span class="property-tag">Active sites</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="aa-card">
+                <div class="aa-name">Alanine</div>
+                <div class="aa-abbrev">Ala (A)</div>
+                <svg class="aa-svg" viewBox="0 0 160 120">
+                    <circle cx="80" cy="45" r="12" fill="#444"/><text x="80" y="49" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Cα</text>
+                    <line x1="68" y1="45" x2="40" y2="45" stroke="#333" stroke-width="3"/>
+                    <circle cx="30" cy="45" r="10" fill="#2E7D32"/><text x="30" y="49" text-anchor="middle" fill="white" font-size="9" font-weight="bold">N</text>
+                    <circle cx="18" cy="35" r="5" fill="#999"/><circle cx="18" cy="55" r="5" fill="#999"/>
+                    <line x1="92" y1="45" x2="115" y2="45" stroke="#333" stroke-width="3"/>
+                    <circle cx="125" cy="45" r="10" fill="#444"/><text x="125" y="49" text-anchor="middle" fill="white" font-size="9" font-weight="bold">C</text>
+                    <line x1="125" y1="35" x2="125" y2="23" stroke="#333" stroke-width="2"/><line x1="129" y1="35" x2="129" y2="23" stroke="#333" stroke-width="2"/>
+                    <circle cx="127" cy="17" r="8" fill="#C8281E"/>
+                    <line x1="135" y1="45" x2="148" y2="45" stroke="#333" stroke-width="2"/>
+                    <circle cx="152" cy="45" r="7" fill="#C8281E"/>
+                    <line x1="80" y1="57" x2="80" y2="75" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="85" r="10" fill="#444"/><text x="80" y="89" text-anchor="middle" fill="white" font-size="8" font-weight="bold">CH₃</text>
+                </svg>
+                <div class="aa-prop nonpolar">Nonpolar</div>
+                <div class="aa-formula">C₃H₇NO₂</div>
             </div>
-            
-            <!-- Chirality Details -->
-            <div class="detail-card">
-                <div class="detail-header">3. Chirality (Optical Isomerism)</div>
-                <div class="detail-content">
-                    <div class="structure-visual">
-                        <div class="diagram-title">L vs D Configuration</div>
-                        <div class="amino-acid-diagram">
-<strong>L-Amino Acid</strong>        <strong>D-Amino Acid</strong>
-  (Natural)           (Rare)
-
-    <span class="cooh-group">COOH</span>                <span class="cooh-group">COOH</span>
-     |                  |
-<span class="nh2-group">H₂N</span>-C-H            H-C-<span class="nh2-group">NH₂</span>
-     |                  |
-     <span class="r-group">R</span>                  <span class="r-group">R</span>
-
-Mirror images (enantiomers)
-Non-superimposable</div>
-                        <div style="margin-top: 15px; padding: 10px; background: white; border-radius: 5px; font-size: 13px; text-align: center;">
-                            <strong>Fischer Projection</strong><br>
-                            Vertical lines = away from viewer<br>
-                            Horizontal lines = toward viewer
-                        </div>
-                    </div>
-                    <div class="examples">
-                        <div class="example-item">
-                            <div class="example-title">L-Configuration Dominance</div>
-                            <div class="example-text">
-                                All amino acids in proteins are L-isomers. The L/D notation is based on the configuration relative to L-glyceraldehyde. In L-amino acids, the amino group is on the left in Fischer projection.
-                                <div style="margin-top: 8px;">
-                                    <span class="property-tag">Biological selectivity</span>
-                                    <span class="property-tag">Homochirality</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="example-item">
-                            <div class="example-title">Glycine Exception</div>
-                            <div class="example-text">
-                                Glycine (R = H) is the only achiral amino acid because its α-carbon has two hydrogen atoms attached, making it superimposable on its mirror image.
-                                <div style="margin-top: 8px;">
-                                    <span class="property-tag">Achiral</span>
-                                    <span class="property-tag">No optical activity</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="example-item">
-                            <div class="example-title">D-Amino Acids in Nature</div>
-                            <div class="example-text">
-                                D-amino acids are rare but found in bacterial cell walls, some antibiotics (e.g., gramicidin), and as neurotransmitters in mammals. They're not incorporated into proteins by ribosomes.
-                                <div style="margin-top: 8px;">
-                                    <span class="property-tag">Bacterial walls</span>
-                                    <span class="property-tag">Specialized roles</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
+            <div class="aa-card">
+                <div class="aa-name">Valine</div>
+                <div class="aa-abbrev">Val (V)</div>
+                <svg class="aa-svg" viewBox="0 0 160 120">
+                    <circle cx="80" cy="35" r="10" fill="#444"/><text x="80" y="39" text-anchor="middle" fill="white" font-size="8" font-weight="bold">Cα</text>
+                    <line x1="70" y1="35" x2="45" y2="35" stroke="#333" stroke-width="3"/>
+                    <circle cx="36" cy="35" r="9" fill="#2E7D32"/><text x="36" y="39" text-anchor="middle" fill="white" font-size="8" font-weight="bold">N</text>
+                    <line x1="90" y1="35" x2="110" y2="35" stroke="#333" stroke-width="3"/>
+                    <circle cx="120" cy="35" r="9" fill="#444"/><text x="120" y="39" text-anchor="middle" fill="white" font-size="7" font-weight="bold">C</text>
+                    <line x1="120" y1="26" x2="120" y2="16" stroke="#333" stroke-width="2"/><line x1="124" y1="26" x2="124" y2="16" stroke="#333" stroke-width="2"/>
+                    <circle cx="122" cy="11" r="6" fill="#C8281E"/>
+                    <line x1="129" y1="35" x2="142" y2="35" stroke="#333" stroke-width="2"/>
+                    <circle cx="148" cy="35" r="6" fill="#C8281E"/>
+                    <line x1="80" y1="45" x2="80" y2="62" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="70" r="8" fill="#444"/><text x="80" y="73" text-anchor="middle" fill="white" font-size="7" font-weight="bold">C</text>
+                    <line x1="72" y1="76" x2="55" y2="95" stroke="#333" stroke-width="3"/>
+                    <circle cx="48" cy="102" r="9" fill="#444"/><text x="48" y="106" text-anchor="middle" fill="white" font-size="7" font-weight="bold">CH₃</text>
+                    <line x1="88" y1="76" x2="105" y2="95" stroke="#333" stroke-width="3"/>
+                    <circle cx="112" cy="102" r="9" fill="#444"/><text x="112" y="106" text-anchor="middle" fill="white" font-size="7" font-weight="bold">CH₃</text>
+                </svg>
+                <div class="aa-prop nonpolar">Branched</div>
+                <div class="aa-formula">C₅H₁₁NO₂</div>
             </div>
-            
-            <!-- Ionization States -->
-            <div class="detail-card">
-                <div class="detail-header">4. Ionization States and pKa Values</div>
-                <div class="detail-content">
-                    <div class="structure-visual">
-                        <div class="diagram-title">pH-Dependent Forms</div>
-                        <div class="amino-acid-diagram">
-<strong>Low pH (&lt;2)</strong>     <strong>Neutral pH (~7)</strong>    <strong>High pH (&gt;11)</strong>
+            <div class="aa-card">
+                <div class="aa-name">Leucine</div>
+                <div class="aa-abbrev">Leu (L)</div>
+                <svg class="aa-svg" viewBox="0 0 160 120">
+                    <circle cx="80" cy="22" r="9" fill="#444"/><text x="80" y="26" text-anchor="middle" fill="white" font-size="7" font-weight="bold">Cα</text>
+                    <line x1="71" y1="22" x2="50" y2="22" stroke="#333" stroke-width="3"/>
+                    <circle cx="42" cy="22" r="8" fill="#2E7D32"/><text x="42" y="25" text-anchor="middle" fill="white" font-size="7" font-weight="bold">N</text>
+                    <line x1="89" y1="22" x2="108" y2="22" stroke="#333" stroke-width="3"/>
+                    <circle cx="116" cy="22" r="8" fill="#444"/><text x="116" y="25" text-anchor="middle" fill="white" font-size="6" font-weight="bold">C</text>
+                    <line x1="116" y1="14" x2="116" y2="6" stroke="#333" stroke-width="2"/><line x1="119" y1="14" x2="119" y2="6" stroke="#333" stroke-width="2"/>
+                    <circle cx="118" cy="3" r="5" fill="#C8281E"/>
+                    <line x1="124" y1="22" x2="138" y2="22" stroke="#333" stroke-width="2"/>
+                    <circle cx="144" cy="22" r="5" fill="#C8281E"/>
+                    <line x1="80" y1="31" x2="80" y2="48" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="55" r="7" fill="#444"/>
+                    <line x1="80" y1="62" x2="80" y2="78" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="85" r="7" fill="#444"/>
+                    <line x1="73" y1="90" x2="55" y2="105" stroke="#333" stroke-width="3"/>
+                    <circle cx="48" cy="110" r="8" fill="#444"/><text x="48" y="113" text-anchor="middle" fill="white" font-size="6" font-weight="bold">CH₃</text>
+                    <line x1="87" y1="90" x2="105" y2="105" stroke="#333" stroke-width="3"/>
+                    <circle cx="112" cy="110" r="8" fill="#444"/><text x="112" y="113" text-anchor="middle" fill="white" font-size="6" font-weight="bold">CH₃</text>
+                </svg>
+                <div class="aa-prop nonpolar">Branched</div>
+                <div class="aa-formula">C₆H₁₃NO₂</div>
+            </div>
+        </div>
 
-  <span class="nh2-group">NH₃⁺</span>              <span class="nh2-group">NH₃⁺</span>               <span class="nh2-group">NH₂</span>
-   |                |                 |
-   C                C                 C
-   |                |                 |
-  <span class="cooh-group">COOH</span>             <span class="cooh-group">COO⁻</span>              <span class="cooh-group">COO⁻</span>
+        <!-- Polar Uncharged -->
+        <div class="category-header">
+            <div class="category-icon" style="background:#e3f2fd;color:#1565c0;">💧</div>
+            <div class="category-title">Polar Uncharged</div>
+            <div class="category-sub">Form hydrogen bonds</div>
+        </div>
+        <div class="aa-grid">
+            <div class="aa-card">
+                <div class="aa-name">Serine</div>
+                <div class="aa-abbrev">Ser (S)</div>
+                <svg class="aa-svg" viewBox="0 0 160 120">
+                    <circle cx="80" cy="40" r="11" fill="#444"/><text x="80" y="44" text-anchor="middle" fill="white" font-size="9" font-weight="bold">Cα</text>
+                    <line x1="69" y1="40" x2="42" y2="40" stroke="#333" stroke-width="3"/>
+                    <circle cx="32" cy="40" r="10" fill="#2E7D32"/><text x="32" y="44" text-anchor="middle" fill="white" font-size="9" font-weight="bold">N</text>
+                    <line x1="91" y1="40" x2="112" y2="40" stroke="#333" stroke-width="3"/>
+                    <circle cx="122" cy="40" r="10" fill="#444"/><text x="122" y="44" text-anchor="middle" fill="white" font-size="8" font-weight="bold">C</text>
+                    <line x1="122" y1="30" x2="122" y2="18" stroke="#333" stroke-width="2"/><line x1="126" y1="30" x2="126" y2="18" stroke="#333" stroke-width="2"/>
+                    <circle cx="124" cy="12" r="7" fill="#C8281E"/>
+                    <line x1="132" y1="40" x2="145" y2="40" stroke="#333" stroke-width="2"/>
+                    <circle cx="151" cy="40" r="6" fill="#C8281E"/>
+                    <line x1="80" y1="51" x2="80" y2="70" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="78" r="9" fill="#444"/><text x="80" y="82" text-anchor="middle" fill="white" font-size="8" font-weight="bold">C</text>
+                    <line x1="80" y1="87" x2="80" y2="102" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="110" r="9" fill="#C8281E"/><text x="80" y="114" text-anchor="middle" fill="white" font-size="8" font-weight="bold">O</text>
+                    <circle cx="95" cy="110" r="5" fill="#999"/><line x1="89" y1="110" x2="95" y2="110" stroke="#333" stroke-width="2"/>
+                </svg>
+                <div class="aa-prop polar">Hydroxyl -OH</div>
+                <div class="aa-formula">C₃H₇NO₃</div>
+            </div>
+            <div class="aa-card">
+                <div class="aa-name">Threonine</div>
+                <div class="aa-abbrev">Thr (T)</div>
+                <svg class="aa-svg" viewBox="0 0 160 120">
+                    <circle cx="80" cy="35" r="10" fill="#444"/><text x="80" y="39" text-anchor="middle" fill="white" font-size="8" font-weight="bold">Cα</text>
+                    <line x1="70" y1="35" x2="45" y2="35" stroke="#333" stroke-width="3"/>
+                    <circle cx="36" cy="35" r="9" fill="#2E7D32"/><text x="36" y="39" text-anchor="middle" fill="white" font-size="8" font-weight="bold">N</text>
+                    <line x1="90" y1="35" x2="110" y2="35" stroke="#333" stroke-width="3"/>
+                    <circle cx="120" cy="35" r="9" fill="#444"/><text x="120" y="39" text-anchor="middle" fill="white" font-size="7" font-weight="bold">C</text>
+                    <line x1="120" y1="26" x2="120" y2="16" stroke="#333" stroke-width="2"/><line x1="124" y1="26" x2="124" y2="16" stroke="#333" stroke-width="2"/>
+                    <circle cx="122" cy="11" r="6" fill="#C8281E"/>
+                    <line x1="129" y1="35" x2="142" y2="35" stroke="#333" stroke-width="2"/>
+                    <circle cx="148" cy="35" r="6" fill="#C8281E"/>
+                    <line x1="80" y1="45" x2="80" y2="62" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="70" r="8" fill="#444"/><text x="80" y="74" text-anchor="middle" fill="white" font-size="7" font-weight="bold">C</text>
+                    <line x1="88" y1="70" x2="108" y2="70" stroke="#333" stroke-width="3"/>
+                    <circle cx="118" cy="70" r="8" fill="#C8281E"/><text x="118" y="74" text-anchor="middle" fill="white" font-size="7" font-weight="bold">O</text>
+                    <circle cx="132" cy="70" r="5" fill="#999"/><line x1="126" y1="70" x2="132" y2="70" stroke="#333" stroke-width="2"/>
+                    <line x1="80" y1="78" x2="80" y2="95" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="103" r="9" fill="#444"/><text x="80" y="107" text-anchor="middle" fill="white" font-size="7" font-weight="bold">CH₃</text>
+                </svg>
+                <div class="aa-prop polar">Hydroxyl -OH</div>
+                <div class="aa-formula">C₄H₉NO₃</div>
+            </div>
+            <div class="aa-card">
+                <div class="aa-name">Cysteine</div>
+                <div class="aa-abbrev">Cys (C)</div>
+                <svg class="aa-svg" viewBox="0 0 160 120">
+                    <circle cx="80" cy="40" r="11" fill="#444"/><text x="80" y="44" text-anchor="middle" fill="white" font-size="9" font-weight="bold">Cα</text>
+                    <line x1="69" y1="40" x2="42" y2="40" stroke="#333" stroke-width="3"/>
+                    <circle cx="32" cy="40" r="10" fill="#2E7D32"/><text x="32" y="44" text-anchor="middle" fill="white" font-size="9" font-weight="bold">N</text>
+                    <line x1="91" y1="40" x2="112" y2="40" stroke="#333" stroke-width="3"/>
+                    <circle cx="122" cy="40" r="10" fill="#444"/><text x="122" y="44" text-anchor="middle" fill="white" font-size="8" font-weight="bold">C</text>
+                    <line x1="122" y1="30" x2="122" y2="18" stroke="#333" stroke-width="2"/><line x1="126" y1="30" x2="126" y2="18" stroke="#333" stroke-width="2"/>
+                    <circle cx="124" cy="12" r="7" fill="#C8281E"/>
+                    <line x1="132" y1="40" x2="145" y2="40" stroke="#333" stroke-width="2"/>
+                    <circle cx="151" cy="40" r="6" fill="#C8281E"/>
+                    <line x1="80" y1="51" x2="80" y2="70" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="78" r="9" fill="#444"/><text x="80" y="82" text-anchor="middle" fill="white" font-size="8" font-weight="bold">C</text>
+                    <line x1="80" y1="87" x2="80" y2="102" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="112" r="10" fill="#F9A825"/><text x="80" y="116" text-anchor="middle" fill="white" font-size="9" font-weight="bold">S</text>
+                    <circle cx="95" cy="116" r="5" fill="#999"/><line x1="90" y1="114" x2="95" y2="116" stroke="#333" stroke-width="2"/>
+                </svg>
+                <div class="aa-prop sulfur">Thiol -SH</div>
+                <div class="aa-formula">C₃H₇NO₂S</div>
+            </div>
+            <div class="aa-card">
+                <div class="aa-name">Asparagine</div>
+                <div class="aa-abbrev">Asn (N)</div>
+                <svg class="aa-svg" viewBox="0 0 160 120">
+                    <circle cx="80" cy="25" r="9" fill="#444"/><text x="80" y="29" text-anchor="middle" fill="white" font-size="7" font-weight="bold">Cα</text>
+                    <line x1="71" y1="25" x2="50" y2="25" stroke="#333" stroke-width="3"/>
+                    <circle cx="42" cy="25" r="8" fill="#2E7D32"/><text x="42" y="28" text-anchor="middle" fill="white" font-size="7" font-weight="bold">N</text>
+                    <line x1="89" y1="25" x2="108" y2="25" stroke="#333" stroke-width="3"/>
+                    <circle cx="116" cy="25" r="8" fill="#444"/><text x="116" y="28" text-anchor="middle" fill="white" font-size="6" font-weight="bold">C</text>
+                    <line x1="116" y1="17" x2="116" y2="8" stroke="#333" stroke-width="2"/><line x1="119" y1="17" x2="119" y2="8" stroke="#333" stroke-width="2"/>
+                    <circle cx="118" cy="4" r="5" fill="#C8281E"/>
+                    <line x1="124" y1="25" x2="138" y2="25" stroke="#333" stroke-width="2"/>
+                    <circle cx="144" cy="25" r="5" fill="#C8281E"/>
+                    <line x1="80" y1="34" x2="80" y2="50" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="57" r="7" fill="#444"/>
+                    <line x1="80" y1="64" x2="80" y2="78" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="85" r="8" fill="#444"/><text x="80" y="89" text-anchor="middle" fill="white" font-size="7" font-weight="bold">C</text>
+                    <line x1="88" y1="85" x2="105" y2="85" stroke="#333" stroke-width="2"/><line x1="88" y1="89" x2="105" y2="89" stroke="#333" stroke-width="2"/>
+                    <circle cx="115" cy="87" r="8" fill="#C8281E"/><text x="115" y="91" text-anchor="middle" fill="white" font-size="8" font-weight="bold">O</text>
+                    <line x1="80" y1="93" x2="80" y2="108" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="115" r="8" fill="#2E7D32"/><text x="80" y="118" text-anchor="middle" fill="white" font-size="7" font-weight="bold">N</text>
+                </svg>
+                <div class="aa-prop polar">Amide group</div>
+                <div class="aa-formula">C₄H₈N₂O₃</div>
+            </div>
+        </div>
 
-(+1 charge)     (0 net charge)    (-1 charge)
- Cationic        Zwitterion         Anionic</div>
-                        <div style="margin-top: 15px; padding: 10px; background: white; border-radius: 5px; font-size: 12px;">
-                            <strong>Typical pKa Values:</strong><br>
-                            α-COOH: ~2.2<br>
-                            α-NH₃⁺: ~9.4<br>
-                            Side chains: 3.5-12.5
-                        </div>
-                    </div>
-                    <div class="examples">
-                        <div class="example-item">
-                            <div class="example-title">Henderson-Hasselbalch Equation</div>
-                            <div class="example-text">
-                                pH = pKa + log([A⁻]/[HA])
-                                <br><br>
-                                This equation determines the ionization state of amino acids at different pH values. At pH = pKa, 50% of molecules are protonated.
-                                <div style="margin-top: 8px;">
-                                    <span class="property-tag">Buffer capacity</span>
-                                    <span class="property-tag">pI calculation</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="example-item">
-                            <div class="example-title">Isoelectric Point (pI)</div>
-                            <div class="example-text">
-                                The pH at which an amino acid has no net charge (zwitterion form predominates). For simple amino acids: pI = (pKa₁ + pKa₂)/2
-                                <br><br>
-                                <strong>Examples:</strong>
-                                <br>• Alanine: pI ≈ 6.0
-                                <br>• Lysine: pI ≈ 9.7 (basic)
-                                <br>• Aspartate: pI ≈ 2.8 (acidic)
-                                <div style="margin-top: 8px;">
-                                    <span class="property-tag">Electrophoresis</span>
-                                    <span class="property-tag">Protein purification</span>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="example-item">
-                            <div class="example-title">Functional Significance</div>
-                            <div class="example-text">
-                                Ionization states control:
-                                <br>• Enzyme catalytic mechanisms (His, Asp, Glu in active sites)
-                                <br>• Protein-protein interactions via salt bridges
-                                <br>• Protein solubility and stability
-                                <br>• Signal transduction through protonation changes
-                                <div style="margin-top: 8px;">
-                                    <span class="property-tag">Catalysis</span>
-                                    <span class="property-tag">Regulation</span>
-                                    <span class="property-tag">Binding</span>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+        <!-- Charged -->
+        <div class="category-header">
+            <div class="category-icon" style="background:#e8f5e9;color:#2e7d32;">⚡</div>
+            <div class="category-title">Charged Amino Acids</div>
+            <div class="category-sub">Basic (+) and Acidic (-)</div>
+        </div>
+        <div class="aa-grid">
+            <div class="aa-card">
+                <div class="aa-name">Lysine</div>
+                <div class="aa-abbrev">Lys (K)</div>
+                <svg class="aa-svg" viewBox="0 0 160 120">
+                    <circle cx="80" cy="15" r="8" fill="#444"/><text x="80" y="18" text-anchor="middle" fill="white" font-size="6" font-weight="bold">Cα</text>
+                    <line x1="72" y1="15" x2="52" y2="15" stroke="#333" stroke-width="2"/>
+                    <circle cx="45" cy="15" r="7" fill="#2E7D32"/><text x="45" y="18" text-anchor="middle" fill="white" font-size="6" font-weight="bold">N</text>
+                    <line x1="88" y1="15" x2="105" y2="15" stroke="#333" stroke-width="2"/>
+                    <circle cx="112" cy="15" r="7" fill="#444"/><text x="112" y="18" text-anchor="middle" fill="white" font-size="5" font-weight="bold">C</text>
+                    <line x1="112" y1="8" x2="112" y2="2" stroke="#333" stroke-width="1.5"/><line x1="115" y1="8" x2="115" y2="2" stroke="#333" stroke-width="1.5"/>
+                    <circle cx="114" cy="0" r="4" fill="#C8281E"/>
+                    <line x1="119" y1="15" x2="132" y2="15" stroke="#333" stroke-width="1.5"/>
+                    <circle cx="138" cy="15" r="5" fill="#C8281E"/>
+                    <line x1="80" y1="23" x2="80" y2="36" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="42" r="6" fill="#444"/>
+                    <line x1="80" y1="48" x2="80" y2="58" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="64" r="6" fill="#444"/>
+                    <line x1="80" y1="70" x2="80" y2="80" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="86" r="6" fill="#444"/>
+                    <line x1="80" y1="92" x2="80" y2="102" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="110" r="9" fill="#2E7D32"/><text x="80" y="114" text-anchor="middle" fill="white" font-size="8" font-weight="bold">N⁺</text>
+                </svg>
+                <div class="aa-prop positive">Basic (+)</div>
+                <div class="aa-formula">C₆H₁₄N₂O₂</div>
+            </div>
+            <div class="aa-card">
+                <div class="aa-name">Arginine</div>
+                <div class="aa-abbrev">Arg (R)</div>
+                <svg class="aa-svg" viewBox="0 0 160 120">
+                    <circle cx="40" cy="18" r="7" fill="#444"/><text x="40" y="21" text-anchor="middle" fill="white" font-size="5" font-weight="bold">Cα</text>
+                    <line x1="33" y1="18" x2="20" y2="18" stroke="#333" stroke-width="2"/>
+                    <circle cx="14" cy="18" r="6" fill="#2E7D32"/><text x="14" y="21" text-anchor="middle" fill="white" font-size="5" font-weight="bold">N</text>
+                    <line x1="47" y1="18" x2="60" y2="18" stroke="#333" stroke-width="2"/>
+                    <circle cx="66" cy="18" r="6" fill="#444"/><text x="66" y="21" text-anchor="middle" fill="white" font-size="5" font-weight="bold">C</text>
+                    <line x1="66" y1="12" x2="66" y2="6" stroke="#333" stroke-width="1.5"/><line x1="69" y1="12" x2="69" y2="6" stroke="#333" stroke-width="1.5"/>
+                    <circle cx="68" cy="3" r="4" fill="#C8281E"/>
+                    <line x1="72" y1="18" x2="82" y2="18" stroke="#333" stroke-width="1.5"/>
+                    <circle cx="88" cy="18" r="4" fill="#C8281E"/>
+                    <line x1="40" y1="25" x2="40" y2="38" stroke="#333" stroke-width="3"/>
+                    <circle cx="40" cy="44" r="6" fill="#444"/>
+                    <line x1="40" y1="50" x2="40" y2="62" stroke="#333" stroke-width="3"/>
+                    <circle cx="40" cy="68" r="6" fill="#444"/>
+                    <line x1="40" y1="74" x2="40" y2="86" stroke="#333" stroke-width="3"/>
+                    <circle cx="40" cy="92" r="7" fill="#2E7D32"/><text x="40" y="95" text-anchor="middle" fill="white" font-size="5" font-weight="bold">N</text>
+                    <line x1="40" y1="99" x2="40" y2="110" stroke="#333" stroke-width="2"/>
+                    <circle cx="40" cy="116" r="6" fill="#444"/><text x="40" y="119" text-anchor="middle" fill="white" font-size="5" font-weight="bold">C</text>
+                    <line x1="46" y1="116" x2="62" y2="116" stroke="#333" stroke-width="2"/><line x1="46" y1="119" x2="62" y2="119" stroke="#333" stroke-width="2"/>
+                    <circle cx="70" cy="118" r="7" fill="#2E7D32"/><text x="70" y="121" text-anchor="middle" fill="white" font-size="5" font-weight="bold">N⁺</text>
+                    <line x1="34" y1="116" x2="20" y2="116" stroke="#333" stroke-width="2"/>
+                    <circle cx="14" cy="116" r="6" fill="#2E7D32"/><text x="14" y="119" text-anchor="middle" fill="white" font-size="5" font-weight="bold">N</text>
+                </svg>
+                <div class="aa-prop positive">Basic (+)</div>
+                <div class="aa-formula">C₆H₁₄N₄O₂</div>
+            </div>
+            <div class="aa-card">
+                <div class="aa-name">Aspartate</div>
+                <div class="aa-abbrev">Asp (D)</div>
+                <svg class="aa-svg" viewBox="0 0 160 120">
+                    <circle cx="80" cy="28" r="10" fill="#444"/><text x="80" y="32" text-anchor="middle" fill="white" font-size="8" font-weight="bold">Cα</text>
+                    <line x1="70" y1="28" x2="48" y2="28" stroke="#333" stroke-width="3"/>
+                    <circle cx="38" cy="28" r="9" fill="#2E7D32"/><text x="38" y="32" text-anchor="middle" fill="white" font-size="8" font-weight="bold">N</text>
+                    <line x1="90" y1="28" x2="110" y2="28" stroke="#333" stroke-width="3"/>
+                    <circle cx="120" cy="28" r="9" fill="#444"/><text x="120" y="32" text-anchor="middle" fill="white" font-size="7" font-weight="bold">C</text>
+                    <line x1="120" y1="19" x2="120" y2="10" stroke="#333" stroke-width="2"/><line x1="124" y1="19" x2="124" y2="10" stroke="#333" stroke-width="2"/>
+                    <circle cx="122" cy="5" r="6" fill="#C8281E"/>
+                    <line x1="129" y1="28" x2="142" y2="28" stroke="#333" stroke-width="2"/>
+                    <circle cx="148" cy="28" r="6" fill="#C8281E"/>
+                    <line x1="80" y1="38" x2="80" y2="55" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="62" r="8" fill="#444"/>
+                    <line x1="80" y1="70" x2="80" y2="85" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="93" r="9" fill="#444"/><text x="80" y="97" text-anchor="middle" fill="white" font-size="8" font-weight="bold">C</text>
+                    <line x1="89" y1="93" x2="108" y2="93" stroke="#333" stroke-width="2"/><line x1="89" y1="97" x2="108" y2="97" stroke="#333" stroke-width="2"/>
+                    <circle cx="118" cy="95" r="8" fill="#C8281E"/><text x="118" y="99" text-anchor="middle" fill="white" font-size="8" font-weight="bold">O</text>
+                    <line x1="80" y1="102" x2="80" y2="115" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="120" r="7" fill="#C8281E"/><text x="80" y="123" text-anchor="middle" fill="white" font-size="6" font-weight="bold">O⁻</text>
+                </svg>
+                <div class="aa-prop negative">Acidic (-)</div>
+                <div class="aa-formula">C₄H₇NO₄</div>
+            </div>
+            <div class="aa-card">
+                <div class="aa-name">Glutamate</div>
+                <div class="aa-abbrev">Glu (E)</div>
+                <svg class="aa-svg" viewBox="0 0 160 120">
+                    <circle cx="80" cy="18" r="8" fill="#444"/><text x="80" y="21" text-anchor="middle" fill="white" font-size="6" font-weight="bold">Cα</text>
+                    <line x1="72" y1="18" x2="52" y2="18" stroke="#333" stroke-width="3"/>
+                    <circle cx="44" cy="18" r="7" fill="#2E7D32"/><text x="44" y="21" text-anchor="middle" fill="white" font-size="6" font-weight="bold">N</text>
+                    <line x1="88" y1="18" x2="105" y2="18" stroke="#333" stroke-width="3"/>
+                    <circle cx="113" cy="18" r="7" fill="#444"/><text x="113" y="21" text-anchor="middle" fill="white" font-size="6" font-weight="bold">C</text>
+                    <line x1="113" y1="11" x2="113" y2="4" stroke="#333" stroke-width="2"/><line x1="116" y1="11" x2="116" y2="4" stroke="#333" stroke-width="2"/>
+                    <circle cx="115" cy="1" r="5" fill="#C8281E"/>
+                    <line x1="120" y1="18" x2="133" y2="18" stroke="#333" stroke-width="2"/>
+                    <circle cx="139" cy="18" r="5" fill="#C8281E"/>
+                    <line x1="80" y1="26" x2="80" y2="40" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="46" r="6" fill="#444"/>
+                    <line x1="80" y1="52" x2="80" y2="65" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="71" r="6" fill="#444"/>
+                    <line x1="80" y1="77" x2="80" y2="90" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="97" r="8" fill="#444"/><text x="80" y="101" text-anchor="middle" fill="white" font-size="7" font-weight="bold">C</text>
+                    <line x1="88" y1="97" x2="105" y2="97" stroke="#333" stroke-width="2"/><line x1="88" y1="101" x2="105" y2="101" stroke="#333" stroke-width="2"/>
+                    <circle cx="115" cy="99" r="7" fill="#C8281E"/><text x="115" y="103" text-anchor="middle" fill="white" font-size="7" font-weight="bold">O</text>
+                    <line x1="80" y1="105" x2="80" y2="116" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="122" r="6" fill="#C8281E"/><text x="80" y="125" text-anchor="middle" fill="white" font-size="5" font-weight="bold">O⁻</text>
+                </svg>
+                <div class="aa-prop negative">Acidic (-)</div>
+                <div class="aa-formula">C₅H₉NO₄</div>
+            </div>
+        </div>
+
+        <!-- Aromatic -->
+        <div class="category-header">
+            <div class="category-icon" style="background:#f3e5f5;color:#7b1fa2;">🔷</div>
+            <div class="category-title">Aromatic Amino Acids</div>
+            <div class="category-sub">Contains benzene rings</div>
+        </div>
+        <div class="aa-grid">
+            <div class="aa-card">
+                <div class="aa-name">Phenylalanine</div>
+                <div class="aa-abbrev">Phe (F)</div>
+                <svg class="aa-svg" viewBox="0 0 160 120">
+                    <circle cx="80" cy="22" r="9" fill="#444"/><text x="80" y="26" text-anchor="middle" fill="white" font-size="7" font-weight="bold">Cα</text>
+                    <line x1="71" y1="22" x2="50" y2="22" stroke="#333" stroke-width="3"/>
+                    <circle cx="42" cy="22" r="8" fill="#2E7D32"/><text x="42" y="25" text-anchor="middle" fill="white" font-size="7" font-weight="bold">N</text>
+                    <line x1="89" y1="22" x2="108" y2="22" stroke="#333" stroke-width="3"/>
+                    <circle cx="116" cy="22" r="8" fill="#444"/><text x="116" y="25" text-anchor="middle" fill="white" font-size="6" font-weight="bold">C</text>
+                    <line x1="116" y1="14" x2="116" y2="6" stroke="#333" stroke-width="2"/><line x1="119" y1="14" x2="119" y2="6" stroke="#333" stroke-width="2"/>
+                    <circle cx="118" cy="3" r="5" fill="#C8281E"/>
+                    <line x1="124" y1="22" x2="138" y2="22" stroke="#333" stroke-width="2"/>
+                    <circle cx="144" cy="22" r="5" fill="#C8281E"/>
+                    <line x1="80" y1="31" x2="80" y2="45" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="52" r="7" fill="#444"/>
+                    <line x1="80" y1="59" x2="80" y2="70" stroke="#333" stroke-width="3"/>
+                    <polygon points="80,78 98,88 98,108 80,118 62,108 62,88" fill="none" stroke="#7b1fa2" stroke-width="3"/>
+                    <circle cx="80" cy="98" r="10" fill="none" stroke="#7b1fa2" stroke-width="2"/>
+                </svg>
+                <div class="aa-prop aromatic">Benzyl ring</div>
+                <div class="aa-formula">C₉H₁₁NO₂</div>
+            </div>
+            <div class="aa-card">
+                <div class="aa-name">Tyrosine</div>
+                <div class="aa-abbrev">Tyr (Y)</div>
+                <svg class="aa-svg" viewBox="0 0 160 120">
+                    <circle cx="80" cy="15" r="8" fill="#444"/><text x="80" y="18" text-anchor="middle" fill="white" font-size="6" font-weight="bold">Cα</text>
+                    <line x1="72" y1="15" x2="52" y2="15" stroke="#333" stroke-width="2"/>
+                    <circle cx="45" cy="15" r="7" fill="#2E7D32"/><text x="45" y="18" text-anchor="middle" fill="white" font-size="6" font-weight="bold">N</text>
+                    <line x1="88" y1="15" x2="105" y2="15" stroke="#333" stroke-width="2"/>
+                    <circle cx="112" cy="15" r="7" fill="#444"/><text x="112" y="18" text-anchor="middle" fill="white" font-size="5" font-weight="bold">C</text>
+                    <line x1="112" y1="8" x2="112" y2="2" stroke="#333" stroke-width="1.5"/><line x1="115" y1="8" x2="115" y2="2" stroke="#333" stroke-width="1.5"/>
+                    <circle cx="114" cy="0" r="4" fill="#C8281E"/>
+                    <line x1="119" y1="15" x2="132" y2="15" stroke="#333" stroke-width="1.5"/>
+                    <circle cx="138" cy="15" r="4" fill="#C8281E"/>
+                    <line x1="80" y1="23" x2="80" y2="35" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="41" r="6" fill="#444"/>
+                    <line x1="80" y1="47" x2="80" y2="55" stroke="#333" stroke-width="3"/>
+                    <polygon points="80,62 95,70 95,86 80,94 65,86 65,70" fill="none" stroke="#7b1fa2" stroke-width="3"/>
+                    <circle cx="80" cy="78" r="8" fill="none" stroke="#7b1fa2" stroke-width="2"/>
+                    <line x1="80" y1="94" x2="80" y2="105" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="112" r="7" fill="#C8281E"/><text x="80" y="115" text-anchor="middle" fill="white" font-size="6" font-weight="bold">O</text>
+                    <circle cx="92" cy="115" r="4" fill="#999"/><line x1="87" y1="114" x2="92" y2="115" stroke="#333" stroke-width="2"/>
+                </svg>
+                <div class="aa-prop aromatic">Phenol -OH</div>
+                <div class="aa-formula">C₉H₁₁NO₃</div>
+            </div>
+            <div class="aa-card">
+                <div class="aa-name">Tryptophan</div>
+                <div class="aa-abbrev">Trp (W)</div>
+                <svg class="aa-svg" viewBox="0 0 160 120">
+                    <circle cx="35" cy="22" r="7" fill="#444"/><text x="35" y="25" text-anchor="middle" fill="white" font-size="5" font-weight="bold">Cα</text>
+                    <line x1="28" y1="22" x2="16" y2="22" stroke="#333" stroke-width="2"/>
+                    <circle cx="10" cy="22" r="6" fill="#2E7D32"/><text x="10" y="25" text-anchor="middle" fill="white" font-size="5" font-weight="bold">N</text>
+                    <line x1="42" y1="22" x2="55" y2="22" stroke="#333" stroke-width="2"/>
+                    <circle cx="62" cy="22" r="6" fill="#444"/><text x="62" y="25" text-anchor="middle" fill="white" font-size="5" font-weight="bold">C</text>
+                    <line x1="62" y1="16" x2="62" y2="10" stroke="#333" stroke-width="1.5"/><line x1="65" y1="16" x2="65" y2="10" stroke="#333" stroke-width="1.5"/>
+                    <circle cx="64" cy="6" r="4" fill="#C8281E"/>
+                    <line x1="68" y1="22" x2="78" y2="22" stroke="#333" stroke-width="1.5"/>
+                    <circle cx="84" cy="22" r="4" fill="#C8281E"/>
+                    <line x1="35" y1="29" x2="35" y2="42" stroke="#333" stroke-width="3"/>
+                    <circle cx="35" cy="48" r="5" fill="#444"/>
+                    <path d="M 35 54 L 48 62 L 44 78 L 26 78 L 22 62 Z" fill="none" stroke="#7b1fa2" stroke-width="2.5"/>
+                    <circle cx="22" cy="62" r="6" fill="#2E7D32"/><text x="22" y="65" text-anchor="middle" fill="white" font-size="5" font-weight="bold">N</text>
+                    <polygon points="44,78 62,78 70,92 62,106 44,106 36,92" fill="none" stroke="#7b1fa2" stroke-width="2.5"/>
+                    <circle cx="53" cy="92" r="8" fill="none" stroke="#7b1fa2" stroke-width="2"/>
+                </svg>
+                <div class="aa-prop aromatic">Indole ring</div>
+                <div class="aa-formula">C₁₁H₁₂N₂O₂</div>
+            </div>
+            <div class="aa-card">
+                <div class="aa-name">Histidine</div>
+                <div class="aa-abbrev">His (H)</div>
+                <svg class="aa-svg" viewBox="0 0 160 120">
+                    <circle cx="80" cy="22" r="9" fill="#444"/><text x="80" y="26" text-anchor="middle" fill="white" font-size="7" font-weight="bold">Cα</text>
+                    <line x1="71" y1="22" x2="50" y2="22" stroke="#333" stroke-width="3"/>
+                    <circle cx="42" cy="22" r="8" fill="#2E7D32"/><text x="42" y="25" text-anchor="middle" fill="white" font-size="7" font-weight="bold">N</text>
+                    <line x1="89" y1="22" x2="108" y2="22" stroke="#333" stroke-width="3"/>
+                    <circle cx="116" cy="22" r="8" fill="#444"/><text x="116" y="25" text-anchor="middle" fill="white" font-size="6" font-weight="bold">C</text>
+                    <line x1="116" y1="14" x2="116" y2="6" stroke="#333" stroke-width="2"/><line x1="119" y1="14" x2="119" y2="6" stroke="#333" stroke-width="2"/>
+                    <circle cx="118" cy="3" r="5" fill="#C8281E"/>
+                    <line x1="124" y1="22" x2="138" y2="22" stroke="#333" stroke-width="2"/>
+                    <circle cx="144" cy="22" r="5" fill="#C8281E"/>
+                    <line x1="80" y1="31" x2="80" y2="48" stroke="#333" stroke-width="3"/>
+                    <circle cx="80" cy="55" r="7" fill="#444"/>
+                    <line x1="80" y1="62" x2="80" y2="72" stroke="#333" stroke-width="3"/>
+                    <path d="M 80 80 L 100 85 L 100 105 L 80 115 L 60 105 L 60 85 Z" fill="none" stroke="#7b1fa2" stroke-width="3" transform="rotate(-18, 80, 95) scale(0.8) translate(10,12)"/>
+                    <circle cx="62" cy="88" r="6" fill="#2E7D32"/><text x="62" y="91" text-anchor="middle" fill="white" font-size="5" font-weight="bold">N</text>
+                    <circle cx="98" cy="100" r="6" fill="#2E7D32"/><text x="98" y="103" text-anchor="middle" fill="white" font-size="5" font-weight="bold">N</text>
+                </svg>
+                <div class="aa-prop aromatic">Imidazole</div>
+                <div class="aa-formula">C₆H₉N₃O₂</div>
+            </div>
+        </div>
+
+        <!-- Peptide Bond Section -->
+        <div class="peptide-section">
+            <div class="peptide-title">Peptide Bond Formation</div>
+            <div class="peptide-content">
+                <div class="peptide-svg-box">
+                    <svg width="400" height="150" viewBox="0 0 400 150">
+                        <!-- AA 1 -->
+                        <circle cx="50" cy="75" r="10" fill="#2E7D32"/><text x="50" y="79" text-anchor="middle" fill="white" font-size="9" font-weight="bold">N</text>
+                        <line x1="60" y1="75" x2="80" y2="75" stroke="#333" stroke-width="3"/>
+                        <circle cx="90" cy="75" r="12" fill="#444"/><text x="90" y="79" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Cα</text>
+                        <line x1="102" y1="75" x2="125" y2="75" stroke="#333" stroke-width="3"/>
+                        <circle cx="135" cy="75" r="10" fill="#444"/><text x="135" y="79" text-anchor="middle" fill="white" font-size="9" font-weight="bold">C</text>
+                        <line x1="135" y1="65" x2="135" y2="50" stroke="#333" stroke-width="3"/><line x1="139" y1="65" x2="139" y2="50" stroke="#333" stroke-width="3"/>
+                        <circle cx="137" cy="42" r="8" fill="#C8281E"/><text x="137" y="46" text-anchor="middle" fill="white" font-size="8" font-weight="bold">O</text>
+                        
+                        <!-- Peptide bond -->
+                        <line x1="145" y1="75" x2="175" y2="75" stroke="#1E64C8" stroke-width="4"/>
+                        <rect x="152" y="60" width="30" height="30" fill="none" stroke="#1E64C8" stroke-width="2" stroke-dasharray="4"/>
+                        <text x="167" y="55" text-anchor="middle" fill="#1E64C8" font-size="9" font-weight="bold">Peptide</text>
+                        <text x="167" y="105" text-anchor="middle" fill="#1E64C8" font-size="9" font-weight="bold">Bond</text>
+                        
+                        <!-- AA 2 -->
+                        <circle cx="185" cy="75" r="10" fill="#2E7D32"/><text x="185" y="79" text-anchor="middle" fill="white" font-size="9" font-weight="bold">N</text>
+                        <line x1="195" y1="75" x2="215" y2="75" stroke="#333" stroke-width="3"/>
+                        <circle cx="225" cy="75" r="12" fill="#444"/><text x="225" y="79" text-anchor="middle" fill="white" font-size="10" font-weight="bold">Cα</text>
+                        <line x1="237" y1="75" x2="260" y2="75" stroke="#333" stroke-width="3"/>
+                        <circle cx="270" cy="75" r="10" fill="#444"/><text x="270" y="79" text-anchor="middle" fill="white" font-size="9" font-weight="bold">C</text>
+                        <line x1="270" y1="65" x2="270" y2="50" stroke="#333" stroke-width="3"/><line x1="274" y1="65" x2="274" y2="50" stroke="#333" stroke-width="3"/>
+                        <circle cx="272" cy="42" r="8" fill="#C8281E"/>
+                        <line x1="280" y1="75" x2="295" y2="75" stroke="#333" stroke-width="3"/>
+                        <circle cx="302" cy="75" r="8" fill="#C8281E"/>
+                        
+                        <!-- R groups -->
+                        <line x1="90" y1="87" x2="90" y2="105" stroke="#333" stroke-width="3"/>
+                        <circle cx="90" cy="115" r="10" fill="#C8281E" fill-opacity="0.3" stroke="#C8281E" stroke-width="2"/>
+                        <text x="90" y="119" text-anchor="middle" fill="#C8281E" font-size="9" font-weight="bold">R₁</text>
+                        
+                        <line x1="225" y1="87" x2="225" y2="105" stroke="#333" stroke-width="3"/>
+                        <circle cx="225" cy="115" r="10" fill="#C8281E" fill-opacity="0.3" stroke="#C8281E" stroke-width="2"/>
+                        <text x="225" y="119" text-anchor="middle" fill="#C8281E" font-size="9" font-weight="bold">R₂</text>
+                        
+                        <!-- Water released -->
+                        <text x="350" y="50" text-anchor="middle" fill="#1565c0" font-size="11" font-weight="bold">+ H₂O</text>
+                        <text x="350" y="70" text-anchor="middle" fill="#666" font-size="9">(Condensation)</text>
+                    </svg>
+                </div>
+                <div class="peptide-info">
+                    <h4>Formation Mechanism</h4>
+                    <p>Peptide bonds form through a dehydration synthesis reaction between the carboxyl group (-COOH) of one amino acid and the amino group (-NH₂) of another.</p>
+                    <br>
+                    <h4>Key Characteristics</h4>
+                    <p>• Planar structure due to partial double bond character<br>
+                    • Trans configuration is favored<br>
+                    • Rigid bond restricts rotation<br>
+                    • Forms backbone of all proteins</p>
                 </div>
             </div>
         </div>
     </div>
+</div>
 </body>
 </html>
