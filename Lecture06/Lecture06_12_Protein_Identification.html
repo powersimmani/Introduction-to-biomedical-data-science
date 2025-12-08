@@ -234,6 +234,32 @@
             font-weight: 600;
             color: #333;
         }
+        
+        /* Explanation sections - NEW */
+        .explanation-box {
+            background: #f0f4f8;
+            border-left: 4px solid #2c5aa0;
+            padding: 25px;
+            margin: 30px 0;
+            border-radius: 6px;
+        }
+        .explanation-title {
+            font-size: 20px;
+            font-weight: 700;
+            color: #2c5aa0;
+            margin-bottom: 15px;
+        }
+        .explanation-content {
+            font-size: 15px;
+            line-height: 1.8;
+            color: #444;
+        }
+        .explanation-content p {
+            margin-bottom: 12px;
+        }
+        .explanation-content strong {
+            color: #1E64C8;
+        }
     </style>
 </head>
 <body>
@@ -350,6 +376,24 @@
                 </div>
             </div>
 
+            <!-- Explanation for workflow -->
+            <div class="explanation-box">
+                <div class="explanation-title">📊 Database Searching Workflow Detailed Explanation</div>
+                <div class="explanation-content">
+                    <p><strong>Step 1 - MS/MS Spectrum Acquisition:</strong> The mass spectrometer fragments peptides and measures the mass-to-charge ratio (m/z) and intensity of each fragment. This data forms a unique "fingerprint" of the peptide and serves as the foundation for all subsequent analysis. Spectrum quality depends on precursor ion purity, fragmentation efficiency, and signal-to-noise ratio.</p>
+                    
+                    <p><strong>Step 2 - Database Selection:</strong> Choosing the appropriate sequence database is crucial. Databases that are too large can increase search time and false positives, while databases that are too small may miss real proteins. Species-specific databases are generally most efficient.</p>
+                    
+                    <p><strong>Step 3 - In Silico Digestion:</strong> All proteins in the database are theoretically cleaved with a specified protease (e.g., trypsin). Trypsin cleaves at the C-terminus of lysine (K) and arginine (R) residues, generating predictable peptides. Missed cleavages are also considered to create a more realistic peptide set.</p>
+                    
+                    <p><strong>Step 4 - Candidate Peptide Selection:</strong> Only theoretical peptides that match the observed precursor mass are selected. Post-translational modifications (PTMs) are also considered, including modified forms of peptides. This filtering reduces the search space from millions to hundreds or thousands of candidates.</p>
+                    
+                    <p><strong>Step 5 - Theoretical Spectrum Generation:</strong> Expected fragment ions (b-ions, y-ions, etc.) are calculated for each candidate peptide. The theoretical spectrum is created by predicting the masses of ions that can be generated at each cleavage point in the peptide sequence.</p>
+                    
+                    <p><strong>Step 6 - Scoring and Ranking:</strong> Similarity scores are calculated by comparing the experimental spectrum to each theoretical spectrum. The peptide with the highest score is reported as the most likely match.</p>
+                </div>
+            </div>
+
             <div class="key-points">
                 <div class="key-points-title">Popular Search Engines:</div>
                 <ul>
@@ -359,6 +403,22 @@
                     <li><strong>MaxQuant:</strong> Comprehensive platform with Andromeda search engine; excellent for quantification</li>
                     <li><strong>MS-GF+:</strong> Spectral probability-based scoring; handles various fragmentation methods</li>
                 </ul>
+            </div>
+
+            <!-- Explanation for search engines -->
+            <div class="explanation-box">
+                <div class="explanation-title">🔍 Search Engine Comparison and Features</div>
+                <div class="explanation-content">
+                    <p><strong>SEQUEST:</strong> One of the first major search engines developed in 1994, using cross-correlation scoring. It compares experimental and theoretical spectra at multiple positions to find the best alignment. While XCorr scores are not intuitive, reliable thresholds have been established through benchmark studies.</p>
+                    
+                    <p><strong>Mascot:</strong> The most popular commercial search engine using probability-based scoring. Based on the MOWSE algorithm, it excels at identifying statistically significant matches. Its web-based interface provides good accessibility and clear statistical interpretation.</p>
+                    
+                    <p><strong>X!Tandem:</strong> An open-source search engine that is fast and accurate. It has a unique feature of re-searching using modifications discovered in the initial search. Widely used in the research community with excellent ability to automatically explore various modifications.</p>
+                    
+                    <p><strong>MaxQuant:</strong> A comprehensive platform with integrated quantification capabilities. Uses the Andromeda search engine and supports various quantification methods including label-free quantification, SILAC, and iTRAQ. Particularly suitable for large-scale proteomics research, handling the entire workflow from peak detection to protein quantification. Integration with Perseus software facilitates statistical analysis.</p>
+                    
+                    <p><strong>MS-GF+:</strong> An innovative algorithm using spectral probability-based scoring. Can handle various fragmentation methods including CID, HCD, and ETD, providing high sensitivity and accuracy.</p>
+                </div>
             </div>
 
             <table class="comparison-table">
@@ -388,6 +448,20 @@
                     <td>Genomics-proteomics integration</td>
                 </tr>
             </table>
+
+            <!-- Explanation for database types -->
+            <div class="explanation-box">
+                <div class="explanation-title">💾 Detailed Features of Database Types</div>
+                <div class="explanation-content">
+                    <p><strong>UniProtKB/Swiss-Prot:</strong> A high-quality database manually annotated by experts. Each entry is validated based on scientific literature and includes comprehensive information on function, post-translational modifications, interactions, and structural information. Contains approximately 570,000 entries and is regularly updated.</p>
+                    
+                    <p><strong>UniProtKB/TrEMBL:</strong> An automatically annotated database much larger than Swiss-Prot (approximately 250 million entries). New sequences are rapidly added, making it useful for novel protein discovery or non-model organism research. However, annotation quality varies, and it may contain redundant entries or fragments.</p>
+                    
+                    <p><strong>NCBI RefSeq:</strong> A curated collection of non-redundant sequences. Provides one representative sequence for each gene, simplifying result interpretation. Particularly useful for model organism studies and closely linked to genome annotations.</p>
+                    
+                    <p><strong>Ensembl:</strong> Contains proteins predicted from genome sequences. Useful for research integrating genomics and proteomics data, providing information on alternative splicing variants. Linked to genomic coordinates, making it easy to integrate with variant analysis.</p>
+                </div>
+            </div>
         </div>
 
         <!-- Detailed Section 2: Peptide-Spectrum Matching -->
@@ -446,6 +520,32 @@
                 </div>
             </div>
 
+            <!-- Explanation for PSM visualization -->
+            <div class="explanation-box">
+                <div class="explanation-title">🎯 PSM Process Visualization Detailed Explanation</div>
+                <div class="explanation-content">
+                    <p><strong>Experimental MS/MS Spectrum (Left Purple Box):</strong> Data actually measured by the mass spectrometer. Each peak has a specific m/z value and intensity, representing ions generated when the peptide is fragmented. The peak list consists of m/z and intensity pairs and can contain hundreds to thousands of peaks.</p>
+                    
+                    <p><strong>Matching Algorithm (Center Pink Box):</strong> The computational engine that compares experimental and theoretical spectra. It matches each peak, calculates mass differences, and analyzes intensity patterns. Score calculation considers multiple factors: number of matched peaks, relative intensity of matched peaks, mass accuracy, and completeness of ion series.</p>
+                    
+                    <p><strong>Theoretical Fragment Ions (Right Cyan Box):</strong> Expected fragment ions calculated from the candidate peptide sequence. Generates b-ions (N-terminal fragments) and y-ions (C-terminal fragments) by cleaving each bond in the peptide. The mass of each ion is calculated as the sum of amino acid masses.</p>
+                </div>
+            </div>
+
+            <!-- Explanation for fragment ions -->
+            <div class="explanation-box">
+                <div class="explanation-title">🧬 Fragment Ion Nomenclature Detailed Explanation</div>
+                <div class="explanation-content">
+                    <p><strong>b-ions (Red):</strong> Fragment ions starting from the N-terminus. When peptide bonds break, the charge is retained on the N-terminal side. Numbered as b₁, b₂, b₃..., where the subscript indicates the number of amino acids included. Commonly observed in CID and HCD fragmentation.</p>
+                    
+                    <p><strong>y-ions (Green):</strong> Fragment ions starting from the C-terminus. When peptide bonds break, the charge is retained on the C-terminal side. Numbered as y₁, y₂, y₃..., where the subscript indicates the number of amino acids from the C-terminus. y-ions are generally stronger and more stable than b-ions.</p>
+                    
+                    <p><strong>a-ions (Black):</strong> Ions formed by loss of CO (carbon monoxide, 28 Da) from b-ions. Not all b-ions generate a-ions; this depends on specific amino acid composition and fragmentation conditions.</p>
+                    
+                    <p><strong>Complementary Ion Pairs:</strong> b-ions and y-ions generated from the same peptide bond are complementary. When both ions are observed, the cleavage at that position is confidently confirmed, significantly enhancing identification confidence.</p>
+                </div>
+            </div>
+
             <div class="key-points">
                 <div class="key-points-title">Critical Mass Accuracy Requirements:</div>
                 <ul>
@@ -457,6 +557,22 @@
                 </ul>
             </div>
 
+            <!-- Explanation for mass accuracy -->
+            <div class="explanation-box">
+                <div class="explanation-title">⚖️ Mass Accuracy Requirements Detailed Explanation</div>
+                <div class="explanation-content">
+                    <p><strong>Low-resolution Instruments (Ion Traps):</strong> Use precursor mass tolerance of ±0.5-1.0 Da. This is a relatively wide range, and hundreds of candidate peptides can fall within it. Ion traps are fast and sensitive, but their limited resolution requires more sophisticated scoring algorithms.</p>
+                    
+                    <p><strong>High-resolution Instruments (Orbitrap, Q-TOF):</strong> Achieve precursor accuracy of ±5-20 ppm. ppm (parts per million) is a relative error; for a 1000 Da peptide, 10 ppm equals ±0.01 Da. This high accuracy dramatically reduces the number of candidate peptides, decreasing false positives.</p>
+                    
+                    <p><strong>Fragment Ion Tolerance:</strong> High-resolution instruments use fragment ion tolerance of 0.02-0.05 Da, while low-resolution instruments use 0.5-1.0 Da. Tighter tolerances reduce the probability of chance matches but require excellent calibration and stable instrument performance.</p>
+                    
+                    <p><strong>Impact:</strong> Stricter tolerances reduce false positives, but if instrument calibration is inaccurate, true positives may also be missed. Tolerance settings must balance instrument performance, sample complexity, and research goals.</p>
+                    
+                    <p><strong>Modern Standards:</strong> The latest advanced mass spectrometers achieve sub-1 ppm accuracy for precursors and <10 ppm for fragment ions. This level of accuracy shortens database search time, improves score distribution, and enables more identifications even at low FDR.</p>
+                </div>
+            </div>
+
             <div class="section-content">
                 <h4 style="color: #1E64C8; margin-bottom: 10px;">Key Matching Criteria:</h4>
                 <p><strong>1. Mass Matching:</strong> The experimental precursor mass must match the theoretical peptide mass within the specified tolerance. This initial filter dramatically reduces the search space.</p>
@@ -466,6 +582,20 @@
                 <p><strong>3. Intensity Correlation:</strong> The relative intensities of matched peaks should show some correlation with theoretical predictions, though this varies by fragmentation method.</p>
                 
                 <p><strong>4. Complementary Ion Series:</strong> Presence of complementary b and y ion series strengthens confidence in the identification.</p>
+            </div>
+
+            <!-- Explanation for matching criteria -->
+            <div class="explanation-box">
+                <div class="explanation-title">✓ Key Matching Criteria Detailed Explanation</div>
+                <div class="explanation-content">
+                    <p><strong>1. Mass Matching:</strong> This is the most fundamental and essential filter. The experimentally measured precursor mass must match the theoretical peptide mass within the specified tolerance. This initial filter reduces the search space from millions to tens or hundreds of candidates. Isotope errors must also be considered, as M+1 or M+2 isotope peaks can sometimes be incorrectly selected.</p>
+                    
+                    <p><strong>2. Fragment Ion Coverage:</strong> A good match should explain a significant portion of observed peaks. Generally, identifying 60-80% of major fragment ions indicates a reliable match. The presence of consecutive ion series (e.g., b₃, b₄, b₅) is particularly strong evidence.</p>
+                    
+                    <p><strong>3. Intensity Correlation:</strong> The relative intensities of matched peaks should show some correlation with theoretical predictions. However, this varies greatly depending on fragmentation method, peptide sequence, and charge state. Some amino acids (proline, arginine) induce preferential cleavage at specific positions, generating stronger ions.</p>
+                    
+                    <p><strong>4. Complementary Ion Series:</strong> When both b-ions and y-ions generated from the same peptide bond are observed, identification confidence is greatly enhanced. The presence of multiple complementary ion pairs dramatically increases the accuracy of sequence assignment.</p>
+                </div>
             </div>
         </div>
 
@@ -521,6 +651,20 @@
                 </div>
             </div>
 
+            <!-- Explanation for scoring methods -->
+            <div class="explanation-box">
+                <div class="explanation-title">📐 Scoring Methodology Detailed Explanation</div>
+                <div class="explanation-content">
+                    <p><strong>Cross-Correlation (XCorr) - SEQUEST:</strong> A method that finds the best alignment by comparing experimental and theoretical spectra at multiple positions. Calculates the product of peak intensities at each position while shifting the two spectra with different mass offsets (τ). Should obtain the highest XCorr value at zero offset (exact matching). For example, XCorr > 2.2 for +2 charge is generally considered a good match.</p>
+                    
+                    <p><strong>MOWSE Score - Mascot:</strong> A probability-based score that calculates the probability of observed ions appearing by chance. The score is calculated as -10 × log₁₀(P), so a probability of 10⁻⁵ becomes a score of 50. Mascot automatically calculates and provides thresholds for statistically significant scores for each search.</p>
+                    
+                    <p><strong>Hyperscore - X!Tandem:</strong> A score combining the number of matched ions (N) with intensity information. Uses the factorial function to emphasize completeness. For example, 5 ion matches contribute 120 (5!), while 10 ion matches contribute 3,628,800 (10!). This approach rewards nearly complete matches much more highly than partial matches.</p>
+                    
+                    <p><strong>Spectral Probability - MS-GF+:</strong> One of the most sophisticated methods, directly comparing the probability of generating the observed spectrum from a given peptide P(S|peptide) versus from a random peptide P(S|random). Calculates exact spectral probability using generating functions, and results can be directly interpreted as p-values.</p>
+                </div>
+            </div>
+
             <div class="key-points">
                 <div class="key-points-title">Expectation Values (E-values):</div>
                 <ul>
@@ -530,6 +674,22 @@
                     <li><strong>Database dependency:</strong> E-values scale with database size; larger databases → higher E-values</li>
                     <li><strong>Advantage:</strong> Provides intuitive statistical meaning independent of scoring scheme</li>
                 </ul>
+            </div>
+
+            <!-- Explanation for E-values -->
+            <div class="explanation-box">
+                <div class="explanation-title">📊 Expectation Values (E-values) Detailed Explanation</div>
+                <div class="explanation-content">
+                    <p><strong>Definition:</strong> E-value is the number of times you would expect to obtain this score or higher by chance. For example, E-value = 0.01 means you would expect to obtain this score or higher by chance about 1 in 100 searches. This is similar to p-value but explicitly accounts for multiple hypothesis testing (testing many peptides simultaneously).</p>
+                    
+                    <p><strong>Calculation:</strong> E-value = Database size × P(obtaining this score by chance). If the database contains 1 million peptides and the probability of obtaining the score by chance is 10⁻⁸, then E-value = 10⁶ × 10⁻⁸ = 0.01.</p>
+                    
+                    <p><strong>Interpretation:</strong> Lower E-values indicate more significant matches. Common thresholds: E < 0.01 is a good match, E < 0.001 is a very good match, E < 0.0001 is an excellent match. E-value > 0.1 is generally considered unreliable.</p>
+                    
+                    <p><strong>Database Dependency:</strong> E-values scale with database size. The same spectrum-peptide match will have a higher E-value in a larger database. Therefore, caution is needed when comparing results from studies using different database sizes.</p>
+                    
+                    <p><strong>Advantage:</strong> E-values provide intuitive statistical meaning and are independent of the scoring scheme. Different scores from SEQUEST's XCorr, Mascot's Ion Score, X!Tandem's Hyperscore can all be converted to E-values, making it easier to compare results from different search engines.</p>
+                </div>
             </div>
 
             <div class="section-content">
@@ -564,6 +724,22 @@
                 </table>
 
                 <p style="margin-top: 20px;"><strong>Important Note:</strong> Raw scores should never be interpreted in isolation. Always consider multiple factors including: spectrum quality, number of matched ions, mass accuracy, score difference between top hits (delta score), and peptide length.</p>
+            </div>
+
+            <!-- Explanation for score interpretation -->
+            <div class="explanation-box">
+                <div class="explanation-title">🎯 Score Interpretation Guide Detailed Explanation</div>
+                <div class="explanation-content">
+                    <p><strong>XCorr (SEQUEST) Charge State-Specific Thresholds:</strong> For +1 charge peptides, XCorr > 1.9, for +2 charge > 2.2, and for +3 charge > 3.75 are generally considered reliable identifications. Higher charge states can achieve higher XCorr because they generate more fragment ions. These thresholds were derived from large-scale benchmark studies and correspond to approximately 95% confidence level.</p>
+                    
+                    <p><strong>Mascot Ion Score:</strong> Mascot provides a statistically calculated identity threshold for each search. Generally, scores above 30-40 are considered significant matches, but the exact threshold depends on database size, search parameters, and tolerance settings.</p>
+                    
+                    <p><strong>E-value Interpretation:</strong> E < 0.01 is expected to occur by chance about 1 in 100 times, so it's considered a good match. E < 0.001 (1 in 1000 times) is a very reliable match. For very large databases (e.g., metaproteomics), stricter E-value thresholds may be needed.</p>
+                    
+                    <p><strong>Posterior Error Probability (PEP):</strong> PEP < 0.01 means a 1% error probability and is a very reliable identification. PEP is calculated using Bayesian statistics and can integrate multiple features (score, delta score, spectrum quality, etc.).</p>
+                    
+                    <p><strong>Comprehensive Considerations:</strong> Raw scores alone are not sufficient. Always consider: (1) spectrum quality, (2) number of matched ions, (3) mass accuracy, (4) delta score (difference between top and second hits), (5) peptide length, (6) modifications, (7) protein-level evidence (proteins identified by multiple peptides are more reliable).</p>
+                </div>
             </div>
         </div>
 
@@ -629,6 +805,22 @@
                 </div>
             </div>
 
+            <!-- Explanation for target-decoy approach -->
+            <div class="explanation-box">
+                <div class="explanation-title">🎲 Target-Decoy Approach Detailed Explanation</div>
+                <div class="explanation-content">
+                    <p><strong>Step 1 - Create Decoy Database:</strong> Create a decoy database by reversing or randomly shuffling each sequence from the target database. The reversal method is most widely used - for example, PEPTIDE becomes EDITPEP. The decoy database should be the same size as the target database and have similar statistical properties.</p>
+                    
+                    <p><strong>Step 2 - Concatenated Search:</strong> Combine target and decoy databases into one and search simultaneously. This has important advantages over conducting two separate searches - decoy and target hits compete directly within the same score distribution, so score thresholds apply equally to both groups.</p>
+                    
+                    <p><strong>Step 3 - Score Distribution Analysis:</strong> Sort all PSMs by score and examine the number of target and decoy hits in each score range. In high score ranges, target hits should predominate, while in low score ranges, target and decoy hits should appear in similar proportions.</p>
+                    
+                    <p><strong>Step 4 - FDR Calculation:</strong> Calculate FDR at each score threshold. The basic formula is FDR = (Decoy hits) / (Target hits). However, FDR = (2 × Decoy hits) / (Target hits) is often used for more accurate estimation. The factor of 2 accounts for the assumption that decoy hits represent only half of the false positives.</p>
+                    
+                    <p><strong>Step 5 - Apply Threshold:</strong> Select the score threshold that achieves the desired FDR (typically 1% or 5%). Accept all target PSMs with scores above this threshold and reject those with lower scores. All decoy hits are removed.</p>
+                </div>
+            </div>
+
             <div class="formula-box">
                 <h4 style="color: #1E64C8; margin-bottom: 15px;">FDR Calculation Formula</h4>
                 <div class="formula" style="font-size: 22px; margin: 15px 0;">
@@ -637,6 +829,20 @@
                 <div style="font-size: 14px; color: #666; margin-top: 10px;">
                     Alternative formula when using separate searches:<br>
                     FDR = (2 × Decoy / Target) × 100%
+                </div>
+            </div>
+
+            <!-- Explanation for FDR formula -->
+            <div class="explanation-box">
+                <div class="explanation-title">🧮 FDR Calculation Formula Detailed Explanation</div>
+                <div class="explanation-content">
+                    <p><strong>Basic Formula:</strong> FDR = (Number of Decoy PSMs / Number of Target PSMs) × 100%. This is the most direct estimation when using concatenated search (searching target and decoy together). For example, if there are 1000 target PSMs and 10 decoy PSMs at a score threshold, FDR = (10/1000) × 100% = 1%.</p>
+                    
+                    <p><strong>Alternative Formula (2× Factor):</strong> When using separate searches or wanting a more conservative estimate, use FDR = (2 × Decoy / Target) × 100%. The logic for multiplying by 2 is that decoy hits provide one sample of false positives, but there should be a similar number of false positives in the target database (which we cannot see).</p>
+                    
+                    <p><strong>Formula Selection:</strong> Use the basic formula when using concatenated search with sufficient decoy hits (>10). Use the 2× formula when using separate searches or when decoy hits are few.</p>
+                    
+                    <p><strong>FDR vs q-value:</strong> FDR is calculated at a specific threshold, but q-value represents "the minimum FDR achieved when accepting this PSM" for each PSM. q-values are more flexible and allow researchers to select different FDR thresholds post hoc.</p>
                 </div>
             </div>
 
@@ -650,6 +856,24 @@
                     <li><strong>Q-value Reporting:</strong> Report q-values (minimum FDR at which identification is accepted)</li>
                     <li><strong>Avoid Cherry-Picking:</strong> Set FDR threshold before examining results to avoid bias</li>
                 </ul>
+            </div>
+
+            <!-- Explanation for FDR best practices -->
+            <div class="explanation-box">
+                <div class="explanation-title">✅ FDR Best Practices Detailed Explanation</div>
+                <div class="explanation-content">
+                    <p><strong>Calculate FDR at Multiple Levels:</strong> It's important to calculate FDR separately at PSM, peptide, and protein levels. PSM-level FDR is most basic, controlling the error rate of each spectrum-peptide match. Peptide-level FDR controls the error rate of unique peptide sequences. Protein-level FDR is most stringent. Generally, PSM-level 1% FDR translates to much lower FDR at the protein level (<0.1%).</p>
+                    
+                    <p><strong>Typical Thresholds:</strong> 1% FDR is the standard for publication-quality proteomics studies. This means 99% of reported identifications are expected to be accurate. 5% FDR is used for exploratory studies or hypothesis generation, providing more identifications but also more errors. For biomarker discovery or clinical applications, 0.1% or even 0.01% FDR may be used.</p>
+                    
+                    <p><strong>Decoy Generation Methods:</strong> Reversed sequences are the preferred decoy generation method. It's simple to implement, maintains original amino acid composition, and can preserve trypsin cleavage sites. Shuffled sequences are also used but can accidentally become similar to real sequences. Completely scrambled sequences should be avoided.</p>
+                    
+                    <p><strong>Machine Learning Alternative (One-Class SVM):</strong> Tools like Percolator use support vector machines (SVM) to classify PSMs more accurately. By combining multiple features (score, delta score, peptide length, modifications, etc.), they achieve better discrimination. This can provide 20-50% more identifications than traditional score-based methods, especially for borderline PSMs.</p>
+                    
+                    <p><strong>Q-value Reporting:</strong> Q-value represents the minimum FDR at which each PSM can be accepted. Reporting q-values improves flexibility by allowing readers to reanalyze data with different FDR thresholds. Q-values also more clearly indicate the confidence of individual PSMs.</p>
+                    
+                    <p><strong>Avoid Cherry-Picking:</strong> FDR thresholds should be set before examining results. Adjusting thresholds after seeing results (e.g., to include a specific protein of interest) compromises statistical validity and makes the actual FDR higher than reported. Pre-registration or analysis plan documentation is recommended.</p>
+                </div>
             </div>
 
             <div class="section-content">
@@ -691,6 +915,22 @@
                 <p style="margin-top: 15px;"><strong>Practical Example:</strong> In an experiment with 100,000 PSMs at 1% FDR, approximately 1,000 incorrect identifications are expected. However, if these false PSMs are randomly distributed across proteins and most proteins are identified by multiple peptides, the protein-level FDR will be much lower than 1%.</p>
             </div>
 
+            <!-- Explanation for FDR levels -->
+            <div class="explanation-box">
+                <div class="explanation-title">📈 Understanding FDR Levels Detailed Explanation</div>
+                <div class="explanation-content">
+                    <p><strong>PSM-level FDR:</strong> Error rate of individual spectrum-peptide matches. 1% FDR means 1 in 100 PSMs is incorrect. This is the most fundamental level of FDR and forms the basis for all subsequent FDR calculations. Reporting 100,000 PSMs at 1% FDR means approximately 1,000 incorrect identifications are expected.</p>
+                    
+                    <p><strong>Peptide-level FDR:</strong> Error rate of unique peptide sequences. When the same peptide is observed multiple times (in multiple spectra), they are combined into one peptide. Peptide-level FDR is generally lower than PSM-level FDR because confidence increases when multiple PSMs support the same peptide.</p>
+                    
+                    <p><strong>Protein-level FDR:</strong> Error rate of protein identifications. This is the most conservative level, and confidence is greatly enhanced when proteins are identified by multiple peptides. PSM-level 1% FDR often translates to 0.1% or lower FDR at the protein level. Proteins identified by only one peptide ("one-hit wonders") require special caution.</p>
+                    
+                    <p><strong>Critical Consideration:</strong> Protein-level FDR is more conservative than PSM-level FDR. Proteins identified by multiple peptides have much higher confidence than those identified by a single peptide, even at the same FDR threshold. Therefore, it's good practice to always report the number of peptides per protein.</p>
+                    
+                    <p><strong>Practical Example:</strong> Reporting 100,000 PSMs at 1% FDR means approximately 1,000 incorrect PSMs are expected. However, if these false PSMs are randomly distributed across proteins and most proteins are identified by multiple peptides, the protein-level FDR will be much lower than 1%. For example, if 5,000 proteins are identified with an average of 10 peptides each, it's very unlikely that 1,000 false PSMs would lead to 5,000 false proteins. In practice, protein-level FDR would be around 0.1-0.5%.</p>
+                </div>
+            </div>
+
             <table class="comparison-table" style="margin-top: 25px;">
                 <tr>
                     <th>FDR Threshold</th>
@@ -718,6 +958,20 @@
                     <td>Preliminary screening, requires validation</td>
                 </tr>
             </table>
+
+            <!-- Explanation for FDR thresholds -->
+            <div class="explanation-box">
+                <div class="explanation-title">🎚️ FDR Threshold Applications Detailed Explanation</div>
+                <div class="explanation-content">
+                    <p><strong>0.1% FDR (Very High Confidence):</strong> Used in research where false positives can have serious consequences, such as biomarker discovery or clinical applications. This stringent threshold significantly reduces the number of identifications but ensures that nearly all reported identifications are correct. Only 1 in 1000 is expected to be wrong.</p>
+                    
+                    <p><strong>1% FDR (Standard High-Confidence Threshold):</strong> The standard used in most publication-quality proteomics studies. This provides a good balance between identification reliability and discovery scope. Most journals and reviewers accept this threshold. 1 in 100 is expected to be wrong.</p>
+                    
+                    <p><strong>5% FDR (Moderate Confidence):</strong> Used for exploratory studies, pilot experiments, or hypothesis generation. Provides more identifications but also increases false positives. These results should generally be confirmed through follow-up validation experiments. 1 in 20 is expected to be wrong.</p>
+                    
+                    <p><strong>10% FDR (Lower Confidence):</strong> Limited use for preliminary screening or very challenging samples (e.g., low abundance, complex mixtures). Contains many false positives, so these results cannot be trusted without additional validation. Primarily used to guide direction for additional experiments. 1 in 10 is expected to be wrong.</p>
+                </div>
+            </div>
         </div>
 
         <div style="background: #e8f5e9; padding: 30px; border-radius: 8px; margin-top: 40px; border: 2px solid #4caf50;">

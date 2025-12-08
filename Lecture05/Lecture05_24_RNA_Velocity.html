@@ -733,5 +733,809 @@
             </ul>
         </div>
     </div>
+
+    <div class="container">
+        <div class="title">RNA Velocity - Advanced Sections</div>
+        <div class="subtitle">Sections 6-10: Deep Dive into Computational Methods, Mathematics, and Applications</div>
+        
+        <div class="note-box">
+            <div class="note-text">📚 This document contains 5 advanced sections to complement the core RNA Velocity guide (Sections 1-5)</div>
+        </div>
+
+        <!-- Section 6: Phase Portrait Analysis in Detail -->
+        <div class="detailed-section">
+            <div class="section-title">
+                <div class="section-number">6</div>
+                Phase Portrait Analysis: Understanding Gene Expression Dynamics
+            </div>
+            
+            <div class="section-content">
+                Phase portraits are the fundamental visualization for RNA velocity analysis. By plotting unspliced mRNA abundance against spliced mRNA abundance for each gene across all cells, we can observe the entire trajectory of gene expression dynamics. The distribution of cells in this space reveals different transcriptional states, and the velocity can be inferred from the position of cells relative to the steady-state curve.
+            </div>
+            
+            <div class="svg-container">
+                <svg width="1200" height="450" viewBox="0 0 1200 450" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <marker id="arrow-phase" markerWidth="8" markerHeight="8" refX="6" refY="3" orient="auto">
+                            <path d="M0,0 L0,6 L8,3 z" fill="#1E64C8"/>
+                        </marker>
+                        <linearGradient id="grad-induction" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#FF5722;stop-opacity:0.3" />
+                            <stop offset="100%" style="stop-color:#FF5722;stop-opacity:0.8" />
+                        </linearGradient>
+                        <linearGradient id="grad-repression" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" style="stop-color:#2196F3;stop-opacity:0.8" />
+                            <stop offset="100%" style="stop-color:#2196F3;stop-opacity:0.3" />
+                        </linearGradient>
+                    </defs>
+                    
+                    <text x="600" y="25" font-family="Aptos, sans-serif" font-size="20" font-weight="700" fill="#1E64C8" text-anchor="middle">Complete Phase Portrait with Gene Expression Trajectory</text>
+                    
+                    <!-- Main phase plot -->
+                    <rect x="80" y="60" width="550" height="350" fill="white" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    
+                    <!-- Axes -->
+                    <line x1="100" y1="390" x2="600" y2="390" stroke="#333" stroke-width="2.5"/>
+                    <line x1="100" y1="390" x2="100" y2="80" stroke="#333" stroke-width="2.5"/>
+                    
+                    <!-- Axis labels -->
+                    <text x="350" y="430" font-family="Aptos, sans-serif" font-size="15" fill="#333" text-anchor="middle" font-weight="600">Spliced mRNA (s)</text>
+                    <text x="50" y="240" font-family="Aptos, sans-serif" font-size="15" fill="#333" text-anchor="middle" font-weight="600" transform="rotate(-90 50 240)">Unspliced mRNA (u)</text>
+                    
+                    <!-- Steady-state line -->
+                    <line x1="100" y1="390" x2="600" y2="80" stroke="#4CAF50" stroke-width="3.5" stroke-dasharray="10,5"/>
+                    <text x="610" y="85" font-family="Aptos, sans-serif" font-size="13" fill="#4CAF50" font-weight="700">Steady-State</text>
+                    <text x="610" y="102" font-family="Aptos, sans-serif" font-size="11" fill="#666">(u = γs)</text>
+                    
+                    <!-- Induction zone (above line) -->
+                    <path d="M 100 390 L 100 80 L 600 80 Z" fill="url(#grad-induction)" opacity="0.35"/>
+                    <text x="220" y="150" font-family="Aptos, sans-serif" font-size="14" fill="#FF5722" font-weight="700">INDUCTION ZONE</text>
+                    <text x="220" y="170" font-family="Aptos, sans-serif" font-size="12" fill="#666">(Above steady-state → Gene turning ON)</text>
+                    
+                    <!-- Repression zone (below line) -->
+                    <path d="M 100 390 L 600 390 L 600 80 Z" fill="url(#grad-repression)" opacity="0.35"/>
+                    <text x="470" y="350" font-family="Aptos, sans-serif" font-size="14" fill="#2196F3" font-weight="700">REPRESSION ZONE</text>
+                    <text x="470" y="370" font-family="Aptos, sans-serif" font-size="12" fill="#666">(Below steady-state → Gene turning OFF)</text>
+                    
+                    <!-- Cell trajectory showing gene induction -->
+                    <circle cx="130" cy="370" r="7" fill="#FF5722" stroke="white" stroke-width="2"/>
+                    <text x="130" y="355" font-family="Aptos, sans-serif" font-size="11" fill="#FF5722" font-weight="700" text-anchor="middle">t₀</text>
+                    
+                    <path d="M 130 370 Q 200 300, 250 220" stroke="#FF5722" stroke-width="3.5" fill="none" marker-end="url(#arrow-phase)"/>
+                    <circle cx="200" cy="300" r="6" fill="#FF9800" stroke="white" stroke-width="2"/>
+                    <text x="185" y="295" font-family="Aptos, sans-serif" font-size="11" fill="#FF9800" font-weight="700">t₁</text>
+                    
+                    <path d="M 250 220 Q 320 160, 380 130" stroke="#FF9800" stroke-width="3.5" fill="none" marker-end="url(#arrow-phase)"/>
+                    <circle cx="320" cy="160" r="6" fill="#FFC107" stroke="white" stroke-width="2"/>
+                    <text x="305" y="155" font-family="Aptos, sans-serif" font-size="11" fill="#FFC107" font-weight="700">t₂</text>
+                    
+                    <path d="M 380 130 Q 450 105, 510 92" stroke="#FFC107" stroke-width="3.5" fill="none" marker-end="url(#arrow-phase)"/>
+                    <circle cx="450" cy="105" r="6" fill="#8BC34A" stroke="white" stroke-width="2"/>
+                    <text x="435" y="100" font-family="Aptos, sans-serif" font-size="11" fill="#8BC34A" font-weight="700">t₃</text>
+                    
+                    <!-- Steady state point -->
+                    <circle cx="540" cy="88" r="8" fill="#4CAF50" stroke="white" stroke-width="2"/>
+                    <text x="560" y="93" font-family="Aptos, sans-serif" font-size="11" fill="#4CAF50" font-weight="700">Equilibrium</text>
+                    
+                    <!-- Velocity vectors -->
+                    <path d="M 200 300 L 225 265" stroke="#FF5722" stroke-width="3" marker-end="url(#arrow-phase)"/>
+                    <text x="230" y="260" font-family="Aptos, sans-serif" font-size="10" fill="#FF5722" font-weight="700">v₁ (strong +)</text>
+                    
+                    <path d="M 320 160 L 340 143" stroke="#FF9800" stroke-width="3" marker-end="url(#arrow-phase)"/>
+                    <text x="345" y="140" font-family="Aptos, sans-serif" font-size="10" fill="#FF9800" font-weight="700">v₂ (moderate +)</text>
+                    
+                    <path d="M 450 105 L 465 98" stroke="#8BC34A" stroke-width="2.5" marker-end="url(#arrow-phase)"/>
+                    <text x="470" y="95" font-family="Aptos, sans-serif" font-size="10" fill="#8BC34A" font-weight="700">v₃ (weak +)</text>
+                    
+                    <!-- Right panel: Time course -->
+                    <rect x="680" y="60" width="490" height="350" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2" rx="5"/>
+                    <text x="925" y="90" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#1E64C8" text-anchor="middle">Time Course View</text>
+                    
+                    <!-- Time axis -->
+                    <line x1="710" y1="360" x2="1140" y2="360" stroke="#333" stroke-width="2.5"/>
+                    <text x="925" y="390" font-family="Aptos, sans-serif" font-size="13" fill="#333" text-anchor="middle" font-weight="600">Time →</text>
+                    
+                    <!-- Abundance axis -->
+                    <line x1="710" y1="360" x2="710" y2="120" stroke="#333" stroke-width="2.5"/>
+                    <text x="685" y="240" font-family="Aptos, sans-serif" font-size="13" fill="#333" text-anchor="middle" font-weight="600" transform="rotate(-90 685 240)">mRNA Abundance</text>
+                    
+                    <!-- Unspliced mRNA curve (rapid rise then plateau) -->
+                    <path d="M 710 360 Q 810 200, 900 165 Q 1000 150, 1140 155" stroke="#FF5722" stroke-width="4" fill="none"/>
+                    <circle cx="810" cy="200" r="5" fill="#FF5722"/>
+                    <circle cx="900" cy="165" r="5" fill="#FF5722"/>
+                    <circle cx="1000" cy="150" r="5" fill="#FF5722"/>
+                    <circle cx="1140" cy="155" r="5" fill="#FF5722"/>
+                    
+                    <!-- Spliced mRNA curve (delayed, slower rise) -->
+                    <path d="M 710 360 Q 840 280, 940 220 Q 1040 185, 1140 175" stroke="#4CAF50" stroke-width="4" fill="none"/>
+                    <circle cx="840" cy="280" r="5" fill="#4CAF50"/>
+                    <circle cx="940" cy="220" r="5" fill="#4CAF50"/>
+                    <circle cx="1040" cy="185" r="5" fill="#4CAF50"/>
+                    <circle cx="1140" cy="175" r="5" fill="#4CAF50"/>
+                    
+                    <!-- Legend -->
+                    <line x1="730" y1="415" x2="780" y2="415" stroke="#FF5722" stroke-width="4"/>
+                    <text x="785" y="420" font-family="Aptos, sans-serif" font-size="12" fill="#333">Unspliced (u) - Fast response</text>
+                    
+                    <line x1="970" y1="415" x2="1020" y2="415" stroke="#4CAF50" stroke-width="4"/>
+                    <text x="1025" y="420" font-family="Aptos, sans-serif" font-size="12" fill="#333">Spliced (s) - Delayed, gradual</text>
+                    
+                    <!-- Time markers -->
+                    <text x="810" y="375" font-family="Aptos, sans-serif" font-size="11" fill="#666">t₁</text>
+                    <text x="900" y="375" font-family="Aptos, sans-serif" font-size="11" fill="#666">t₂</text>
+                    <text x="1000" y="375" font-family="Aptos, sans-serif" font-size="11" fill="#666">t₃</text>
+                    <text x="1130" y="375" font-family="Aptos, sans-serif" font-size="11" fill="#666">t₄</text>
+                    
+                    <!-- Phase annotations -->
+                    <text x="750" y="145" font-family="Aptos, sans-serif" font-size="12" fill="#FF5722" font-weight="600">Rapid induction phase</text>
+                    <text x="1000" y="125" font-family="Aptos, sans-serif" font-size="12" fill="#4CAF50" font-weight="600">Splicing catches up</text>
+                    <text x="1020" y="265" font-family="Aptos, sans-serif" font-size="11" fill="#666">Converging to</text>
+                    <text x="1020" y="280" font-family="Aptos, sans-serif" font-size="11" fill="#666">steady state</text>
+                </svg>
+            </div>
+            
+            <div class="key-points">
+                <div class="key-points-title">Key Interpretation Points</div>
+                <ul>
+                    <li><strong>Trajectory path:</strong> Cells move through phase space as gene expression changes, following a characteristic curved path from low to high expression</li>
+                    <li><strong>Induction dynamics:</strong> During gene activation, unspliced RNA appears first (rapid transcription), placing cells above the steady-state diagonal</li>
+                    <li><strong>Splicing lag effect:</strong> Spliced mRNA accumulates more slowly, creating the curved trajectory toward equilibrium</li>
+                    <li><strong>Velocity magnitude:</strong> Distance from the steady-state line indicates velocity strength; farther = faster changes predicted</li>
+                    <li><strong>Steady-state convergence:</strong> As cells approach the diagonal, velocity decreases, indicating the system is reaching equilibrium</li>
+                    <li><strong>Gene-specific kinetics:</strong> Different genes have different curve shapes based on their unique α, β, and γ parameter values</li>
+                    <li><strong>Population heterogeneity:</strong> Spread of cells in phase space reveals asynchrony in gene activation across the population</li>
+                </ul>
+            </div>
+            
+            <div class="formula-box">
+                <div class="formula-title">Phase Portrait Mathematics</div>
+                <div class="formula" style="text-align: left; line-height: 2;">
+                    <strong>Steady-State Relationship:</strong><br>
+                    At equilibrium (du/dt = 0, ds/dt = 0):<br>
+                    u = α/(β + γ_u) and s = (α·β)/[(β + γ_u)·γ_s]<br><br>
+                    
+                    <strong>Simplified Steady-State Line:</strong><br>
+                    u ≈ γ·s, where γ = (β + γ_u)/β<br><br>
+                    
+                    <strong>Velocity from Phase Position:</strong><br>
+                    • If u > γ·s → cell above line → positive velocity (upregulation)<br>
+                    • If u < γ·s → cell below line → negative velocity (downregulation)<br>
+                    • If u ≈ γ·s → cell on line → near-zero velocity (equilibrium)<br><br>
+                    
+                    <strong>Distance = Velocity Strength:</strong><br>
+                    |velocity| ∝ |u - γ·s|
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-divider"></div>
+        
+        <!-- Section 7: Computational Workflow -->
+        <div class="detailed-section">
+            <div class="section-title">
+                <div class="section-number">7</div>
+                Step-by-Step Computational Workflow
+            </div>
+            
+            <div class="section-content">
+                RNA velocity analysis involves a sophisticated computational pipeline that transforms raw sequencing reads into interpretable biological insights. Understanding each step is crucial for ensuring data quality, selecting appropriate parameters, and correctly interpreting results. The workflow varies slightly between different software tools, but core principles remain consistent.
+            </div>
+            
+            <div class="svg-container">
+                <svg width="1100" height="950" viewBox="0 0 1100 950" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <marker id="arrow-wf" markerWidth="10" markerHeight="10" refX="8" refY="3" orient="auto">
+                            <path d="M0,0 L0,6 L9,3 z" fill="#1E64C8"/>
+                        </marker>
+                    </defs>
+                    
+                    <text x="550" y="35" font-family="Aptos, sans-serif" font-size="22" font-weight="700" fill="#1E64C8" text-anchor="middle">RNA Velocity Analysis Pipeline: From Sequencing to Insights</text>
+                    
+                    <!-- STEP 1 -->
+                    <rect x="100" y="70" width="900" height="100" rx="10" fill="#FF5722" opacity="0.95"/>
+                    <text x="550" y="105" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="white" text-anchor="middle">STEP 1: Data Preparation & Read Alignment</text>
+                    <text x="120" y="130" font-family="Aptos, sans-serif" font-size="14" fill="white">Input: FASTQ files from scRNA-seq (10x Genomics, Smart-seq2, or other platforms)</text>
+                    <text x="120" y="150" font-family="Aptos, sans-serif" font-size="14" fill="white">Requirements: Gene annotation (GTF) with exon/intron coordinates + Reference genome</text>
+                    <path d="M 550 170 L 550 195" stroke="#1E64C8" stroke-width="4" marker-end="url(#arrow-wf)"/>
+                    
+                    <!-- STEP 2 -->
+                    <rect x="100" y="195" width="900" height="100" rx="10" fill="#FF9800" opacity="0.95"/>
+                    <text x="550" y="230" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="white" text-anchor="middle">STEP 2: Spliced/Unspliced Molecule Counting</text>
+                    <text x="120" y="255" font-family="Aptos, sans-serif" font-size="14" fill="white">Exonic reads → Spliced counts | Intronic reads → Unspliced counts</text>
+                    <text x="120" y="275" font-family="Aptos, sans-serif" font-size="14" fill="white">Tools: velocyto run, kallisto|bustools, alevin-fry, STARsolo</text>
+                    <path d="M 550 295 L 550 320" stroke="#1E64C8" stroke-width="4" marker-end="url(#arrow-wf)"/>
+                    
+                    <!-- STEP 3 -->
+                    <rect x="100" y="320" width="900" height="100" rx="10" fill="#FFC107" opacity="0.95"/>
+                    <text x="550" y="355" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#333" text-anchor="middle">STEP 3: Quality Control & Filtering</text>
+                    <text x="120" y="380" font-family="Aptos, sans-serif" font-size="14" fill="#333">Cell QC: Filter low UMI counts, high mitochondrial %, doublets</text>
+                    <text x="120" y="400" font-family="Aptos, sans-serif" font-size="14" fill="#333">Gene QC: Remove genes with insufficient unspliced reads (&lt;10 cells)</text>
+                    <path d="M 550 420 L 550 445" stroke="#1E64C8" stroke-width="4" marker-end="url(#arrow-wf)"/>
+                    
+                    <!-- STEP 4 -->
+                    <rect x="100" y="445" width="900" height="110" rx="10" fill="#8BC34A" opacity="0.95"/>
+                    <text x="550" y="480" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="white" text-anchor="middle">STEP 4: Normalization & Dimensionality Reduction</text>
+                    <text x="120" y="505" font-family="Aptos, sans-serif" font-size="14" fill="white">Normalize: Library size normalization, log-transformation</text>
+                    <text x="120" y="525" font-family="Aptos, sans-serif" font-size="14" fill="white">Reduce dimensions: PCA (feature selection) → UMAP/t-SNE (visualization)</text>
+                    <text x="120" y="545" font-family="Aptos, sans-serif" font-size="14" fill="white">Clustering: Identify cell populations (Leiden/Louvain)</text>
+                    <path d="M 550 555 L 550 580" stroke="#1E64C8" stroke-width="4" marker-end="url(#arrow-wf)"/>
+                    
+                    <!-- STEP 5 -->
+                    <rect x="100" y="580" width="900" height="120" rx="10" fill="#4CAF50" opacity="0.95"/>
+                    <text x="550" y="615" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="white" text-anchor="middle">STEP 5: RNA Velocity Estimation</text>
+                    <text x="120" y="640" font-family="Aptos, sans-serif" font-size="14" fill="white">Model Selection: Steady-state (velocyto) OR Dynamical (scVelo)</text>
+                    <text x="120" y="660" font-family="Aptos, sans-serif" font-size="14" fill="white">Parameter Estimation: Fit α, β, γ for each gene using EM algorithm</text>
+                    <text x="120" y="680" font-family="Aptos, sans-serif" font-size="14" fill="white">Velocity Calculation: Compute gene-level velocity vectors for each cell</text>
+                    <path d="M 550 700 L 550 725" stroke="#1E64C8" stroke-width="4" marker-end="url(#arrow-wf)"/>
+                    
+                    <!-- STEP 6 -->
+                    <rect x="100" y="725" width="900" height="110" rx="10" fill="#2196F3" opacity="0.95"/>
+                    <text x="550" y="760" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="white" text-anchor="middle">STEP 6: Velocity Projection & Visualization</text>
+                    <text x="120" y="785" font-family="Aptos, sans-serif" font-size="14" fill="white">Project: Map gene-space velocities → Low-dimensional embedding (UMAP/PCA)</text>
+                    <text x="120" y="805" font-family="Aptos, sans-serif" font-size="14" fill="white">Smooth: Average velocities across k-nearest neighbors for robustness</text>
+                    <text x="120" y="825" font-family="Aptos, sans-serif" font-size="14" fill="white">Visualize: Stream plots, grid arrows, or single-cell velocity vectors</text>
+                    <path d="M 550 835 L 550 860" stroke="#1E64C8" stroke-width="4" marker-end="url(#arrow-wf)"/>
+                    
+                    <!-- STEP 7 -->
+                    <rect x="100" y="860" width="900" height="70" rx="10" fill="#9C27B0" opacity="0.95"/>
+                    <text x="550" y="895" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="white" text-anchor="middle">STEP 7: Biological Interpretation & Validation</text>
+                    <text x="550" y="920" font-family="Aptos, sans-serif" font-size="14" fill="white" text-anchor="middle">Validate with marker genes, compare to known trajectories, test predictions experimentally</text>
+                </svg>
+            </div>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h4>velocyto Pipeline</h4>
+                    <p style="margin: 8px 0;"><strong>Counting:</strong> velocyto run command processes BAM files with GTF annotation</p>
+                    <p style="margin: 8px 0;"><strong>Model:</strong> Steady-state assumption with linear regression (u = γs)</p>
+                    <p style="margin: 8px 0;"><strong>Output:</strong> .loom files containing spliced and unspliced count matrices</p>
+                    <p style="margin: 8px 0;"><strong>Speed:</strong> Fast computation, suitable for quick exploratory analysis</p>
+                    <p style="margin: 8px 0;"><strong>Best for:</strong> Simple differentiation trajectories, steady-state systems</p>
+                </div>
+                <div class="comparison-card">
+                    <h4>scVelo Pipeline</h4>
+                    <p style="margin: 8px 0;"><strong>Input:</strong> Can use velocyto output or count matrices directly</p>
+                    <p style="margin: 8px 0;"><strong>Model:</strong> Dynamical model accounting for induction/repression phases</p>
+                    <p style="margin: 8px 0;"><strong>Output:</strong> AnnData object with velocities, parameters, confidence scores</p>
+                    <p style="margin: 8px 0;"><strong>Features:</strong> Latent time inference, gene-specific kinetics, likelihood-based</p>
+                    <p style="margin: 8px 0;"><strong>Best for:</strong> Complex dynamics, transient states, non-equilibrium systems</p>
+                </div>
+            </div>
+            
+            <div class="key-points">
+                <div class="key-points-title">Critical Workflow Considerations</div>
+                <ul>
+                    <li><strong>Read assignment ambiguity:</strong> Some reads map to both exons and introns (exon-intron spanning) - tools handle this differently</li>
+                    <li><strong>Gene annotation quality:</strong> Accurate GTF files with complete intron annotations are essential for proper counting</li>
+                    <li><strong>Sufficient unspliced reads:</strong> Low-coverage genes may have too few unspliced counts for reliable velocity estimation</li>
+                    <li><strong>Normalization strategy:</strong> Consistent normalization between spliced and unspliced matrices is critical</li>
+                    <li><strong>Parameter sensitivity:</strong> Velocity estimates can be sensitive to filtering thresholds and neighbor counts</li>
+                    <li><strong>Computational resources:</strong> Dynamical modeling is more computationally intensive than steady-state methods</li>
+                    <li><strong>Batch effects:</strong> Technical variation must be addressed before velocity analysis to avoid artifacts</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="section-divider"></div>
+        
+        <!-- Section 8: Mathematical Framework -->
+        <div class="detailed-section">
+            <div class="section-title">
+                <div class="section-number">8</div>
+                Mathematical Framework: From ODEs to Velocity Vectors
+            </div>
+            
+            <div class="section-content">
+                The mathematical foundation of RNA velocity rests on ordinary differential equations (ODEs) modeling the kinetics of transcription, splicing, and degradation. These equations capture how unspliced and spliced mRNA abundances change over time, and by fitting them to observed data, we can infer the direction and speed of gene expression changes in individual cells.
+            </div>
+            
+            <div class="formula-box">
+                <div class="formula-title">Core Differential Equations System</div>
+                <div class="formula" style="text-align: left; padding-left: 30px; line-height: 2.2; font-size: 15px;">
+                    <strong style="color: #1E64C8; font-size: 16px;">1. Unspliced mRNA Dynamics:</strong><br>
+                    <span style="font-size: 17px;">du/dt = α(t) - βu - γ_u·u = α(t) - (β + γ_u)·u</span><br><br>
+                    
+                    where:<br>
+                    • α(t) = transcription rate (time-dependent during induction/repression)<br>
+                    • β = splicing rate (conversion of unspliced → spliced)<br>
+                    • γ_u = degradation rate of unspliced mRNA<br>
+                    • u = unspliced mRNA abundance<br><br>
+                    
+                    <strong style="color: #1E64C8; font-size: 16px;">2. Spliced mRNA Dynamics:</strong><br>
+                    <span style="font-size: 17px;">ds/dt = βu - γ_s·s</span><br><br>
+                    
+                    where:<br>
+                    • s = spliced mRNA abundance<br>
+                    • γ_s = degradation rate of spliced mRNA<br>
+                    • βu = input from unspliced pool (splicing flux)<br><br>
+                    
+                    <strong style="color: #1E64C8; font-size: 16px;">3. Steady-State Solutions:</strong><br>
+                    When transcription rate α is constant and du/dt = ds/dt = 0:<br>
+                    <span style="font-size: 17px;">u_∞ = α / (β + γ_u)</span><br>
+                    <span style="font-size: 17px;">s_∞ = βu_∞ / γ_s = (α·β) / [(β + γ_u)·γ_s]</span><br><br>
+                    
+                    This gives the steady-state relationship:<br>
+                    <span style="font-size: 17px;">u_∞ / s_∞ = γ_s / β</span><br><br>
+                    
+                    <strong style="color: #1E64C8; font-size: 16px;">4. RNA Velocity Definition:</strong><br>
+                    <span style="font-size: 17px;">v = ds/dt - Expected(ds/dt)</span><br>
+                    <span style="font-size: 17px;">v ≈ β(u - γs)</span> where <span style="font-size: 17px;">γ = (β + γ_u) / β</span><br><br>
+                    
+                    Interpretation:<br>
+                    • v > 0 → gene expression increasing (u > γs)<br>
+                    • v = 0 → steady state (u ≈ γs)<br>
+                    • v < 0 → gene expression decreasing (u < γs)
+                </div>
+            </div>
+            
+            <div class="svg-container">
+                <svg width="1150" height="400" viewBox="0 0 1150 400" xmlns="http://www.w3.org/2000/svg">
+                    <text x="575" y="25" font-family="Aptos, sans-serif" font-size="20" font-weight="700" fill="#1E64C8" text-anchor="middle">Parameter Estimation and Model Fitting Process</text>
+                    
+                    <!-- Left: Observed Data -->
+                    <rect x="50" y="55" width="320" height="320" rx="10" fill="#f0f5fc" stroke="#1E64C8" stroke-width="2.5"/>
+                    <text x="210" y="85" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#1E64C8" text-anchor="middle">Observed Data</text>
+                    <text x="210" y="105" font-family="Aptos, sans-serif" font-size="13" fill="#666" text-anchor="middle">(u, s) measurements per cell</text>
+                    
+                    <!-- Scatter plot -->
+                    <line x1="80" y1="330" x2="340" y2="330" stroke="#999" stroke-width="2"/>
+                    <line x1="80" y1="330" x2="80" y2="130" stroke="#999" stroke-width="2"/>
+                    <text x="210" y="360" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle">Spliced (s)</text>
+                    <text x="55" y="230" font-family="Aptos, sans-serif" font-size="11" fill="#666" text-anchor="middle" transform="rotate(-90 55 230)">Unspliced (u)</text>
+                    
+                    <!-- Cell scatter points -->
+                    <circle cx="110" cy="310" r="4" fill="#FF5722" opacity="0.7"/>
+                    <circle cx="130" cy="285" r="4" fill="#FF5722" opacity="0.7"/>
+                    <circle cx="150" cy="265" r="4" fill="#FF9800" opacity="0.7"/>
+                    <circle cx="170" cy="240" r="4" fill="#FF9800" opacity="0.7"/>
+                    <circle cx="190" cy="220" r="4" fill="#FFC107" opacity="0.7"/>
+                    <circle cx="210" cy="200" r="4" fill="#FFC107" opacity="0.7"/>
+                    <circle cx="230" cy="185" r="4" fill="#8BC34A" opacity="0.7"/>
+                    <circle cx="250" cy="172" r="4" fill="#4CAF50" opacity="0.7"/>
+                    <circle cx="270" cy="163" r="4" fill="#4CAF50" opacity="0.7"/>
+                    <circle cx="290" cy="158" r="4" fill="#4CAF50" opacity="0.7"/>
+                    <circle cx="310" cy="155" r="4" fill="#4CAF50" opacity="0.7"/>
+                    <circle cx="330" cy="153" r="4" fill="#4CAF50" opacity="0.7"/>
+                    
+                    <!-- More scatter -->
+                    <circle cx="120" cy="295" r="3.5" fill="#FF5722" opacity="0.5"/>
+                    <circle cx="145" cy="275" r="3.5" fill="#FF9800" opacity="0.5"/>
+                    <circle cx="165" cy="250" r="3.5" fill="#FF9800" opacity="0.5"/>
+                    <circle cx="185" cy="228" r="3.5" fill="#FFC107" opacity="0.5"/>
+                    <circle cx="205" cy="210" r="3.5" fill="#FFC107" opacity="0.5"/>
+                    <circle cx="225" cy="192" r="3.5" fill="#8BC34A" opacity="0.5"/>
+                    <circle cx="245" cy="178" r="3.5" fill="#4CAF50" opacity="0.5"/>
+                    <circle cx="265" cy="168" r="3.5" fill="#4CAF50" opacity="0.5"/>
+                    <circle cx="285" cy="160" r="3.5" fill="#4CAF50" opacity="0.5"/>
+                    <circle cx="305" cy="156" r="3.5" fill="#4CAF50" opacity="0.5"/>
+                    <circle cx="325" cy="154" r="3.5" fill="#4CAF50" opacity="0.5"/>
+                    
+                    <!-- Fitted steady-state line -->
+                    <line x1="90" y1="320" x2="340" y2="145" stroke="#1E64C8" stroke-width="3" stroke-dasharray="6,4"/>
+                    <text x="350" y="142" font-family="Aptos, sans-serif" font-size="11" fill="#1E64C8" font-weight="700">u=γs</text>
+                    
+                    <!-- Arrow to middle -->
+                    <path d="M 370 200 L 420 200" stroke="#1E64C8" stroke-width="4" marker-end="url(#arrow-wf)"/>
+                    <text x="395" y="190" font-family="Aptos, sans-serif" font-size="12" fill="#1E64C8" font-weight="700" text-anchor="middle">Fit Model</text>
+                    
+                    <!-- Middle: Parameter Estimation -->
+                    <rect x="420" y="55" width="310" height="320" rx="10" fill="#fff3cd" stroke="#FFC107" stroke-width="2.5"/>
+                    <text x="575" y="85" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#856404" text-anchor="middle">Estimated Parameters</text>
+                    <text x="575" y="105" font-family="Aptos, sans-serif" font-size="13" fill="#666" text-anchor="middle">Per-gene kinetic rates</text>
+                    
+                    <text x="445" y="140" font-family="Aptos, sans-serif" font-size="14" fill="#333" font-weight="600">For each gene g:</text>
+                    
+                    <text x="460" y="170" font-family="Aptos, sans-serif" font-size="13" fill="#333">γ = (β + γ_u) / β</text>
+                    <text x="465" y="188" font-family="Aptos, sans-serif" font-size="11" fill="#666">Slope of steady-state line</text>
+                    
+                    <text x="460" y="215" font-family="Aptos, sans-serif" font-size="13" fill="#333">α = transcription rate</text>
+                    <text x="465" y="233" font-family="Aptos, sans-serif" font-size="11" fill="#666">Gene activity level</text>
+                    
+                    <text x="460" y="260" font-family="Aptos, sans-serif" font-size="13" fill="#333">β = splicing rate</text>
+                    <text x="465" y="278" font-family="Aptos, sans-serif" font-size="11" fill="#666">Processing speed</text>
+                    
+                    <text x="460" y="305" font-family="Aptos, sans-serif" font-size="13" fill="#333">t_switch = state change time</text>
+                    <text x="465" y="323" font-family="Aptos, sans-serif" font-size="11" fill="#666">(for dynamical model)</text>
+                    
+                    <text x="575" y="355" font-family="Aptos, sans-serif" font-size="13" fill="#856404" font-weight="700" text-anchor="middle" font-style="italic">Maximize: P(u, s | θ)</text>
+                    
+                    <!-- Arrow to right -->
+                    <path d="M 730 200 L 780 200" stroke="#1E64C8" stroke-width="4" marker-end="url(#arrow-wf)"/>
+                    <text x="755" y="190" font-family="Aptos, sans-serif" font-size="12" fill="#1E64C8" font-weight="700" text-anchor="middle">Compute</text>
+                    
+                    <!-- Right: Velocity Vectors -->
+                    <rect x="780" y="55" width="320" height="320" rx="10" fill="#e8f5e9" stroke="#4CAF50" stroke-width="2.5"/>
+                    <text x="940" y="85" font-family="Aptos, sans-serif" font-size="16" font-weight="700" fill="#4CAF50" text-anchor="middle">Velocity Vectors</text>
+                    <text x="940" y="105" font-family="Aptos, sans-serif" font-size="13" fill="#666" text-anchor="middle">Per cell × per gene</text>
+                    
+                    <text x="805" y="140" font-family="Aptos, sans-serif" font-size="14" fill="#333">For each cell i, gene g:</text>
+                    <text x="820" y="165" font-family="Aptos, sans-serif" font-size="13" fill="#333">v_g^i = f(u_g^i, s_g^i, α_g, β_g, γ_g)</text>
+                    
+                    <!-- Velocity field mini visualization -->
+                    <g transform="translate(820, 190)">
+                        <circle cx="30" cy="30" r="6" fill="#FF5722" opacity="0.8"/>
+                        <path d="M 30 30 L 50 20" stroke="#FF5722" stroke-width="2.5" marker-end="url(#arrow-wf)"/>
+                        <text x="55" y="18" font-family="Aptos, sans-serif" font-size="10" fill="#FF5722" font-weight="600">Strong +</text>
+                        
+                        <circle cx="100" cy="30" r="6" fill="#FF9800" opacity="0.8"/>
+                        <path d="M 100 30 L 115 26" stroke="#FF9800" stroke-width="2.5" marker-end="url(#arrow-wf)"/>
+                        <text x="120" y="24" font-family="Aptos, sans-serif" font-size="10" fill="#FF9800" font-weight="600">Moderate +</text>
+                        
+                        <circle cx="30" cy="80" r="6" fill="#4CAF50" opacity="0.8"/>
+                        <path d="M 30 80 L 38 81" stroke="#4CAF50" stroke-width="2" marker-end="url(#arrow-wf)"/>
+                        <text x="42" y="84" font-family="Aptos, sans-serif" font-size="10" fill="#4CAF50" font-weight="600">Weak +</text>
+                        
+                        <circle cx="100" cy="80" r="6" fill="#2196F3" opacity="0.8"/>
+                        <path d="M 100 80 L 92 81" stroke="#2196F3" stroke-width="2" marker-end="url(#arrow-wf)"/>
+                        <text x="60" y="84" font-family="Aptos, sans-serif" font-size="10" fill="#2196F3" font-weight="600">Negative</text>
+                        
+                        <circle cx="65" cy="130" r="6" fill="#9E9E9E" opacity="0.8"/>
+                        <circle cx="66" cy="130" r="1.5" fill="#666"/>
+                        <text x="50" y="148" font-family="Aptos, sans-serif" font-size="10" fill="#666" font-weight="600">~Zero (steady)</text>
+                    </g>
+                    
+                    <text x="940" y="345" font-family="Aptos, sans-serif" font-size="13" fill="#4CAF50" font-weight="700" text-anchor="middle">Direction = trend</text>
+                    <text x="940" y="365" font-family="Aptos, sans-serif" font-size="13" fill="#4CAF50" font-weight="700" text-anchor="middle">Magnitude = rate of change</text>
+                </svg>
+            </div>
+            
+            <div class="key-points">
+                <div class="key-points-title">Mathematical Insights & Assumptions</div>
+                <ul>
+                    <li><strong>Gene-specific parameters:</strong> Each gene has unique kinetic rates (α, β, γ) reflecting its regulatory characteristics and RNA stability</li>
+                    <li><strong>Time-dependent transcription:</strong> α(t) can change during induction/repression, but β and γ are typically assumed constant</li>
+                    <li><strong>Latent time concept:</strong> Actual time is unknown; scVelo infers "latent time" representing biological progression through processes</li>
+                    <li><strong>Steady-state dominance:</strong> Most genes in most cells are near equilibrium, enabling parameter estimation from population distributions</li>
+                    <li><strong>Moment matching:</strong> Steady-state model fits first moments (means); dynamical model uses full likelihood for better accuracy</li>
+                    <li><strong>Identifiability limits:</strong> Cannot uniquely determine all parameters without time-series data; some assumptions required</li>
+                    <li><strong>Model simplifications:</strong> Assumes homogeneous degradation rates, ignores bursting, no feedback loops explicitly modeled</li>
+                    <li><strong>Noise and stochasticity:</strong> Biological and technical noise create scatter around theoretical curves</li>
+                </ul>
+            </div>
+            
+            <div class="formula-box">
+                <div class="formula-title">Dynamical Model Extensions (scVelo)</div>
+                <div class="formula" style="text-align: left; padding-left: 30px; line-height: 2; font-size: 14px;">
+                    <strong>Three-State Gene Model:</strong><br><br>
+                    
+                    <strong>1. Induction Phase:</strong> α switches from 0 → α_max<br>
+                    u(t) increases rapidly, s(t) follows with delay<br><br>
+                    
+                    <strong>2. Steady State:</strong> α constant at α_max<br>
+                    u and s reach equilibrium ratio<br><br>
+                    
+                    <strong>3. Repression Phase:</strong> α switches from α_max → 0<br>
+                    u decreases rapidly, s decreases gradually<br><br>
+                    
+                    <strong>Likelihood Optimization:</strong><br>
+                    For each gene, find {α, β, γ, t_switch} that maximize:<br>
+                    L = Π_cells P(u_i, s_i | parameters, t_i)<br><br>
+                    
+                    EM Algorithm iteratively updates:<br>
+                    • E-step: Estimate latent time t_i for each cell<br>
+                    • M-step: Update parameters to maximize likelihood
+                </div>
+            </div>
+        </div>
+        
+        <div class="section-divider"></div>
+        
+        <!-- Section 9: Advanced Interpretation -->
+        <div class="detailed-section">
+            <div class="section-title">
+                <div class="section-number">9</div>
+                Advanced Interpretation: Confidence, Consistency & Validation
+            </div>
+            
+            <div class="section-content">
+                While RNA velocity provides powerful predictive insights, proper interpretation requires assessing confidence, checking consistency across genes and cells, and validating predictions against biological knowledge. Not all velocity estimates are equally reliable, and understanding the quality metrics is essential for drawing correct biological conclusions.
+            </div>
+            
+            <div class="svg-container">
+                <svg width="1200" height="450" viewBox="0 0 1200 450" xmlns="http://www.w3.org/2000/svg">
+                    <text x="600" y="25" font-family="Aptos, sans-serif" font-size="20" font-weight="700" fill="#1E64C8" text-anchor="middle">Velocity Confidence Assessment: High vs. Low Quality Predictions</text>
+                    
+                    <!-- HIGH CONFIDENCE -->
+                    <g>
+                        <rect x="50" y="55" width="520" height="360" rx="10" fill="#e8f5e9" stroke="#4CAF50" stroke-width="3"/>
+                        <text x="310" y="90" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#4CAF50" text-anchor="middle">✓ HIGH CONFIDENCE VELOCITY</text>
+                        
+                        <!-- Coherent velocity field -->
+                        <g transform="translate(90, 120)">
+                            <text x="200" y="-10" font-family="Aptos, sans-serif" font-size="13" fill="#666" text-anchor="middle">Consistent, aligned arrows</text>
+                            
+                            <!-- Row 1 -->
+                            <circle cx="40" cy="30" r="7" fill="#4CAF50" opacity="0.8"/>
+                            <path d="M 40 30 L 70 23" stroke="#4CAF50" stroke-width="3.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="120" cy="30" r="7" fill="#4CAF50" opacity="0.8"/>
+                            <path d="M 120 30 L 150 23" stroke="#4CAF50" stroke-width="3.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="200" cy="30" r="7" fill="#4CAF50" opacity="0.8"/>
+                            <path d="M 200 30 L 230 23" stroke="#4CAF50" stroke-width="3.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="280" cy="30" r="7" fill="#4CAF50" opacity="0.8"/>
+                            <path d="M 280 30 L 310 23" stroke="#4CAF50" stroke-width="3.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="360" cy="30" r="7" fill="#4CAF50" opacity="0.8"/>
+                            <path d="M 360 30 L 390 23" stroke="#4CAF50" stroke-width="3.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <!-- Row 2 -->
+                            <circle cx="40" cy="90" r="7" fill="#4CAF50" opacity="0.8"/>
+                            <path d="M 40 90 L 70 81" stroke="#4CAF50" stroke-width="3.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="120" cy="90" r="7" fill="#4CAF50" opacity="0.8"/>
+                            <path d="M 120 90 L 150 81" stroke="#4CAF50" stroke-width="3.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="200" cy="90" r="7" fill="#4CAF50" opacity="0.8"/>
+                            <path d="M 200 90 L 230 81" stroke="#4CAF50" stroke-width="3.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="280" cy="90" r="7" fill="#4CAF50" opacity="0.8"/>
+                            <path d="M 280 90 L 310 81" stroke="#4CAF50" stroke-width="3.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="360" cy="90" r="7" fill="#4CAF50" opacity="0.8"/>
+                            <path d="M 360 90 L 390 81" stroke="#4CAF50" stroke-width="3.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <!-- Row 3 -->
+                            <circle cx="40" cy="150" r="7" fill="#8BC34A" opacity="0.8"/>
+                            <path d="M 40 150 L 68 138" stroke="#8BC34A" stroke-width="3" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="120" cy="150" r="7" fill="#8BC34A" opacity="0.8"/>
+                            <path d="M 120 150 L 148 138" stroke="#8BC34A" stroke-width="3" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="200" cy="150" r="7" fill="#8BC34A" opacity="0.8"/>
+                            <path d="M 200 150 L 228 138" stroke="#8BC34A" stroke-width="3" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="280" cy="150" r="7" fill="#8BC34A" opacity="0.8"/>
+                            <path d="M 280 150 L 308 138" stroke="#8BC34A" stroke-width="3" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="360" cy="150" r="7" fill="#8BC34A" opacity="0.8"/>
+                            <path d="M 360 150 L 388 138" stroke="#8BC34A" stroke-width="3" marker-end="url(#arrow-wf)"/>
+                        </g>
+                        
+                        <text x="310" y="340" font-family="Aptos, sans-serif" font-size="14" fill="#4CAF50" font-weight="700" text-anchor="middle">✓ All arrows aligned</text>
+                        <text x="310" y="360" font-family="Aptos, sans-serif" font-size="12" fill="#666" text-anchor="middle">Many genes agree</text>
+                        <text x="310" y="378" font-family="Aptos, sans-serif" font-size="12" fill="#666" text-anchor="middle">High velocity confidence</text>
+                        <text x="310" y="396" font-family="Aptos, sans-serif" font-size="12" fill="#666" text-anchor="middle">Neighbors coherent</text>
+                    </g>
+                    
+                    <!-- LOW CONFIDENCE -->
+                    <g>
+                        <rect x="630" y="55" width="520" height="360" rx="10" fill="#ffebee" stroke="#f44336" stroke-width="3"/>
+                        <text x="890" y="90" font-family="Aptos, sans-serif" font-size="18" font-weight="700" fill="#f44336" text-anchor="middle">✗ LOW CONFIDENCE VELOCITY</text>
+                        
+                        <!-- Incoherent velocity field -->
+                        <g transform="translate(670, 120)">
+                            <text x="200" y="-10" font-family="Aptos, sans-serif" font-size="13" fill="#666" text-anchor="middle">Random, inconsistent arrows</text>
+                            
+                            <!-- Random directions row 1 -->
+                            <circle cx="40" cy="30" r="7" fill="#FF5722" opacity="0.8"/>
+                            <path d="M 40 30 L 60 45" stroke="#FF5722" stroke-width="2.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="120" cy="30" r="7" fill="#FF9800" opacity="0.8"/>
+                            <path d="M 120 30 L 110 50" stroke="#FF9800" stroke-width="2.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="200" cy="30" r="7" fill="#FFC107" opacity="0.8"/>
+                            <path d="M 200 30 L 220 18" stroke="#FFC107" stroke-width="2.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="280" cy="30" r="7" fill="#4CAF50" opacity="0.8"/>
+                            <path d="M 280 30 L 265 45" stroke="#4CAF50" stroke-width="2.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="360" cy="30" r="7" fill="#2196F3" opacity="0.8"/>
+                            <path d="M 360 30 L 375 20" stroke="#2196F3" stroke-width="2.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <!-- Random row 2 -->
+                            <circle cx="40" cy="90" r="7" fill="#9C27B0" opacity="0.8"/>
+                            <path d="M 40 90 L 25 75" stroke="#9C27B0" stroke-width="2.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="120" cy="90" r="7" fill="#E91E63" opacity="0.8"/>
+                            <path d="M 120 90 L 140 105" stroke="#E91E63" stroke-width="2.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="200" cy="90" r="7" fill="#FF5722" opacity="0.8"/>
+                            <path d="M 200 90 L 190 75" stroke="#FF5722" stroke-width="2.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="280" cy="90" r="7" fill="#FF9800" opacity="0.8"/>
+                            <path d="M 280 90 L 300 80" stroke="#FF9800" stroke-width="2.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="360" cy="90" r="7" fill="#FFC107" opacity="0.8"/>
+                            <path d="M 360 90 L 350 105" stroke="#FFC107" stroke-width="2.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <!-- Random row 3 -->
+                            <circle cx="40" cy="150" r="7" fill="#8BC34A" opacity="0.8"/>
+                            <path d="M 40 150 L 60 145" stroke="#8BC34A" stroke-width="2.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="120" cy="150" r="7" fill="#2196F3" opacity="0.8"/>
+                            <path d="M 120 150 L 105 165" stroke="#2196F3" stroke-width="2.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="200" cy="150" r="7" fill="#9C27B0" opacity="0.8"/>
+                            <path d="M 200 150 L 218 160" stroke="#9C27B0" stroke-width="2.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="280" cy="150" r="7" fill="#E91E63" opacity="0.8"/>
+                            <path d="M 280 150 L 270 135" stroke="#E91E63" stroke-width="2.5" marker-end="url(#arrow-wf)"/>
+                            
+                            <circle cx="360" cy="150" r="7" fill="#FF5722" opacity="0.8"/>
+                            <path d="M 360 150 L 375 145" stroke="#FF5722" stroke-width="2.5" marker-end="url(#arrow-wf)"/>
+                        </g>
+                        
+                        <text x="890" y="340" font-family="Aptos, sans-serif" font-size="14" fill="#f44336" font-weight="700" text-anchor="middle">✗ Arrows diverge</text>
+                        <text x="890" y="360" font-family="Aptos, sans-serif" font-size="12" fill="#666" text-anchor="middle">Gene disagreement</text>
+                        <text x="890" y="378" font-family="Aptos, sans-serif" font-size="12" fill="#666" text-anchor="middle">Low confidence scores</text>
+                        <text x="890" y="396" font-family="Aptos, sans-serif" font-size="12" fill="#666" text-anchor="middle">Possible artifacts</text>
+                    </g>
+                </svg>
+            </div>
+            
+            <div class="best-practices">
+                <div class="best-practices-title">⭐ Comprehensive Validation Strategies</div>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li style="margin: 12px 0; line-height: 1.6;"><strong>1. Known Differentiation Markers:</strong> Check if velocity directions align with established marker gene progression (e.g., stem → progenitor → differentiated markers)</li>
+                    <li style="margin: 12px 0; line-height: 1.6;"><strong>2. Time-Series Validation:</strong> If temporal sampling exists, compare velocity predictions with actual measured changes between time points</li>
+                    <li style="margin: 12px 0; line-height: 1.6;"><strong>3. Lineage Tracing:</strong> Validate predicted trajectories against experimental lineage labels from genetic barcoding or live imaging</li>
+                    <li style="margin: 12px 0; line-height: 1.6;"><strong>4. Cross-Method Comparison:</strong> Compare with other trajectory inference methods (Monocle3, Slingshot, PAGA, Waddington-OT) for consistency</li>
+                    <li style="margin: 12px 0; line-height: 1.6;"><strong>5. Gene-Level Inspection:</strong> Examine phase portraits for top velocity genes; ensure biological plausibility of patterns</li>
+                    <li style="margin: 12px 0; line-height: 1.6;"><strong>6. Perturbation Experiments:</strong> Test predictions with knockdowns, overexpression, or drug treatments; does velocity change as expected?</li>
+                    <li style="margin: 12px 0; line-height: 1.6;"><strong>7. Replicate Consistency:</strong> Verify that velocity patterns reproduce across independent biological replicates and batches</li>
+                </ul>
+            </div>
+            
+            <div class="key-points">
+                <div class="key-points-title">Confidence Metrics to Check</div>
+                <ul>
+                    <li><strong>Velocity length:</strong> Longer arrows indicate stronger directional signal; very short arrows may be noise</li>
+                    <li><strong>Velocity coherence:</strong> Do neighboring cells have similar velocity directions? Local consistency suggests reliability</li>
+                    <li><strong>Gene consistency:</strong> How many genes support the observed velocity? More = higher confidence</li>
+                    <li><strong>Velocity confidence score:</strong> scVelo computes cell-specific confidence based on gene agreement (range 0-1)</li>
+                    <li><strong>Velocity self-transition:</strong> Do cells' predicted future states match actual nearby cells? Good if yes</li>
+                    <li><strong>Phase portrait quality:</strong> Well-defined phase trajectories with low scatter suggest good model fit</li>
+                    <li><strong>Biological plausibility:</strong> Do predictions match known biology, marker expression, and literature?</li>
+                </ul>
+            </div>
+            
+            <div class="pitfall-box">
+                <div class="pitfall-title">⚠️ Common Pitfalls and How to Avoid Them</div>
+                <ul style="list-style-type: none; padding-left: 0;">
+                    <li style="margin: 12px 0; line-height: 1.6;"><strong>❌ Over-interpretation of weak signals:</strong> Velocity predicts SHORT-TERM changes (~hours to day), not long-term cell fates. Don't extrapolate too far.</li>
+                    <li style="margin: 12px 0; line-height: 1.6;"><strong>❌ Ignoring batch effects:</strong> Technical variation can create spurious velocity patterns that don't reflect biology. Always correct batches first.</li>
+                    <li style="margin: 12px 0; line-height: 1.6;"><strong>❌ Insufficient read depth:</strong> Sparse unspliced counts in lowly-expressed genes lead to unreliable velocities. Filter genes appropriately.</li>
+                    <li style="margin: 12px 0; line-height: 1.6;"><strong>❌ Confusing correlation with causation:</strong> Velocity shows predicted directionality, not mechanistic causality. Requires experimental validation.</li>
+                    <li style="margin: 12px 0; line-height: 1.6;"><strong>❌ Neglecting biological context:</strong> Always interpret computational results with domain knowledge. Some predictions may be biologically implausible.</li>
+                    <li style="margin: 12px 0; line-height: 1.6;"><strong>❌ Single-gene analysis:</strong> Individual genes are noisy; analyze aggregate patterns across many genes for robustness.</li>
+                    <li style="margin: 12px 0; line-height: 1.6;"><strong>❌ Assuming all cells follow predictions:</strong> Population-level velocity doesn't mean every single cell follows that exact path.</li>
+                </ul>
+            </div>
+        </div>
+        
+        <div class="section-divider"></div>
+        
+        <!-- Section 10: Practical Applications -->
+        <div class="detailed-section">
+            <div class="section-title">
+                <div class="section-number">10</div>
+                Practical Applications: Biological Case Studies
+            </div>
+            
+            <div class="section-content">
+                RNA velocity has revolutionized our ability to study dynamic biological processes from static snapshots. Below are detailed examples of how velocity analysis has provided unique insights across diverse biological systems, from development to disease to drug response.
+            </div>
+            
+            <div class="application-item">
+                <div class="application-title">🩸 Hematopoiesis: Blood Cell Development</div>
+                <div style="margin-top: 10px; line-height: 1.7;">
+                    <strong>Application:</strong> Mapping lineage commitment decisions from hematopoietic stem cells (HSCs) to mature blood cell types.<br><br>
+                    
+                    <strong>Key Insights:</strong><br>
+                    • Revealed bifurcation points where multipotent progenitors commit to myeloid vs. lymphoid fates<br>
+                    • Identified transient intermediate states not captured by standard clustering<br>
+                    • Showed asymmetric differentiation rates: myeloid commitment faster than lymphoid<br>
+                    • Predicted regulatory genes driving lineage decisions (e.g., Gata1, Gfi1, PU.1)<br><br>
+                    
+                    <strong>Impact:</strong> Better understanding of leukemia where normal differentiation is blocked; potential therapeutic targets to restore proper maturation.
+                </div>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-title">🧠 Neurogenesis: Brain Development</div>
+                <div style="margin-top: 10px; line-height: 1.7;">
+                    <strong>Application:</strong> Tracing neural stem cell differentiation into diverse neuron and glia subtypes during cortical development.<br><br>
+                    
+                    <strong>Key Insights:</strong><br>
+                    • Mapped progression from radial glia → neural progenitors → immature neurons → mature neuron subtypes<br>
+                    • Identified branch points leading to excitatory vs. inhibitory neuron fates<br>
+                    • Revealed temporal dynamics: neurogenesis proceeds in waves with distinct subtype-specific timings<br>
+                    • Found progenitor pools with different proliferative capacities and fate potentials<br><br>
+                    
+                    <strong>Impact:</strong> Insights into neurodevelopmental disorders; guides protocols for generating specific neuron types from stem cells for therapy.
+                </div>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-title">🔄 Cell Cycle Dynamics</div>
+                <div style="margin-top: 10px; line-height: 1.7;">
+                    <strong>Application:</strong> Distinguishing actively cycling cells from quiescent cells and determining cell cycle phase.<br><br>
+                    
+                    <strong>Key Insights:</strong><br>
+                    • Velocity forms circular patterns for cycling cells (G1 → S → G2 → M → G1)<br>
+                    • Identified cells exiting cycle (velocity away from G1) vs. entering quiescence (G0)<br>
+                    • Revealed heterogeneity in cell cycle speed across different cell types in same tissue<br>
+                    • Detected cell cycle re-entry in response to growth factors or damage<br><br>
+                    
+                    <strong>Impact:</strong> Cancer research - understanding proliferation control; regenerative medicine - optimizing expansion protocols.
+                </div>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-title">🦠 Tumor Evolution & Heterogeneity</div>
+                <div style="margin-top: 10px; line-height: 1.7;">
+                    <strong>Application:</strong> Tracking malignant transformation and emergence of therapy-resistant clones in cancer.<br><br>
+                    
+                    <strong>Key Insights:</strong><br>
+                    • Mapped progression from pre-malignant → early cancer → invasive → metastatic states<br>
+                    • Identified velocity toward epithelial-mesenchymal transition (EMT) in metastatic cells<br>
+                    • Revealed coexistence of multiple evolving subclones with different trajectories<br>
+                    • Predicted cells transitioning toward drug-resistant phenotypes before treatment<br><br>
+                    
+                    <strong>Impact:</strong> Precision oncology - identifying vulnerable states; predicting resistance mechanisms; designing combination therapies.
+                </div>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-title">🛡️ Immune Response Dynamics</div>
+                <div style="margin-top: 10px; line-height: 1.7;">
+                    <strong>Application:</strong> Understanding T cell activation, differentiation, and exhaustion during infection or immunotherapy.<br><br>
+                    
+                    <strong>Key Insights:</strong><br>
+                    • Traced naive T cells → activated → effector → memory or exhausted fates<br>
+                    • Identified early exhaustion signatures before functional decline becomes irreversible<br>
+                    • Revealed bifurcation toward memory vs. terminal effector trajectories<br>
+                    • Showed checkpoint blockade reverses exhaustion velocity in some cells<br><br>
+                    
+                    <strong>Impact:</strong> Immunotherapy optimization - predicting which cells will respond; timing interventions to prevent exhaustion.
+                </div>
+            </div>
+            
+            <div class="application-item">
+                <div class="application-title">💊 Drug Response Profiling</div>
+                <div style="margin-top: 10px; line-height: 1.7;">
+                    <strong>Application:</strong> Measuring how drugs alter cellular trajectories and identifying resistance mechanisms.<br><br>
+                    
+                    <strong>Key Insights:</strong><br>
+                    • Compared velocity fields before vs. after drug treatment to quantify effect<br>
+                    • Anti-cancer drugs: reduced velocity magnitude = cells arrested in current state<br>
+                    • Identified subpopulations with altered velocity (e.g., toward quiescence = resistance)<br>
+                    • Predicted optimal drug timing based on when cells are most vulnerable<br><br>
+                    
+                    <strong>Impact:</strong> Drug development - understanding mechanism of action; personalized medicine - predicting patient response.
+                </div>
+            </div>
+            
+            <div class="note-box">
+                <div class="note-text" style="font-size: 16px; line-height: 1.7;">
+                    <strong>Future Directions:</strong> RNA velocity is being extended with multi-modal data (protein velocity from CITE-seq, chromatin velocity from scATAC-seq), combined with metabolic flux analysis, and integrated with spatial transcriptomics to understand tissue-level dynamics. These advances promise even deeper insights into the temporal dimension of single-cell biology.
+                </div>
+            </div>
+        </div>
+        
+        <!-- Conclusion -->
+        <div class="note-box" style="margin-top: 50px;">
+            <div class="note-text" style="font-size: 16px; line-height: 1.7;">
+                <strong>Summary:</strong> These advanced sections have covered the mathematical foundations, computational workflows, interpretation strategies, and real-world applications of RNA velocity analysis. When combined with careful experimental design, appropriate quality control, and biological validation, RNA velocity transforms static single-cell snapshots into dynamic movies of cellular processes—revealing the hidden temporal dimension of gene expression and enabling predictions that guide experimental biology.
+            </div>
+        </div>
+        
+        <!-- References for Advanced Sections -->
+        <div style="margin-top: 40px; padding: 25px; background: #f0f5fc; border-radius: 10px; border: 2px solid #1E64C8;">
+            <h3 style="color: #1E64C8; margin-bottom: 20px; font-size: 20px;">Additional References for Advanced Topics</h3>
+            <ul style="line-height: 2.2; color: #333; font-size: 15px;">
+                <li><strong>Dynamical modeling:</strong> Bergen et al. (2020). "Generalizing RNA velocity to transient cell states through dynamical modeling." Nature Biotechnology.</li>
+                <li><strong>Parameter estimation:</strong> Gorin et al. (2020). "RNA velocity estimation through splicing kinetics." Cell Systems.</li>
+                <li><strong>Validation strategies:</strong> Qiu et al. (2022). "Mapping transcriptomic vector fields of single cells." Cell.</li>
+                <li><strong>CellRank trajectories:</strong> Lange et al. (2022). "CellRank for directed single-cell fate mapping." Nature Methods.</li>
+                <li><strong>Multi-modal velocity:</strong> Gayoso et al. (2022). "Deep generative modeling of transcriptional dynamics for RNA velocity analysis." Nature Methods.</li>
+                <li><strong>Critical assessment:</strong> Gorin et al. (2022). "RNA velocity unraveled." PLoS Computational Biology.</li>
+                <li><strong>Applications review:</strong> Tritschler et al. (2019). "Concepts and limitations for learning developmental trajectories from single cell genomics." Development.</li>
+            </ul>
+        </div>
+        
+    </div>
 </body>
 </html>
