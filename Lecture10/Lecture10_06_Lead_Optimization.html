@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -109,6 +109,11 @@
             50% { transform: scale(1.05); opacity: 1; }
         }
 
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
         .rotate-slow {
             animation: rotate 20s linear infinite;
             transform-origin: center;
@@ -116,6 +121,187 @@
 
         .pulse-node {
             animation: pulse 2s ease-in-out infinite;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.8s ease-out forwards;
+        }
+
+        .section-divider {
+            height: 2px;
+            background: linear-gradient(to right, transparent, #1E64C8, transparent);
+            margin: 60px 0 40px 0;
+        }
+
+        .diagram-container {
+            background: #f8f9fa;
+            padding: 30px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.05);
+        }
+
+        .diagram-title {
+            font-size: 24px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .comparison-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin: 20px 0;
+        }
+
+        .comparison-card {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .comparison-card:hover {
+            border-color: #1E64C8;
+            box-shadow: 0 4px 12px rgba(30, 100, 200, 0.1);
+            transform: translateY(-2px);
+        }
+
+        .comparison-card h4 {
+            color: #1E64C8;
+            font-size: 18px;
+            margin-bottom: 12px;
+        }
+
+        .timeline-container {
+            position: relative;
+            padding: 20px 0;
+        }
+
+        .timeline-line {
+            position: absolute;
+            left: 50%;
+            top: 0;
+            bottom: 0;
+            width: 3px;
+            background: linear-gradient(to bottom, #1E64C8, #64b5f6);
+            transform: translateX(-50%);
+        }
+
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+            display: flex;
+            align-items: center;
+        }
+
+        .timeline-item:nth-child(odd) {
+            flex-direction: row;
+        }
+
+        .timeline-item:nth-child(even) {
+            flex-direction: row-reverse;
+        }
+
+        .timeline-content {
+            flex: 1;
+            background: white;
+            padding: 20px;
+            border-radius: 8px;
+            border: 2px solid #e3f2fd;
+            margin: 0 30px;
+        }
+
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: #1E64C8;
+            border-radius: 50%;
+            border: 4px solid white;
+            box-shadow: 0 0 0 3px #1E64C8;
+            z-index: 1;
+        }
+
+        .property-matrix {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .property-cell {
+            background: white;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            padding: 15px;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .property-cell:hover {
+            border-color: #1E64C8;
+            transform: scale(1.05);
+        }
+
+        .property-cell .property-label {
+            font-size: 12px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .property-cell .property-value {
+            font-size: 20px;
+            font-weight: 700;
+            color: #1E64C8;
+        }
+
+        .strategy-flow {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 30px 0;
+        }
+
+        .strategy-step {
+            flex: 1;
+            background: white;
+            border: 2px solid #e3f2fd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            position: relative;
+        }
+
+        .strategy-arrow {
+            font-size: 24px;
+            color: #1E64C8;
+            margin: 0 10px;
+        }
+
+        .callout-box {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 25px;
+            border-radius: 12px;
+            margin: 20px 0;
+            box-shadow: 0 6px 20px rgba(102, 126, 234, 0.3);
+        }
+
+        .callout-box h4 {
+            font-size: 20px;
+            margin-bottom: 12px;
+        }
+
+        .stat-highlight {
+            display: inline-block;
+            background: rgba(255, 255, 255, 0.2);
+            padding: 5px 15px;
+            border-radius: 20px;
+            margin: 5px;
+            font-weight: 600;
         }
     </style>
 </head>
@@ -319,6 +505,591 @@
                 <li><strong>Patent Avoidance</strong>: Finding structures that are effective yet do not infringe on existing patents is challenging.</li>
             </ul>
         </div>
+
+        <!-- New English Sections Begin Here -->
+        <div class="section-divider"></div>
+
+        <!-- Design-Make-Test-Analyze Cycle -->
+        <div class="explanation-box">
+            <h3>🔁 The Design-Make-Test-Analyze (DMTA) Cycle</h3>
+            <p>Lead optimization follows an iterative DMTA cycle that systematically improves compound properties through rapid learning cycles.</p>
+            
+            <div class="diagram-container">
+                <svg width="900" height="300" viewBox="0 0 900 300">
+                    <!-- Cycle boxes -->
+                    <g transform="translate(100, 150)">
+                        <rect x="-80" y="-50" width="160" height="100" rx="10" fill="#e3f2fd" stroke="#1E64C8" stroke-width="3"/>
+                        <text x="0" y="-15" text-anchor="middle" font-size="18" font-weight="700" fill="#1E64C8">DESIGN</text>
+                        <text x="0" y="5" text-anchor="middle" font-size="12" fill="#666">Computational</text>
+                        <text x="0" y="22" text-anchor="middle" font-size="12" fill="#666">modeling &amp;</text>
+                        <text x="0" y="39" text-anchor="middle" font-size="12" fill="#666">SAR analysis</text>
+                    </g>
+
+                    <g transform="translate(325, 150)">
+                        <rect x="-80" y="-50" width="160" height="100" rx="10" fill="#fff3cd" stroke="#ffc107" stroke-width="3"/>
+                        <text x="0" y="-15" text-anchor="middle" font-size="18" font-weight="700" fill="#f57f17">MAKE</text>
+                        <text x="0" y="5" text-anchor="middle" font-size="12" fill="#666">Chemical</text>
+                        <text x="0" y="22" text-anchor="middle" font-size="12" fill="#666">synthesis &amp;</text>
+                        <text x="0" y="39" text-anchor="middle" font-size="12" fill="#666">purification</text>
+                    </g>
+
+                    <g transform="translate(550, 150)">
+                        <rect x="-80" y="-50" width="160" height="100" rx="10" fill="#d4edda" stroke="#28a745" stroke-width="3"/>
+                        <text x="0" y="-15" text-anchor="middle" font-size="18" font-weight="700" fill="#155724">TEST</text>
+                        <text x="0" y="5" text-anchor="middle" font-size="12" fill="#666">Biological</text>
+                        <text x="0" y="22" text-anchor="middle" font-size="12" fill="#666">assays &amp;</text>
+                        <text x="0" y="39" text-anchor="middle" font-size="12" fill="#666">ADMET profiling</text>
+                    </g>
+
+                    <g transform="translate(775, 150)">
+                        <rect x="-80" y="-50" width="160" height="100" rx="10" fill="#f3e5f5" stroke="#9c27b0" stroke-width="3"/>
+                        <text x="0" y="-15" text-anchor="middle" font-size="18" font-weight="700" fill="#6a1b9a">ANALYZE</text>
+                        <text x="0" y="5" text-anchor="middle" font-size="12" fill="#666">Data integration</text>
+                        <text x="0" y="22" text-anchor="middle" font-size="12" fill="#666">&amp; hypothesis</text>
+                        <text x="0" y="39" text-anchor="middle" font-size="12" fill="#666">generation</text>
+                    </g>
+
+                    <!-- Arrows -->
+                    <path d="M 180 150 L 225 150" stroke="#1E64C8" stroke-width="4" marker-end="url(#arrow-blue)"/>
+                    <path d="M 405 150 L 450 150" stroke="#1E64C8" stroke-width="4" marker-end="url(#arrow-blue)"/>
+                    <path d="M 630 150 L 675 150" stroke="#1E64C8" stroke-width="4" marker-end="url(#arrow-blue)"/>
+                    
+                    <!-- Return arrow -->
+                    <path d="M 775 220 Q 450 270, 100 220" stroke="#9c27b0" stroke-width="4" stroke-dasharray="8,4" marker-end="url(#arrow-purple)"/>
+                    <text x="450" y="285" text-anchor="middle" font-size="14" font-weight="600" fill="#9c27b0">Iterative Learning</text>
+
+                    <defs>
+                        <marker id="arrow-blue" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#1E64C8"/>
+                        </marker>
+                        <marker id="arrow-purple" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
+                            <polygon points="0 0, 10 3, 0 6" fill="#9c27b0"/>
+                        </marker>
+                    </defs>
+                </svg>
+            </div>
+
+            <div class="callout-box">
+                <h4>⚡ Cycle Efficiency Metrics</h4>
+                <p>Modern drug discovery programs aim to complete each DMTA cycle in:</p>
+                <div>
+                    <span class="stat-highlight">2-4 weeks</span>
+                    <span class="stat-highlight">10-20 compounds/cycle</span>
+                    <span class="stat-highlight">80% data return</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Property Evolution Timeline -->
+        <div class="explanation-box">
+            <h3>📈 Property Evolution Through Optimization Cycles</h3>
+            <p>As compounds progress through optimization cycles, key properties systematically improve toward clinical candidate criteria.</p>
+            
+            <div class="diagram-container">
+                <div class="diagram-title">Typical Property Improvement Trajectory</div>
+                <svg width="900" height="350" viewBox="0 0 900 350">
+                    <!-- Axes -->
+                    <line x1="80" y1="50" x2="80" y2="300" stroke="#333" stroke-width="2"/>
+                    <line x1="80" y1="300" x2="850" y2="300" stroke="#333" stroke-width="2"/>
+                    
+                    <!-- Y-axis label -->
+                    <text x="30" y="175" text-anchor="middle" font-size="14" font-weight="600" fill="#333" transform="rotate(-90, 30, 175)">Property Score</text>
+                    
+                    <!-- X-axis labels -->
+                    <text x="150" y="325" text-anchor="middle" font-size="13" fill="#666">Hit</text>
+                    <text x="300" y="325" text-anchor="middle" font-size="13" fill="#666">Lead</text>
+                    <text x="450" y="325" text-anchor="middle" font-size="13" fill="#666">Cycle 1</text>
+                    <text x="600" y="325" text-anchor="middle" font-size="13" fill="#666">Cycle 2</text>
+                    <text x="750" y="325" text-anchor="middle" font-size="13" fill="#666">Candidate</text>
+
+                    <!-- Potency line -->
+                    <path d="M 150 250 L 300 210 L 450 160 L 600 120 L 750 80" 
+                          stroke="#e91e63" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <circle cx="150" cy="250" r="6" fill="#e91e63"/>
+                    <circle cx="300" cy="210" r="6" fill="#e91e63"/>
+                    <circle cx="450" cy="160" r="6" fill="#e91e63"/>
+                    <circle cx="600" cy="120" r="6" fill="#e91e63"/>
+                    <circle cx="750" cy="80" r="6" fill="#e91e63"/>
+
+                    <!-- Selectivity line -->
+                    <path d="M 150 280 L 300 250 L 450 200 L 600 140 L 750 95" 
+                          stroke="#28a745" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <circle cx="150" cy="280" r="6" fill="#28a745"/>
+                    <circle cx="300" cy="250" r="6" fill="#28a745"/>
+                    <circle cx="450" cy="200" r="6" fill="#28a745"/>
+                    <circle cx="600" cy="140" r="6" fill="#28a745"/>
+                    <circle cx="750" cy="95" r="6" fill="#28a745"/>
+
+                    <!-- ADMET line -->
+                    <path d="M 150 290 L 300 270 L 450 230 L 600 170 L 750 110" 
+                          stroke="#17a2b8" stroke-width="4" fill="none" stroke-linecap="round"/>
+                    <circle cx="150" cy="290" r="6" fill="#17a2b8"/>
+                    <circle cx="300" cy="270" r="6" fill="#17a2b8"/>
+                    <circle cx="450" cy="230" r="6" fill="#17a2b8"/>
+                    <circle cx="600" cy="170" r="6" fill="#17a2b8"/>
+                    <circle cx="750" cy="110" r="6" fill="#17a2b8"/>
+
+                    <!-- Legend -->
+                    <g transform="translate(100, 30)">
+                        <line x1="0" y1="0" x2="30" y2="0" stroke="#e91e63" stroke-width="4"/>
+                        <text x="40" y="5" font-size="12" fill="#666">Potency (IC₅₀)</text>
+
+                        <line x1="150" y1="0" x2="180" y2="0" stroke="#28a745" stroke-width="4"/>
+                        <text x="190" y="5" font-size="12" fill="#666">Selectivity Index</text>
+
+                        <line x1="340" y1="0" x2="370" y2="0" stroke="#17a2b8" stroke-width="4"/>
+                        <text x="380" y="5" font-size="12" fill="#666">ADMET Profile</text>
+                    </g>
+
+                    <!-- Threshold line -->
+                    <line x1="80" y1="120" x2="850" y2="120" stroke="#ffc107" stroke-width="2" stroke-dasharray="8,4"/>
+                    <text x="860" y="125" font-size="12" font-weight="600" fill="#f57f17">Candidate Threshold</text>
+                </svg>
+            </div>
+
+            <p>The graph illustrates how compounds evolve from initial hits with moderate properties to optimized candidates that meet stringent clinical criteria. Note that improvement is rarely linear, and some cycles may show lateral movement as different properties are prioritized.</p>
+        </div>
+
+        <!-- Multi-Parameter Optimization Challenges -->
+        <div class="explanation-box">
+            <h3>⚖️ Multi-Parameter Optimization: The Balancing Act</h3>
+            <p>One of the greatest challenges in lead optimization is simultaneously optimizing multiple, often conflicting, molecular properties.</p>
+
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h4>🎯 Potency vs. Selectivity</h4>
+                    <p><strong>Challenge:</strong> Increasing binding affinity for the target often simultaneously increases binding to off-targets.</p>
+                    <p><strong>Strategy:</strong> Exploit unique structural features of the target binding site through structure-guided design.</p>
+                </div>
+
+                <div class="comparison-card">
+                    <h4>💊 Potency vs. Solubility</h4>
+                    <p><strong>Challenge:</strong> Highly lipophilic groups that enhance potency often reduce aqueous solubility.</p>
+                    <p><strong>Strategy:</strong> Incorporate polar groups strategically in non-binding regions or use prodrug approaches.</p>
+                </div>
+
+                <div class="comparison-card">
+                    <h4>🧬 Selectivity vs. Metabolic Stability</h4>
+                    <p><strong>Challenge:</strong> Blocking metabolic soft spots may alter selectivity profile.</p>
+                    <p><strong>Strategy:</strong> Iteratively test metabolites and use bioisosteric replacements to maintain selectivity.</p>
+                </div>
+
+                <div class="comparison-card">
+                    <h4>🏭 Potency vs. Synthetic Accessibility</h4>
+                    <p><strong>Challenge:</strong> Complex molecules with high potency may be impractical to synthesize at scale.</p>
+                    <p><strong>Strategy:</strong> Involve process chemistry early and design with synthesis in mind from the start.</p>
+                </div>
+            </div>
+
+            <div class="diagram-container">
+                <div class="diagram-title">Property Radar Chart: Hit vs. Optimized Candidate</div>
+                <svg width="900" height="450" viewBox="0 0 900 450">
+                    <!-- Radar chart center -->
+                    <g transform="translate(450, 225)">
+                        <!-- Concentric circles -->
+                        <circle cx="0" cy="0" r="40" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+                        <circle cx="0" cy="0" r="80" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+                        <circle cx="0" cy="0" r="120" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+                        <circle cx="0" cy="0" r="160" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+                        <circle cx="0" cy="0" r="200" fill="none" stroke="#e0e0e0" stroke-width="1"/>
+
+                        <!-- Axis lines -->
+                        <line x1="0" y1="0" x2="0" y2="-200" stroke="#999" stroke-width="1"/>
+                        <line x1="0" y1="0" x2="173" y2="-100" stroke="#999" stroke-width="1"/>
+                        <line x1="0" y1="0" x2="173" y2="100" stroke="#999" stroke-width="1"/>
+                        <line x1="0" y1="0" x2="0" y2="200" stroke="#999" stroke-width="1"/>
+                        <line x1="0" y1="0" x2="-173" y2="100" stroke="#999" stroke-width="1"/>
+                        <line x1="0" y1="0" x2="-173" y2="-100" stroke="#999" stroke-width="1"/>
+
+                        <!-- Labels -->
+                        <text x="0" y="-220" text-anchor="middle" font-size="13" font-weight="600" fill="#333">Potency</text>
+                        <text x="195" y="-90" text-anchor="start" font-size="13" font-weight="600" fill="#333">Selectivity</text>
+                        <text x="195" y="110" text-anchor="start" font-size="13" font-weight="600" fill="#333">ADMET</text>
+                        <text x="0" y="230" text-anchor="middle" font-size="13" font-weight="600" fill="#333">Solubility</text>
+                        <text x="-195" y="110" text-anchor="end" font-size="13" font-weight="600" fill="#333">Stability</text>
+                        <text x="-195" y="-90" text-anchor="end" font-size="13" font-weight="600" fill="#333">Synthesis</text>
+
+                        <!-- Hit compound (red) -->
+                        <polygon points="0,-80 69,-40 86,60 0,100 -86,60 -69,-40" 
+                                 fill="rgba(244, 67, 54, 0.3)" stroke="#f44336" stroke-width="3"/>
+
+                        <!-- Optimized candidate (green) -->
+                        <polygon points="0,-180 156,-90 165,95 0,160 -165,95 -156,-90" 
+                                 fill="rgba(76, 175, 80, 0.3)" stroke="#4caf50" stroke-width="3"/>
+
+                        <!-- Legend -->
+                        <g transform="translate(-350, 180)">
+                            <rect x="0" y="0" width="20" height="15" fill="rgba(244, 67, 54, 0.5)" stroke="#f44336"/>
+                            <text x="30" y="12" font-size="13" fill="#666">Initial Hit</text>
+
+                            <rect x="150" y="0" width="20" height="15" fill="rgba(76, 175, 80, 0.5)" stroke="#4caf50"/>
+                            <text x="180" y="12" font-size="13" fill="#666">Optimized Candidate</text>
+                        </g>
+                    </g>
+                </svg>
+            </div>
+        </div>
+
+        <!-- Chemical Modifications Toolkit -->
+        <div class="explanation-box">
+            <h3>🔧 Chemical Modification Toolkit</h3>
+            <p>Medicinal chemists employ a variety of structural modifications to fine-tune compound properties during optimization.</p>
+
+            <div class="property-matrix">
+                <div class="property-cell">
+                    <div class="property-label">Bioisosteric Replacement</div>
+                    <div class="property-value">C=O → SO₂</div>
+                </div>
+                <div class="property-cell">
+                    <div class="property-label">Ring Expansion</div>
+                    <div class="property-value">5→6→7</div>
+                </div>
+                <div class="property-cell">
+                    <div class="property-label">Methylation</div>
+                    <div class="property-value">H → CH₃</div>
+                </div>
+                <div class="property-cell">
+                    <div class="property-label">Fluorination</div>
+                    <div class="property-value">H → F</div>
+                </div>
+                <div class="property-cell">
+                    <div class="property-label">Cyclization</div>
+                    <div class="property-value">Linear→Cyclic</div>
+                </div>
+                <div class="property-cell">
+                    <div class="property-label">Rigidification</div>
+                    <div class="property-value">Conformational Lock</div>
+                </div>
+                <div class="property-cell">
+                    <div class="property-label">Scaffold Hopping</div>
+                    <div class="property-value">Core Change</div>
+                </div>
+                <div class="property-cell">
+                    <div class="property-label">Prodrug Strategy</div>
+                    <div class="property-value">Masking Groups</div>
+                </div>
+                <div class="property-cell">
+                    <div class="property-label">Deuteration</div>
+                    <div class="property-value">H → D</div>
+                </div>
+            </div>
+
+            <div class="strategy-flow">
+                <div class="strategy-step">
+                    <strong style="color: #1E64C8;">Identify Liability</strong>
+                    <p style="font-size: 13px; margin-top: 8px; color: #666;">Poor solubility, rapid metabolism, off-target binding</p>
+                </div>
+                <div class="strategy-arrow">→</div>
+                <div class="strategy-step">
+                    <strong style="color: #1E64C8;">Select Modification</strong>
+                    <p style="font-size: 13px; margin-top: 8px; color: #666;">Choose appropriate chemical strategy</p>
+                </div>
+                <div class="strategy-arrow">→</div>
+                <div class="strategy-step">
+                    <strong style="color: #1E64C8;">Synthesize &amp; Test</strong>
+                    <p style="font-size: 13px; margin-top: 8px; color: #666;">Evaluate impact on all properties</p>
+                </div>
+                <div class="strategy-arrow">→</div>
+                <div class="strategy-step">
+                    <strong style="color: #1E64C8;">Iterate</strong>
+                    <p style="font-size: 13px; margin-top: 8px; color: #666;">Refine based on results</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Advanced Technologies -->
+        <div class="explanation-box">
+            <h3>🚀 Enabling Technologies in Modern Lead Optimization</h3>
+            <p>Contemporary lead optimization leverages cutting-edge technologies to accelerate the discovery process and improve success rates.</p>
+
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h4>🤖 AI/Machine Learning</h4>
+                    <ul style="font-size: 13px; margin-top: 10px;">
+                        <li>Predictive ADMET modeling</li>
+                        <li>De novo molecular design</li>
+                        <li>Synthesis route planning</li>
+                        <li>SAR prediction</li>
+                    </ul>
+                </div>
+
+                <div class="comparison-card">
+                    <h4>🧪 High-Throughput Chemistry</h4>
+                    <ul style="font-size: 13px; margin-top: 10px;">
+                        <li>Parallel synthesis platforms</li>
+                        <li>Automated purification</li>
+                        <li>Library enumeration</li>
+                        <li>Rapid analog generation</li>
+                    </ul>
+                </div>
+
+                <div class="comparison-card">
+                    <h4>🔬 Structural Biology</h4>
+                    <ul style="font-size: 13px; margin-top: 10px;">
+                        <li>Cryo-EM structures</li>
+                        <li>X-ray crystallography</li>
+                        <li>Fragment-based design</li>
+                        <li>Protein dynamics modeling</li>
+                    </ul>
+                </div>
+
+                <div class="comparison-card">
+                    <h4>📊 Data Integration Platforms</h4>
+                    <ul style="font-size: 13px; margin-top: 10px;">
+                        <li>Multi-parameter optimization</li>
+                        <li>Real-time data analysis</li>
+                        <li>Decision support systems</li>
+                        <li>Knowledge management</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="callout-box">
+                <h4>💡 Impact on Development Timeline</h4>
+                <p>Integration of these technologies can reduce lead optimization timelines by 30-50% compared to traditional approaches, while simultaneously improving the quality of development candidates.</p>
+            </div>
+        </div>
+
+        <!-- Case Study Timeline -->
+        <div class="explanation-box">
+            <h3>📅 Typical Lead Optimization Timeline</h3>
+            <p>A representative timeline showing the progression from lead identification to candidate selection.</p>
+
+            <div class="timeline-container" style="padding: 40px 0;">
+                <div class="timeline-line"></div>
+                
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4 style="color: #1E64C8; margin-bottom: 8px;">Month 0-2: Lead Validation</h4>
+                        <p style="font-size: 14px; color: #666;">Confirm initial hit activity, establish assays, develop SAR hypothesis</p>
+                        <div style="margin-top: 8px; font-size: 13px; color: #28a745;">✓ 20-30 analogs synthesized</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div style="flex: 1;"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div style="flex: 1;"></div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4 style="color: #1E64C8; margin-bottom: 8px;">Month 3-6: Cycle 1 - Potency Focus</h4>
+                        <p style="font-size: 14px; color: #666;">Optimize binding affinity, establish initial ADMET profile</p>
+                        <div style="margin-top: 8px; font-size: 13px; color: #28a745;">✓ IC₅₀ improved from 500 nM to 50 nM</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4 style="color: #1E64C8; margin-bottom: 8px;">Month 7-10: Cycle 2 - Selectivity</h4>
+                        <p style="font-size: 14px; color: #666;">Address off-target binding, improve selectivity window</p>
+                        <div style="margin-top: 8px; font-size: 13px; color: #28a745;">✓ Selectivity index >100-fold achieved</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div style="flex: 1;"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div style="flex: 1;"></div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content">
+                        <h4 style="color: #1E64C8; margin-bottom: 8px;">Month 11-14: Cycle 3 - ADMET</h4>
+                        <p style="font-size: 14px; color: #666;">Optimize pharmacokinetic properties, reduce toxicity liabilities</p>
+                        <div style="margin-top: 8px; font-size: 13px; color: #28a745;">✓ Oral bioavailability >40%, acceptable half-life</div>
+                    </div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <h4 style="color: #1E64C8; margin-bottom: 8px;">Month 15-18: Refinement &amp; Scale-up</h4>
+                        <p style="font-size: 14px; color: #666;">Final property balancing, synthesis optimization, candidate selection</p>
+                        <div style="margin-top: 8px; font-size: 13px; color: #28a745;">✓ 2-3 backup candidates identified</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                    <div style="flex: 1;"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div style="flex: 1;"></div>
+                    <div class="timeline-dot"></div>
+                    <div class="timeline-content" style="background: #d4edda; border-color: #28a745;">
+                        <h4 style="color: #155724; margin-bottom: 8px;">Month 18+: Candidate Nomination</h4>
+                        <p style="font-size: 14px; color: #155724; font-weight: 600;">Progression to Preclinical Development</p>
+                        <div style="margin-top: 8px; font-size: 13px; color: #155724;">✓ IND-enabling studies initiated</div>
+                    </div>
+                </div>
+            </div>
+
+            <p style="margin-top: 20px;"><strong>Note:</strong> Timelines can vary significantly depending on target class, therapeutic area, and specific challenges encountered. Complex targets or novel mechanisms may require 2-3 years of optimization.</p>
+        </div>
+
+        <!-- Success Metrics -->
+        <div class="explanation-box">
+            <h3>🎯 Measuring Optimization Success</h3>
+            <p>Key performance indicators used to track progress and make go/no-go decisions during lead optimization.</p>
+
+            <div class="diagram-container">
+                <div class="diagram-title">Clinical Candidate Quality Scorecard</div>
+                
+                <table style="width: 100%; border-collapse: collapse; margin-top: 20px;">
+                    <thead>
+                        <tr style="background: #1E64C8; color: white;">
+                            <th style="padding: 12px; text-align: left; border: 1px solid #ddd;">Property</th>
+                            <th style="padding: 12px; text-align: center; border: 1px solid #ddd;">Minimal</th>
+                            <th style="padding: 12px; text-align: center; border: 1px solid #ddd;">Target</th>
+                            <th style="padding: 12px; text-align: center; border: 1px solid #ddd;">Optimal</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">Potency (IC₅₀)</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #fff3cd;">&lt;100 nM</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #e3f2fd;">&lt;10 nM</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #d4edda;">&lt;1 nM</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">Selectivity Index</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #fff3cd;">&gt;30×</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #e3f2fd;">&gt;100×</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #d4edda;">&gt;1000×</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">Oral Bioavailability</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #fff3cd;">&gt;20%</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #e3f2fd;">&gt;40%</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #d4edda;">&gt;60%</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">Half-life (t₁/₂)</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #fff3cd;">2-4 hr</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #e3f2fd;">4-8 hr</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #d4edda;">8-24 hr</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">hERG IC₅₀</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #fff3cd;">&gt;10 µM</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #e3f2fd;">&gt;30 µM</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #d4edda;">No inhibition</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">Solubility</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #fff3cd;">&gt;10 µg/mL</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #e3f2fd;">&gt;50 µg/mL</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #d4edda;">&gt;100 µg/mL</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 10px; border: 1px solid #ddd; font-weight: 600;">Metabolic Stability</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #fff3cd;">&gt;50% @ 1hr</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #e3f2fd;">&gt;70% @ 1hr</td>
+                            <td style="padding: 10px; border: 1px solid #ddd; text-align: center; background: #d4edda;">&gt;85% @ 1hr</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+
+            <div class="callout-box" style="margin-top: 20px;">
+                <h4>📈 Industry Success Rates</h4>
+                <p>Only approximately <span class="stat-highlight">12%</span> of compounds entering lead optimization ultimately progress to clinical development. The integration of predictive technologies and rigorous selection criteria continues to improve these success rates.</p>
+            </div>
+        </div>
+
+        <!-- Best Practices -->
+        <div class="explanation-box">
+            <h3>✨ Best Practices for Effective Lead Optimization</h3>
+            
+            <div class="comparison-grid">
+                <div class="comparison-card">
+                    <h4>🎯 Early ADMET Integration</h4>
+                    <p>Don't wait until late-stage optimization to address pharmacokinetic issues. Integrate ADMET screening from the first design cycle to avoid late-stage failures.</p>
+                </div>
+
+                <div class="comparison-card">
+                    <h4>🔄 Fail Fast Philosophy</h4>
+                    <p>Quickly identify and terminate unpromising chemical series. Redirect resources to more promising scaffolds rather than over-optimizing marginal leads.</p>
+                </div>
+
+                <div class="comparison-card">
+                    <h4>🤝 Cross-Functional Teams</h4>
+                    <p>Establish regular communication between medicinal chemistry, biology, DMPK, and computational teams to enable rapid decision-making and integrated problem-solving.</p>
+                </div>
+
+                <div class="comparison-card">
+                    <h4>📊 Data-Driven Decisions</h4>
+                    <p>Maintain comprehensive databases of all compounds and results. Use data analytics and machine learning to identify subtle SAR trends and predict compound performance.</p>
+                </div>
+
+                <div class="comparison-card">
+                    <h4>🎨 Chemical Diversity</h4>
+                    <p>Explore multiple chemical scaffolds in parallel during early optimization. Don't commit too early to a single chemotype before understanding the SAR landscape.</p>
+                </div>
+
+                <div class="comparison-card">
+                    <h4>⚡ Cycle Time Reduction</h4>
+                    <p>Invest in automation and parallel processing to accelerate DMTA cycles. Faster cycles enable more iterations and better optimization within the same timeline.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Future Directions -->
+        <div class="explanation-box">
+            <h3>🔮 Future Directions in Lead Optimization</h3>
+            <p>Emerging trends and technologies that are reshaping the lead optimization landscape.</p>
+
+            <div class="diagram-container">
+                <svg width="900" height="280" viewBox="0 0 900 280">
+                    <!-- Future tech boxes -->
+                    <g transform="translate(150, 70)">
+                        <rect x="-130" y="-50" width="260" height="100" rx="12" fill="#e8f4f8" stroke="#17a2b8" stroke-width="2"/>
+                        <text x="0" y="-20" text-anchor="middle" font-size="16" font-weight="700" fill="#0c5460">Quantum Computing</text>
+                        <text x="0" y="5" text-anchor="middle" font-size="12" fill="#666">Accurate energy calculations</text>
+                        <text x="0" y="25" text-anchor="middle" font-size="12" fill="#666">for molecular dynamics</text>
+                    </g>
+
+                    <g transform="translate(450, 70)">
+                        <rect x="-130" y="-50" width="260" height="100" rx="12" fill="#f3e5f5" stroke="#9c27b0" stroke-width="2"/>
+                        <text x="0" y="-20" text-anchor="middle" font-size="16" font-weight="700" fill="#6a1b9a">Generative AI</text>
+                        <text x="0" y="5" text-anchor="middle" font-size="12" fill="#666">De novo molecular design</text>
+                        <text x="0" y="25" text-anchor="middle" font-size="12" fill="#666">with multi-property optimization</text>
+                    </g>
+
+                    <g transform="translate(750, 70)">
+                        <rect x="-130" y="-50" width="260" height="100" rx="12" fill="#fff3cd" stroke="#ffc107" stroke-width="2"/>
+                        <text x="0" y="-20" text-anchor="middle" font-size="16" font-weight="700" fill="#f57f17">Organ-on-Chip</text>
+                        <text x="0" y="5" text-anchor="middle" font-size="12" fill="#666">Miniaturized human tissue</text>
+                        <text x="0" y="25" text-anchor="middle" font-size="12" fill="#666">models for ADMET prediction</text>
+                    </g>
+
+                    <g transform="translate(300, 210)">
+                        <rect x="-130" y="-50" width="260" height="100" rx="12" fill="#d4edda" stroke="#28a745" stroke-width="2"/>
+                        <text x="0" y="-20" text-anchor="middle" font-size="16" font-weight="700" fill="#155724">DNA-Encoded Libraries</text>
+                        <text x="0" y="5" text-anchor="middle" font-size="12" fill="#666">Billions of compounds</text>
+                        <text x="0" y="25" text-anchor="middle" font-size="12" fill="#666">screened simultaneously</text>
+                    </g>
+
+                    <g transform="translate(600, 210)">
+                        <rect x="-130" y="-50" width="260" height="100" rx="12" fill="#fce4ec" stroke="#e91e63" stroke-width="2"/>
+                        <text x="0" y="-20" text-anchor="middle" font-size="16" font-weight="700" fill="#c2185b">AlphaFold Integration</text>
+                        <text x="0" y="5" text-anchor="middle" font-size="12" fill="#666">Protein structure prediction</text>
+                        <text x="0" y="25" text-anchor="middle" font-size="12" fill="#666">for novel target classes</text>
+                    </g>
+                </svg>
+            </div>
+
+            <p style="margin-top: 20px;">These emerging technologies promise to further accelerate drug discovery timelines while improving the quality and safety profiles of development candidates. The integration of AI, advanced biology, and computational chemistry is creating a new paradigm where optimization cycles may be completed in days rather than weeks.</p>
+        </div>
+
+        <!-- Final Summary -->
+        <div class="callout-box" style="background: linear-gradient(135deg, #1E64C8 0%, #0d47a1 100%); margin-top: 40px;">
+            <h4 style="font-size: 24px; margin-bottom: 15px;">🎓 Key Takeaways</h4>
+            <ul style="list-style: none; padding: 0; font-size: 15px; line-height: 1.8;">
+                <li>✓ Lead optimization is an iterative, multi-parameter process requiring 3-5 DMTA cycles</li>
+                <li>✓ Success requires balancing often-conflicting molecular properties (potency, selectivity, ADMET)</li>
+                <li>✓ Integration of computational tools, structural biology, and automation accelerates timelines</li>
+                <li>✓ Early ADMET assessment and cross-functional collaboration are critical success factors</li>
+                <li>✓ Only ~12% of optimized leads advance to clinical development, emphasizing need for rigorous selection</li>
+                <li>✓ Emerging AI and quantum technologies promise to revolutionize the optimization process</li>
+            </ul>
+        </div>
+
     </div>
 </div>
 </body>

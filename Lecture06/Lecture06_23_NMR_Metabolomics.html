@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>NMR Metabolomics - Enhanced</title>
+    <title>Metabolite Identification - Detailed Guide</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -16,14 +16,13 @@
             margin: 0 auto;
             background: white;
             padding: 40px;
-            border-radius: 10px;
             box-shadow: 0 2px 10px rgba(0,0,0,0.1);
         }
         .title {
             font-size: 32px;
-            font-weight: 700;
+            font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 40px;
+            margin-bottom: 30px;
             text-align: center;
             border-bottom: 3px solid #1E64C8;
             padding-bottom: 15px;
@@ -31,57 +30,55 @@
         .content-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
-            gap: 30px;
-            margin-bottom: 50px;
+            gap: 20px;
+            margin-bottom: 40px;
         }
         .content-card {
             background: #f8fbff;
-            border-left: 5px solid #1E64C8;
-            padding: 20px 25px;
-            border-radius: 8px;
+            border-left: 4px solid #1E64C8;
+            padding: 18px 22px;
+            border-radius: 6px;
             transition: all 0.3s;
-            cursor: pointer;
         }
         .content-card:hover {
             background: #e8f2ff;
             transform: translateX(5px);
-            box-shadow: 0 4px 8px rgba(30,100,200,0.2);
         }
         .card-title {
-            font-size: 20px;
+            font-size: 18px;
             font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         .card-content {
             font-size: 16px;
             color: #333;
-            line-height: 1.6;
+            line-height: 1.5;
         }
         .bullet {
             display: flex;
             align-items: flex-start;
-            margin-bottom: 8px;
+            margin-bottom: 6px;
         }
         .bullet::before {
             content: "•";
             color: #1E64C8;
             font-weight: bold;
-            margin-right: 10px;
+            margin-right: 8px;
             font-size: 16px;
         }
         
-        /* Detailed sections */
+        /* Detailed Sections */
         .detailed-section {
             margin-top: 50px;
             padding-top: 30px;
             border-top: 2px solid #e0e0e0;
         }
-        .section-header {
-            font-size: 26px;
-            font-weight: 700;
+        .section-title {
+            font-size: 28px;
+            font-weight: 600;
             color: #1E64C8;
-            margin-bottom: 25px;
+            margin-bottom: 20px;
             display: flex;
             align-items: center;
         }
@@ -97,551 +94,1272 @@
             margin-right: 15px;
             font-size: 20px;
         }
-        .detail-content {
+        .section-content {
             background: #fafafa;
             padding: 25px;
             border-radius: 8px;
             margin-bottom: 30px;
         }
-        .detail-subsection {
+        .subsection {
             margin-bottom: 20px;
         }
         .subsection-title {
-            font-size: 18px;
+            font-size: 20px;
             font-weight: 600;
             color: #2c3e50;
-            margin-bottom: 12px;
-            padding-left: 10px;
-            border-left: 3px solid #1E64C8;
+            margin-bottom: 10px;
         }
-        .detail-text {
+        .text-content {
             font-size: 16px;
             line-height: 1.8;
             color: #444;
             margin-bottom: 15px;
         }
-        .detail-list {
-            margin-left: 20px;
-        }
-        .detail-list li {
-            margin-bottom: 8px;
-            line-height: 1.6;
-            color: #555;
-        }
-        
-        /* Visual representations */
-        .visual-box {
+        .example-box {
             background: white;
             border: 2px solid #1E64C8;
             border-radius: 8px;
             padding: 20px;
-            margin: 20px 0;
-        }
-        .spectrum-visual {
-            height: 150px;
-            background: linear-gradient(to bottom, #f0f8ff 0%, #e8f2ff 100%);
-            border-radius: 5px;
-            position: relative;
             margin: 15px 0;
-            border: 1px solid #ccc;
+        }
+        .example-title {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1E64C8;
+            margin-bottom: 10px;
+        }
+        
+        /* Visual representations */
+        .visual-container {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
+            text-align: center;
+        }
+        .spectrum-chart {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to bottom, #f8f9fa 0%, #ffffff 100%);
+            border: 1px solid #ddd;
+            position: relative;
+            margin: 10px 0;
         }
         .peak {
             position: absolute;
             bottom: 0;
-            width: 3px;
             background: #1E64C8;
+            width: 3px;
         }
-        .peak-1 { left: 15%; height: 60%; }
-        .peak-2 { left: 25%; height: 85%; }
-        .peak-3 { left: 40%; height: 45%; }
-        .peak-4 { left: 55%; height: 70%; }
-        .peak-5 { left: 70%; height: 55%; }
-        .peak-6 { left: 85%; height: 40%; }
+        .peak-label {
+            position: absolute;
+            font-size: 11px;
+            color: #333;
+            font-weight: 600;
+        }
         
-        .spectrum-label {
+        .isotope-pattern {
+            display: flex;
+            justify-content: center;
+            align-items: flex-end;
+            height: 150px;
+            gap: 10px;
+            margin: 20px 0;
+        }
+        .isotope-bar {
+            background: linear-gradient(to top, #1E64C8, #4a8fe7);
+            width: 40px;
+            border-radius: 4px 4px 0 0;
+            position: relative;
+        }
+        .isotope-label {
             position: absolute;
             bottom: -25px;
+            left: 50%;
+            transform: translateX(-50%);
             font-size: 12px;
+            font-weight: 600;
+            white-space: nowrap;
+        }
+        .isotope-percentage {
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            font-size: 11px;
             color: #666;
         }
-        .label-left { left: 0; }
-        .label-right { right: 0; }
         
-        .grid-2d {
-            width: 100%;
-            height: 200px;
-            background: linear-gradient(to right, #f0f8ff 0%, #e8f2ff 50%, #d0e8ff 100%);
-            border-radius: 5px;
-            position: relative;
-            border: 1px solid #ccc;
+        .formula-box {
+            background: #e8f2ff;
+            border-left: 4px solid #1E64C8;
+            padding: 15px;
+            margin: 15px 0;
+            font-family: 'Courier New', monospace;
+            font-size: 18px;
+            font-weight: 600;
+            color: #1E64C8;
         }
-        .correlation-spot {
-            position: absolute;
-            width: 12px;
-            height: 12px;
-            background: #1E64C8;
-            border-radius: 50%;
-            opacity: 0.7;
-        }
-        .spot-1 { left: 30%; top: 40%; }
-        .spot-2 { left: 50%; top: 60%; }
-        .spot-3 { left: 70%; top: 30%; }
-        .spot-4 { left: 45%; top: 75%; }
         
         .comparison-table {
             width: 100%;
             border-collapse: collapse;
             margin: 20px 0;
         }
-        .comparison-table th,
-        .comparison-table td {
-            padding: 12px;
-            text-align: left;
-            border: 1px solid #ddd;
-        }
         .comparison-table th {
             background: #1E64C8;
             color: white;
-            font-weight: 600;
+            padding: 12px;
+            text-align: left;
+            font-size: 14px;
+        }
+        .comparison-table td {
+            padding: 10px 12px;
+            border-bottom: 1px solid #ddd;
+            font-size: 14px;
         }
         .comparison-table tr:nth-child(even) {
-            background: #f8fbff;
+            background: #f8f9fa;
         }
         
-        .highlight-box {
-            background: #fff9e6;
-            border-left: 4px solid #ffc107;
+        .workflow-step {
+            background: white;
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+            position: relative;
+        }
+        .workflow-step::before {
+            content: "→";
+            position: absolute;
+            right: -30px;
+            top: 50%;
+            transform: translateY(-50%);
+            font-size: 24px;
+            color: #1E64C8;
+            font-weight: bold;
+        }
+        .workflow-step:last-child::before {
+            content: "";
+        }
+        
+        .highlight {
+            background: #fff3cd;
+            padding: 2px 6px;
+            border-radius: 3px;
+            font-weight: 600;
+        }
+        
+        .key-point {
+            background: #d4edda;
+            border-left: 4px solid #28a745;
             padding: 15px;
             margin: 15px 0;
             border-radius: 4px;
         }
-        .highlight-title {
-            font-weight: 600;
-            color: #f57c00;
-            margin-bottom: 8px;
-        }
         
-        .workflow-diagram {
-            display: flex;
-            justify-content: space-around;
-            align-items: center;
-            margin: 25px 0;
-            flex-wrap: wrap;
+        .fragmentation-tree {
+            background: white;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 20px 0;
         }
-        .workflow-step {
+        .parent-ion {
             background: #1E64C8;
             color: white;
-            padding: 15px 20px;
-            border-radius: 8px;
+            padding: 10px 20px;
+            border-radius: 6px;
+            display: inline-block;
+            margin: 0 auto;
             font-weight: 600;
-            margin: 10px;
-            min-width: 150px;
-            text-align: center;
-            position: relative;
         }
-        .workflow-step:not(:last-child)::after {
-            content: "→";
-            position: absolute;
-            right: -25px;
+        .fragment-ions {
+            display: flex;
+            justify-content: space-around;
+            margin-top: 30px;
+            flex-wrap: wrap;
+        }
+        .fragment-ion {
+            background: #e8f2ff;
+            border: 2px solid #1E64C8;
+            padding: 8px 15px;
+            border-radius: 6px;
+            font-weight: 600;
             color: #1E64C8;
-            font-size: 24px;
+            margin: 5px;
         }
-        
-        @media (max-width: 768px) {
-            .content-grid {
-                grid-template-columns: 1fr;
-            }
-            .workflow-step:not(:last-child)::after {
-                content: "↓";
-                right: auto;
-                bottom: -25px;
-            }
+        .arrow-down {
+            text-align: center;
+            font-size: 24px;
+            color: #1E64C8;
+            margin: 10px 0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">NMR Metabolomics</div>
+        <div class="title">Metabolite Identification: Comprehensive Guide</div>
         
         <!-- Overview Cards -->
         <div class="content-grid">
             <div class="content-card">
-                <div class="card-title">1H NMR Profiling</div>
+                <div class="card-title">Mass Accuracy</div>
                 <div class="card-content">
-                    <div class="bullet">Non-destructive analysis</div>
-                    <div class="bullet">All proton-containing metabolites</div>
-                    <div class="bullet">Quantitative without standards</div>
+                    <div class="bullet">Sub-5 ppm for confident ID</div>
+                    <div class="bullet">High-resolution mass spec</div>
+                    <div class="bullet">Elemental formula prediction</div>
                 </div>
             </div>
             
             <div class="content-card">
-                <div class="card-title">2D NMR Experiments</div>
+                <div class="card-title">Isotope Patterns</div>
                 <div class="card-content">
-                    <div class="bullet">COSY, TOCSY, HSQC</div>
-                    <div class="bullet">Enhanced resolution</div>
-                    <div class="bullet">Structure elucidation</div>
+                    <div class="bullet">Natural isotope distribution</div>
+                    <div class="bullet">Confirm molecular formula</div>
+                    <div class="bullet">Chlorine/bromine signatures</div>
                 </div>
             </div>
             
             <div class="content-card">
-                <div class="card-title">Quantification</div>
+                <div class="card-title">MS/MS Matching</div>
                 <div class="card-content">
-                    <div class="bullet">Direct concentration measurement</div>
-                    <div class="bullet">Internal standard (TSP, DSS)</div>
-                    <div class="bullet">No ionization bias</div>
+                    <div class="bullet">Fragment ion patterns</div>
+                    <div class="bullet">Spectral library search</div>
+                    <div class="bullet">In-silico fragmentation</div>
                 </div>
             </div>
             
             <div class="content-card">
-                <div class="card-title">Sample Requirements</div>
+                <div class="card-title">Standards Confirmation</div>
                 <div class="card-content">
-                    <div class="bullet">Larger sample volumes than MS</div>
-                    <div class="bullet">Buffer composition matters</div>
-                    <div class="bullet">Lower sensitivity</div>
+                    <div class="bullet">Authentic chemical standards</div>
+                    <div class="bullet">Retention time matching</div>
+                    <div class="bullet">Gold standard for identification</div>
                 </div>
             </div>
         </div>
-
-        <!-- Detailed Section 1: 1H NMR Profiling -->
+        
+        <!-- Detailed Section 1: Mass Accuracy -->
         <div class="detailed-section">
-            <div class="section-header">
-                <div class="section-number">1</div>
-                <span>1H NMR Profiling in Detail</span>
+            <div class="section-title">
+                <span class="section-number">1</span>
+                Mass Accuracy in Detail
             </div>
             
-            <div class="detail-content">
-                <div class="detail-subsection">
-                    <div class="subsection-title">Non-Destructive Analysis</div>
-                    <div class="detail-text">
-                        One of the most significant advantages of NMR spectroscopy is its non-destructive nature. Unlike mass spectrometry, samples can be recovered after analysis and used for additional experiments or stored for future reference. This is particularly valuable when working with limited biological samples or precious compounds.
+            <div class="section-content">
+                <div class="subsection">
+                    <div class="subsection-title">What is Mass Accuracy?</div>
+                    <div class="text-content">
+                        Mass accuracy is the difference between the measured mass (m/z) and the theoretical exact mass of an ion, typically expressed in parts per million (ppm). High-resolution mass spectrometry (HRMS) instruments like Orbitrap and Q-TOF can achieve mass accuracy of <span class="highlight">less than 5 ppm</span>, which is crucial for confident metabolite identification.
                     </div>
-                    <div class="highlight-box">
-                        <div class="highlight-title">Key Benefit:</div>
-                        Samples remain intact and can be subjected to repeated measurements or different experimental conditions without degradation.
+                    
+                    <div class="formula-box">
+                        Mass Error (ppm) = [(Measured mass - Theoretical mass) / Theoretical mass] × 10⁶
                     </div>
                 </div>
-
-                <div class="detail-subsection">
-                    <div class="subsection-title">Comprehensive Metabolite Detection</div>
-                    <div class="detail-text">
-                        1H NMR can detect virtually all proton-containing metabolites in a single experiment, providing a holistic view of the metabolome. This includes:
+                
+                <div class="example-box">
+                    <div class="example-title">Example: Glucose Identification</div>
+                    <div class="text-content">
+                        <strong>Compound:</strong> Glucose (C₆H₁₂O₆)<br>
+                        <strong>Theoretical exact mass [M+H]⁺:</strong> 181.07065 Da<br>
+                        <strong>Measured mass:</strong> 181.07089 Da<br>
+                        <strong>Mass error:</strong> [(181.07089 - 181.07065) / 181.07065] × 10⁶ = <span class="highlight">1.3 ppm</span>
                     </div>
-                    <ul class="detail-list">
-                        <li><strong>Amino acids:</strong> Leucine, valine, alanine, glutamine</li>
-                        <li><strong>Organic acids:</strong> Lactate, citrate, acetate, formate</li>
-                        <li><strong>Sugars:</strong> Glucose, fructose, sucrose</li>
-                        <li><strong>Lipids:</strong> Fatty acids, cholesterol, phospholipids</li>
-                        <li><strong>Nucleotides:</strong> ATP, ADP, NAD+</li>
-                    </ul>
+                    <div class="key-point">
+                        ✓ This 1.3 ppm error is well within the 5 ppm threshold, providing high confidence in the molecular formula assignment.
+                    </div>
                 </div>
-
-                <div class="visual-box">
-                    <h4 style="color: #1E64C8; margin-bottom: 15px;">Typical 1H NMR Spectrum</h4>
-                    <div class="spectrum-visual">
-                        <div class="peak peak-1"></div>
-                        <div class="peak peak-2"></div>
-                        <div class="peak peak-3"></div>
-                        <div class="peak peak-4"></div>
-                        <div class="peak peak-5"></div>
-                        <div class="peak peak-6"></div>
-                        <div class="spectrum-label label-left">10 ppm</div>
-                        <div class="spectrum-label label-right">0 ppm</div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Molecular Formula Prediction</div>
+                    <div class="visual-container">
+                        <div class="text-content">
+                            High mass accuracy allows software to predict possible elemental compositions. For a measured mass of 180.0634 Da with <5 ppm accuracy:
+                        </div>
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Molecular Formula</th>
+                                <th>Exact Mass</th>
+                                <th>Error (ppm)</th>
+                                <th>Probability</th>
+                            </tr>
+                            <tr>
+                                <td><strong>C₆H₁₂O₆</strong></td>
+                                <td>180.06339</td>
+                                <td><strong>0.6</strong></td>
+                                <td style="color: #28a745; font-weight: 600;">Very High ✓</td>
+                            </tr>
+                            <tr>
+                                <td>C₉H₁₂O₃</td>
+                                <td>180.07865</td>
+                                <td>84.7</td>
+                                <td style="color: #dc3545;">Low</td>
+                            </tr>
+                            <tr>
+                                <td>C₁₀H₈N₂</td>
+                                <td>180.06875</td>
+                                <td>29.7</td>
+                                <td style="color: #ffc107;">Medium</td>
+                            </tr>
+                        </table>
                     </div>
-                    <p style="font-size: 14px; color: #666; margin-top: 30px; text-align: center;">
-                        Each peak represents different proton environments in various metabolites
-                    </p>
                 </div>
-
-                <div class="detail-subsection">
-                    <div class="subsection-title">Quantitative Capabilities</div>
-                    <div class="detail-text">
-                        The peak area in NMR is directly proportional to the number of nuclei contributing to that signal. This inherent quantitative nature means that:
+                
+                <div class="subsection">
+                    <div class="subsection-title">Key Applications</div>
+                    <div class="text-content">
+                        • <strong>Unknown metabolite discovery:</strong> Narrow down possible structures from exact mass<br>
+                        • <strong>Database searching:</strong> Query metabolite databases with mass tolerance<br>
+                        • <strong>Quality control:</strong> Verify instrument performance and calibration<br>
+                        • <strong>Adduct identification:</strong> Distinguish between [M+H]⁺, [M+Na]⁺, [M+K]⁺, etc.
                     </div>
-                    <ul class="detail-list">
-                        <li>No response factors or calibration curves are needed for individual metabolites</li>
-                        <li>Multiple metabolites can be quantified simultaneously</li>
-                        <li>The relationship between signal and concentration is linear over a wide dynamic range</li>
-                    </ul>
                 </div>
             </div>
         </div>
-
-        <!-- Detailed Section 2: 2D NMR Experiments -->
+        
+        <!-- Detailed Section 2: Isotope Patterns -->
         <div class="detailed-section">
-            <div class="section-header">
-                <div class="section-number">2</div>
-                <span>2D NMR Experiments</span>
+            <div class="section-title">
+                <span class="section-number">2</span>
+                Isotope Pattern Analysis
             </div>
             
-            <div class="detail-content">
-                <div class="detail-subsection">
-                    <div class="subsection-title">Types of 2D NMR Experiments</div>
-                    
-                    <div class="detail-text">
-                        <strong>COSY (Correlation Spectroscopy):</strong> Reveals connectivity between protons that are coupled through chemical bonds, typically 2-3 bonds apart. Essential for identifying spin systems within molecules.
-                    </div>
-                    
-                    <div class="detail-text">
-                        <strong>TOCSY (Total Correlation Spectroscopy):</strong> Shows correlations between all protons within a spin system, regardless of the number of bonds. Particularly useful for identifying complete amino acid side chains or sugar ring systems.
-                    </div>
-                    
-                    <div class="detail-text">
-                        <strong>HSQC (Heteronuclear Single Quantum Coherence):</strong> Correlates protons with directly attached carbons (13C). Provides excellent resolution and is the most sensitive method for detecting 13C-1H correlations.
+            <div class="section-content">
+                <div class="subsection">
+                    <div class="subsection-title">Natural Isotope Distribution</div>
+                    <div class="text-content">
+                        Elements exist as mixtures of isotopes with characteristic natural abundances. The isotope pattern in a mass spectrum provides a unique fingerprint that can confirm molecular formulas and identify specific elements, particularly those with distinctive isotope signatures like chlorine, bromine, and sulfur.
                     </div>
                 </div>
-
-                <div class="visual-box">
-                    <h4 style="color: #1E64C8; margin-bottom: 15px;">2D NMR Spectrum Representation</h4>
-                    <div class="grid-2d">
-                        <div class="correlation-spot spot-1"></div>
-                        <div class="correlation-spot spot-2"></div>
-                        <div class="correlation-spot spot-3"></div>
-                        <div class="correlation-spot spot-4"></div>
+                
+                <div class="example-box">
+                    <div class="example-title">Example: Carbon Isotope Pattern</div>
+                    <div class="visual-container">
+                        <div class="text-content">
+                            <strong>Compound:</strong> C₁₀H₁₆ (Limonene)<br>
+                            <strong>¹²C abundance:</strong> 98.9% | <strong>¹³C abundance:</strong> 1.1%
+                        </div>
+                        <div class="isotope-pattern">
+                            <div class="isotope-bar" style="height: 150px;">
+                                <span class="isotope-percentage">100%</span>
+                                <span class="isotope-label">M (136)</span>
+                            </div>
+                            <div class="isotope-bar" style="height: 165px;">
+                                <span class="isotope-percentage">11%</span>
+                                <span class="isotope-label">M+1 (137)</span>
+                            </div>
+                            <div class="isotope-bar" style="height: 7px;">
+                                <span class="isotope-percentage">0.6%</span>
+                                <span class="isotope-label">M+2 (138)</span>
+                            </div>
+                        </div>
+                        <div class="text-content" style="margin-top: 40px;">
+                            The M+1 peak intensity of ~11% matches the expected value for 10 carbon atoms (10 × 1.1% ≈ 11%)
+                        </div>
                     </div>
-                    <p style="font-size: 14px; color: #666; margin-top: 15px; text-align: center;">
-                        Cross-peaks indicate correlations between different nuclei
-                    </p>
                 </div>
-
-                <div class="detail-subsection">
-                    <div class="subsection-title">Enhanced Resolution</div>
-                    <div class="detail-text">
-                        2D NMR spreads overlapping signals across a second dimension, effectively resolving complex mixtures that would be impossible to analyze using 1D NMR alone. This is critical in metabolomics where:
+                
+                <div class="example-box">
+                    <div class="example-title">Example: Chlorine Signature (Distinctive Pattern)</div>
+                    <div class="visual-container">
+                        <div class="text-content">
+                            <strong>Compound:</strong> Chloroacetone (C₃H₅ClO)<br>
+                            <strong>³⁵Cl abundance:</strong> 75.8% | <strong>³⁷Cl abundance:</strong> 24.2%
+                        </div>
+                        <div class="isotope-pattern">
+                            <div class="isotope-bar" style="height: 150px;">
+                                <span class="isotope-percentage">100%</span>
+                                <span class="isotope-label">M (92)</span>
+                            </div>
+                            <div class="isotope-bar" style="height: 55px;">
+                                <span class="isotope-percentage">36.6%</span>
+                                <span class="isotope-label">M+1 (93)</span>
+                            </div>
+                            <div class="isotope-bar" style="height: 48px;">
+                                <span class="isotope-percentage">32%</span>
+                                <span class="isotope-label">M+2 (94)</span>
+                            </div>
+                        </div>
+                        <div class="key-point" style="margin-top: 40px;">
+                            ✓ The characteristic 3:1 ratio between M and M+2 peaks immediately identifies the presence of ONE chlorine atom
+                        </div>
                     </div>
-                    <ul class="detail-list">
-                        <li>Hundreds of metabolites may be present simultaneously</li>
-                        <li>Many metabolites have similar chemical shifts</li>
-                        <li>Low-concentration metabolites may be hidden under major peaks in 1D spectra</li>
-                    </ul>
                 </div>
-
-                <div class="detail-subsection">
-                    <div class="subsection-title">Structure Elucidation</div>
-                    <div class="detail-text">
-                        2D NMR is indispensable for identifying unknown metabolites by providing information about:
-                    </div>
-                    <ul class="detail-list">
-                        <li>Molecular connectivity and topology</li>
-                        <li>Stereochemistry and spatial relationships</li>
-                        <li>Functional group identification</li>
-                        <li>Confirmation of proposed structures</li>
-                    </ul>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Common Isotope Signatures</div>
+                    <table class="comparison-table">
+                        <tr>
+                            <th>Element</th>
+                            <th>Isotopes (abundance)</th>
+                            <th>Signature Pattern</th>
+                            <th>Application</th>
+                        </tr>
+                        <tr>
+                            <td><strong>Carbon (C)</strong></td>
+                            <td>¹²C (98.9%), ¹³C (1.1%)</td>
+                            <td>M+1 increases by ~1.1% per C atom</td>
+                            <td>Formula confirmation</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Chlorine (Cl)</strong></td>
+                            <td>³⁵Cl (75.8%), ³⁷Cl (24.2%)</td>
+                            <td>M+2 peak at ~33% of M</td>
+                            <td>Halogen detection</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Bromine (Br)</strong></td>
+                            <td>⁷⁹Br (50.7%), ⁸¹Br (49.3%)</td>
+                            <td>M+2 peak nearly equal to M (1:1)</td>
+                            <td>Halogen detection</td>
+                        </tr>
+                        <tr>
+                            <td><strong>Sulfur (S)</strong></td>
+                            <td>³²S (95.0%), ³⁴S (4.2%)</td>
+                            <td>M+2 at ~4.5% per S atom</td>
+                            <td>Sulfur-containing metabolites</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="key-point">
+                    <strong>Why Isotope Patterns Matter:</strong><br>
+                    • Confirm molecular formula independently of exact mass<br>
+                    • Identify specific elements (especially halogens)<br>
+                    • Differentiate between molecules with similar masses<br>
+                    • Validate software-predicted formulas
                 </div>
             </div>
         </div>
-
-        <!-- Detailed Section 3: Quantification -->
+        
+        <!-- Detailed Section 3: MS/MS Matching -->
         <div class="detailed-section">
-            <div class="section-header">
-                <div class="section-number">3</div>
-                <span>Quantification Methods</span>
+            <div class="section-title">
+                <span class="section-number">3</span>
+                MS/MS Fragmentation Analysis
             </div>
             
-            <div class="detail-content">
-                <div class="detail-subsection">
-                    <div class="subsection-title">Direct Concentration Measurement</div>
-                    <div class="detail-text">
-                        NMR quantification is based on the fundamental principle that the integrated peak area is directly proportional to the number of nuclei. The concentration can be calculated using:
-                    </div>
-                    <div style="background: white; padding: 15px; border-radius: 5px; margin: 15px 0; text-align: center; font-family: 'Courier New', monospace;">
-                        [Metabolite] = (I<sub>metabolite</sub> / I<sub>standard</sub>) × [Standard] × (N<sub>standard</sub> / N<sub>metabolite</sub>)
-                    </div>
-                    <div class="detail-text">
-                        Where I is the integrated intensity and N is the number of protons.
+            <div class="section-content">
+                <div class="subsection">
+                    <div class="subsection-title">Tandem Mass Spectrometry (MS/MS)</div>
+                    <div class="text-content">
+                        MS/MS involves selecting a precursor ion and fragmenting it through collision-induced dissociation (CID) or other activation methods. The resulting fragment ion pattern is highly specific to the molecular structure and serves as a structural fingerprint for metabolite identification.
                     </div>
                 </div>
-
-                <div class="detail-subsection">
-                    <div class="subsection-title">Internal Standards</div>
-                    
-                    <div class="detail-text">
-                        <strong>TSP (Trimethylsilylpropanoic acid):</strong> Most commonly used for aqueous samples. Provides a sharp singlet at 0 ppm, well separated from most metabolite signals. Water-soluble and chemically stable.
-                    </div>
-                    
-                    <div class="detail-text">
-                        <strong>DSS (4,4-dimethyl-4-silapentane-1-sulfonic acid):</strong> Preferred for biological samples at physiological pH. More stable than TSP across a wider pH range and doesn't bind to proteins.
-                    </div>
-
-                    <div class="workflow-diagram">
-                        <div class="workflow-step">Add Internal Standard</div>
-                        <div class="workflow-step">Acquire Spectrum</div>
-                        <div class="workflow-step">Integrate Peaks</div>
-                        <div class="workflow-step">Calculate Concentration</div>
-                    </div>
-                </div>
-
-                <div class="detail-subsection">
-                    <div class="subsection-title">No Ionization Bias</div>
-                    <div class="detail-text">
-                        Unlike mass spectrometry, NMR quantification is independent of:
-                    </div>
-                    <ul class="detail-list">
-                        <li><strong>Chemical structure:</strong> All protons contribute equally regardless of the molecule they're in</li>
-                        <li><strong>Ionization efficiency:</strong> No ionization step means no matrix effects</li>
-                        <li><strong>Detector response:</strong> Signal is proportional to concentration, not ionization capability</li>
-                        <li><strong>Chemical derivatization:</strong> Samples can be analyzed in their native state</li>
-                    </ul>
-                    
-                    <div class="highlight-box">
-                        <div class="highlight-title">Major Advantage:</div>
-                        This makes NMR the gold standard for absolute quantification in metabolomics, particularly useful for validating results from other analytical platforms.
+                
+                <div class="example-box">
+                    <div class="example-title">Example: Caffeine Fragmentation</div>
+                    <div class="fragmentation-tree">
+                        <div style="text-align: center;">
+                            <div class="parent-ion">
+                                Caffeine [M+H]⁺<br>
+                                C₈H₁₀N₄O₂<br>
+                                m/z 195.0877
+                            </div>
+                            <div class="arrow-down">↓ CID Fragmentation</div>
+                            <div class="fragment-ions">
+                                <div class="fragment-ion">
+                                    m/z 138<br>
+                                    [-C₂H₃NO]
+                                </div>
+                                <div class="fragment-ion">
+                                    m/z 110<br>
+                                    [-C₃H₅N₃O]
+                                </div>
+                                <div class="fragment-ion">
+                                    m/z 82<br>
+                                    [-C₄H₇N₃O₂]
+                                </div>
+                                <div class="fragment-ion">
+                                    m/z 67<br>
+                                    [-C₅H₈N₂O₂]
+                                </div>
+                            </div>
+                        </div>
+                        <div class="text-content" style="margin-top: 20px;">
+                            Each fragment represents the loss of specific functional groups, providing structural information about the molecule.
+                        </div>
                     </div>
                 </div>
-
-                <table class="comparison-table">
-                    <thead>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Three Approaches to MS/MS Matching</div>
+                    
+                    <div class="workflow-step">
+                        <strong>1. Spectral Library Searching</strong>
+                        <div class="text-content">
+                            Compare experimental MS/MS spectra against reference spectra in databases (e.g., NIST, MassBank, METLIN). Uses similarity scoring algorithms like cosine similarity or dot product to find matches.
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <strong>2. In-Silico Fragmentation</strong>
+                        <div class="text-content">
+                            Computational prediction of fragmentation patterns based on chemical structure. Tools like MetFrag, CFM-ID, and MS-FINDER predict possible fragments for candidate structures.
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step">
+                        <strong>3. Manual Interpretation</strong>
+                        <div class="text-content">
+                            Expert analysis of neutral losses and fragment structures to deduce molecular features. Requires knowledge of fragmentation rules and metabolite chemistry.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">Common Neutral Losses in Metabolites</div>
+                    <table class="comparison-table">
                         <tr>
-                            <th>Feature</th>
-                            <th>NMR Quantification</th>
-                            <th>MS Quantification</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Calibration needed</td>
-                            <td>Single internal standard</td>
-                            <td>Individual standards for each metabolite</td>
+                            <th>Neutral Loss</th>
+                            <th>Mass (Da)</th>
+                            <th>Functional Group</th>
+                            <th>Example Metabolites</th>
                         </tr>
                         <tr>
-                            <td>Ionization effects</td>
-                            <td>None</td>
-                            <td>Significant</td>
+                            <td>H₂O</td>
+                            <td>18</td>
+                            <td>Hydroxyl group</td>
+                            <td>Sugars, alcohols</td>
                         </tr>
                         <tr>
-                            <td>Linear range</td>
-                            <td>Very wide (5-6 orders)</td>
-                            <td>Limited (2-3 orders)</td>
+                            <td>CO₂</td>
+                            <td>44</td>
+                            <td>Carboxyl group</td>
+                            <td>Amino acids, fatty acids</td>
                         </tr>
                         <tr>
-                            <td>Matrix effects</td>
-                            <td>Minimal</td>
-                            <td>Substantial</td>
+                            <td>NH₃</td>
+                            <td>17</td>
+                            <td>Amino group</td>
+                            <td>Amino acids, amines</td>
                         </tr>
-                    </tbody>
-                </table>
+                        <tr>
+                            <td>CH₃</td>
+                            <td>15</td>
+                            <td>Methyl group</td>
+                            <td>Methylated compounds</td>
+                        </tr>
+                        <tr>
+                            <td>C₂H₄O₂</td>
+                            <td>60</td>
+                            <td>Acetyl group</td>
+                            <td>Acetylated metabolites</td>
+                        </tr>
+                    </table>
+                </div>
+                
+                <div class="key-point">
+                    <strong>MS/MS Advantages:</strong><br>
+                    • Provides structural information beyond molecular weight<br>
+                    • Distinguishes between isomers with identical masses<br>
+                    • Enables identification of unknown metabolites<br>
+                    • High specificity reduces false positives
+                </div>
             </div>
         </div>
-
-        <!-- Detailed Section 4: Sample Requirements -->
+        
+        <!-- Detailed Section 4: Standards Confirmation -->
         <div class="detailed-section">
-            <div class="section-header">
-                <div class="section-number">4</div>
-                <span>Sample Requirements and Considerations</span>
+            <div class="section-title">
+                <span class="section-number">4</span>
+                Authentic Chemical Standards
             </div>
             
-            <div class="detail-content">
-                <div class="detail-subsection">
-                    <div class="subsection-title">Sample Volume Requirements</div>
-                    <div class="detail-text">
-                        NMR requires larger sample volumes compared to mass spectrometry due to its inherently lower sensitivity:
+            <div class="section-content">
+                <div class="subsection">
+                    <div class="subsection-title">The Gold Standard for Identification</div>
+                    <div class="text-content">
+                        Using authentic chemical standards is considered the <span class="highlight">definitive method</span> for metabolite identification. This approach involves comparing multiple analytical properties of an unknown metabolite with a purchased or synthesized reference compound analyzed under identical conditions.
                     </div>
-                    <ul class="detail-list">
-                        <li><strong>Standard NMR tubes (5mm):</strong> 500-600 μL minimum volume</li>
-                        <li><strong>High-sensitivity microprobes (1.7mm):</strong> 30-40 μL minimum volume</li>
-                        <li><strong>Cryoprobes:</strong> Can reduce required concentration by 4-fold</li>
-                        <li><strong>Typical detection limit:</strong> 1-10 μM for small molecules</li>
-                    </ul>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">Multi-Parameter Matching Strategy</div>
+                    <div class="visual-container">
+                        <table class="comparison-table">
+                            <tr>
+                                <th>Parameter</th>
+                                <th>Sample</th>
+                                <th>Standard</th>
+                                <th>Match?</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Retention Time (RT)</strong></td>
+                                <td>12.34 min</td>
+                                <td>12.35 min</td>
+                                <td style="color: #28a745; font-weight: 600;">✓ Yes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Exact Mass [M+H]⁺</strong></td>
+                                <td>180.06339</td>
+                                <td>180.06341</td>
+                                <td style="color: #28a745; font-weight: 600;">✓ Yes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>MS/MS Spectrum</strong></td>
+                                <td>See below</td>
+                                <td>See below</td>
+                                <td style="color: #28a745; font-weight: 600;">✓ Yes</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Isotope Pattern</strong></td>
+                                <td>M+1: 6.8%</td>
+                                <td>M+1: 6.7%</td>
+                                <td style="color: #28a745; font-weight: 600;">✓ Yes</td>
+                            </tr>
+                        </table>
+                        <div class="key-point" style="margin-top: 20px;">
+                            <strong>Conclusion:</strong> All four parameters match within acceptable tolerance → Confident identification as Glucose
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Retention Time Matching</div>
+                    <div class="text-content">
+                        Chromatographic retention time (RT) is highly reproducible under controlled conditions and provides an additional dimension of specificity. Isomers with identical masses and similar fragmentation can be distinguished by their different retention times.
+                    </div>
+                </div>
+                
+                <div class="example-box">
+                    <div class="example-title">Example: Distinguishing Glucose and Fructose</div>
+                    <div class="visual-container">
+                        <div class="text-content">
+                            Both compounds have identical molecular formulas (C₆H₁₂O₆) and very similar MS/MS patterns, but different structures lead to different retention times on HILIC chromatography:
+                        </div>
+                        <table class="comparison-table" style="margin-top: 15px;">
+                            <tr>
+                                <th>Metabolite</th>
+                                <th>RT (min)</th>
+                                <th>Exact Mass</th>
+                                <th>Structure Type</th>
+                            </tr>
+                            <tr>
+                                <td><strong>Glucose</strong></td>
+                                <td>8.24</td>
+                                <td>180.0634</td>
+                                <td>Aldohexose</td>
+                            </tr>
+                            <tr>
+                                <td><strong>Fructose</strong></td>
+                                <td>7.89</td>
+                                <td>180.0634</td>
+                                <td>Ketohexose</td>
+                            </tr>
+                        </table>
+                        <div class="text-content" style="margin-top: 15px;">
+                            Without authentic standards, it would be impossible to determine which isomer is present in the sample.
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Levels of Metabolite Identification Confidence</div>
+                    <div class="text-content">
+                        The Metabolomics Standards Initiative (MSI) defines identification confidence levels:
+                    </div>
                     
-                    <div class="highlight-box">
-                        <div class="highlight-title">Practical Consideration:</div>
-                        While MS can work with nanoliters, NMR typically requires hundreds of microliters. This can be limiting when working with precious samples like CSF, tissue biopsies, or rare biological specimens.
+                    <div class="workflow-step" style="margin-right: 0;">
+                        <strong>Level 1: Identified Compounds</strong>
+                        <div class="text-content">
+                            ≥2 orthogonal properties match authentic standard (RT, MS/MS, etc.) - <span class="highlight">Highest confidence</span>
+                        </div>
                     </div>
-                </div>
-
-                <div class="detail-subsection">
-                    <div class="subsection-title">Buffer Composition and pH Control</div>
-                    <div class="detail-text">
-                        Buffer selection is critical in NMR metabolomics because:
-                    </div>
-                    <ul class="detail-list">
-                        <li><strong>pH stability:</strong> Chemical shifts are pH-dependent; phosphate buffers (pH 7.4) are commonly used</li>
-                        <li><strong>Deuterated solvents:</strong> D2O is required for field-frequency lock (typically 10% final concentration)</li>
-                        <li><strong>Buffer interference:</strong> Avoid buffers with proton-containing groups (e.g., Tris) that can obscure metabolite signals</li>
-                        <li><strong>Ionic strength:</strong> Maintain consistent salt concentration to ensure reproducible chemical shifts</li>
-                    </ul>
-                </div>
-
-                <div class="visual-box">
-                    <h4 style="color: #1E64C8; margin-bottom: 15px;">Sample Preparation Workflow</h4>
-                    <div class="workflow-diagram" style="flex-direction: column;">
-                        <div class="workflow-step" style="width: 80%;">Biological Sample Collection</div>
-                        <div class="workflow-step" style="width: 80%;">Metabolite Extraction / Protein Precipitation</div>
-                        <div class="workflow-step" style="width: 80%;">Buffer Exchange (Phosphate buffer + D2O)</div>
-                        <div class="workflow-step" style="width: 80%;">Add Internal Standard (TSP/DSS)</div>
-                        <div class="workflow-step" style="width: 80%;">Transfer to NMR tube</div>
-                        <div class="workflow-step" style="width: 80%;">NMR Acquisition</div>
-                    </div>
-                </div>
-
-                <div class="detail-subsection">
-                    <div class="subsection-title">Sensitivity Limitations</div>
-                    <div class="detail-text">
-                        NMR's lower sensitivity compared to MS means:
-                    </div>
-                    <ul class="detail-list">
-                        <li><strong>Detection limits:</strong> Typically 1-10 μM vs. nM-pM for MS</li>
-                        <li><strong>Low-abundance metabolites:</strong> May not be detected without enrichment</li>
-                        <li><strong>Acquisition time:</strong> Can require minutes to hours for high-quality spectra</li>
-                        <li><strong>Metabolome coverage:</strong> Typically 50-100 metabolites vs. 500-1000+ for MS</li>
-                    </ul>
                     
-                    <div class="detail-text">
-                        <strong>Technological advances improving sensitivity:</strong>
+                    <div class="workflow-step" style="margin-right: 0;">
+                        <strong>Level 2: Putatively Annotated Compounds</strong>
+                        <div class="text-content">
+                            Match to spectral library or database without RT confirmation - <span class="highlight">High confidence</span>
+                        </div>
                     </div>
-                    <ul class="detail-list">
-                        <li>Cryogenic probes: 4-fold sensitivity increase</li>
-                        <li>Higher field strengths: 800-1000 MHz spectrometers</li>
-                        <li>Dynamic nuclear polarization (DNP): >10,000-fold enhancement</li>
-                        <li>Microcoil probes: Better mass sensitivity for limited samples</li>
-                    </ul>
+                    
+                    <div class="workflow-step" style="margin-right: 0;">
+                        <strong>Level 3: Putatively Characterized Compound Classes</strong>
+                        <div class="text-content">
+                            Chemical class identified but not specific compound - <span class="highlight">Medium confidence</span>
+                        </div>
+                    </div>
+                    
+                    <div class="workflow-step" style="margin-right: 0;">
+                        <strong>Level 4: Unknown Compounds</strong>
+                        <div class="text-content">
+                            Detected feature without structural information - <span class="highlight">Lowest confidence</span>
+                        </div>
+                    </div>
                 </div>
-
-                <table class="comparison-table">
-                    <thead>
-                        <tr>
-                            <th>Parameter</th>
-                            <th>NMR</th>
-                            <th>MS</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td>Sample volume</td>
-                            <td>30-600 μL</td>
-                            <td>1-10 μL</td>
-                        </tr>
-                        <tr>
-                            <td>Sensitivity</td>
-                            <td>1-10 μM</td>
-                            <td>nM-pM</td>
-                        </tr>
-                        <tr>
-                            <td>Metabolite coverage</td>
-                            <td>50-100</td>
-                            <td>500-1000+</td>
-                        </tr>
-                        <tr>
-                            <td>Acquisition time</td>
-                            <td>5-30 min</td>
-                            <td>10-30 min</td>
-                        </tr>
-                        <tr>
-                            <td>Sample preparation</td>
-                            <td>Simple</td>
-                            <td>More complex</td>
-                        </tr>
-                    </tbody>
-                </table>
+                
+                <div class="key-point">
+                    <strong>Best Practices for Standards-Based Identification:</strong><br>
+                    • Run standards and samples on the same day under identical conditions<br>
+                    • Use fresh standard solutions to avoid degradation<br>
+                    • Prepare a concentration series for quantification<br>
+                    • Document all analytical conditions (column, mobile phase, temperature, etc.)<br>
+                    • Store standards properly according to manufacturer recommendations<br>
+                    • Re-run standards periodically to verify system performance
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Practical Considerations</div>
+                    <div class="text-content">
+                        <strong>Advantages:</strong><br>
+                        • Unambiguous identification (Level 1 confidence)<br>
+                        • Enables accurate quantification<br>
+                        • Can distinguish isomers and stereoisomers<br>
+                        • Validates computational predictions
+                    </div>
+                    <div class="text-content" style="margin-top: 15px;">
+                        <strong>Limitations:</strong><br>
+                        • Standards not available for all metabolites<br>
+                        • Can be expensive, especially for rare compounds<br>
+                        • Some standards are unstable or difficult to handle<br>
+                        • Time-consuming for large-scale metabolomics studies
+                    </div>
+                    <div class="text-content" style="margin-top: 15px;">
+                        <strong>Strategic Approach:</strong> Use standards for the most important or abundant metabolites, and rely on MS/MS library matching and in-silico methods for less critical features.
+                    </div>
+                </div>
             </div>
         </div>
-
-        <!-- Conclusion -->
+        
+        <!-- Summary Section -->
         <div class="detailed-section">
-            <div class="detail-content" style="background: #e8f2ff; border-left: 5px solid #1E64C8;">
-                <div class="subsection-title" style="color: #1E64C8; font-size: 20px;">Summary</div>
-                <div class="detail-text">
-                    NMR metabolomics provides a robust, quantitative, and reproducible platform for metabolic profiling. While it has limitations in sensitivity compared to mass spectrometry, its non-destructive nature, unbiased quantification, and structural information capabilities make it an indispensable tool in metabolomics research. The combination of 1D and 2D NMR techniques enables comprehensive metabolite identification and quantification, particularly when integrated with complementary analytical platforms like MS.
+            <div class="section-title" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent;">
+                <span class="section-number" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); -webkit-background-clip: initial; -webkit-text-fill-color: white;">∑</span>
+                Integrated Identification Strategy
+            </div>
+            
+            <div class="section-content">
+                <div class="text-content">
+                    The most robust metabolite identification combines all four approaches in a complementary workflow:
                 </div>
+                
+                <div class="workflow-step">
+                    <strong>Step 1: Mass Accuracy Screening</strong>
+                    <div class="text-content">Use high-resolution MS to obtain exact mass and predict possible molecular formulas</div>
+                </div>
+                
+                <div class="workflow-step">
+                    <strong>Step 2: Isotope Pattern Validation</strong>
+                    <div class="text-content">Confirm molecular formula by matching observed and theoretical isotope patterns</div>
+                </div>
+                
+                <div class="workflow-step">
+                    <strong>Step 3: MS/MS Structural Elucidation</strong>
+                    <div class="text-content">Acquire fragmentation spectra and search against libraries or perform in-silico prediction</div>
+                </div>
+                
+                <div class="workflow-step">
+                    <strong>Step 4: Standards Confirmation (when available)</strong>
+                    <div class="text-content">Compare with authentic standard for definitive identification and quantification</div>
+                </div>
+                
+                <div class="key-point" style="margin-top: 30px; background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%); border-left-color: #667eea;">
+                    <strong>Remember:</strong> The confidence level of metabolite identification should always be clearly reported in publications and data repositories, following MSI guidelines. A combination of multiple identification criteria provides the highest confidence and reduces the risk of misidentification.
+                </div>
+            </div>
+        </div>
+        
+    </div>
+    
+    <!-- English Explanations Section -->
+    <div class="container" style="margin-top: 40px; border-top: 4px solid #1E64C8;">
+        <div class="title" style="color: #2c3e50; border-bottom-color: #2c3e50;">
+            English Explanations & Detailed Descriptions
+        </div>
+        
+        <div class="detailed-section">
+            <div class="section-title">
+                <span class="section-number">📋</span>
+                Overview Cards Explanations
+            </div>
+            
+            <div class="section-content">
+                <div class="subsection">
+                    <div class="subsection-title">Mass Accuracy Card</div>
+                    <div class="text-content">
+                        <strong>Sub-5 ppm for confident ID:</strong> Mass accuracy below 5 parts per million (ppm) is the threshold for high-confidence molecular formula assignment. This level of precision is achievable with modern high-resolution mass spectrometers.
+                    </div>
+                    <div class="text-content">
+                        <strong>High-resolution mass spec:</strong> Instruments like Orbitrap and Q-TOF mass spectrometers can measure mass-to-charge ratios (m/z) with extremely high precision, typically achieving mass accuracies of 1-3 ppm.
+                    </div>
+                    <div class="text-content">
+                        <strong>Elemental formula prediction:</strong> With high mass accuracy, software algorithms can calculate and rank possible elemental compositions (molecular formulas) that match the measured mass within the specified tolerance.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Isotope Patterns Card</div>
+                    <div class="text-content">
+                        <strong>Natural isotope distribution:</strong> Elements exist as mixtures of isotopes with characteristic natural abundances. For example, carbon exists primarily as ¹²C (98.9%) with a small amount of ¹³C (1.1%). This creates a predictable pattern in mass spectra.
+                    </div>
+                    <div class="text-content">
+                        <strong>Confirm molecular formula:</strong> The isotope pattern serves as an independent verification of the proposed molecular formula. The pattern must match both in peak positions and relative intensities.
+                    </div>
+                    <div class="text-content">
+                        <strong>Chlorine/bromine signatures:</strong> Halogens have particularly distinctive isotope patterns. Chlorine shows a 3:1 ratio between M and M+2 peaks, while bromine shows nearly equal M and M+2 peaks (1:1 ratio), making them easy to identify.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">MS/MS Matching Card</div>
+                    <div class="text-content">
+                        <strong>Fragment ion patterns:</strong> When a molecule is fragmented in the mass spectrometer (through collision-induced dissociation), it breaks apart in predictable ways based on its chemical structure. The resulting pattern of fragment ions is like a molecular fingerprint.
+                    </div>
+                    <div class="text-content">
+                        <strong>Spectral library search:</strong> Experimental MS/MS spectra can be compared against large databases of reference spectra (like NIST, MassBank, METLIN) using similarity algorithms to find matching compounds.
+                    </div>
+                    <div class="text-content">
+                        <strong>In-silico fragmentation:</strong> Computational tools can predict how a molecule should fragment based on its chemical structure, allowing comparison between predicted and experimental spectra even when reference spectra aren't available.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Standards Confirmation Card</div>
+                    <div class="text-content">
+                        <strong>Authentic chemical standards:</strong> These are commercially purchased or synthesized reference compounds of known identity and purity. Running these alongside your samples provides definitive comparison points.
+                    </div>
+                    <div class="text-content">
+                        <strong>Retention time matching:</strong> Under identical chromatographic conditions, a compound and its authentic standard will elute at the same time. This is particularly important for distinguishing between isomers that have identical masses.
+                    </div>
+                    <div class="text-content">
+                        <strong>Gold standard for identification:</strong> Matching multiple properties (retention time, exact mass, MS/MS spectrum) with an authentic standard provides the highest level of identification confidence (MSI Level 1) and is considered definitive proof of identity.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="detailed-section">
+            <div class="section-title">
+                <span class="section-number">🔬</span>
+                Section 1: Mass Accuracy Examples
+            </div>
+            
+            <div class="section-content">
+                <div class="subsection">
+                    <div class="subsection-title">Mass Error Formula Explanation</div>
+                    <div class="text-content">
+                        The formula <strong>Mass Error (ppm) = [(Measured mass - Theoretical mass) / Theoretical mass] × 10⁶</strong> calculates the relative error in parts per million. This normalizes the error across different mass ranges, making it a universal metric for mass accuracy regardless of the size of the molecule being measured.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Glucose Example Breakdown</div>
+                    <div class="text-content">
+                        <strong>Why glucose?</strong> Glucose is chosen as an example because it's a well-known metabolite with a simple molecular formula, making it easy to understand the concepts.
+                    </div>
+                    <div class="text-content">
+                        <strong>The calculation:</strong> The measured mass (181.07089 Da) is very close to the theoretical exact mass (181.07065 Da). The difference of 0.00024 Da, when converted to ppm, equals 1.3 ppm—well within the 5 ppm threshold.
+                    </div>
+                    <div class="text-content">
+                        <strong>Interpretation:</strong> A mass error of 1.3 ppm provides high confidence that the detected ion corresponds to the molecular formula C₆H₁₂O₆ (glucose). Errors above 5 ppm would suggest the formula might be incorrect or there's an instrument calibration issue.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Molecular Formula Prediction Table</div>
+                    <div class="text-content">
+                        This table demonstrates how mass accuracy helps narrow down possible molecular formulas:
+                    </div>
+                    <div class="text-content">
+                        <strong>C₆H₁₂O₆ (0.6 ppm error):</strong> This formula has the smallest mass error and is therefore the most likely candidate. The very low error indicates an almost perfect match.
+                    </div>
+                    <div class="text-content">
+                        <strong>C₉H₁₂O₃ (84.7 ppm error):</strong> This formula can be ruled out because the error far exceeds the 5 ppm threshold. The measured mass doesn't match this composition.
+                    </div>
+                    <div class="text-content">
+                        <strong>C₁₀H₈N₂ (29.7 ppm error):</strong> While closer than the second option, this still exceeds 5 ppm and would be considered low probability. It might warrant consideration only if biological context suggested nitrogen-containing compounds.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Key Applications Explained</div>
+                    <div class="text-content">
+                        <strong>Unknown metabolite discovery:</strong> When you detect a peak in your sample that doesn't match any known compound in your database, high mass accuracy helps you propose possible molecular formulas as a starting point for identification.
+                    </div>
+                    <div class="text-content">
+                        <strong>Database searching:</strong> You can query large metabolite databases (like HMDB, METLIN) using the measured mass ± a small tolerance (e.g., ±5 ppm) to retrieve candidate matches.
+                    </div>
+                    <div class="text-content">
+                        <strong>Quality control:</strong> Regular monitoring of mass accuracy for known standards ensures your instrument is properly calibrated and performing optimally.
+                    </div>
+                    <div class="text-content">
+                        <strong>Adduct identification:</strong> Metabolites can form various adducts with ions like sodium [M+Na]⁺, potassium [M+K]⁺, or ammonium [M+NH₄]⁺. High mass accuracy helps distinguish which adduct form you're observing.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="detailed-section">
+            <div class="section-title">
+                <span class="section-number">⚛️</span>
+                Section 2: Isotope Pattern Examples
+            </div>
+            
+            <div class="section-content">
+                <div class="subsection">
+                    <div class="subsection-title">Carbon Isotope Pattern (Limonene) Explanation</div>
+                    <div class="text-content">
+                        <strong>The visual representation:</strong> The three bars represent the molecular ion peak (M) and its isotope peaks (M+1 and M+2). The height of each bar corresponds to its relative intensity.
+                    </div>
+                    <div class="text-content">
+                        <strong>M peak (136 Da, 100%):</strong> This is the most abundant form, containing all ¹²C atoms. It's set as the reference intensity of 100%.
+                    </div>
+                    <div class="text-content">
+                        <strong>M+1 peak (137 Da, 11%):</strong> This represents molecules where one ¹²C atom is replaced by ¹³C. With 10 carbon atoms and each having a 1.1% chance of being ¹³C, the probability is approximately 10 × 1.1% = 11%.
+                    </div>
+                    <div class="text-content">
+                        <strong>M+2 peak (138 Da, 0.6%):</strong> This very small peak represents molecules with two ¹³C atoms, which is much less probable and follows binomial distribution calculations.
+                    </div>
+                    <div class="text-content">
+                        <strong>Why this matters:</strong> The M+1 peak intensity of ~11% immediately tells an experienced analyst that this molecule contains approximately 10 carbon atoms, confirming the proposed formula C₁₀H₁₆.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Chlorine Signature Pattern Explanation</div>
+                    <div class="text-content">
+                        <strong>The distinctive 3:1 pattern:</strong> Chlorine's isotope distribution (³⁵Cl at 75.8% and ³⁷Cl at 24.2%) creates a characteristic pattern that's immediately recognizable.
+                    </div>
+                    <div class="text-content">
+                        <strong>M peak (92 Da, 100%):</strong> Represents the molecule containing ³⁵Cl (the lighter, more abundant isotope).
+                    </div>
+                    <div class="text-content">
+                        <strong>M+1 peak (93 Da, 36.6%):</strong> This represents the combination of ¹³C isotopes from the carbon atoms plus some contribution from the chlorine isotope distribution.
+                    </div>
+                    <div class="text-content">
+                        <strong>M+2 peak (94 Da, 32%):</strong> This is the telltale chlorine signature! It represents molecules containing ³⁷Cl instead of ³⁵Cl. The intensity is approximately 1/3 of the M peak (24.2%/75.8% ≈ 0.32), which is the signature of ONE chlorine atom.
+                    </div>
+                    <div class="text-content">
+                        <strong>Multiple chlorines:</strong> Two chlorine atoms would show a 9:6:1 pattern (M : M+2 : M+4), and three chlorines would show a 27:27:9:1 pattern. These patterns are mathematically predictable and highly distinctive.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Isotope Signatures Table Explanation</div>
+                    <div class="text-content">
+                        <strong>Carbon row:</strong> Shows how each additional carbon atom contributes ~1.1% to the M+1 peak. A molecule with 20 carbons would show an M+1 peak at ~22% of the M peak.
+                    </div>
+                    <div class="text-content">
+                        <strong>Chlorine row:</strong> The 3:1 ratio (M : M+2 ≈ 100 : 33) is diagnostic for chlorine. This is one of the easiest isotope patterns to recognize.
+                    </div>
+                    <div class="text-content">
+                        <strong>Bromine row:</strong> The nearly 1:1 ratio (M : M+2 ≈ 100 : 98) is equally distinctive and diagnostic for bromine. If you see equal-height peaks separated by 2 Da, you likely have bromine.
+                    </div>
+                    <div class="text-content">
+                        <strong>Sulfur row:</strong> Each sulfur atom contributes ~4.5% to the M+2 peak. Two sulfur atoms would give ~9% intensity at M+2, and so on.
+                    </div>
+                    <div class="text-content">
+                        <strong>Application column:</strong> Explains why each pattern is useful. Halogen detection is particularly valuable in drug metabolism studies and environmental analysis, where chlorinated or brominated compounds are common.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="detailed-section">
+            <div class="section-title">
+                <span class="section-number">💥</span>
+                Section 3: MS/MS Fragmentation Examples
+            </div>
+            
+            <div class="section-content">
+                <div class="subsection">
+                    <div class="subsection-title">Caffeine Fragmentation Tree Explanation</div>
+                    <div class="text-content">
+                        <strong>Parent ion (m/z 195.0877):</strong> This is the protonated molecular ion [M+H]⁺ of caffeine. It's selected for fragmentation in the collision cell.
+                    </div>
+                    <div class="text-content">
+                        <strong>CID Fragmentation process:</strong> Collision-Induced Dissociation involves accelerating the parent ion and colliding it with inert gas molecules (typically nitrogen or argon). This transfers kinetic energy into internal energy, causing bonds to break.
+                    </div>
+                    <div class="text-content">
+                        <strong>Fragment m/z 138 [-C₂H₃NO]:</strong> This represents the loss of an N-methyl and carbonyl group, a common fragmentation pathway for methylxanthines like caffeine.
+                    </div>
+                    <div class="text-content">
+                        <strong>Fragment m/z 110 [-C₃H₅N₃O]:</strong> Further fragmentation continues to break off functional groups, providing structural information.
+                    </div>
+                    <div class="text-content">
+                        <strong>Fragments m/z 82 and 67:</strong> These smaller fragments represent more extensive bond breaking and provide additional structural details about the core ring system.
+                    </div>
+                    <div class="text-content">
+                        <strong>Why this pattern is unique:</strong> Each molecule has a characteristic fragmentation pattern based on its structure. Caffeine's pattern is distinct from other methylxanthines like theobromine or theophylline, even though they have similar masses.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Three Approaches Workflow Explanation</div>
+                    <div class="text-content">
+                        <strong>Approach 1 - Spectral Library Searching:</strong> This is the most straightforward approach when your compound exists in a database. Algorithms like cosine similarity calculate how closely your experimental spectrum matches each reference spectrum. A score above 0.7-0.8 (on a 0-1 scale) typically indicates a good match.
+                    </div>
+                    <div class="text-content">
+                        <strong>Limitations of library searching:</strong> Only works if the compound is in the database. Many metabolites, especially novel or modified ones, aren't in existing libraries.
+                    </div>
+                    <div class="text-content">
+                        <strong>Approach 2 - In-Silico Fragmentation:</strong> Software predicts how a candidate structure should fragment based on fragmentation rules and bond energies. Tools like MetFrag take a molecular structure and predict expected fragment masses.
+                    </div>
+                    <div class="text-content">
+                        <strong>How it works:</strong> The software systematically breaks different bonds in the molecule and calculates the masses of resulting fragments, then compares this predicted spectrum to your experimental spectrum.
+                    </div>
+                    <div class="text-content">
+                        <strong>Approach 3 - Manual Interpretation:</strong> Requires expertise in mass spectrometry and organic chemistry. Analysts look for characteristic neutral losses and use their knowledge to deduce structural features.
+                    </div>
+                    <div class="text-content">
+                        <strong>When manual interpretation is essential:</strong> For completely novel compounds, complex natural products, or when automated methods give ambiguous results.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Common Neutral Losses Table Explanation</div>
+                    <div class="text-content">
+                        <strong>H₂O loss (18 Da):</strong> One of the most common neutral losses. Seeing -18 Da from the parent ion suggests the presence of hydroxyl groups (-OH). Sugars often show multiple water losses (e.g., -18, -36, -54 Da).
+                    </div>
+                    <div class="text-content">
+                        <strong>CO₂ loss (44 Da):</strong> Diagnostic for carboxylic acid groups (-COOH). Amino acids and fatty acids commonly show this loss. Seeing -44 Da is strong evidence for a carboxyl group.
+                    </div>
+                    <div class="text-content">
+                        <strong>NH₃ loss (17 Da):</strong> Indicates amino groups. Common in amino acids, nucleotides, and other nitrogen-containing metabolites.
+                    </div>
+                    <div class="text-content">
+                        <strong>CH₃ loss (15 Da):</strong> Loss of a methyl group, common in methylated compounds. Important in drug metabolism where methylation is a common phase II modification.
+                    </div>
+                    <div class="text-content">
+                        <strong>C₂H₄O₂ loss (60 Da):</strong> Represents loss of an acetyl group or acetic acid. Common in acetylated metabolites and certain natural products.
+                    </div>
+                    <div class="text-content">
+                        <strong>Practical use:</strong> Experienced analysts scan MS/MS spectra looking for these characteristic losses to quickly identify functional groups present in the molecule. Multiple neutral losses can be combined to build a picture of the molecular structure.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="detailed-section">
+            <div class="section-title">
+                <span class="section-number">✓</span>
+                Section 4: Standards Confirmation Examples
+            </div>
+            
+            <div class="section-content">
+                <div class="subsection">
+                    <div class="subsection-title">Multi-Parameter Matching Table Explanation</div>
+                    <div class="text-content">
+                        <strong>Why multiple parameters?</strong> Matching on a single parameter could lead to false positives. Combining multiple orthogonal (independent) measurements dramatically increases identification confidence.
+                    </div>
+                    <div class="text-content">
+                        <strong>Retention Time (12.34 vs 12.35 min):</strong> The difference of 0.01 minutes (0.6 seconds) is well within typical RT reproducibility (±0.1 min for HPLC systems). This confirms the compounds are identical under these chromatographic conditions.
+                    </div>
+                    <div class="text-content">
+                        <strong>Exact Mass (180.06339 vs 180.06341):</strong> The mass difference of 0.00002 Da corresponds to approximately 0.1 ppm error—exceptional agreement that confirms the same molecular formula.
+                    </div>
+                    <div class="text-content">
+                        <strong>MS/MS Spectrum matching:</strong> Not just the presence of fragments, but their relative intensities must match. A cosine similarity score >0.9 would indicate excellent agreement.
+                    </div>
+                    <div class="text-content">
+                        <strong>Isotope Pattern (6.8% vs 6.7%):</strong> The M+1 peak intensity matches within experimental error, confirming the same number of carbon atoms and overall elemental composition.
+                    </div>
+                    <div class="text-content">
+                        <strong>Statistical confidence:</strong> Each matching parameter independently increases confidence. The probability of all four matching by chance is astronomically low, providing definitive identification.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Glucose vs Fructose Example Explanation</div>
+                    <div class="text-content">
+                        <strong>The isomer problem:</strong> Glucose and fructose are structural isomers—they have identical molecular formulas (C₆H₁₂O₆) and identical exact masses (180.0634 Da). Mass spectrometry alone cannot distinguish them.
+                    </div>
+                    <div class="text-content">
+                        <strong>Structural difference:</strong> Glucose is an aldohexose (contains an aldehyde group), while fructose is a ketohexose (contains a ketone group). This structural difference affects their chemical properties and chromatographic behavior.
+                    </div>
+                    <div class="text-content">
+                        <strong>HILIC chromatography:</strong> Hydrophilic Interaction Liquid Chromatography separates compounds based on their polarity and hydrogen bonding capacity. The different positions of the carbonyl groups in glucose and fructose lead to different retention times.
+                    </div>
+                    <div class="text-content">
+                        <strong>RT difference (8.24 vs 7.89 min):</strong> The 0.35-minute difference is easily resolved and reproducible. This separation allows unambiguous identification of which isomer is present.
+                    </div>
+                    <div class="text-content">
+                        <strong>Real-world importance:</strong> In biological samples, both glucose and fructose may be present. Without standards and RT separation, you couldn't tell which peaks correspond to which isomer, or determine their individual concentrations.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">MSI Confidence Levels Explanation</div>
+                    <div class="text-content">
+                        <strong>Level 1 (Identified):</strong> Requires matching ≥2 orthogonal properties with an authentic standard analyzed under identical conditions. This is the only level considered "identified" rather than "annotated." Essential for regulatory submissions and clinical applications.
+                    </div>
+                    <div class="text-content">
+                        <strong>Level 2 (Putatively Annotated):</strong> Based on spectral library matching or database searching without RT confirmation. Confidence is high when MS/MS matches are excellent, but without RT matching, you can't rule out isomers or isobaric compounds.
+                    </div>
+                    <div class="text-content">
+                        <strong>Level 3 (Compound Class):</strong> You can say "this is a phospholipid" or "this is an amino acid" based on characteristic fragmentations, but can't specify which exact compound. Still valuable for pathway analysis and biological interpretation.
+                    </div>
+                    <div class="text-content">
+                        <strong>Level 4 (Unknown):</strong> You've detected a real chemical signal with a specific mass and RT, but have no structural information. These features may still be biologically important and can be tracked across samples for statistical analysis.
+                    </div>
+                    <div class="text-content">
+                        <strong>Reporting requirements:</strong> Always report the MSI level when publishing metabolomics data. Claiming Level 1 confidence when you only have Level 2 evidence is a serious scientific error.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Best Practices Explanation</div>
+                    <div class="text-content">
+                        <strong>Same-day analysis:</strong> Running standards and samples together minimizes day-to-day variation in instrument performance, temperature, mobile phase composition, and other variables.
+                    </div>
+                    <div class="text-content">
+                        <strong>Fresh solutions:</strong> Many metabolites are unstable in solution. Prepare standard solutions fresh or store properly (frozen, protected from light, inert atmosphere) according to manufacturer's stability data.
+                    </div>
+                    <div class="text-content">
+                        <strong>Concentration series:</strong> Running standards at multiple concentrations (e.g., 1, 10, 100, 1000 ng/mL) allows you to: (1) confirm linearity of the MS response, (2) build calibration curves for quantification, and (3) ensure sample concentrations fall within the validated range.
+                    </div>
+                    <div class="text-content">
+                        <strong>Documentation:</strong> Record everything: column lot number, mobile phase preparation date, instrument settings, room temperature, etc. This documentation is essential for troubleshooting and for reproducing results months or years later.
+                    </div>
+                    <div class="text-content">
+                        <strong>Periodic re-runs:</strong> Run a standard mixture regularly (e.g., weekly) to monitor RT drift, sensitivity changes, or mass accuracy degradation. This quality control catches problems before they invalidate your results.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Advantages and Limitations Explained</div>
+                    <div class="text-content">
+                        <strong>Advantage - Unambiguous ID:</strong> When all parameters match, there's no reasonable doubt about the compound's identity. This is crucial for clinical diagnostics, pharmaceutical quality control, and regulatory compliance.
+                    </div>
+                    <div class="text-content">
+                        <strong>Advantage - Quantification:</strong> Standards enable accurate quantification through calibration curves. Without standards, you can only report relative abundances, not absolute concentrations.
+                    </div>
+                    <div class="text-content">
+                        <strong>Advantage - Isomer distinction:</strong> Chromatographic separation combined with standard matching is the only reliable way to distinguish structural and stereoisomers.
+                    </div>
+                    <div class="text-content">
+                        <strong>Limitation - Availability:</strong> Thousands of metabolites exist in biological systems, but standards are commercially available for only a fraction. Novel or rare metabolites may not have standards available at any price.
+                    </div>
+                    <div class="text-content">
+                        <strong>Limitation - Cost:</strong> A single standard can cost $50-500 or more. Purchasing standards for hundreds of compounds in a large metabolomics study could cost tens of thousands of dollars.
+                    </div>
+                    <div class="text-content">
+                        <strong>Limitation - Stability:</strong> Some metabolites (e.g., reactive oxygen species, unstable CoA derivatives) are too unstable to be sold as standards or require special handling (frozen storage, inert atmosphere).
+                    </div>
+                    <div class="text-content">
+                        <strong>Strategic approach justification:</strong> Focus resources on validating the most biologically important findings. Use standards for compounds that will be quantified, reported in publications, or used for clinical decisions. Rely on computational methods for exploratory analysis and hypothesis generation.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="detailed-section">
+            <div class="section-title">
+                <span class="section-number">🔄</span>
+                Integrated Workflow Explanation
+            </div>
+            
+            <div class="section-content">
+                <div class="subsection">
+                    <div class="subsection-title">Why an Integrated Approach?</div>
+                    <div class="text-content">
+                        Each identification method has strengths and limitations. Using them in combination provides complementary information and compensates for individual weaknesses, creating a robust identification strategy.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Step 1: Mass Accuracy Screening</div>
+                    <div class="text-content">
+                        <strong>Purpose:</strong> Quickly narrow down the universe of possible compounds to a manageable list of candidates based on exact mass.
+                    </div>
+                    <div class="text-content">
+                        <strong>Output:</strong> A ranked list of possible molecular formulas, each with a calculated mass error in ppm.
+                    </div>
+                    <div class="text-content">
+                        <strong>Decision point:</strong> Formulas with <5 ppm error move forward for further investigation; those with >10 ppm error are typically discarded.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Step 2: Isotope Pattern Validation</div>
+                    <div class="text-content">
+                        <strong>Purpose:</strong> Independently verify the molecular formula predicted in Step 1. Acts as a quality control step.
+                    </div>
+                    <div class="text-content">
+                        <strong>Process:</strong> Software calculates the theoretical isotope pattern for each candidate formula and compares it to the observed pattern.
+                    </div>
+                    <div class="text-content">
+                        <strong>Outcome:</strong> Formulas with poor isotope pattern matching are eliminated, even if they had good mass accuracy. This prevents false positives.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Step 3: MS/MS Structural Elucidation</div>
+                    <div class="text-content">
+                        <strong>Purpose:</strong> Determine or constrain the molecular structure. Multiple compounds can have the same molecular formula (isomers), so we need structural information.
+                    </div>
+                    <div class="text-content">
+                        <strong>Approach A - Library search:</strong> If a good match (similarity score >0.8) is found, you have a strong candidate identification.
+                    </div>
+                    <div class="text-content">
+                        <strong>Approach B - In-silico:</strong> If library searching fails, generate candidate structures from databases and predict their fragmentation patterns for comparison.
+                    </div>
+                    <div class="text-content">
+                        <strong>Approach C - Manual:</strong> If computational methods are inconclusive, expert interpretation of neutral losses and fragments can provide structural insights.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Step 4: Standards Confirmation</div>
+                    <div class="text-content">
+                        <strong>When to use:</strong> For metabolites that are: (1) commercially available, (2) of high importance to the study, (3) need to be quantified, or (4) will be reported as key findings.
+                    </div>
+                    <div class="text-content">
+                        <strong>What it provides:</strong> Definitive proof of identity and the ability to accurately quantify the metabolite.
+                    </div>
+                    <div class="text-content">
+                        <strong>Alternative if standards unavailable:</strong> Report findings as MSI Level 2 (putatively annotated) and acknowledge this limitation in publications.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Practical Implementation</div>
+                    <div class="text-content">
+                        <strong>Small-scale targeted study (10-50 metabolites):</strong> Purchase standards for all metabolites if possible. Provides the highest quality data for publication.
+                    </div>
+                    <div class="text-content">
+                        <strong>Large-scale untargeted study (500+ features):</strong> Use Steps 1-3 for all features. Purchase standards for the top 20-50 most significant findings for validation.
+                    </div>
+                    <div class="text-content">
+                        <strong>Time course:</strong> For a typical unknown metabolite, the full workflow might take: 5 minutes (mass accuracy), 5 minutes (isotope pattern), 30-60 minutes (MS/MS analysis), plus 1-2 weeks to order and run standards if needed.
+                    </div>
+                </div>
+                
+                <div class="subsection">
+                    <div class="subsection-title">Final Reporting Reminder</div>
+                    <div class="text-content">
+                        <strong>Be transparent:</strong> Always clearly state the MSI confidence level for each reported metabolite. Don't overstate confidence.
+                    </div>
+                    <div class="text-content">
+                        <strong>Document your methods:</strong> Describe which identification criteria were used and how decisions were made.
+                    </div>
+                    <div class="text-content">
+                        <strong>Share your data:</strong> Deposit MS/MS spectra and identification results in public repositories (e.g., MetaboLights, Metabolomics Workbench) to enable verification and reuse.
+                    </div>
+                    <div class="text-content">
+                        <strong>Acknowledge limitations:</strong> Be honest about identifications that remain tentative or where isomers cannot be distinguished.
+                    </div>
+                </div>
+            </div>
+        </div>
+        
+        <div class="key-point" style="margin-top: 40px; padding: 25px; background: linear-gradient(135deg, #667eea15 0%, #764ba215 100%);">
+            <strong style="font-size: 18px; color: #667eea;">Summary of Key Concepts:</strong><br><br>
+            <div class="text-content">
+                <strong>1. Multiple lines of evidence are essential:</strong> No single method provides definitive identification. Combining mass accuracy, isotope patterns, MS/MS, and standards creates a robust, defensible identification.<br><br>
+                
+                <strong>2. Standards are the gold standard but not always practical:</strong> Use them when possible, especially for key findings. Acknowledge limitations when they're not available.<br><br>
+                
+                <strong>3. Computational tools are powerful but not perfect:</strong> Library searching and in-silico fragmentation are valuable tools that continue to improve, but expert review is still important for critical identifications.<br><br>
+                
+                <strong>4. Documentation and transparency are crucial:</strong> Clear reporting of confidence levels and identification criteria ensures reproducibility and enables others to evaluate your findings.<br><br>
+                
+                <strong>5. The field is evolving:</strong> New algorithms, larger spectral libraries, and better instrumentation continue to improve identification capabilities. Stay current with best practices and new tools.
             </div>
         </div>
     </div>
