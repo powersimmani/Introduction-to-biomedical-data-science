@@ -1,191 +1,815 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>UV-Vis Spectroscopy</title>
+    <title>UV-Vis Spectroscopy - Enhanced Lecture</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { 
             font-family: Aptos, 'Segoe UI', sans-serif; 
-            background: white; 
-            display: flex; 
-            justify-content: center; 
-            align-items: center; 
-            min-height: 100vh; 
+            background: #f8f9fa; 
+            color: #333;
+            line-height: 1.6;
         }
         .container { 
-            width: 960px; 
-            height: 540px; 
-            padding: 30px 40px; 
-            background: white; 
+            max-width: 1200px; 
+            margin: 0 auto;
+            padding: 20px;
         }
         .title { 
-            font-size: 28px; 
-            font-weight: 600; 
+            font-size: 36px; 
+            font-weight: 700; 
             color: #1E64C8; 
-            margin-bottom: 18px; 
-            text-align: center; 
+            margin-bottom: 10px; 
+            text-align: center;
+            border-bottom: 3px solid #1E64C8;
+            padding-bottom: 15px;
+        }
+        .subtitle {
+            text-align: center;
+            color: #666;
+            font-size: 16px;
+            margin-bottom: 30px;
+        }
+        .section-title {
+            font-size: 22px;
+            font-weight: 700;
+            color: #1E64C8;
+            margin-top: 35px;
+            margin-bottom: 15px;
+            padding-left: 10px;
+            border-left: 4px solid #1E64C8;
         }
         .beer-law {
             background: linear-gradient(135deg, #1E64C8 0%, #2874d8 100%); 
             border-radius: 12px; 
-            padding: 16px; 
-            margin-bottom: 16px; 
+            padding: 25px; 
+            margin-bottom: 25px; 
             text-align: center; 
             color: white;
+            box-shadow: 0 4px 6px rgba(30, 100, 200, 0.2);
         }
         .equation {
-            font-size: 24px; 
+            font-size: 28px; 
             font-weight: 700; 
             font-family: 'Courier New', monospace; 
-            margin-bottom: 6px;
+            margin-bottom: 12px;
         }
-        .equation-desc {
-            font-size: 14px; 
-            opacity: 0.95;
+        .equation-components {
+            font-size: 15px;
+            margin-top: 15px;
+            text-align: left;
+            display: inline-block;
+            background: rgba(255,255,255,0.15);
+            padding: 12px 20px;
+            border-radius: 8px;
         }
-        .main-section {
+        .equation-components div {
+            margin: 5px 0;
+            font-family: 'Courier New', monospace;
+        }
+        .main-content {
             display: grid;
-            grid-template-columns: 1.2fr 1fr;
-            gap: 15px;
-            margin-bottom: 15px;
+            grid-template-columns: 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        .section-box {
+            background: white;
+            border-radius: 12px;
+            padding: 25px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         .spectrometer-diagram {
             background: #f0f5fc;
             border: 2px solid #1E64C8;
             border-radius: 10px;
-            padding: 18px;
+            padding: 25px;
+            margin-bottom: 20px;
         }
-        .applications-grid {
+        .diagram-title {
+            font-size: 16px; 
+            font-weight: 700; 
+            color: #1E64C8; 
+            margin-bottom: 15px; 
+            text-align: center;
+        }
+        .description-text {
+            font-size: 14px;
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+        .grid-2col {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 12px;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 20px;
         }
-        .app-card {
-            background: #f0f5fc; 
-            border: 2px solid #1E64C8; 
+        .grid-3col {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        .info-card {
+            background: white; 
+            border-left: 4px solid #1E64C8; 
             border-radius: 8px; 
-            padding: 13px;
+            padding: 18px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.05);
             transition: all 0.3s;
         }
-        .app-card:hover {
-            background: #e0ebff;
+        .info-card:hover {
+            box-shadow: 0 4px 12px rgba(30, 100, 200, 0.15);
             transform: translateY(-2px);
         }
-        .app-title {
+        .card-title {
             font-size: 15px; 
             font-weight: 700; 
             color: #1E64C8; 
-            margin-bottom: 6px;
+            margin-bottom: 10px;
         }
-        .app-desc {
+        .card-content {
             font-size: 13px; 
-            color: #333;
-            line-height: 1.4;
+            color: #555;
+            line-height: 1.6;
+        }
+        .highlight {
+            background: #fff3cd;
+            border-left: 3px solid #ffc107;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .formula-box {
+            background: #f0f5fc;
+            border: 2px solid #1E64C8;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: 'Courier New', monospace;
+            margin: 15px 0;
+            font-size: 14px;
+        }
+        .wavelength-chart {
+            background: white;
+            border: 2px solid #1E64C8;
+            border-radius: 10px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        .color-bar {
+            display: flex;
+            height: 40px;
+            margin: 15px 0;
+            border-radius: 5px;
+            overflow: hidden;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+        .color-segment {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 700;
+            color: white;
+            text-shadow: 0 1px 2px rgba(0,0,0,0.3);
+        }
+        .uv { background: linear-gradient(to right, #4B0082, #9400D3); }
+        .violet { background: linear-gradient(to right, #9400D3, #4400FF); }
+        .blue { background: linear-gradient(to right, #4400FF, #0080FF); }
+        .cyan { background: linear-gradient(to right, #0080FF, #00FFFF); }
+        .green { background: linear-gradient(to right, #00FFFF, #00FF00); }
+        .yellow { background: linear-gradient(to right, #00FF00, #FFFF00); }
+        .orange { background: linear-gradient(to right, #FFFF00, #FF7700); }
+        .red { background: linear-gradient(to right, #FF7700, #FF0000); }
+        .ir { background: linear-gradient(to right, #FF0000, #8B0000); }
+        .table-container {
+            overflow-x: auto;
+            margin: 20px 0;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+        table th {
+            background: #1E64C8;
+            color: white;
+            padding: 12px;
+            text-align: left;
+            font-weight: 700;
+            border: 1px solid #1E64C8;
+        }
+        table td {
+            padding: 12px;
+            border: 1px solid #e0e0e0;
+        }
+        table tr:nth-child(even) {
+            background: #f8f9fa;
+        }
+        .note {
+            background: #e3f2fd;
+            border-left: 4px solid #2196F3;
+            padding: 12px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 13px;
+            color: #1565c0;
+        }
+        .warning {
+            background: #fff3cd;
+            border-left: 4px solid #ff9800;
+            padding: 12px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 13px;
+            color: #e65100;
+        }
+        .step-list {
+            margin: 15px 0;
+        }
+        .step-item {
+            display: flex;
+            margin-bottom: 12px;
+        }
+        .step-number {
+            background: #1E64C8;
+            color: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            margin-right: 12px;
+            flex-shrink: 0;
+        }
+        .step-content {
+            flex: 1;
+        }
+        .footer {
+            text-align: center;
+            color: #999;
+            font-size: 12px;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #e0e0e0;
         }
     </style>
 </head>
 <body>
     <div class="container">
-        <div class="title">UV-Vis Spectroscopy</div>
+        <h1 class="title">UV-Vis Spectroscopy</h1>
+        <p class="subtitle">Comprehensive Guide to Ultraviolet-Visible Light Absorption Spectroscopy</p>
         
+        <!-- Beer-Lambert Law Section -->
         <div class="beer-law">
             <div class="equation">A = εbc = -log₁₀(I/I₀)</div>
-            <div class="equation-desc">
-                ε: molar absorptivity (M⁻¹cm⁻¹) | b: path length (cm) | c: concentration (M)
+            <div class="equation-components">
+                <div><strong>A</strong> = Absorbance (unitless)</div>
+                <div><strong>ε</strong> = Molar absorptivity (M⁻¹cm⁻¹)</div>
+                <div><strong>b</strong> = Path length (cm)</div>
+                <div><strong>c</strong> = Concentration (M)</div>
+                <div><strong>I</strong> = Transmitted light intensity</div>
+                <div><strong>I₀</strong> = Incident light intensity</div>
             </div>
         </div>
-        
-        <div class="main-section">
+
+        <!-- Principle Section -->
+        <div class="section-box">
+            <h2 class="section-title">🔬 Fundamental Principles</h2>
+            <p class="description-text">
+                UV-Vis spectroscopy measures the absorption of ultraviolet and visible light by molecules. When light passes through a solution, 
+                molecules with appropriate energy gaps absorb photons at specific wavelengths, causing electronic transitions from ground state (S₀) 
+                to excited states (S₁, S₂, etc.). This absorption follows the Beer-Lambert Law, which states that absorbance is directly proportional 
+                to both the concentration and path length of the sample.
+            </p>
+            
+            <div class="highlight">
+                <strong>Key Concept:</strong> The wavelength of maximum absorption (λmax) is characteristic of a specific chromophore and depends on the 
+                energy difference between electronic states (ΔE = hc/λ).
+            </div>
+
+            <h3 class="section-title" style="margin-top: 20px; border-left: 4px solid #ff9800;">📊 Electromagnetic Spectrum</h3>
+            <p class="description-text">
+                UV-Vis spectroscopy operates in two primary regions:
+            </p>
+            <div class="color-bar">
+                <div class="color-segment uv" style="flex: 0.8;">UV (100-380 nm)</div>
+                <div class="color-segment violet" style="flex: 0.6;">Violet</div>
+                <div class="color-segment blue" style="flex: 0.6;">Blue</div>
+                <div class="color-segment cyan" style="flex: 0.6;">Cyan</div>
+                <div class="color-segment green" style="flex: 0.6;">Green</div>
+                <div class="color-segment yellow" style="flex: 0.6;">Yellow</div>
+                <div class="color-segment orange" style="flex: 0.6;">Orange</div>
+                <div class="color-segment red" style="flex: 0.6;">Red</div>
+                <div class="color-segment ir" style="flex: 0.6;">Vis (380-750 nm)</div>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Region</th>
+                        <th>Wavelength Range</th>
+                        <th>Energy (eV)</th>
+                        <th>Transition Type</th>
+                        <th>Applications</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Near UV</strong></td>
+                        <td>300-400 nm</td>
+                        <td>3.1-4.1 eV</td>
+                        <td>n→π*, π→π*</td>
+                        <td>Aromatic compounds, proteins</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Far UV</strong></td>
+                        <td>200-300 nm</td>
+                        <td>4.1-6.2 eV</td>
+                        <td>π→π*, σ→π*</td>
+                        <td>DNA, RNA, peptides</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Visible</strong></td>
+                        <td>400-700 nm</td>
+                        <td>1.8-3.1 eV</td>
+                        <td>π→π*, n→π*</td>
+                        <td>Colored compounds, dyes</td>
+                    </tr>
+                </table>
+            </div>
+        </div>
+
+        <!-- Instrumental Design Section -->
+        <div class="section-box">
+            <h2 class="section-title">🔧 Spectrophotometer Design & Components</h2>
+            
             <div class="spectrometer-diagram">
-                <div style="font-size: 15px; font-weight: 700; color: #1E64C8; margin-bottom: 12px; text-align: center;">
-                    Spectrophotometer Design
-                </div>
-                <svg width="100%" height="160" viewBox="0 0 500 160">
+                <div class="diagram-title">Basic Spectrophotometer Configuration</div>
+                <svg width="100%" height="200" viewBox="0 0 600 200">
                     <!-- Light source -->
-                    <circle cx="40" cy="80" r="20" fill="#FFD700" opacity="0.8"/>
-                    <text x="40" y="115" text-anchor="middle" font-size="11" fill="#666" font-weight="bold">Light</text>
-                    <text x="40" y="127" text-anchor="middle" font-size="11" fill="#666">Source</text>
+                    <circle cx="50" cy="100" r="25" fill="#FFD700" opacity="0.9"/>
+                    <text x="50" y="160" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">Light Source</text>
+                    <text x="50" y="175" text-anchor="middle" font-size="10" fill="#666">(D₂/Tungsten)</text>
                     
                     <!-- Light rays -->
-                    <line x1="60" y1="70" x2="95" y2="70" stroke="#FFD700" stroke-width="2"/>
-                    <line x1="60" y1="80" x2="95" y2="80" stroke="#FFD700" stroke-width="2"/>
-                    <line x1="60" y1="90" x2="95" y2="90" stroke="#FFD700" stroke-width="2"/>
+                    <line x1="75" y1="85" x2="115" y2="85" stroke="#FFD700" stroke-width="2.5"/>
+                    <line x1="75" y1="100" x2="115" y2="100" stroke="#FFD700" stroke-width="2.5"/>
+                    <line x1="75" y1="115" x2="115" y2="115" stroke="#FFD700" stroke-width="2.5"/>
                     
                     <!-- Monochromator (prism) -->
-                    <polygon points="100,50 140,80 100,110" fill="#87CEEB" opacity="0.6" stroke="#1E64C8" stroke-width="2"/>
-                    <text x="120" y="130" text-anchor="middle" font-size="10" fill="#666" font-weight="bold">Monochromator</text>
+                    <polygon points="120,70 160,100 120,130" fill="#87CEEB" opacity="0.7" stroke="#1E64C8" stroke-width="2.5"/>
+                    <text x="145" y="165" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">Monochromator</text>
+                    <text x="145" y="180" text-anchor="middle" font-size="10" fill="#666">(Grating/Prism)</text>
                     
                     <!-- Selected wavelength -->
-                    <line x1="140" y1="80" x2="240" y2="80" stroke="#0000FF" stroke-width="3"/>
-                    <text x="190" y="70" text-anchor="middle" font-size="10" fill="#0000FF" font-weight="bold">λ selected</text>
+                    <line x1="160" y1="100" x2="230" y2="100" stroke="#0000FF" stroke-width="3"/>
+                    <text x="195" y="85" text-anchor="middle" font-size="10" fill="#0000FF" font-weight="bold">λ selected</text>
+                    
+                    <!-- Slit -->
+                    <line x1="235" y1="92" x2="235" y2="108" stroke="#333" stroke-width="1.5"/>
+                    <text x="235" y="130" text-anchor="middle" font-size="10" fill="#666">Exit Slit</text>
                     
                     <!-- Sample cuvette -->
-                    <rect x="250" y="50" width="60" height="60" fill="#e8f4f8" stroke="#1E64C8" stroke-width="3" rx="5"/>
-                    <rect x="260" y="60" width="40" height="40" fill="#ADD8E6" opacity="0.5"/>
-                    <text x="280" y="130" text-anchor="middle" font-size="10" fill="#666" font-weight="bold">Sample</text>
+                    <rect x="270" y="80" width="50" height="40" fill="#e8f4f8" stroke="#1E64C8" stroke-width="2.5" rx="4"/>
+                    <rect x="277" y="88" width="36" height="24" fill="#ADD8E6" opacity="0.5"/>
+                    <text x="295" y="130" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">Sample</text>
+                    <text x="295" y="143" text-anchor="middle" font-size="10" fill="#666">(Cuvette)</text>
                     
                     <!-- Transmitted light -->
-                    <line x1="310" y1="80" x2="390" y2="80" stroke="#0000FF" stroke-width="2.5" opacity="0.6"/>
-                    <text x="350" y="70" text-anchor="middle" font-size="10" fill="#666">I (transmitted)</text>
+                    <line x1="320" y1="100" x2="390" y2="100" stroke="#0000FF" stroke-width="2.5" opacity="0.7"/>
+                    <text x="355" y="85" text-anchor="middle" font-size="10" fill="#666">I (transmitted)</text>
                     
                     <!-- Detector -->
-                    <rect x="400" y="60" width="50" height="40" fill="#1E64C8" opacity="0.3" stroke="#1E64C8" stroke-width="2" rx="5"/>
-                    <text x="425" y="85" text-anchor="middle" font-size="14" fill="#1E64C8" font-weight="bold">PMT</text>
-                    <text x="425" y="130" text-anchor="middle" font-size="10" fill="#666" font-weight="bold">Detector</text>
+                    <rect x="400" y="80" width="50" height="40" fill="#1E64C8" opacity="0.4" stroke="#1E64C8" stroke-width="2.5" rx="4"/>
+                    <text x="425" y="107" text-anchor="middle" font-size="13" fill="#1E64C8" font-weight="bold">PMT</text>
+                    <text x="425" y="135" text-anchor="middle" font-size="12" fill="#333" font-weight="bold">Detector</text>
+                    <text x="425" y="148" text-anchor="middle" font-size="10" fill="#666">(Photomultiplier)</text>
                     
-                    <!-- I0 reference path (dashed) -->
-                    <line x1="190" y1="30" x2="425" y2="30" stroke="#666" stroke-width="1.5" stroke-dasharray="5,3"/>
-                    <text x="310" y="22" text-anchor="middle" font-size="9" fill="#666">I₀ (reference)</text>
+                    <!-- Reference path -->
+                    <line x1="195" y1="35" x2="425" y2="35" stroke="#999" stroke-width="2" stroke-dasharray="5,4"/>
+                    <text x="310" y="25" text-anchor="middle" font-size="10" fill="#666" font-style="italic">I₀ (reference/blank)</text>
                 </svg>
             </div>
-            
-            <div style="display: flex; flex-direction: column; gap: 12px;">
-                <div class="app-card">
-                    <div class="app-title">🧬 Chromophores in Biology</div>
-                    <div class="app-desc">
-                        <strong>Proteins:</strong> Trp, Tyr (280 nm)<br>
-                        <strong>DNA/RNA:</strong> 260 nm<br>
-                        <strong>Heme:</strong> Soret band (420 nm)
+
+            <p class="description-text">
+                A spectrophotometer consists of five main components working together to measure light absorption:
+            </p>
+
+            <div class="grid-2col">
+                <div class="info-card">
+                    <div class="card-title">💡 Light Source</div>
+                    <div class="card-content">
+                        <strong>UV Region (200-400 nm):</strong> Deuterium (D₂) lamp produces continuous spectrum<br><br>
+                        <strong>Visible Region (400-750 nm):</strong> Tungsten-halogen lamp provides stable output<br><br>
+                        <strong>Alternative:</strong> Xenon flash lamps for high-intensity applications
                     </div>
                 </div>
-                <div class="app-card">
-                    <div class="app-title">📊 Cuvette Selection</div>
-                    <div class="app-desc">
-                        <strong>Quartz:</strong> UV region<br>
-                        <strong>Glass/Plastic:</strong> Visible only<br>
-                        <strong>Standard:</strong> 1 cm path length
+
+                <div class="info-card">
+                    <div class="card-title">🔍 Monochromator</div>
+                    <div class="card-content">
+                        Separates white light into discrete wavelengths using either:<br><br>
+                        <strong>Diffraction Grating:</strong> Most common, wide wavelength range<br><br>
+                        <strong>Prism:</strong> Higher resolution but narrower range<br><br>
+                        Controls wavelength selection via stepper motor
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-title">🧪 Sample Cuvette</div>
+                    <div class="card-content">
+                        <strong>UV Applications:</strong> Quartz (SiO₂) or fused silica (transparent to 190 nm)<br><br>
+                        <strong>Visible Applications:</strong> Plastic, glass, or disposable cuvettes<br><br>
+                        <strong>Standard Path Length:</strong> 1.0 cm (must be consistent)<br><br>
+                        <strong>Practical Tip:</strong> Always check optical quality before use
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-title">📡 Detector Systems</div>
+                    <div class="card-content">
+                        <strong>Photomultiplier Tube (PMT):</strong> High sensitivity, wide range, UV-Vis optimal<br><br>
+                        <strong>Photodiode Array:</strong> Simultaneous multi-wavelength detection<br><br>
+                        <strong>CCD Detector:</strong> Modern instruments, excellent linearity<br><br>
+                        Sensitivity: ppm to μM range possible
+                    </div>
+                </div>
+            </div>
+
+            <div class="note">
+                <strong>Important:</strong> Single-beam instruments require baseline correction before each measurement. Double-beam instruments 
+                automatically compensate by comparing sample and reference simultaneously, reducing errors from light source fluctuations.
+            </div>
+        </div>
+
+        <!-- Chromophores Section -->
+        <div class="section-box">
+            <h2 class="section-title">🧬 Biological Chromophores & Applications</h2>
+            
+            <p class="description-text">
+                Chromophores are organic molecules with extended conjugated π-electron systems that absorb light in the UV-Vis region. 
+                The following table summarizes common biological chromophores:
+            </p>
+
+            <div class="table-container">
+                <table>
+                    <tr>
+                        <th>Biomolecule</th>
+                        <th>λmax (nm)</th>
+                        <th>Molar Absorptivity</th>
+                        <th>Transition Type</th>
+                        <th>Key Use</th>
+                    </tr>
+                    <tr>
+                        <td><strong>Tryptophan (Trp)</strong></td>
+                        <td>280 nm</td>
+                        <td>~5,500 M⁻¹cm⁻¹</td>
+                        <td>π→π*</td>
+                        <td>Protein concentration determination</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Tyrosine (Tyr)</strong></td>
+                        <td>274-280 nm</td>
+                        <td>~1,600 M⁻¹cm⁻¹</td>
+                        <td>π→π*</td>
+                        <td>Protein quantification (adjunct)</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Phenylalanine (Phe)</strong></td>
+                        <td>258 nm</td>
+                        <td>~200 M⁻¹cm⁻¹</td>
+                        <td>π→π*</td>
+                        <td>Minimal protein absorption</td>
+                    </tr>
+                    <tr>
+                        <td><strong>DNA (double helix)</strong></td>
+                        <td>260 nm</td>
+                        <td>Variable (~20 M⁻¹cm⁻¹)</td>
+                        <td>π→π*</td>
+                        <td>DNA concentration & purity</td>
+                    </tr>
+                    <tr>
+                        <td><strong>RNA</strong></td>
+                        <td>260 nm</td>
+                        <td>Variable (~20 M⁻¹cm⁻¹)</td>
+                        <td>π→π*</td>
+                        <td>RNA quantification</td>
+                    </tr>
+                    <tr>
+                        <td><strong>Heme (Fe-Protoporphyrin)</strong></td>
+                        <td>420 nm (Soret)</td>
+                        <td>~100,000 M⁻¹cm⁻¹</td>
+                        <td>π→π*</td>
+                        <td>Hemoglobin, myoglobin detection</td>
+                    </tr>
+                    <tr>
+                        <td><strong>NADH</strong></td>
+                        <td>340 nm</td>
+                        <td>~6,200 M⁻¹cm⁻¹</td>
+                        <td>π→π*</td>
+                        <td>Enzyme kinetics monitoring</td>
+                    </tr>
+                </table>
+            </div>
+
+            <h3 class="section-title" style="margin-top: 20px; border-left: 4px solid #4caf50;">📈 Protein Quantification by A₂₈₀</h3>
+            <p class="description-text">
+                The absorption at 280 nm is primarily due to aromatic amino acids (Trp and Tyr). This method is fast and non-destructive:
+            </p>
+            
+            <div class="formula-box">
+Concentration (mg/mL) = (A₂₈₀) / (ε × b)
+<br><br>
+Where ε varies by protein (typically 0.5-2.0 for common proteins)
+Extinction coefficient calculated from amino acid composition
+            </div>
+
+            <h3 class="section-title" style="margin-top: 20px; border-left: 4px solid #4caf50;">🧬 DNA/RNA Purity Assessment</h3>
+            <p class="description-text">
+                Two key ratios determine nucleic acid purity and contamination:
+            </p>
+            
+            <div class="grid-2col">
+                <div class="info-card">
+                    <div class="card-title">A₂₆₀/A₂₈₀ Ratio</div>
+                    <div class="card-content">
+                        <strong>Pure DNA:</strong> ~1.8<br>
+                        <strong>Pure RNA:</strong> ~2.0<br><br>
+                        <strong>Lower ratio indicates:</strong> Protein contamination (absorbs at 280 nm)<br><br>
+                        <strong>Acceptable range:</strong> 1.7-1.9 for DNA, 1.9-2.1 for RNA
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-title">A₂₆₀/A₂₃₀ Ratio</div>
+                    <div class="card-content">
+                        <strong>Pure DNA:</strong> ~2.0-2.2<br>
+                        <strong>Pure RNA:</strong> ~2.0-2.2<br><br>
+                        <strong>Lower ratio indicates:</strong> Carbohydrate/phenol contamination<br><br>
+                        <strong>Typical range:</strong> 2.0-2.2 is optimal
                     </div>
                 </div>
             </div>
         </div>
-        
-        <div class="applications-grid">
-            <div class="app-card">
-                <div class="app-title">🎯 Applications</div>
-                <div class="app-desc">
-                    Protein quantification | DNA/RNA purity | Enzyme kinetics | Drug screening
+
+        <!-- Practical Applications Section -->
+        <div class="section-box">
+            <h2 class="section-title">🎯 Practical Applications in Research</h2>
+            
+            <div class="grid-3col">
+                <div class="info-card">
+                    <div class="card-title">🧪 Enzyme Kinetics</div>
+                    <div class="card-content">
+                        Monitor substrate/product absorption in real-time<br><br>
+                        Example: NADH consumption at 340 nm<br><br>
+                        Allows determination of Km and Vmax<br><br>
+                        Temperature control critical (±0.1°C)
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-title">💊 Drug Screening</div>
+                    <div class="card-content">
+                        Measure compound absorption (λmax identification)<br><br>
+                        High-throughput screening with 96-well plates<br><br>
+                        Determine drug-protein binding<br><br>
+                        Quantify drug purity and concentration
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-title">🔬 Research Assays</div>
+                    <div class="card-content">
+                        Protein concentration determination (Bradford, Lowry)<br><br>
+                        Colorimetric assays (e.g., enzyme activity)<br><br>
+                        Monitoring protein aggregation<br><br>
+                        Characterizing metal complexes
+                    </div>
                 </div>
             </div>
-            <div class="app-card">
-                <div class="app-title">⚙️ Baseline Corrections</div>
-                <div class="app-desc">
-                    Buffer blank essential | Scatter correction for turbid samples | Temperature control
+        </div>
+
+        <!-- Experimental Guidelines Section -->
+        <div class="section-box">
+            <h2 class="section-title">⚙️ Experimental Best Practices</h2>
+            
+            <h3 class="section-title" style="margin-top: 15px; border-left: 4px solid #ff5722;">🔧 Baseline Correction & Calibration</h3>
+            <div class="step-list">
+                <div class="step-item">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <strong>Blank/Baseline Measurement:</strong> Measure only solvent (buffer/water) first. Set this as reference (100% transmittance)
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <strong>Optical Density Check:</strong> Verify cuvette optical quality. Scratches or contamination cause high scatter
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <strong>Temperature Equilibration:</strong> Allow sample 15 min to reach instrument temperature (usually 25°C)
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <strong>Wavelength Calibration:</strong> Use standard (e.g., potassium dichromate) weekly to verify accuracy
+                    </div>
                 </div>
             </div>
-            <div class="app-card">
-                <div class="app-title">📈 Linear Range</div>
-                <div class="app-desc">
-                    A = 0.1-1.0 optimal | Beyond A=2: non-linear | Dilute if necessary
+
+            <h3 class="section-title" style="margin-top: 20px; border-left: 4px solid #ff5722;">📊 Absorbance Range for Accuracy</h3>
+            <p class="description-text">
+                The Beer-Lambert Law is only linear within specific absorbance ranges due to instrumental limitations and scattering effects:
+            </p>
+            
+            <svg width="100%" height="280" viewBox="0 0 700 280" style="background: white; border: 1px solid #e0e0e0; border-radius: 8px; padding: 10px;">
+                <!-- Axes -->
+                <line x1="80" y1="220" x2="650" y2="220" stroke="#333" stroke-width="2"/>
+                <line x1="80" y1="30" x2="80" y2="220" stroke="#333" stroke-width="2"/>
+                
+                <!-- Axis labels -->
+                <text x="630" y="245" font-size="14" font-weight="bold" fill="#333">Concentration</text>
+                <text x="20" y="60" font-size="14" font-weight="bold" fill="#333">Absorbance</text>
+                
+                <!-- Grid lines -->
+                <line x1="80" y1="180" x2="650" y2="180" stroke="#ddd" stroke-width="1" stroke-dasharray="3,3"/>
+                <line x1="80" y1="140" x2="650" y2="140" stroke="#ddd" stroke-width="1" stroke-dasharray="3,3"/>
+                <line x1="80" y1="100" x2="650" y2="100" stroke="#ddd" stroke-width="1" stroke-dasharray="3,3"/>
+                
+                <!-- Scale marks -->
+                <text x="70" y="225" font-size="11" fill="#666" text-anchor="end">0</text>
+                <text x="70" y="185" font-size="11" fill="#666" text-anchor="end">0.5</text>
+                <text x="70" y="145" font-size="11" fill="#666" text-anchor="end">1.0</text>
+                <text x="70" y="105" font-size="11" fill="#666" text-anchor="end">1.5</text>
+                <text x="70" y="65" font-size="11" fill="#666" text-anchor="end">2.0</text>
+                
+                <!-- Optimal range shading -->
+                <rect x="180" y="160" width="280" height="60" fill="#4caf50" opacity="0.2"/>
+                <text x="320" y="198" text-anchor="middle" font-size="12" font-weight="bold" fill="#2e7d32">OPTIMAL RANGE</text>
+                <text x="320" y="215" text-anchor="middle" font-size="11" fill="#2e7d32">A = 0.1 - 1.0</text>
+                
+                <!-- Curve (exponential-like) -->
+                <polyline points="100,215 150,195 200,160 250,130 300,110 350,95 400,80 450,60 500,40 550,30 600,25 650,20" 
+                          stroke="#1E64C8" stroke-width="3" fill="none" stroke-linecap="round"/>
+                
+                <!-- Annotations -->
+                <g>
+                    <circle cx="100" cy="215" r="4" fill="#ff5722"/>
+                    <text x="110" y="210" font-size="10" fill="#ff5722" font-weight="bold">Non-linear</text>
+                    <text x="110" y="222" font-size="9" fill="#666">(Too dilute)</text>
+                </g>
+                
+                <g>
+                    <circle cx="650" cy="20" r="4" fill="#ff5722"/>
+                    <text x="650" y="10" font-size="10" fill="#ff5722" font-weight="bold" text-anchor="end">Non-linear</text>
+                    <text x="650" y="0" font-size="9" fill="#666" text-anchor="end">(Too concentrated)</text>
+                </g>
+            </svg>
+
+            <div class="highlight">
+                <strong>Critical Rule:</strong> Always dilute samples with high absorbance (>2.0) to bring them into the linear range. 
+                A₁ = 2.0 is the absolute maximum; beyond this, Beer's Law breaks down due to scattering and instrument limitations.
+            </div>
+
+            <h3 class="section-title" style="margin-top: 20px; border-left: 4px solid #ff5722;">⚠️ Common Errors & Troubleshooting</h3>
+            <div class="grid-2col" style="margin-top: 15px;">
+                <div class="warning">
+                    <strong>High Absorbance Reading:</strong> Check if cuvette is scratched, contaminated, or contains precipitate. Clean with distilled water and ethanol.
+                </div>
+                <div class="warning">
+                    <strong>Noisy Baseline:</strong> Allow instrument 20 min warm-up time. Check lamp stability and detector sensitivity settings.
+                </div>
+                <div class="warning">
+                    <strong>Inconsistent Results:</strong> Verify temperature stability (±0.5°C variation causes errors). Ensure cuvette orientation is identical each measurement.
+                </div>
+                <div class="warning">
+                    <strong>Wavelength Shift:</strong> Perform calibration with reference standard. Deuterium lamp may need replacement if older than 1000 hours.
                 </div>
             </div>
-            <div class="app-card">
-                <div class="app-title">💡 Light Sources</div>
-                <div class="app-desc">
-                    Deuterium (UV) | Tungsten-halogen (Visible) | Xenon flash lamps
+        </div>
+
+        <!-- Advanced Topics Section -->
+        <div class="section-box">
+            <h2 class="section-title">🔬 Advanced Concepts</h2>
+            
+            <h3 class="section-title" style="margin-top: 15px; border-left: 4px solid #9c27b0;">Electronic Transitions</h3>
+            <p class="description-text">
+                UV-Vis spectroscopy involves π→π* and n→π* transitions. The energy required depends on the conjugation and orbital overlap:
+            </p>
+            
+            <div class="formula-box">
+ΔE = E(excited) - E(ground) = hc/λ = hν
+<br><br>
+Higher conjugation → Lower energy gap → Longer wavelength absorption
+Example: Ethene (λmax ~165 nm) vs. 1,3-Butadiene (λmax ~217 nm)
+            </div>
+
+            <h3 class="section-title" style="margin-top: 20px; border-left: 4px solid #9c27b0;">Solvent Effects (Bathochromism/Hypsochromism)</h3>
+            <p class="description-text">
+                Solvent polarity significantly affects λmax due to stabilization of electronic states:
+            </p>
+            
+            <div class="grid-2col">
+                <div class="info-card">
+                    <div class="card-title">Red Shift (Bathochromism)</div>
+                    <div class="card-content">
+                        Polar solvents stabilize excited states more than ground states<br><br>
+                        Results in <strong>lower energy gap → longer λmax</strong><br><br>
+                        Example: Moving from hexane to methanol increases λmax
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-title">Blue Shift (Hypsochromism)</div>
+                    <div class="card-content">
+                        Hydrogen bonding or specific solvation stabilizes ground state<br><br>
+                        Results in <strong>higher energy gap → shorter λmax</strong><br><br>
+                        Example: Phenol shows pH-dependent shifts
+                    </div>
                 </div>
             </div>
+
+            <div class="note">
+                <strong>Practical Impact:</strong> Always use the same solvent for comparison studies. Buffer composition, pH, and ionic strength 
+                can shift absorption peaks by 2-5 nm, leading to erroneous conclusions.
+            </div>
+
+            <h3 class="section-title" style="margin-top: 20px; border-left: 4px solid #9c27b0;">Deviations from Beer's Law</h3>
+            <p class="description-text">
+                Several factors cause non-linearity:
+            </p>
+            
+            <div class="grid-2col">
+                <div class="info-card">
+                    <div class="card-title">Chemical Deviations</div>
+                    <div class="card-content">
+                        <strong>Dissociation:</strong> Weak acid/base showing absorbance changes with concentration<br><br>
+                        <strong>Aggregation:</strong> Dyes form dimers/polymers at high concentration<br><br>
+                        <strong>Complexation:</strong> Formation of new absorbing species
+                    </div>
+                </div>
+
+                <div class="info-card">
+                    <div class="card-title">Instrumental Deviations</div>
+                    <div class="card-content">
+                        <strong>Stray Light:</strong> Non-monochromatic light causes curve flattening<br><br>
+                        <strong>Limited Bandwidth:</strong> Wide slits reduce resolution<br><br>
+                        <strong>Detector Non-linearity:</strong> PMT saturation at high intensity
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Summary Section -->
+        <div class="section-box" style="background: linear-gradient(135deg, #e3f2fd 0%, #f3e5f5 100%);">
+            <h2 class="section-title">📋 Summary & Key Takeaways</h2>
+            
+            <div class="step-list">
+                <div class="step-item">
+                    <div class="step-number">✓</div>
+                    <div class="step-content">
+                        <strong>Beer-Lambert Law:</strong> A = εbc governs all UV-Vis measurements. Always verify linear range (A = 0.1-1.0).
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">✓</div>
+                    <div class="step-content">
+                        <strong>Instrumentation:</strong> Modern spectrophotometers use deuterium (UV) and tungsten-halogen (Visible) lamps with PMT or photodiode detectors.
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">✓</div>
+                    <div class="step-content">
+                        <strong>Biological Applications:</strong> Protein quantification at 280 nm, nucleic acid analysis at 260 nm, and real-time enzyme kinetics monitoring.
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">✓</div>
+                    <div class="step-content">
+                        <strong>Sample Preparation:</strong> Baseline correction, temperature control (±0.5°C), quartz cuvettes for UV, and consistent path length are critical.
+                    </div>
+                </div>
+                <div class="step-item">
+                    <div class="step-number">✓</div>
+                    <div class="step-content">
+                        <strong>Quality Control:</strong> Regular calibration with standards, lamp replacement monitoring, and awareness of solvent effects ensure accurate results.
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="footer">
+            Enhanced UV-Vis Spectroscopy Lecture Material | Comprehensive Educational Resource | December 2025
         </div>
     </div>
 </body>
