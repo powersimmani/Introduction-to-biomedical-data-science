@@ -361,6 +361,120 @@
                 <div class="info-text">• Biological replicates (≥3)<br>• Read depth (20-40M reads)<br>• Strand-specific protocols<br>• Batch effect correction</div>
             </div>
         </div>
+        <!-- Quality Control Section -->
+        <div class="content-box" style="margin-top: 20px;">
+            <div class="section-title">Quality Control & Assessment</div>
+            <div class="info-text" style="padding: 15px; background: #f0f5fc; border-radius: 6px;">
+                <strong>Key Quality Metrics:</strong><br>
+                • <strong>RIN Score:</strong> RNA Integrity Number (1-10 scale); RIN ≥7 recommended for RNA-seq<br>
+                • <strong>DV200:</strong> Percentage of RNA fragments >200 nucleotides; important for degraded samples<br>
+                • <strong>Mapping Rate:</strong> Percentage of reads aligned to reference genome; typically 70-90%<br>
+                • <strong>Duplication Rate:</strong> PCR duplicates from library prep; <40% is acceptable<br>
+                • <strong>Gene Body Coverage:</strong> Uniformity of coverage across transcript length; indicates 3' or 5' bias
+            </div>
+        </div>
+
+        <!-- Best Practices Section -->
+        <div class="content-box" style="margin-top: 20px;">
+            <div class="section-title">Experimental Design & Best Practices</div>
+            <div class="info-grid">
+                <div class="info-box">
+                    <div class="info-label">Sample Size & Replicates</div>
+                    <div class="info-text">
+                        <strong>Minimum Requirements:</strong><br>
+                        • 3 biological replicates per condition (minimum)<br>
+                        • 5-6 replicates recommended for better power<br>
+                        • Technical replicates not necessary with modern protocols<br><br>
+                        <strong>Power Analysis:</strong><br>
+                        • More replicates = better detection of small changes<br>
+                        • n=3: detect large changes (2-fold)<br>
+                        • n=6: detect moderate changes (1.5-fold)
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Batch Effects & Confounding</div>
+                    <div class="info-text">
+                        <strong>Design Considerations:</strong><br>
+                        • Randomize samples across batches<br>
+                        • Process all samples together if possible<br>
+                        • Include batch information in model<br>
+                        • Use ComBat or RUVSeq for correction<br><br>
+                        <strong>Avoid Confounding:</strong><br>
+                        • Don't confound condition with batch<br>
+                        • Balance sample collection timing
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Sequencing Depth Guidelines</div>
+                    <div class="info-text">
+                        <strong>Human/Mouse mRNA-seq:</strong><br>
+                        • Standard DE analysis: 20-30M reads/sample<br>
+                        • Isoform analysis: 40-60M reads/sample<br>
+                        • Low input samples: 10-15M reads<br><br>
+                        <strong>Other Applications:</strong><br>
+                        • Small RNA-seq: 5-10M reads<br>
+                        • Total RNA-seq: 50-100M reads<br>
+                        • Single-cell: 50K-100K reads/cell
+                    </div>
+                </div>
+                <div class="info-box">
+                    <div class="info-label">Data QC Checkpoints</div>
+                    <div class="info-text">
+                        <strong>Before Analysis:</strong><br>
+                        • Check RIN scores (>7 for mRNA-seq)<br>
+                        • Review FastQC reports<br>
+                        • Verify mapping rates (>70%)<br>
+                        • Assess rRNA contamination (<5%)<br><br>
+                        <strong>After Quantification:</strong><br>
+                        • PCA for outlier detection<br>
+                        • Sample clustering consistency<br>
+                        • Gene detection saturation curves
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Common Pitfalls Section -->
+        <div class="content-box" style="margin-top: 20px;">
+            <div class="section-title">Common Pitfalls & Troubleshooting</div>
+            <div style="padding: 20px; background: white; border-radius: 6px;">
+                <div style="margin-bottom: 20px;">
+                    <div style="font-size: 13px; font-weight: 600; color: #FF6B6B; margin-bottom: 10px;">❌ Low Mapping Rate (<60%)</div>
+                    <div style="font-size: 11px; color: #666; line-height: 1.6; padding-left: 20px;">
+                        <strong>Causes:</strong> Wrong reference genome, adapter contamination, low quality RNA<br>
+                        <strong>Solutions:</strong> Verify genome assembly version, trim adapters properly, check RNA quality
+                    </div>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <div style="font-size: 13px; font-weight: 600; color: #FF6B6B; margin-bottom: 10px;">❌ High rRNA Contamination (>20%)</div>
+                    <div style="font-size: 11px; color: #666; line-height: 1.6; padding-left: 20px;">
+                        <strong>Causes:</strong> Inefficient rRNA depletion or polyA selection<br>
+                        <strong>Solutions:</strong> Use fresh reagents, optimize selection protocol, consider spike-in QC
+                    </div>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <div style="font-size: 13px; font-weight: 600; color: #FF6B6B; margin-bottom: 10px;">❌ Sample Outliers in PCA</div>
+                    <div style="font-size: 11px; color: #666; line-height: 1.6; padding-left: 20px;">
+                        <strong>Causes:</strong> Sample swap, poor quality, batch effects, biological variation<br>
+                        <strong>Solutions:</strong> Verify sample identity, check QC metrics, investigate batch effects
+                    </div>
+                </div>
+                <div style="margin-bottom: 20px;">
+                    <div style="font-size: 13px; font-weight: 600; color: #FF6B6B; margin-bottom: 10px;">❌ No Significant DEGs Found</div>
+                    <div style="font-size: 11px; color: #666; line-height: 1.6; padding-left: 20px;">
+                        <strong>Causes:</strong> Weak biological effect, high variability, insufficient replicates<br>
+                        <strong>Solutions:</strong> Increase sample size, verify experimental conditions, check for batch effects
+                    </div>
+                </div>
+                <div>
+                    <div style="font-size: 13px; font-weight: 600; color: #FF6B6B; margin-bottom: 10px;">❌ Too Many DEGs (>50% of genome)</div>
+                    <div style="font-size: 11px; color: #666; line-height: 1.6; padding-left: 20px;">
+                        <strong>Causes:</strong> Global transcriptional changes, normalization issues, batch effects<br>
+                        <strong>Solutions:</strong> Review experimental design, check normalization method, use batch correction
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 </body>
 </html>
