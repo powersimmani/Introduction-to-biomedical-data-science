@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Evolution Modeling - Detailed Guide</title>
+    <title>Evolution Modeling - Comprehensive Guide</title>
     <style>
         * {
             margin: 0;
@@ -12,9 +12,10 @@
         }
         
         body {
-            font-family: Aptos, 'Segoe UI', sans-serif;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             background: #f5f5f5;
             padding: 20px;
+            line-height: 1.6;
         }
         
         .container {
@@ -297,6 +298,12 @@
                                 <marker id="arrowhead-red" markerWidth="10" markerHeight="10" refX="9" refY="3" orient="auto">
                                     <polygon points="0 0, 10 3, 0 6" fill="#cc0000" />
                                 </marker>
+                                <marker id="arrowhead-green" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                                    <polygon points="0 0, 8 3, 0 6" fill="#28a745" />
+                                </marker>
+                                <marker id="arrowhead-yellow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
+                                    <polygon points="0 0, 8 3, 0 6" fill="#ffc107" />
+                                </marker>
                             </defs>
                             
                             <!-- Main branches -->
@@ -449,307 +456,1236 @@
             </div>
         </div>
 
-        <!-- Section 5: Fitness Landscapes -->
-        <div class="detail-section">
-            <div class="section-header">
-                <div class="section-number">5</div>
-                <div class="section-title">Fitness Landscapes</div>
-            </div>
+<!-- SECTION 1: SEQUENCE EVOLUTION MODELS -->
+<div class="detail-section">
+    <div class="section-header">
+        <div class="section-number">1</div>
+        <div class="section-title">Sequence Evolution Models</div>
+    </div>
+    
+    <p class="section-description">
+        Molecular sequence evolution follows probabilistic models that describe how DNA, RNA, and protein sequences change over time through substitutions, insertions, and deletions. Understanding these models is fundamental to reconstructing evolutionary history, estimating divergence times, and inferring selection pressures on biological sequences across different lineages.
+    </p>
+    
+    <div class="visual-container">
+        <svg width="1080" height="500" viewBox="0 0 1080 500">
+            <text x="540" y="30" font-size="20" fill="#1E64C8" text-anchor="middle" font-weight="700">DNA Substitution Models and Rate Variation</text>
             
-            <p class="section-description">
-                Fitness landscapes represent the relationship between genotypes or phenotypes and their reproductive success. These multidimensional spaces help us understand evolutionary trajectories, constraints on adaptation, and the accessibility of beneficial mutations through the complex topology of sequence space.
-            </p>
-            
-            <div class="visual-container">
-                <svg width="1080" height="600" viewBox="0 0 1080 600">
-                    <text x="540" y="30" font-size="20" fill="#1E64C8" text-anchor="middle" font-weight="700">Fitness Landscape Topology and Evolutionary Paths</text>
+            <!-- Jukes-Cantor Model -->
+            <g transform="translate(50, 70)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Jukes-Cantor (JC69)</text>
+                <text x="0" y="20" font-size="12" fill="#666">Equal rates for all substitutions</text>
+                
+                <rect x="0" y="35" width="280" height="200" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <!-- Four nucleotides in a square -->
+                <g transform="translate(140, 135)">
+                    <circle cx="-50" cy="-50" r="20" fill="#ff6b6b" stroke="#c92a2a" stroke-width="2"/>
+                    <text x="-50" y="-45" font-size="16" fill="white" text-anchor="middle" font-weight="700">A</text>
                     
-                    <!-- 3D Fitness Landscape Visualization -->
-                    <g transform="translate(50, 70)">
-                        <text x="0" y="0" font-size="16" fill="#333" font-weight="600">3D Fitness Landscape (2D Projection)</text>
+                    <circle cx="50" cy="-50" r="20" fill="#4dabf7" stroke="#1971c2" stroke-width="2"/>
+                    <text x="50" y="-45" font-size="16" fill="white" text-anchor="middle" font-weight="700">C</text>
+                    
+                    <circle cx="50" cy="50" r="20" fill="#51cf66" stroke="#2f9e44" stroke-width="2"/>
+                    <text x="50" y="55" font-size="16" fill="white" text-anchor="middle" font-weight="700">G</text>
+                    
+                    <circle cx="-50" cy="50" r="20" fill="#ffd43b" stroke="#f59f00" stroke-width="2"/>
+                    <text x="-50" y="55" font-size="16" fill="white" text-anchor="middle" font-weight="700">T</text>
+                    
+                    <!-- Equal rate arrows -->
+                    <path d="M -28,-50 L 28,-50" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="0" y="-55" font-size="9" fill="#666" text-anchor="middle">α</text>
+                    
+                    <path d="M 50,-28 L 50,28" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="62" y="0" font-size="9" fill="#666">α</text>
+                    
+                    <path d="M 28,50 L -28,50" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="0" y="65" font-size="9" fill="#666" text-anchor="middle">α</text>
+                    
+                    <path d="M -50,28 L -50,-28" stroke="#666" stroke-width="2" marker-end="url(#arrowhead)"/>
+                    <text x="-65" y="0" font-size="9" fill="#666">α</text>
+                </g>
+                
+                <text x="140" y="245" font-size="10" fill="#666" text-anchor="middle">All substitutions equally likely</text>
+            </g>
+            
+            <!-- Kimura 2-Parameter -->
+            <g transform="translate(370, 70)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Kimura 2-Parameter (K80)</text>
+                <text x="0" y="20" font-size="12" fill="#666">Transitions vs Transversions</text>
+                
+                <rect x="0" y="35" width="280" height="200" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <g transform="translate(140, 135)">
+                    <circle cx="-50" cy="-50" r="20" fill="#ff6b6b" stroke="#c92a2a" stroke-width="2"/>
+                    <text x="-50" y="-45" font-size="16" fill="white" text-anchor="middle" font-weight="700">A</text>
+                    <text x="-50" y="-20" font-size="7" fill="#666" text-anchor="middle">Purine</text>
+                    
+                    <circle cx="50" cy="-50" r="20" fill="#4dabf7" stroke="#1971c2" stroke-width="2"/>
+                    <text x="50" y="-45" font-size="16" fill="white" text-anchor="middle" font-weight="700">C</text>
+                    <text x="50" y="-20" font-size="7" fill="#666" text-anchor="middle">Pyrimidine</text>
+                    
+                    <circle cx="50" cy="50" r="20" fill="#51cf66" stroke="#2f9e44" stroke-width="2"/>
+                    <text x="50" y="55" font-size="16" fill="white" text-anchor="middle" font-weight="700">G</text>
+                    <text x="50" y="75" font-size="7" fill="#666" text-anchor="middle">Purine</text>
+                    
+                    <circle cx="-50" cy="50" r="20" fill="#ffd43b" stroke="#f59f00" stroke-width="2"/>
+                    <text x="-50" y="55" font-size="16" fill="white" text-anchor="middle" font-weight="700">T</text>
+                    <text x="-50" y="75" font-size="7" fill="#666" text-anchor="middle">Pyrimidine</text>
+                    
+                    <!-- Transitions (α) - highlighted -->
+                    <path d="M -35,-35 L 35,35" stroke="#e03131" stroke-width="3.5" marker-end="url(#arrowhead-red)"/>
+                    <text x="0" y="5" font-size="10" fill="#e03131" font-weight="700">α</text>
+                    
+                    <path d="M 35,-35 L -35,35" stroke="#e03131" stroke-width="3.5" marker-end="url(#arrowhead-red)"/>
+                    
+                    <!-- Transversions (β) -->
+                    <path d="M -28,-50 L 28,-50" stroke="#666" stroke-width="1.8" marker-end="url(#arrowhead)"/>
+                    <text x="0" y="-60" font-size="9" fill="#666">β</text>
+                    
+                    <path d="M 50,-28 L 50,28" stroke="#666" stroke-width="1.8" marker-end="url(#arrowhead)"/>
+                    <text x="68" y="0" font-size="9" fill="#666">β</text>
+                </g>
+                
+                <text x="140" y="245" font-size="10" fill="#666" text-anchor="middle">κ = α/β ≈ 2-4 (transition bias)</text>
+            </g>
+            
+            <!-- GTR Model -->
+            <g transform="translate(690, 70)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">General Time Reversible</text>
+                <text x="0" y="20" font-size="12" fill="#666">Most complex reversible model</text>
+                
+                <rect x="0" y="35" width="280" height="200" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <g transform="translate(140, 135)">
+                    <circle cx="-50" cy="-50" r="20" fill="#ff6b6b" stroke="#c92a2a" stroke-width="2"/>
+                    <text x="-50" y="-45" font-size="16" fill="white" text-anchor="middle" font-weight="700">A</text>
+                    
+                    <circle cx="50" cy="-50" r="20" fill="#4dabf7" stroke="#1971c2" stroke-width="2"/>
+                    <text x="50" y="-45" font-size="16" fill="white" text-anchor="middle" font-weight="700">C</text>
+                    
+                    <circle cx="50" cy="50" r="20" fill="#51cf66" stroke="#2f9e44" stroke-width="2"/>
+                    <text x="50" y="55" font-size="16" fill="white" text-anchor="middle" font-weight="700">G</text>
+                    
+                    <circle cx="-50" cy="50" r="20" fill="#ffd43b" stroke="#f59f00" stroke-width="2"/>
+                    <text x="-50" y="55" font-size="16" fill="white" text-anchor="middle" font-weight="700">T</text>
+                    
+                    <!-- Six unique rates -->
+                    <path d="M -28,-50 L 28,-50" stroke="#e03131" stroke-width="2.5" marker-end="url(#arrowhead-red)"/>
+                    <text x="0" y="-55" font-size="8" fill="#e03131">a</text>
+                    
+                    <path d="M 50,-28 L 50,28" stroke="#2b8a3e" stroke-width="2.5" marker-end="url(#arrowhead-green)"/>
+                    <text x="65" y="0" font-size="8" fill="#2b8a3e">b</text>
+                    
+                    <path d="M 28,50 L -28,50" stroke="#1971c2" stroke-width="2.5" marker-end="url(#arrowhead)"/>
+                    <text x="0" y="65" font-size="8" fill="#1971c2">c</text>
+                    
+                    <path d="M -50,28 L -50,-28" stroke="#f59f00" stroke-width="2.5" marker-end="url(#arrowhead-yellow)"/>
+                    <text x="-68" y="0" font-size="8" fill="#f59f00">d</text>
+                    
+                    <path d="M -35,-35 L 35,35" stroke="#9c36b5" stroke-width="2.5"/>
+                    <text x="-8" y="8" font-size="8" fill="#9c36b5">e</text>
+                    
+                    <path d="M 35,-35 L -35,35" stroke="#087f5b" stroke-width="2.5"/>
+                    <text x="8" y="-8" font-size="8" fill="#087f5b">f</text>
+                </g>
+                
+                <text x="140" y="245" font-size="10" fill="#666" text-anchor="middle">6 parameters + base frequencies</text>
+            </g>
+            
+            <!-- Rate variation illustration -->
+            <g transform="translate(50, 320)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Among-Site Rate Heterogeneity</text>
+                
+                <rect x="0" y="20" width="980" height="140" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <!-- Gamma distribution curve -->
+                <g transform="translate(40, 50)">
+                    <text x="0" y="0" font-size="13" fill="#666" font-weight="600">Gamma Distribution (Γ)</text>
+                    
+                    <!-- Axes -->
+                    <line x1="0" y1="90" x2="250" y2="90" stroke="#333" stroke-width="1"/>
+                    <line x1="0" y1="0" x2="0" y2="90" stroke="#333" stroke-width="1"/>
+                    
+                    <!-- Different alpha values -->
+                    <path d="M 10,10 Q 30,15 50,30 T 90,60 T 130,75 T 170,83 T 210,88" 
+                          stroke="#e74c3c" stroke-width="2.5" fill="none"/>
+                    <text x="215" y="90" font-size="9" fill="#e74c3c">α=0.5</text>
+                    
+                    <path d="M 15,25 Q 50,35 80,55 T 140,80 T 200,88" 
+                          stroke="#f39c12" stroke-width="2.5" fill="none"/>
+                    <text x="205" y="72" font-size="9" fill="#f39c12">α=1.0</text>
+                    
+                    <path d="M 50,15 Q 90,25 110,45 Q 130,70 140,85 Q 150,88 220,90" 
+                          stroke="#3498db" stroke-width="2.5" fill="none"/>
+                    <text x="225" y="55" font-size="9" fill="#3498db">α=5.0</text>
+                    
+                    <text x="125" y="110" font-size="10" fill="#666" text-anchor="middle">Substitution rate →</text>
+                </g>
+                
+                <!-- Discrete categories -->
+                <g transform="translate(350, 50)">
+                    <text x="0" y="0" font-size="13" fill="#666" font-weight="600">Discrete Rate Categories</text>
+                    
+                    <!-- Bar chart -->
+                    <rect x="20" y="20" width="40" height="70" fill="#95a5a6"/>
+                    <text x="40" y="100" font-size="8" fill="#333" text-anchor="middle">Invariant</text>
+                    
+                    <rect x="70" y="35" width="40" height="55" fill="#3498db"/>
+                    <text x="90" y="100" font-size="8" fill="#333" text-anchor="middle">Slow</text>
+                    
+                    <rect x="120" y="50" width="40" height="40" fill="#f39c12"/>
+                    <text x="140" y="100" font-size="8" fill="#333" text-anchor="middle">Medium</text>
+                    
+                    <rect x="170" y="65" width="40" height="25" fill="#e74c3c"/>
+                    <text x="190" y="100" font-size="8" fill="#333" text-anchor="middle">Fast</text>
+                </g>
+                
+                <!-- Codon models -->
+                <g transform="translate(650, 50)">
+                    <text x="0" y="0" font-size="13" fill="#666" font-weight="600">Codon Models (dN/dS)</text>
+                    
+                    <rect x="0" y="20" width="280" height="80" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                    
+                    <g transform="translate(15, 40)">
+                        <text x="0" y="0" font-size="11" fill="#e74c3c" font-weight="600">ω > 1: Positive selection</text>
+                        <text x="0" y="18" font-size="11" fill="#666">ω = 1: Neutral evolution</text>
+                        <text x="0" y="36" font-size="11" fill="#3498db" font-weight="600">ω < 1: Purifying selection</text>
+                        <text x="0" y="54" font-size="9" fill="#666">ω = dN/dS (nonsynonymous/synonymous)</text>
+                    </g>
+                </g>
+            </g>
+        </svg>
+    </div>
+    
+    <div class="key-points">
+        <h3>Essential Principles of Substitution Models:</h3>
+        <ul>
+            <li><strong>Time-reversibility:</strong> Probability of A→G equals G→A at equilibrium, simplifying likelihood calculations significantly</li>
+            <li><strong>Markov property:</strong> Future states depend only on current state, independent of evolutionary history</li>
+            <li><strong>Rate matrix Q:</strong> Describes instantaneous substitution rates; diagonal elements ensure rows sum to zero</li>
+            <li><strong>Transition probability:</strong> Calculated via matrix exponential P(t) = e^(Qt), giving probability of change over time t</li>
+            <li><strong>Among-site variation:</strong> Critical for realism; sites evolve at different rates due to functional constraints</li>
+            <li><strong>Model selection:</strong> Use likelihood ratio tests or information criteria (AIC/BIC) to balance fit and complexity</li>
+        </ul>
+    </div>
+    
+    <div class="formula-box">
+        <div class="formula-label">Jukes-Cantor Distance:</div>
+        <div class="formula">d = -3/4 × ln(1 - 4p/3)</div>
+        <div class="formula-label" style="margin-top: 15px;">Kimura 2-Parameter Distance:</div>
+        <div class="formula">d = -1/2 × ln[(1-2P-Q)√(1-2Q)]</div>
+        <div class="formula-label" style="margin-top: 10px;">where P = transition proportion, Q = transversion proportion</div>
+    </div>
+    
+    <div class="example-box">
+        <h4>Application Example: HIV Evolution</h4>
+        <p>HIV-1 exhibits extremely rapid evolution with substitution rates around 10⁻³ per site per year, approximately a million times faster than nuclear DNA. Codon models reveal strong positive selection (ω > 1) in envelope genes allowing immune escape, while structural genes show purifying selection (ω < 1). The gamma distribution shape parameter α ≈ 0.5 indicates extreme rate heterogeneity, with many invariant sites and some hypervariable regions.</p>
+    </div>
+</div>
+
+<!-- Continue with remaining sections... Due to length, I'll add Section 2 next -->
+
+<!-- SECTION 2: PHYLOGENETIC INFERENCE -->
+<div class="detail-section">
+    <div class="section-header">
+        <div class="section-number">2</div>
+        <div class="section-title">Phylogenetic Inference</div>
+    </div>
+    
+    <p class="section-description">
+        Phylogenetic inference reconstructs evolutionary relationships among organisms or genes from molecular sequence data. Different computational approaches balance statistical rigor with computational efficiency, navigating the vast space of possible tree topologies through distance-based clustering, parsimony optimization, maximum likelihood estimation, or Bayesian posterior sampling.
+    </p>
+    
+    <div class="visual-container">
+        <svg width="1080" height="650" viewBox="0 0 1080 650">
+            <text x="540" y="30" font-size="20" fill="#1E64C8" text-anchor="middle" font-weight="700">Phylogenetic Tree Reconstruction Methods</text>
+            
+            <!-- Tree space complexity -->
+            <g transform="translate(50, 70)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Tree Space Complexity</text>
+                
+                <rect x="0" y="20" width="480" height="140" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <g transform="translate(30, 50)" font-family="monospace" font-size="11">
+                    <text x="0" y="0" fill="#666">Number of taxa (n)</text>
+                    <text x="200" y="0" fill="#666">Unrooted trees</text>
+                    <text x="350" y="0" fill="#666">Rooted trees</text>
+                    
+                    <line x1="0" y1="8" x2="420" y2="8" stroke="#ccc"/>
+                    
+                    <text x="60" y="28" fill="#333">4</text>
+                    <text x="240" y="28" fill="#333">3</text>
+                    <text x="380" y="28" fill="#333">15</text>
+                    
+                    <text x="60" y="48" fill="#333">5</text>
+                    <text x="240" y="48" fill="#333">15</text>
+                    <text x="380" y="48" fill="#333">105</text>
+                    
+                    <text x="60" y="68" fill="#333">10</text>
+                    <text x="220" y="68" fill="#e74c3c" font-weight="700">2,027,025</text>
+                    <text x="360" y="68" fill="#e74c3c" font-weight="700">34,459,425</text>
+                    
+                    <text x="60" y="88" fill="#333">20</text>
+                    <text x="215" y="88" fill="#e74c3c" font-weight="700">8.2 × 10²¹</text>
+                    <text x="355" y="88" fill="#e74c3c" font-weight="700">1.9 × 10²⁶</text>
+                </g>
+                
+                <text x="240" y="145" font-size="10" fill="#666" text-anchor="middle">Formula: (2n-5)!! unrooted, (2n-3)!! rooted</text>
+            </g>
+            
+            <!-- Distance methods -->
+            <g transform="translate(570, 70)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Distance-Based Methods</text>
+                
+                <rect x="0" y="20" width="460" height="250" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <!-- UPGMA example -->
+                <g transform="translate(30, 50)">
+                    <text x="0" y="0" font-size="13" fill="#666" font-weight="600">UPGMA Algorithm</text>
+                    
+                    <!-- Distance matrix -->
+                    <g transform="translate(0, 25)" font-family="monospace" font-size="10">
+                        <text x="30" y="0" fill="#666">A</text>
+                        <text x="60" y="0" fill="#666">B</text>
+                        <text x="90" y="0" fill="#666">C</text>
+                        <text x="120" y="0" fill="#666">D</text>
                         
-                        <rect x="0" y="15" width="450" height="250" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <text x="0" y="18" fill="#666">A</text>
+                        <text x="30" y="18" fill="#333">-</text>
+                        <text x="60" y="18" fill="#e74c3c" font-weight="700">2</text>
+                        <text x="90" y="18" fill="#333">8</text>
+                        <text x="120" y="18" fill="#333">9</text>
                         
-                        <!-- Landscape surface -->
-                        <g transform="translate(40, 60)">
-                            <!-- Grid background -->
-                            <line x1="0" y1="180" x2="370" y2="180" stroke="#ccc" stroke-width="1"/>
-                            <line x1="0" y1="180" x2="0" y2="20" stroke="#ccc" stroke-width="1"/>
+                        <text x="0" y="36" fill="#666">B</text>
+                        <text x="30" y="36" fill="#333">-</text>
+                        <text x="60" y="36" fill="#333">-</text>
+                        <text x="90" y="36" fill="#333">7</text>
+                        <text x="120" y="36" fill="#333">8</text>
+                    </g>
+                    
+                    <text x="0" y="95" font-size="10" fill="#333">1. Join A & B (distance = 2)</text>
+                    <text x="0" y="110" font-size="10" fill="#333">2. Recompute average distances</text>
+                    <text x="0" y="125" font-size="10" fill="#333">3. Repeat until single tree</text>
+                </g>
+                
+                <!-- Neighbor-Joining -->
+                <g transform="translate(230, 50)">
+                    <text x="0" y="0" font-size="13" fill="#666" font-weight="600">Neighbor-Joining (NJ)</text>
+                    
+                    <rect x="0" y="20" width="200" height="120" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                    
+                    <g transform="translate(15, 40)">
+                        <text x="0" y="0" font-size="10" fill="#333" font-weight="600">Advantages:</text>
+                        <text x="0" y="18" font-size="9" fill="#666">• No molecular clock</text>
+                        <text x="0" y="33" font-size="9" fill="#666">• Minimizes branch lengths</text>
+                        <text x="0" y="48" font-size="9" fill="#666">• Corrects for unequal rates</text>
+                        
+                        <text x="0" y="70" font-size="10" fill="#333" font-weight="600">Complexity: O(n³)</text>
+                        <text x="0" y="88" font-size="9" fill="#666">Fast for 100s of taxa</text>
+                    </g>
+                </g>
+            </g>
+            
+            <!-- Maximum Parsimony -->
+            <g transform="translate(50, 350)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Maximum Parsimony (MP)</text>
+                
+                <rect x="0" y="20" width="480" height="260" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <!-- Fitch algorithm visualization -->
+                <g transform="translate(30, 50)">
+                    <text x="0" y="0" font-size="13" fill="#666" font-weight="600">Fitch Algorithm: Minimize Total Changes</text>
+                    
+                    <!-- Tree example -->
+                    <g transform="translate(120, 35)">
+                        <!-- Tips -->
+                        <circle cx="-60" cy="0" r="10" fill="#ff6b6b"/>
+                        <text x="-60" y="4" font-size="9" fill="white" text-anchor="middle" font-weight="600">A</text>
+                        <text x="-60" y="20" font-size="8" fill="#333" text-anchor="middle">ACG</text>
+                        
+                        <circle cx="-20" cy="0" r="10" fill="#4dabf7"/>
+                        <text x="-20" y="4" font-size="9" fill="white" text-anchor="middle" font-weight="600">B</text>
+                        <text x="-20" y="20" font-size="8" fill="#333" text-anchor="middle">ACT</text>
+                        
+                        <circle cx="20" cy="0" r="10" fill="#51cf66"/>
+                        <text x="20" y="4" font-size="9" fill="white" text-anchor="middle" font-weight="600">C</text>
+                        <text x="20" y="20" font-size="8" fill="#333" text-anchor="middle">GCG</text>
+                        
+                        <circle cx="60" cy="0" r="10" fill="#ffd43b"/>
+                        <text x="60" y="4" font-size="9" fill="white" text-anchor="middle" font-weight="600">D</text>
+                        <text x="60" y="20" font-size="8" fill="#333" text-anchor="middle">GCT</text>
+                        
+                        <!-- Internal nodes -->
+                        <line x1="-60" y1="10" x2="-40" y2="35" stroke="#333" stroke-width="1.5"/>
+                        <line x1="-20" y1="10" x2="-40" y2="35" stroke="#333" stroke-width="1.5"/>
+                        <circle cx="-40" cy="35" r="8" fill="#e0e0e0"/>
+                        <text x="-40" y="50" font-size="8" fill="#666" text-anchor="middle">{A,C}</text>
+                        
+                        <line x1="20" y1="10" x2="40" y2="35" stroke="#333" stroke-width="1.5"/>
+                        <line x1="60" y1="10" x2="40" y2="35" stroke="#333" stroke-width="1.5"/>
+                        <circle cx="40" cy="35" r="8" fill="#e0e0e0"/>
+                        <text x="40" y="50" font-size="8" fill="#666" text-anchor="middle">{C,G}</text>
+                        
+                        <line x1="-40" y1="43" x2="0" y2="65" stroke="#333" stroke-width="1.5"/>
+                        <line x1="40" y1="43" x2="0" y2="65" stroke="#333" stroke-width="1.5"/>
+                        <circle cx="0" cy="65" r="8" fill="#1E64C8"/>
+                        <text x="0" y="82" font-size="8" fill="#1E64C8" text-anchor="middle" font-weight="600">Root</text>
+                        
+                        <!-- Mutation indicators -->
+                        <circle cx="20" cy="5" r="4" fill="#e74c3c"/>
+                        <circle cx="-40" cy="20" r="4" fill="#e74c3c"/>
+                        <circle cx="40" cy="20" r="4" fill="#e74c3c"/>
+                        
+                        <text x="90" y="45" font-size="11" fill="#e74c3c" font-weight="600">3 changes</text>
+                    </g>
+                    
+                    <rect x="0" y="140" width="420" height="80" fill="#fff9e6" rx="4"/>
+                    <g transform="translate(15, 160)">
+                        <text x="0" y="0" font-size="11" fill="#666" font-weight="600">Limitations:</text>
+                        <text x="0" y="18" font-size="10" fill="#333">• Long-branch attraction: Fast-evolving lineages</text>
+                        <text x="7" y="33" font-size="10" fill="#333">spuriously group together</text>
+                        <text x="0" y="48" font-size="10" fill="#333">• Ignores multiple substitutions at same site</text>
+                    </g>
+                </g>
+            </g>
+            
+            <!-- Maximum Likelihood -->
+            <g transform="translate(570, 350)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Maximum Likelihood (ML)</text>
+                
+                <rect x="0" y="20" width="460" height="260" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <g transform="translate(30, 50)">
+                    <text x="0" y="0" font-size="13" fill="#666" font-weight="600">Statistical Framework</text>
+                    
+                    <rect x="0" y="20" width="400" height="80" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                    
+                    <g transform="translate(20, 40)">
+                        <text x="0" y="0" font-size="11" fill="#333">Likelihood for alignment site i:</text>
+                        <text x="0" y="20" font-size="13" fill="#1E64C8" font-family="monospace" font-weight="600">L_i = Σ π_x ∏ P_xy(t)</text>
+                        <text x="0" y="40" font-size="10" fill="#666">Sum over all ancestral states x</text>
+                    </g>
+                    
+                    <g transform="translate(0, 120)">
+                        <text x="0" y="0" font-size="11" fill="#666" font-weight="600">Optimization Process:</text>
+                        
+                        <circle cx="10" cy="20" r="4" fill="#1E64C8"/>
+                        <text x="20" y="24" font-size="10" fill="#333">1. Calculate likelihood for current tree</text>
+                        
+                        <circle cx="10" cy="40" r="4" fill="#1E64C8"/>
+                        <text x="20" y="44" font-size="10" fill="#333">2. Propose tree modification (NNI, SPR, TBR)</text>
+                        
+                        <circle cx="10" cy="60" r="4" fill="#1E64C8"/>
+                        <text x="20" y="64" font-size="10" fill="#333">3. Optimize branch lengths</text>
+                        
+                        <circle cx="10" cy="80" r="4" fill="#1E64C8"/>
+                        <text x="20" y="84" font-size="10" fill="#333">4. Accept if likelihood improves</text>
+                        
+                        <circle cx="10" cy="100" r="4" fill="#1E64C8"/>
+                        <text x="20" y="104" font-size="10" fill="#333">5. Repeat until convergence</text>
+                    </g>
+                </g>
+            </g>
+        </svg>
+    </div>
+    
+    <div class="key-points">
+        <h3>Key Concepts in Phylogenetic Inference:</h3>
+        <ul>
+            <li><strong>Tree space size:</strong> Number of possible trees grows super-exponentially: (2n-5)!! unrooted trees for n taxa</li>
+            <li><strong>Heuristic search:</strong> Use tree rearrangements (NNI, SPR, TBR) to explore tree space without exhaustive enumeration</li>
+            <li><strong>Bootstrap support:</strong> Resample alignment columns 100-1000 times to quantify confidence in each clade</li>
+            <li><strong>Model selection:</strong> Choose substitution model using likelihood ratio tests (nested models) or AIC/BIC (non-nested)</li>
+            <li><strong>Molecular clock:</strong> Test for rate constancy; if violated, use relaxed clock or local clock models</li>
+            <li><strong>Bayesian advantage:</strong> Provides posterior probabilities and accounts for phylogenetic uncertainty naturally</li>
+        </ul>
+    </div>
+    
+    <div class="formula-box">
+        <div class="formula-label">Log-Likelihood of Tree T:</div>
+        <div class="formula">ln L(T) = Σ_i ln[Σ_x π_x ∏_edges P_xy(t)]</div>
+        <div class="formula-label" style="margin-top: 15px;">Bootstrap Proportion:</div>
+        <div class="formula">BP = (replicates supporting clade) / (total replicates)</div>
+        <div class="formula-label" style="margin-top: 10px;">BP ≥ 70% typically considered reliable support</div>
+    </div>
+    
+    <div class="example-box">
+        <h4>Case Study: Bird Phylogeny</h4>
+        <p>Whole-genome analyses of 48 bird species using maximum likelihood with partitioned models (separate parameters for different gene classes) resolved long-standing debates. Bootstrap support exceeded 95% for most nodes. Key findings included neoaves radiation occurring rapidly after the K-Pg extinction event 66 MYA, explaining why earlier studies with limited data failed to resolve relationships. This demonstrates how ML methods with appropriate models can extract phylogenetic signal even from rapid radiations.</p>
+    </div>
+</div>
+
+<!-- SECTION 3: ANCESTRAL SEQUENCE RECONSTRUCTION -->
+<div class="detail-section">
+    <div class="section-header">
+        <div class="section-number">3</div>
+        <div class="section-title">Ancestral Sequence Reconstruction</div>
+    </div>
+    
+    <p class="section-description">
+        Ancestral sequence reconstruction infers the most likely sequences at internal nodes of a phylogenetic tree, allowing us to resurrect ancient proteins, study evolutionary pathways, and understand how molecular functions evolved over deep time. These methods combine phylogenetic models with probabilistic inference to estimate extinct sequences with quantifiable uncertainty.
+    </p>
+    
+    <div class="visual-container">
+        <svg width="1080" height="600" viewBox="0 0 1080 600">
+            <text x="540" y="30" font-size="20" fill="#1E64C8" text-anchor="middle" font-weight="700">Ancestral State Reconstruction Methods and Applications</text>
+            
+            <!-- Maximum Parsimony Reconstruction -->
+            <g transform="translate(50, 70)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Parsimony-Based Reconstruction</text>
+                
+                <rect x="0" y="20" width="480" height="240" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <!-- Fitch algorithm tree -->
+                <g transform="translate(40, 50)">
+                    <text x="0" y="0" font-size="13" fill="#666" font-weight="600">Fitch Algorithm: Post-order Traversal</text>
+                    
+                    <g transform="translate(200, 35)">
+                        <!-- Extant species -->
+                        <circle cx="-90" cy="0" r="12" fill="#ff6b6b" stroke="#c92a2a" stroke-width="2"/>
+                        <text x="-90" y="4" font-size="10" fill="white" text-anchor="middle" font-weight="600">A</text>
+                        <text x="-90" y="22" font-size="8" fill="#333" text-anchor="middle" font-family="monospace">ATG</text>
+                        
+                        <circle cx="-30" cy="0" r="12" fill="#4dabf7" stroke="#1971c2" stroke-width="2"/>
+                        <text x="-30" y="4" font-size="10" fill="white" text-anchor="middle" font-weight="600">B</text>
+                        <text x="-30" y="22" font-size="8" fill="#333" text-anchor="middle" font-family="monospace">ATT</text>
+                        
+                        <circle cx="30" cy="0" r="12" fill="#51cf66" stroke="#2f9e44" stroke-width="2"/>
+                        <text x="30" y="4" font-size="10" fill="white" text-anchor="middle" font-weight="600">C</text>
+                        <text x="30" y="22" font-size="8" fill="#333" text-anchor="middle" font-family="monospace">CGG</text>
+                        
+                        <circle cx="90" cy="0" r="12" fill="#ffd43b" stroke="#f59f00" stroke-width="2"/>
+                        <text x="90" y="4" font-size="10" fill="white" text-anchor="middle" font-weight="600">D</text>
+                        <text x="90" y="22" font-size="8" fill="#333" text-anchor="middle" font-family="monospace">CGT</text>
+                        
+                        <!-- Internal nodes with sets -->
+                        <line x1="-90" y1="12" x2="-60" y2="50" stroke="#333" stroke-width="2"/>
+                        <line x1="-30" y1="12" x2="-60" y2="50" stroke="#333" stroke-width="2"/>
+                        <circle cx="-60" cy="50" r="10" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+                        <text x="-60" y="68" font-size="8" fill="#666" text-anchor="middle">N1</text>
+                        <text x="-60" y="80" font-size="7" fill="#666" text-anchor="middle" font-family="monospace">{AT}{TG}{GT}</text>
+                        
+                        <line x1="30" y1="12" x2="60" y2="50" stroke="#333" stroke-width="2"/>
+                        <line x1="90" y1="12" x2="60" y2="50" stroke="#333" stroke-width="2"/>
+                        <circle cx="60" cy="50" r="10" fill="#e0e0e0" stroke="#333" stroke-width="2"/>
+                        <text x="60" y="68" font-size="8" fill="#666" text-anchor="middle">N2</text>
+                        <text x="60" y="80" font-size="7" fill="#666" text-anchor="middle" font-family="monospace">{C}{G}{GT}</text>
+                        
+                        <!-- Root -->
+                        <line x1="-60" y1="60" x2="0" y2="100" stroke="#333" stroke-width="2"/>
+                        <line x1="60" y1="60" x2="0" y2="100" stroke="#333" stroke-width="2"/>
+                        <circle cx="0" cy="100" r="12" fill="#1E64C8" stroke="#0d3d7a" stroke-width="2"/>
+                        <text x="0" y="104" font-size="10" fill="white" text-anchor="middle" font-weight="600">R</text>
+                        <text x="0" y="120" font-size="8" fill="#1E64C8" text-anchor="middle" font-weight="600">Root</text>
+                        <text x="0" y="132" font-size="7" fill="#1E64C8" text-anchor="middle" font-family="monospace">{ACT}{G}{GT}</text>
+                    </g>
+                    
+                    <text x="200" y="185" font-size="10" fill="#666" text-anchor="middle">Sets represent possible ancestral states</text>
+                </g>
+            </g>
+            
+            <!-- Maximum Likelihood Reconstruction -->
+            <g transform="translate(570, 70)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Likelihood-Based Reconstruction</text>
+                
+                <rect x="0" y="20" width="460" height="240" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <g transform="translate(30, 50)">
+                    <text x="0" y="0" font-size="13" fill="#666" font-weight="600">Posterior Probabilities at Ancestral Node</text>
+                    
+                    <!-- Probability distribution -->
+                    <g transform="translate(20, 30)">
+                        <rect x="0" y="0" width="400" height="120" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                        
+                        <!-- Bars for each nucleotide -->
+                        <g transform="translate(20, 15)">
+                            <rect x="0" y="50" width="70" height="50" fill="#ff6b6b"/>
+                            <text x="35" y="70" font-size="18" fill="white" text-anchor="middle" font-weight="700">A</text>
+                            <text x="35" y="115" font-size="11" fill="#333" text-anchor="middle">0.72</text>
                             
-                            <!-- Surface with multiple peaks and valleys -->
-                            <!-- Peak 1 (Global maximum) -->
-                            <ellipse cx="80" cy="70" rx="40" ry="30" fill="#1E64C8" opacity="0.3"/>
-                            <ellipse cx="80" cy="70" rx="25" ry="18" fill="#1E64C8" opacity="0.5"/>
-                            <circle cx="80" cy="70" r="8" fill="#1E64C8"/>
-                            <text x="80" y="60" font-size="10" fill="#333" text-anchor="middle" font-weight="600">Global Peak</text>
+                            <rect x="100" y="75" width="70" height="25" fill="#4dabf7"/>
+                            <text x="135" y="92" font-size="18" fill="white" text-anchor="middle" font-weight="700">C</text>
+                            <text x="135" y="115" font-size="11" fill="#333" text-anchor="middle">0.15</text>
                             
-                            <!-- Peak 2 (Local maximum) -->
-                            <ellipse cx="280" cy="90" rx="35" ry="25" fill="#2874d8" opacity="0.3"/>
-                            <ellipse cx="280" cy="90" rx="20" ry="15" fill="#2874d8" opacity="0.5"/>
-                            <circle cx="280" cy="90" r="6" fill="#2874d8"/>
-                            <text x="280" y="80" font-size="10" fill="#333" text-anchor="middle">Local Peak</text>
+                            <rect x="200" y="85" width="70" height="15" fill="#51cf66"/>
+                            <text x="235" y="96" font-size="14" fill="white" text-anchor="middle" font-weight="700">G</text>
+                            <text x="235" y="115" font-size="11" fill="#333" text-anchor="middle">0.09</text>
                             
-                            <!-- Valley -->
-                            <ellipse cx="180" cy="140" rx="50" ry="20" fill="#e0e0e0" opacity="0.5"/>
-                            <text x="180" y="145" font-size="10" fill="#666" text-anchor="middle">Fitness Valley</text>
+                            <rect x="300" y="90" width="70" height="10" fill="#ffd43b"/>
+                            <text x="335" y="99" font-size="12" fill="#666" text-anchor="middle" font-weight="700">T</text>
+                            <text x="335" y="115" font-size="11" fill="#333" text-anchor="middle">0.04</text>
                             
-                            <!-- Evolutionary trajectories -->
-                            <!-- Path 1: Direct ascent to global peak -->
-                            <path d="M 30,170 L 50,140 L 60,110 L 70,85 L 80,70" 
-                                  stroke="#28a745" stroke-width="3" fill="none" 
-                                  marker-end="url(#arrowhead-green)"/>
-                            <text x="20" y="175" font-size="9" fill="#28a745" font-weight="600">Path 1</text>
-                            
-                            <!-- Path 2: Trapped at local peak -->
-                            <path d="M 320,170 L 310,140 L 295,115 L 285,100 L 280,90" 
-                                  stroke="#ffc107" stroke-width="3" fill="none" 
-                                  marker-end="url(#arrowhead-yellow)"/>
-                            <text x="325" y="175" font-size="9" fill="#ffc107" font-weight="600">Path 2 (Trapped)</text>
-                            
-                            <!-- Path 3: Valley crossing (rare) -->
-                            <path d="M 150,170 Q 180,140 210,130 Q 240,120 265,95" 
-                                  stroke="#cc0000" stroke-width="2" fill="none" 
-                                  stroke-dasharray="5,5" marker-end="url(#arrowhead-red)"/>
-                            <text x="180" y="125" font-size="9" fill="#cc0000">Rare Path</text>
-                            
-                            <!-- Axes labels -->
-                            <text x="185" y="200" font-size="11" fill="#666" text-anchor="middle">Genotype Space (Dimension 1)</text>
-                            <text x="-10" y="100" font-size="11" fill="#666" text-anchor="middle" transform="rotate(-90, -10, 100)">Fitness</text>
-                            
-                            <defs>
-                                <marker id="arrowhead-green" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
-                                    <polygon points="0 0, 8 3, 0 6" fill="#28a745" />
-                                </marker>
-                                <marker id="arrowhead-yellow" markerWidth="8" markerHeight="8" refX="7" refY="3" orient="auto">
-                                    <polygon points="0 0, 8 3, 0 6" fill="#ffc107" />
-                                </marker>
-                            </defs>
+                            <text x="185" y="-5" font-size="11" fill="#666" text-anchor="middle">Posterior Probability</text>
+                            <line x1="0" y1="100" x2="370" y2="100" stroke="#333" stroke-width="1"/>
                         </g>
                     </g>
                     
-                    <!-- Epistasis and Sign Epistasis -->
-                    <g transform="translate(550, 70)">
-                        <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Epistatic Interactions</text>
+                    <text x="210" y="165" font-size="10" fill="#1E64C8" text-anchor="middle" font-weight="600">Most likely ancestral state: A (72% confidence)</text>
+                </g>
+            </g>
+            
+            <!-- Ancestral Protein Resurrection -->
+            <g transform="translate(50, 340)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Experimental Protein Resurrection</text>
+                
+                <rect x="0" y="20" width="980" height="220" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <g transform="translate(30, 50)">
+                    <!-- Workflow -->
+                    <g transform="translate(0, 0)">
+                        <rect x="0" y="0" width="140" height="60" fill="#e8f2ff" stroke="#1E64C8" stroke-width="2" rx="6"/>
+                        <text x="70" y="20" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">1. Phylogenetic</text>
+                        <text x="70" y="35" font-size="11" fill="#1E64C8" text-anchor="middle" font-weight="600">Analysis</text>
+                        <text x="70" y="52" font-size="9" fill="#666" text-anchor="middle">Build tree from</text>
+                        <text x="70" y="64" font-size="9" fill="#666" text-anchor="middle" style="overflow: visible;">extant sequences</text>
+                    </g>
+                    
+                    <path d="M 145,30 L 165,30" stroke="#1E64C8" stroke-width="3" marker-end="url(#arrowhead)"/>
+                    
+                    <g transform="translate(175, 0)">
+                        <rect x="0" y="0" width="140" height="60" fill="#d4edda" stroke="#28a745" stroke-width="2" rx="6"/>
+                        <text x="70" y="20" font-size="11" fill="#28a745" text-anchor="middle" font-weight="600">2. Ancestral</text>
+                        <text x="70" y="35" font-size="11" fill="#28a745" text-anchor="middle" font-weight="600">Reconstruction</text>
+                        <text x="70" y="52" font-size="9" fill="#666" text-anchor="middle">Infer ancient</text>
+                        <text x="70" y="64" font-size="9" fill="#666" text-anchor="middle" style="overflow: visible;">protein sequence</text>
+                    </g>
+                    
+                    <path d="M 320,30 L 340,30" stroke="#28a745" stroke-width="3" marker-end="url(#arrowhead-green)"/>
+                    
+                    <g transform="translate(350, 0)">
+                        <rect x="0" y="0" width="140" height="60" fill="#fff3cd" stroke="#f39c12" stroke-width="2" rx="6"/>
+                        <text x="70" y="20" font-size="11" fill="#f39c12" text-anchor="middle" font-weight="600">3. Gene</text>
+                        <text x="70" y="35" font-size="11" fill="#f39c12" text-anchor="middle" font-weight="600">Synthesis</text>
+                        <text x="70" y="52" font-size="9" fill="#666" text-anchor="middle">Synthesize DNA,</text>
+                        <text x="70" y="64" font-size="9" fill="#666" text-anchor="middle" style="overflow: visible;">express protein</text>
+                    </g>
+                    
+                    <path d="M 495,30 L 515,30" stroke="#f39c12" stroke-width="3" marker-end="url(#arrowhead-yellow)"/>
+                    
+                    <g transform="translate(525, 0)">
+                        <rect x="0" y="0" width="140" height="60" fill="#f8d7da" stroke="#e74c3c" stroke-width="2" rx="6"/>
+                        <text x="70" y="20" font-size="11" fill="#e74c3c" text-anchor="middle" font-weight="600">4. Functional</text>
+                        <text x="70" y="35" font-size="11" fill="#e74c3c" text-anchor="middle" font-weight="600">Characterization</text>
+                        <text x="70" y="52" font-size="9" fill="#666" text-anchor="middle">Test activity,</text>
+                        <text x="70" y="64" font-size="9" fill="#666" text-anchor="middle" style="overflow: visible;">stability, specificity</text>
+                    </g>
+                    
+                    <!-- Example case -->
+                    <g transform="translate(0, 90)">
+                        <rect x="0" y="0" width="665" height="80" fill="white" stroke="#1E64C8" stroke-width="1" rx="4"/>
                         
-                        <rect x="0" y="15" width="480" height="250" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                        <g transform="translate(15, 20)">
+                            <text x="0" y="0" font-size="12" fill="#1E64C8" font-weight="600">Example: Ancient Thioredoxin</text>
+                            <text x="0" y="18" font-size="10" fill="#333">• Reconstructed last universal common ancestor (LUCA) thioredoxin</text>
+                            <text x="0" y="34" font-size="10" fill="#333">• Functional at 55-100°C, suggesting thermophilic LUCA</text>
+                            <text x="0" y="50" font-size="10" fill="#333">• Provides experimental evidence for early Earth conditions</text>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </svg>
+    </div>
+    
+    <div class="key-points">
+        <h3>Ancestral Reconstruction Principles:</h3>
+        <ul>
+            <li><strong>Joint vs. marginal:</strong> Joint reconstruction finds optimal states for all nodes simultaneously; marginal calculates probability for each node independently</li>
+            <li><strong>Uncertainty quantification:</strong> Likelihood methods provide posterior probabilities; essential for assessing reconstruction confidence</li>
+            <li><strong>Ambiguity handling:</strong> When multiple states have similar probabilities, synthesize and test alternative reconstructions</li>
+            <li><strong>Gap treatment:</strong> Indels complicate reconstruction; typically handled by excluding gap-containing sites or using indel models</li>
+            <li><strong>Model dependency:</strong> Reconstructions sensitive to substitution model choice; use model averaging or test multiple models</li>
+            <li><strong>Experimental validation:</strong> Synthesizing ancestral proteins tests reconstruction accuracy and reveals ancient molecular properties</li>
+        </ul>
+    </div>
+    
+    <div class="formula-box">
+        <div class="formula-label">Marginal Posterior Probability for State x at Node n:</div>
+        <div class="formula">P(x_n | Data) = Σ_(-n) P(x_n, x_(-n), Tree | Data)</div>
+        <div class="formula-label" style="margin-top: 10px;">where x_(-n) represents all other ancestral states</div>
+    </div>
+    
+    <div class="example-box">
+        <h4>Application: Steroid Receptor Evolution</h4>
+        <p>Ancestral reconstruction of steroid receptors revealed how hormone specificity evolved. The ancestral corticoid receptor (reconstructed at ~450 MYA) responded to both estrogens and corticosteroids. Just two amino acid substitutions shifted specificity to estrogen-only binding in the estrogen receptor lineage, demonstrating how protein function can evolve through minimal sequence changes. This work combined computational reconstruction with experimental resurrection to map the evolutionary trajectory of hormone signaling.</p>
+    </div>
+</div>
+
+<!-- SECTION 4: COEVOLUTION ANALYSIS -->
+<div class="detail-section">
+    <div class="section-header">
+        <div class="section-number">4</div>
+        <div class="section-title">Coevolution Analysis</div>
+    </div>
+    
+    <p class="section-description">
+        Coevolution occurs when evolutionary changes in one molecular entity are correlated with changes in another, due to structural, functional, or fitness interactions. Detecting coevolutionary signals allows us to predict protein contacts, identify functionally important residues, and understand molecular interactions that drive coordinated evolution across genes, proteins, or even entire genomes.
+    </p>
+    
+    <div class="visual-container">
+        <svg width="1080" height="700" viewBox="0 0 1080 700">
+            <text x="540" y="30" font-size="20" fill="#1E64C8" text-anchor="middle" font-weight="700">Coevolution Detection and Applications</text>
+            
+            <!-- Correlated mutations in proteins -->
+            <g transform="translate(50, 70)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Intramolecular Coevolution</text>
+                
+                <rect x="0" y="20" width="480" height="280" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <g transform="translate(30, 50)">
+                    <text x="0" y="0" font-size="13" fill="#666" font-weight="600">Residue Contact Prediction</text>
+                    
+                    <!-- Protein structure schematic -->
+                    <g transform="translate(200, 40)">
+                        <!-- Protein backbone -->
+                        <path d="M -80,-20 Q -40,-30 0,-20 T 80,-20" stroke="#666" stroke-width="3" fill="none"/>
+                        <path d="M -80,20 Q -40,30 0,20 T 80,20" stroke="#666" stroke-width="3" fill="none"/>
                         
-                        <!-- No Epistasis -->
-                        <g transform="translate(30, 45)">
-                            <text x="90" y="0" font-size="12" fill="#666" font-weight="600" text-anchor="middle">No Epistasis</text>
-                            <rect x="0" y="10" width="180" height="90" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                        <!-- Coevolving residue pairs -->
+                        <circle cx="-60" cy="-20" r="8" fill="#e74c3c" stroke="#c92a2a" stroke-width="2"/>
+                        <text x="-60" y="-24" font-size="7" fill="#333" text-anchor="middle">15</text>
+                        
+                        <circle cx="50" cy="-20" r="8" fill="#e74c3c" stroke="#c92a2a" stroke-width="2"/>
+                        <text x="50" y="-24" font-size="7" fill="#333" text-anchor="middle">89</text>
+                        
+                        <!-- Contact indicator -->
+                        <line x1="-60" y1="-12" x2="50" y2="-12" stroke="#e74c3c" stroke-width="2" stroke-dasharray="3,3"/>
+                        <text x="-5" y="-15" font-size="8" fill="#e74c3c" font-weight="600">Contact</text>
+                        
+                        <circle cx="-20" cy="20" r="8" fill="#3498db" stroke="#1971c2" stroke-width="2"/>
+                        <text x="-20" y="40" font-size="7" fill="#333" text-anchor="middle">42</text>
+                        
+                        <circle cx="60" cy="20" r="8" fill="#3498db" stroke="#1971c2" stroke-width="2"/>
+                        <text x="60" y="40" font-size="7" fill="#333" text-anchor="middle">73</text>
+                        
+                        <line x1="-20" y1="28" x2="60" y2="28" stroke="#3498db" stroke-width="2" stroke-dasharray="3,3"/>
+                        <text x="20" y="42" font-size="8" fill="#3498db" font-weight="600">Contact</text>
+                    </g>
+                    
+                    <!-- Mutual information matrix -->
+                    <g transform="translate(20, 120)">
+                        <text x="0" y="0" font-size="11" fill="#666" font-weight="600">Mutual Information Matrix:</text>
+                        
+                        <rect x="0" y="10" width="200" height="100" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                        
+                        <!-- Heatmap representation -->
+                        <g transform="translate(5, 15)">
+                            <!-- Low MI regions (blue) -->
+                            <rect x="0" y="0" width="190" height="90" fill="#e3f2fd"/>
                             
-                            <!-- Genotypes -->
-                            <g transform="translate(20, 30)">
-                                <circle cx="0" cy="50" r="8" fill="#e0e0e0"/>
-                                <text x="0" y="70" font-size="9" fill="#333" text-anchor="middle">AB</text>
-                                <text x="0" y="45" font-size="8" fill="#333" text-anchor="middle">0.5</text>
-                                
-                                <circle cx="70" cy="35" r="8" fill="#ffcc00"/>
-                                <text x="70" y="55" font-size="9" fill="#333" text-anchor="middle">Ab</text>
-                                <text x="70" y="30" font-size="8" fill="#333" text-anchor="middle">0.7</text>
-                                
-                                <circle cx="70" cy="65" r="8" fill="#ffcc00"/>
-                                <text x="70" y="85" font-size="9" fill="#333" text-anchor="middle">aB</text>
-                                <text x="70" y="60" font-size="8" fill="#333" text-anchor="middle">0.7</text>
-                                
-                                <circle cx="140" cy="20" r="8" fill="#28a745"/>
-                                <text x="140" y="40" font-size="9" fill="#333" text-anchor="middle">ab</text>
-                                <text x="140" y="15" font-size="8" fill="#333" text-anchor="middle">0.9</text>
-                                
-                                <!-- Arrows showing additive effects -->
-                                <path d="M 8,50 L 62,37" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-                                <text x="35" y="40" font-size="8" fill="#1E64C8">+0.2</text>
-                                
-                                <path d="M 78,35 L 132,22" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
-                                <text x="105" y="25" font-size="8" fill="#1E64C8">+0.2</text>
-                            </g>
+                            <!-- High MI spots (red) -->
+                            <rect x="30" y="15" width="8" height="8" fill="#e74c3c"/>
+                            <rect x="140" y="15" width="8" height="8" fill="#e74c3c"/>
+                            
+                            <rect x="50" y="60" width="8" height="8" fill="#e74c3c"/>
+                            <rect x="120" y="60" width="8" height="8" fill="#e74c3c"/>
+                            
+                            <text x="95" y="-8" font-size="8" fill="#666" text-anchor="middle">Residue position →</text>
+                            <text x="-12" y="45" font-size="8" fill="#666" transform="rotate(-90, -12, 45)">Residue position →</text>
                         </g>
                         
-                        <!-- Sign Epistasis -->
-                        <g transform="translate(250, 45)">
-                            <text x="90" y="0" font-size="12" fill="#666" font-weight="600" text-anchor="middle">Sign Epistasis</text>
-                            <rect x="0" y="10" width="180" height="90" fill="white" stroke="#cc0000" stroke-width="1"/>
+                        <text x="100" y="120" font-size="8" fill="#e74c3c" text-anchor="middle">Red = High coevolution signal</text>
+                    </g>
+                </g>
+            </g>
+            
+            <!-- Direct Coupling Analysis -->
+            <g transform="translate(570, 70)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Direct Coupling Analysis (DCA)</text>
+                
+                <rect x="0" y="20" width="460" height="280" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <g transform="translate(30, 50)">
+                    <text x="0" y="0" font-size="13" fill="#666" font-weight="600">Removing Indirect Correlations</text>
+                    
+                    <!-- Network diagram -->
+                    <g transform="translate(200, 50)">
+                        <!-- Before DCA: Dense network -->
+                        <g transform="translate(-120, 0)">
+                            <text x="0" y="-20" font-size="10" fill="#666" font-weight="600">Before DCA</text>
                             
-                            <!-- Genotypes -->
-                            <g transform="translate(20, 30)">
-                                <circle cx="0" cy="50" r="8" fill="#28a745"/>
-                                <text x="0" y="70" font-size="9" fill="#333" text-anchor="middle">AB</text>
-                                <text x="0" y="45" font-size="8" fill="#333" text-anchor="middle">0.9</text>
-                                
-                                <circle cx="70" cy="65" r="8" fill="#e0e0e0"/>
-                                <text x="70" y="85" font-size="9" fill="#333" text-anchor="middle">Ab</text>
-                                <text x="70" y="60" font-size="8" fill="#333" text-anchor="middle">0.3</text>
-                                
-                                <circle cx="70" cy="35" r="8" fill="#e0e0e0"/>
-                                <text x="70" y="55" font-size="9" fill="#333" text-anchor="middle">aB</text>
-                                <text x="70" y="30" font-size="8" fill="#333" text-anchor="middle">0.4</text>
-                                
-                                <circle cx="140" cy="50" r="8" fill="#28a745"/>
-                                <text x="140" y="70" font-size="9" fill="#333" text-anchor="middle">ab</text>
-                                <text x="140" y="45" font-size="8" fill="#333" text-anchor="middle">0.95</text>
-                                
-                                <!-- Arrows showing complex interactions -->
-                                <path d="M 8,50 L 62,64" stroke="#cc0000" stroke-width="1.5" marker-end="url(#arrowhead-red)"/>
-                                <text x="35" y="62" font-size="8" fill="#cc0000">-0.6</text>
-                                
-                                <path d="M 78,65 L 132,52" stroke="#28a745" stroke-width="1.5" marker-end="url(#arrowhead-green)"/>
-                                <text x="105" y="62" font-size="8" fill="#28a745">+0.65</text>
-                                
-                                <text x="90" y="105" font-size="9" fill="#cc0000" text-anchor="middle">Mutation effect</text>
-                                <text x="90" y="115" font-size="9" fill="#cc0000" text-anchor="middle">depends on context!</text>
-                            </g>
+                            <circle cx="0" cy="0" r="8" fill="#ff6b6b"/>
+                            <circle cx="40" cy="0" r="8" fill="#4dabf7"/>
+                            <circle cx="20" cy="35" r="8" fill="#51cf66"/>
+                            <circle cx="60" cy="35" r="8" fill="#ffd43b"/>
+                            
+                            <!-- All connections (indirect) -->
+                            <line x1="0" y1="0" x2="40" y2="0" stroke="#ccc" stroke-width="1.5"/>
+                            <line x1="0" y1="0" x2="20" y2="35" stroke="#ccc" stroke-width="1.5"/>
+                            <line x1="0" y1="0" x2="60" y2="35" stroke="#ccc" stroke-width="1.5"/>
+                            <line x1="40" y1="0" x2="20" y2="35" stroke="#ccc" stroke-width="1.5"/>
+                            <line x1="40" y1="0" x2="60" y2="35" stroke="#ccc" stroke-width="1.5"/>
+                            <line x1="20" y1="35" x2="60" y2="35" stroke="#ccc" stroke-width="1.5"/>
                         </g>
                         
-                        <!-- Reciprocal Sign Epistasis -->
-                        <g transform="translate(30, 150)">
-                            <text x="200" y="0" font-size="12" fill="#666" font-weight="600" text-anchor="middle">Reciprocal Sign Epistasis</text>
-                            <rect x="0" y="10" width="400" height="80" fill="white" stroke="#8b00cc" stroke-width="1"/>
+                        <!-- After DCA: Sparse network -->
+                        <g transform="translate(80, 0)">
+                            <text x="0" y="-20" font-size="10" fill="#666" font-weight="600">After DCA</text>
                             
-                            <text x="200" y="30" font-size="11" fill="#666" text-anchor="middle">Both AB→Ab and AB→aB are deleterious</text>
-                            <text x="200" y="48" font-size="11" fill="#666" text-anchor="middle">But ab can only be reached through one of these paths</text>
-                            <text x="200" y="70" font-size="10" fill="#8b00cc" text-anchor="middle" font-weight="600">Creates evolutionary barriers and multiple peaks</text>
+                            <circle cx="0" cy="0" r="8" fill="#ff6b6b"/>
+                            <circle cx="40" cy="0" r="8" fill="#4dabf7"/>
+                            <circle cx="20" cy="35" r="8" fill="#51cf66"/>
+                            <circle cx="60" cy="35" r="8" fill="#ffd43b"/>
+                            
+                            <!-- Only direct couplings -->
+                            <line x1="0" y1="0" x2="20" y2="35" stroke="#e74c3c" stroke-width="3"/>
+                            <line x1="40" y1="0" x2="60" y2="35" stroke="#e74c3c" stroke-width="3"/>
                         </g>
                     </g>
                     
-                    <!-- Adaptive Walks -->
-                    <g transform="translate(50, 350)">
-                        <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Adaptive Walks and Evolutionary Dynamics</text>
+                    <!-- Algorithm description -->
+                    <g transform="translate(0, 130)">
+                        <rect x="0" y="0" width="400" height="100" fill="white" stroke="#1E64C8" stroke-width="1" rx="4"/>
                         
-                        <rect x="0" y="15" width="980" height="220" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
-                        
-                        <!-- Greedy Uphill Walk -->
-                        <g transform="translate(40, 50)">
-                            <text x="140" y="0" font-size="13" fill="#666" font-weight="600" text-anchor="middle">Greedy Adaptive Walk</text>
-                            
-                            <rect x="0" y="15" width="280" height="140" fill="white" stroke="#28a745" stroke-width="1"/>
-                            
-                            <!-- Sequence of steps -->
-                            <g transform="translate(20, 35)" font-family="monospace">
-                                <rect x="0" y="0" width="120" height="18" fill="#e0e0e0" opacity="0.3"/>
-                                <text x="5" y="13" font-size="10" fill="#333">Start: ATGC</text>
-                                <text x="200" y="13" font-size="10" fill="#666">Fitness: 0.50</text>
-                                
-                                <path d="M 60,22 L 60,30" stroke="#28a745" stroke-width="2" marker-end="url(#arrowhead-green)"/>
-                                
-                                <rect x="0" y="35" width="120" height="18" fill="#c8e6c9" opacity="0.5"/>
-                                <text x="5" y="48" font-size="10" fill="#333">Step 1: TTGC</text>
-                                <text x="200" y="48" font-size="10" fill="#28a745" font-weight="600">Fitness: 0.65</text>
-                                
-                                <path d="M 60,57 L 60,65" stroke="#28a745" stroke-width="2" marker-end="url(#arrowhead-green)"/>
-                                
-                                <rect x="0" y="70" width="120" height="18" fill="#a5d6a7" opacity="0.5"/>
-                                <text x="5" y="83" font-size="10" fill="#333">Step 2: TTAC</text>
-                                <text x="200" y="83" font-size="10" fill="#28a745" font-weight="600">Fitness: 0.78</text>
-                                
-                                <path d="M 60,92 L 60,100" stroke="#28a745" stroke-width="2" marker-end="url(#arrowhead-green)"/>
-                                
-                                <rect x="0" y="105" width="120" height="18" fill="#4caf50" opacity="0.6"/>
-                                <text x="5" y="118" font-size="10" fill="#fff" font-weight="600">Final: TTAG</text>
-                                <text x="200" y="118" font-size="10" fill="#28a745" font-weight="600">Fitness: 0.89</text>
-                            </g>
-                        </g>
-                        
-                        <!-- Population-based Evolution -->
-                        <g transform="translate(360, 50)">
-                            <text x="140" y="0" font-size="13" fill="#666" font-weight="600" text-anchor="middle">Population Dynamics</text>
-                            
-                            <rect x="0" y="15" width="280" height="140" fill="white" stroke="#1E64C8" stroke-width="1"/>
-                            
-                            <!-- Population distribution over time -->
-                            <g transform="translate(20, 35)">
-                                <text x="0" y="0" font-size="11" fill="#666">Generation 0:</text>
-                                <rect x="80" y="-10" width="60" height="12" fill="#e0e0e0"/>
-                                <text x="170" y="0" font-size="9" fill="#666">Low fitness</text>
-                                
-                                <text x="0" y="30" font-size="11" fill="#666">Generation 50:</text>
-                                <rect x="80" y="20" width="90" height="12" fill="#ffcc00"/>
-                                <rect x="110" y="20" width="30" height="12" fill="#ff9800"/>
-                                <text x="170" y="30" font-size="9" fill="#666">Mixed</text>
-                                
-                                <text x="0" y="60" font-size="11" fill="#666">Generation 100:</text>
-                                <rect x="80" y="50" width="40" height="12" fill="#ffcc00"/>
-                                <rect x="120" y="50" width="100" height="12" fill="#4caf50"/>
-                                <text x="170" y="60" font-size="9" fill="#28a745">High fitness</text>
-                                
-                                <text x="120" y="85" font-size="10" fill="#666" text-anchor="middle">Drift + Selection</text>
-                                
-                                <!-- Mutation-selection balance -->
-                                <text x="0" y="110" font-size="9" fill="#666">Mutation rate: μ = 10⁻⁶</text>
-                                <text x="0" y="122" font-size="9" fill="#666">Selection coef: s = 0.05</text>
-                            </g>
-                        </g>
-                        
-                        <!-- Key Concepts Box -->
-                        <g transform="translate(680, 50)">
-                            <text x="130" y="0" font-size="13" fill="#666" font-weight="600" text-anchor="middle">Key Factors</text>
-                            
-                            <rect x="0" y="15" width="260" height="140" fill="white" stroke="#1E64C8" stroke-width="1"/>
-                            
-                            <g transform="translate(15, 35)">
-                                <circle cx="0" cy="0" r="4" fill="#1E64C8"/>
-                                <text x="12" y="4" font-size="10" fill="#333">Population size (N)</text>
-                                <text x="12" y="16" font-size="9" fill="#666">Large N → selection dominates</text>
-                                
-                                <circle cx="0" cy="35" r="4" fill="#1E64C8"/>
-                                <text x="12" y="39" font-size="10" fill="#333">Mutation rate (μ)</text>
-                                <text x="12" y="51" font-size="9" fill="#666">High μ → more exploration</text>
-                                
-                                <circle cx="0" cy="70" r="4" fill="#1E64C8"/>
-                                <text x="12" y="74" font-size="10" fill="#333">Selection strength (s)</text>
-                                <text x="12" y="86" font-size="9" fill="#666">Strong s → fast adaptation</text>
-                                
-                                <circle cx="0" cy="105" r="4" fill="#1E64C8"/>
-                                <text x="12" y="109" font-size="10" fill="#333">Recombination (r)</text>
-                                <text x="12" y="121" font-size="9" fill="#666">r > 0 → breaks linkage</text>
-                            </g>
+                        <g transform="translate(15, 20)">
+                            <text x="0" y="0" font-size="11" fill="#666" font-weight="600">DCA Algorithm:</text>
+                            <text x="0" y="18" font-size="10" fill="#333">1. Build global statistical model of sequence family</text>
+                            <text x="0" y="34" font-size="10" fill="#333">2. Infer direct couplings using maximum entropy</text>
+                            <text x="0" y="50" font-size="10" fill="#333">3. Correct for phylogenetic bias and sampling</text>
+                            <text x="0" y="68" font-size="10" fill="#1E64C8" font-weight="600">Result: Top-ranked pairs are structural contacts</text>
                         </g>
                     </g>
-                </svg>
-            </div>
+                </g>
+            </g>
             
-            <div class="key-points">
-                <h3>Key Concepts:</h3>
-                <ul>
-                    <li><strong>Fitness Peaks:</strong> Genotypes with maximum fitness in their local neighborhood; populations tend to evolve toward peaks</li>
-                    <li><strong>Fitness Valleys:</strong> Low-fitness regions between peaks that can trap populations and prevent access to higher peaks</li>
-                    <li><strong>Ruggedness:</strong> The complexity of the landscape; rugged landscapes have many local optima</li>
-                    <li><strong>Epistasis:</strong> Interactions between mutations where the effect of one depends on genetic background</li>
-                    <li><strong>Sign Epistasis:</strong> When a mutation is beneficial in one background but deleterious in another</li>
-                    <li><strong>Evolutionary Accessibility:</strong> Which genotypes can be reached through single mutational steps</li>
-                    <li><strong>Adaptive Walks:</strong> Trajectories through sequence space following fitness gradients</li>
-                </ul>
-            </div>
+            <!-- Intermolecular coevolution -->
+            <g transform="translate(50, 380)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Intermolecular Coevolution</text>
+                
+                <rect x="0" y="20" width="480" height="280" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <g transform="translate(30, 50)">
+                    <text x="0" y="0" font-size="13" fill="#666" font-weight="600">Host-Pathogen Coevolution</text>
+                    
+                    <!-- Mirrored phylogenies -->
+                    <g transform="translate(40, 30)">
+                        <!-- Host tree -->
+                        <g transform="translate(0, 0)">
+                            <text x="60" y="0" font-size="11" fill="#666" font-weight="600">Host Species</text>
+                            
+                            <line x1="0" y1="30" x2="40" y2="20" stroke="#2874d8" stroke-width="2"/>
+                            <line x1="0" y1="30" x2="40" y2="40" stroke="#2874d8" stroke-width="2"/>
+                            <line x1="0" y1="70" x2="40" y2="60" stroke="#2874d8" stroke-width="2"/>
+                            <line x1="0" y1="70" x2="40" y2="80" stroke="#2874d8" stroke-width="2"/>
+                            <line x1="0" y1="30" x2="0" y2="70" stroke="#2874d8" stroke-width="2"/>
+                            
+                            <circle cx="40" cy="20" r="4" fill="#2874d8"/>
+                            <text x="48" y="23" font-size="9" fill="#333">H1</text>
+                            <circle cx="40" cy="40" r="4" fill="#2874d8"/>
+                            <text x="48" y="43" font-size="9" fill="#333">H2</text>
+                            <circle cx="40" cy="60" r="4" fill="#2874d8"/>
+                            <text x="48" y="63" font-size="9" fill="#333">H3</text>
+                            <circle cx="40" cy="80" r="4" fill="#2874d8"/>
+                            <text x="48" y="83" font-size="9" fill="#333">H4</text>
+                        </g>
+                        
+                        <!-- Pathogen tree (mirrored) -->
+                        <g transform="translate(280, 0)">
+                            <text x="20" y="0" font-size="11" fill="#666" font-weight="600">Pathogen Strains</text>
+                            
+                            <line x1="80" y1="30" x2="40" y2="20" stroke="#e74c3c" stroke-width="2"/>
+                            <line x1="80" y1="30" x2="40" y2="40" stroke="#e74c3c" stroke-width="2"/>
+                            <line x1="80" y1="70" x2="40" y2="60" stroke="#e74c3c" stroke-width="2"/>
+                            <line x1="80" y1="70" x2="40" y2="80" stroke="#e74c3c" stroke-width="2"/>
+                            <line x1="80" y1="30" x2="80" y2="70" stroke="#e74c3c" stroke-width="2"/>
+                            
+                            <circle cx="40" cy="20" r="4" fill="#e74c3c"/>
+                            <text x="28" y="23" font-size="9" fill="#333" text-anchor="end">P1</text>
+                            <circle cx="40" cy="40" r="4" fill="#e74c3c"/>
+                            <text x="28" y="43" font-size="9" fill="#333" text-anchor="end">P2</text>
+                            <circle cx="40" cy="60" r="4" fill="#e74c3c"/>
+                            <text x="28" y="63" font-size="9" fill="#333" text-anchor="end">P3</text>
+                            <circle cx="40" cy="80" r="4" fill="#e74c3c"/>
+                            <text x="28" y="83" font-size="9" fill="#333" text-anchor="end">P4</text>
+                        </g>
+                        
+                        <!-- Interaction lines -->
+                        <line x1="48" y1="20" x2="272" y2="20" stroke="#666" stroke-width="1" stroke-dasharray="2,2"/>
+                        <line x1="48" y1="40" x2="272" y2="40" stroke="#666" stroke-width="1" stroke-dasharray="2,2"/>
+                        <line x1="48" y1="60" x2="272" y2="60" stroke="#666" stroke-width="1" stroke-dasharray="2,2"/>
+                        <line x1="48" y1="80" x2="272" y2="80" stroke="#666" stroke-width="1" stroke-dasharray="2,2"/>
+                        
+                        <text x="160" y="100" font-size="9" fill="#666" text-anchor="middle">Parallel phylogenies = coadaptation</text>
+                    </g>
+                    
+                    <!-- Mirrortree method -->
+                    <g transform="translate(0, 150)">
+                        <rect x="0" y="0" width="420" height="80" fill="#e8f2ff" rx="4"/>
+                        
+                        <g transform="translate(15, 20)">
+                            <text x="0" y="0" font-size="11" fill="#1E64C8" font-weight="600">Mirrortree Method:</text>
+                            <text x="0" y="18" font-size="10" fill="#333">• Compare distance matrices of two gene families</text>
+                            <text x="0" y="34" font-size="10" fill="#333">• High correlation → functional interaction/coevolution</text>
+                            <text x="0" y="50" font-size="10" fill="#333">• Applications: Protein-protein interactions, metabolic pathways</text>
+                        </g>
+                    </g>
+                </g>
+            </g>
             
-            <div class="formula-box">
-                <div class="formula-label">Wright-Fisher Model for Fixation Probability:</div>
-                <div class="formula">P(fixation) ≈ (1 - e^(-2Ns)) / (1 - e^(-4Ns))</div>
-                <div class="formula-label" style="margin-top: 10px;">where N = population size, s = selection coefficient</div>
-            </div>
+            <!-- Applications summary -->
+            <g transform="translate(570, 380)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Coevolution Applications</text>
+                
+                <rect x="0" y="20" width="460" height="280" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <g transform="translate(30, 50)">
+                    <!-- Application cards -->
+                    <g transform="translate(0, 0)">
+                        <rect x="0" y="0" width="400" height="50" fill="white" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                        <g transform="translate(15, 18)">
+                            <text x="0" y="0" font-size="11" fill="#1E64C8" font-weight="600">🧬 Structure Prediction</text>
+                            <text x="0" y="16" font-size="9" fill="#666">Predict 3D contacts in proteins and RNA</text>
+                        </g>
+                    </g>
+                    
+                    <g transform="translate(0, 60)">
+                        <rect x="0" y="0" width="400" height="50" fill="white" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                        <g transform="translate(15, 18)">
+                            <text x="0" y="0" font-size="11" fill="#1E64C8" font-weight="600">🔗 Interaction Networks</text>
+                            <text x="0" y="16" font-size="9" fill="#666">Infer protein-protein interactions genome-wide</text>
+                        </g>
+                    </g>
+                    
+                    <g transform="translate(0, 120)">
+                        <rect x="0" y="0" width="400" height="50" fill="white" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                        <g transform="translate(15, 18)">
+                            <text x="0" y="0" font-size="11" fill="#1E64C8" font-weight="600">🎯 Drug Target Identification</text>
+                            <text x="0" y="16" font-size="9" fill="#666">Find functionally critical residue pairs</text>
+                        </g>
+                    </g>
+                    
+                    <g transform="translate(0, 180)">
+                        <rect x="0" y="0" width="400" height="50" fill="white" stroke="#1E64C8" stroke-width="1" rx="4"/>
+                        <g transform="translate(15, 18)">
+                            <text x="0" y="0" font-size="11" fill="#1E64C8" font-weight="600">🦠 Host-Pathogen Dynamics</text>
+                            <text x="0" y="16" font-size="9" fill="#666">Understand immune evasion and resistance evolution</text>
+                        </g>
+                    </g>
+                </g>
+            </g>
+        </svg>
+    </div>
+    
+    <div class="key-points">
+        <h3>Coevolution Detection Principles:</h3>
+        <ul>
+            <li><strong>Mutual information:</strong> Measures reduction in uncertainty about one position given another; simple but includes indirect correlations</li>
+            <li><strong>Direct coupling:</strong> DCA and similar methods separate direct from indirect evolutionary couplings using global statistical models</li>
+            <li><strong>Phylogenetic correction:</strong> Account for shared ancestry to avoid spurious correlations from tree structure</li>
+            <li><strong>Alignment depth:</strong> Require thousands of homologous sequences for reliable coevolution signals</li>
+            <li><strong>Mirrortree analysis:</strong> Compares phylogenetic trees of different genes to detect functional interactions</li>
+            <li><strong>Statistical significance:</strong> Use permutation tests or null models to assess significance of observed correlations</li>
+        </ul>
+    </div>
+    
+    <div class="formula-box">
+        <div class="formula-label">Mutual Information (MI) between positions i and j:</div>
+        <div class="formula">MI(i,j) = ΣΣ P(a_i, b_j) log[P(a_i, b_j) / (P(a_i)P(b_j))]</div>
+        <div class="formula-label" style="margin-top: 15px;">DCA Score (direct coupling):</div>
+        <div class="formula">DI_ij = √(Σ_ab e_ij(a,b)²)</div>
+        <div class="formula-label" style="margin-top: 10px;">where e_ij are direct coupling parameters from maximum entropy model</div>
+    </div>
+    
+    <div class="example-box">
+        <h4>Success Story: AlphaFold and Coevolution</h4>
+        <p>AlphaFold2's breakthrough in protein structure prediction heavily relies on coevolutionary information extracted from multiple sequence alignments. The model learns spatial constraints from coevolving residue pairs identified through attention mechanisms that capture both direct and higher-order correlations. This demonstrates how coevolution analysis, combined with deep learning, can solve one of biology's grand challenges—predicting 3D structure from sequence alone with near-experimental accuracy.</p>
+    </div>
+</div>
+
+<!-- SECTION 5: FITNESS LANDSCAPES (Original content from user's document) -->
+<!-- SECTION 5: FITNESS LANDSCAPES -->
+<div class="detail-section">
+    <div class="section-header">
+        <div class="section-number">5</div>
+        <div class="section-title">Fitness Landscapes</div>
+    </div>
+    
+    <p class="section-description">
+        Fitness landscapes represent the relationship between genotypes or phenotypes and their reproductive success. These multidimensional spaces help us understand evolutionary trajectories, constraints on adaptation, and the accessibility of beneficial mutations through the complex topology of sequence space.
+    </p>
+    
+    <div class="visual-container">
+        <svg width="1080" height="600" viewBox="0 0 1080 600">
+            <text x="540" y="30" font-size="20" fill="#1E64C8" text-anchor="middle" font-weight="700">Fitness Landscape Topology and Evolutionary Paths</text>
             
-            <div class="example-box">
-                <h4>Example: Antibiotic Resistance Evolution</h4>
-                <p>Studies of beta-lactamase evolution revealed a rugged fitness landscape where the path to high-level antibiotic resistance requires crossing fitness valleys. Some highly resistant variants can only be accessed through specific mutational paths involving 5+ mutations, explaining why certain resistance mechanisms emerge more frequently than others in clinical settings. Sign epistasis between mutations means that intermediate genotypes have lower fitness, creating evolutionary constraints.</p>
-            </div>
+            <!-- 3D Fitness Landscape Visualization -->
+            <g transform="translate(50, 70)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">3D Fitness Landscape (2D Projection)</text>
+                
+                <rect x="0" y="15" width="450" height="250" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <!-- Landscape surface -->
+                <g transform="translate(40, 60)">
+                    <!-- Grid background -->
+                    <line x1="0" y1="180" x2="370" y2="180" stroke="#ccc" stroke-width="1"/>
+                    <line x1="0" y1="180" x2="0" y2="20" stroke="#ccc" stroke-width="1"/>
+                    
+                    <!-- Surface with multiple peaks and valleys -->
+                    <!-- Peak 1 (Global maximum) -->
+                    <ellipse cx="80" cy="70" rx="40" ry="30" fill="#1E64C8" opacity="0.3"/>
+                    <ellipse cx="80" cy="70" rx="25" ry="18" fill="#1E64C8" opacity="0.5"/>
+                    <circle cx="80" cy="70" r="8" fill="#1E64C8"/>
+                    <text x="80" y="60" font-size="10" fill="#333" text-anchor="middle" font-weight="600">Global Peak</text>
+                    
+                    <!-- Peak 2 (Local maximum) -->
+                    <ellipse cx="280" cy="90" rx="35" ry="25" fill="#2874d8" opacity="0.3"/>
+                    <ellipse cx="280" cy="90" rx="20" ry="15" fill="#2874d8" opacity="0.5"/>
+                    <circle cx="280" cy="90" r="6" fill="#2874d8"/>
+                    <text x="280" y="80" font-size="10" fill="#333" text-anchor="middle">Local Peak</text>
+                    
+                    <!-- Valley -->
+                    <ellipse cx="180" cy="140" rx="50" ry="20" fill="#e0e0e0" opacity="0.5"/>
+                    <text x="180" y="145" font-size="10" fill="#666" text-anchor="middle">Fitness Valley</text>
+                    
+                    <!-- Evolutionary trajectories -->
+                    <!-- Path 1: Direct ascent to global peak -->
+                    <path d="M 30,170 L 50,140 L 60,110 L 70,85 L 80,70" 
+                          stroke="#28a745" stroke-width="3" fill="none" 
+                          marker-end="url(#arrowhead-green)"/>
+                    <text x="20" y="175" font-size="9" fill="#28a745" font-weight="600">Path 1</text>
+                    
+                    <!-- Path 2: Trapped at local peak -->
+                    <path d="M 320,170 L 310,140 L 295,115 L 285,100 L 280,90" 
+                          stroke="#ffc107" stroke-width="3" fill="none" 
+                          marker-end="url(#arrowhead-yellow)"/>
+                    <text x="325" y="175" font-size="9" fill="#ffc107" font-weight="600">Path 2 (Trapped)</text>
+                    
+                    <!-- Path 3: Valley crossing (rare) -->
+                    <path d="M 150,170 Q 180,140 210,130 Q 240,120 265,95" 
+                          stroke="#cc0000" stroke-width="2" fill="none" 
+                          stroke-dasharray="5,5" marker-end="url(#arrowhead-red)"/>
+                    <text x="180" y="125" font-size="9" fill="#cc0000">Rare Path</text>
+                    
+                    <!-- Axes labels -->
+                    <text x="185" y="200" font-size="11" fill="#666" text-anchor="middle">Genotype Space (Dimension 1)</text>
+                    <text x="-10" y="100" font-size="11" fill="#666" text-anchor="middle" transform="rotate(-90, -10, 100)">Fitness</text>
+                </g>
+            </g>
             
-            <div class="applications">
-                <div class="application-card">
-                    <h4>🧬 Protein Engineering</h4>
-                    <p>Navigate sequence space to design proteins with desired properties</p>
-                </div>
-                <div class="application-card">
-                    <h4>💊 Drug Resistance</h4>
-                    <p>Predict evolutionary trajectories of pathogens under drug pressure</p>
-                </div>
-                <div class="application-card">
-                    <h4>🌱 Crop Improvement</h4>
-                    <p>Guide breeding strategies to optimize multiple traits simultaneously</p>
-                </div>
-                <div class="application-card">
-                    <h4>🦠 Synthetic Biology</h4>
-                    <p>Design genetic circuits with predictable evolutionary stability</p>
-                </div>
-            </div>
+            <!-- Epistasis and Sign Epistasis -->
+            <g transform="translate(550, 70)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Epistatic Interactions</text>
+                
+                <rect x="0" y="15" width="480" height="250" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <!-- No Epistasis -->
+                <g transform="translate(30, 45)">
+                    <text x="90" y="0" font-size="12" fill="#666" font-weight="600" text-anchor="middle">No Epistasis</text>
+                    <rect x="0" y="10" width="180" height="90" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                    
+                    <!-- Genotypes -->
+                    <g transform="translate(20, 30)">
+                        <circle cx="0" cy="50" r="8" fill="#e0e0e0"/>
+                        <text x="0" y="70" font-size="9" fill="#333" text-anchor="middle">AB</text>
+                        <text x="0" y="45" font-size="8" fill="#333" text-anchor="middle">0.5</text>
+                        
+                        <circle cx="70" cy="35" r="8" fill="#ffcc00"/>
+                        <text x="70" y="55" font-size="9" fill="#333" text-anchor="middle">Ab</text>
+                        <text x="70" y="30" font-size="8" fill="#333" text-anchor="middle">0.7</text>
+                        
+                        <circle cx="70" cy="65" r="8" fill="#ffcc00"/>
+                        <text x="70" y="85" font-size="9" fill="#333" text-anchor="middle">aB</text>
+                        <text x="70" y="60" font-size="8" fill="#333" text-anchor="middle">0.7</text>
+                        
+                        <circle cx="140" cy="20" r="8" fill="#28a745"/>
+                        <text x="140" y="40" font-size="9" fill="#333" text-anchor="middle">ab</text>
+                        <text x="140" y="15" font-size="8" fill="#333" text-anchor="middle">0.9</text>
+                        
+                        <!-- Arrows showing additive effects -->
+                        <path d="M 8,50 L 62,37" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                        <text x="35" y="40" font-size="8" fill="#1E64C8">+0.2</text>
+                        
+                        <path d="M 78,35 L 132,22" stroke="#1E64C8" stroke-width="1.5" marker-end="url(#arrowhead)"/>
+                        <text x="105" y="25" font-size="8" fill="#1E64C8">+0.2</text>
+                    </g>
+                </g>
+                
+                <!-- Sign Epistasis -->
+                <g transform="translate(250, 45)">
+                    <text x="90" y="0" font-size="12" fill="#666" font-weight="600" text-anchor="middle">Sign Epistasis</text>
+                    <rect x="0" y="10" width="180" height="90" fill="white" stroke="#cc0000" stroke-width="1"/>
+                    
+                    <!-- Genotypes -->
+                    <g transform="translate(20, 30)">
+                        <circle cx="0" cy="50" r="8" fill="#28a745"/>
+                        <text x="0" y="70" font-size="9" fill="#333" text-anchor="middle">AB</text>
+                        <text x="0" y="45" font-size="8" fill="#333" text-anchor="middle">0.9</text>
+                        
+                        <circle cx="70" cy="65" r="8" fill="#e0e0e0"/>
+                        <text x="70" y="85" font-size="9" fill="#333" text-anchor="middle">Ab</text>
+                        <text x="70" y="60" font-size="8" fill="#333" text-anchor="middle">0.3</text>
+                        
+                        <circle cx="70" cy="35" r="8" fill="#e0e0e0"/>
+                        <text x="70" y="55" font-size="9" fill="#333" text-anchor="middle">aB</text>
+                        <text x="70" y="30" font-size="8" fill="#333" text-anchor="middle">0.4</text>
+                        
+                        <circle cx="140" cy="50" r="8" fill="#28a745"/>
+                        <text x="140" y="70" font-size="9" fill="#333" text-anchor="middle">ab</text>
+                        <text x="140" y="45" font-size="8" fill="#333" text-anchor="middle">0.95</text>
+                        
+                        <!-- Arrows showing complex interactions -->
+                        <path d="M 8,50 L 62,64" stroke="#cc0000" stroke-width="1.5" marker-end="url(#arrowhead-red)"/>
+                        <text x="35" y="62" font-size="8" fill="#cc0000">-0.6</text>
+                        
+                        <path d="M 78,65 L 132,52" stroke="#28a745" stroke-width="1.5" marker-end="url(#arrowhead-green)"/>
+                        <text x="105" y="62" font-size="8" fill="#28a745">+0.65</text>
+                        
+                        <text x="90" y="105" font-size="9" fill="#cc0000" text-anchor="middle">Mutation effect</text>
+                        <text x="90" y="115" font-size="9" fill="#cc0000" text-anchor="middle">depends on context!</text>
+                    </g>
+                </g>
+                
+                <!-- Reciprocal Sign Epistasis -->
+                <g transform="translate(30, 150)">
+                    <text x="200" y="0" font-size="12" fill="#666" font-weight="600" text-anchor="middle">Reciprocal Sign Epistasis</text>
+                    <rect x="0" y="10" width="400" height="80" fill="white" stroke="#8b00cc" stroke-width="1"/>
+                    
+                    <text x="200" y="30" font-size="11" fill="#666" text-anchor="middle">Both AB→Ab and AB→aB are deleterious</text>
+                    <text x="200" y="48" font-size="11" fill="#666" text-anchor="middle">But ab can only be reached through one of these paths</text>
+                    <text x="200" y="70" font-size="10" fill="#8b00cc" text-anchor="middle" font-weight="600">Creates evolutionary barriers and multiple peaks</text>
+                </g>
+            </g>
+            
+            <!-- Adaptive Walks -->
+            <g transform="translate(50, 350)">
+                <text x="0" y="0" font-size="16" fill="#333" font-weight="600">Adaptive Walks and Evolutionary Dynamics</text>
+                
+                <rect x="0" y="15" width="980" height="220" rx="8" fill="#f8f9fa" stroke="#1E64C8" stroke-width="2"/>
+                
+                <!-- Greedy Uphill Walk -->
+                <g transform="translate(40, 50)">
+                    <text x="140" y="0" font-size="13" fill="#666" font-weight="600" text-anchor="middle">Greedy Adaptive Walk</text>
+                    
+                    <rect x="0" y="15" width="280" height="140" fill="white" stroke="#28a745" stroke-width="1"/>
+                    
+                    <!-- Sequence of steps -->
+                    <g transform="translate(20, 35)" font-family="monospace">
+                        <rect x="0" y="0" width="120" height="18" fill="#e0e0e0" opacity="0.3"/>
+                        <text x="5" y="13" font-size="10" fill="#333">Start: ATGC</text>
+                        <text x="200" y="13" font-size="10" fill="#666">Fitness: 0.50</text>
+                        
+                        <path d="M 60,22 L 60,30" stroke="#28a745" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+                        
+                        <rect x="0" y="35" width="120" height="18" fill="#c8e6c9" opacity="0.5"/>
+                        <text x="5" y="48" font-size="10" fill="#333">Step 1: TTGC</text>
+                        <text x="200" y="48" font-size="10" fill="#28a745" font-weight="600">Fitness: 0.65</text>
+                        
+                        <path d="M 60,57 L 60,65" stroke="#28a745" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+                        
+                        <rect x="0" y="70" width="120" height="18" fill="#a5d6a7" opacity="0.5"/>
+                        <text x="5" y="83" font-size="10" fill="#333">Step 2: TTAC</text>
+                        <text x="200" y="83" font-size="10" fill="#28a745" font-weight="600">Fitness: 0.78</text>
+                        
+                        <path d="M 60,92 L 60,100" stroke="#28a745" stroke-width="2" marker-end="url(#arrowhead-green)"/>
+                        
+                        <rect x="0" y="105" width="120" height="18" fill="#4caf50" opacity="0.6"/>
+                        <text x="5" y="118" font-size="10" fill="#fff" font-weight="600">Final: TTAG</text>
+                        <text x="200" y="118" font-size="10" fill="#28a745" font-weight="600">Fitness: 0.89</text>
+                    </g>
+                </g>
+                
+                <!-- Population-based Evolution -->
+                <g transform="translate(360, 50)">
+                    <text x="140" y="0" font-size="13" fill="#666" font-weight="600" text-anchor="middle">Population Dynamics</text>
+                    
+                    <rect x="0" y="15" width="280" height="140" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                    
+                    <!-- Population distribution over time -->
+                    <g transform="translate(20, 35)">
+                        <text x="0" y="0" font-size="11" fill="#666">Generation 0:</text>
+                        <rect x="80" y="-10" width="60" height="12" fill="#e0e0e0"/>
+                        <text x="170" y="0" font-size="9" fill="#666">Low fitness</text>
+                        
+                        <text x="0" y="30" font-size="11" fill="#666">Generation 50:</text>
+                        <rect x="80" y="20" width="90" height="12" fill="#ffcc00"/>
+                        <rect x="110" y="20" width="30" height="12" fill="#ff9800"/>
+                        <text x="170" y="30" font-size="9" fill="#666">Mixed</text>
+                        
+                        <text x="0" y="60" font-size="11" fill="#666">Generation 100:</text>
+                        <rect x="80" y="50" width="40" height="12" fill="#ffcc00"/>
+                        <rect x="120" y="50" width="100" height="12" fill="#4caf50"/>
+                        <text x="170" y="60" font-size="9" fill="#28a745">High fitness</text>
+                        
+                        <text x="120" y="85" font-size="10" fill="#666" text-anchor="middle">Drift + Selection</text>
+                        
+                        <!-- Mutation-selection balance -->
+                        <text x="0" y="110" font-size="9" fill="#666">Mutation rate: μ = 10⁻⁶</text>
+                        <text x="0" y="122" font-size="9" fill="#666">Selection coef: s = 0.05</text>
+                    </g>
+                </g>
+                
+                <!-- Key Concepts Box -->
+                <g transform="translate(680, 50)">
+                    <text x="130" y="0" font-size="13" fill="#666" font-weight="600" text-anchor="middle">Key Factors</text>
+                    
+                    <rect x="0" y="15" width="260" height="140" fill="white" stroke="#1E64C8" stroke-width="1"/>
+                    
+                    <g transform="translate(15, 35)">
+                        <circle cx="0" cy="0" r="4" fill="#1E64C8"/>
+                        <text x="12" y="4" font-size="10" fill="#333">Population size (N)</text>
+                        <text x="12" y="16" font-size="9" fill="#666">Large N → selection dominates</text>
+                        
+                        <circle cx="0" cy="35" r="4" fill="#1E64C8"/>
+                        <text x="12" y="39" font-size="10" fill="#333">Mutation rate (μ)</text>
+                        <text x="12" y="51" font-size="9" fill="#666">High μ → more exploration</text>
+                        
+                        <circle cx="0" cy="70" r="4" fill="#1E64C8"/>
+                        <text x="12" y="74" font-size="10" fill="#333">Selection strength (s)</text>
+                        <text x="12" y="86" font-size="9" fill="#666">Strong s → fast adaptation</text>
+                        
+                        <circle cx="0" cy="105" r="4" fill="#1E64C8"/>
+                        <text x="12" y="109" font-size="10" fill="#333">Recombination (r)</text>
+                        <text x="12" y="121" font-size="9" fill="#666">r > 0 → breaks linkage</text>
+                    </g>
+                </g>
+            </g>
+        </svg>
+    </div>
+    
+    <div class="key-points">
+        <h3>Key Concepts:</h3>
+        <ul>
+            <li><strong>Fitness Peaks:</strong> Genotypes with maximum fitness in their local neighborhood; populations tend to evolve toward peaks</li>
+            <li><strong>Fitness Valleys:</strong> Low-fitness regions between peaks that can trap populations and prevent access to higher peaks</li>
+            <li><strong>Ruggedness:</strong> The complexity of the landscape; rugged landscapes have many local optima</li>
+            <li><strong>Epistasis:</strong> Interactions between mutations where the effect of one depends on genetic background</li>
+            <li><strong>Sign Epistasis:</strong> When a mutation is beneficial in one background but deleterious in another</li>
+            <li><strong>Evolutionary Accessibility:</strong> Which genotypes can be reached through single mutational steps</li>
+            <li><strong>Adaptive Walks:</strong> Trajectories through sequence space following fitness gradients</li>
+        </ul>
+    </div>
+    
+    <div class="formula-box">
+        <div class="formula-label">Wright-Fisher Model for Fixation Probability:</div>
+        <div class="formula">P(fixation) ≈ (1 - e^(-2Ns)) / (1 - e^(-4Ns))</div>
+        <div class="formula-label" style="margin-top: 10px;">where N = population size, s = selection coefficient</div>
+    </div>
+    
+    <div class="example-box">
+        <h4>Example: Antibiotic Resistance Evolution</h4>
+        <p>Studies of beta-lactamase evolution revealed a rugged fitness landscape where the path to high-level antibiotic resistance requires crossing fitness valleys. Some highly resistant variants can only be accessed through specific mutational paths involving 5+ mutations, explaining why certain resistance mechanisms emerge more frequently than others in clinical settings. Sign epistasis between mutations means that intermediate genotypes have lower fitness, creating evolutionary constraints.</p>
+    </div>
+    
+    <div class="applications">
+        <div class="application-card">
+            <h4>🧬 Protein Engineering</h4>
+            <p>Navigate sequence space to design proteins with desired properties</p>
         </div>
+        <div class="application-card">
+            <h4>💊 Drug Resistance</h4>
+            <p>Predict evolutionary trajectories of pathogens under drug pressure</p>
+        </div>
+        <div class="application-card">
+            <h4>🌱 Crop Improvement</h4>
+            <p>Guide breeding strategies to optimize multiple traits simultaneously</p>
+        </div>
+        <div class="application-card">
+            <h4>🦠 Synthetic Biology</h4>
+            <p>Design genetic circuits with predictable evolutionary stability</p>
+        </div>
+    </div>
+</div>
+
     </div>
 </body>
 </html>
