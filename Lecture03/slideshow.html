@@ -4,155 +4,45 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Biomedical Imaging Technologies - Slideshow</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: Aptos, 'Segoe UI', sans-serif;
-            background: #1a1a1a;
-            overflow: hidden;
-        }
-        
-        .progress-bar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 4px;
-            background: #333;
-            z-index: 1000;
-        }
-        
-        .progress-fill {
-            height: 100%;
-            background: linear-gradient(90deg, #1E64C8, #2874d8);
-            width: 0%;
-            transition: width 0.3s ease;
-        }
-        
-        .slide-title {
-            position: fixed;
-            top: 20px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: white;
-            font-size: 18px;
-            font-weight: 600;
-            z-index: 999;
-            background: rgba(0, 0, 0, 0.7);
-            padding: 10px 25px;
-            border-radius: 20px;
-            backdrop-filter: blur(10px);
-        }
-        
-        .slideshow-container {
-            width: 100vw;
-            height: 100vh;
-            position: relative;
-        }
-        
-        .slide {
-            position: absolute;
-            width: 100%;
-            height: 100%;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-            pointer-events: none;
-        }
-        
-        .slide.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-        
-        .slide iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-        
-        .nav-controls {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            display: flex;
-            align-items: center;
-            gap: 20px;
-            z-index: 1000;
-        }
-        
-        .nav-button {
-            background: rgba(30, 100, 200, 0.9);
-            color: white;
-            border: none;
-            width: 50px;
-            height: 50px;
-            border-radius: 50%;
-            font-size: 20px;
-            cursor: pointer;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-        
-        .nav-button:hover:not(:disabled) {
-            background: rgba(30, 100, 200, 1);
-            transform: scale(1.1);
-        }
-        
-        .nav-button:disabled {
-            background: rgba(100, 100, 100, 0.5);
-            cursor: not-allowed;
-        }
-        
-        .slide-counter {
-            background: rgba(0, 0, 0, 0.7);
-            color: white;
-            padding: 12px 25px;
-            border-radius: 25px;
-            font-size: 16px;
-            font-weight: 600;
-            backdrop-filter: blur(10px);
-        }
-        
-        .keyboard-hint {
-            position: fixed;
-            bottom: 100px;
-            left: 50%;
-            transform: translateX(-50%);
-            color: rgba(255, 255, 255, 0.6);
-            font-size: 14px;
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/slideshow.css">
 </head>
 <body>
+    <!-- Progress bar -->
     <div class="progress-bar">
         <div class="progress-fill" id="progressFill"></div>
     </div>
+
+    <!-- Keyboard hint -->
     <div class="keyboard-hint">
-        Use <strong>arrow keys</strong> or <strong>space</strong> to navigate
+        Use <span class="key">←</span> <span class="key">→</span> or <span class="key">Space</span> to navigate
     </div>
+
+    <!-- Slide title -->
     <div class="slide-title" id="slideTitle">Loading...</div>
+
+    <!-- Menu and fullscreen buttons -->
+    <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+    <button class="fullscreen-btn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+
+    <!-- Slide list -->
+    <div class="slide-list" id="slideList"></div>
+
+    <!-- Slideshow container -->
     <div class="slideshow-container">
         <div id="slideContainer"></div>
     </div>
+
+    <!-- Navigation controls -->
     <div class="nav-controls">
-        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)">◄</button>
+        <button class="nav-button" id="homeBtn" onclick="window.location.href='../index.html'" aria-label="Back to index" title="Back to index">⌂</button>
+        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)" aria-label="Previous slide" title="Previous slide">◄</button>
         <div class="slide-counter">
-            <span id="currentSlide">1</span> / <span id="totalSlides">30</span>
+            <span id="currentSlide">1</span> / <span id="totalSlides">0</span>
         </div>
-        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)">►</button>
+        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)" aria-label="Next slide" title="Next slide">►</button>
     </div>
 
     <script>
-        let currentSlideIndex = 0;
         const slides = [
             { file: "Lecture03_01_Title_Slide.html", title: "Title Slide" },
             { file: "Lecture03_02_Lecture_Contents.html", title: "Lecture Contents" },
@@ -185,73 +75,7 @@
             { file: "Lecture03_29_Hands-on_ImageJ_and_Python_Imaging.html", title: "Hands-on: ImageJ and Python Imaging" },
             { file: "Lecture03_30_Thank_You.html", title: "Thank You" }
         ];
-        
-        function initializeSlides() {
-            const container = document.getElementById('slideContainer');
-            slides.forEach((slide, index) => {
-                const slideDiv = document.createElement('div');
-                slideDiv.className = 'slide';
-                slideDiv.id = `slide-${index}`;
-                const iframe = document.createElement('iframe');
-                iframe.src = encodeURI(slide.file);
-                slideDiv.appendChild(iframe);
-                container.appendChild(slideDiv);
-            });
-            showSlide(0);
-        }
-        
-        function showSlide(index) {
-            document.querySelectorAll('.slide').forEach(el => el.classList.remove('active'));
-            const current = document.getElementById(`slide-${index}`);
-            if (current) current.classList.add('active');
-            
-            const slideInfo = slides[index];
-            document.getElementById('slideTitle').textContent = slideInfo.title;
-            document.getElementById('currentSlide').textContent = index + 1;
-            document.getElementById('totalSlides').textContent = slides.length;
-            
-            const progress = ((index + 1) / slides.length) * 100;
-            document.getElementById('progressFill').style.width = progress + '%';
-            
-            document.getElementById('prevBtn').disabled = index === 0;
-            document.getElementById('nextBtn').disabled = index === slides.length - 1;
-        }
-        
-        function changeSlide(direction) {
-            const newIndex = currentSlideIndex + direction;
-            if (newIndex >= 0 && newIndex < slides.length) {
-                currentSlideIndex = newIndex;
-                showSlide(currentSlideIndex);
-            }
-        }
-        
-        document.addEventListener('keydown', (event) => {
-            switch(event.key) {
-                case 'ArrowLeft':
-                case 'ArrowUp':
-                    changeSlide(-1);
-                    break;
-                case 'ArrowRight':
-                case 'ArrowDown':
-                case ' ':
-                    event.preventDefault();
-                    changeSlide(1);
-                    break;
-                case 'Home':
-                    currentSlideIndex = 0;
-                    showSlide(currentSlideIndex);
-                    break;
-                case 'End':
-                    currentSlideIndex = slides.length - 1;
-                    showSlide(currentSlideIndex);
-                    break;
-            }
-        });
-        
-        window.addEventListener('load', initializeSlides);
-        window.addEventListener('keydown', (e) => {
-            if (e.key === ' ' && e.target === document.body) e.preventDefault();
-        });
     </script>
+    <script src="../assets/slideshow.js"></script>
 </body>
 </html>

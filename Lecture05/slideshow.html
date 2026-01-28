@@ -4,90 +4,42 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lecture 5 Slideshow</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: Aptos, 'Segoe UI', sans-serif;
-            background: #1a1a1a;
-            overflow: hidden;
-        }
-        
-        #slideFrame {
-            width: 100vw;
-            height: 100vh;
-            border: none;
-        }
-        
-        .controls {
-            position: fixed;
-            bottom: 30px;
-            left: 50%;
-            transform: translateX(-50%);
-            background: rgba(30, 100, 200, 0.95);
-            padding: 15px 30px;
-            border-radius: 50px;
-            display: flex;
-            gap: 20px;
-            align-items: center;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
-            z-index: 1000;
-        }
-        
-        .nav-btn {
-            background: white;
-            color: #1E64C8;
-            border: none;
-            padding: 10px 20px;
-            border-radius: 25px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s;
-        }
-        
-        .nav-btn:hover {
-            background: #f0f0f0;
-            transform: scale(1.05);
-        }
-        
-        .nav-btn:disabled {
-            background: #ccc;
-            color: #666;
-            cursor: not-allowed;
-            transform: scale(1);
-        }
-        
-        .slide-info {
-            color: white;
-            font-size: 16px;
-            font-weight: 600;
-            padding: 0 10px;
-        }
-        
-        .home-btn {
-            background: rgba(255, 255, 255, 0.2);
-            color: white;
-            border: 2px solid white;
-        }
-        
-        .home-btn:hover {
-            background: rgba(255, 255, 255, 0.3);
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/slideshow.css">
 </head>
 <body>
-    <iframe id="slideFrame" src=""></iframe>
-    
-    <div class="controls">
-        <button class="nav-btn home-btn" onclick="goHome()">🏠 Home</button>
-        <button class="nav-btn" id="prevBtn" onclick="prevSlide()">← Previous</button>
-        <span class="slide-info" id="slideInfo">Slide 1 / 30</span>
-        <button class="nav-btn" id="nextBtn" onclick="nextSlide()">Next →</button>
+    <!-- Progress bar -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
+    </div>
+
+    <!-- Keyboard hint -->
+    <div class="keyboard-hint">
+        Use <span class="key">←</span> <span class="key">→</span> or <span class="key">Space</span> to navigate
+    </div>
+
+    <!-- Slide title -->
+    <div class="slide-title" id="slideTitle">Loading...</div>
+
+    <!-- Menu and fullscreen buttons -->
+    <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+    <button class="fullscreen-btn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+
+    <!-- Slide list -->
+    <div class="slide-list" id="slideList"></div>
+
+    <!-- Slideshow container -->
+    <div class="slideshow-container">
+        <div id="slideContainer"></div>
+    </div>
+
+    <!-- Navigation controls -->
+    <div class="nav-controls">
+        <button class="nav-button" id="homeBtn" onclick="window.location.href='../index.html'" aria-label="Back to index" title="Back to index">⌂</button>
+        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)" aria-label="Previous slide" title="Previous slide">◄</button>
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">30</span>
+        </div>
+        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)" aria-label="Next slide" title="Next slide">►</button>
     </div>
 
     <script>
@@ -125,60 +77,7 @@
             { title: "Hands-on: Scanpy Analysis", file: "Lecture05_29_Hands_on_Scanpy_Analysis.html", part: "3/3" },
             { title: "Thank You & Applications", file: "Lecture05_30_Thank_You_&_Applications.html", part: "End" }
         ];
-
-        let currentSlide = 0;
-
-        function loadSlide(index) {
-            if (index >= 0 && index < slides.length) {
-                currentSlide = index;
-                document.getElementById('slideFrame').src = slides[index].file;
-                document.getElementById('slideInfo').textContent = `Slide ${index + 1} / ${slides.length}`;
-                
-                // Update button states
-                document.getElementById('prevBtn').disabled = (index === 0);
-                document.getElementById('nextBtn').disabled = (index === slides.length - 1);
-                
-                // Update URL without reloading
-                history.pushState({slide: index}, '', `?slide=${index + 1}`);
-            }
-        }
-
-        function nextSlide() {
-            loadSlide(currentSlide + 1);
-        }
-
-        function prevSlide() {
-            loadSlide(currentSlide - 1);
-        }
-
-        function goHome() {
-            window.location.href = 'index.html';
-        }
-
-        // Keyboard navigation
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                e.preventDefault();
-                nextSlide();
-            } else if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                prevSlide();
-            } else if (e.key === 'Home') {
-                e.preventDefault();
-                loadSlide(0);
-            } else if (e.key === 'End') {
-                e.preventDefault();
-                loadSlide(slides.length - 1);
-            }
-        });
-
-        // Load initial slide from URL or start at 0
-        window.addEventListener('load', function() {
-            const urlParams = new URLSearchParams(window.location.search);
-            const slideParam = urlParams.get('slide');
-            const initialSlide = slideParam ? parseInt(slideParam) - 1 : 0;
-            loadSlide(initialSlide);
-        });
     </script>
+    <script src="../assets/slideshow.js"></script>
 </body>
 </html>

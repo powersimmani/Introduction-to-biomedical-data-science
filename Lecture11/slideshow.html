@@ -4,120 +4,44 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lecture 11: Precision Medicine and Biomarkers - Slideshow</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-        
-        body {
-            font-family: Aptos, 'Segoe UI', sans-serif;
-            background: #1a1a1a;
-            overflow: hidden;
-        }
-        
-        .slideshow-container {
-            width: 100vw;
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-        }
-        
-        .slide-frame {
-            flex: 1;
-            border: none;
-            width: 100%;
-            background: white;
-        }
-        
-        .navigation {
-            background: #2a2a2a;
-            padding: 15px 30px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 0 -2px 10px rgba(0, 0, 0, 0.3);
-        }
-        
-        .nav-buttons {
-            display: flex;
-            gap: 15px;
-        }
-        
-        .nav-btn {
-            background: #1E64C8;
-            color: white;
-            border: none;
-            padding: 10px 25px;
-            border-radius: 6px;
-            cursor: pointer;
-            font-size: 16px;
-            font-weight: 600;
-            transition: all 0.3s;
-            display: flex;
-            align-items: center;
-            gap: 8px;
-        }
-        
-        .nav-btn:hover {
-            background: #2874d8;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 12px rgba(30, 100, 200, 0.4);
-        }
-        
-        .nav-btn:disabled {
-            background: #555;
-            cursor: not-allowed;
-            transform: none;
-        }
-        
-        .slide-info {
-            color: white;
-            font-size: 16px;
-            font-weight: 500;
-        }
-        
-        .slide-number {
-            color: #1E64C8;
-            font-weight: 700;
-        }
-        
-        .index-btn {
-            background: #5088d4;
-        }
-        
-        .index-btn:hover {
-            background: #6098e4;
-        }
-    </style>
+    <link rel="stylesheet" href="../assets/slideshow.css">
 </head>
 <body>
-    <div class="slideshow-container">
-        <iframe id="slideFrame" class="slide-frame" src="Lecture11_01_Title_Slide.html"></iframe>
-        
-        <div class="navigation">
-            <div class="nav-buttons">
-                <button class="nav-btn" id="prevBtn" onclick="previousSlide()">
-                    ◀ Previous
-                </button>
-                <button class="nav-btn" id="nextBtn" onclick="nextSlide()">
-                    Next ▶
-                </button>
-            </div>
-            
-            <div class="slide-info">
-                Slide <span class="slide-number" id="currentSlide">1</span> / <span id="totalSlides">30</span>
-            </div>
-            
-            <div class="nav-buttons">
-                <button class="nav-btn index-btn" onclick="goToIndex()">
-                    📑 Index
-                </button>
-            </div>
-        </div>
+    <!-- Progress bar -->
+    <div class="progress-bar">
+        <div class="progress-fill" id="progressFill"></div>
     </div>
-    
+
+    <!-- Keyboard hint -->
+    <div class="keyboard-hint">
+        Use <span class="key">←</span> <span class="key">→</span> or <span class="key">Space</span> to navigate
+    </div>
+
+    <!-- Slide title -->
+    <div class="slide-title" id="slideTitle">Loading...</div>
+
+    <!-- Menu and fullscreen buttons -->
+    <button class="menu-btn" onclick="toggleMenu()">☰ Menu</button>
+    <button class="fullscreen-btn" onclick="toggleFullscreen()">⛶ Fullscreen</button>
+
+    <!-- Slide list -->
+    <div class="slide-list" id="slideList"></div>
+
+    <!-- Slideshow container -->
+    <div class="slideshow-container">
+        <div id="slideContainer"></div>
+    </div>
+
+    <!-- Navigation controls -->
+    <div class="nav-controls">
+        <button class="nav-button" id="homeBtn" onclick="window.location.href='../index.html'" aria-label="Back to index" title="Back to index">⌂</button>
+        <button class="nav-button" id="prevBtn" onclick="changeSlide(-1)" aria-label="Previous slide" title="Previous slide">◄</button>
+        <div class="slide-counter">
+            <span id="currentSlide">1</span> / <span id="totalSlides">30</span>
+        </div>
+        <button class="nav-button" id="nextBtn" onclick="changeSlide(1)" aria-label="Next slide" title="Next slide">►</button>
+    </div>
+
     <script>
         const slides = [
             { title: "Title Slide", file: "Lecture11_01_Title_Slide.html", part: "" },
@@ -151,68 +75,7 @@
             { title: "Hands-on: Patient Stratification", file: "Lecture11_29_Hands-on_Patient_Stratification.html", part: "" },
             { title: "Thank You", file: "Lecture11_30_Thank_You.html", part: "" }
         ];
-        
-        let currentIndex = 0;
-        
-        function updateSlide() {
-            const frame = document.getElementById('slideFrame');
-            const currentSlideSpan = document.getElementById('currentSlide');
-            const prevBtn = document.getElementById('prevBtn');
-            const nextBtn = document.getElementById('nextBtn');
-            
-            frame.src = slides[currentIndex].file;
-            currentSlideSpan.textContent = currentIndex + 1;
-            
-            prevBtn.disabled = currentIndex === 0;
-            nextBtn.disabled = currentIndex === slides.length - 1;
-            
-            // Update browser URL without reload
-            window.history.replaceState(null, '', `#slide${currentIndex + 1}`);
-        }
-        
-        function nextSlide() {
-            if (currentIndex < slides.length - 1) {
-                currentIndex++;
-                updateSlide();
-            }
-        }
-        
-        function previousSlide() {
-            if (currentIndex > 0) {
-                currentIndex--;
-                updateSlide();
-            }
-        }
-        
-        function goToIndex() {
-            window.location.href = 'index.html';
-        }
-        
-        // Keyboard navigation
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'ArrowRight' || e.key === ' ') {
-                e.preventDefault();
-                nextSlide();
-            } else if (e.key === 'ArrowLeft') {
-                e.preventDefault();
-                previousSlide();
-            }
-        });
-        
-        // Initialize from URL hash
-        window.addEventListener('load', () => {
-            const hash = window.location.hash;
-            if (hash) {
-                const slideNum = parseInt(hash.replace('#slide', ''));
-                if (slideNum > 0 && slideNum <= slides.length) {
-                    currentIndex = slideNum - 1;
-                    updateSlide();
-                }
-            }
-        });
-        
-        // Set total slides
-        document.getElementById('totalSlides').textContent = slides.length;
     </script>
+    <script src="../assets/slideshow.js"></script>
 </body>
 </html>
